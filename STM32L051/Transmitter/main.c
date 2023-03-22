@@ -4,7 +4,7 @@
 #include "../Common/Include/serial.h"
 
 #define F_CPU 32000000L
-#define DEF_F 16000L // 16 kHz freq
+#define DEF_F 16011L // 16 kHz freq
 
 volatile int PWM_Counter = 0;
 volatile unsigned char pwm1=100, pwm2=100;
