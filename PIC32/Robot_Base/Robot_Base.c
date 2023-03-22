@@ -7,7 +7,7 @@
                                           --------
                                    MCLR -|1     28|- AVDD 
   VREF+/CVREF+/AN0/C3INC/RPA0/CTED1/RA0 -|2     27|- AVSS 
-        VREF-/CVREF-/AN1/RPA1/CTED2/RA1 -|3     26|- AN9/C3INA/RPB15/SCK2/CTED6/PMCS1/RB15
+        VREF-/CVREF-/AN1/RPA1/CTED2/RA1 -|3     26|- AN9/C3INA/RPB15/SCK2/CTED6/PMCS1/RB15 
    PGED1/AN2/C1IND/C2INB/C3IND/RPB0/RB0 -|4     25|- CVREFOUT/AN10/C3INB/RPB14/SCK1/CTED5/PMWR/RB14
   PGEC1/AN3/C1INC/C2INA/RPB1/CTED12/RB1 -|5     24|- AN11/RPB13/CTPLS/PMRD/RB13
    AN4/C1INB/C2IND/RPB2/SDA2/CTED13/RB2 -|6     23|- AN12/PMD0/RB12
@@ -217,10 +217,16 @@ void ConfigurePins(void)
 	TRISAbits.TRISA1 = 0; // pin  3 of DIP28
 	TRISBbits.TRISB0 = 0; // pin  4 of DIP28
 	TRISBbits.TRISB1 = 0; // pin  5 of DIP28
-	TRISAbits.TRISA2 = 0; // pin  9 of DIP28
-	TRISAbits.TRISA3 = 0; // pin 10 of DIP28
-	TRISBbits.TRISB4 = 0; // pin 11 of DIP28
+	//TRISAbits.TRISA2 = 0; // pin  9 of DIP28
+	//TRISAbits.TRISA3 = 0; // pin 10 of DIP28
+	//TRISBbits.TRISB4 = 0; // pin 11 of DIP28
 	INTCONbits.MVEC = 1;
+
+	//Configure output pins for motor
+	TRISAbits.TRISA2 = 0; // pin9
+	TRISAbits.TRISA3 = 0; // pin10
+	TRISBbits.TRISB4 = 0; // pin11
+	TRISAbits.TRISA4 = 0; // pin12
 }
 
 void PrintFixedPoint (unsigned long number, int decimals)
@@ -233,6 +239,42 @@ void PrintFixedPoint (unsigned long number, int decimals)
 	PrintNumber(number/divider, 10, 1);
 	uart_puts(".");
 	PrintNumber(number%divider, 10, decimals);
+}
+
+void go_forward(){
+	LATAbits.LATA2 = 1; //output to pin9 (right wheel fwd)
+	LATAbits.LATA3 = 0;
+	LATBbits.LATB4 = 1; //output to pin10 (left wheel fwd)
+	LATAbits.LATA4 = 0;
+}
+
+void go_backward(){
+	LATAbits.LATA2 = 0; 
+	LATAbits.LATA3 = 1; //output to pin10 (right wheel bwd)
+	LATBbits.LATB4 = 0;
+	LATAbits.LATA4 = 1; //output to pin12 (left wheel bwd)
+}
+
+void turn_left(){
+	LATAbits.LATA2 = 1; //output to pin9 (right wheel fwd)
+	LATAbits.LATA3 = 0;
+	LATBbits.LATB4 = 0; 
+	LATAbits.LATA4 = 0;
+}
+
+void turn_right(){
+	LATAbits.LATA2 = 0;
+	LATAbits.LATA3 = 0;
+	LATBbits.LATB4 = 1; //output to pin10 (left wheel fwd)
+	LATAbits.LATA4 = 0;
+}
+
+void stop_motors(){
+	//all motor pins off
+	LATAbits.LATA2 = 0;
+	LATAbits.LATA3 = 0;
+	LATBbits.LATB4 = 0; 
+	LATAbits.LATA4 = 0;
 }
 
 // In order to keep this as nimble as possible, avoid
@@ -303,7 +345,7 @@ void main(void)
 		// Now turn on one of the outputs per loop cycle to check
 		switch (LED_toggle++)
 		{
-			case 0:
+			/*case 0:
 				LATAbits.LATA0 = 1;
 				break;
 			case 1:
@@ -321,7 +363,7 @@ void main(void)
 			default:
 				break;
 		}
-		if(LED_toggle>4) LED_toggle=0;
+		if(LED_toggle>4) LED_toggle=0;*/
 
 		// Change the servo PWM signals
 		if (ISR_pwm1<200)
