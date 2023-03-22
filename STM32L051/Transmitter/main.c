@@ -96,7 +96,8 @@ void Hardware_Init()
 	RCC->IOPENR |= RCC_IOPENR_GPIOBEN;
 	GPIOB->MODER &= ~GPIO_MODER_MODE3_0; // PB3 forward button
 	GPIOB->MODER &= ~GPIO_MODER_MODE4_0; // PB4 reverse button
-	GPIOB->PUPDR &= ~(GPIO_PUPDR_PUPD3_0 | GPIO_PUPDR_PUPD4_1);
+	GPIOB->PUPDR = (GPIOB->PUPDR & ~(GPIO_PUPDR_PUPD3_1 | GPIO_PUPDR_PUPD4_1))
+                    | (GPIO_PUPDR_PUPD3_0 | GPIO_PUPDR_PUPD4_0);
 
 	/* //Button for forward
 	GPIOA->MODER &= ~(BIT28 | BIT29); // Make pin PA14 input button
@@ -125,10 +126,12 @@ void Hardware_Init()
 
 int main(void)
 {
-    char buff[32];
+    //char buff[32];
     int npwm;
 	int mode = 0;
-	int current, previous;
+	int current_forward, current_reverse, current_left, current_right;
+
+	int forward_button_state, reverse_button_state, left_button_state, right_button_state = 0;
 
 
 	Hardware_Init();
@@ -143,7 +146,6 @@ int main(void)
     printf("(outputs are PA11 and PA12, pins 21 and 22).\r\n");
     printf("By Jesus Calvino-Fraga (c) 2018-2023.\r\n\r\n");*/
 
-	previous=(GPIOB->IDR & GPIO_IDR_ID4)?0:1;
 	while (1)
 	{
     	/*while button helde{
@@ -151,26 +153,54 @@ int main(void)
 			set left_flag
 			delay_ms(100)
 		}*/
-		current=(GPIOB->IDR & GPIO_IDR_ID4)?1:0;
-		while(current!=previous)
+
+		// forward button
+		current_forward=(GPIOB->IDR & GPIO_IDR_ID3)?1:0;
+		if(current_forward!=forward_button_state)
 		{
-			previous=current;
-			printf("PB4");
-			fflush(stdout);
+			forward_button_state=current_forward;
+			delayms(50);
+			if (forward_button_state == 0) {
+				printf("PB3");
+				fflush(stdout);
+			}
 		}
 
-		/*while ((GPIOB->IDR & GPIO_IDR_ID4)?1:0) // mode change button
-			{
-
-				printf("%d\n\r", i);
-				i++;
-
-				// while (GPIOB->IDR & GPIO_IDR_ID4){
-
-				// }
+		// reverse button
+		current_reverse=(GPIOB->IDR & GPIO_IDR_ID4)?1:0;
+		if(current_reverse!=reverse_button_state)
+		{
+			reverse_button_state=current_reverse;
+			delayms(50);
+			if (reverse_button_state == 0) {
+				fflush(stdout);
 			}
-		i=0;
-		*/
-		delayms(100);
+		}
+
+		// left button 
+		current_left=(GPIOA->IDR & GPIO_IDR_ID14)?1:0;
+		if(current_left!=left_button_state)
+		{
+			left_button_state=current_left;
+			delayms(50);
+			if (left_button_state == 0) {
+				printf("Left");
+				fflush(stdout);
+			}
+		}
+
+		// right button
+		current_right=(GPIOA->IDR & GPIO_IDR_ID15)?1:0;
+		if(current_right!=right_button_state)
+		{
+			right_button_state=current_right;
+			delayms(50);
+			if (right_button_state == 0) {
+				printf("Right");
+				fflush(stdout);
+			}
+		}
+
+		delayms(50);
 	}
 }
