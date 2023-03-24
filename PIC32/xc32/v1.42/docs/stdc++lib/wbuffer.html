@@ -1,0 +1,110 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html>
+<head>
+  <meta name="generator" content=
+  "HTML Tidy for Mac OS X (vers 31 October 2006 - Apple Inc. build 15.15), see www.w3.org">
+
+  <title>"wbuffer.h"</title>
+</head>
+
+<body>
+  <h1><a name="&quot;wbuffer.h&quot;"><code>"Dinkum/codecvt/wbuffer.h"</code></a></h1>
+  <hr>
+
+  <p>Include the header <code>"Dinkum/codecvt/wbuffer.h"</code> to define template class
+  <code>wbuffer_convert</code>, for performing conversions between a wide stream and a byte stream.</p>
+
+  <h2><a name="wbuffer_convert"><code>wbuffer_convert</code></a></h2>
+  <pre>
+namespace Dinkum {
+    namespace codecvt {
+template&lt;class Codecvt,
+    class Elem = wchar_t,
+    class Tr = std::char_traits&lt;Elem&gt; &gt;
+    class wbuffer_convert
+        : public std::basic_streambuf&lt;Elem, Tr&gt;
+    {
+public:
+    typedef typename Tr::state_type <b><a href="#wbuffer_convert::state_type">state_type</a></b>;
+
+    <b><a href="#wbuffer_convert::wbuffer_convert">wbuffer_convert</a></b>(std::streambuf *bytebuf = 0,
+        Codecvt *pcvt = new Codecvt,
+        state_type state = state_type());
+
+    std::streambuf *<b><a href="#wbuffer_convert::rdbuf">rdbuf</a></b>() const;
+    std::streambuf *<b><a href="#wbuffer_convert::rdbuf">rdbuf</a></b>(std::streambuf *bytebuf);
+
+    state_type <b><a href="#wbuffer_convert::state">state</a></b>() const;
+
+<i>    // exposition only
+private:
+    std::streambuf *<b>bufptr</b>;
+    Codecvt *<b>cvtptr</b>;
+    state_type <b>cvtstate</b>;</i>
+    };
+        }  // namespace codecvt
+    }  // namespace Dinkum
+</pre>
+
+  <p>The template class describes a stream buffer that controls the transmission of elements of type
+  <code>Elem</code>, whose character traits are described by the class <code>Tr</code>, to and from a byte
+  stream buffer of type <code>std::streambuf</code>. Conversion between a sequence of <code>Elem</code>
+  values and multibyte sequences is performed by an object of class <code>Codecvt&lt;Elem, char,
+  std::mbstate_t&gt;</code>, which meets the requirements of the standard code-conversion facet
+  <code>std::codecvt&lt;Elem, char, std::mbstate_t&gt;</code>.</p>
+
+  <p>An object of this template class stores:</p>
+
+  <ul>
+    <li><b><a name="bufptr"><code>bufptr</code></a></b> -- a pointer to its underlying byte stream
+    buffer</li>
+
+    <li><b><a name="cvtptr"><code>cvtptr</code></a></b> -- a pointer to the allocated conversion object
+    (which is freed when the <code>wbuffer_convert</code> object is destroyed)</li>
+
+    <li><b><a name="cvtstate"><code>cvtstate</code></a></b> -- a conversion state object</li>
+  </ul>
+
+  <h3><code><a name="wbuffer_convert::state">wbuffer_convert::state</a></code></h3>
+  <pre>
+state_type <b>state</b>() const;
+</pre>
+
+  <p>The member function returns <code>cvtstate</code>.</p>
+
+  <h3><code><a name="wbuffer_convert::rdbuf">wbuffer_convert::rdbuf</a></code></h3>
+  <pre>
+std::streambuf *<b>rdbuf</b>() const;
+std::streambuf *<b>rdbuf</b>(std::streambuf *bytebuf);
+</pre>
+
+  <p>The first member function returns <code>bufptr</code>. The second member function stores
+  <code>bytebuf</code> in <code>bufptr</code>.</p>
+
+  <h3><code><a name="wbuffer_convert::wbuffer_convert">wbuffer_convert::wbuffer_convert</a></code></h3>
+  <pre>
+<b>wbuffer_convert</b>(std::streambuf *bytebuf = 0,
+    Codecvt *pcvt = new Codecvt,
+    state_type state = state_type());
+</pre>
+
+  <p>The constructor constructs a stream buffer object, initializes <code>bufptr</code> to
+  <code>bytebuf</code>, initializes <code>cvtptr</code> to <code>pcvt</code>, and initializes
+  <code>cvtstate</code> to <code>state</code>.</p>
+
+  <h3><code><a name="wbuffer_convert::state_type">wbuffer_convert::state_type</a></code></h3>
+  <pre>
+typedef typename Codecvt::state_type <b>state_type</b>;
+</pre>
+
+  <p>The type is a synonym for <code>Codecvt::state_type</code>.</p>
+  <hr>
+
+  <p>See also the <b><a href="index.html">Table of Contents</a></b> and the <b><a href=
+  "_index.html">Index</a></b>.</p>
+
+  <p><i><a href="crit_pjp.html">Copyright</a> &copy; 1992-2010 by Dinkumware, Ltd. All rights
+  reserved.</i></p><!--V5.30:126I-->
+</body>
+</html>

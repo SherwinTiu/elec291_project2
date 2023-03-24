@@ -1,0 +1,287 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html>
+<head>
+  <meta name="generator" content=
+  "HTML Tidy for Mac OS X (vers 31 October 2006 - Apple Inc. build 15.15), see www.w3.org">
+
+  <title>&lt;uchar.h&gt;</title>
+</head>
+
+<body>
+  <h1><a name="&lt;uchar.h&gt;"><code>&lt;uchar.h&gt;</code></a></h1>
+
+  <p>[added with <a name="TR19769">TR19769</a>]</p>
+  <hr>
+
+  <p><b><code><a href="#NULL">NULL</a> &middot; <a href="#__STDC_UTF_16__">__STDC_UTF_16__</a> &middot;
+  <a href="#__STDC_UTF_32__">__STDC_UTF_32__</a></code></b></p>
+
+  <p><b><code><a href="#char16_t">char16_t</a> &middot; <a href="#char32_t">char32_t</a> &middot; <a href=
+  "#mbstate_t">mbstate_t</a> &middot; <a href="#size_t">size_t</a></code></b></p>
+
+  <p><b><code><a href="#c16rtomb">c16rtomb</a> &middot; <a href="#c32rtomb">c32rtomb</a> &middot; <a href=
+  "#mbrtoc16">mbrtoc16</a> &middot; <a href="#mbrtoc32">mbrtoc32</a></code></b></p>
+  <hr>
+
+  <p>Include the added header <b><code>&lt;uchar.h&gt;</code></b> so that you can work with either 16-bit or
+  32-bit character encodings regardless of the size of <code>wchar_t</code>.</p>
+
+  <p>Note that the use of this header does <b>not</b> require the additions to the C language mandated by
+  TR19769, which include additional literals of the form <code>u'x'</code>, <code>u"abc"</code>,
+  <code>U'x'</code>, and <code>U"abc"</code>.</p>
+  <pre>
+    /* MACROS */
+#define <a href="#NULL"><b>NULL</b></a> <i>&lt;either 0, 0L, or (void *)0&gt;</i> <b>[0 in C++]</b>
+#define <a href="#__STDC_UTF_16__"><b>__STDC_UTF_16__</b></a> <i>unspecified</i>
+#define <a href="#__STDC_UTF_32__"><b>__STDC_UTF_32__</b></a> <i>unspecified</i>
+
+    /* TYPES */
+typedef <i>i-type</i> <a href="#char16_t"><b>char16_t</b></a>;
+typedef <i>i-type</i> <a href="#char32_t"><b>char32_t</b></a>;
+typedef <i>o-type</i> <a href="#mbstate_t"><b>mbstate_t</b></a>;
+typedef <i>ui-type</i> <a href="#size_t"><b>size_t</b></a>;
+
+    /* FUNCTIONS */
+size_t <a href="#c16rtomb"><b>c16rtomb</b></a>(char *restrict s, char16_t wc,
+    mbstate_t *restrict ps);
+size_t <a href="#c32rtomb"><b>c32rtomb</b></a>(char *restrict s, char32_t wc,
+    mbstate_t *restrict ps);
+size_t <a href="#mbrtoc16"><b>mbrtoc16</b></a>(char16_t *restrict pwc, const char *restrict s,
+    size_t n, mbstate_t *restrict ps);
+size_t <a href="#mbrtoc32"><b>mbrtoc32</b></a>(char32_t *restrict pwc, const char *restrict s,
+    size_t n, mbstate_t *restrict ps);
+</pre>
+
+  <h2><a name="c16rtomb"><code>c16rtomb</code></a></h2>
+  <pre>
+size_t <b>c16rtomb</b>(char *restrict s, char16_t wc, mbstate_t *restrict ps);
+</pre>
+
+  <p>The function determines the number of bytes needed to represent the wide character <code>wc</code> as a
+  multibyte character, if possible. (Not all values representable as type <a href=
+  "stddef.html#wchar_t"><code>wchar_t</code></a> are necessarily valid wide-character codes.) The conversion
+  state for the multibyte string is assumed to be <code>*ps</code>.</p>
+
+  <p>If <code>s</code> is not a null pointer and <code>wc</code> is a valid wide-character code, the function
+  determines <code>x,</code> the number of bytes needed to represent <code>wc</code> as a multibyte
+  character, and stores the converted bytes in the array of <i>char</i> beginning at <code>s</code>.
+  (<code>x</code> cannot be greater than <code>MB_CUR_MAX</code>, defined in <code>&lt;stdlib.h&gt;</code>.)
+  If <code>wc</code> is a null wide character, the function stores any shift sequence needed to restore the
+  initial shift state. followed by a null byte. The resulting conversion state is the initial conversion
+  state.</p>
+
+  <p>If <code>s</code> is a null pointer, the function effectively returns <code>c16rtomb(buf, L'\0',
+  ps)</code>, where <code>buf</code> is a buffer internal to the function. (The function thus returns the
+  number of bytes needed to restore the initial conversion state and to terminate the multibyte string
+  pending from a previous call to <code>c16rtomb</code> or <a href=
+  "wchar.html#wcsrtombs"><code>wcsrtombs</code></a> for the same string and conversion state.)</p>
+
+  <p>The function returns:</p>
+
+  <ul>
+    <li><code>(<a href="#size_t">size_t</a>)-1</code> if <code>wc</code> is an invalid wide-character code,
+    in which case the function stores the value <code>EILSEQ</code> in <code>errno</code> (both macros
+    defined in <code>&lt;errno.h&gt;</code>) and leaves the resulting conversion state undefined</li>
+
+    <li><code>x</code>, the number of bytes needed to complete the next muitibyte character, in which case
+    the resulting conversion state indicates that <code>x</code> bytes have been generated</li>
+  </ul>
+
+  <h2><a name="c32rtomb"><code>c32rtomb</code></a></h2>
+  <pre>
+size_t <b>c32rtomb</b>(char *restrict s, char32_t wc, mbstate_t *restrict ps);
+</pre>
+
+  <p>The function determines the number of bytes needed to represent the wide character <code>wc</code> as a
+  multibyte character, if possible. (Not all values representable as type <a href=
+  "stddef.html#wchar_t"><code>wchar_t</code></a> are necessarily valid wide-character codes.) The conversion
+  state for the multibyte string is assumed to be <code>*ps</code>.</p>
+
+  <p>If <code>s</code> is not a null pointer and <code>wc</code> is a valid wide-character code, the function
+  determines <code>x,</code> the number of bytes needed to represent <code>wc</code> as a multibyte
+  character, and stores the converted bytes in the array of <i>char</i> beginning at <code>s</code>.
+  (<code>x</code> cannot be greater than <code>MB_CUR_MAX</code>, defined in <code>&lt;stdlib.h&gt;</code>.)
+  If <code>wc</code> is a null wide character, the function stores any shift sequence needed to restore the
+  initial shift state followed by a null byte. The resulting conversion state is the initial conversion
+  state.</p>
+
+  <p>If <code>s</code> is a null pointer, the function effectively returns <code>c32rtomb(buf, L'\0',
+  ps)</code>, where <code>buf</code> is a buffer internal to the function. (The function thus returns the
+  number of bytes needed to restore the initial conversion state and to terminate the multibyte string
+  pending from a previous call to <code>c32rtomb</code> or <a href=
+  "wchar.html#wcsrtombs"><code>wcsrtombs</code></a> for the same string and conversion state.)</p>
+
+  <p>The function returns:</p>
+
+  <ul>
+    <li><code>(<a href="#size_t">size_t</a>)-1</code> if <code>wc</code> is an invalid wide-character code,
+    in which case the function stores the value <code>EILSEQ</code> in <code>errno</code> (both macros
+    defined in <code>&lt;errno.h&gt;</code>) and leaves the resulting conversion state undefined</li>
+
+    <li><code>x</code>, the number of bytes needed to complete the next muitibyte character, in which case
+    the resulting conversion state indicates that <code>x</code> bytes have been generated</li>
+  </ul>
+
+  <h2><a name="char16_t"><code>char16_t</code></a></h2>
+  <pre>
+typedef <i>i-type</i> <b>char16_t;</b>
+</pre>
+
+  <p>The type is the integer type <code><i>i-type</i></code> of a 16-bit character constant, such as
+  <code>u'X'</code>. You declare an object of type <code>char16_t</code> to hold a 16-bit wide character.</p>
+
+  <h2><a name="char32_t"><code>char32_t</code></a></h2>
+  <pre>
+typedef <i>i-type</i> <b>char32_t;</b>
+</pre>
+
+  <p>The type is the integer type <code><i>i-type</i></code> of a 32-bit character constant, such as
+  <code>u'X'</code>. You declare an object of type <code>char32_t</code> to hold a 32-bit wide character.</p>
+
+  <h2><a name="mbrtoc16"><code>mbrtoc16</code></a></h2>
+  <pre>
+size_t <b>mbrtoc16</b>(char16_t *restrict pwc, const char *restrict s,
+    size_t n, mbstate_t *restrict ps);
+</pre>
+
+  <p>The function determines the number of bytes in a multibyte string that completes the next multibyte
+  character, if possible. The conversion state for the multibyte string is assumed to be
+  <code>*ps</code>.</p>
+
+  <p>If <code>s</code> is not a null pointer, the function determines <code>x,</code> the number of bytes in
+  the multibyte string <code>s</code> that complete or contribute to the next multibyte character.
+  (<code>x</code> cannot be greater than <code>n</code>.) Otherwise, the function effectively returns
+  <code>mbrtoc16(0, "", 1, ps)</code>, ignoring <code>pwc</code> and <code>n</code>. (The function thus
+  returns zero only if the conversion state indicates that no incomplete multibyte character is pending from
+  a previous call to <a href="wchar.html#mbrlen"><code>mbrlen</code></a>, <code>mbrtoc16</code>, or <a href=
+  "wchar.html#mbsrtowcs"><code>mbsrtowcs</code></a> for the same string and conversion state.)</p>
+
+  <p>If <code>pwc</code> is not a null pointer, the function converts a completed multibyte character to its
+  corresponding wide-character value and stores that value in <code>*pwc</code>.</p>
+
+  <p>The function returns:</p>
+
+  <ul>
+    <li><code>(<a href="#size_t">size_t</a>)-3</code> if no additional bytes are needed to complete the next
+    multibyte character, in which case the resulting conversion state indicates that no additional bytes have
+    been converted and the next multibyte character has been produced</li>
+
+    <li><code>(<a href="#size_t">size_t</a>)-2</code> if, after converting all <code>n</code> characters, the
+    resulting conversion state indicates an incomplete multibyte character</li>
+
+    <li><code>(<a href="#size_t">size_t</a>)-1</code> if the function detects an encoding error before
+    completing the next multibyte character, in which case the function stores the value <code>EILSEQ</code>
+    in <code>errno</code> (both macros defined in <code>&lt;errno.h&gt;</code>) and leaves the resulting
+    conversion state undefined</li>
+
+    <li>zero, if the next completed character is a null character, in which case the resulting conversion
+    state is the initial conversion state</li>
+
+    <li><code>x,</code> the number of bytes needed to complete the next multibyte character, in which case
+    the resulting conversion state indicates that <code>x</code> bytes have been converted and the next
+    multibyte character has been produced</li>
+  </ul>
+
+  <h2><a name="mbrtoc32"><code>mbrtoc32</code></a></h2>
+  <pre>
+size_t <b>mbrtoc32</b>(char32_t *restrict pwc, const char *restrict s,
+    size_t n, mbstate_t *restrict ps);
+</pre>
+
+  <p>The function determines the number of bytes in a multibyte string that completes the next multibyte
+  character, if possible. The conversion state for the multibyte string is assumed to be
+  <code>*ps</code>.</p>
+
+  <p>If <code>s</code> is not a null pointer, the function determines <code>x,</code> the number of bytes in
+  the multibyte string <code>s</code> that complete or contribute to the next multibyte character.
+  (<code>x</code> cannot be greater than <code>n</code>.) Otherwise, the function effectively returns
+  <code>mbrtoc32(0, "", 1, ps)</code>, ignoring <code>pwc</code> and <code>n</code>. (The function thus
+  returns zero only if the conversion state indicates that no incomplete multibyte character is pending from
+  a previous call to <a href="wchar.html#mbrlen"><code>mbrlen</code></a>, <code>mbrtoc32</code>, or <a href=
+  "wchar.html#mbsrtowcs"><code>mbsrtowcs</code></a> for the same string and conversion state.)</p>
+
+  <p>If <code>pwc</code> is not a null pointer, the function converts a completed multibyte character to its
+  corresponding wide-character value and stores that value in <code>*pwc</code>.</p>
+
+  <p>The function returns:</p>
+
+  <ul>
+    <li><code>(<a href="#size_t">size_t</a>)-3</code> if no additional bytes are needed to complete the next
+    multibyte character, in which case the resulting conversion state indicates that no additional bytes have
+    been converted and the next multibyte character has been produced</li>
+
+    <li><code>(<a href="#size_t">size_t</a>)-2</code> if, after converting all <code>n</code> characters, the
+    resulting conversion state indicates an incomplete multibyte character</li>
+
+    <li><code>(<a href="#size_t">size_t</a>)-1</code> if the function detects an encoding error before
+    completing the next multibyte character, in which case the function stores the value <code>EILSEQ</code>
+    in <code>errno</code> (both macros defined in <code>&lt;errno.h&gt;</code>) and leaves the resulting
+    conversion state undefined</li>
+
+    <li>zero, if the next completed character is a null character, in which case the resulting conversion
+    state is the initial conversion state</li>
+
+    <li><code>x,</code> the number of bytes needed to complete the next multibyte character, in which case
+    the resulting conversion state indicates that <code>x</code> bytes have been converted and the next
+    multibyte character has been produced</li>
+  </ul>
+
+  <h2><a name="mbstate_t"><code>mbstate_t</code></a></h2>
+  <pre>
+typedef <i>o-type</i> <b>mbstate_t;</b>
+</pre>
+
+  <p>The type is an object type <i>o-type</i> that can represent a conversion state for any of the functions
+  <a href="#c16rtomb"><code>c16rtomb</code></a>, <a href="#c32rtomb"><code>c32rtomb</code></a>, <a href=
+  "#mbrtoc16"><code>mbrtoc16</code></a>, or <a href="#mbrtoc32"><code>mbrtoc32</code></a>. A definition of
+  the form:</p>
+  <pre>
+mbstate_t mbst = {0};
+</pre>
+
+  <p>ensures that <code>mbst</code> represents the initial conversion state. Note, however, that other values
+  stored in an object of type <code>mbstate_t</code> can also represent this state. To test safely for this
+  state, use the function <code>mbsinit</code>, decoared in <code>&lt;wchar.h&gt;</code>.</p>
+
+  <h2><a name="NULL"><code>NULL</code></a></h2>
+  <pre>
+#define <b>NULL</b> <i>&lt;either 0, 0L, or (void *)0&gt;</i> <b>[0 in C++]</b>
+</pre>
+
+  <p>The macro yields a null pointer constant that is usable as an address constant expression.</p>
+
+  <h2><a name="size_t"><code>size_t</code></a></h2>
+  <pre>
+typedef <i>ui-type</i> <b>size_t;</b>
+</pre>
+
+  <p>The type is the unsigned integer type <code><i>ui-type</i></code> of an object that you declare to store
+  the result of the <i>sizeof</i> operator.</p>
+
+  <h2><a name="__STDC_UTF_16__"><code>__STDC_UTF_16__</code></a></h2>
+  <pre>
+#define <b>__STDC_UTF_16__</b> <i>unspecified</i>
+</pre>
+
+  <p>The header defines the macro only if the functions <a href="#c16rtomb"><code>c16rtomb</code></a> and
+  <a href="#mbrtoc16"><code>mbrtoc16</code></a> treat elements of type <a href=
+  "#char16_t"><code>char16_t</code></a> as characters with the UTF-16 encoding.</p>
+
+  <h2><a name="__STDC_UTF_32__"><code>__STDC_UTF_32__</code></a></h2>
+  <pre>
+#define <b>__STDC_UTF_32__</b> <i>unspecified</i>
+</pre>
+
+  <p>The header defines the macro only if the functions <a href="#c32rtomb"><code>c32rtomb</code></a> and
+  <a href="#mbrtoc32"><code>mbrtoc32</code></a> treat elements of type <a href=
+  "#char32_t"><code>char32_t</code></a> as characters with the UTF-32 encoding.</p>
+  <hr>
+
+  <p>See also the <b><a href="index.html#Table%20of%20Contents">Table of Contents</a></b> and the <b><a href=
+  "_index.html">Index</a></b>.</p>
+
+  <p><i><a href="crit_pjp.html">Copyright</a> &copy; 1992-2010 by P.J. Plauger. All rights reserved.</i></p>
+  <!--V5.30:126I-->
+</body>
+</html>

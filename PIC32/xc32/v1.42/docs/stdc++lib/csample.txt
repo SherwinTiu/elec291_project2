@@ -1,0 +1,116 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+#include "Dinkum/threads/threads.h"
+#include "Dinkum/threads/xtimec.h"
+
+#define DATA_SIZE 20
+#define DATA_LIMIT 100
+
+/* data queue */
+static int data[DATA_SIZE];
+static int begin;
+static int end;
+static int queue_not_full;
+
+/* thread-specfic storage */
+static tss_t key;
+
+/* initialization */
+static once_flag init_flag = ONCE_FLAG_INIT;
+static void init(void)
+	{	/* initialize global data from first calling thread */
+	queue_not_full = 1;
+	tss_create(&key, free);
+	}
+
+static void setup(void)
+	{	/* initialize thread data */
+	call_once(&init_flag, init);
+	tss_set(key, malloc(sizeof(int)));
+	*(int*)tss_get(key) = 0;
+	}
+
+/*	synchronization objects */
+static mtx_t data_mtx;
+static cnd_t queue_full_c;
+static cnd_t queue_empty_c;
+
+/* utilities */
+static void delay(void)
+	{	/* delay randomly from 0 to 200 milliseconds */
+	xtime xt;
+	xtime_get(&xt, TIME_UTC);
+	xt.nsec += (rand() * 200) / (RAND_MAX + 1) * 1000000;
+	thrd_sleep(&xt);
+	}
+
+/* produce data */
+static int producer(void *arg)
+	{	/* insert sequential values from 0 to DATA_LIMIT into queue */
+	setup();
+	while (*(int*)tss_get(key) < DATA_LIMIT)
+		{	/* insert *val into queue */
+		delay();
+		mtx_lock(&data_mtx);
+		while (queue_not_full == 0)
+			cnd_wait(&queue_full_c, &data_mtx);
+		data[end++] = (*(int*)tss_get(key))++;
+		if (end == DATA_SIZE)
+			end = 0;
+		if (end + 1 == begin
+			|| end + 1 == DATA_SIZE && begin == 0)
+			queue_not_full = 0;
+		cnd_signal(&queue_empty_c);
+		mtx_unlock(&data_mtx);
+		}
+	return 0;
+	}
+
+/* consume data */
+static int finished = 0;
+static int consumer(void *arg)
+	{	/* remove data values from queue and display values */
+	setup();
+	while (!finished || begin != end)
+		{	/* remove and display data values */
+		delay();
+		mtx_lock(&data_mtx);
+		while (!finished && begin == end)
+			cnd_wait(&queue_empty_c, &data_mtx);
+		if (begin != end)
+			{	/* remove and display a data value */
+			*(int*)tss_get(key) = -data[begin++];
+			printf("%d\n", *(int*)tss_get(key));
+			if (begin == DATA_SIZE)
+				begin = 0;
+			queue_not_full = 1;
+			cnd_signal(&queue_full_c);
+			}
+		mtx_unlock(&data_mtx);
+		}
+	return 0;
+	}
+
+int main()
+	{	/* create a consumer thread and two producer threads */
+	thrd_t thr0, thr1, thr2;
+	if (mtx_init(&data_mtx, mtx_plain) != thrd_success)
+		{	/* display error message and quit */
+		puts("Error: unable to initialize mutex");
+		exit(EXIT_FAILURE);
+		}
+	/* error checking omitted for clarity */
+	cnd_init(&queue_full_c);
+	cnd_init(&queue_empty_c);
+	thrd_create(&thr0, consumer, 0);
+	thrd_create(&thr1, producer, 0);
+	thrd_create(&thr2, producer, 0);
+	thrd_join(thr1, 0);
+	thrd_join(thr2, 0);
+	mtx_lock(&data_mtx);
+	finished = 1;
+	mtx_unlock(&data_mtx);
+	thrd_join(thr0, 0);
+	return 0;
+	}

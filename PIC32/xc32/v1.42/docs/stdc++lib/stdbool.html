@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html>
+<head>
+  <meta name="generator" content=
+  "HTML Tidy for Mac OS X (vers 31 October 2006 - Apple Inc. build 15.15), see www.w3.org">
+
+  <title>&lt;stdbool.h&gt;</title>
+</head>
+
+<body>
+  <h1><a name="&lt;stdbool.h&gt;"><code>&lt;stdbool.h&gt;</code></a></h1>
+
+  <p>[added with <a href="lib_over.html#C99">C99</a>]</p>
+  <hr>
+
+  <p>Include the standard header <b><code>&lt;stdbool.h&gt;</code></b> to define a type and several macros
+  suitable for writing Boolean tests. The standard header <code>&lt;stdbool.h&gt;</code> is available even in
+  a <a href="lib_over.html#freestanding%20implementation">freestanding implementation</a>.</p>
+  <pre>
+    /* MACROS */
+#define <a href="#bool"><b>bool</b></a> _Bool <b>[keyword in C++]</b>
+#define <a href="#false"><b>false</b></a> 0 <b>[keyword in C++]</b>
+#define <a href="#true"><b>true</b></a> 1 <b>[keyword in C++]</b>
+#define <a href="#__bool_true_false_are_defined"><b>__bool_true_false_are_defined</b></a> 1
+
+    /* TYPES */
+typedef <i>i-type</i> <a href="#bool"><b>bool</b></a>; <b>[keyword in C++]</b>
+</pre>
+
+  <h2><a name="__bool_true_false_are_defined"><code>__bool_true_false_are_defined</code></a></h2>
+  <pre>
+#define <b>__bool_true_false_are_defined</b> 1
+</pre>
+
+  <p>The macro yields the decimal constant <code>1</code>.</p>
+
+  <h2><a name="bool"><code>bool</code></a></h2>
+  <pre>
+#define <b>bool</b> _Bool <b>[keyword in C++]</b>
+</pre>
+
+  <p>The macro yields the type <code>_Bool</code>.</p>
+
+  <h2><a name="false"><code>false</code></a></h2>
+  <pre>
+#define <b>false</b> 0 <b>[keyword in C++]</b>
+</pre>
+
+  <p>The macro yields the decimal constant <code>0</code>.</p>
+
+  <h2><a name="true"><code>true</code></a></h2>
+  <pre>
+#define <b>true</b> 1 <b>[keyword in C++]</b>
+</pre>
+
+  <p>The macro yields the decimal constant <code>1</code>.</p>
+  <hr>
+
+  <p>See also the <b><a href="index.html#Table%20of%20Contents">Table of Contents</a></b> and the <b><a href=
+  "_index.html">Index</a></b>.</p>
+
+  <p><i><a href="crit_pjp.html">Copyright</a> &copy; 1992-2010 by P.J. Plauger. All rights reserved.</i></p>
+  <!--V5.30:126I-->
+</body>
+</html>

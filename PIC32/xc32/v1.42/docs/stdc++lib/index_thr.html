@@ -1,0 +1,203 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html>
+<head>
+  <meta name="generator" content=
+  "HTML Tidy for Mac OS X (vers 31 October 2006 - Apple Inc. build 15.15), see www.w3.org">
+
+  <title>Dinkum Threads Library</title>
+</head>
+
+<body>
+  <h1><a name="Dinkum Threads Library">Dinkum Threads Library</a></h1>
+  <hr>
+
+  <p>A C or C++ program can call on a number of functions from the <b>Dinkum Threads Library</b>, a portable
+  library for managing multiple threads of control.</p>
+  <hr>
+
+  <h2><a name="Threads Table of Contents">Threads Table of Contents</a></h2>
+
+  <p><b><code><a href="threads.html">"Dinkum/threads/threads.h"</a> &middot; <a href=
+  "xtimec.html">"Dinkum/threads/xtimec.h"</a></code></b></p>
+
+  <p><b><code><a href="condition.html">"Dinkum/threads/condition"</a> &middot; <a href=
+  "exceptions.html">"Dinkum/threads/exceptions"</a> &middot; <a href="mutex.html">"Dinkum/threads/mutex"</a>
+  &middot; <a href="once.html">"Dinkum/threads/once"</a> &middot; <a href=
+  "rmutex.html">"Dinkum/threads/recursive_mutex"</a> &middot; <a href=
+  "thread.html">"Dinkum/threads/thread"</a> &middot; <a href="tss.html">"Dinkum/threads/tss"</a> &middot;
+  <a href="xtime.html">"Dinkum/threads/xtime"</a></code></b></p>
+
+  <p><b><a href="cthrd_over.html">C Interface</a> &middot; <a href="cppthrd_over.html">C++
+  Interface</a></b></p>
+
+  <p><b><a href="#Overview">Overview</a> &middot; <a href="#Memory%20Visibility">Memory Visibility</a>
+  &middot; <a href="#Condition%20Variables">Condition Variables</a> &middot; <a href="#Mutexes">Mutexes</a>
+  &middot; <a href="#Once%20Functions">Once Functions</a> &middot; <a href=
+  "#Thread-specific%20Storage">Thread-specific Storage</a> &middot; <a href=
+  "#Checked%20and%20Unchecked%20Libraries">Checked and Unchecked Libraries</a></b></p>
+  <hr>
+
+  <h2><a name="Overview">Overview</a></h2>
+
+  <p>A <b><a name="thread">thread</a></b> is a separate flow of execution within an application. On a
+  multi-processor system threads can execute simultaneously on different processors. On a single-processor
+  system and on a multi-processor system with fewer available processors than active threads two or more
+  threads must share a processor. The details of switching a processor from one thread to another are handled
+  by the operating system.</p>
+
+  <p>The Dinkum Threads Library lets you create and control multiple threads, and synchronize the sharing of
+  data between these threads. It consists of compatible and complementary interfaces for programming in
+  either C or C++. The <a href="cthrd_over.html">C Interface</a> is very similar to the thread support
+  interface defined in the the <a href="http://www.unix-systems.org/version3/ieee_std.html">Posix</a>
+  Standard (also known as <b><a name="pthreads">pthreads</a></b>), while the <a href="cppthrd_over.html">C++
+  Interface</a> is very similar to the <b><a href=
+  "http://www.boost.org/libs/thread/doc/index.html">boost.threads</a></b> library for C++.</p>
+
+  <p>When a C or C++ program begins execution it runs in a single thread, executing the <code>main</code>
+  function. The program can create additional threads as needed. Each thread has its own copy of all
+  <code>auto</code> variables, so <code>auto</code> values in one thread are independent of <code>auto</code>
+  values in the other threads. Data with static storage duration is accessible to all threads, so those
+  values are shared. However, changes to values in shared data often are not immediately visible in other
+  threads. A multi-threaded application uses condition variables, mutexes, and once functions to coordinate
+  the use of shared data by its threads, in order to ensure that shared data is not made inconsistent by
+  simultaneous changes from more than one thread, that changes to shared data are visible to a thread when
+  needed, and that a thread that needs data that is being created by another thread can be notified when that
+  data becomes available.</p>
+
+  <h2><a name="Memory Visibility">Memory Visibility</a></h2>
+
+  <p>Changes made by one thread to values in shared data often are not immediately <b><a name=
+  "visible">visible</a></b> in other threads. For example, on a system with two separate processors and two
+  threads running on the two processors, if the two processors simply share main memory an attempt by one
+  processor to write data while the other processor reads the same data could result in the second processor
+  reading a data value that has only been partially changed by the other processor. In order to avoid this
+  inconsistency one processor has to lock the other one out until it finishes. This locking is usually done
+  through the hardware and is known as a <i>bus lock</i>. Bus locks are unavoidable, but they slow the
+  processors down. To minimize the effect of this slowdown, multi-processor systems have separate cache
+  memory for each processor. This cache memory holds a copy of some of the data in main memory. When a
+  processor writes data it writes to the cache. Sometime later the changes made to the cache are written to
+  main memory. Thus, the processors could each have a different value for a data item in their caches, and
+  those values could be different from the value in main memory.</p>
+
+  <p>There are three times at which changes made to memory by one thread are guaranteed to be visible in
+  another thread:</p>
+
+  <ul>
+    <li>when a thread is created, changes to memory made by the creating thread prior to creating the new
+    thread are visible to the new thread</li>
+
+    <li>when a thread locks a mutex, changes made by other threads prior to unlocking the same mutex are
+    visible to the locking thread</li>
+
+    <li>when a thread joins another thread, changes made by the joined thread prior to exiting are visible to
+    the joining thread</li>
+  </ul>
+
+  <p>In practice this means that:</p>
+
+  <ul>
+    <li>constant data that is initialized before a thread starts can be accessed in the thread without
+    further precautions</li>
+
+    <li>modifiable data should be accessed only from code controlled by a mutex, both in threads that modify
+    the data and in threads that use the data</li>
+  </ul>
+
+  <p>Note, however, that locking a mutex to prevent modification of shared data while it is being read also
+  prevents other threads from locking the mutex in order to read the data. Such critical sections should be
+  kept as short as possible to avoid blocking other threads any longer than necessary.</p>
+
+  <h2><a name="Condition Variables">Condition Variables</a></h2>
+
+  <p>A <b><a name="condition variable">condition variable</a></b> is used by a thread to wait until another
+  thread notifies it that a condition has become true. Code that waits for a condition variable must also use
+  a <a href="#mutex">mutex</a>; before calling any of the functions that wait for the condition variable the
+  calling thread must lock the mutex, and when the called function returns the mutex will be locked. During
+  the time that a thread is blocked waiting for the condition to become true the mutex is not locked.</p>
+
+  <p><b><a name="spurious wakeups">Spurious wakeups</a></b> occur when threads waiting for condition
+  variables become unblocked without appropriate notifications. Code that waits for a condition to become
+  true should explicitly check that condition when returning from a wait function to recognize such spurious
+  wakeups. This is usually done with a loop:</p>
+  <pre>
+while (condition is false)
+    wait for condition variable;
+</pre>
+
+  <p>The condition variable functions use a mutex internally; when a thread returns from a wait function any
+  changes made to memory by threads that called a wait function or a notify function before the return will
+  be <a href="#visible">visible</a> to the caller.</p>
+
+  <h2><a name="Mutexes">Mutexes</a></h2>
+
+  <p>A <b><a name="mutex">mutex</a></b> is used to insure that only one thread executes a region of code,
+  known as a critical section, at any one time. On entry into the critical section the code locks the mutex;
+  if no other thread holds the mutex the lock operation succeeds and the calling thread holds the mutex. On
+  exit from the critical section the code unlocks the mutex. If another thread holds the mutex when a thread
+  tries to lock it the thread that tried to lock the mutex blocks until the mutex is unlocked. When more than
+  one thread is blocked waiting for the mutex an unlock releases one of the blocked threads.</p>
+
+  <p>A mutex can be <b><a name="recursive">recursive</a></b> or <b><a name=
+  "non-recursive">non-recursive</a></b>. When a thread that already holds a recursive mutex attempts to lock
+  it again the thread does not block. The thread must unlock the mutex as many times as it locked it before
+  any other thread will be permitted to lock the mutex. When a thread that already holds a non-recursive
+  mutex attempts to lock it again the thread will block. Since the thread cannot then unlock the mutex, the
+  result is a deadlock. Non-recursive mutexes are usually smaller and faster than recursive mutexes, so a
+  properly written program that uses non-recursive mutexes can be faster than one that uses recursive
+  mutexes.</p>
+
+  <p>A mutex supports <b><a name="test and return">test and return</a></b> if it provides a lock call that
+  does not block if the mutex is already locked. Such a lock call returns a value that indicates whether the
+  mutex was locked as a result of the call.</p>
+
+  <p>A mutex supports <b><a name="timeout">timeout</a></b> if it provides a lock call that blocks until no
+  later than a specified time waiting for the mutex to be unlocked. Such a lock call returns a value that
+  indicates whether the mutex was locked as a result of the call.</p>
+
+  <h2><a name="Once Functions">Once Functions</a></h2>
+
+  <p>A <b><a name="once function">once function</a></b> is a function that should only be called once during
+  a program's execution. Once functions are typically used to initialize data that is shared between threads:
+  the first thread that needs the data initializes it by calling the once function, and later threads that
+  need the data do not call the once function. Each once function should have an associated once flag,
+  statically initialized to indicate that the function has not been called. Code that needs to insure that
+  the once function has been called calls <code>call_once</code>, passing the flag and the address of the
+  once function. The code in <code>call_once</code> atomically checks the flag, and if the flag indicates
+  that the function has not been called, calls the once function and sets the flag to indicate that the
+  function has been called.</p>
+
+  <p>The function <code>call_once</code> uses a mutex internally; when it returns any changes made to memory
+  by the once function will be <a href="#visible">visible</a> to the caller.</p>
+
+  <h2><a name="Thread-specific Storage">Thread-specific Storage</a></h2>
+
+  <p>Thread-specific storage is global data that can hold a distinct value for each thread that uses it. This
+  permits functions executing in a single thread to share data without interfering with the data shared by
+  the same functions when executing in other threads.</p>
+
+  <h2><a name="Checked and Unchecked Libraries">Checked and Unchecked Libraries</a></h2>
+
+  <p>The library can be built as a checked version and as an unchecked version. The checked version uses a
+  macro similar to C's <code>assert</code> macro to test the conditions marked as <b><i><a name=
+  "Precondition">Precondition</a></i></b>s in the functional descriptions. Conditions marked <b><i><a name=
+  "Requires">Requires</a></i></b> may or may not be tested. When a failure is detected the macro writes an
+  error message to standard out and calls the function <a href=
+  "threads.html#thrd_abort"><code>thrd_abort</code></a>. For runtime debugging, set a breakpoint on that
+  function.</p>
+
+  <p>To use the checked version, define either the macro <code>THREAD_CHECK</code> or the macro
+  <code>_DEBUG</code> to a non-zero numeric value in all code that uses the library, and link to the checked
+  version of the library. To use the unchecked version, do not define either of those macros in any code that
+  uses the library, and link to the unchecked version of the library. See the <b>README</b> file that came
+  with your copy of the library for details on how to link to the appropriate version of the library.</p>
+  <hr>
+
+  <p>See also the <b><a href="index.html">Table of Contents</a></b> and the <b><a href=
+  "_index.html">Index</a></b>.</p>
+
+  <p><i><a href="crit_pjp.html">Copyright</a> &copy; 1992-2010 by Dinkumware, Ltd. Portions derived from work
+  <a href="crit_wek.html">copyright</a> &copy; 2001 by William E. Kempf. All rights reserved.</i></p>
+  <!--V5.30:126I-->
+</body>
+</html>

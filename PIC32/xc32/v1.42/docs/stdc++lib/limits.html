@@ -1,0 +1,206 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html>
+<head>
+  <meta name="generator" content=
+  "HTML Tidy for Mac OS X (vers 31 October 2006 - Apple Inc. build 15.15), see www.w3.org">
+
+  <title>&lt;limits.h&gt;</title>
+</head>
+
+<body>
+  <h1><a name="&lt;limits.h&gt;"><code>&lt;limits.h&gt;</code></a></h1>
+  <hr>
+
+  <p>Include the standard header <b><code>&lt;limits.h&gt;</code></b> to determine various properties of the
+  integer type representations. The standard header <code>&lt;limits.h&gt;</code> is available even in a
+  <a href="lib_over.html#freestanding%20implementation">freestanding implementation</a>.</p>
+
+  <p>You can test the values of all these macros in an <a href="preproc.html#if%20directive"><i>if</i>
+  directive</a>. (The macros are <a href="preproc.html#if%20expression"><i>#if</i> expressions</a>.)</p>
+  <pre>
+#define <a href="#CHAR_BIT"><b>CHAR_BIT</b></a> <i>&lt;#if expression &gt;= 8&gt;</i>
+#define <a href="#CHAR_MAX"><b>CHAR_MAX</b></a> <i>&lt;#if expression &gt;= 127&gt;</i>
+#define <a href="#CHAR_MIN"><b>CHAR_MIN</b></a> <i>&lt;#if expression &lt;= 0&gt;</i>
+#define <a href="#SCHAR_MAX"><b>SCHAR_MAX</b></a> <i>&lt;#if expression &gt;= 127&gt;</i>
+#define <a href="#SCHAR_MIN"><b>SCHAR_MIN</b></a> <i>&lt;#if expression &lt;= -127&gt;</i>
+#define <a href="#UCHAR_MAX"><b>UCHAR_MAX</b></a> <i>&lt;#if expression &gt;= 255&gt;</i>
+#define <a href="#MB_LEN_MAX"><b>MB_LEN_MAX</b></a> <i>&lt;#if expression &gt;= 1&gt;</i>
+
+#define <a href="#SHRT_MAX"><b>SHRT_MAX</b></a> <i>&lt;#if expression &gt;= 32,767&gt;</i>
+#define <a href="#SHRT_MIN"><b>SHRT_MIN</b></a> <i>&lt;#if expression &lt;= -32,767&gt;</i>
+#define <a href="#USHRT_MAX"><b>USHRT_MAX</b></a> <i>&lt;#if expression &gt;= 65,535&gt;</i>
+
+#define <a href="#INT_MAX"><b>INT_MAX</b></a> <i>&lt;#if expression &gt;= 32,767&gt;</i>
+#define <a href="#INT_MIN"><b>INT_MIN</b></a> <i>&lt;#if expression &lt;= -32,767&gt;</i>
+#define <a href="#UINT_MAX"><b>UINT_MAX</b></a> <i>&lt;#if expression &gt;= 65,535&gt;</i>
+
+#define <a href="#LONG_MAX"><b>LONG_MAX</b></a> <i>&lt;#if expression &gt;= 2,147,483,647&gt;</i>
+#define <a href="#LONG_MIN"><b>LONG_MIN</b></a> <i>&lt;#if expression &lt;= -2,147,483,647&gt;</i>
+#define <a href="#ULONG_MAX"><b>ULONG_MAX</b></a> <i>&lt;#if expression &gt;= 4,294,967,295&gt;</i>
+
+#define <a href=
+"#LLONG_MAX"><b>LLONG_MAX</b></a> <i>&lt;#if expression &gt;= 9,223,372,036,854,775,807&gt;</i> <b>[added with C99]</b>
+#define <a href=
+"#LLONG_MIN"><b>LLONG_MIN</b></a> <i>&lt;#if expression &lt;= -9,223,372,036,854,775,807&gt;</i> <b>[added with C99]</b>
+#define <a href=
+"#ULLONG_MAX"><b>ULLONG_MAX</b></a> <i>&lt;#if expression &gt;= 18,446,744,073,709,551,615&gt;</i> <b>[added with C99]</b>
+</pre>
+
+  <h2><a name="CHAR_BIT"><code>CHAR_BIT</code></a></h2>
+  <pre>
+#define <b>CHAR_BIT</b> <i>&lt;#if expression &gt;= 8&gt;</i>
+</pre>
+
+  <p>The macro yields the maximum value for the number of bits used to represent an object of type
+  <i>char.</i></p>
+
+  <h2><a name="CHAR_MAX"><code>CHAR_MAX</code></a></h2>
+  <pre>
+#define <b>CHAR_MAX</b> <i>&lt;#if expression &gt;= 127&gt;</i>
+</pre>
+
+  <p>The macro yields the maximum value for type <i>char.</i> Its value is:</p>
+
+  <ul>
+    <li><a href="#SCHAR_MAX"><code>SCHAR_MAX</code></a> if <i>char</i> represents negative values</li>
+
+    <li><a href="#UCHAR_MAX"><code>UCHAR_MAX</code></a> otherwise</li>
+  </ul>
+
+  <h2><a name="CHAR_MIN"><code>CHAR_MIN</code></a></h2>
+  <pre>
+#define <b>CHAR_MIN</b> <i>&lt;#if expression &lt;= 0&gt;</i>
+</pre>
+
+  <p>The macro yields the minimum value for type <i>char.</i> Its value is:</p>
+
+  <ul>
+    <li><a href="#SCHAR_MIN"><code>SCHAR_MIN</code></a> if <i>char</i> represents negative values</li>
+
+    <li>zero otherwise</li>
+  </ul>
+
+  <h2><a name="INT_MAX"><code>INT_MAX</code></a></h2>
+  <pre>
+#define <b>INT_MAX</b> <i>&lt;#if expression &gt;= 32,767&gt;</i>
+</pre>
+
+  <p>The macro yields the maximum value for type <i>int.</i></p>
+
+  <h2><a name="INT_MIN"><code>INT_MIN</code></a></h2>
+  <pre>
+#define <b>INT_MIN</b> <i>&lt;#if expression &lt;= -32,767&gt;</i>
+</pre>
+
+  <p>The macro yields the minimum value for type <i>int.</i></p>
+
+  <h2><a name="LLONG_MAX"><code>LLONG_MAX</code></a></h2>
+  <pre>
+#define <b>LLONG_MAX</b> <i>&lt;#if expression &gt;= 9,223,372,036,854,775,807&gt;</i> <b>[added with C99]</b>
+</pre>
+
+  <p>The macro yields the maximum value for type <i>long long.</i></p>
+
+  <h2><a name="LLONG_MIN"><code>LLONG_MIN</code></a></h2>
+  <pre>
+#define <b>LLONG_MIN</b> <i>&lt;#if expression &lt;= -9,223,372,036,854,775,807&gt;</i> <b>[added with C99]</b>
+</pre>
+
+  <p>The macro yields the minimum value for type <i>long long.</i></p>
+
+  <h2><a name="LONG_MAX"><code>LONG_MAX</code></a></h2>
+  <pre>
+#define <b>LONG_MAX</b> <i>&lt;#if expression &gt;= 2,147,483,647&gt;</i>
+</pre>
+
+  <p>The macro yields the maximum value for type <i>long.</i></p>
+
+  <h2><a name="LONG_MIN"><code>LONG_MIN</code></a></h2>
+  <pre>
+#define <b>LONG_MIN</b> <i>&lt;#if expression &lt;= -2,147,483,647&gt;</i>
+</pre>
+
+  <p>The macro yields the minimum value for type <i>long.</i></p>
+
+  <h2><a name="MB_LEN_MAX"><code>MB_LEN_MAX</code></a></h2>
+  <pre>
+#define <b>MB_LEN_MAX</b> <i>&lt;#if expression &gt;= 1&gt;</i>
+</pre>
+
+  <p>The macro yields the maximum number of characters that constitute a <a href=
+  "charset.html#Multibyte%20Characters">multibyte character</a> in any supported <a href=
+  "locale.html">locale</a>. Its value is &gt;= <a href=
+  "stdlib.html#MB_CUR_MAX"><code>MB_CUR_MAX</code></a>.</p>
+
+  <h2><a name="SCHAR_MAX"><code>SCHAR_MAX</code></a></h2>
+  <pre>
+#define <b>SCHAR_MAX</b> <i>&lt;#if expression &gt;= 127&gt;</i>
+</pre>
+
+  <p>The macro yields the maximum value for type <i>signed char.</i></p>
+
+  <h2><a name="SCHAR_MIN"><code>SCHAR_MIN</code></a></h2>
+  <pre>
+#define <b>SCHAR_MIN</b> <i>&lt;#if expression &lt;= -127&gt;</i>
+</pre>
+
+  <p>The macro yields the minimum value for type <i>signed char.</i></p>
+
+  <h2><a name="SHRT_MAX"><code>SHRT_MAX</code></a></h2>
+  <pre>
+#define <b>SHRT_MAX</b> <i>&lt;#if expression &gt;= 32,767&gt;</i>
+</pre>
+
+  <p>The macro yields the maximum value for type <i>short.</i></p>
+
+  <h2><a name="SHRT_MIN"><code>SHRT_MIN</code></a></h2>
+  <pre>
+#define <b>SHRT_MIN</b> <i>&lt;#if expression &lt;= -32,767&gt;</i>
+</pre>
+
+  <p>The macro yields the minimum value for type <i>short.</i></p>
+
+  <h2><a name="UCHAR_MAX"><code>UCHAR_MAX</code></a></h2>
+  <pre>
+#define <b>UCHAR_MAX</b> <i>&lt;#if expression &gt;= 255&gt;</i>
+</pre>
+
+  <p>The macro yields the maximum value for type <i>unsigned char.</i></p>
+
+  <h2><a name="UINT_MAX"><code>UINT_MAX</code></a></h2>
+  <pre>
+#define <b>UINT_MAX</b> <i>&lt;#if expression &gt;= 65,535&gt;</i>
+</pre>
+
+  <p>The macro yields the maximum value for type <i>unsigned int.</i></p>
+
+  <h2><a name="ULLONG_MAX"><code>ULLONG_MAX</code></a></h2>
+  <pre>
+#define <b>ULLONG_MAX</b> <i>&lt;#if expression &gt;= 18,446,744,073,709,551,615&gt;</i> <b>[added with C99]</b>
+</pre>
+
+  <p>The macro yields the maximum value for type <i>unsigned long long.</i></p>
+
+  <h2><a name="ULONG_MAX"><code>ULONG_MAX</code></a></h2>
+  <pre>
+#define <b>ULONG_MAX</b> <i>&lt;#if expression &gt;= 4,294,967,295&gt;</i>
+</pre>
+
+  <p>The macro yields the maximum value for type <i>unsigned long.</i></p>
+
+  <h2><a name="USHRT_MAX"><code>USHRT_MAX</code></a></h2>
+  <pre>
+#define <b>USHRT_MAX</b> <i>&lt;#if expression &gt;= 65,535&gt;</i>
+</pre>
+
+  <p>The macro yields the maximum value for type <i>unsigned short.</i></p>
+  <hr>
+
+  <p>See also the <b><a href="index.html#Table%20of%20Contents">Table of Contents</a></b> and the <b><a href=
+  "_index.html">Index</a></b>.</p>
+
+  <p><i><a href="crit_pjp.html">Copyright</a> &copy; 1992-2010 by P.J. Plauger and Jim Brodie. All rights
+  reserved.</i></p><!--V5.30:126I-->
+</body>
+</html>

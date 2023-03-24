@@ -1,0 +1,25 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.5.4	//
+!_TAG_REVISION_NAME	MCHPTags	//
+!_TAG_REVISION_VERSION	6.0.1	//
+CT_INT_ON	C:\asm_project\example.S	49;"	d	line:49
+CT_INT_PRIOR_3	C:\asm_project\example.S	50;"	d	line:50
+CoreTimerIntHandler	C:\asm_project\example.S	144;"	l	line:144
+INTEnableSystemMultiVectoredInt	C:\asm_project\example.S	458;"	l	line:458
+IOPORT_BIT_7	C:\asm_project\example.S	48;"	d	line:48
+OpenCoreTimer	C:\asm_project\example.S	407;"	l	line:407
+TIMER_PERIOD	C:\asm_project\example.S	46;"	d	line:46
+UpdateCoreTimer	C:\asm_project\example.S	494;"	l	line:494
+endless	C:\asm_project\example.S	108;"	l	line:108
+mCTClearIntFlag	C:\asm_project\example.S	298;"	l	line:298
+mCTIntEnable	C:\asm_project\example.S	368;"	l	line:368
+mCTSetIntPriority	C:\asm_project\example.S	331;"	l	line:331
+mConfigIntCoreTimer	C:\asm_project\example.S	425;"	l	line:425
+mPORTAClearBits	C:\asm_project\example.S	206;"	l	line:206
+mPORTAOutputConfig	C:\asm_project\example.S	237;"	l	line:237
+mPORTAToggleBits	C:\asm_project\example.S	268;"	l	line:268
+main	C:\asm_project\example.S	80;"	l	line:80

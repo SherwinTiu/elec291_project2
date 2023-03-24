@@ -1,0 +1,313 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html>
+<head>
+  <meta name="generator" content=
+  "HTML Tidy for Mac OS X (vers 31 October 2006 - Apple Inc. build 15.15), see www.w3.org">
+
+  <title>&lt;stack&gt;</title>
+</head>
+
+<body>
+  <h1><a name="&lt;stack&gt;"><code>&lt;stack&gt;</code></a></h1>
+  <hr>
+
+  <p>Include the <a href="index.html#STL">STL</a> standard header <b><code>&lt;stack&gt;</code></b> to define
+  the template class <code>stack</code> and several supporting templates.</p>
+  <pre>
+namespace std {
+template&lt;class Ty, class Container&gt;
+    class <b><a href="#stack">stack</a></b>;
+
+        // TEMPLATE FUNCTIONS
+template&lt;class Ty, class Container&gt;
+    bool <b><a href="#operator==">operator==</a></b>(const stack&lt;Ty, Container&gt;&amp; left,
+        const stack&lt;Ty, Container&gt;&amp; right);
+template&lt;class Ty, class Container&gt;
+    bool <b><a href="#operator!=">operator!=</a></b>(const stack&lt;Ty, Container&gt;&amp; left,
+        const stack&lt;Ty, Container&gt;&amp; right);
+template&lt;class Ty, class Container&gt;
+    bool <b><a href="#operator%3C">operator&lt;</a></b>(const stack&lt;Ty, Container&gt;&amp; left,
+        const stack&lt;Ty, Container&gt;&amp; right);
+template&lt;class Ty, class Container&gt;
+    bool <b><a href="#operator%3E">operator&gt;</a></b>(const stack&lt;Ty, Container&gt;&amp; left,
+        const stack&lt;Ty, Container&gt;&amp; right);
+template&lt;class Ty, class Container&gt;
+    bool <b><a href="#operator%3C=">operator&lt;=</a></b>(const stack&lt;Ty, Container&gt;&amp; left,
+        const stack&lt;Ty, Container&gt;&amp; right);
+template&lt;class Ty, class Container&gt;
+    bool <b><a href="#operator%3E=">operator&gt;=</a></b>(const stack&lt;Ty, Container&gt;&amp; left,
+        const stack&lt;Ty, Container&gt;&amp; right);
+
+template&lt;class Ty, class Container&gt;
+    bool <b><a href="#swap">swap</a></b>(stack&lt;Ty, Container&gt;&amp; left,
+        stack&lt;Ty, Container&gt;&amp;); <b>[added with C++0X]</b>
+}  // namespace std
+</pre>
+
+  <h2><a name="operator!="><code>operator!=</code></a></h2>
+  <pre>
+template&lt;class Ty, class Container&gt;
+    bool <b>operator!=</b>(const stack &lt;Ty, Container&gt;&amp; left,
+        const stack &lt;Ty, Container&gt;&amp; right);
+</pre>
+
+  <p>The template function returns <code>!(left == right)</code>.</p>
+
+  <h2><a name="operator=="><code>operator==</code></a></h2>
+  <pre>
+template&lt;class Ty, class Container&gt;
+    bool <b>operator==</b>(const stack &lt;Ty, Container&gt;&amp; left,
+        const stack &lt;Ty, Container&gt;&amp; right);
+</pre>
+
+  <p>The template function overloads <code>operator==</code> to compare two objects of template class
+  <a href="#stack"><code>stack</code></a>. The function returns <code>left.<a href="#stack::c">c</a> ==
+  right.c</code>.</p>
+
+  <h2><a name="operator&lt;"><code>operator&lt;</code></a></h2>
+  <pre>
+template&lt;class Ty, class Container&gt;
+    bool <b>operator&lt;</b>(const stack &lt;Ty, Container&gt;&amp; left,
+        const stack &lt;Ty, Container&gt;&amp; right);
+</pre>
+
+  <p>The template function overloads <code>operator&lt;</code> to compare two objects of template class
+  <a href="#stack"><code>stack</code></a>. The function returns <code>left.<a href="#stack::c">c</a> &lt;
+  right.c</code>.</p>
+
+  <h2><a name="operator&lt;="><code>operator&lt;=</code></a></h2>
+  <pre>
+template&lt;class Ty, class Container&gt;
+    bool <b>operator&lt;=</b>(const stack &lt;Ty, Container&gt;&amp; left,
+        const stack &lt;Ty, Container&gt;&amp; right);
+</pre>
+
+  <p>The template function returns <code>!(right &lt; left)</code>.</p>
+
+  <h2><a name="operator&gt;"><code>operator&gt;</code></a></h2>
+  <pre>
+template&lt;class Ty, class Container&gt;
+    bool <b>operator&gt;</b>(const stack &lt;Ty, Container&gt;&amp; left,
+        const stack &lt;Ty, Container&gt;&amp; right);
+</pre>
+
+  <p>The template function returns <code>right &lt; left</code>.</p>
+
+  <h2><a name="operator&gt;="><code>operator&gt;=</code></a></h2>
+  <pre>
+template&lt;class Ty, class Container&gt;
+    bool <b>operator&gt;=</b>(const stack &lt;Ty, Container&gt;&amp; left,
+        const stack &lt;Ty, Container&gt;&amp; right);
+</pre>
+
+  <p>The template function returns <code>!(left &lt; right)</code>.</p>
+
+  <h2><a name="stack"><code>stack</code></a></h2>
+  <pre>
+template&lt;class Ty,
+    class Container = deque&lt;Ty&gt; &gt;
+    class stack {
+public:
+    typedef Container <b><a href="#stack::container_type">container_type</a></b>;
+    typedef typename Container::value_type <b><a href="#stack::value_type">value_type</a></b>;
+    typedef typename Container::size_type <b><a href="#stack::size_type">size_type</a></b>;
+    typedef typename Container::reference <b><a href="#stack::reference">reference</a></b>;
+    typedef typename Container::const_reference <b><a href="#stack::const_reference">const_reference</a></b>;
+
+    <b><a href="#stack::stack">stack</a></b>();
+    explicit <b><a href="#stack::stack">stack</a></b>(const container_type&amp; cont);
+    <b><a href="#stack::stack">stack</a></b>(stack&amp;&amp; right); <b>[added with C++0X]</b>
+    explicit <b><a href=
+"#stack::stack">stack</a></b>(container_type&amp;&amp; cont); <b>[added with C++0X]</b>
+
+    stack <b><a href="#stack::operator=">operator=</a></b>(stack&amp;&amp; right); <b>[added with C++0X]</b>
+    void <b><a href="#stack::swap">swap</a></b>(stack&amp; right); <b>[added with C++0X]</b>
+
+    bool <b><a href="#stack::empty">empty</a></b>() const;
+    size_type <b><a href="#stack::size">size</a></b>() const;
+
+    reference <b><a href="#stack::top">top</a></b>();
+    const_reference <b><a href="#stack::top">top</a></b>() const;
+    void <b><a href="#stack::push">push</a></b>(const value_type&amp; val);
+    void <b><a href="#stack::push">push</a></b>(value_type&amp;&amp; val); <b>[added with C++0X]</b>
+    template&lt;class... Ty&gt;
+        void <b><a href="#stack::emplace">emplace</a></b>(Ty&amp;&amp;... val); <b>[added with C++0X]</b>
+    void <b><a href="#stack::pop">pop</a></b>();
+
+protected:
+    Container <b><a href="#stack::c">c</a></b>;
+    };
+</pre>
+
+  <p>The template class describes an object that controls a varying-length sequence of elements. The object
+  allocates and frees storage for the sequence it controls through a protected object named <b><a name=
+  "stack::c"><code>c</code></a></b>, of class <code>Container</code>. The type <code>Ty</code> of elements in
+  the controlled sequence must match <code><a href="#stack::value_type">value_type</a></code>.</p>
+
+  <p>An object of class <code>Container</code> must supply several public members defined the same as for
+  <code><a href="deque.html#deque">deque</a></code>, <code><a href="list.html#list">list</a></code>, and
+  <code><a href="vector.html#vector">vector</a></code> (all of which are suitable candidates for class
+  <code>Container</code>). The required members are:</p>
+  <pre>
+    typedef Ty <b>value_type</b>;
+    typedef T0 <b>size_type</b>;
+    typedef T1 <b>reference</b>;
+    typedef T2 <b>const_reference</b>;
+
+    <b>Container</b>();
+        void <b>swap</b>(Container&amp; right); <b>[added with C++0X]</b>
+    bool <b>empty</b>() const;
+    size_type <b>size</b>() const;
+    value_type&amp; <b>back</b>();
+    const value_type&amp; <b>back</b>() const;
+    void <b>push_back</b>(const value_type&amp; val);
+    template&lt;class... Ty&gt;
+        void <b>emplace_back</b>(const Ty&amp;... val); <b>[added with C++0X]</b>
+    void <b>pop_back</b>();
+
+    bool operator==(const Container&amp; cont) const;
+    bool operator!=(const Container&amp; cont) const;
+    bool operator&lt;(const Container&amp; cont) const;
+    bool operator&gt;(const Container&amp; cont) const;
+    bool operator&lt;=(const Container&amp; cont) const;
+    bool operator&gt;=(const Container&amp; cont) const;
+</pre>
+
+  <p>Here, <code>T0</code>, <code>T1</code>, and <code>T2</code> are unspecified types that meet the stated
+  requirements.</p>
+
+  <h3><code><a name="stack::const_reference">stack::const_reference</a></code></h3>
+  <pre>
+typedef typename Container::const_reference <b>const_reference</b>;
+</pre>
+
+  <p>The type is a synonym for <code>Container::const_reference</code>.</p>
+
+  <h3><code><a name="stack::container_type">stack::container_type</a></code></h3>
+  <pre>
+typedef Container <b>container_type</b>;
+</pre>
+
+  <p>The type is a synonym for the template parameter <code>Container</code>.</p>
+
+  <h3><code><a name="stack::empty">stack::empty</a></code></h3>
+
+  <h3><code><a name="stack::emplace">stack::emplace</a></code></h3>
+  <pre>
+template&lt;class... Ty&gt;
+    void <b>emplace</b>(Ty&amp;&amp;... val); <b>[added with C++0X]</b>
+</pre>
+
+  <p>The member function executes <code>c.emplace_back(forward&lt;Ty&gt;(val)...)</code>.</p>
+  <pre>
+bool <b>empty</b>() const;
+</pre>
+
+  <p>The member function returns true for an empty controlled sequence.</p>
+
+  <h3><code><a name="stack::operator=">stack::operator=</a></code></h3>
+  <pre>
+stack&gt; <b>operator=</b>(stack&amp;&amp; right); <b>[added with C++0X]</b>
+</pre>
+
+  <p>The operator moves <code>right</code>, as an <a href="lib_cpp.html#rvalue%20references">rvalue
+  reference</a> to <code>*this</code>.</p>
+
+  <h3><code><a name="stack::pop">stack::pop</a></code></h3>
+  <pre>
+void <b>pop</b>();
+</pre>
+
+  <p>The member function removes the last element of the controlled sequence, which must be non-empty.</p>
+
+  <h3><code><a name="stack::push">stack::push</a></code></h3>
+  <pre>
+void <b>push</b>(const Ty&amp; val);
+void <b>push</b>(value_type&amp;&amp; val); <b>[added with C++0X]</b>
+</pre>
+
+  <p>The first member function inserts an element with value <code>val</code> at the end of the controlled
+  sequence.</p>
+
+  <p>The second member functions is the same as the first, but with an <a href=
+  "lib_cpp.html#rvalue%20references">rvalue reference</a>.</p>
+
+  <h3><code><a name="stack::reference">stack::reference</a></code></h3>
+  <pre>
+typedef typename Container::reference <b>reference</b>;
+</pre>
+
+  <p>The type is a synonym for <code>Container::reference</code>.</p>
+
+  <h3><code><a name="stack::size">stack::size</a></code></h3>
+  <pre>
+size_type <b>size</b>() const;
+</pre>
+
+  <p>The member function returns the length of the controlled sequence.</p>
+
+  <h3><code><a name="stack::size_type">stack::size_type</a></code></h3>
+  <pre>
+typedef typename Container::size_type <b>size_type</b>;
+</pre>
+
+  <p>The type is a synonym for <code>Container::size_type</code>.</p>
+
+  <h3><code><a name="stack::stack">stack::stack</a></code></h3>
+  <pre>
+<b>stack</b>();
+explicit <b>stack</b>(const container_type&amp; cont);
+<b>stack</b>(stack&amp;&amp; right); <b>[added with C++0X]</b>
+explicit <b>stack</b>(container_type&amp;&amp; cont); <b>[added with C++0X]</b>
+</pre>
+
+  <p>The first constructor initializes the stored object with <code><a href="#stack::c">c</a>()</code>, to
+  specify an empty initial controlled sequence. The second constructor initializes the stored object with
+  <code><a href="#stack::c">c</a>(cont)</code>, to specify an initial controlled sequence that is a copy of
+  the sequence controlled by <code>cont</code>.</p>
+
+  <p>The third constructor is a move constructor, and the fourth is the same as the second but with an
+  <a href="lib_cpp.html#rvalue%20references">rvalue reference</a>.</p>
+
+  <h3><code><a name="stack::swap">stack::swap</a></code></h3>
+  <pre>
+void <b>swap</b>(stack&amp; right); <b>[added with C++0X]</b>
+</pre>
+
+  <p>The template function swaps <code>right</code> with <code>*this</code>.</p>
+
+  <h3><code><a name="stack::top">stack::top</a></code></h3>
+  <pre>
+reference <b>top</b>();
+const_reference <b>top</b>() const;
+</pre>
+
+  <p>The member function returns a reference to the last element of the controlled sequence, which must be
+  non-empty.</p>
+
+  <h3><code><a name="stack::value_type">stack::value_type</a></code></h3>
+  <pre>
+typedef typename Container::value_type <b>value_type</b>;
+</pre>
+
+  <p>The type is a synonym for <code>Container::value_type</code>.</p>
+
+  <h2><code><a name="swap">swap</a></code></h2>
+  <pre>
+template&lt;class Ty, class Container&gt;
+    bool <b>swap</b>(stack&lt;Ty, Container&gt;&amp; left,
+        stack&lt;Ty, Container&gt;&amp;); <b>[added with C++0X]</b>
+</pre>
+
+  <p>The template function executes <code>left.<a href="#stack::swap">swap</a>(right)</code>.</p>
+  <hr>
+
+  <p>See also the <b><a href="index.html#Table%20of%20Contents">Table of Contents</a></b> and the <b><a href=
+  "_index.html">Index</a></b>.</p>
+
+  <p><i><a href="crit_pjp.html">Copyright</a> &copy; 1992-2010 by P.J. Plauger. Portions derived from work
+  <a href="crit_hp.html">copyright</a> &copy; 1994 by Hewlett-Packard Company. All rights reserved.</i></p>
+  <!--V5.30:126I-->
+</body>
+</html>

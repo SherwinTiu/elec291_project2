@@ -1,0 +1,404 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html>
+<head>
+  <meta name="generator" content=
+  "HTML Tidy for Mac OS X (vers 31 October 2006 - Apple Inc. build 15.15), see www.w3.org">
+
+  <title>&lt;tuple&gt;</title>
+</head>
+
+<body>
+  <h1><a name="&lt;tuple&gt;"><code>&lt;tuple&gt;</code></a></h1>
+
+  <p>[added with <a href="index.html#TR1">TR1</a>]</p>
+  <hr>
+
+  <p><b><code><a href="#begin">begin</a> &middot; <a href="#end">end</a> &middot; <a href="#get">get</a>
+  &middot; <a href="#ignore">ignore</a> &middot; <a href="#make_tuple">make_tuple</a> &middot; <a href=
+  "#swap">swap</a> &middot; <a href="#tie">tie</a> &middot; <a href="#tuple">tuple</a> &middot; <a href=
+  "#tuple_cat">tuple_cat</a> &middot; <a href="#tuple_element">tuple_element</a> &middot; <a href=
+  "#tuple_size">tuple_size</a></code></b></p>
+
+  <p><b><code><a href="#operator==">operator==</a> &middot; <a href="#operator!=">operator!=</a> &middot;
+  <a href="#operator%3C">operator&lt;</a> &middot; <a href="#operator%3C=">operator&lt;=</a> &middot;
+  <a href="#operator%3E">operator&gt;</a> &middot; <a href="#operator%3E=">operator&gt;=</a></code></b></p>
+  <hr>
+
+  <p>Include the <a href="index.html#TR1">TR1</a> header <b><code>&lt;tuple&gt;</code></b> to define a
+  template <code>tuple</code> whose instances hold objects of varying types.</p>
+
+  <p>Note: Beginning with <b>C++0X</b>, this header makes extensive use of <a href=
+  "lib_cpp.html#variadic%20templates">variadic templates</a>, indicated by various uses of ellipsis
+  (<code>...</code>). The descriptions below use variadic notation, but still apply to older compilers,
+  provided the number of parameters in a varying-length list does not exceed ten.</p>
+  <pre>
+namespace std {
+    namespace tr1 {
+    // TEMPLATE CLASSES
+template&lt;class... Types&gt;
+    class <b><a href="#tuple">tuple</a></b>;
+
+template&lt;size_t Idx, class Ty&gt;
+    class <b><a href="#tuple_element">tuple_element</a></b>; // not defined
+template&lt;size_t Idx, class... Types&gt;
+    class <b><a href="#tuple_element">tuple_element</a></b>&lt;Idx, tuple&lt;Types...&gt; &gt;;
+
+template&lt;class Ty&gt;
+    class <b><a href="#tuple_size">tuple_size</a></b>; // not defined
+template&lt;class... Types&gt;
+    class <b><a href="#tuple_size">tuple_size</a></b>&lt;tuple&lt;Types...&gt; &gt;;
+
+    // TEMPLATE FUNCTIONS
+template&lt;size_t Idx, class... Types&gt;
+    typename tuple_element&lt;Idx, tuple&lt;Types...&gt; &gt;::type&amp;
+        <b><a href="#get">get</a></b>(tuple&lt;Types...&amp;&gt; tpl);
+template&lt;size_t Idx, class... Types&gt;
+    typename tuple_element&lt;Idx, tuple&lt;Types...&gt; &gt;::type&amp;
+        <b><a href="#get">get</a></b>(const tuple&lt;Types...&amp;&gt; tpl);
+
+template&lt;class... Types&gt;
+    tuple&lt;Types2...&gt;
+        <b><a href="#make_tuple">make_tuple</a></b>(Types...);
+template&lt;class... Types&gt;
+    tuple&lt;Types&amp;...&gt;
+        <b><a href="#tie">tie</a></b>(Types&amp;...);
+template&lt;class... Types1, class... Types2&gt;
+    tuple&lt;Types1..., Types2...&gt;
+        <b><a href="#tuple_cat">tuple_cat</a></b>(tuple&lt;Types1...&gt;&amp;&amp; t1,
+            tuple&lt;Types2...&gt;&amp;&amp; t2); <b>[added with C++0X]</b>
+template&lt;class... Types&gt;
+    void <b><a href="#swap">swap</a></b>(tuple&lt;Types...&amp;&gt; left,
+        tuple&lt;Types...&amp;&gt; right);
+
+template&lt;class InIt&gt;
+    InIt <b><a href="#begin">begin</a></b>(const tuple&lt;InIt, InIt&gt;&amp; pr); <b>[added with C++0X]</b>
+template&lt;class InIt&gt;
+    InIt <b><a href="#end">end</a></b>(const tuple&lt;InIt, InIt&gt;&amp; pr); <b>[added with C++0X]</b>
+
+    // TEMPLATE COMPARISON OPERATORS
+template&lt;class... Types1, class... Types2&gt;
+    bool <b><a href="#operator==">operator==</a></b>(const tuple&lt;Types1...&gt;&amp; tpl1,
+        const tuple&lt;Types2...&gt;&amp; tpl2);
+template&lt;class... Types1, class... Types2&gt;
+    bool <b><a href="#operator!=">operator!=</a></b>(const tuple&lt;Types1...&gt;&amp; tpl1,
+        const tuple&lt;Types2...&gt;&amp; tpl2);
+template&lt;class... Types1, class... Types2&gt;
+    bool <b><a href="#operator%3C">operator&lt;</a></b>(const tuple&lt;Types1...&gt;&amp; tpl1,
+        const tuple&lt;Types2...&gt;&amp; tpl2);
+template&lt;class... Types1, class... Types2&gt;
+    bool <b><a href="#operator%3E=">operator&gt;=</a></b>(const tuple&lt;Types1...&gt;&amp; tpl1,
+        const tuple&lt;Types2...&gt;&amp; tpl2);
+template&lt;class... Types1, class... Types2&gt;
+    bool <b><a href="#operator%3E">operator&gt;</a></b>(const tuple&lt;Types1...&gt;&amp; tpl1,
+        const tuple&lt;Types2...&gt;&amp; tpl2);
+template&lt;class... Types1, class... Types2&gt;
+    bool <b><a href="#operator%3C=">operator&lt;=</a></b>(const tuple&lt;Types1...&gt;&amp; tpl1,
+        const tuple&lt;Types2...&gt;&amp; tpl2);
+
+    // CONST OBJECTS
+const T1 <b><a href="#ignore">ignore</a></b>;
+
+    }  // namespace tr1
+using tr1::get; using tr1::ignore; <b>[added with C++0X]</b>
+using tr1::make_tuple; using tr1::ref;
+using tr1::tie; using tr1::tuple;
+using tr1::tuple_cat; using tr1::tuple_element;
+using tr1::tuple_size;
+}  // namespace std
+</pre>
+
+  <h2><code><a name="begin">begin</a></code></h2>
+  <pre>
+template&lt;class InIt&gt;
+    InIt <b>begin</b>(const tuple&lt;InIt, InIt&gt;&amp; pr); <b>[added with C++0X]</b>
+</pre>
+
+  <p>The function returns <code><a href="#get">get</a>&lt;0&gt;(pr)</code>.</p>
+
+  <h2><code><a name="end">end</a></code></h2>
+  <pre>
+template&lt;class InIt&gt;
+    InIt <b>end</b>(const tuple&lt;InIt, InIt&gt;&amp; pr); <b>[added with C++0X]</b>
+</pre>
+
+  <p>The function returns <code><a href="#get">get</a>&lt;1&gt;(pr)</code>.</p>
+
+  <h2><code><a name="get">get</a></code></h2>
+  <pre>
+template&lt;size_t Idx, class... Types&gt;
+    typename tuple_element&lt;Idx, tuple&lt;Types...&gt; &gt;::type&amp;
+        <b>get</b>(tuple&lt;Types...&amp;&gt; tpl);
+template&lt;size_t Idx, class... Types&gt;
+    typename tuple_element&lt;Idx, tuple&lt;Types...&gt; &gt;::type&amp;
+        <b>get</b>(const tuple&lt;Types...&amp;&gt; tpl);
+</pre>
+
+  <p>The template functions return a reference to the value at <a href="#tuple%20index">index</a>
+  <code>Idx</code> in the <code>tuple</code> object <code>tpl</code>. If the corresponding type
+  <code>Ti</code> in <code>Types</code> is a reference type, both functions return <code>Ti</code>; otherwise
+  the first function returns <code>Ti&amp;</code> and the second function returns <code>const
+  Ti&amp;</code>.</p>
+
+  <h2><code><a name="ignore">ignore</a></code></h2>
+  <pre>
+const T1 <b>ignore</b>;
+</pre>
+
+  <p>The object has unspecified type <code>T1</code> and can be assigned anything with no effect. Note that
+  <code>ignore&amp;</code> can make a useful placeholder in a <code>tuple</code> object.</p>
+
+  <h2><code><a name="make_tuple">make_tuple</a></code></h2>
+  <pre>
+template&lt;class... Types&gt;
+    tuple&lt;Types2...&gt;
+        <b>make_tuple</b>(Types...);
+</pre>
+
+  <p>The template function returns a <code>tuple</code> object constructed from the argument list, where each
+  element type <code>T2i</code> in <code>Types2</code> is determined from the corresponding <code>Ti</code>
+  in <code>Types</code> as follows:</p>
+
+  <ul>
+    <li>If <code>Ti</code> is any const/volatile qualified <code><a href=
+    "functio2.html#reference_wrapper">reference_wrapper</a>&lt;X&gt;</code>, <code>T2i</code> is
+    <code>X&amp;</code>.</li>
+
+    <li>Otherwise, beginning with <b>C++0X</b>, <code>T2i</code> is <code><a href=
+    "typetrait.html#decay">decay</a>&lt;Ti&gt;::type</code>.</li>
+
+    <li>Otherwise, <code>T2i</code> is <code>Ti</code>.</li>
+  </ul>
+
+  <h2><code><a name="operator==">operator==</a></code></h2>
+  <pre>
+template&lt;class... Types1, class... Types2&gt;
+    bool <b>operator==</b>(const tuple&lt;Types1...&gt;&amp; tpl1,
+        const tuple&lt;Types2...&gt;&amp; tpl2);
+</pre>
+
+  <p>The function returns true only when both tuples are empty, or when <code>get&lt;0&gt;(tpl1) ==
+  get&lt;0&gt;(tpl2) &amp;&amp; ...</code> for all corresponding elements.</p>
+
+  <h2><code><a name="operator!=">operator!=</a></code></h2>
+  <pre>
+template&lt;class... Types1, class... Types2&gt;
+    bool <b>operator!=</b>(const tuple&lt;Types1...&gt;&amp; tpl1,
+        const tuple&lt;Types2...&gt;&amp; tpl2);
+</pre>
+
+  <p>The function returns <code>!(tpl1 == tpl2)</code>.</p>
+
+  <h2><code><a name="operator&lt;">operator&lt;</a></code></h2>
+  <pre>
+template&lt;class... Types1, class... Types2&gt;
+    bool <b>operator&lt;</b>(const tuple&lt;Types1...&gt;&amp; tpl1,
+        const tuple&lt;Types2...&gt;&amp; tpl2);
+</pre>
+
+  <p>The function returns true only when both tuples are not empty and <code>get&lt;0&gt;(tpl1) &lt;
+  get&lt;0&gt;(tpl2) || !(get&lt;0&gt;(tpl2) &lt; get&lt;0&gt;(tpl1)) &amp;&amp; ...</code> for all
+  corresponding elements.</p>
+
+  <h2><code><a name="operator&lt;=">operator&lt;=</a></code></h2>
+  <pre>
+template&lt;class... Types1, class... Types2&gt;
+    bool <b>operator&lt;=</b>(const tuple&lt;Types1...&gt;&amp; tpl1,
+        const tuple&lt;Types2...&gt;&amp; tpl2);
+</pre>
+
+  <p>The function returns <code>!(tpl2 &lt; tpl1)</code>.</p>
+
+  <h2><code><a name="operator&gt;">operator&gt;</a></code></h2>
+  <pre>
+template&lt;class... Types1, class... Types2&gt;
+    bool <b>operator&gt;</b>(const tuple&lt;Types1...&gt;&amp; tpl1,
+        const tuple&lt;Types2...&gt;&amp; tpl2);
+</pre>
+
+  <p>The function returns <code>tpl2 &lt; tpl1</code>.</p>
+
+  <h2><code><a name="operator&gt;=">operator&gt;=</a></code></h2>
+  <pre>
+template&lt;class... Types1, class... Types2&gt;
+    bool <b>operator&gt;=</b>(const tuple&lt;Types1...&gt;&amp; tpl1,
+        const tuple&lt;Types2...&gt;&amp; tpl2);
+</pre>
+
+  <p>The function returns <code>!(tpl1 &lt; tpl2)</code>.</p>
+
+  <h2><code><a name="swap">swap</a></code></h2>
+  <pre>
+template&lt;class... Types&gt;
+    void <b>swap</b>(tuple&lt;Types...&amp;&gt; left,
+        tuple&lt;Types...&amp;&gt; right);
+</pre>
+
+  <p>The function executes <code>left.swap(right)</code>.</p>
+
+  <h2><code><a name="tie">tie</a></code></h2>
+  <pre>
+template&lt;class... Types&gt;
+    tuple&lt;Types&amp;...&gt;
+        <b>tie</b>(Types&amp;...);
+</pre>
+
+  <p>The template function returns a <code>tuple</code> object constructed from the argument list, where each
+  element is a reference. Note that a reference to <code><a href="#ignore">ignore</a></code> can be assigned
+  anything and will do nothing.</p>
+
+  <h2><code><a name="tuple">tuple</a></code></h2>
+  <pre>
+template&lt;class... Types&gt;
+class <b>tuple</b> {
+public:
+    <b><a href="#tuple::tuple">tuple</a></b>();
+    explicit <b><a href="#tuple::tuple">tuple</a></b>(const Types&amp;...);
+    <b><a href="#tuple::tuple">tuple</a></b>(const tuple&amp; right);
+    template &lt;class... Types2&gt;
+        <b><a href="#tuple::tuple">tuple</a></b>(const tuple&lt;Types2...&gt;&amp; right);
+    template &lt;class U1, class U2&gt;
+        <b><a href="#tuple::tuple">tuple</a></b>(const pair&lt;U1, U2&gt;&amp; right);
+
+    template &lt;class... Types2&gt;
+        explicit <b><a href=
+"#tuple::tuple">tuple</a></b>(Types2...&gt;&amp;&amp; args); <b>[added with C++0X]</b>
+
+    <b><a href="#tuple::tuple">tuple</a></b>(tuple&amp;&amp; right); <b>[added with C++0X]</b>
+    template &lt;class... Types2&gt;
+        <b><a href=
+"#tuple::tuple">tuple</a></b>(tuple&lt;Types2...&gt;&amp;&amp; right); <b>[added with C++0X]</b>
+    template &lt;class U1, class U2&gt;
+        <b><a href=
+"#tuple::tuple">tuple</a></b>(pair&lt;U1, U2&gt;&amp;&amp; right); <b>[added with C++0X]</b>
+
+    void <b><a href="#tuple::swap">swap</a></b>(tuple&amp; right); <b>[added with C++0X]</b>
+
+    tuple&amp; <b><a href="#tuple::operator=">operator=</a></b>(const tuple&amp; right);
+    template &lt;class... Types2&gt;
+        tuple&amp; <b><a href="#tuple::operator=">operator=</a></b>(const tuple&lt;Types2...&gt;&amp; right);
+    template &lt;class U1, class U2&gt;
+        tuple&amp; <b><a href="#tuple::operator=">operator=</a></b>(const pair&lt;U1, U2&gt;&amp; right);
+
+    tuple&amp; <b><a href=
+"#tuple::operator=">operator=</a></b>(tuple&amp;&amp; right); <b>[added with C++0X]</b>
+    template &lt;class... Types2&gt;
+        tuple&amp; <b><a href=
+"#tuple::operator=">operator=</a></b>(tuple&lt;Types2...&gt;&amp;&amp; right); <b>[added with C++0X]</b>
+    template &lt;class U1, class U2&gt;
+        tuple&amp; <b><a href=
+"#tuple::operator=">operator=</a></b>(pair&lt;U1, U2&gt;&amp;&amp; right); <b>[added with C++0X]</b>
+    };
+</pre>
+
+  <p>The template class describes an object that stores zero or more objects of types specified by
+  <code>Types</code>. The <b><a name="tuple extent">extent</a></b> of a tuple instance is the number
+  <code>N</code> of its template arguments. The <b><a name="tuple index">index</a></b> of the template
+  argument <code>Ti</code> (counting from zero) and of the corresponding stored value of that type is
+  <code>i</code>.</p>
+
+  <h3><code><a name="tuple::operator=">tuple::operator=</a></code></h3>
+  <pre>
+tuple&amp; <b>operator=</b>(const tuple&amp; right);
+template &lt;class... Types2&gt;
+    tuple&amp; <b>operator=</b>(const tuple&lt;Types2...&gt;&amp; right);
+template &lt;class U1, class U2&gt;
+    tuple&amp; <b>operator=</b>(const pair&lt;U1, U2&gt;&amp; right);
+
+tuple&amp; <b>operator=</b>(tuple&amp;&amp; right); <b>[added with C++0X]</b>
+template &lt;class... Types2&gt;
+    tuple&amp; <b>operator=</b>(tuple&lt;Types2...&gt;&amp;&amp; right); <b>[added with C++0X]</b>
+template &lt;class U1, class U2&gt;
+    tuple&amp; <b>operator=</b>(pair&lt;U1, U2&gt;&amp;&amp; right); <b>[added with C++0X]</b>
+</pre>
+
+  <p>The first two member operators assign the elements of <code>right</code> to the corresponding elements
+  of <code>*this</code>. The third member operator assigns <code>right.first</code> to the element at
+  <a href="#tuple%20index">index</a> 0 of <code>*this</code> and <code>right.second</code> to the element at
+  index 1. All three member operators return <code>*this</code>.</p>
+
+  <p>The remaining member operators are analogs to earlier ones, but with <a href=
+  "lib_cpp.html#rvalue%20references">rvalue references</a>.</p>
+
+  <h3><code><a name="tuple::swap">tuple::swap</a></code></h3>
+  <pre>
+void <b>swap</b>(tuple&amp; right); <b>[added with C++0X]</b>
+</pre>
+
+  <p>The member function calls <code>swap</code> for each element of <code>right</code> and the corresponding
+  element of <code>*this</code>.</p>
+
+  <h3><code><a name="tuple::tuple">tuple::tuple</a></code></h3>
+  <pre>
+<b>tuple</b>();
+explicit <b>tuple</b>(const Types&amp;...);
+<b>tuple</b>(const tuple&amp; right);
+template &lt;class... Types2&gt;
+    <b>tuple</b>(const tuple&lt;Types2...&gt;&amp; right);
+template &lt;class U1, class U2&gt;
+    <b>tuple</b>(const pair&lt;U1, U2&gt;&amp; right);
+
+template &lt;class... Types2&gt;
+    explicit <b>tuple</b>(Types2...&gt;&amp;&amp; args); <b>[added with C++0X]</b>
+
+<b>tuple</b>(tuple&amp;&amp; right); <b>[added with C++0X]</b>
+template &lt;class... Types2&gt;
+    <b>tuple</b>(tuple&lt;Types2...&gt;&amp;&amp; right); <b>[added with C++0X]</b>
+template &lt;class U1, class U2&gt;
+    <b>tuple</b>(pair&lt;U1, U2&gt;&amp;&amp; right); <b>[added with C++0X]</b>
+</pre>
+
+  <p>The first constructor constructs an object whose elements are default constructed. The second
+  constructor constructs an object whose elements are copy constructed from the argument list.</p>
+
+  <p>The third and fourth constructors construct an object whose elements are copy constructed from the
+  corresponding element of <code>right</code>. The fifth constructor constructs an object whose element at
+  index 0 is copy constructed from <code>right.first</code> and whose element at index 1 is copy constructed
+  from <code>right.second</code>.</p>
+
+  <p>The sixth constructor constructs each of the elements by moving the corresponding argument. The
+  remaining constructors are analogs to earlier ones, but with <a href=
+  "lib_cpp.html#rvalue%20references">rvalue references</a>.</p>
+
+  <h2><code><a name="tuple_cat">tuple_cat</a></code></h2>
+  <pre>
+template&lt;class... Types1, class... Types2&gt;
+    tuple&lt;Types1..., Types2...&gt;
+        <b>tuple_cat</b>(tuple&lt;Types1...&gt;&amp;&amp; t1,
+            tuple&lt;Types2...&gt;&amp;&amp; t2); <b>[added with C++0X]</b>
+</pre>
+
+  <p>The template function returns an object of type <code>tuple&lt;Types1..., Types2...&gt;</code> whose
+  first <code>Types1...</code> elements are initialized from <code>t1</code> and whose remaining
+  <code>Types2...</code> elements are initialized from <code>t2</code>.</p>
+
+  <h2><code><a name="tuple_element">tuple_element</a></code></h2>
+  <pre>
+template&lt;size_t Idx, class Ty&gt;
+    class <b>tuple_element</b>; // not defined
+template&lt;size_t Idx, class... Types&gt;
+    class <b>tuple_element</b>&lt;Idx, tuple&lt;Types...&gt; &gt;;
+</pre>
+
+  <p>The template class has a member type <code>type</code> that is a synonym for the type at <a href=
+  "#tuple%20index">index</a> <code>Idx</code> of the type <code>tuple&lt;Types...&gt;</code>.</p>
+
+  <h2><code><a name="tuple_size">tuple_size</a></code></h2>
+  <pre>
+template&lt;class Ty&gt;
+    class <b>tuple_size</b>; // not defined
+template&lt;class... Types&gt;
+    class <b>tuple_size</b>&lt;tuple&lt;Types...&gt; &gt;;
+</pre>
+
+  <p>The template class has a member <code>const size_t value</code> whose value is the <a href=
+  "#tuple%20extent">extent</a> of the type <code>tuple&lt;Types...&gt;</code>.</p>
+  <hr>
+
+  <p>See also the <b><a href="index.html#Table%20of%20Contents">Table of Contents</a></b> and the <b><a href=
+  "_index.html">Index</a></b>.</p>
+
+  <p><i><a href="crit_pjp.html">Copyright</a> &copy; 1992-2010 by Dinkumware, Ltd. All rights
+  reserved.</i></p><!--V5.30:126I-->
+</body>
+</html>

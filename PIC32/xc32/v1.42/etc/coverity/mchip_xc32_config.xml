@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!DOCTYPE coverity SYSTEM "coverity_config.dtd">
+
+<coverity>
+  <config>
+    <build>
+	  <variant>
+	    <compiler>
+		  <comp_name>xc32-gcc</comp_name>
+		  <default_comp_name>xc32-gcc</default_comp_name>
+		  <comp_translator>mchip_xc32</comp_translator>
+		  <comp_lang>C</comp_lang>
+		  <comp_desc>Microchip MPLAB XC C compiler for 32-bit devices (CIT)</comp_desc>
+		  <comp_cxx>false</comp_cxx>
+		  <comp_family_head>true</comp_family_head>
+          <extra_comp>
+                <comp_name>xc32-g++</comp_name>
+                <comp_type>mchip_xc32++</comp_type>
+          </extra_comp>
+         </compiler>
+	   </variant>
+	   <variant>
+	     <compiler>
+		   <comp_name>xc32-g++</comp_name>
+		   <default_comp_name>xc32-g++</default_comp_name>
+		   <comp_translator>mchip_xc32++</comp_translator>
+		   <comp_lang>C++</comp_lang>
+		   <comp_desc>Microchip MPLAB XC C++ compiler for 32-bit devices (CIT)</comp_desc>
+		   <comp_cxx>true</comp_cxx>
+		   <comp_family_head>false</comp_family_head>
+         </compiler>
+	   </variant>
+	   <options>
+	     <trans>
+           <options>
+             <prepend_arg>--c99</prepend_arg>
+           </options>
+         </trans>
+	     <compile_switch>-c</compile_switch>
+         <preprocess_switch>-E</preprocess_switch>
+         <preprocess_output>-</preprocess_output>
+         <dependency_output>2</dependency_output>
+         <dump_macros_arg>-E</dump_macros_arg>
+		 <dump_macros_arg>-dM</dump_macros_arg>
+	   </options>
+	   <config_gen_info>
+		 <extra_header>xc.h</extra_header>
+		 <extra_header>limits.h</extra_header>
+		 <extra_header>unwind.h</extra_header>
+		 <test_gnu_version>true</test_gnu_version>
+		 <use_gnu_ver_macro>true</use_gnu_ver_macro>
+       </config_gen_info>
+	</build>
+  </config>
+</coverity>

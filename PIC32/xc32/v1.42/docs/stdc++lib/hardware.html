@@ -1,0 +1,265 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html>
+<head>
+  <meta name="generator" content=
+  "HTML Tidy for Mac OS X (vers 31 October 2006 - Apple Inc. build 15.15), see www.w3.org">
+
+  <title>&lt;hardware&gt;</title>
+</head>
+
+<body>
+  <h1><a name="&lt;hardware&gt;"><code>&lt;hardware&gt;</code></a></h1>
+
+  <p>[added with <a name="TR18015">TR18015</a>]</p>
+  <hr>
+
+  <p><b><code><a href="#dynamic_address">dynamic_address</a> &middot; <a href="#hw_base">hw_base</a> &middot;
+  <a href="#platform_traits">platform_traits</a> &middot; <a href="#register_access">register_access</a>
+  &middot; <a href="#register_buffer">register_buffer</a> &middot; <a href=
+  "#register_traits">register_traits</a> &middot; <a href="#static_address">static_address</a></code></b></p>
+  <hr>
+
+  <p>Include the added header <b><code>&lt;hardware&gt;</code></b> so that you can write low-level I/O
+  hardware drivers in C++ that are easier to port to different architectures.</p>
+
+  <p>Note that the use of this header does <b>not</b> require any additions to the C++ language, as none are
+  mandated by TR18015.</p>
+  <pre>
+#include &lt;iohw.h&gt;
+
+namespace std {
+    namespace hardware {
+class <b><a name="hw_base">hw_base</a></b>
+    {   // define hardware address type
+public:
+    enum <b><a name="hw_base::access_mode">access_mode</a></b>
+        {   // access modes
+        <b><a name="hw_base::random">random</a></b>,
+        <b><a name="hw_base::read">read</a></b>,
+        <b><a name="hw_base::read_write">read_write</a></b>,
+        <b><a name="hw_base::write">write</a></b>
+        };
+    enum <b><a name="hw_base::device_bus">device_bus</a></b>
+        {   // device register widths
+        <b><a name="hw_base::device8">device8</a></b>,
+        <b><a name="hw_base::device16">device16</a></b>,
+        <b><a name="hw_base::device32">device32</a></b>,
+        <b><a name="hw_base::device64">device64</a></b>
+        };
+    enum <b><a name="hw_base::byte_order">byte_order</a></b>
+        {   // endianness
+        <b><a name="hw_base::msb_low">msb_low</a></b>,
+        <b><a name="hw_base::msb_high">msb_high</a></b>
+        };
+    enum <b><a name="hw_base::processor_bus">processor_bus</a></b>
+        {   // processor bus widths
+        <b><a name="hw_base::bus8">bus8</a></b>,
+        <b><a name="hw_base::bus16">bus16</a></b>,
+        <b><a name="hw_base::bus32">bus32</a></b>,
+        <b><a name="hw_base::bus64">bus64</a></b>
+        };
+    enum <b><a name="hw_base::data_bus">data_bus</a></b>
+        {   // type name for data bus
+        };
+    enum <b><a name="hw_base::io_bus">io_bus</a></b>
+        {   // type name for I/O bus
+        };
+    enum <b><a name="hw_base::address_kind">address_kind</a></b>
+        {   // addressing model
+        <b><a name="hw_base::is_static">is_static</a></b>,
+        <b><a name="hw_base::is_dynamic">is_dynamic</a></b>
+        };
+    typedef ::ioreg <b><a name="hw_base::address_type">address_type</a></b>;  // HARDWARE DEPENDENT
+    };
+
+        // TEMPLATE CLASS static_address
+template&lt;hw_base::address_type Val&gt;
+    class <b><a name="static_address">static_address</a></b>
+    {   // specialization for value of type hw_base::address_type
+public:
+    enum
+        {   // define value from template parameter
+        <b><a name="static_address::value_">value_</a></b> = Val
+        };
+    hw_base::address_type <b><a name="static_address::value">value</a></b>() const
+        {   // get value of this static address
+        return (Val);
+        }
+    };
+
+        // CLASS dynamic_address
+class <b><a name="dynamic_address">dynamic_address</a></b>
+    {   // store dynamic address
+public:
+    <b><a name="dynamic_address::dynamic_address">dynamic_address</a></b>(hw_base::address_type address);
+        :    value_(address)
+        {   // construct from address
+        }
+
+    hw_base::address_type <b><a name="dynamic_address::value">value</a></b>() const
+        {   // get value of stored address
+        return (value_);
+        }
+
+    hw_base::address_type <b><a name="dynamic_address::value_">value_</a></b>;
+    };
+
+        // CLASS platform_traits
+class <b><a name="platform_traits">platform_traits</a></b>
+    {   // default platform traits (ALL CONTENTS OPTIONAL)
+public:
+    typedef hw_base::address_type <b><a name="platform_traits::address_holder">address_holder</a></b>;
+    typedef hw_base::address_type <b><a name="platform_traits::processor_bus">processor_bus</a></b>;
+    enum
+        {   // platform traits
+        <b><a name="platform_traits::address_mode">address_mode</a></b>,
+        <b><a name="platform_traits::processor_endianness">processor_endianness</a></b>,
+        <b><a name="platform_traits::processor_bus_width">processor_bus_width</a></b>
+        };
+    };
+
+        // CLASS register_traits
+class <b><a name="register_traits">register_traits</a></b>
+    {   // default register traits (ALL CONTENTS OPTIONAL)
+public:
+    typedef unsigned int <b><a name="register_traits::value_type">value_type</a></b>;
+    typedef hw_base::address_type <b><a name="register_traits::address_holder">address_holder</a></b>;
+    enum
+        {   // platform traits
+        <b><a name="register_traits::address_mode">address_mode</a></b>,
+        <b><a name="register_traits::access_mode">access_mode</a></b>,
+        <b><a name="register_traits::endianness">endianness</a></b>,
+        <b><a name="register_traits::device_bus_width">device_bus_width</a></b>
+        };
+    };
+
+        // TEMPLATE CLASS register_access
+template&lt;class Reg_traits = register_traits,
+    class Platform_traits = platform_traits&gt;
+    class <b><a name="register_access">register_access</a></b>
+    {   // access wrapper for a hardware I/O register
+    typedef typename Platform_traits::address_holder Plat_t;
+    typedef typename Reg_traits::address_holder Reg_t;
+
+public:
+    typedef typename Reg_traits::value_type <b><a name="register_access::value_type">value_type</a></b>;
+
+    <b><a name="register_access::register_access">register_access</a></b>();
+    <b>register_access</b>(const Plat_t&amp; plat_addr);
+    <b>register_access</b>(const Reg_t&amp; reg_addr,
+        const Plat_t&amp; plat_addr);
+
+    // access operators
+    operator <b><a name="register_access::value_type">value_type</a></b>() const;
+    void <b><a name="register_access::operator=">operator=</a></b>(value_type val);
+    void <b><a name="register_access::operator!=">operator|=</a></b>(value_type val);
+    void <b><a name="register_access::operator&amp;=">operator&amp;=</a></b>(value_type val);
+    void <b><a name="register_access::operator^=">operator^=</a></b>(value_type val);
+
+    // access functions
+    value_type <b><a name="register_access::read">read</a></b>() const;
+    void <b><a name="register_access::write">write</a></b>(value_type val);
+    void <b><a name="register_access::or_with">or_with</a></b>(value_type val);
+    void <b><a name="register_access::and_with">and_with</a></b>(value_type val);
+    void <b><a name="register_access::xor_with">xor_with</a></b>(value_type val);
+    };
+
+        // TEMPLATE CLASS register_buffer
+template&lt;class Reg_traits = register_traits,
+    class Platform_traits = platform_traits&gt;
+    class <b><a name="register_buffer">register_buffer</a></b>
+    {   // access wrapper for a hardware I/O register
+    typedef typename Platform_traits::address_holder Plat_t;
+    typedef typename Reg_traits::address_holder Reg_t;
+
+public:
+    typedef register_access&lt;Reg_traits, Platform_traits&gt; <b><a name=
+"register_buffer::ref_type">ref_type</a></b>;
+    typedef typename Reg_traits::value_type <b><a name="register_buffer::value_type">value_type</a></b>;
+
+    <b><a name="register_buffer::register_buffer">register_buffer</a></b>();
+    <b>register_buffer</b>(const Plat_t&amp; plat_addr);
+    <b>register_buffer</b>(const Reg_t&amp; reg_addr,
+        const Plat_t&amp; plat_addr);
+
+    // access operators
+    ref_type <b><a name="register_buffer::operator[]">operator[]</a></b>(ioindex_t idx) const;
+
+    // access functions
+    ref_type <b><a name=
+"register_buffer::get_buffer_element">get_buffer_element</a></b>(ioindex_t idx) const;
+    };
+    }    // namespace hardware
+}    // namespace std
+</pre>
+
+  <p>The header <code>&lt;hardware&gt;</code> defines a number of classes and templates. You should view this
+  header as a prototype for defining the C++ interface to the atomic operations needed to express a low-level
+  I/O hardware driver. It supplements the C header <code><a href="iohw.html">&lt;iohw.h&gt;</a></code>. The
+  facilities in this header are structured around a few basic concepts:</p>
+
+  <ul>
+    <li>Class <b><code>access_mode</code></b> supplies the enumeration constants needed to describes the
+    properties of I/O addresses. The member type <code>address_type</code> is used in other classes as the
+    type of I/O addresses.</li>
+
+    <li>Class <b><code>platform_traits</code></b> supplies the enumeration constants needed to describes the
+    properties of an I/O bus in general. The member type <code>address_holder</code> is used in other classes
+    as the type of I/O addresses. Class <b><code>register_traits</code></b> performs a similar role for
+    specific ports on an I/O bus.</li>
+
+    <li>Template class <b><code>static_address</code></b> wraps an I/O address whose value is known at
+    translation time, while class <b><code>dynamic_address</code></b> waps one that might nit be known until
+    program execution.</li>
+
+    <li>Class <b><code>register_access</code></b> supplies the member functions that call actual drivers to
+    perform I/O operations. Similarly, class <b><code>register_buffer</code></b> supplies
+    <code>register_access</code> objects for different elements of a hardware buffer.</li>
+  </ul>
+
+  <p>In this <a href="index.html#implementation">implementation</a>, all operations are performed by calling
+  one of the five low-level functions (defined in <code>&lt;iohw.h&gt;</code>):</p>
+  <pre>
+    iordbuf(_IOHW_NAME, idx)
+    iowrbuf(_IOHW_NAME, idx, val)
+    ioorbuf(_IOHW_NAME, idx, val)
+    ioandbuf(_IOHW_NAME, idx, val)
+    ioxorbuf(_IOHW_NAME, idx, val)
+</pre>
+
+  <p>If the macro <code>_IOHW_NAME</code> is not defined when the header <code>&lt;hardware&gt;</code> is
+  first included, the macro is defined as <code>hardware</code>. Further, the code assumes that all I/O
+  occurs within a flat address space, where the effective port address is simply the sum of the platform
+  address, the register address, and the index into a specific buffer. So you can write code such as:</p>
+  <pre>
+#define KBD         0xffe0  // base address of keyboard ports
+#define KBD_STATUS  0       // first of two adjacent ports
+#define KBD_DATA    1       // second of two adjacent ports
+#define KBD_DONE    0x80    // DONE status bit
+
+extern unsigned int hardware_brd(ioindex_t idx);  // actual driver
+
+typedef std::hardware::register_buffer&lt;&gt; buffer_t;
+
+buffer_t::value_type getkbd()
+    {   // read keyboard when ready
+    buffer_t status(KBD, KBD_STATUS);
+    buffer_t data(KBD, KBD_DATA);
+
+    while ((status.read() &amp; KBD_DONE) == 0)
+        ;   // wait until character is present
+    return (data);  // read character and clear DONE
+    }
+</pre>
+
+  <p>All actual driver calls will be to the function (or macro) <code>hardware_brd</code>.</p>
+  <hr>
+
+  <p>See also the <b><a href="index.html#Table%20of%20Contents">Table of Contents</a></b> and the <b><a href=
+  "_index.html">Index</a></b>.</p>
+
+  <p><i><a href="crit_pjp.html">Copyright</a> &copy; 1992-2010 by P.J. Plauger. All rights reserved.</i></p>
+  <!--V5.30:126I-->
+</body>
+</html>

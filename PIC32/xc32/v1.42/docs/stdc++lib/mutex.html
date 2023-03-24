@@ -1,0 +1,464 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html>
+<head>
+  <meta name="generator" content=
+  "HTML Tidy for Mac OS X (vers 31 October 2006 - Apple Inc. build 15.15), see www.w3.org">
+
+  <title>"mutex"</title>
+</head>
+
+<body>
+  <h1><a name="&quot;mutex&quot;">"Dinkum/threads/mutex"</a></h1>
+  <hr>
+
+  <p>Include the header <b><code>"Dinkum/threads/mutex"</code></b> to define the non-recursive <a href=
+  "index_thr.html#mutex">mutex</a> classes <code>mutex</code>, <code>try_mutex</code> and
+  <code>timed_mutex</code>.</p>
+  <pre>
+namespace Dinkum {
+    namespace threads {
+    class <b><a href="#mutex">mutex</a></b>;
+    class <b><a href="#try_mutex">try_mutex</a></b>;
+    class <b><a href="#timed_mutex">timed_mutex</a></b>;
+    }  // namespace threads
+} // namespace Dinkum
+</pre>
+
+  <h2><a name="mutex"><code>mutex</code></a></h2>
+  <pre>
+class <b>mutex</b>
+    {
+public:
+    <b><a href="#mutex::mutex">mutex</a></b>();
+    <b><a href="#mutex::~mutex">~mutex</a></b>();
+    typedef SL0 <b><a href="#scoped%20lock">scoped_lock</a></b>;
+
+<i>    // exposition only
+private:
+    // not implemented
+    mutex(const mutex&amp;);
+    mutex&amp; operator= (const mutex&amp;);</i>
+    };
+</pre>
+
+  <p>The class describes an object that can be used with a <a href="#scoped%20lock">scoped lock</a> to
+  provide a non-recursive <a href="index_thr.html#mutex">mutex</a>. Objects of class <code>mutex</code>
+  cannot be copied.</p>
+
+  <h3><code><a name="mutex::mutex">mutex::mutex</a></code></h3>
+  <pre>
+<b>mutex</b>();
+</pre>
+
+  <p>The constructor constructs a <code>mutex</code> in the unlocked state.</p>
+
+  <h3><code><a name="mutex::~mutex">mutex::~mutex</a></code></h3>
+  <pre>
+<b>~mutex</b>();
+</pre>
+
+  <p><i><a href="index_thr.html#Precondition">Precondition</a>:</i> the object must not be locked.</p>
+
+  <p>The destructor releases any resources used by the object.</p>
+
+  <h2><a name="try_mutex"><code>try_mutex</code></a></h2>
+  <pre>
+class <b>try_mutex</b>
+    {
+public:
+    <b><a href="#try_mutex::try_mutex">try_mutex</a></b>();
+    <b><a href="#try_mutex::~try_mutex">~try_mutex</a></b>();
+    typedef SL0 <b><a href="#scoped%20lock">scoped_lock</a></b>;
+    typedef SL1 <b><a href="#scoped%20try%20lock">scoped_try_lock</a></b>;
+
+<i>    // exposition only
+private:
+    // not implemented
+    try_mutex(const try_mutex&amp;);
+    try_mutex&amp; operator= (const try_mutex&amp;);</i>
+    };
+</pre>
+
+  <p>The class describes an object that can be used with a <a href="#scoped%20lock">scoped lock</a> or a
+  <a href="#scoped%20try%20lock">scoped try lock</a> to provide a non-recursive <a href=
+  "index_thr.html#mutex">mutex</a> that supports <a href="index_thr.html#test%20and%20return">test and
+  return</a>. Objects of class <code>try_mutex</code> cannot be copied.</p>
+
+  <h3><code><a name="try_mutex::try_mutex">try_mutex::try_mutex</a></code></h3>
+  <pre>
+<b>try_mutex</b>();
+</pre>
+
+  <p>The constructor constructs a <code>try_mutex</code> in the unlocked state.</p>
+
+  <h3><code><a name="try_mutex::~try_mutex">try_mutex::~try_mutex</a></code></h3>
+  <pre>
+<b>~try_mutex</b>();
+</pre>
+
+  <p><i><a href="index_thr.html#Precondition">Precondition</a>:</i> the object must not be locked.</p>
+
+  <p>The destructor releases any resources used by the object.</p>
+
+  <h2><a name="timed_mutex"><code>timed_mutex</code></a></h2>
+  <pre>
+class <b>timed_mutex</b>
+    {
+public:
+    <b><a href="#timed_mutex::timed_mutex">timed_mutex</a></b>();
+    <b><a href="#timed_mutex::~timed_mutex">~timed_mutex</a></b>();
+    typedef SL0 <b><a href="#scoped%20lock">scoped_lock</a></b>;
+    typedef SL1 <b><a href="#scoped%20try%20lock">scoped_try_lock</a></b>;
+    typedef SL2 <b><a href="#scoped%20timed%20lock">scoped_timed_lock</a></b>;
+
+<i>    // exposition only
+private:
+    // not implemented
+    timed_mutex(const timed_mutex&amp;);
+    timed_mutex&amp; operator= (const timed_mutex&amp;);</i>
+    };
+</pre>
+
+  <p>The class describes an object that can be used with a <a href="#scoped%20lock">scoped lock</a>, a
+  <a href="#scoped%20try%20lock">scoped try lock</a> or a <a href="#scoped%20timed%20lock">scoped timed
+  lock</a> to provide a non-recursive <a href="index_thr.html#mutex">mutex</a> that supports <a href=
+  "index_thr.html#test%20and%20return">test and return</a> and <a href="index_thr.html#timeout">timeout</a>.
+  Objects of class <code>timed_mutex</code> cannot be copied.</p>
+
+  <h3><code><a name="timed_mutex::timed_mutex">timed_mutex::timed_mutex</a></code></h3>
+  <pre>
+<b>timed_mutex</b>();
+</pre>
+
+  <p>The constructor constructs a <code>timed_mutex</code> in the unlocked state.</p>
+
+  <h3><code><a name="timed_mutex::~timed_mutex">timed_mutex::~timed_mutex</a></code></h3>
+  <pre>
+<b>~timed_mutex</b>();
+</pre>
+
+  <p><i><a href="index_thr.html#Precondition">Precondition</a>:</i> the object must not be locked.</p>
+
+  <p>The destructor releases any resources used by the object.</p>
+
+  <h2><a name="scoped lock">scoped lock</a></h2>
+
+  <p>Every mutual exclusion class <code>mtx</code> defines a nested type <code>mtx::scoped_lock</code> that
+  can be used to create a <a href="#lock%20object">lock object</a> for an object of the type
+  <code>mtx</code>.</p>
+
+  <p>A <b><a name="lock object">lock object</a></b> is an object whose constructor locks an associated mutex
+  object and whose destructor unlocks the mutex object. Thus, proper unlocking is guaranteed in the presence
+  of exceptions. Lock objects cannot be copied.</p>
+  <pre>
+class <b>mtx::scoped_lock</b>
+    {
+public:
+    typedef mtx <a href="#scoped_lock::mutex_type">mutex_type</a>;
+
+    <a href="#scoped_lock::scoped_lock">scoped_lock</a>(mtx&amp; m);
+    <a href="#scoped_lock::scoped_lock">scoped_lock</a>(mtx&amp; m, bool lck);
+    <a href="#scoped_lock::~scoped_lock">~scoped_lock</a>();
+
+    <a href="#scoped_lock::operator%20const%20void%20*">operator const void *</a>() const;
+    bool <a href="#scoped_lock::locked">locked</a>() const;
+
+    void <a href="#scoped_lock::lock">lock</a>();
+    void <a href="#scoped_lock::unlock">unlock</a>();
+
+<i>    // exposition only
+private:
+    mtx&amp; <b>mm</b>;
+    bool <b>is_locked</b>;
+
+    // not implemented
+    scoped_lock::scoped_lock(const scoped_lock&amp;);
+    scoped_lock&amp; scoped_lock::operator= (const scoped_lock&amp;);</i>
+    };
+</pre>
+
+  <h3><code><a name="scoped_lock::lock">scoped_lock::lock</a></code></h3>
+  <pre>
+void <b>lock</b>();
+</pre>
+
+  <p>The member function locks the stored mutual exclusion object <code>mm</code> and sets the stored value
+  <code>is_locked</code> to <code>true</code>.</p>
+
+  <h3><code><a name="scoped_lock::locked">scoped_lock::locked</a></code></h3>
+  <pre>
+bool <b>locked</b>() const;
+</pre>
+
+  <p>The member function returns the stored value <code>is_locked</code>.</p>
+
+  <h3><code><a name="scoped_lock::mutex_type">scoped_lock::mutex_type</a></code></h3>
+  <pre>
+typedef mtx <b>mutex_type</b>;
+</pre>
+
+  <p>The nested type is a synonym for the containing type <code>mtx</code>.</p>
+
+  <h3><code><a name="scoped_lock::operator const void *">scoped_lock::operator const void *</a></code></h3>
+  <pre>
+<b>operator const void *</b>() const;
+</pre>
+
+  <p>The member function returns 0 if the stored value <code>is_locked</code> is <code>false</code>,
+  otherwise a non-0 pointer value.</p>
+
+  <h3><code><a name="scoped_lock::scoped_lock">scoped_lock::scoped_lock</a></code></h3>
+  <pre>
+<b>scoped_lock</b>(mtx&amp; m);
+<b>scoped_lock</b>(mtx&amp; m, bool lck);
+</pre>
+
+  <p>The first constructor constructs a <code>scoped_lock</code> object with stored value <code>mm</code> set
+  to <code>m</code> and then calls <code>lock</code>.</p>
+
+  <p>The second constructor constructs a <code>scoped_lock</code> object with stored value <code>mm</code>
+  set to <code>m</code>. If <code>lck</code> is <code>true</code> the constructor calls <code>lock</code>.
+  Otherwise the stored value <code>is_locked</code> is set to <code>false</code>.</p>
+
+  <h3><code><a name="scoped_lock::~scoped_lock">scoped_lock::~scoped_lock</a></code></h3>
+  <pre>
+<b>~scoped_lock</b>();
+</pre>
+
+  <p>The destructor calls <code>unlock</code> if the stored value <code>is_locked</code> is
+  <code>true</code>. Otherwise the destructor does nothing.</p>
+
+  <h3><code><a name="scoped_lock::unlock">scoped_lock::unlock</a></code></h3>
+  <pre>
+void <b>unlock</b>();
+</pre>
+
+  <p>The member function unlocks the stored mutual exclusion object <code>mm</code> and sets the stored value
+  <code>is_locked</code> to <code>false</code>. Note that if <code>mm</code> is a <a href=
+  "index_thr.html#recursive">recursive</a> mutex unlocking <code>mm</code> doesn't necessarily put
+  <code>mm</code> into the unlocked state.</p>
+
+  <h2><a name="scoped try lock">scoped try lock</a></h2>
+
+  <p>A mutual exclusion class <code>mtx</code> that supports <a href=
+  "index_thr.html#test%20and%20return">test and return</a> defines a nested type
+  <code>mtx::scoped_try_lock</code> that can be used to create a <a href="#lock%20object">lock object</a> for
+  an object of the type <code>mtx</code>.</p>
+  <pre>
+class <b>mtx::scoped_try_lock</b>
+    {
+public:
+    typedef mtx <a href="#scoped_try_lock::mutex_type">mutex_type</a>;
+
+    <a href="#scoped_try_lock::scoped_try_lock">scoped_try_lock</a>(mtx&amp; m);
+    <a href="#scoped_try_lock::scoped_try_lock">scoped_try_lock</a>(mtx&amp; m, bool lck);
+    <a href="#scoped_try_lock::~scoped_try_lock">~scoped_try_lock</a>();
+
+    <a href="#scoped_try_lock::operator%20const%20void%20*">operator const void *</a>() const;
+    bool <a href="#scoped_try_lock::locked">locked</a>() const;
+
+    void <a href="#scoped_try_lock::lock">lock</a>();
+    bool <a href="#scoped_try_lock::try_lock">try_lock</a>();
+    void <a href="#scoped_try_lock::unlock">unlock</a>();
+
+<i>    // exposition only
+private:
+    mtx&amp; <b>mm</b>;
+    bool <b>is_locked</b>;
+
+    // not implemented
+    scoped_try_lock::scoped_try_lock(const scoped_try_lock&amp;);
+    scoped_try_lock&amp; scoped_try_lock::operator= (const scoped_try_lock&amp;);</i>
+    };
+</pre>
+
+  <h3><code><a name="scoped_try_lock::lock">scoped_try_lock::lock</a></code></h3>
+  <pre>
+void <b>lock</b>();
+</pre>
+
+  <p>The member function locks the stored mutual exclusion object <code>mm</code> and sets the stored value
+  <code>is_locked</code> to <code>true</code>.</p>
+
+  <h3><code><a name="scoped_try_lock::locked">scoped_try_lock::locked</a></code></h3>
+  <pre>
+bool <b>locked</b>() const;
+</pre>
+
+  <p>The member function returns the stored value <code>is_locked</code>.</p>
+
+  <h3><code><a name="scoped_try_lock::mutex_type">scoped_try_lock::mutex_type</a></code></h3>
+  <pre>
+typedef mtx <b>mutex_type</b>;
+</pre>
+
+  <p>The nested type is a synonym for the containing type <code>mtx</code>.</p>
+
+  <h3><code><a name="scoped_try_lock::operator const void *">scoped_try_lock::operator const void
+  *</a></code></h3>
+  <pre>
+<b>operator const void *</b>() const;
+</pre>
+
+  <p>The member function returns 0 if the stored value <code>is_locked</code> is <code>false</code>,
+  otherwise a non-0 pointer value.</p>
+
+  <h3><code><a name="scoped_try_lock::scoped_try_lock">scoped_try_lock::scoped_try_lock</a></code></h3>
+  <pre>
+<b>scoped_try_lock</b>(mtx&amp; m);
+<b>scoped_try_lock</b>(mtx&amp; m, bool lck);
+</pre>
+
+  <p>The first constructor constructs a <code>scoped_try_lock</code> object with stored value <code>mm</code>
+  set to <code>m</code>, then calls <code>try_lock</code>.</p>
+
+  <p>The second constructor constructs a <code>scoped_try_lock</code> object with stored value
+  <code>mm</code> set to <code>m</code>. If <code>lck</code> is <code>true</code> the constructor calls
+  <code>lock</code>. Otherwise the stored value <code>is_locked</code> is set to <code>false</code>.</p>
+
+  <h3><code><a name="scoped_try_lock::~scoped_try_lock">scoped_try_lock::~scoped_try_lock</a></code></h3>
+  <pre>
+<b>~scoped_try_lock</b>();
+</pre>
+
+  <p>The destructor calls <code>unlock</code> if the stored value <code>is_locked</code> is
+  <code>true</code>. Otherwise the destructor does nothing.</p>
+
+  <h3><code><a name="scoped_try_lock::try_lock">scoped_try_lock::try_lock</a></code></h3>
+  <pre>
+bool <b>try_lock</b>();
+</pre>
+
+  <p>The member function attempts to lock the stored mutual exclusion object <code>mm</code>, using its
+  <a href="index_thr.html#test%20and%20return">test and return</a> mechanism, sets the stored value
+  <code>is_locked</code> to <code>true</code> if the lock attempt was successful or <code>false</code> if it
+  was not successful, and returns the stored value <code>is_locked</code>.</p>
+
+  <h3><code><a name="scoped_try_lock::unlock">scoped_try_lock::unlock</a></code></h3>
+  <pre>
+void <b>unlock</b>();
+</pre>
+
+  <p>The member function unlocks the stored mutual exclusion object <code>mm</code> and sets the stored value
+  <code>is_locked</code> to <code>false</code>. Note that if <code>mm</code> is a <a href=
+  "index_thr.html#recursive">recursive</a> mutex unlocking <code>mm</code> doesn't necessarily put
+  <code>mm</code> into the unlocked state.</p>
+
+  <h2><a name="scoped timed lock">scoped timed lock</a></h2>
+
+  <p>A mutual exclusion class <code>mtx</code> that supports <a href="index_thr.html#timeout">timeout</a>
+  defines a nested type <code>mtx::scoped_timed_lock</code> that can be used to create a <a href=
+  "#lock%20object">lock object</a> for an object of the type <code>mtx</code>.</p>
+  <pre>
+class <b>mtx::scoped_timed_lock</b>
+    {
+public:
+    typedef mtx <a href="#scoped_timed_lock::mutex_type">mutex_type</a>;
+
+    <a href="#scoped_timed_lock::scoped_timed_lock">scoped_timed_lock</a>(mtx&amp; m, const xtime&amp; xt);
+    <a href="#scoped_timed_lock::scoped_timed_lock">scoped_timed_lock</a>(mtx&amp; m, bool lck);
+    <a href="#scoped_timed_lock::~scoped_timed_lock">~scoped_timed_lock</a>();
+
+    <a href="#scoped_timed_lock::operator%20const%20void%20*">operator const void *</a>() const;
+    bool <a href="#scoped_timed_lock::locked">locked</a>() const;
+
+    void <a href="#scoped_timed_lock::lock">lock</a>();
+    bool <a href="#scoped_timed_lock::timed_lock">timed_lock</a>(const xtime&amp; xt);
+    void <a href="#scoped_timed_lock::unlock">unlock</a>();
+
+<i>    // exposition only
+private:
+    mtx&amp; <b>mm</b>;
+    bool <b>is_locked</b>;
+
+    // not implemented
+    scoped_timed_lock::scoped_timed_lock(const scoped_timed_lock&amp;);
+    scoped_timed_lock&amp; scoped_timed_lock::operator= (const scoped_timed_lock&amp;);</i>
+    };
+</pre>
+
+  <h3><code><a name="scoped_timed_lock::lock">scoped_timed_lock::lock</a></code></h3>
+  <pre>
+void <b>lock</b>();
+</pre>
+
+  <p>The member function locks the stored mutual exclusion object <code>mm</code> and sets the stored value
+  <code>is_locked</code> to <code>true</code>.</p>
+
+  <h3><code><a name="scoped_timed_lock::locked">scoped_timed_lock::locked</a></code></h3>
+  <pre>
+bool <b>locked</b>() const;
+</pre>
+
+  <p>The member function returns the stored value <code>is_locked</code>.</p>
+
+  <h3><code><a name="scoped_timed_lock::mutex_type">scoped_timed_lock::mutex_type</a></code></h3>
+  <pre>
+typedef mtx <b>mutex_type</b>;
+</pre>
+
+  <p>The nested type is a synonym for the containing type <code>mtx</code>.</p>
+
+  <h3><code><a name="scoped_timed_lock::operator const void *">scoped_timed_lock::operator const void
+  *</a></code></h3>
+  <pre>
+<b>operator const void *</b>() const;
+</pre>
+
+  <p>The member function returns 0 if the stored value <code>is_locked</code> is <code>false</code>,
+  otherwise a non-0 pointer value.</p>
+
+  <h3><code><a name=
+  "scoped_timed_lock::scoped_timed_lock">scoped_timed_lock::scoped_timed_lock</a></code></h3>
+  <pre>
+<b>scoped_timed_lock</b>(mtx&amp; m, const xtime&amp; xt);
+<b>scoped_timed_lock</b>(mtx&amp; m, bool lck);
+</pre>
+
+  <p>The first constructor constructs a <code>scoped_timed_lock</code> object with stored value
+  <code>mm</code> set to <code>m</code>, then calls <code>timed_lock(xt)</code>.</p>
+
+  <p>The second constructor constructs a <code>scoped_timed_lock</code> object with stored value
+  <code>mm</code> set to <code>m</code>. If <code>lck</code> is <code>true</code> the constructor calls
+  <code>lock</code>. Otherwise the stored value <code>is_locked</code> is set to <code>false</code>.</p>
+
+  <h3><code><a name=
+  "scoped_timed_lock::~scoped_timed_lock">scoped_timed_lock::~scoped_timed_lock</a></code></h3>
+  <pre>
+<b>~scoped_timed_lock</b>();
+</pre>
+
+  <p>The destructor calls <code>unlock</code> if the stored value <code>is_locked</code> is
+  <code>true</code>. Otherwise the destructor does nothing.</p>
+
+  <h3><code><a name="scoped_timed_lock::timed_lock">scoped_timed_lock::timed_lock</a></code></h3>
+  <pre>
+bool <b>timed_lock</b>(const xtime&amp; xt);
+</pre>
+
+  <p>The member function attempts to lock the stored mutual exclusion object <code>mm</code>, using its
+  <a href="index_thr.html#timeout">timeout</a> mechanism to avoid blocking beyond the time specified by the
+  <a href="xtime.html">xtime</a> object <code>xt</code>, sets the stored value <code>is_locked</code> to
+  <code>true</code> if the lock attempt was successful or <code>false</code> if it was not usccessful, and
+  returns the stored value <code>is_locked</code>.</p>
+
+  <h3><code><a name="scoped_timed_lock::unlock">scoped_timed_lock::unlock</a></code></h3>
+  <pre>
+void <b>unlock</b>();
+</pre>
+
+  <p>The member function unlocks the stored mutual exclusion object <code>mm</code> and sets the stored value
+  <code>is_locked</code> to <code>false</code>. Note that if <code>mm</code> is a <a href=
+  "index_thr.html#recursive">recursive</a> mutex unlocking <code>mm</code> doesn't necessarily put
+  <code>mm</code> into the unlocked state.</p>
+  <hr>
+
+  <p>See also the <b><a href="index.html">Table of Contents</a></b> and the <b><a href=
+  "_index.html">Index</a></b>.</p>
+
+  <p><i><a href="crit_pjp.html">Copyright</a> &copy; 1992-2010 by Dinkumware, Ltd. Portions derived from work
+  <a href="crit_wek.html">copyright</a> &copy; 2001 by William E. Kempf. All rights reserved.</i></p>
+  <!--V5.30:126I-->
+</body>
+</html>

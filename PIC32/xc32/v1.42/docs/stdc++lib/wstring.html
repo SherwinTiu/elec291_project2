@@ -1,0 +1,218 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html>
+<head>
+  <meta name="generator" content=
+  "HTML Tidy for Mac OS X (vers 31 October 2006 - Apple Inc. build 15.15), see www.w3.org">
+
+  <title>"wstring"</title>
+</head>
+
+<body>
+  <h1><a name="&quot;wstring&quot;"><code>"Dinkum/codecvt/wstring"</code></a></h1>
+  <hr>
+
+  <p>Include the header <code>"Dinkum/codecvt/wstring"</code> to define template class
+  <code>wstring_convert</code>, for performing conversions between a wide string and a byte string.</p>
+
+  <h2><a name="wstring_convert"><code>wstring_convert</code></a></h2>
+  <pre>
+namespace Dinkum {
+    namespace codecvt {
+template&lt;class Codecvt,
+    class Elem = wchar_t&gt;
+    class wstring_convert
+    {
+    typedef std::basic_string&lt;char&gt; <b><a href="#wstring_convert::byte_string">byte_string</a></b>;
+    typedef std::basic_string&lt;Elem&gt; <b><a href="#wstring_convert::wide_string">wide_string</a></b>;
+    typedef typename Codecvt::state_type <b><a href="#wstring_convert::state_type">state_type</a></b>;
+    typedef typename wide_string::traits_type::int_type <b><a href=
+"#wstring_convert::int_type">int_type</a></b>;
+
+    <b><a href="#wstring_convert::wstring_convert">wstring_convert</a></b>(Codecvt *pcvt = new Codecvt);
+    <b><a href="#wstring_convert::wstring_convert">wstring_convert</a></b>(Codecvt *pcvt, state_type state);
+    <b><a href="#wstring_convert::wstring_convert">wstring_convert</a></b>(const byte_string&amp; byte_err,
+        const wide_string&amp; wide_err = wide_string());
+
+    wide_string <b><a href="#wstring_convert::from_bytes">from_bytes</a></b>(char byte);
+    wide_string <b><a href="#wstring_convert::from_bytes">from_bytes</a></b>(const char *ptr);
+    wide_string <b><a href="#wstring_convert::from_bytes">from_bytes</a></b>(const byte_string&amp; str);
+    wide_string <b><a href=
+"#wstring_convert::from_bytes">from_bytes</a></b>(const char *first, const char *last);
+
+    byte_string <b><a href="#wstring_convert::to_bytes">to_bytes</a></b>(Elem wchar);
+    byte_string <b><a href="#wstring_convert::to_bytes">to_bytes</a></b>(const _Elem *wptr);
+    byte_string <b><a href="#wstring_convert::to_bytes">to_bytes</a></b>(const wide_string&amp; wstr);
+    byte_string <b><a href=
+"#wstring_convert::to_bytes">to_bytes</a></b>(const Elem *first, const Elem *last);
+
+    size_t <b><a href="#wstring_convert::converted">converted</a></b>() const;
+    state_type <b><a href="#wstring_convert::state">state</a></b>() const;
+
+<i>    // exposition only
+private:
+    byte_string <b>byte_err_string</b>;
+    wide_string <b>wide_err_string</b>;
+    Codecvt *<b>cvtptr</b>;
+    state_type <b>cvtstate</b>;
+    size_t <b>cvtcount</b>;</i>
+    };
+        }  // namespace codecvt
+    }  // namespace Dinkum
+</pre>
+
+  <p>The template class describes an object that controls conversions between wide string objects of class
+  <code>std::basic_string&lt;Elem&gt;</code> and byte string objects of class
+  <code>std::basic_string&lt;char&gt;</code> (also known as <code>std::string</code>). The template class
+  defines the types <code>wide_string</code> and <code>byte_string</code> as synonyms for these two types.
+  Conversion between a sequence of <code>Elem</code> values (stored in a <code>wide_string</code> object) and
+  multibyte sequences (stored in a <code>byte_string</code> object) is performed by an object of class
+  <code>Codecvt&lt;Elem, char, std::mbstate_t&gt;</code>, which meets the requirements of the standard
+  code-conversion facet <code>std::codecvt&lt;Elem, char, std::mbstate_t&gt;</code>.</p>
+
+  <p>An object of this template class stores:</p>
+
+  <ul>
+    <li><b><a name="byte_err_string"><code>byte_err_string</code></a></b> -- a byte string to display on
+    errors</li>
+
+    <li><b><a name="wide_err_string"><code>wide_err_string</code></a></b> -- a wide string to display on
+    errors</li>
+
+    <li><b><a name="cvtptr"><code>cvtptr</code></a></b> -- a pointer to the allocated conversion object
+    (which is freed when the <code>wbuffer_convert</code> object is destroyed)</li>
+
+    <li><b><a name="cvtstate"><code>cvtstate</code></a></b> -- a conversion state object</li>
+
+    <li><b><a name="cvtcount"><code>cvtcount</code></a></b> -- a conversion count</li>
+  </ul>
+
+  <h3><code><a name="wstring_convert::byte_string">wstring_convert::byte_string</a></code></h3>
+  <pre>
+typedef std::basic_string&lt;char&gt; <b>byte_string</b>;
+</pre>
+
+  <p>The type is a synonym for <code>std::basic_string&lt;char&gt;</code>.</p>
+
+  <h3><code><a name="wstring_convert::converted">wstring_convert::converted</a></code></h3>
+  <pre>
+size_t <b>converted</b>() const;
+</pre>
+
+  <p>The member function returns <code>cvtcount</code>.</p>
+
+  <h3><code><a name="wstring_convert::from_bytes">wstring_convert::from_bytes</a></code></h3>
+  <pre>
+wide_string <b>from_bytes</b>(char byte);
+wide_string <b>from_bytes</b>(const char *ptr);
+wide_string <b>from_bytes</b>(const byte_string&amp; str);
+wide_string <b>from_bytes</b>(const char *first, const char *last);
+</pre>
+
+  <p>The first member function converts the single-element sequence <code>byte</code> to a wide string. The
+  second member function converts the nul-terminated sequence beginning at <code>ptr</code> to a wide string.
+  The third member function converts the sequence stored in <code>str</code> to a wide string. The fourth
+  member function converts the sequence defined by the range <code>[first, last)</code> to a wide string.</p>
+
+  <p>In all cases:</p>
+
+  <ul>
+    <li>If the <code>cvtstate</code> object was <i>not</i> constructed with an explicit value, it is set to
+    its default value (the initial conversion state) before the conversion begins. Otherwise it is left
+    unchanged.</li>
+
+    <li>The number of input elements successfully converted is stored in <code>cvtcount</code>.</li>
+
+    <li>If no conversion error occurs, the member function returns the converted wide string.</li>
+
+    <li>Otherwise, if the object was constructed with an initializer for <code>wide_err_string</code>, the
+    member function returns <code>wide_err_string</code>.</li>
+
+    <li>Otherwise, the member function throws an object of class <code>std::range_error</code>.</li>
+  </ul>
+
+  <h3><code><a name="wstring_convert::int_type">wstring_convert::int_type</a></code></h3>
+  <pre>
+typedef typename wide_string::traits_type::int_type <b>int_type</b>;
+</pre>
+
+  <p>The type is a synonym for <code>wide_string::traits_type::int_type</code>.</p>
+
+  <h3><code><a name="wstring_convert::state">wstring_convert::state</a></code></h3>
+  <pre>
+state_type <b>state</b>() const;
+</pre>
+
+  <p>The member function returns <code>cvtstate</code>.</p>
+
+  <h3><code><a name="wstring_convert::state_type">wstring_convert::state_type</a></code></h3>
+  <pre>
+typedef typename Codecvt::state_type <b>state_type</b>;
+</pre>
+
+  <p>The type is a synonym for <code>Codecvt::state_type</code>.</p>
+
+  <h3><code><a name="wstring_convert::to_bytes">wstring_convert::to_bytes</a></code></h3>
+  <pre>
+byte_string <b>to_bytes</b>(Elem wchar);
+byte_string <b>to_bytes</b>(const _Elem *wptr);
+byte_string <b>to_bytes</b>(const wide_string&amp; wstr);
+byte_string <b>to_bytes</b>(const Elem *first, const Elem *last);
+</pre>
+
+  <p>The first member function converts the single-element sequence <code>wchar</code> to a byte string. The
+  second member function converts the nul-terminated sequence beginning at <code>wptr</code> to a byte
+  string. The third member function converts the sequence stored in <code>wstr</code> to a byte string. The
+  fourth member function converts the sequence defined by the range <code>[first, last)</code> to a byte
+  string.</p>
+
+  <p>In all cases:</p>
+
+  <ul>
+    <li>If the <code>cvtstate</code> object was <i>not</i> constructed with an explicit value, it is set to
+    its default value (the initial conversion state) before the conversion begins. Otherwise it is left
+    unchanged.</li>
+
+    <li>The number of input elements successfully converted is stored in <code>cvtcount</code>.</li>
+
+    <li>If no conversion error occurs, the member function returns the converted byte string.</li>
+
+    <li>Otherwise, if the object was constructed with an initializer for <code>byte_err_string</code>, the
+    member function returns <code>byte_err_string</code>.</li>
+
+    <li>Otherwise, the member function throws an object of class <code>std::range_error</code>.</li>
+  </ul>
+
+  <h3><code><a name="wstring_convert::wide_string">wstring_convert::wide_string</a></code></h3>
+  <pre>
+typedef std::basic_string&lt;Elem&gt; <b>wide_string</b>;
+</pre>
+
+  <p>The type is a synonym for <code>std::basic_string&lt;Elem&gt;</code>.</p>
+
+  <h3><code><a name="wstring_convert::wstring_convert">wstring_convert::wstring_convert</a></code></h3>
+  <pre>
+<b>wstring_convert</b>(Codecvt *pcvt = new Codecvt);
+<b>wstring_convert</b>(Codecvt *pcvt, state_type state);
+<b>wstring_convert</b>(const byte_string&amp; byte_err,
+    const wide_string&amp; wide_err = wide_string());
+</pre>
+
+  <p>The first constructor stores <code>pcvt</code> in <code>cvtptr</code> and default values in
+  <code>cvtstate</code>, <code>byte_err_string</code>, and <code>wide_err_string</code>. The second
+  constructor stores <code>pcvt</code> in <code>cvtptr</code>, <code>state</code> in <code>cvtstate</code>,
+  and default values in <code>byte_err_string</code> and <code>wide_err_string</code>; moreover the stored
+  state is retained between calls to <code><a href="#wstring_convert::from_bytes">from_bytes</a></code> and
+  <code><a href="#wstring_convert::to_bytes">to_bytes</a></code>. The third constructor stores <code>new
+  Codecvt</code> in <code>cvtptr</code>, <code>state_type()</code> in <code>cvtstate</code>,
+  <code>byte_err</code> in <code>byte_err_string</code>, and <code>wide_err</code> in
+  <code>wide_err_string</code>.</p>
+  <hr>
+
+  <p>See also the <b><a href="index.html">Table of Contents</a></b> and the <b><a href=
+  "_index.html">Index</a></b>.</p>
+
+  <p><i><a href="crit_pjp.html">Copyright</a> &copy; 1992-2010 by Dinkumware, Ltd. All rights
+  reserved.</i></p><!--V5.30:126I-->
+</body>
+</html>

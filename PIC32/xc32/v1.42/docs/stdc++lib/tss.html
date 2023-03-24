@@ -1,0 +1,134 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html>
+<head>
+  <meta name="generator" content=
+  "HTML Tidy for Mac OS X (vers 31 October 2006 - Apple Inc. build 15.15), see www.w3.org">
+
+  <title>"tss"</title>
+</head>
+
+<body>
+  <h1><a name="&quot;tss&quot;">"Dinkum/threads/tss"</a></h1>
+  <hr>
+
+  <p>Include the header <b><code>"Dinkum/threads/tss"</code></b> to define the <a href=
+  "index_thr.html#Thread-specific%20Storage">thread-specific storage</a> template
+  <code>thread_specific_ptr</code>.</p>
+  <pre>
+namespace Dinkum {
+    namespace threads {
+    class <b><a href="#thread_specific_ptr">thread_specific_ptr</a></b>;
+    }  // namespace threads
+} // namespace Dinkum
+</pre>
+
+  <h2><a name="thread_specific_ptr"><code>thread_specific_ptr</code></a></h2>
+  <hr>
+
+  <p><b><code><a href="#thread_specific_ptr::get">get</a> &middot; <a href=
+  "#thread_specific_ptr::operator-%3E">operator-&gt;</a> &middot; <a href=
+  "#thread_specific_ptr::operator*">operator*</a> &middot; <a href=
+  "#thread_specific_ptr::release">release</a> &middot; <a href="#thread_specific_ptr::reset">reset</a>
+  &middot; <a href="#thread_specific_ptr::thread_specific_ptr">thread_specific_ptr</a> &middot; <a href=
+  "#thread_specific_ptr::~thread_specific_ptr">~thread_specific_ptr</a></code></b></p>
+  <hr>
+  <pre>
+template &lt;class T&gt;
+class <b>thread_specific_ptr</b>
+    {
+public:
+    <b><a href="#thread_specific_ptr::thread_specific_ptr">thread_specific_ptr</a></b>();
+    <b><a href="#thread_specific_ptr::~thread_specific_ptr">~thread_specific_ptr</a></b>();
+
+    T *<b><a href="#thread_specific_ptr::get">get</a></b>() const;
+    T *<b><a href="#thread_specific_ptr::operator-%3E">operator-&gt;</a></b>() const;
+    T&amp; <b><a href="#thread_specific_ptr::operator*">operator*</a></b>() const;
+    T *<b><a href="#thread_specific_ptr::release">release</a></b>();
+    void <b><a href="#thread_specific_ptr::reset">reset</a></b>(T *ptr = 0);
+
+    // exposition only
+private:
+    T *<b>data</b>;
+
+    // not implemented
+    thread_specific_ptr::thread_specific_ptr(const thread_specific_ptr&amp;);
+    thread_specific_ptr&lt;T&gt;&amp; thread_specific_ptr::operator= (const thread_specific_ptr&lt;T&gt;&amp;);
+    };
+</pre>
+
+  <p>The template class describes an object that controls <a href=
+  "index_thr.html#Thread-specific%20Storage">thread-specific storage</a> for a data object of type
+  <code>T</code>. The template holds a pointer <code>data</code> of type <code>T*</code>; the stored value
+  <code>data</code> can be different in different threads, so threads can use different data objects,
+  accessed through the same <code>thread_specific_ptr</code> object. Objects of class
+  <code>thread_specific_ptr&lt;T&gt;</code> cannot be copied.</p>
+
+  <h3><code><a name="thread_specific_ptr::get">thread_specific_ptr::get</a></code></h3>
+  <pre>
+T *<b>get</b>() const;
+</pre>
+
+  <p>The member function returns the thread-specific stored value <code>data</code>.</p>
+
+  <h3><code><a name="thread_specific_ptr::operator-&gt;">thread_specific_ptr::operator-&gt;</a></code></h3>
+  <pre>
+T *<b>operator-&gt;</b>() const;
+</pre>
+
+  <p><i><a href="index_thr.html#Precondition">Precondition</a>:</i> <code>get() != 0</code>.</p>
+
+  <p>The member function returns the thread-specific stored value <code>data</code>.</p>
+
+  <h3><code><a name="thread_specific_ptr::operator*">thread_specific_ptr::operator*</a></code></h3>
+  <pre>
+T&amp; <b>operator*</b>() const;
+</pre>
+
+  <p><i><a href="index_thr.html#Precondition">Precondition</a>:</i> <code>get() != 0</code>.</p>
+
+  <p>The member function returns <code>*get()</code>.</p>
+
+  <h3><code><a name="thread_specific_ptr::release">thread_specific_ptr::release</a></code></h3>
+  <pre>
+T *<b>release</b>();
+</pre>
+
+  <p>The member function sets the thread-specific stored value <code>data</code> to 0 and returns the
+  previous value of the stored value <code>data</code>.</p>
+
+  <h3><code><a name="thread_specific_ptr::reset">thread_specific_ptr::reset</a></code></h3>
+  <pre>
+void <b>reset</b>(T *ptr = 0);
+</pre>
+
+  <p>The member function does nothing if the thread-specific stored value <code>data</code> equals
+  <code>ptr</code>; otherwise it deletes the thread-specific stored value <code>data</code> and sets the
+  thread-specific stored value <code>data</code> to <code>ptr</code>.</p>
+
+  <h3><code><a name=
+  "thread_specific_ptr::thread_specific_ptr">thread_specific_ptr::thread_specific_ptr</a></code></h3>
+  <pre>
+<b>thread_specific_ptr</b>();
+</pre>
+
+  <p>The constructor constructs a <code>thread_specific_ptr&lt;T&gt;</code> object with initial stored value
+  <code>data</code> equal to 0 for all threads.</p>
+
+  <h3><code><a name=
+  "thread_specific_ptr::~thread_specific_ptr">thread_specific_ptr::~thread_specific_ptr</a></code></h3>
+  <pre>
+<b>~thread_specific_ptr</b>();
+</pre>
+
+  <p>The destructor frees resources used by the object. It does not delete thread-specific data pointers.</p>
+  <hr>
+
+  <p>See also the <b><a href="index.html">Table of Contents</a></b> and the <b><a href=
+  "_index.html">Index</a></b>.</p>
+
+  <p><i><a href="crit_pjp.html">Copyright</a> &copy; 1992-2010 by Dinkumware, Ltd. Portions derived from work
+  <a href="crit_wek.html">copyright</a> &copy; 2001 by William E. Kempf. All rights reserved.</i></p>
+  <!--V5.30:126I-->
+</body>
+</html>

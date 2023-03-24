@@ -1,0 +1,202 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html>
+<head>
+  <meta name="generator" content=
+  "HTML Tidy for Mac OS X (vers 31 October 2006 - Apple Inc. build 15.15), see www.w3.org">
+
+  <title>&lt;signal.h&gt;</title>
+</head>
+
+<body>
+  <h1><a name="&lt;signal.h&gt;"><code>&lt;signal.h&gt;</code></a></h1>
+  <hr>
+
+  <p>Include the standard header <b><code>&lt;signal.h&gt;</code></b> to specify how the program handles
+  <b><a name="signals">signals</a></b> while it executes. A signal can report some exceptional behavior
+  within the program, such as division by zero. Or a signal can report some asynchronous event outside the
+  program, such as someone striking an interactive attention key on a keyboard.</p>
+
+  <p>You can report any signal by calling <a href="#raise"><code>raise</code></a>. Each implementation
+  defines what signals it generates (if any) and under what circumstances it generates them. An
+  implementation can define signals other than the ones listed here. The standard header
+  <code>&lt;signal.h&gt;</code> can define additional macros with names beginning with <code>SIG</code> to
+  specify the values of additional signals. All such values are integer constant expressions &gt;= 0.</p>
+
+  <p>You can specify a <b><a name="signal handler">signal handler</a></b> for each signal. A signal handler
+  is a function that the target environment calls when the corresponding signal occurs. The target
+  environment suspends execution of the program until the signal handler returns or calls <a href=
+  "setjmp.html#longjmp"><code>longjmp</code></a>. For maximum portability, an asynchronous signal handler
+  should only:</p>
+
+  <ul>
+    <li>make calls (that succeed) to the function <a href="#signal"><code>signal</code></a></li>
+
+    <li>assign values to objects of type <i>volatile</i> <a href=
+    "#sig_atomic_t"><code>sig_atomic_t</code></a></li>
+
+    <li>return control to its caller</li>
+  </ul>
+
+  <p>Furthermore, in C++, a signal handler should:</p>
+
+  <ul>
+    <li>have <code>extern "C"</code> linkage</li>
+
+    <li>use only language features common to C and C++</li>
+  </ul>
+
+  <p>If the signal reports an error within the program (and the signal is not asynchronous), the signal
+  handler can terminate by calling <a href="stdlib.html#abort"><code>abort</code></a>, <a href=
+  "stdlib.html#exit"><code>exit</code></a>, or <a href="setjmp.html#longjmp"><code>longjmp</code></a>.</p>
+  <pre>
+    /* MACROS */
+#define <a href="#SIGABRT"><b>SIGABRT</b></a> <i>&lt;integer constant expression &gt;= 0&gt;</i>
+#define <a href="#SIGFPE"><b>SIGFPE</b></a> <i>&lt;integer constant expression &gt;= 0&gt;</i>
+#define <a href="#SIGILL"><b>SIGILL</b></a> <i>&lt;integer constant expression &gt;= 0&gt;</i>
+#define <a href="#SIGINT"><b>SIGINT</b></a> <i>&lt;integer constant expression &gt;= 0&gt;</i>
+#define <a href="#SIGSEGV"><b>SIGSEGV</b></a> <i>&lt;integer constant expression &gt;= 0&gt;</i>
+#define <a href="#SIGTERM"><b>SIGTERM</b></a> <i>&lt;integer constant expression &gt;= 0&gt;</i>
+#define <a href="#SIG_DFL"><b>SIG_DFL</b></a> <i>&lt;address constant expression&gt;</i>
+#define <a href="#SIG_ERR"><b>SIG_ERR</b></a> <i>&lt;address constant expression&gt;</i>
+#define <a href="#SIG_IGN"><b>SIG_IGN</b></a> <i>&lt;address constant expression&gt;</i>
+
+    /* TYPES */
+typedef <i>i-type</i> <a href="#sig_atomic_t"><b>sig_atomic_t</b></a>;
+
+    /* FUNCTIONS */
+int <a href="#raise"><b>raise</b></a>(int sig);
+void (*<a href="#signal"><b>signal</b></a>(int sig, void (*func)(int)))(int);
+</pre>
+
+  <h2><a name="raise"><code>raise</code></a></h2>
+  <pre>
+int <b>raise</b>(int sig);
+</pre>
+
+  <p>The function sends the signal <code>sig</code> and returns zero if the signal is successfully
+  reported.</p>
+
+  <h2><a name="sig_atomic_t"><code>sig_atomic_t</code></a></h2>
+  <pre>
+typedef <i>i-type</i> <b>sig_atomic_t</b>;
+</pre>
+
+  <p>The type is the integer type <code><i>i-type</i></code> for objects whose stored value is altered by an
+  assigning operator as an <b><a name="atomic operation">atomic operation</a></b> (an operation that never
+  has its execution suspended while partially completed). You declare such objects to communicate between
+  <a href="#signal%20handler">signal handlers</a> and the rest of the program.</p>
+
+  <h2><a name="SIGABRT"><code>SIGABRT</code></a></h2>
+  <pre>
+#define <b>SIGABRT</b> <i>&lt;integer constant expression &gt;= 0&gt;</i>
+</pre>
+
+  <p>The macro yields the <code>sig</code> argument value for the abort signal.</p>
+
+  <h2><a name="SIGFPE"><code>SIGFPE</code></a></h2>
+  <pre>
+#define <b>SIGFPE</b> <i>&lt;integer constant expression &gt;= 0&gt;</i>
+</pre>
+
+  <p>The macro yields the <code>sig</code> argument value for the arithmetic error signal, such as for
+  division by zero or result out of range.</p>
+
+  <h2><a name="SIGILL"><code>SIGILL</code></a></h2>
+  <pre>
+#define <b>SIGILL</b> <i>&lt;integer constant expression &gt;= 0&gt;</i>
+</pre>
+
+  <p>The macro yields the <code>sig</code> argument value for the invalid execution signal, such as for a
+  corrupted function image.</p>
+
+  <h2><a name="SIGINT"><code>SIGINT</code></a></h2>
+  <pre>
+#define <b>SIGINT</b> <i>&lt;integer constant expression &gt;= 0&gt;</i>
+</pre>
+
+  <p>The macro yields the <code>sig</code> argument value for the asynchronous interactive attention
+  signal.</p>
+
+  <h2><a name="signal"><code>signal</code></a></h2>
+  <pre>
+void (*<b>signal</b>(int sig, void (*func)(int)))(int);
+</pre>
+
+  <p>The function specifies the new handling for signal <code>sig</code> and returns the previous handling,
+  if successful; otherwise, it returns <a href="#SIG_ERR"><code>SIG_ERR</code></a>.</p>
+
+  <ul>
+    <li>If <code>func</code> is <a href="#SIG_DFL"><code>SIG_DFL</code></a>, the target environment commences
+    default handling (as defined by the implementation).</li>
+
+    <li>If <code>func</code> is <a href="#SIG_IGN"><code>SIG_IGN</code></a>, the target environment ignores
+    subsequent reporting of the signal.</li>
+
+    <li>Otherwise, <code>func</code> must be the address of a function returning <i>void</i> that the target
+    environment calls with a single <i>int</i> argument. The target environment calls this function to handle
+    the signal when it is next reported, with the value of the signal as its argument.</li>
+  </ul>
+
+  <p>When the target environment calls a signal handler:</p>
+
+  <ul>
+    <li>The target environment can block further occurrences of the corresponding signal until the handler
+    returns, calls <a href="setjmp.html#longjmp"><code>longjmp</code></a>, or calls <code>signal</code> for
+    that signal.</li>
+
+    <li>The target environment can perform default handling of further occurrences of the corresponding
+    signal.</li>
+
+    <li>For signal <a href="#SIGILL"><code>SIGILL</code></a>, the target environment can leave handling
+    unchanged for that signal.</li>
+  </ul>
+
+  <h2><a name="SIGSEGV"><code>SIGSEGV</code></a></h2>
+  <pre>
+#define <b>SIGSEGV</b> <i>&lt;integer constant expression &gt;= 0&gt;</i>
+</pre>
+
+  <p>The macro yields the <code>sig</code> argument value for the invalid storage access signal, such as for
+  an erroneous <a href="express.html#lvalue%20expression">lvalue expression</a>.</p>
+
+  <h2><a name="SIGTERM"><code>SIGTERM</code></a></h2>
+  <pre>
+#define <b>SIGTERM</b> <i>&lt;integer constant expression &gt;= 0&gt;</i>
+</pre>
+
+  <p>The macro yields the <code>sig</code> argument value for the asynchronous termination request
+  signal.</p>
+
+  <h2><a name="SIG_DFL"><code>SIG_DFL</code></a></h2>
+  <pre>
+#define <b>SIG_DFL</b> <i>&lt;address constant expression&gt;</i>
+</pre>
+
+  <p>The macro yields the <code>func</code> argument value to <a href="#signal"><code>signal</code></a> to
+  specify default signal handling.</p>
+
+  <h2><a name="SIG_ERR"><code>SIG_ERR</code></a></h2>
+  <pre>
+#define <b>SIG_ERR</b> <i>&lt;address constant expression&gt;</i>
+</pre>
+
+  <p>The macro yields the <a href="#signal"><code>signal</code></a> return value to specify an erroneous
+  call.</p>
+
+  <h2><a name="SIG_IGN"><code>SIG_IGN</code></a></h2>
+  <pre>
+#define <b>SIG_IGN</b> <i>&lt;address constant expression&gt;</i>
+</pre>
+
+  <p>The macro yields the <code>func</code> argument value to <a href="#signal"><code>signal</code></a> to
+  specify that the target environment is to henceforth ignore the signal.</p>
+  <hr>
+
+  <p>See also the <b><a href="index.html#Table%20of%20Contents">Table of Contents</a></b> and the <b><a href=
+  "_index.html">Index</a></b>.</p>
+
+  <p><i><a href="crit_pjp.html">Copyright</a> &copy; 1992-2010 by P.J. Plauger and Jim Brodie. All rights
+  reserved.</i></p><!--V5.30:126I-->
+</body>
+</html>

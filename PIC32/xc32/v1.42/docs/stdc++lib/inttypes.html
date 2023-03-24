@@ -1,0 +1,1214 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html>
+<head>
+  <meta name="generator" content=
+  "HTML Tidy for Mac OS X (vers 31 October 2006 - Apple Inc. build 15.15), see www.w3.org">
+
+  <title>&lt;inttypes.h&gt;</title>
+</head>
+
+<body>
+  <h1><a name="&lt;inttypes.h&gt;"><code>&lt;inttypes.h&gt;</code></a></h1>
+
+  <p>[added with <a href="lib_over.html#C99">C99</a>]</p>
+  <hr>
+
+  <p><b><code><a href="#abs">abs</a> &middot; <a href="#div">div</a> &middot; <a href="#imaxabs">imaxabs</a>
+  &middot; <a href="#imaxdiv">imaxdiv</a> &middot; <a href="#imaxdiv_t">imaxdiv_t</a> &middot; <a href=
+  "#strtoimax">strtoimax</a> &middot; <a href="#strtoumax">strtoumax</a> &middot; <a href=
+  "#wcstoimax">wcstoimax</a> &middot; <a href="#wcstoumax">wcstoumax</a></code></b></p>
+
+  <p><b><code><a href="#PRId8">PRId8</a> &middot; <a href="#PRId16">PRId16</a> &middot; <a href=
+  "#PRId32">PRId32</a> &middot; <a href="#PRId64">PRId64</a> &middot; <a href="#PRIdFAST8">PRIdFAST8</a>
+  &middot; <a href="#PRIdFAST16">PRIdFAST16</a> &middot; <a href="#PRIdFAST32">PRIdFAST32</a> &middot;
+  <a href="#PRIdFAST64">PRIdFAST64</a> &middot; <a href="#PRIdLEAST8">PRIdLEAST8</a> &middot; <a href=
+  "#PRIdLEAST16">PRIdLEAST16</a> &middot; <a href="#PRIdLEAST32">PRIdLEAST32</a> &middot; <a href=
+  "#PRIdLEAST64">PRIdLEAST64</a> &middot; <a href="#PRIdMAX">PRIdMAX</a> &middot; <a href=
+  "#PRIdPTR">PRIdPTR</a> &middot; <a href="#PRIi8">PRIi8</a> &middot; <a href="#PRIi16">PRIi16</a> &middot;
+  <a href="#PRIi32">PRIi32</a> &middot; <a href="#PRIi64">PRIi64</a> &middot; <a href=
+  "#PRIiFAST8">PRIiFAST8</a> &middot; <a href="#PRIiFAST16">PRIiFAST16</a> &middot; <a href=
+  "#PRIiFAST32">PRIiFAST32</a> &middot; <a href="#PRIiFAST64">PRIiFAST64</a> &middot; <a href=
+  "#PRIiLEAST8">PRIiLEAST8</a> &middot; <a href="#PRIiLEAST16">PRIiLEAST16</a> &middot; <a href=
+  "#PRIiLEAST32">PRIiLEAST32</a> &middot; <a href="#PRIiLEAST64">PRIiLEAST64</a> &middot; <a href=
+  "#PRIiMAX">PRIiMAX</a> &middot; <a href="#PRIiPTR">PRIiPTR</a> &middot; <a href="#PRIo8">PRIo8</a> &middot;
+  <a href="#PRIo16">PRIo16</a> &middot; <a href="#PRIo32">PRIo32</a> &middot; <a href="#PRIo64">PRIo64</a>
+  &middot; <a href="#PRIoFAST8">PRIoFAST8</a> &middot; <a href="#PRIoFAST16">PRIoFAST16</a> &middot; <a href=
+  "#PRIoFAST32">PRIoFAST32</a> &middot; <a href="#PRIoFAST64">PRIoFAST64</a> &middot; <a href=
+  "#PRIoLEAST8">PRIoLEAST8</a> &middot; <a href="#PRIoLEAST16">PRIoLEAST16</a> &middot; <a href=
+  "#PRIoLEAST32">PRIoLEAST32</a> &middot; <a href="#PRIoLEAST64">PRIoLEAST64</a> &middot; <a href=
+  "#PRIoMAX">PRIoMAX</a> &middot; <a href="#PRIoPTR">PRIoPTR</a> &middot; <a href="#PRIu8">PRIu8</a> &middot;
+  <a href="#PRIu16">PRIu16</a> &middot; <a href="#PRIu32">PRIu32</a> &middot; <a href="#PRIu64">PRIu64</a>
+  &middot; <a href="#PRIuFAST8">PRIuFAST8</a> &middot; <a href="#PRIuFAST16">PRIuFAST16</a> &middot; <a href=
+  "#PRIuFAST32">PRIuFAST32</a> &middot; <a href="#PRIuFAST64">PRIuFAST64</a> &middot; <a href=
+  "#PRIuLEAST8">PRIuLEAST8</a> &middot; <a href="#PRIuLEAST16">PRIuLEAST16</a> &middot; <a href=
+  "#PRIuLEAST32">PRIuLEAST32</a> &middot; <a href="#PRIuLEAST64">PRIuLEAST64</a> &middot; <a href=
+  "#PRIuMAX">PRIuMAX</a> &middot; <a href="#PRIuPTR">PRIuPTR</a> &middot; <a href="#PRIx8">PRIx8</a> &middot;
+  <a href="#PRIx16">PRIx16</a> &middot; <a href="#PRIx32">PRIx32</a> &middot; <a href="#PRIx64">PRIx64</a>
+  &middot; <a href="#PRIxFAST8">PRIxFAST8</a> &middot; <a href="#PRIxFAST16">PRIxFAST16</a> &middot; <a href=
+  "#PRIxFAST32">PRIxFAST32</a> &middot; <a href="#PRIxFAST64">PRIxFAST64</a> &middot; <a href=
+  "#PRIxLEAST8">PRIxLEAST8</a> &middot; <a href="#PRIxLEAST16">PRIxLEAST16</a> &middot; <a href=
+  "#PRIxLEAST32">PRIxLEAST32</a> &middot; <a href="#PRIxLEAST64">PRIxLEAST64</a> &middot; <a href=
+  "#PRIxMAX">PRIxMAX</a> &middot; <a href="#PRIxPTR">PRIxPTR</a> &middot; <a href="#PRIX8">PRIX8</a> &middot;
+  <a href="#PRIX16">PRIX16</a> &middot; <a href="#PRIX32">PRIX32</a> &middot; <a href="#PRIX64">PRIX64</a>
+  &middot; <a href="#PRIXFAST8">PRIXFAST8</a> &middot; <a href="#PRIXFAST16">PRIXFAST16</a> &middot; <a href=
+  "#PRIXFAST32">PRIXFAST32</a> &middot; <a href="#PRIXFAST64">PRIXFAST64</a> &middot; <a href=
+  "#PRIXLEAST8">PRIXLEAST8</a> &middot; <a href="#PRIXLEAST16">PRIXLEAST16</a> &middot; <a href=
+  "#PRIXLEAST32">PRIXLEAST32</a> &middot; <a href="#PRIXLEAST64">PRIXLEAST64</a> &middot; <a href=
+  "#PRIXMAX">PRIXMAX</a> &middot; <a href="#PRIXPTR">PRIXPTR</a></code></b></p>
+
+  <p><b><code><a href="#SCNd8">SCNd8</a> &middot; <a href="#SCNd16">SCNd16</a> &middot; <a href=
+  "#SCNd32">SCNd32</a> &middot; <a href="#SCNd64">SCNd64</a> &middot; <a href="#SCNdFAST8">SCNdFAST8</a>
+  &middot; <a href="#SCNdFAST16">SCNdFAST16</a> &middot; <a href="#SCNdFAST32">SCNdFAST32</a> &middot;
+  <a href="#SCNdFAST64">SCNdFAST64</a> &middot; <a href="#SCNdLEAST8">SCNdLEAST8</a> &middot; <a href=
+  "#SCNdLEAST16">SCNdLEAST16</a> &middot; <a href="#SCNdLEAST32">SCNdLEAST32</a> &middot; <a href=
+  "#SCNdLEAST64">SCNdLEAST64</a> &middot; <a href="#SCNdMAX">SCNdMAX</a> &middot; <a href=
+  "#SCNdPTR">SCNdPTR</a> &middot; <a href="#SCNi8">SCNi8</a> &middot; <a href="#SCNi16">SCNi16</a> &middot;
+  <a href="#SCNi32">SCNi32</a> &middot; <a href="#SCNi64">SCNi64</a> &middot; <a href=
+  "#SCNiFAST8">SCNiFAST8</a> &middot; <a href="#SCNiFAST16">SCNiFAST16</a> &middot; <a href=
+  "#SCNiFAST32">SCNiFAST32</a> &middot; <a href="#SCNiFAST64">SCNiFAST64</a> &middot; <a href=
+  "#SCNiLEAST8">SCNiLEAST8</a> &middot; <a href="#SCNiLEAST16">SCNiLEAST16</a> &middot; <a href=
+  "#SCNiLEAST32">SCNiLEAST32</a> &middot; <a href="#SCNiLEAST64">SCNiLEAST64</a> &middot; <a href=
+  "#SCNiMAX">SCNiMAX</a> &middot; <a href="#SCNiPTR">SCNiPTR</a> &middot; <a href="#SCNo8">SCNo8</a> &middot;
+  <a href="#SCNo16">SCNo16</a> &middot; <a href="#SCNo32">SCNo32</a> &middot; <a href="#SCNo64">SCNo64</a>
+  &middot; <a href="#SCNoFAST8">SCNoFAST8</a> &middot; <a href="#SCNoFAST16">SCNoFAST16</a> &middot; <a href=
+  "#SCNoFAST32">SCNoFAST32</a> &middot; <a href="#SCNoFAST64">SCNoFAST64</a> &middot; <a href=
+  "#SCNoLEAST8">SCNoLEAST8</a> &middot; <a href="#SCNoLEAST16">SCNoLEAST16</a> &middot; <a href=
+  "#SCNoLEAST32">SCNoLEAST32</a> &middot; <a href="#SCNoLEAST64">SCNoLEAST64</a> &middot; <a href=
+  "#SCNoMAX">SCNoMAX</a> &middot; <a href="#SCNoPTR">SCNoPTR</a> &middot; <a href="#SCNu8">SCNu8</a> &middot;
+  <a href="#SCNu16">SCNu16</a> &middot; <a href="#SCNu32">SCNu32</a> &middot; <a href="#SCNu64">SCNu64</a>
+  &middot; <a href="#SCNuFAST8">SCNuFAST8</a> &middot; <a href="#SCNuFAST16">SCNuFAST16</a> &middot; <a href=
+  "#SCNuFAST32">SCNuFAST32</a> &middot; <a href="#SCNuFAST64">SCNuFAST64</a> &middot; <a href=
+  "#SCNuLEAST8">SCNuLEAST8</a> &middot; <a href="#SCNuLEAST16">SCNuLEAST16</a> &middot; <a href=
+  "#SCNuLEAST32">SCNuLEAST32</a> &middot; <a href="#SCNuLEAST64">SCNuLEAST64</a> &middot; <a href=
+  "#SCNuMAX">SCNuMAX</a> &middot; <a href="#SCNuPTR">SCNuPTR</a> &middot; <a href="#SCNx8">SCNx8</a> &middot;
+  <a href="#SCNx16">SCNx16</a> &middot; <a href="#SCNx32">SCNx32</a> &middot; <a href="#SCNx64">SCNx64</a>
+  &middot; <a href="#SCNxFAST8">SCNxFAST8</a> &middot; <a href="#SCNxFAST16">SCNxFAST16</a> &middot; <a href=
+  "#SCNxFAST32">SCNxFAST32</a> &middot; <a href="#SCNxFAST64">SCNxFAST64</a> &middot; <a href=
+  "#SCNxLEAST8">SCNxLEAST8</a> &middot; <a href="#SCNxLEAST16">SCNxLEAST16</a> &middot; <a href=
+  "#SCNxLEAST32">SCNxLEAST32</a> &middot; <a href="#SCNxLEAST64">SCNxLEAST64</a> &middot; <a href=
+  "#SCNxMAX">SCNxMAX</a> &middot; <a href="#SCNxPTR">SCNxPTR</a></code></b></p>
+  <hr>
+
+  <p>Include the standard header <b><code>&lt;inttypes.h&gt;</code></b> to include the standard header
+  <a href="stdint.html"><code>&lt;stdint.h&gt;</code></a> and to define a type, several functions, and
+  numerous macros for fine control over the conversion of integers. Note that the definitions shown for the
+  macros are merely representative -- they can vary among implementations.</p>
+  <pre>
+        /* TYPE DEFINITIONS */
+typedef struct {
+    intmax_t quot, rem;
+    } <a href="#imaxdiv_t"><b>imaxdiv_t</b></a>;
+
+        /* FUNCTION DECLARATIONS */
+intmax_t <a href="#imaxabs"><b>imaxabs</b></a>(intmax_t i);
+intmax_t <a href="#abs"><b>abs</b></a>(intmax_t i); <b>[C++ only]</b>
+
+imaxdiv_t <a href="#imaxdiv"><b>imaxdiv</b></a>(intmax_t numer, intmax_t denom);
+imaxdiv_t <a href="#div"><b>div</b></a>(intmax_t numer, intmax_t denom); <b>[C++ only]</b>
+
+intmax_t <a href="#strtoimax"><b>strtoimax</b></a>(const char *restrict s,
+    char **restrict endptr, int base);
+uintmax_t <a href="#strtoumax"><b>strtoumax</b></a>(const char *restrict s,
+    char **restrict endptr, int base);
+intmax_t <a href="#wcstoimax"><b>wcstoimax</b></a>(const wchar_t *restrict s,
+    wchar_t **restrict endptr, int base);
+uintmax_t <a href="#wcstoumax"><b>wcstoumax</b></a>(const wchar_t *restrict s,
+    wchar_t **restrict endptr, int base);
+
+        /* PRINT FORMAT MACROS */
+#define <a href="#PRId8"><b>PRId8</b></a>     "hhd"
+#define <a href="#PRId16"><b>PRId16</b></a>    "hd"
+#define <a href="#PRId32"><b>PRId32</b></a>    "ld"
+#define <a href="#PRId64"><b>PRId64</b></a>    "lld"
+
+#define <a href="#PRIdFAST8"><b>PRIdFAST8</b></a>    "hhd"
+#define <a href="#PRIdFAST16"><b>PRIdFAST16</b></a>    "hd"
+#define <a href="#PRIdFAST32"><b>PRIdFAST32</b></a>    "ld"
+#define <a href="#PRIdFAST64"><b>PRIdFAST64</b></a>   "lld"
+
+#define <a href="#PRIdLEAST8"><b>PRIdLEAST8</b></a>   "hhd"
+#define <a href="#PRIdLEAST16"><b>PRIdLEAST16</b></a>  "hd"
+#define <a href="#PRIdLEAST32"><b>PRIdLEAST32</b></a>  "ld"
+#define <a href="#PRIdLEAST64"><b>PRIdLEAST64</b></a>  "lld"
+
+#define <a href="#PRIdMAX"><b>PRIdMAX</b></a>   "lld"
+#define <a href="#PRIdPTR"><b>PRIdPTR</b></a>   "lld"
+
+#define <a href="#PRIi8"><b>PRIi8</b></a>     "hhi"
+#define <a href="#PRIi16"><b>PRIi16</b></a>    "hi"
+#define <a href="#PRIi32"><b>PRIi32</b></a>    "li"
+#define <a href="#PRIi64"><b>PRIi64</b></a>    "lli"
+
+#define <a href="#PRIiFAST8"><b>PRIiFAST8</b></a>    "hhi"
+#define <a href="#PRIiFAST16"><b>PRIiFAST16</b></a>    "hi"
+#define <a href="#PRIiFAST32"><b>PRIiFAST32</b></a>    "li"
+#define <a href="#PRIiFAST64"><b>PRIiFAST64</b></a>    "lli"
+
+#define <a href="#PRIiLEAST8"><b>PRIiLEAST8</b></a>   "hhi"
+#define <a href="#PRIiLEAST16"><b>PRIiLEAST16</b></a>  "hi"
+#define <a href="#PRIiLEAST32"><b>PRIiLEAST32</b></a>  "li"
+#define <a href="#PRIiLEAST64"><b>PRIiLEAST64</b></a>  "lli"
+
+#define <a href="#PRIiMAX"><b>PRIiMAX</b></a>   "lli"
+#define <a href="#PRIiPTR"><b>PRIiPTR</b></a>   "lli"
+
+#define <a href="#PRIo8"><b>PRIo8</b></a>     "hho"
+#define <a href="#PRIo16"><b>PRIo16</b></a>    "ho"
+#define <a href="#PRIo32"><b>PRIo32</b></a>    "lo"
+#define <a href="#PRIo64"><b>PRIo64</b></a>    "llo"
+
+#define <a href="#PRIoFAST8"><b>PRIoFAST8</b></a>    "hho"
+#define <a href="#PRIoFAST16"><b>PRIoFAST16</b></a>    "ho"
+#define <a href="#PRIoFAST32"><b>PRIoFAST32</b></a>    "lo"
+#define <a href="#PRIoFAST64"><b>PRIoFAST64</b></a>   "llo"
+
+#define <a href="#PRIoLEAST8"><b>PRIoLEAST8</b></a>   "hho"
+#define <a href="#PRIoLEAST16"><b>PRIoLEAST16</b></a>  "ho"
+#define <a href="#PRIoLEAST32"><b>PRIoLEAST32</b></a>  "lo"
+#define <a href="#PRIoLEAST64"><b>PRIoLEAST64</b></a>  "llo"
+
+#define <a href="#PRIoMAX"><b>PRIoMAX</b></a>   "llo"
+#define <a href="#PRIoPTR"><b>PRIoPTR</b></a>   "llo"
+
+#define <a href="#PRIu8"><b>PRIu8</b></a>     "hhu"
+#define <a href="#PRIu16"><b>PRIu16</b></a>    "hu"
+#define <a href="#PRIu32"><b>PRIu32</b></a>    "lu"
+#define <a href="#PRIu64"><b>PRIu64</b></a>    "llu"
+
+#define <a href="#PRIuFAST8"><b>PRIuFAST8</b></a>    "hhu"
+#define <a href="#PRIuFAST16"><b>PRIuFAST16</b></a>    "hu"
+#define <a href="#PRIuFAST32"><b>PRIuFAST32</b></a>    "lu"
+#define <a href="#PRIuFAST64"><b>PRIuFAST64</b></a>   "llu"
+
+#define <a href="#PRIuLEAST8"><b>PRIuLEAST8</b></a>   "hhu"
+#define <a href="#PRIuLEAST16"><b>PRIuLEAST16</b></a>  "hu"
+#define <a href="#PRIuLEAST32"><b>PRIuLEAST32</b></a>  "lu"
+#define <a href="#PRIuLEAST64"><b>PRIuLEAST64</b></a>  "llu"
+
+#define <a href="#PRIuMAX"><b>PRIuMAX</b></a>   "llu"
+#define <a href="#PRIuPTR"><b>PRIuPTR</b></a>   "llu"
+
+#define <a href="#PRIx8"><b>PRIx8</b></a>     "hhx"
+#define <a href="#PRIx16"><b>PRIx16</b></a>    "hx"
+#define <a href="#PRIx32"><b>PRIx32</b></a>    "lx"
+#define <a href="#PRIx64"><b>PRIx64</b></a>    "llx"
+
+#define <a href="#PRIxFAST8"><b>PRIxFAST8</b></a>    "hhx"
+#define <a href="#PRIxFAST16"><b>PRIxFAST16</b></a>    "hx"
+#define <a href="#PRIxFAST32"><b>PRIxFAST32</b></a>    "lx"
+#define <a href="#PRIxFAST64"><b>PRIxFAST64</b></a>   "llx"
+
+#define <a href="#PRIxLEAST8"><b>PRIxLEAST8</b></a>   "hhx"
+#define <a href="#PRIxLEAST16"><b>PRIxLEAST16</b></a>  "hx"
+#define <a href="#PRIxLEAST32"><b>PRIxLEAST32</b></a>  "lx"
+#define <a href="#PRIxLEAST64"><b>PRIxLEAST64</b></a>  "llx"
+
+#define <a href="#PRIxMAX"><b>PRIxMAX</b></a>   "llx"
+#define <a href="#PRIxPTR"><b>PRIxPTR</b></a>   "llx"
+
+#define <a href="#PRIX8"><b>PRIX8</b></a>     "hhX"
+#define <a href="#PRIX16"><b>PRIX16</b></a>    "hX"
+#define <a href="#PRIX32"><b>PRIX32</b></a>    "lX"
+#define <a href="#PRIX64"><b>PRIX64</b></a>    "llX"
+
+#define <a href="#PRIXFAST8"><b>PRIXFAST8</b></a>    "hhX"
+#define <a href="#PRIXFAST16"><b>PRIXFAST16</b></a>    "hX"
+#define <a href="#PRIXFAST32"><b>PRIXFAST32</b></a>    "lX"
+#define <a href="#PRIXFAST64"><b>PRIXFAST64</b></a>   "llX"
+
+#define <a href="#PRIXLEAST8"><b>PRIXLEAST8</b></a>   "hhX"
+#define <a href="#PRIXLEAST16"><b>PRIXLEAST16</b></a>  "hX"
+#define <a href="#PRIXLEAST32"><b>PRIXLEAST32</b></a>  "lX"
+#define <a href="#PRIXLEAST64"><b>PRIXLEAST64</b></a>  "llX"
+
+#define <a href="#PRIXMAX"><b>PRIXMAX</b></a>   "llX"
+#define <a href="#PRIXPTR"><b>PRIXPTR</b></a>   "llX"
+
+        /* SCAN FORMAT MACROS */
+#define <a href="#SCNd8"><b>SCNd8</b></a>     "hhd"
+#define <a href="#SCNd16"><b>SCNd16</b></a>    "hd"
+#define <a href="#SCNd32"><b>SCNd32</b></a>    "ld"
+#define <a href="#SCNd64"><b>SCNd64</b></a>    "lld"
+
+#define <a href="#SCNdFAST8"><b>SCNdFAST8</b></a>    "hhd"
+#define <a href="#SCNdFAST16"><b>SCNdFAST16</b></a>    "hd"
+#define <a href="#SCNdFAST32"><b>SCNdFAST32</b></a>    "ld"
+#define <a href="#SCNdFAST64"><b>SCNdFAST64</b></a>   "lld"
+
+#define <a href="#SCNdLEAST8"><b>SCNdLEAST8</b></a>   "hhd"
+#define <a href="#SCNdLEAST16"><b>SCNdLEAST16</b></a>  "hd"
+#define <a href="#SCNdLEAST32"><b>SCNdLEAST32</b></a>  "ld"
+#define <a href="#SCNdLEAST64"><b>SCNdLEAST64</b></a>  "lld"
+
+#define <a href="#SCNdMAX"><b>SCNdMAX</b></a>   "lld"
+#define <a href="#SCNdPTR"><b>SCNdPTR</b></a>   "lld"
+
+#define <a href="#SCNi8"><b>SCNi8</b></a>     "hhi"
+#define <a href="#SCNi16"><b>SCNi16</b></a>    "hi"
+#define <a href="#SCNi32"><b>SCNi32</b></a>    "li"
+#define <a href="#SCNi64"><b>SCNi64</b></a>    "lli"
+
+#define <a href="#SCNiFAST8"><b>SCNiFAST8</b></a>    "hhi"
+#define <a href="#SCNiFAST16"><b>SCNiFAST16</b></a>    "hi"
+#define <a href="#SCNiFAST32"><b>SCNiFAST32</b></a>    "li"
+#define <a href="#SCNiFAST64"><b>SCNiFAST64</b></a>   "lli"
+
+#define <a href="#SCNiLEAST8"><b>SCNiLEAST8</b></a>   "hhi"
+#define <a href="#SCNiLEAST16"><b>SCNiLEAST16</b></a>  "hi"
+#define <a href="#SCNiLEAST32"><b>SCNiLEAST32</b></a>  "li"
+#define <a href="#SCNiLEAST64"><b>SCNiLEAST64</b></a>  "lli"
+
+#define <a href="#SCNiMAX"><b>SCNiMAX</b></a>   "lli"
+#define <a href="#SCNiPTR"><b>SCNiPTR</b></a>   "lli"
+
+#define <a href="#SCNo8"><b>SCNo8</b></a>     "hho"
+#define <a href="#SCNo16"><b>SCNo16</b></a>    "ho"
+#define <a href="#SCNo32"><b>SCNo32</b></a>    "lo"
+#define <a href="#SCNo64"><b>SCNo64</b></a>    "llo"
+
+#define <a href="#SCNoFAST8"><b>SCNoFAST8</b></a>    "hho"
+#define <a href="#SCNoFAST16"><b>SCNoFAST16</b></a>    "ho"
+#define <a href="#SCNoFAST32"><b>SCNoFAST32</b></a>    "lo"
+#define <a href="#SCNoFAST64"><b>SCNoFAST64</b></a>   "llo"
+
+#define <a href="#SCNoLEAST8"><b>SCNoLEAST8</b></a>   "hho"
+#define <a href="#SCNoLEAST16"><b>SCNoLEAST16</b></a>  "ho"
+#define <a href="#SCNoLEAST32"><b>SCNoLEAST32</b></a>  "lo"
+#define <a href="#SCNoLEAST64"><b>SCNoLEAST64</b></a>  "llo"
+
+#define <a href="#SCNoMAX"><b>SCNoMAX</b></a>   "llo"
+#define <a href="#SCNoPTR"><b>SCNoPTR</b></a>   "llo"
+
+#define <a href="#SCNu8"><b>SCNu8</b></a>     "hhu"
+#define <a href="#SCNu16"><b>SCNu16</b></a>    "hu"
+#define <a href="#SCNu32"><b>SCNu32</b></a>    "lu"
+#define <a href="#SCNu64"><b>SCNu64</b></a>    "llu"
+
+#define <a href="#SCNuFAST8"><b>SCNuFAST8</b></a>    "hhu"
+#define <a href="#SCNuFAST16"><b>SCNuFAST16</b></a>    "hu"
+#define <a href="#SCNuFAST32"><b>SCNuFAST32</b></a>    "lu"
+#define <a href="#SCNuFAST64"><b>SCNuFAST64</b></a>   "llu"
+
+#define <a href="#SCNuLEAST8"><b>SCNuLEAST8</b></a>   "hhu"
+#define <a href="#SCNuLEAST16"><b>SCNuLEAST16</b></a>  "hu"
+#define <a href="#SCNuLEAST32"><b>SCNuLEAST32</b></a>  "lu"
+#define <a href="#SCNuLEAST64"><b>SCNuLEAST64</b></a>  "llu"
+
+#define <a href="#SCNuMAX"><b>SCNuMAX</b></a>   "llu"
+#define <a href="#SCNuPTR"><b>SCNuPTR</b></a>   "llu"
+
+#define <a href="#SCNx8"><b>SCNx8</b></a>     "hhx"
+#define <a href="#SCNx16"><b>SCNx16</b></a>    "hx"
+#define <a href="#SCNx32"><b>SCNx32</b></a>    "lx"
+#define <a href="#SCNx64"><b>SCNx64</b></a>    "llx"
+
+#define <a href="#SCNxFAST8"><b>SCNxFAST8</b></a>    "hhx"
+#define <a href="#SCNxFAST16"><b>SCNxFAST16</b></a>    "hx"
+#define <a href="#SCNxFAST32"><b>SCNxFAST32</b></a>    "lx"
+#define <a href="#SCNxFAST64"><b>SCNxFAST64</b></a>   "llx"
+
+#define <a href="#SCNxLEAST8"><b>SCNxLEAST8</b></a>   "hhx"
+#define <a href="#SCNxLEAST16"><b>SCNxLEAST16</b></a>  "hx"
+#define <a href="#SCNxLEAST32"><b>SCNxLEAST32</b></a>  "lx"
+#define <a href="#SCNxLEAST64"><b>SCNxLEAST64</b></a>  "llx"
+
+#define <a href="#SCNxMAX"><b>SCNxMAX</b></a>   "llx"
+#define <a href="#SCNxPTR"><b>SCNxPTR</b></a>   "llx"
+</pre>
+
+  <h2><a name="imaxabs"><code>imaxabs</code></a>, <a name="abs"><code>abs</code></a></h2>
+  <pre>
+intmax_t <b>imaxabs</b>(intmax_t i);
+intmax_t <b>abs</b>(intmax_t i); <b>[C++ only]</b>
+</pre>
+
+  <p>The function returns the absolute value of <code>i</code>, <code>|i|</code>.</p>
+
+  <h2><a name="imaxdiv"><code>imaxdiv</code></a>, <a name="div"><code>div</code></a></h2>
+  <pre>
+imaxdiv_t <b>imaxdiv</b>(intmax_t numer, intmax_t denom);
+imaxdiv_t <b>div</b>(intmax_t numer, intmax_t denom); <b>[C++ only]</b>
+</pre>
+
+  <p>The function divides <code>numer</code> by <code>denom</code> and returns both quotient and remainder in
+  the structure result <code>x</code>, if the quotient can be represented. The structure member
+  <code>x.quot</code> is the algebraic quotient truncated toward zero. The structure member
+  <code>x.rem</code> is the remainder, such that <code>numer == x.quot*denom + x.rem</code>.</p>
+
+  <h2><a name="imaxdiv_t"><code>imaxdiv_t</code></a></h2>
+  <pre>
+typedef struct {
+    intmax_t quot, rem;
+    } <b>imaxdiv_t</b>;
+</pre>
+
+  <p>The type is the structure type returned by the function <a href="#imaxdiv"><code>imaxdiv</code></a>. The
+  structure contains members that represent the quotient (<code>quot</code>) and remainder (<code>rem</code>)
+  of a signed integer division with operands of type <i>intmax_t.</i> The members shown above can occur in
+  either order.</p>
+
+  <h2><a name="PRId8"><code>PRId8</code></a>, <a name="PRId16"><code>PRId16</code></a>, <a name=
+  "PRId32"><code>PRId32</code></a>, <a name="PRId64"><code>PRId64</code></a></h2>
+  <pre>
+#define <b>PRId8</b>     "hhd"
+#define <b>PRId16</b>    "hd"
+#define <b>PRId32</b>    "ld"
+#define <b>PRId64</b>    "lld"
+</pre>
+
+  <p>The macros each expand to a string literal suitable for use as a <code>d</code> print conversion
+  specificier, plus any needed qualifiers, to convert values of the types <a href=
+  "stdint.html#int8_t"><code>int8_t</code></a>, <a href="stdint.html#int16_t"><code>int16_t</code></a>,
+  <a href="stdint.html#int32_t"><code>int32_t</code></a>, or <a href=
+  "stdint.html#int64_t"><code>int64_t</code></a>, respectively. Note that the definitions shown here are
+  merely representative.</p>
+
+  <h2><a name="PRIdFAST8"><code>PRIdFAST8</code></a>, <a name="PRIdFAST16"><code>PRIdFAST16</code></a>,
+  <a name="PRIdFAST32"><code>PRIdFAST32</code></a>, <a name="PRIdFAST64"><code>PRIdFAST64</code></a></h2>
+  <pre>
+#define <b>PRIdFAST8</b>    "hhd"
+#define <b>PRIdFAST16</b>    "hd"
+#define <b>PRIdFAST32</b>    "ld"
+#define <b>PRIdFAST64</b>   "lld"
+</pre>
+
+  <p>The macros each expand to a string literal suitable for use as a <code>d</code> print conversion
+  specificier, plus any needed qualifiers, to convert values of the types <a href=
+  "stdint.html#int_fast8_t"><code>int_fast8_t</code></a>, <a href=
+  "stdint.html#int_fast16_t"><code>int_fast16_t</code></a>, <a href=
+  "stdint.html#int_fast32_t"><code>int_fast32_t</code></a>, or <a href=
+  "stdint.html#int_fast64_t"><code>int_fast64_t</code></a>, respectively. Note that the definitions shown
+  here are merely representative.</p>
+
+  <h2><a name="PRIdLEAST8"><code>PRIdLEAST8</code></a>, <a name="PRIdLEAST16"><code>PRIdLEAST16</code></a>,
+  <a name="PRIdLEAST32"><code>PRIdLEAST32</code></a>, <a name="PRIdLEAST64"><code>PRIdLEAST64</code></a></h2>
+  <pre>
+#define <b>PRIdLEAST8</b>   "hhd"
+#define <b>PRIdLEAST16</b>  "hd"
+#define <b>PRIdLEAST32</b>  "ld"
+#define <b>PRIdLEAST64</b>  "lld"
+</pre>
+
+  <p>The macros each expand to a string literal suitable for use as a <code>d</code> print conversion
+  specificier, plus any needed qualifiers, to convert values of the types <a href=
+  "stdint.html#int_least8_t"><code>int_least8_t</code></a>, <a href=
+  "stdint.html#int_least16_t"><code>int_least16_t</code></a>, <a href=
+  "stdint.html#int_least32_t"><code>int_least32_t</code></a>, or <a href=
+  "stdint.html#int_least64_t"><code>int_least64_t</code></a>, respectively. Note that the definitions shown
+  here are merely representative.</p>
+
+  <h2><a name="PRIdMAX"><code>PRIdMAX</code></a></h2>
+  <pre>
+#define <b>PRIdMAX</b>   "lld"
+</pre>
+
+  <p>The macro expands to a string literal suitable for use as a <code>d</code> print conversion specificier,
+  plus any needed qualifiers, to convert values of the types <a href=
+  "stdint.html#intmax_t"><code>intmax_t</code></a>. Note that the definition shown here is merely
+  representative.</p>
+
+  <h2><a name="PRIdPTR"><code>PRIdPTR</code></a></h2>
+  <pre>
+#define <b>PRIdPTR</b>   "lld"
+</pre>
+
+  <p>The macro expands to a string literal suitable for use as a <code>d</code> print conversion specificier,
+  plus any needed qualifiers, to convert values of the types <a href=
+  "stdint.html#intptr_t"><code>intptr_t</code></a>. Note that the definition shown here is merely
+  representative.</p>
+
+  <h2><a name="PRIi8"><code>PRIi8</code></a>, <a name="PRIi16"><code>PRIi16</code></a>, <a name=
+  "PRIi32"><code>PRIi32</code></a>, <a name="PRIi64"><code>PRIi64</code></a></h2>
+  <pre>
+#define <b>PRIi8</b>     "hhi"
+#define <b>PRIi16</b>    "hi"
+#define <b>PRIi32</b>    "li"
+#define <b>PRIi64</b>    "lli"
+</pre>
+
+  <p>The macros each expand to a string literal suitable for use as an <code>i</code> print conversion
+  specificier, plus any needed qualifiers, to convert values of the types <a href=
+  "stdint.html#int8_t"><code>int8_t</code></a>, <a href="stdint.html#int16_t"><code>int16_t</code></a>,
+  <a href="stdint.html#int32_t"><code>int32_t</code></a>, or <a href=
+  "stdint.html#int64_t"><code>int64_t</code></a>, respectively. Note that the definitions shown here are
+  merely representative.</p>
+
+  <h2><a name="PRIiFAST8"><code>PRIiFAST8</code></a>, <a name="PRIiFAST16"><code>PRIiFAST16</code></a>,
+  <a name="PRIiFAST32"><code>PRIiFAST32</code></a>, <a name="PRIiFAST64"><code>PRIiFAST64</code></a></h2>
+  <pre>
+#define <b>PRIiFAST8</b>    "hhi"
+#define <b>PRIiFAST16</b>    "hi"
+#define <b>PRIiFAST32</b>    "li"
+#define <b>PRIiFAST64</b>   "lli"
+</pre>
+
+  <p>The macros each expand to a string literal suitable for use as an <code>i</code> print conversion
+  specificier, plus any needed qualifiers, to convert values of the types <a href=
+  "stdint.html#int_fast8_t"><code>int_fast8_t</code></a>, <a href=
+  "stdint.html#int_fast16_t"><code>int_fast16_t</code></a>, <a href=
+  "stdint.html#int_fast32_t"><code>int_fast32_t</code></a>, or <a href=
+  "stdint.html#int_fast64_t"><code>int_fast64_t</code></a>, respectively. Note that the definitions shown
+  here are merely representative.</p>
+
+  <h2><a name="PRIiLEAST8"><code>PRIiLEAST8</code></a>, <a name="PRIiLEAST16"><code>PRIiLEAST16</code></a>,
+  <a name="PRIiLEAST32"><code>PRIiLEAST32</code></a>, <a name="PRIiLEAST64"><code>PRIiLEAST64</code></a></h2>
+  <pre>
+#define <b>PRIiLEAST8</b>   "hhi"
+#define <b>PRIiLEAST16</b>  "hi"
+#define <b>PRIiLEAST32</b>  "li"
+#define <b>PRIiLEAST64</b>  "lli"
+</pre>
+
+  <p>The macros each expand to a string literal suitable for use as an <code>i</code> print conversion
+  specificier, plus any needed qualifiers, to convert values of the types <a href=
+  "stdint.html#int_least8_t"><code>int_least8_t</code></a>, <a href=
+  "stdint.html#int_least16_t"><code>int_least16_t</code></a>, <a href=
+  "stdint.html#int_least32_t"><code>int_least32_t</code></a>, or <a href=
+  "stdint.html#int_least64_t"><code>int_least64_t</code></a>, respectively. Note that the definitions shown
+  here are merely representative.</p>
+
+  <h2><a name="PRIiMAX"><code>PRIiMAX</code></a></h2>
+  <pre>
+#define <b>PRIiMAX</b>   "lli"
+</pre>
+
+  <p>The macro expands to a string literal suitable for use as an <code>i</code> print conversion
+  specificier, plus any needed qualifiers, to convert values of the types <a href=
+  "stdint.html#intmax_t"><code>intmax_t</code></a>. Note that the definition shown here is merely
+  representative.</p>
+
+  <h2><a name="PRIiPTR"><code>PRIiPTR</code></a></h2>
+  <pre>
+#define <b>PRIiPTR</b>   "lli"
+</pre>
+
+  <p>The macro expands to a string literal suitable for use as an <code>i</code> print conversion
+  specificier, plus any needed qualifiers, to convert values of the types <a href=
+  "stdint.html#intptr_t"><code>intptr_t</code></a>. Note that the definition shown here is merely
+  representative.</p>
+
+  <h2><a name="PRIo8"><code>PRIo8</code></a>, <a name="PRIo16"><code>PRIo16</code></a>, <a name=
+  "PRIo32"><code>PRIo32</code></a>, <a name="PRIo64"><code>PRIo64</code></a></h2>
+  <pre>
+#define <b>PRIo8</b>     "hho"
+#define <b>PRIo16</b>    "ho"
+#define <b>PRIo32</b>    "lo"
+#define <b>PRIo64</b>    "llo"
+</pre>
+
+  <p>The macros each expand to a string literal suitable for use as an <code>o</code> print conversion
+  specificier, plus any needed qualifiers, to convert values of the types <a href=
+  "stdint.html#uint8_t"><code>uint8_t</code></a>, <a href="stdint.html#uint16_t"><code>uint16_t</code></a>,
+  <a href="stdint.html#uint32_t"><code>uint32_t</code></a>, or <a href=
+  "stdint.html#uint64_t"><code>uint64_t</code></a>, respectively. Note that the definitions shown here are
+  merely representative.</p>
+
+  <h2><a name="PRIoFAST8"><code>PRIoFAST8</code></a>, <a name="PRIoFAST16"><code>PRIoFAST16</code></a>,
+  <a name="PRIoFAST32"><code>PRIoFAST32</code></a>, <a name="PRIoFAST64"><code>PRIoFAST64</code></a></h2>
+  <pre>
+#define <b>PRIoFAST8</b>    "hho"
+#define <b>PRIoFAST16</b>    "ho"
+#define <b>PRIoFAST32</b>    "lo"
+#define <b>PRIoFAST64</b>   "llo"
+</pre>
+
+  <p>The macros each expand to a string literal suitable for use as an <code>o</code> print conversion
+  specificier, plus any needed qualifiers, to convert values of the types <a href=
+  "stdint.html#uint_fast8_t"><code>uint_fast8_t</code></a>, <a href=
+  "stdint.html#uint_fast16_t"><code>uint_fast16_t</code></a>, <a href=
+  "stdint.html#uint_fast32_t"><code>uint_fast32_t</code></a>, or <a href=
+  "stdint.html#uint_fast64_t"><code>uint_fast64_t</code></a>, respectively. Note that the definitions shown
+  here are merely representative.</p>
+
+  <h2><a name="PRIoLEAST8"><code>PRIoLEAST8</code></a>, <a name="PRIoLEAST16"><code>PRIoLEAST16</code></a>,
+  <a name="PRIoLEAST32"><code>PRIoLEAST32</code></a>, <a name="PRIoLEAST64"><code>PRIoLEAST64</code></a></h2>
+  <pre>
+#define <b>PRIoLEAST8</b>   "hho"
+#define <b>PRIoLEAST16</b>  "ho"
+#define <b>PRIoLEAST32</b>  "lo"
+#define <b>PRIoLEAST64</b>  "llo"
+</pre>
+
+  <p>The macros each expand to a string literal suitable for use as an <code>o</code> print conversion
+  specificier, plus any needed qualifiers, to convert values of the types <a href=
+  "stdint.html#uint_least8_t"><code>uint_least8_t</code></a>, <a href=
+  "stdint.html#uint_least16_t"><code>uint_least16_t</code></a>, <a href=
+  "stdint.html#uint_least32_t"><code>uint_least32_t</code></a>, or <a href=
+  "stdint.html#uint_least64_t"><code>uint_least64_t</code></a>, respectively. Note that the definitions shown
+  here are merely representative.</p>
+
+  <h2><a name="PRIoMAX"><code>PRIoMAX</code></a></h2>
+  <pre>
+#define <b>PRIoMAX</b>   "llo"
+</pre>
+
+  <p>The macro expands to a string literal suitable for use as an <code>o</code> print conversion
+  specificier, plus any needed qualifiers, to convert values of the types <a href=
+  "stdint.html#uintmax_t"><code>uintmax_t</code></a>. Note that the definition shown here is merely
+  representative.</p>
+
+  <h2><a name="PRIoPTR"><code>PRIoPTR</code></a></h2>
+  <pre>
+#define <b>PRIoPTR</b>   "llo"
+</pre>
+
+  <p>The macro expands to a string literal suitable for use as an <code>o</code> print conversion
+  specificier, plus any needed qualifiers, to convert values of the types <a href=
+  "stdint.html#uintptr_t"><code>uintptr_t</code></a>. Note that the definition shown here is merely
+  representative.</p>
+
+  <h2><a name="PRIu8"><code>PRIu8</code></a>, <a name="PRIu16"><code>PRIu16</code></a>, <a name=
+  "PRIu32"><code>PRIu32</code></a>, <a name="PRIu64"><code>PRIu64</code></a></h2>
+  <pre>
+#define <b>PRIu8</b>     "hhu"
+#define <b>PRIu16</b>    "hu"
+#define <b>PRIu32</b>    "lu"
+#define <b>PRIu64</b>    "llu"
+</pre>
+
+  <p>The macros each expand to a string literal suitable for use as a <code>u</code> print conversion
+  specificier, plus any needed qualifiers, to convert values of the types <a href=
+  "stdint.html#uint8_t"><code>uint8_t</code></a>, <a href="stdint.html#uint16_t"><code>uint16_t</code></a>,
+  <a href="stdint.html#uint32_t"><code>uint32_t</code></a>, or <a href=
+  "stdint.html#uint64_t"><code>uint64_t</code></a>, respectively. Note that the definitions shown here are
+  merely representative.</p>
+
+  <h2><a name="PRIuFAST8"><code>PRIuFAST8</code></a>, <a name="PRIuFAST16"><code>PRIuFAST16</code></a>,
+  <a name="PRIuFAST32"><code>PRIuFAST32</code></a>, <a name="PRIuFAST64"><code>PRIuFAST64</code></a></h2>
+  <pre>
+#define <b>PRIuFAST8</b>    "hhu"
+#define <b>PRIuFAST16</b>    "hu"
+#define <b>PRIuFAST32</b>    "lu"
+#define <b>PRIuFAST64</b>   "llu"
+</pre>
+
+  <p>The macros each expand to a string literal suitable for use as a <code>u</code> print conversion
+  specificier, plus any needed qualifiers, to convert values of the types <a href=
+  "stdint.html#uint_fast8_t"><code>uint_fast8_t</code></a>, <a href=
+  "stdint.html#uint_fast16_t"><code>uint_fast16_t</code></a>, <a href=
+  "stdint.html#uint_fast32_t"><code>uint_fast32_t</code></a>, or <a href=
+  "stdint.html#uint_fast64_t"><code>uint_fast64_t</code></a>, respectively. Note that the definitions shown
+  here are merely representative.</p>
+
+  <h2><a name="PRIuLEAST8"><code>PRIuLEAST8</code></a>, <a name="PRIuLEAST16"><code>PRIuLEAST16</code></a>,
+  <a name="PRIuLEAST32"><code>PRIuLEAST32</code></a>, <a name="PRIuLEAST64"><code>PRIuLEAST64</code></a></h2>
+  <pre>
+#define <b>PRIuLEAST8</b>   "hhu"
+#define <b>PRIuLEAST16</b>  "hu"
+#define <b>PRIuLEAST32</b>  "lu"
+#define <b>PRIuLEAST64</b>  "llu"
+</pre>
+
+  <p>The macros each expand to a string literal suitable for use as a <code>u</code> print conversion
+  specificier, plus any needed qualifiers, to convert values of the types <a href=
+  "stdint.html#uint_least8_t"><code>uint_least8_t</code></a>, <a href=
+  "stdint.html#uint_least16_t"><code>uint_least16_t</code></a>, <a href=
+  "stdint.html#uint_least32_t"><code>uint_least32_t</code></a>, or <a href=
+  "stdint.html#uint_least64_t"><code>uint_least64_t</code></a>, respectively. Note that the definitions shown
+  here are merely representative.</p>
+
+  <h2><a name="PRIuMAX"><code>PRIuMAX</code></a></h2>
+  <pre>
+#define <b>PRIuMAX</b>   "llu"
+</pre>
+
+  <p>The macro expands to a string literal suitable for use as a <code>u</code> print conversion specificier,
+  plus any needed qualifiers, to convert values of the types <a href=
+  "stdint.html#uintmax_t"><code>uintmax_t</code></a>. Note that the definition shown here is merely
+  representative.</p>
+
+  <h2><a name="PRIuPTR"><code>PRIuPTR</code></a></h2>
+  <pre>
+#define <b>PRIuPTR</b>   "llu"
+</pre>
+
+  <p>The macro expands to a string literal suitable for use as a <code>u</code> print conversion specificier,
+  plus any needed qualifiers, to convert values of the types <a href=
+  "stdint.html#uintptr_t"><code>uintptr_t</code></a>. Note that the definition shown here is merely
+  representative.</p>
+
+  <h2><a name="PRIx8"><code>PRIx8</code></a>, <a name="PRIx16"><code>PRIx16</code></a>, <a name=
+  "PRIx32"><code>PRIx32</code></a>, <a name="PRIx64"><code>PRIx64</code></a></h2>
+  <pre>
+#define <b>PRIx8</b>     "hhx"
+#define <b>PRIx16</b>    "hx"
+#define <b>PRIx32</b>    "lx"
+#define <b>PRIx64</b>    "llx"
+</pre>
+
+  <p>The macros each expand to a string literal suitable for use as an <code>x</code> print conversion
+  specificier, plus any needed qualifiers, to convert values of the types <a href=
+  "stdint.html#uint8_t"><code>uint8_t</code></a>, <a href="stdint.html#uint16_t"><code>uint16_t</code></a>,
+  <a href="stdint.html#uint32_t"><code>uint32_t</code></a>, or <a href=
+  "stdint.html#uint64_t"><code>uint64_t</code></a>, respectively. Note that the definitions shown here are
+  merely representative.</p>
+
+  <h2><a name="PRIxFAST8"><code>PRIxFAST8</code></a>, <a name="PRIxFAST16"><code>PRIxFAST16</code></a>,
+  <a name="PRIxFAST32"><code>PRIxFAST32</code></a>, <a name="PRIxFAST64"><code>PRIxFAST64</code></a></h2>
+  <pre>
+#define <b>PRIxFAST8</b>    "hhx"
+#define <b>PRIxFAST16</b>    "hx"
+#define <b>PRIxFAST32</b>    "lx"
+#define <b>PRIxFAST64</b>   "llx"
+</pre>
+
+  <p>The macros each expand to a string literal suitable for use as an <code>x</code> print conversion
+  specificier, plus any needed qualifiers, to convert values of the types <a href=
+  "stdint.html#uint_fast8_t"><code>uint_fast8_t</code></a>, <a href=
+  "stdint.html#uint_fast16_t"><code>uint_fast16_t</code></a>, <a href=
+  "stdint.html#uint_fast32_t"><code>uint_fast32_t</code></a>, or <a href=
+  "stdint.html#uint_fast64_t"><code>uint_fast64_t</code></a>, respectively. Note that the definitions shown
+  here are merely representative.</p>
+
+  <h2><a name="PRIxLEAST8"><code>PRIxLEAST8</code></a>, <a name="PRIxLEAST16"><code>PRIxLEAST16</code></a>,
+  <a name="PRIxLEAST32"><code>PRIxLEAST32</code></a>, <a name="PRIxLEAST64"><code>PRIxLEAST64</code></a></h2>
+  <pre>
+#define <b>PRIxLEAST8</b>   "hhx"
+#define <b>PRIxLEAST16</b>  "hx"
+#define <b>PRIxLEAST32</b>  "lx"
+#define <b>PRIxLEAST64</b>  "llx"
+</pre>
+
+  <p>The macros each expand to a string literal suitable for use as an <code>x</code> print conversion
+  specificier, plus any needed qualifiers, to convert values of the types <a href=
+  "stdint.html#uint_least8_t"><code>uint_least8_t</code></a>, <a href=
+  "stdint.html#uint_least16_t"><code>uint_least16_t</code></a>, <a href=
+  "stdint.html#uint_least32_t"><code>uint_least32_t</code></a>, or <a href=
+  "stdint.html#uint_least64_t"><code>uint_least64_t</code></a>, respectively. Note that the definitions shown
+  here are merely representative.</p>
+
+  <h2><a name="PRIxMAX"><code>PRIxMAX</code></a></h2>
+  <pre>
+#define <b>PRIxMAX</b>   "llx"
+</pre>
+
+  <p>The macro expands to a string literal suitable for use as an <code>x</code> print conversion
+  specificier, plus any needed qualifiers, to convert values of the types <a href=
+  "stdint.html#uintmax_t"><code>uintmax_t</code></a>. Note that the definition shown here is merely
+  representative.</p>
+
+  <h2><a name="PRIxPTR"><code>PRIxPTR</code></a></h2>
+  <pre>
+#define <b>PRIxPTR</b>   "llx"
+</pre>
+
+  <p>The macro expands to a string literal suitable for use as an <code>x</code> print conversion
+  specificier, plus any needed qualifiers, to convert values of the types <a href=
+  "stdint.html#uintptr_t"><code>uintptr_t</code></a>. Note that the definition shown here is merely
+  representative.</p>
+
+  <h2><a name="PRIX8"><code>PRIX8</code></a>, <a name="PRIX16"><code>PRIX16</code></a>, <a name=
+  "PRIX32"><code>PRIX32</code></a>, <a name="PRIX64"><code>PRIX64</code></a></h2>
+  <pre>
+#define <b>PRIX8</b>     "hhX"
+#define <b>PRIX16</b>    "hX"
+#define <b>PRIX32</b>    "lX"
+#define <b>PRIX64</b>    "llX"
+</pre>
+
+  <p>The macros each expand to a string literal suitable for use as an <code>X</code> print conversion
+  specificier, plus any needed qualifiers, to convert values of the types <a href=
+  "stdint.html#uint8_t"><code>uint8_t</code></a>, <a href="stdint.html#uint16_t"><code>uint16_t</code></a>,
+  <a href="stdint.html#uint32_t"><code>uint32_t</code></a>, or <a href=
+  "stdint.html#uint64_t"><code>uint64_t</code></a>, respectively. Note that the definitions shown here are
+  merely representative.</p>
+
+  <h2><a name="PRIXFAST8"><code>PRIXFAST8</code></a>, <a name="PRIXFAST16"><code>PRIXFAST16</code></a>,
+  <a name="PRIXFAST32"><code>PRIXFAST32</code></a>, <a name="PRIXFAST64"><code>PRIXFAST64</code></a></h2>
+  <pre>
+#define <b>PRIXFAST8</b>    "hhX"
+#define <b>PRIXFAST16</b>    "hX"
+#define <b>PRIXFAST32</b>    "lX"
+#define <b>PRIXFAST64</b>   "llX"
+</pre>
+
+  <p>The macros each expand to a string literal suitable for use as an <code>X</code> print conversion
+  specificier, plus any needed qualifiers, to convert values of the types <a href=
+  "stdint.html#uint_fast8_t"><code>uint_fast8_t</code></a>, <a href=
+  "stdint.html#uint_fast16_t"><code>uint_fast16_t</code></a>, <a href=
+  "stdint.html#uint_fast32_t"><code>uint_fast32_t</code></a>, or <a href=
+  "stdint.html#uint_fast64_t"><code>uint_fast64_t</code></a>, respectively. Note that the definitions shown
+  here are merely representative.</p>
+
+  <h2><a name="PRIXLEAST8"><code>PRIXLEAST8</code></a>, <a name="PRIXLEAST16"><code>PRIXLEAST16</code></a>,
+  <a name="PRIXLEAST32"><code>PRIXLEAST32</code></a>, <a name="PRIXLEAST64"><code>PRIXLEAST64</code></a></h2>
+  <pre>
+#define <b>PRIXLEAST8</b>   "hhX"
+#define <b>PRIXLEAST16</b>  "hX"
+#define <b>PRIXLEAST32</b>  "lX"
+#define <b>PRIXLEAST64</b>  "llX"
+</pre>
+
+  <p>The macros each expand to a string literal suitable for use as an <code>X</code> print conversion
+  specificier, plus any needed qualifiers, to convert values of the types <a href=
+  "stdint.html#uint_least8_t"><code>uint_least8_t</code></a>, <a href=
+  "stdint.html#uint_least16_t"><code>uint_least16_t</code></a>, <a href=
+  "stdint.html#uint_least32_t"><code>uint_least32_t</code></a>, or <a href=
+  "stdint.html#uint_least64_t"><code>uint_least64_t</code></a>, respectively. Note that the definitions shown
+  here are merely representative.</p>
+
+  <h2><a name="PRIXMAX"><code>PRIXMAX</code></a></h2>
+  <pre>
+#define <b>PRIXMAX</b>   "llX"
+</pre>
+
+  <p>The macro expands to a string literal suitable for use as an <code>X</code> print conversion
+  specificier, plus any needed qualifiers, to convert values of the types <a href=
+  "stdint.html#uintmax_t"><code>uintmax_t</code></a>. Note that the definition shown here is merely
+  representative.</p>
+
+  <h2><a name="PRIXPTR"><code>PRIXPTR</code></a></h2>
+  <pre>
+#define <b>PRIXPTR</b>   "llX"
+</pre>
+
+  <p>The macro expands to a string literal suitable for use as an <code>X</code> print conversion
+  specificier, plus any needed qualifiers, to convert values of the types <a href=
+  "stdint.html#uintptr_t"><code>uintptr_t</code></a>. Note that the definition shown here is merely
+  representative.</p>
+
+  <h2><a name="SCNd8"><code>SCNd8</code></a>, <a name="SCNd16"><code>SCNd16</code></a>, <a name=
+  "SCNd32"><code>SCNd32</code></a>, <a name="SCNd64"><code>SCNd64</code></a></h2>
+  <pre>
+#define <b>SCNd8</b>     "hhd"
+#define <b>SCNd16</b>    "hd"
+#define <b>SCNd32</b>    "ld"
+#define <b>SCNd64</b>    "lld"
+</pre>
+
+  <p>The macros each expand to a string literal suitable for use as a <code>d</code> scan conversion
+  specificier, plus any needed qualifiers, to convert values of the types <a href=
+  "stdint.html#int8_t"><code>int8_t</code></a>, <a href="stdint.html#int16_t"><code>int16_t</code></a>,
+  <a href="stdint.html#int32_t"><code>int32_t</code></a>, or <a href=
+  "stdint.html#int64_t"><code>int64_t</code></a>, respectively. Note that the definitions shown here are
+  merely representative.</p>
+
+  <h2><a name="SCNdFAST8"><code>SCNdFAST8</code></a>, <a name="SCNdFAST16"><code>SCNdFAST16</code></a>,
+  <a name="SCNdFAST32"><code>SCNdFAST32</code></a>, <a name="SCNdFAST64"><code>SCNdFAST64</code></a></h2>
+  <pre>
+#define <b>SCNdFAST8</b>    "hhd"
+#define <b>SCNdFAST16</b>    "hd"
+#define <b>SCNdFAST32</b>    "ld"
+#define <b>SCNdFAST64</b>   "lld"
+</pre>
+
+  <p>The macros each expand to a string literal suitable for use as a <code>d</code> scan conversion
+  specificier, plus any needed qualifiers, to convert values of the types <a href=
+  "stdint.html#int_fast8_t"><code>int_fast8_t</code></a>, <a href=
+  "stdint.html#int_fast16_t"><code>int_fast16_t</code></a>, <a href=
+  "stdint.html#int_fast32_t"><code>int_fast32_t</code></a>, or <a href=
+  "stdint.html#int_fast64_t"><code>int_fast64_t</code></a>, respectively. Note that the definitions shown
+  here are merely representative.</p>
+
+  <h2><a name="SCNdLEAST8"><code>SCNdLEAST8</code></a>, <a name="SCNdLEAST16"><code>SCNdLEAST16</code></a>,
+  <a name="SCNdLEAST32"><code>SCNdLEAST32</code></a>, <a name="SCNdLEAST64"><code>SCNdLEAST64</code></a></h2>
+  <pre>
+#define <b>SCNdLEAST8</b>   "hhd"
+#define <b>SCNdLEAST16</b>  "hd"
+#define <b>SCNdLEAST32</b>  "ld"
+#define <b>SCNdLEAST64</b>  "lld"
+</pre>
+
+  <p>The macros each expand to a string literal suitable for use as a <code>d</code> scan conversion
+  specificier, plus any needed qualifiers, to convert values of the types <a href=
+  "stdint.html#int_least8_t"><code>int_least8_t</code></a>, <a href=
+  "stdint.html#int_least16_t"><code>int_least16_t</code></a>, <a href=
+  "stdint.html#int_least32_t"><code>int_least32_t</code></a>, or <a href=
+  "stdint.html#int_least64_t"><code>int_least64_t</code></a>, respectively. Note that the definitions shown
+  here are merely representative.</p>
+
+  <h2><a name="SCNdMAX"><code>SCNdMAX</code></a></h2>
+  <pre>
+#define <b>SCNdMAX</b>   "lld"
+</pre>
+
+  <p>The macro expands to a string literal suitable for use as a <code>d</code> scan conversion specificier,
+  plus any needed qualifiers, to convert values of the types <a href=
+  "stdint.html#intmax_t"><code>intmax_t</code></a>. Note that the definition shown here is merely
+  representative.</p>
+
+  <h2><a name="SCNdPTR"><code>SCNdPTR</code></a></h2>
+  <pre>
+#define <b>SCNdPTR</b>   "lld"
+</pre>
+
+  <p>The macro expands to a string literal suitable for use as a <code>d</code> scan conversion specificier,
+  plus any needed qualifiers, to convert values of the types <a href=
+  "stdint.html#intptr_t"><code>intptr_t</code></a>. Note that the definition shown here is merely
+  representative.</p>
+
+  <h2><a name="SCNi8"><code>SCNi8</code></a>, <a name="SCNi16"><code>SCNi16</code></a>, <a name=
+  "SCNi32"><code>SCNi32</code></a>, <a name="SCNi64"><code>SCNi64</code></a></h2>
+  <pre>
+#define <b>SCNi8</b>     "hhi"
+#define <b>SCNi16</b>    "hi"
+#define <b>SCNi32</b>    "li"
+#define <b>SCNi64</b>    "lli"
+</pre>
+
+  <p>The macros each expand to a string literal suitable for use as an <code>i</code> scan conversion
+  specificier, plus any needed qualifiers, to convert values of the types <a href=
+  "stdint.html#int8_t"><code>int8_t</code></a>, <a href="stdint.html#int16_t"><code>int16_t</code></a>,
+  <a href="stdint.html#int32_t"><code>int32_t</code></a>, or <a href=
+  "stdint.html#int64_t"><code>int64_t</code></a>, respectively. Note that the definitions shown here are
+  merely representative.</p>
+
+  <h2><a name="SCNiFAST8"><code>SCNiFAST8</code></a>, <a name="SCNiFAST16"><code>SCNiFAST16</code></a>,
+  <a name="SCNiFAST32"><code>SCNiFAST32</code></a>, <a name="SCNiFAST64"><code>SCNiFAST64</code></a></h2>
+  <pre>
+#define <b>SCNiFAST8</b>    "hhi"
+#define <b>SCNiFAST16</b>    "hi"
+#define <b>SCNiFAST32</b>    "li"
+#define <b>SCNiFAST64</b>   "lli"
+</pre>
+
+  <p>The macros each expand to a string literal suitable for use as an <code>i</code> scan conversion
+  specificier, plus any needed qualifiers, to convert values of the types <a href=
+  "stdint.html#int_fast8_t"><code>int_fast8_t</code></a>, <a href=
+  "stdint.html#int_fast16_t"><code>int_fast16_t</code></a>, <a href=
+  "stdint.html#int_fast32_t"><code>int_fast32_t</code></a>, or <a href=
+  "stdint.html#int_fast64_t"><code>int_fast64_t</code></a>, respectively. Note that the definitions shown
+  here are merely representative.</p>
+
+  <h2><a name="SCNiLEAST8"><code>SCNiLEAST8</code></a>, <a name="SCNiLEAST16"><code>SCNiLEAST16</code></a>,
+  <a name="SCNiLEAST32"><code>SCNiLEAST32</code></a>, <a name="SCNiLEAST64"><code>SCNiLEAST64</code></a></h2>
+  <pre>
+#define <b>SCNiLEAST8</b>   "hhi"
+#define <b>SCNiLEAST16</b>  "hi"
+#define <b>SCNiLEAST32</b>  "li"
+#define <b>SCNiLEAST64</b>  "lli"
+</pre>
+
+  <p>The macros each expand to a string literal suitable for use as an <code>i</code> scan conversion
+  specificier, plus any needed qualifiers, to convert values of the types <a href=
+  "stdint.html#int_least8_t"><code>int_least8_t</code></a>, <a href=
+  "stdint.html#int_least16_t"><code>int_least16_t</code></a>, <a href=
+  "stdint.html#int_least32_t"><code>int_least32_t</code></a>, or <a href=
+  "stdint.html#int_least64_t"><code>int_least64_t</code></a>, respectively. Note that the definitions shown
+  here are merely representative.</p>
+
+  <h2><a name="SCNiMAX"><code>SCNiMAX</code></a></h2>
+  <pre>
+#define <b>SCNiMAX</b>   "lli"
+</pre>
+
+  <p>The macro expands to a string literal suitable for use as an <code>i</code> scan conversion specificier,
+  plus any needed qualifiers, to convert values of the types <a href=
+  "stdint.html#intmax_t"><code>intmax_t</code></a>. Note that the definition shown here is merely
+  representative.</p>
+
+  <h2><a name="SCNiPTR"><code>SCNiPTR</code></a></h2>
+  <pre>
+#define <b>SCNiPTR</b>   "lli"
+</pre>
+
+  <p>The macro expands to a string literal suitable for use as an <code>i</code> scan conversion specificier,
+  plus any needed qualifiers, to convert values of the types <a href=
+  "stdint.html#intptr_t"><code>intptr_t</code></a>. Note that the definition shown here is merely
+  representative.</p>
+
+  <h2><a name="SCNo8"><code>SCNo8</code></a>, <a name="SCNo16"><code>SCNo16</code></a>, <a name=
+  "SCNo32"><code>SCNo32</code></a>, <a name="SCNo64"><code>SCNo64</code></a></h2>
+  <pre>
+#define <b>SCNo8</b>     "hho"
+#define <b>SCNo16</b>    "ho"
+#define <b>SCNo32</b>    "lo"
+#define <b>SCNo64</b>    "llo"
+</pre>
+
+  <p>The macros each expand to a string literal suitable for use as an <code>o</code> scan conversion
+  specificier, plus any needed qualifiers, to convert values of the types <a href=
+  "stdint.html#uint8_t"><code>uint8_t</code></a>, <a href="stdint.html#uint16_t"><code>uint16_t</code></a>,
+  <a href="stdint.html#uint32_t"><code>uint32_t</code></a>, or <a href=
+  "stdint.html#uint64_t"><code>uint64_t</code></a>, respectively. Note that the definitions shown here are
+  merely representative.</p>
+
+  <h2><a name="SCNoFAST8"><code>SCNoFAST8</code></a>, <a name="SCNoFAST16"><code>SCNoFAST16</code></a>,
+  <a name="SCNoFAST32"><code>SCNoFAST32</code></a>, <a name="SCNoFAST64"><code>SCNoFAST64</code></a></h2>
+  <pre>
+#define <b>SCNoFAST8</b>    "hho"
+#define <b>SCNoFAST16</b>    "ho"
+#define <b>SCNoFAST32</b>    "lo"
+#define <b>SCNoFAST64</b>   "llo"
+</pre>
+
+  <p>The macros each expand to a string literal suitable for use as an <code>o</code> scan conversion
+  specificier, plus any needed qualifiers, to convert values of the types <a href=
+  "stdint.html#uint_fast8_t"><code>uint_fast8_t</code></a>, <a href=
+  "stdint.html#uint_fast16_t"><code>uint_fast16_t</code></a>, <a href=
+  "stdint.html#uint_fast32_t"><code>uint_fast32_t</code></a>, or <a href=
+  "stdint.html#uint_fast64_t"><code>uint_fast64_t</code></a>, respectively. Note that the definitions shown
+  here are merely representative.</p>
+
+  <h2><a name="SCNoLEAST8"><code>SCNoLEAST8</code></a>, <a name="SCNoLEAST16"><code>SCNoLEAST16</code></a>,
+  <a name="SCNoLEAST32"><code>SCNoLEAST32</code></a>, <a name="SCNoLEAST64"><code>SCNoLEAST64</code></a></h2>
+  <pre>
+#define <b>SCNoLEAST8</b>   "hho"
+#define <b>SCNoLEAST16</b>  "ho"
+#define <b>SCNoLEAST32</b>  "lo"
+#define <b>SCNoLEAST64</b>  "llo"
+</pre>
+
+  <p>The macros each expand to a string literal suitable for use as an <code>o</code> scan conversion
+  specificier, plus any needed qualifiers, to convert values of the types <a href=
+  "stdint.html#uint_least8_t"><code>uint_least8_t</code></a>, <a href=
+  "stdint.html#uint_least16_t"><code>uint_least16_t</code></a>, <a href=
+  "stdint.html#uint_least32_t"><code>uint_least32_t</code></a>, or <a href=
+  "stdint.html#uint_least64_t"><code>uint_least64_t</code></a>, respectively. Note that the definitions shown
+  here are merely representative.</p>
+
+  <h2><a name="SCNoMAX"><code>SCNoMAX</code></a></h2>
+  <pre>
+#define <b>SCNoMAX</b>   "llo"
+</pre>
+
+  <p>The macro expands to a string literal suitable for use as an <code>o</code> scan conversion specificier,
+  plus any needed qualifiers, to convert values of the types <a href=
+  "stdint.html#uintmax_t"><code>uintmax_t</code></a>. Note that the definition shown here is merely
+  representative.</p>
+
+  <h2><a name="SCNoPTR"><code>SCNoPTR</code></a></h2>
+  <pre>
+#define <b>SCNoPTR</b>   "llo"
+</pre>
+
+  <p>The macro expands to a string literal suitable for use as an <code>o</code> scan conversion specificier,
+  plus any needed qualifiers, to convert values of the types <a href=
+  "stdint.html#uintptr_t"><code>uintptr_t</code></a>. Note that the definition shown here is merely
+  representative.</p>
+
+  <h2><a name="SCNu8"><code>SCNu8</code></a>, <a name="SCNu16"><code>SCNu16</code></a>, <a name=
+  "SCNu32"><code>SCNu32</code></a>, <a name="SCNu64"><code>SCNu64</code></a></h2>
+  <pre>
+#define <b>SCNu8</b>     "hhu"
+#define <b>SCNu16</b>    "hu"
+#define <b>SCNu32</b>    "lu"
+#define <b>SCNu64</b>    "llu"
+</pre>
+
+  <p>The macros each expand to a string literal suitable for use as a <code>u</code> scan conversion
+  specificier, plus any needed qualifiers, to convert values of the types <a href=
+  "stdint.html#uint8_t"><code>uint8_t</code></a>, <a href="stdint.html#uint16_t"><code>uint16_t</code></a>,
+  <a href="stdint.html#uint32_t"><code>uint32_t</code></a>, or <a href=
+  "stdint.html#uint64_t"><code>uint64_t</code></a>, respectively. Note that the definitions shown here are
+  merely representative.</p>
+
+  <h2><a name="SCNuFAST8"><code>SCNuFAST8</code></a>, <a name="SCNuFAST16"><code>SCNuFAST16</code></a>,
+  <a name="SCNuFAST32"><code>SCNuFAST32</code></a>, <a name="SCNuFAST64"><code>SCNuFAST64</code></a></h2>
+  <pre>
+#define <b>SCNuFAST8</b>    "hhu"
+#define <b>SCNuFAST16</b>    "hu"
+#define <b>SCNuFAST32</b>    "lu"
+#define <b>SCNuFAST64</b>   "llu"
+</pre>
+
+  <p>The macros each expand to a string literal suitable for use as a <code>u</code> scan conversion
+  specificier, plus any needed qualifiers, to convert values of the types <a href=
+  "stdint.html#uint_fast8_t"><code>uint_fast8_t</code></a>, <a href=
+  "stdint.html#uint_fast16_t"><code>uint_fast16_t</code></a>, <a href=
+  "stdint.html#uint_fast32_t"><code>uint_fast32_t</code></a>, or <a href=
+  "stdint.html#uint_fast64_t"><code>uint_fast64_t</code></a>, respectively. Note that the definitions shown
+  here are merely representative.</p>
+
+  <h2><a name="SCNuLEAST8"><code>SCNuLEAST8</code></a>, <a name="SCNuLEAST16"><code>SCNuLEAST16</code></a>,
+  <a name="SCNuLEAST32"><code>SCNuLEAST32</code></a>, <a name="SCNuLEAST64"><code>SCNuLEAST64</code></a></h2>
+  <pre>
+#define <b>SCNuLEAST8</b>   "hhu"
+#define <b>SCNuLEAST16</b>  "hu"
+#define <b>SCNuLEAST32</b>  "lu"
+#define <b>SCNuLEAST64</b>  "llu"
+</pre>
+
+  <p>The macros each expand to a string literal suitable for use as a <code>u</code> scan conversion
+  specificier, plus any needed qualifiers, to convert values of the types <a href=
+  "stdint.html#uint_least8_t"><code>uint_least8_t</code></a>, <a href=
+  "stdint.html#uint_least16_t"><code>uint_least16_t</code></a>, <a href=
+  "stdint.html#uint_least32_t"><code>uint_least32_t</code></a>, or <a href=
+  "stdint.html#uint_least64_t"><code>uint_least64_t</code></a>, respectively. Note that the definitions shown
+  here are merely representative.</p>
+
+  <h2><a name="SCNuMAX"><code>SCNuMAX</code></a></h2>
+  <pre>
+#define <b>SCNuMAX</b>   "llu"
+</pre>
+
+  <p>The macro expands to a string literal suitable for use as a <code>u</code> scan conversion specificier,
+  plus any needed qualifiers, to convert values of the types <a href=
+  "stdint.html#uintmax_t"><code>uintmax_t</code></a>. Note that the definition shown here is merely
+  representative.</p>
+
+  <h2><a name="SCNuPTR"><code>SCNuPTR</code></a></h2>
+  <pre>
+#define <b>SCNuPTR</b>   "llu"
+</pre>
+
+  <p>The macro expands to a string literal suitable for use as a <code>u</code> scan conversion specificier,
+  plus any needed qualifiers, to convert values of the types <a href=
+  "stdint.html#uintptr_t"><code>uintptr_t</code></a>. Note that the definition shown here is merely
+  representative.</p>
+
+  <h2><a name="SCNx8"><code>SCNx8</code></a>, <a name="SCNx16"><code>SCNx16</code></a>, <a name=
+  "SCNx32"><code>SCNx32</code></a>, <a name="SCNx64"><code>SCNx64</code></a></h2>
+  <pre>
+#define <b>SCNx8</b>     "hhx"
+#define <b>SCNx16</b>    "hx"
+#define <b>SCNx32</b>    "lx"
+#define <b>SCNx64</b>    "llx"
+</pre>
+
+  <p>The macros each expand to a string literal suitable for use as an <code>x</code> scan conversion
+  specificier, plus any needed qualifiers, to convert values of the types <a href=
+  "stdint.html#uint8_t"><code>uint8_t</code></a>, <a href="stdint.html#uint16_t"><code>uint16_t</code></a>,
+  <a href="stdint.html#uint32_t"><code>uint32_t</code></a>, or <a href=
+  "stdint.html#uint64_t"><code>uint64_t</code></a>, respectively. Note that the definitions shown here are
+  merely representative.</p>
+
+  <h2><a name="SCNxFAST8"><code>SCNxFAST8</code></a>, <a name="SCNxFAST16"><code>SCNxFAST16</code></a>,
+  <a name="SCNxFAST32"><code>SCNxFAST32</code></a>, <a name="SCNxFAST64"><code>SCNxFAST64</code></a></h2>
+  <pre>
+#define <b>SCNxFAST8</b>    "hhx"
+#define <b>SCNxFAST16</b>    "hx"
+#define <b>SCNxFAST32</b>    "lx"
+#define <b>SCNxFAST64</b>   "llx"
+</pre>
+
+  <p>The macros each expand to a string literal suitable for use as an <code>x</code> scan conversion
+  specificier, plus any needed qualifiers, to convert values of the types <a href=
+  "stdint.html#uint_fast8_t"><code>uint_fast8_t</code></a>, <a href=
+  "stdint.html#uint_fast16_t"><code>uint_fast16_t</code></a>, <a href=
+  "stdint.html#uint_fast32_t"><code>uint_fast32_t</code></a>, or <a href=
+  "stdint.html#uint_fast64_t"><code>uint_fast64_t</code></a>, respectively. Note that the definitions shown
+  here are merely representative.</p>
+
+  <h2><a name="SCNxLEAST8"><code>SCNxLEAST8</code></a>, <a name="SCNxLEAST16"><code>SCNxLEAST16</code></a>,
+  <a name="SCNxLEAST32"><code>SCNxLEAST32</code></a>, <a name="SCNxLEAST64"><code>SCNxLEAST64</code></a></h2>
+  <pre>
+#define <b>SCNxLEAST8</b>   "hhx"
+#define <b>SCNxLEAST16</b>  "hx"
+#define <b>SCNxLEAST32</b>  "lx"
+#define <b>SCNxLEAST64</b>  "llx"
+</pre>
+
+  <p>The macros each expand to a string literal suitable for use as an <code>x</code> scan conversion
+  specificier, plus any needed qualifiers, to convert values of the types <a href=
+  "stdint.html#uint_least8_t"><code>uint_least8_t</code></a>, <a href=
+  "stdint.html#uint_least16_t"><code>uint_least16_t</code></a>, <a href=
+  "stdint.html#uint_least32_t"><code>uint_least32_t</code></a>, or <a href=
+  "stdint.html#uint_least64_t"><code>uint_least64_t</code></a>, respectively. Note that the definitions shown
+  here are merely representative.</p>
+
+  <h2><a name="SCNxMAX"><code>SCNxMAX</code></a></h2>
+  <pre>
+#define <b>SCNxMAX</b>   "llx"
+</pre>
+
+  <p>The macro expands to a string literal suitable for use as an <code>x</code> scan conversion specificier,
+  plus any needed qualifiers, to convert values of the types <a href=
+  "stdint.html#uintmax_t"><code>uintmax_t</code></a>. Note that the definition shown here is merely
+  representative.</p>
+
+  <h2><a name="SCNxPTR"><code>SCNxPTR</code></a></h2>
+  <pre>
+#define <b>SCNxPTR</b>   "llx"
+</pre>
+
+  <p>The macro expands to a string literal suitable for use as an <code>x</code> scan conversion specificier,
+  plus any needed qualifiers, to convert values of the types <a href=
+  "stdint.html#uintptr_t"><code>uintptr_t</code></a>. Note that the definition shown here is merely
+  representative.</p>
+
+  <h2><a name="strtoimax"><code>strtoimax</code></a></h2>
+  <pre>
+intmax_t <b>strtoimax</b>(const char *restrict s, char **restrict endptr,
+    int base);
+</pre>
+
+  <p>The function converts the initial characters of the string <code>s</code> to an equivalent value
+  <code>x</code> of type <i>intmax_t.</i> If <code>endptr</code> is not a null pointer, it stores a pointer
+  to the unconverted remainder of the string in <code>*endptr</code>. The function then returns
+  <code>x</code>. <code>strtoimax</code> converts strings exactly as does <a href=
+  "stdlib.html#strtol"><code>strtol</code></a>.</p>
+
+  <p>If the string <code>s</code> does not match a valid pattern, the value stored in <code>*endptr</code> is
+  <code>s</code>, and <code>x</code> is zero. If the equivalent value is too large to represent as type
+  <i>intmax_t,</i> <code>strtoimax</code> stores the value of <a href=
+  "errno.html#ERANGE"><code>ERANGE</code></a> in <a href="errno.html#errno"><code>errno</code></a> and
+  returns either <a href="stdint.html#INTMAX_MAX"><code>INTMAX_MAX</code></a>, if <code>x</code> is positive,
+  or <a href="stdint.html#INTMAX_MIN"><code>INTMAX_MIN</code></a>, if <code>x</code> is negative.</p>
+
+  <h2><a name="strtoumax"><code>strtoumax</code></a></h2>
+  <pre>
+uintmax_t <b>strtoumax</b>(const char *restrict s, char **restrict endptr,
+    int base);
+</pre>
+
+  <p>The function converts the initial characters of the string <code>s</code> to an equivalent value
+  <code>x</code> of type <i>uintmax_t.</i> If <code>endptr</code> is not a null pointer, it stores a pointer
+  to the unconverted remainder of the string in <code>*endptr</code>. The function then returns
+  <code>x</code>. <code>strtoumax</code> converts strings exactly as does <a href=
+  "stdlib.html#strtoul"><code>strtoul</code></a>.</p>
+
+  <p>If the string <code>s</code> does not match a valid pattern, the value stored in <code>*endptr</code> is
+  <code>s</code>, and <code>x</code> is zero. If the equivalent value is too large to represent as type
+  <i>uintmax_t,</i> <code>strtoumax</code> stores the value of <a href=
+  "errno.html#ERANGE"><code>ERANGE</code></a> in <a href="errno.html#errno"><code>errno</code></a> and
+  returns <a href="stdint.html#UINTMAX_MAX"><code>UINTMAX_MAX</code></a>.</p>
+
+  <h2><a name="wcstoimax"><code>wcstoimax</code></a></h2>
+  <pre>
+intmax_t <b>wcstimax</b>(const wchar_t *restrict s, wchar_t **restrict endptr,
+    int base);
+</pre>
+
+  <p>The function converts the initial wide characters of the wide string <code>s</code> to an equivalent
+  value <code>x</code> of type <i>intmax_t.</i> If <code>endptr</code> is not a null pointer, the function
+  stores a pointer to the unconverted remainder of the wide string in <code>*endptr</code>. The function then
+  returns <code>x</code>.</p>
+
+  <p>The initial wide characters of the wide string <code>s</code> must match the same pattern as recognized
+  by the function <a href="stdlib.html#strtol"><code>strtol</code></a>, with the same <code>base</code>
+  argument, where each wide character <code>wc</code> is converted as if by calling <code><a href=
+  "wchar.html#wctob">wctob</a>(wc))</code>.</p>
+
+  <p>If the wide string <code>s</code> matches this pattern, <code>wcstoimax</code> converts strings exactly
+  as does <code>strtol</code>, with the same <code>base</code> argument, for the converted sequence. If the
+  wide string <code>s</code> does not match a valid pattern, the value stored in <code>*endptr</code> is
+  <code>s</code>, and <code>x</code> is zero. If the equivalent value is too large in magnitude to represent
+  as type <i>intmax_t,</i> <code>wcstoimax</code> stores the value of <a href=
+  "errno.html#ERANGE"><code>ERANGE</code></a> in <a href="errno.html#errno"><code>errno</code></a> and
+  returns either <a href="stdint.html#INTMAX_MAX"><code>INTMAX_MAX</code></a>, if <code>x</code> is positive,
+  or <a href="stdint.html#INTMAX_MIN"><code>INTMAX_MIN</code></a>, if <code>x</code> is negative.</p>
+
+  <h2><a name="wcstoumax"><code>wcstoumax</code></a></h2>
+  <pre>
+uintmax_t <b>wcstoumax</b>(const wchar_t *restrict s,
+     wchar_t **restrict endptr, int base);
+</pre>
+
+  <p>The function converts the initial wide characters of the wide string <code>s</code> to an equivalent
+  value <code>x</code> of type <i>uintmax_t.</i> If <code>endptr</code> is not a null pointer, the function
+  stores a pointer to the unconverted remainder of the wide string in <code>*endptr</code>. The function then
+  returns <code>x</code>.</p>
+
+  <p>The initial wide characters of the wide string <code>s</code> must match the same pattern as recognized
+  by the function <a href="stdlib.html#strtol"><code>strtol</code></a>, with the same <code>base</code>
+  argument, where each wide character <code>wc</code> is converted as if by calling <code><a href=
+  "wchar.html#wctob">wctob</a>(wc))</code>.</p>
+
+  <p>If the wide string <code>s</code> matches this pattern, <code>wcstoumax</code> converts strings exactly
+  as does <code>strtol</code>, with the same <code>base</code> argument, for the converted sequence. If the
+  wide string <code>s</code> does not match a valid pattern, the value stored in <code>*endptr</code> is
+  <code>s</code>, and <code>x</code> is zero. If the equivalent value is too large to represent as type
+  <i>uintmax_t,</i> <code>wcstoimax</code> stores the value of <a href=
+  "errno.html#ERANGE"><code>ERANGE</code></a> in <a href="errno.html#errno"><code>errno</code></a> and
+  returns <a href="stdint.html#UINTMAX_MAX"><code>UINTMAX_MAX</code></a>.</p>
+  <hr>
+
+  <p>See also the <b><a href="index.html#Table%20of%20Contents">Table of Contents</a></b> and the <b><a href=
+  "_index.html">Index</a></b>.</p>
+
+  <p><i><a href="crit_pjp.html">Copyright</a> &copy; 1992-2010 by P.J. Plauger. All rights reserved.</i></p>
+  <!--V5.30:126I-->
+</body>
+</html>

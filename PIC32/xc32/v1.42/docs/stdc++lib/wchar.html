@@ -1,0 +1,2215 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html>
+<head>
+  <meta name="generator" content=
+  "HTML Tidy for Mac OS X (vers 31 October 2006 - Apple Inc. build 15.15), see www.w3.org">
+
+  <title>&lt;wchar.h&gt;</title>
+</head>
+
+<body>
+  <h1><a name="&lt;wchar.h&gt;"><code>&lt;wchar.h&gt;</code></a></h1>
+
+  <p>[added with <a href="lib_over.html#Amendment%201">Amendment 1</a>]</p>
+  <hr>
+
+  <p><b><code><a href="#NULL">NULL</a> &middot; <a href="#WCHAR_MAX">WCHAR_MAX</a> &middot; <a href=
+  "#WCHAR_MIN">WCHAR_MIN</a> &middot; <a href="#WEOF">WEOF</a></code></b></p>
+
+  <p><b><code><a href="#btowc">btowc</a> &middot; <a href="#fgetwc">fgetwc</a> &middot; <a href=
+  "#fgetws">fgetws</a> &middot; <a href="#fputwc">fputwc</a> &middot; <a href="#fputws">fputws</a> &middot;
+  <a href="#fwide">fwide</a> &middot; <a href="#fwprintf">fwprintf</a> &middot; <a href=
+  "#fwscanf">fwscanf</a> &middot; <a href="#getwc">getwc</a> &middot; <a href="#getwchar">getwchar</a>
+  &middot; <a href="#mbrlen">mbrlen</a> &middot; <a href="#mbrtowc">mbrtowc</a> &middot; <a href=
+  "#mbsinit">mbsinit</a> &middot; <a href="#mbsrtowcs">mbsrtowcs</a> &middot; <a href=
+  "#mbstate_t">mbstate_t</a> &middot; <a href="#putwc">putwc</a> &middot; <a href="#putwchar">putwchar</a>
+  &middot; <a href="#size_t">size_t</a> &middot; <a href="#swprintf">swprintf</a> &middot; <a href=
+  "#swscanf">swscanf</a> &middot; <a href="#tm">tm</a> &middot; <a href="#ungetwc">ungetwc</a> &middot;
+  <a href="#vfwprintf">vfwprintf</a> &middot; <a href="#vfwscanf">vfwscanf</a> &middot; <a href=
+  "#vswprintf">vswprintf</a> &middot; <a href="#vswscanf">vswscanf</a> &middot; <a href=
+  "#vwprintf">vwprintf</a> &middot; <a href="#vwscanf">vwscanf</a> &middot; <a href="#wchar_t">wchar_t</a>
+  &middot; <a href="#wcrtomb">wcrtomb</a> &middot; <a href="#wcscat">wcscat</a> &middot; <a href=
+  "#wcschr">wcschr</a> &middot; <a href="#wcscmp">wcscmp</a> &middot; <a href="#wcscoll">wcscoll</a> &middot;
+  <a href="#wcscpy">wcscpy</a> &middot; <a href="#wcscspn">wcscspn</a> &middot; <a href=
+  "#wcsftime">wcsftime</a> &middot; <a href="#wcslen">wcslen</a> &middot; <a href="#wcsncat">wcsncat</a>
+  &middot; <a href="#wcsncmp">wcsncmp</a> &middot; <a href="#wcsncpy">wcsncpy</a> &middot; <a href=
+  "#wcspbrk">wcspbrk</a> &middot; <a href="#wcsrchr">wcsrchr</a> &middot; <a href="#wcsrtombs">wcsrtombs</a>
+  &middot; <a href="#wcsspn">wcsspn</a> &middot; <a href="#wcsstr">wcsstr</a> &middot; <a href=
+  "#wcstod">wcstod</a> &middot; <a href="#wcstof">wcstof</a> &middot; <a href="#wcstok">wcstok</a> &middot;
+  <a href="#wcstold">wcstold</a> &middot; <a href="#wcstol">wcstol</a> &middot; <a href=
+  "#wcstoll">wcstoll</a> &middot; <a href="#wcstoul">wcstoul</a> &middot; <a href="#wcstoull">wcstoull</a>
+  &middot; <a href="#wcsxfrm">wcsxfrm</a> &middot; <a href="#wctob">wctob</a> &middot; <a href=
+  "#wint_t">wint_t</a> &middot; <a href="#wmemchr">wmemchr</a> &middot; <a href="#wmemcmp">wmemcmp</a>
+  &middot; <a href="#wmemcpy">wmemcpy</a> &middot; <a href="#wmemmove">wmemmove</a> &middot; <a href=
+  "#wmemset">wmemset</a> &middot; <a href="#wprintf">wprintf</a> &middot; <a href=
+  "#wscanf">wscanf</a></code></b></p>
+
+  <p><b><code><a href="#errno_t">errno_t</a> &middot; <a href="#fwprintf_s">fwprintf_s</a> &middot; <a href=
+  "#fwscanf_s">fwscanf_s</a> &middot; <a href="#mbsrtowcs_s">mbsrtowcs_s</a> &middot; <a href=
+  "#rsize_t">rsize_t</a> &middot; <a href="#snwprintf_s">snwprintf_s</a> &middot; <a href=
+  "#swprintf_s">swprintf_s</a> &middot; <a href="#swscanf_s">swscanf_s</a> &middot; <a href=
+  "#vfwprintf_s">vfwprintf_s</a> &middot; <a href="#vfwscanf_s">vfwscanf_s</a> &middot; <a href=
+  "#vsnwprintf_s">vsnwprintf_s</a> &middot; <a href="#vswprintf_s">vswprintf_s</a> &middot; <a href=
+  "#vswscanf_s">vswscanf_s</a> &middot; <a href="#vwprintf_s">vwprintf_s</a> &middot; <a href=
+  "#vwscanf_s">vwscanf_s</a> &middot; <a href="#wcrtomb_s">wcrtomb_s</a> &middot; <a href=
+  "#wcscat_s">wcscat_s</a> &middot; <a href="#wcscpy_s">wcscpy_s</a> &middot; <a href=
+  "#wcsncat_s">wcsncat_s</a> &middot; <a href="#wcsncpy_s">wcsncpy_s</a> &middot; <a href=
+  "#wcsnlen_s">wcsnlen_s</a> &middot; <a href="#wcsrtombs_s">wcsrtombs_s</a> &middot; <a href=
+  "#wcstok_s">wcstok_s</a> &middot; <a href="#wmemcpy_s">wmemcpy_s</a> &middot; <a href=
+  "#wmemmove_s">wmemmove_s</a> &middot; <a href="#wprintf_s">wprintf_s</a> &middot; <a href=
+  "#wscanf_s">wscanf_s</a></code></b></p>
+  <hr>
+
+  <p>Include the standard header <b><code>&lt;wchar.h&gt;</code></b> so that you can perform input and output
+  operations on wide streams or manipulate wide strings.</p>
+  <pre>
+    /* MACROS */
+#define <a href="#NULL"><b>NULL</b></a> <i>&lt;either 0, 0L, or (void *)0&gt;</i> <b>[0 in C++]</b>
+#define <a href="#WCHAR_MAX"><b>WCHAR_MAX</b></a> <i>&lt;#if expression &gt;= 127&gt;</i>
+#define <a href="#WCHAR_MIN"><b>WCHAR_MIN</b></a> <i>&lt;#if expression &lt;= 0&gt;</i>
+#define <a href="#WEOF"><b>WEOF</b></a> <i>&lt;</i>wint_t <i>constant expression&gt;</i>
+
+    /* TYPES */
+typedef <i>o-type</i> <a href="#mbstate_t"><b>mbstate_t</b></a>;
+typedef <i>ui-type</i> <a href="#size_t"><b>size_t</b></a>;
+typedef <i>i-type</i> <a href="#wchar_t"><b>wchar_t</b></a>; <b>[keyword in C++]</b>
+typedef <i>i_type</i> <a href="#wint_t"><b>wint_t</b></a>;
+struct <a href="#tm"><b>tm</b></a>;
+
+    /* FUNCTIONS */
+wint_t <a href="#fgetwc"><b>fgetwc</b></a>(FILE *stream);
+wchar_t *<a href="#fgetws"><b>fgetws</b></a>(wchar_t *restrict s, int n, FILE *restrict stream);
+wint_t <a href="#fputwc"><b>fputwc</b></a>(wchar_t c, FILE *stream);
+int <a href="#fputws"><b>fputws</b></a>(const wchar_t *restrict s, FILE *restrict stream);
+int <a href="#fwide"><b>fwide</b></a>(FILE *stream, int mode);
+wint_t <a href="#getwc"><b>getwc</b></a>(FILE *stream);
+wint_t <a href="#getwchar"><b>getwchar</b></a>(void);
+wint_t <a href="#putwc"><b>putwc</b></a>(wchar_t c, FILE *stream);
+wint_t <a href="#putwchar"><b>putwchar</b></a>(wchar_t c);
+wint_t <a href="#ungetwc"><b>ungetwc</b></a>(wint_t c, FILE *stream);
+
+int <a href="#fwscanf"><b>fwscanf</b></a>(FILE *restrict stream, const wchar_t *restrict format, ...);
+int <a href="#swscanf"><b>swscanf</b></a>(const wchar_t *restrict s,
+    const wchar_t *restrict format, ...);
+int <a href="#wscanf"><b>wscanf</b></a>(const wchar_t *restrict format, ...);
+int <a href="#fwprintf"><b>fwprintf</b></a>(FILE *restrict stream, const wchar_t *restrict format, ...);
+int <a href="#swprintf"><b>swprintf</b></a>(wchar_t *restrict s, size_t n,
+    const wchar_t *restrict format, ...);
+int <a href="#wprintf"><b>wprintf</b></a>(const wchar_t *restrict format, ...);
+int <a href="#vfwscanf"><b>vfwscanf</b></a>(FILE *restrict stream, const wchar_t *restrict format,
+    va_list arg); <b>[added with <a href="lib_over.html#C99">C99</a>]</b>
+int <a href="#vswscanf"><b>vswscanf</b></a>(const wchar_t *restrict s, const wchar_t *restrict format,
+    va_list arg); <b>[added with <a href="lib_over.html#C99">C99</a>]</b>
+int <a href="#vwscanf"><b>vwscanf</b></a>(const wchar_t *restrict format,
+    va_list arg); <b>[added with <a href="lib_over.html#C99">C99</a>]</b>
+int <a href="#vfwprintf"><b>vfwprintf</b></a>(FILE *restrict stream, const wchar_t *restrict format,
+    va_list arg);
+int <a href="#vswprintf"><b>vswprintf</b></a>(wchar_t *restrict s, size_t n, const wchar_t *restrict format,
+    va_list arg);
+int <a href="#vwprintf"><b>vwprintf</b></a>(const wchar_t *restrict format,
+    va_list arg);
+
+size_t <a href="#wcsftime"><b>wcsftime</b></a>(wchar_t *restrict s, size_t maxsize,
+    const wchar_t *restrict format, const struct tm *restrict timeptr);
+
+wint_t <a href="#btowc"><b>btowc</b></a>(int c);
+size_t <a href="#mbrlen"><b>mbrlen</b></a>(const char *restrict s, size_t n,
+    mbstate_t *restrict ps);
+size_t <a href="#mbrtowc"><b>mbrtowc</b></a>(wchar_t *restrict pwc, const char *restrict s,
+    size_t n, mbstate_t *restrict ps);
+int <a href="#mbsinit"><b>mbsinit</b></a>(const mbstate_t *ps);
+size_t <a href="#mbsrtowcs"><b>mbsrtowcs</b></a>(wchar_t *restrict dst, const char **restrict src,
+    size_t len, mbstate_t *restrict ps);
+size_t <a href="#wcrtomb"><b>wcrtomb</b></a>(char *restrict s, wchar_t wc,
+    mbstate_t *restrict ps);
+size_t <a href="#wcsrtombs"><b>wcsrtombs</b></a>(char *restrict dst, const wchar_t **restrict src,
+    size_t len, mbstate_t *restrict ps);
+double <a href="#wcstod"><b>wcstod</b></a>(const wchar_t *restrict nptr,
+    wchar_t **restrict endptr);
+float <a href="#wcstof"><b>wcstof</b></a>(const wchar_t *restrict nptr,
+    wchar_t **restrict endptr); <b>[added with <a href="lib_over.html#C99">C99</a>]</b>
+long double <a href="#wcstold"><b>wcstold</b></a>(const wchar_t *restrict nptr,
+    wchar_t **restrict endptr); <b>[added with <a href="lib_over.html#C99">C99</a>]</b>
+long long <a href="#wcstoll"><b>wcstoll</b></a>(const wchar_t *restrict nptr, wchar_t **restrict endptr,
+    int base); <b>[added with <a href="lib_over.html#C99">C99</a>]</b>
+unsigned long long <a href=
+"#wcstoull"><b>wcstoull</b></a>(const wchar_t *restrict nptr, wchar_t **restrict endptr,
+    int base); <b>[added with <a href="lib_over.html#C99">C99</a>]</b>
+long <a href="#wcstol"><b>wcstol</b></a>(const wchar_t *restrict nptr, wchar_t **restrict endptr,
+    int base);
+unsigned long <a href="#wcstoul"><b>wcstoul</b></a>(const wchar_t *restrict nptr, wchar_t **restrict endptr,
+    int base);
+int <a href="#wctob"><b>wctob</b></a>(wint_t c);
+
+wchar_t *<a href="#wcscat"><b>wcscat</b></a>(wchar_t *restrict s1, const wchar_t *restrict s2);
+int <a href="#wcscmp"><b>wcscmp</b></a>(const wchar_t *s1, const wchar_t *s2);
+int <a href="#wcscoll"><b>wcscoll</b></a>(const wchar_t *s1, const wchar_t *s2);
+wchar_t *<a href="#wcscpy"><b>wcscpy</b></a>(wchar_t *restrict s1, const wchar_t *restrict s2);
+size_t <a href="#wcscspn"><b>wcscspn</b></a>(const wchar_t *s1, const wchar_t *s2);
+size_t <a href="#wcslen"><b>wcslen</b></a>(const wchar_t *s);
+wchar_t *<a href="#wcsncat"><b>wcsncat</b></a>(wchar_t *restrict s1, const wchar_t *restrict s2,
+    size_t n);
+int <a href="#wcsncmp"><b>wcsncmp</b></a>(const wchar_t *s1, const wchar_t *s2,
+    size_t n);
+wchar_t *<a href="#wcsncpy"><b>wcsncpy</b></a>(wchar_t *restrict s1, const wchar_t *restrict s2,
+    size_t n);
+size_t <a href="#wcsspn"><b>wcsspn</b></a>(const wchar_t *s1, const wchar_t *s2);
+wchar_t *<a href="#wcsstr"><b>wcsstr</b></a>(const wchar_t *s1, const wchar_t *s2);
+wchar_t *<a href="#wcstok"><b>wcstok</b></a>(wchar_t *restrict s1, const wchar_t *restrict s2,
+    wchar_t **restrict ptr);
+size_t <a href="#wcsxfrm"><b>wcsxfrm</b></a>(wchar_t *restrict s1, const wchar_t *restrict s2, size_t n);
+int <a href="#wmemcmp"><b>wmemcmp</b></a>(const wchar_t *s1, const wchar_t *s2,
+    size_t n);
+wchar_t *<a href="#wmemcpy"><b>wmemcpy</b></a>(wchar_t *restrict s1, const wchar_t *restrict s2,
+    size_t n);
+wchar_t *<a href="#wmemmove"><b>wmemmove</b></a>(wchar_t *s1, const wchar_t *s2,
+    size_t n);
+wchar_t *<a href="#wmemset"><b>wmemset</b></a>(wchar_t *s, wchar_t c, size_t n);
+
+wchar_t *<a href="#wcschr"><b>wcschr</b></a>(const wchar_t *s, wchar_t c); <b>[not in C++]</b>
+const wchar_t *<a href="#wcschr"><b>wcschr</b></a>(const wchar_t *s, wchar_t c); <b>[C++ only]</b>
+wchar_t *<a href="#wcschr"><b>wcschr</b></a>(wchar_t *s, wchar_t c); <b>[C++ only]</b>
+
+wchar_t *<a href="#wcspbrk"><b>wcspbrk</b></a>(const wchar_t *s1, const wchar_t *s2); <b>[not in C++]</b>
+const wchar_t *<a href="#wcspbrk"><b>wcspbrk</b></a>(const wchar_t *s1, const wchar_t *s2); <b>[C++ only]</b>
+wchar_t *<a href="#wcspbrk"><b>wcspbrk</b></a>(wchar_t *s1, const wchar_t *s2); <b>[C++ only]</b>
+
+wchar_t *<a href="#wcsrchr"><b>wcsrchr</b></a>(const wchar_t *s, wchar_t c); <b>[not in C++]</b>
+const wchar_t *<a href="#wcsrchr"><b>wcsrchr</b></a>(const wchar_t *s, wchar_t c); <b>[C++ only]</b>
+wchar_t *<a href="#wcsrchr"><b>wcsrchr</b></a>(wchar_t *s, wchar_t c); <b>[C++ only]</b>
+
+wchar_t *<a href="#wcsstr"><b>wcsstr</b></a>(const wchar_t *s1, const wchar_t *s2); <b>[not in C++]</b>
+const wchar_t *<a href="#wcsstr"><b>wcsstr</b></a>(const wchar_t *s1, const wchar_t *s2); <b>[C++ only]</b>
+wchar_t *<a href="#wcsstr"><b>wcsstr</b></a>(wchar_t *s1, const wchar_t *s2); <b>[C++ only]</b>
+
+wchar_t *<a href="#wmemchr"><b>wmemchr</b></a>(const wchar_t *s, wchar_t c,
+    size_t n); <b>[not in C++]</b>
+const wchar_t *<a href="#wmemchr"><b>wmemchr</b></a>(const wchar_t *s, wchar_t c,
+    size_t n); <b>[C++ only]</b>
+wchar_t *<a href="#wmemchr"><b>wmemchr</b></a>(wchar_t *s, wchar_t c,
+    size_t n); <b>[C++ only]</b>
+
+#if __STDC_WANT_LIB_EXT1__ <b>[added with <a href="index_ext1.html#TR24731">TR24731</a>]</b>
+typedef int <a href="#errno_t"><b>errno_t</b></a>;
+typedef size_t <a href="#rsize_t"><b>rsize_t</b></a>;
+
+int <a href="#fwprintf_s"><b>fwprintf_s</b></a>(_Filet *restrict stream,
+    const wchar_t *restrict format, ...);
+int <a href="#fwscanf_s"><b>fwscanf_s</b></a>(_Filet *restrict stream,
+    const wchar_t *restrict format, ...);
+int <a href="#snwprintf_s"><b>snwprintf_s</b></a>(wchar_t *restrict s, rsize_t n,
+    const wchar_t *restrict format, ...);
+int <a href="#swprintf_s"><b>swprintf_s</b></a>(wchar_t *restrict s, rsize_t n,
+    const wchar_t *restrict format, ...);
+int <a href="#swscanf_s"><b>swscanf_s</b></a>(const wchar_t *restrict s,
+    const wchar_t *restrict format, ...);
+int <a href="#vfwprintf_s"><b>vfwprintf_s</b></a>(_Filet *restrict stream,
+    const wchar_t *restrict format,
+    _Va_list arg);
+int <a href="#vfwscanf_s"><b>vfwscanf_s</b></a>(_Filet *restrict stream,
+    const wchar_t *restrict format,
+    _Va_list arg);
+int <a href="#vsnwprintf_s"><b>vsnwprintf_s</b></a>(wchar_t *restrict s, rsize_t m,
+    const wchar_t *restrict format,
+    _Va_list arg);
+int <a href="#vswprintf_s"><b>vswprintf_s</b></a>(wchar_t *restrict s, rsize_t n,
+    const wchar_t *restrict format,
+    _Va_list arg);
+int <a href="#vswscanf_s"><b>vswscanf_s</b></a>(const wchar_t *restrict s,
+    const wchar_t *restrict format,
+    _Va_list arg);
+int <a href="#vwprintf_s"><b>vwprintf_s</b></a>(const wchar_t *restrict format,
+    _Va_list arg);
+int <a href="#vwscanf_s"><b>vwscanf_s</b></a>(const wchar_t *restrict format,
+    _Va_list arg);
+int <a href="#wprintf_s"><b>wprintf_s</b></a>(const wchar_t *restrict format, ...);
+int <a href="#wscanf_s"><b>wscanf_s</b></a>(const wchar_t *restrict format, ...);
+
+errno_t <a href="#wcscpy_s"><b>wcscpy_s</b></a>(wchar_t *restrict s1, rsize_t maxsize,
+    const wchar_t *restrict s2);
+errno_t <a href="#wcsncpy_s"><b>wcsncpy_s</b></a>(wchar_t *restrict s1, rsize_t maxsize,
+    const wchar_t *restrict s2, rsize_t n);
+errno_t <a href="#wmemcpy_s"><b>wmemcpy_s</b></a>(wchar_t *restrict s1, rsize_t maxsize,
+    const wchar_t *restrict s2, rsize_t n);
+errno_t <a href="#wmemmove_s"><b>wmemmove_s</b></a>(wchar_t * s1, rsize_t maxsize,
+    const wchar_t *s2, rsize_t n);
+errno_t <a href="#wcscat_s"><b>wcscat_s</b></a>(wchar_t *restrict s1, rsize_t maxsize,
+    const wchar_t *restrict s2);
+errno_t <a href="#wcsncat_s"><b>wcsncat_s</b></a>(wchar_t *restrict, rsize_t,
+    const wchar_t *restrict, rsize_t);
+wchar_t *<a href="#wcstok_s"><b>wcstok_s</b></a>(wchar_t *restrict s1, rsize_t *restrict psize1,
+    const wchar_t *restrict s2, wchar_t **restrict pbuf1);
+
+size_t <a href="#wcsnlen_s"><b>wcsnlen_s</b></a>(const wchar_t *s, size_t maxsize);
+
+errno_t <a href="#wcrtomb_s"><b>wcrtomb_s</b></a>(size_t *restrict psize,
+    char *restrict s, rsize_t maxsize,
+    wchar_t wc,
+    mbstate_t *restrict ps);
+errno_t <a href="#mbsrtowcs_s"><b>mbsrtowcs_s</b></a>(size_t *restrict psize,
+    wchar_t *restrict dst, rsize_t maxsize,
+    const char **restrict src, rsize_t len,
+    mbstate_t *restrict ps);
+errno_t <a href="#wcsrtombs_s"><b>wcsrtombs_s</b></a>(size_t *restrict psize,
+    char *restrict dst, rsize_t maxsize,
+    const wchar_t **restrict src, rsize_t len,
+    mbstate_t *restrict ps);
+#endif /* __STDC_WANT_LIB_EXT1__ */
+</pre>
+
+  <h2><a name="btowc"><code>btowc</code></a></h2>
+  <pre>
+wint_t <b>btowc</b>(int c);
+</pre>
+
+  <p>The function returns <a href="#WEOF"><code>WEOF</code></a> if <code>c</code> equals <a href=
+  "stdio.html#EOF"><code>EOF</code></a>. Otherwise, it converts <code>(unsigned char)c</code> as a one-byte
+  multibyte character beginning in the <a href="charset.html#initial%20conversion%20state">initial conversion
+  state</a>, as if by calling <a href="#mbrtowc"><code>mbrtowc</code></a>. If the conversion succeeds, the
+  function returns the wide-character conversion. Otherwise, it returns <a href=
+  "#WEOF"><code>WEOF</code></a>.</p>
+
+  <h2><a name="errno_t"><code>errno_t</code></a></h2>
+  <pre>
+typedef int <b>errno_t</b>; <b>[added with TR24731]</b>
+</pre>
+
+  <p>The type is a synonym for <i>int,</i> used to represent a value that can be stored in <a href=
+  "errno.html#errno"><code>errno</code></a>.</p>
+
+  <h2><a name="fgetwc"><code>fgetwc</code></a></h2>
+  <pre>
+wint_t <b>fgetwc</b>(FILE *stream);
+</pre>
+
+  <p>The function reads the next wide character <code>c</code> (if present) from the input stream
+  <code>stream</code>, advances the file-position indicator (if defined), and returns <code>(<a href=
+  "#wint_t">wint_t</a>)c</code>. If the function sets either the end-of-file indicator or the error
+  indicator, it returns <a href="#WEOF"><code>WEOF</code></a>.</p>
+
+  <h2><a name="fgetws"><code>fgetws</code></a></h2>
+  <pre>
+wchar_t *<b>fgetws</b>(wchar_t *restrict s, int n, FILE *restrict stream);
+</pre>
+
+  <p>The function reads wide characters from the input stream <code>stream</code> and stores them in
+  successive elements of the array beginning at <code>s</code> and continuing until it stores <code>n -
+  1</code> wide characters, stores an <code><i>NL</i></code> wide character, or sets the end-of-file or error
+  indicators. If <code>fgetws</code> stores any wide characters, it concludes by storing a null wide
+  character in the next element of the array. It returns <code>s</code> if it stores any wide characters and
+  it has not set the error indicator for the stream; otherwise, it returns a null pointer. If it sets the
+  error indicator, the array contents are indeterminate.</p>
+
+  <h2><a name="fputwc"><code>fputwc</code></a></h2>
+  <pre>
+wint_t <b>fputwc</b>(wchar_t c, FILE *stream);
+</pre>
+
+  <p>The function writes the wide character <code>c</code> to the output stream <code>stream</code>, advances
+  the file-position indicator (if defined), and returns <code>(<a href="#wint_t">wint_t</a>)c</code>. If the
+  function sets the error indicator for the stream, it returns <a href="#WEOF"><code>WEOF</code></a>.</p>
+
+  <h2><a name="fputws"><code>fputws</code></a></h2>
+  <pre>
+int <b>fputws</b>(const wchar_t *restrict s, FILE *restrict stream);
+</pre>
+
+  <p>The function accesses wide characters from the wide string <code>s</code> and writes them to the output
+  stream <code>stream</code>. The function does not write the terminating null wide character. It returns a
+  nonnegative value if it has not set the error indicator; otherwise, it returns <a href=
+  "#WEOF"><code>WEOF</code></a>.</p>
+
+  <h2><a name="fwide"><code>fwide</code></a></h2>
+  <pre>
+int <b>fwide</b>(FILE *stream, int mode);
+</pre>
+
+  <p>The function determines the orientation of the stream <code>stream</code>. If <code>mode</code> is
+  greater than zero, it first attempts to make the stream <a href="lib_file.html#wide%20oriented">wide
+  oriented</a>. If <code>mode</code> is less than zero, it first attempts to make the stream <a href=
+  "lib_file.html#byte%20oriented">byte oriented</a>. In any event, the function returns:</p>
+
+  <ul>
+    <li>a value greater than zero if the stream is left <a href="lib_file.html#wide%20oriented">wide
+    oriented</a></li>
+
+    <li>zero if the stream is left <a href="lib_file.html#unbound%20stream">unbound</a></li>
+
+    <li>a value less than zero if the stream is left <a href="lib_file.html#byte%20oriented">byte
+    oriented</a></li>
+  </ul>
+
+  <p>In no event will the function alter the orientation of a stream once it has been oriented.</p>
+
+  <h2><a name="fwprintf"><code>fwprintf</code></a></h2>
+  <pre>
+int <b>fwprintf</b>(FILE *restrict stream, const wchar_t *restrict format, ...);
+</pre>
+
+  <p>The function <a href="lib_prin.html#Print%20Functions">generates formatted text</a>, under the control
+  of the format <code>format</code> and any additional arguments, and writes each generated wide character to
+  the stream <code>stream</code>. It returns the number of wide characters generated, or it returns a
+  negative value if the function sets the error indicator for the stream.</p>
+
+  <h2><a name="fwprintf_s"><code>fwprintf_s</code></a></h2>
+  <pre>
+int <b>fwprintf_s</b>(FILE *restrict stream,
+    const wchar_t *restrict format, ...); <b>[added with TR24731]</b>
+</pre>
+
+  <p>A <a href="index_ext1.html#runtime%20constraint%20violation">runtime constraint violation</a> occurs
+  if:</p>
+
+  <ul>
+    <li><code>stream</code> is a null pointer</li>
+
+    <li><code>format</code> is a null pointer</li>
+
+    <li>the argument corresponding to a <code>%s</code> conversion specifier is a null pointer</li>
+
+    <li><code>format</code> contains a <code>%n</code> conversion specifier</li>
+  </ul>
+
+  <p>If such a violation occurs, the function returns a negative value, after producing an unspecified amount
+  of output.</p>
+
+  <p>Otherwise, the function <a href="lib_prin.html#Print%20Functions">generates formatted text</a>, under
+  the control of the format <code>format</code> and any additional arguments, and writes each generated wide
+  character to the stream <code>stream</code>. It returns the number of wide characters generated, or it
+  returns a negative value if the function sets the error indicator for the stream.</p>
+
+  <h2><a name="fwscanf"><code>fwscanf</code></a></h2>
+  <pre>
+int <b>fwscanf</b>(FILE *restrict stream, const wchar_t *restrict format, ...);
+</pre>
+
+  <p>The function <a href="lib_scan.html#Scan%20Functions">scans formatted text</a>, under the control of the
+  format <code>format</code> and any additional arguments. It obtains each scanned wide character from the
+  stream <code>stream</code>. It returns the number of input items matched and assigned, or it returns
+  <a href="stdio.html#EOF"><code>EOF</code></a> if the function does not store values before it sets the
+  end-of-file or error indicator for the stream.</p>
+
+  <h2><a name="fwscanf_s"><code>fwscanf_s</code></a></h2>
+  <pre>
+int <b>fwscanf_s</b>(FILE *restrict stream,
+    const wchar_t *restrict format, ...); <b>[added with TR24731]</b>
+</pre>
+
+  <p>A <a href="index_ext1.html#runtime%20constraint%20violation">runtime constraint violation</a> occurs
+  if:</p>
+
+  <ul>
+    <li><code>format</code> is a null pointer</li>
+
+    <li>any pointer argument after <code>format</code> is a null pointer</li>
+  </ul>
+
+  <p>If such a violation occurs, the function returns a negative value, after consuming an unspecified amount
+  of input.</p>
+
+  <p>Otherwise, the function <a href="lib_scan.html#Scan%20Functions">scans formatted text</a>, with <a href=
+  "#additional%20scan%20checking">additional checking</a>, under the control of the format
+  <code>format</code> and any additional arguments. It obtains each scanned wide character from the stream
+  <code>stream</code>. It returns the number of input items matched and assigned, or it returns <a href=
+  "stdio.html#EOF"><code>EOF</code></a> if the function does not store values before it sets the end-of-file
+  or error indicator for the stream.</p>
+
+  <p><b><a name="additional scan checking">Additional checking</a></b> occurs for the scan conversion
+  specifiers <code>c</code>, <code>s</code>, and <code>[</code>. Each of these conversion specifiers consumes
+  an additional argument, of type <code><a href="#rsize_t">rsize_t</a></code>, that specifies the maximum
+  number of elements <code>N</code> that can be stored in the array object. It is a runtime constraint
+  violation if <code>N</code> is greater than <code><a href="index_ext1.html#RSIZE_MAX">RSIZE_MAX</a></code>,
+  or if the number of elements to be stored is greater than <code>N</code>.</p>
+
+  <h2><a name="getwc"><code>getwc</code></a></h2>
+  <pre>
+wint_t <b>getwc</b>(FILE *stream);
+</pre>
+
+  <p>The function has the same effect as <code><a href="#fgetwc">fgetwc</a>(stream)</code> except that a
+  macro version of <code>getwc</code> can evaluate <code>stream</code> more than once.</p>
+
+  <h2><a name="getwchar"><code>getwchar</code></a></h2>
+  <pre>
+wint_t <b>getwchar</b>(void);
+</pre>
+
+  <p>The function has the same effect as <code><a href="#fgetwc">fgetwc</a>(stdin)</code>.</p>
+
+  <h2><a name="mbrlen"><code>mbrlen</code></a></h2>
+  <pre>
+size_t <b>mbrlen</b>(const char *restrict s, size_t n, mbstate_t *restrict ps);
+</pre>
+
+  <p>The function is equivalent to the call:</p>
+  <pre>
+<a href="#mbrtowc">mbrtowc</a>(0, s, n, ps != 0 ? ps : &amp;internal)
+</pre>
+
+  <p>where <code>internal</code> is an object of type <a href="#mbstate_t"><code>mbstate_t</code></a>
+  internal to the <code>mbrlen</code> function. At <a href="lib_over.html#program%20startup">program
+  startup</a>, <code>internal</code> is initialized to the <a href=
+  "charset.html#initial%20conversion%20state">initial conversion state</a>. No other library function alters
+  the value stored in <code>internal</code>.</p>
+
+  <p>The function returns:</p>
+
+  <ul>
+    <li><code>(<a href="#size_t">size_t</a>)-3</code> if no additional bytes are needed to complete the next
+    multibyte character, in which case the resulting <a href="charset.html#conversion%20state">conversion
+    state</a> indicates that no additional bytes have been converted and the next multibyte character has
+    been produced</li>
+
+    <li><code>(<a href="#size_t">size_t</a>)-2</code> if, after converting all <code>n</code> characters, the
+    resulting <a href="charset.html#conversion%20state">conversion state</a> indicates an incomplete
+    multibyte character</li>
+
+    <li><code>(<a href="#size_t">size_t</a>)-1</code> if the function detects an encoding error before
+    completing the next multibyte character, in which case the function stores the value <a href=
+    "errno.html#EILSEQ"><code>EILSEQ</code></a> in <a href="errno.html#errno"><code>errno</code></a> and
+    leaves the resulting <a href="charset.html#conversion%20state">conversion state</a> undefined</li>
+
+    <li>zero, if the next completed character is a null character, in which case the resulting <a href=
+    "charset.html#conversion%20state">conversion state</a> is the <a href=
+    "charset.html#initial%20conversion%20state">initial conversion state</a></li>
+
+    <li><code>x</code>, the number of bytes needed to complete the next multibyte character, in which case
+    the resulting <a href="charset.html#conversion%20state">conversion state</a> indicates that
+    <code>x</code> bytes have been converted and the next multibyte character has been produced</li>
+  </ul>
+
+  <p>Thus, <code>mbrlen</code> effectively returns the number of bytes that would be consumed in successfully
+  converting a multibyte character to a wide character (without storing the converted wide character), or an
+  error code if the conversion cannot succeed.</p>
+
+  <p>The function is not necessarily thread safe if <code>ps</code> is a null pointer.</p>
+
+  <h2><a name="mbrtowc"><code>mbrtowc</code></a></h2>
+  <pre>
+size_t <b>mbrtowc</b>(wchar_t *restrict pwc, const char *restrict s,
+    size_t n, mbstate_t *restrict ps);
+</pre>
+
+  <p>The function determines the number of bytes in a multibyte string that completes the next multibyte
+  character, if possible.</p>
+
+  <p>If <code>ps</code> is not a null pointer, the <a href="charset.html#conversion%20state">conversion
+  state</a> for the multibyte string is assumed to be <code>*ps</code>. Otherwise, it is assumed to be
+  <code>&amp;internal</code>, where <code>internal</code> is an object of type <a href=
+  "#mbstate_t"><code>mbstate_t</code></a> internal to the <code>mbrtowc</code> function. At <a href=
+  "lib_over.html#program%20startup">program startup</a>, <code>internal</code> is initialized to the <a href=
+  "charset.html#initial%20conversion%20state">initial conversion state</a>. No other library function alters
+  the value stored in <code>internal</code>.</p>
+
+  <p>If <code>s</code> is not a null pointer, the function determines <code>x</code>, the number of bytes in
+  the multibyte string <code>s</code> that complete or contribute to the next multibyte character.
+  (<code>x</code> cannot be greater than <code>n</code>.) Otherwise, the function effectively returns
+  <code>mbrtowc(0, "", 1, ps)</code>, ignoring <code>pwc</code> and <code>n</code>. (The function thus
+  returns zero only if the <a href="charset.html#conversion%20state">conversion state</a> indicates that no
+  incomplete multibyte character is pending from a previous call to <a href=
+  "#mbrlen"><code>mbrlen</code></a>, <code>mbrtowc</code>, or <a href="#mbsrtowcs"><code>mbsrtowcs</code></a>
+  for the same string and <a href="charset.html#conversion%20state">conversion state</a>.)</p>
+
+  <p>If <code>pwc</code> is not a null pointer, the function converts a completed multibyte character to its
+  corresponding wide-character value and stores that value in <code>*pwc</code>.</p>
+
+  <p>The function returns:</p>
+
+  <ul>
+    <li><code>(<a href="#size_t">size_t</a>)-3</code> if no additional bytes are needed to complete the next
+    multibyte character, in which case the resulting <a href="charset.html#conversion%20state">conversion
+    state</a> indicates that no additional bytes have been converted and the next multibyte character has
+    been produced</li>
+
+    <li><code>(<a href="#size_t">size_t</a>)-2</code> if, after converting all <code>n</code> characters, the
+    resulting <a href="charset.html#conversion%20state">conversion state</a> indicates an incomplete
+    multibyte character</li>
+
+    <li><code>(<a href="#size_t">size_t</a>)-1</code> if the function detects an encoding error before
+    completing the next multibyte character, in which case the function stores the value <a href=
+    "errno.html#EILSEQ"><code>EILSEQ</code></a> in <a href="errno.html#errno"><code>errno</code></a> and
+    leaves the resulting <a href="charset.html#conversion%20state">conversion state</a> undefined</li>
+
+    <li>zero, if the next completed character is a null character, in which case the resulting <a href=
+    "charset.html#conversion%20state">conversion state</a> is the <a href=
+    "charset.html#initial%20conversion%20state">initial conversion state</a></li>
+
+    <li><code>x</code>, the number of bytes needed to complete the next multibyte character, in which case
+    the resulting <a href="charset.html#conversion%20state">conversion state</a> indicates that
+    <code>x</code> bytes have been converted and the next multibyte character has been produced</li>
+  </ul>
+
+  <p>The function is not necessarily thread safe if <code>ps</code> is a null pointer.</p>
+
+  <h2><a name="mbsinit"><code>mbsinit</code></a></h2>
+  <pre>
+int <b>mbsinit</b>(const mbstate_t *ps);
+</pre>
+
+  <p>The function returns a nonzero value if <code>ps</code> is a null pointer or if <code>*ps</code>
+  designates an <a href="charset.html#initial%20conversion%20state">initial conversion state</a>. Otherwise,
+  it returns zero.</p>
+
+  <h2><a name="mbsrtowcs"><code>mbsrtowcs</code></a></h2>
+  <pre>
+size_t <b>mbsrtowcs</b>(wchar_t *restrict dst, const char **restrict src,
+    size_t len, mbstate_t *restrict ps);
+</pre>
+
+  <p>The function converts the multibyte string beginning at <code>*src</code> to a sequence of wide
+  characters as if by repeated calls of the form:</p>
+  <pre>
+x = mbrtowc(dst, *src, n, ps != 0 ? ps : &amp;internal)
+</pre>
+
+  <p>where <code>n</code> is some value &gt; 0 and <code>internal</code> is an object of type <a href=
+  "#mbstate_t"><code>mbstate_t</code></a> internal to the <code>mbsrtowcs</code> function. At <a href=
+  "lib_over.html#program%20startup">program startup</a>, <code>internal</code> is initialized to the <a href=
+  "charset.html#initial%20conversion%20state">initial conversion state</a>. No other library function alters
+  the value stored in <code>internal</code>.</p>
+
+  <p>If <code>dst</code> is not a null pointer, the <code>mbsrtowcs</code> function stores at most
+  <code>len</code> wide characters by calls to <a href="#mbrtowc"><code>mbrtowc</code></a>. The function
+  effectively increments <code>dst</code> by one and <code>*src</code> by <code>x</code> after each call to
+  <a href="#mbrtowc"><code>mbrtowc</code></a> that stores a converted wide character. After a call that
+  returns zero, <code>mbsrtowcs</code> stores a null wide character at <code>dst</code> and stores a null
+  pointer at <code>*src</code>.</p>
+
+  <p>If <code>dst</code> is a null pointer, <code>len</code> is effectively assigned a large value.</p>
+
+  <p>The function returns:</p>
+
+  <ul>
+    <li><code>(<a href="#size_t">size_t</a>)-1</code>, if a call to <a href=
+    "#mbrtowc"><code>mbrtowc</code></a> returns <code>(<a href="#size_t">size_t</a>)-1</code>, indicating
+    that it has detected an encoding error before completing the next multibyte character</li>
+
+    <li>the number of multibyte characters successfully converted, not including the terminating null
+    character</li>
+  </ul>
+
+  <p>The function is not necessarily thread safe if <code>ps</code> is a null pointer.</p>
+
+  <h2><a name="mbsrtowcs_s"><code>mbsrtowcs_s</code></a></h2>
+  <pre>
+errno_t <b>mbsrtowcs_s</b>(size_t *restrict psize,
+    wchar_t *restrict dst, rsize_t maxsize,
+    const char *restrict src, rsize_t len,
+    mbstate_t *restrict ps); <b>[added with TR24731]</b>
+</pre>
+
+  <p>A <a href="index_ext1.html#runtime%20constraint%20violation">runtime constraint violation</a> occurs
+  if:</p>
+
+  <ul>
+    <li><code>dst</code> is not a null pointer and <code>maxsize</code> is zero or greater than
+    <code><a href="index_ext1.html#RSIZE_MAX">RSIZE_MAX</a></code></li>
+
+    <li><code>dst</code> is a null pointer and <code>maxsize</code> is nonzero</li>
+
+    <li><code>psize</code> is a null pointer</li>
+
+    <li><code>src</code> is a null pointer</li>
+
+    <li><code>*src</code> is a null pointer</li>
+
+    <li><code>dst</code> is not a null pointer and <code>len</code> is greater than <code><a href=
+    "index_ext1.html#RSIZE_MAX">RSIZE_MAX</a></code></li>
+
+    <li><code>dst</code> is not a null pointer and the wide-character sequence generated by the function does
+    not end with a null wide character within the first <code>maxsize</code> elements</li>
+
+    <li><code>ps</code> is a null pointer</li>
+  </ul>
+
+  <p>If such a violation occurs, other than the first one, and <code>dst</code> is not a null pointer, the
+  function stores a null wide character at <code>dst[0]]</code>. If <code>psize</code> is not a null pointer,
+  the function stores <code>(rsize_t)-1</code> in <code>*psize</code>. It returns the error code it reported
+  to the constraint handler.</p>
+
+  <p>Otherwise, the function converts the multibyte string beginning at <code>*src</code> to a sequence of
+  wide characters as if by repeated calls of the form:</p>
+  <pre>
+x = mbrtowc(dst, *src, n, ps)
+</pre>
+
+  <p>where <code>n</code> is some value &gt; 0.</p>
+
+  <p>If <code>dst</code> is not a null pointer, the <code>mbsrtowcs_s</code> function stores at most
+  <code>len</code> wide characters by calls to <a href="#mbrtowc"><code>mbrtowc</code></a>. The function
+  effectively increments <code>dst</code> by one and <code>*src</code> by <code>x</code> after each call to
+  <a href="#mbrtowc"><code>mbrtowc</code></a> that stores a converted wide character. After a call that
+  returns zero, <code>mbsrtowcs_s</code> stores a null wide character at <code>dst</code> and stores a null
+  pointer at <code>*src</code>. If no such null wide character is stored, the function stores a null wide
+  character at <code>dst[len]</code>.</p>
+
+  <p>If <code>dst</code> is a null pointer, <code>len</code> is effectively assigned a large value.</p>
+
+  <p>The function returns zero if all conversions are successful; otherwise, it returns a nonzero value.</p>
+
+  <h2><a name="mbstate_t"><code>mbstate_t</code></a></h2>
+  <pre>
+typedef <i>o-type</i> <b>mbstate_t;</b>
+</pre>
+
+  <p>The type is an object type <i>o-type</i> that can represent a <a href=
+  "charset.html#conversion%20state">conversion state</a> for any of the functions <a href=
+  "#mbrlen"><code>mbrlen</code></a>, <a href="#mbrtowc"><code>mbrtowc</code></a>, <a href=
+  "#mbsrtowcs"><code>mbsrtowcs</code></a>, <a href="#wcrtomb"><code>wcrtomb</code></a>, or <a href=
+  "#wcsrtombs"><code>wcsrtombs</code></a>. A definition of the form:</p>
+  <pre>
+mbstate_t mbst = {0};
+</pre>
+
+  <p>ensures that <code>mbst</code> represents the <a href=
+  "charset.html#initial%20conversion%20state">initial conversion state</a>. Note, however, that other values
+  stored in an object of type <code>mbstate_t</code> can also represent this state. To test safely for this
+  state, use the function <a href="#mbsinit"><code>mbsinit</code></a>.</p>
+
+  <h2><a name="NULL"><code>NULL</code></a></h2>
+  <pre>
+#define <b>NULL</b> <i>&lt;either 0, 0L, or (void *)0&gt;</i> <b>[0 in C++]</b>
+</pre>
+
+  <p>The macro yields a null pointer constant that is usable as an <a href=
+  "express.html#address%20constant%20expression">address constant expression</a>.</p>
+
+  <h2><a name="putwc"><code>putwc</code></a></h2>
+  <pre>
+wint_t <b>putwc</b>(wchar_t c, FILE *stream);
+</pre>
+
+  <p>The function has the same effect as <code><a href="#fputwc">fputwc</a>(c, stream)</code> except that a
+  macro version of <code>putwc</code> can evaluate <code>stream</code> more than once.</p>
+
+  <h2><a name="putwchar"><code>putwchar</code></a></h2>
+  <pre>
+wint_t <b>putwchar</b>(wchar_t c);
+</pre>
+
+  <p>The function has the same effect as <code><a href="#fputwc">fputwc</a>(c, stdout)</code>.</p>
+
+  <h2><a name="rsize_t"><code>rsize_t</code></a></h2>
+  <pre>
+typedef size_t <b>rsize_t</b>; <b>[added with TR24731]</b>
+</pre>
+
+  <p>The type is a synonym for <code>size_t</code>, used to represent a function argument to be checked on
+  entry to a function. It is a <a href="index_ext1.html#runtime%20constraint%20violation">runtime constraint
+  violation</a> for an argument of type <code>rsize_t</code> to be greater than <code><a href=
+  "index_ext1.html#RSIZE_MAX">RSIZE_MAX</a></code>.</p>
+
+  <h2><a name="size_t"><code>size_t</code></a></h2>
+  <pre>
+typedef <i>ui-type</i> <b>size_t;</b>
+</pre>
+
+  <p>The type is the unsigned integer type <code><i>ui-type</i></code> of an object that you declare to store
+  the result of the <a href="express.html#sizeof%20operator"><i>sizeof</i></a> operator.</p>
+
+  <h2><a name="snwprintf_s"><code>snwprintf_s</code></a></h2>
+  <pre>
+int <b>snwprintf_s</b>(wchar_t *restrict s, rsize_t n,
+    const wchar_t *restrict format, ...); <b>[added with TR24731]</b>
+</pre>
+
+  <p>A <a href="index_ext1.html#runtime%20constraint%20violation">runtime constraint violation</a> occurs
+  if:</p>
+
+  <ul>
+    <li><code>s</code> is a null pointer</li>
+
+    <li><code>n</code> is greater than <code><a href="index_ext1.html#RSIZE_MAX">RSIZE_MAX</a></code></li>
+
+    <li><code>format</code> is a null pointer</li>
+
+    <li>the argument corresponding to a <code>%s</code> conversion specifier is a null pointer</li>
+
+    <li><code>format</code> contains a <code>%n</code> conversion specifier</li>
+  </ul>
+
+  <p>If such a violation occurs, other than the first two, the function stores a null character at
+  <code>s[0]]</code>. It then returns a negative value.</p>
+
+  <p>Otherwise, the function <a href="lib_prin.html#Print%20Functions">generates formatted text</a>, under
+  the control of the format <code>format</code> and any additional arguments, and stores each wide generated
+  character in successive locations of the array object whose first element has the address <code>s</code>.
+  If <code>n</code> is zero, it stores no wide characters. Otherwise, the function stores up to <code>n -
+  1</code> wide characters and concludes by storing a null wide character in the next location of the array.
+  It returns the <i>total</i> number of wide characters generated (even those not stored), not including the
+  null wide character, or a negative value if an encoding error occurs.</p>
+
+  <h2><a name="swprintf"><code>swprintf</code></a></h2>
+  <pre>
+int <b>swprintf</b>(wchar_t *restrict s, size_t n,
+    const wchar_t *restrict format, ...);
+</pre>
+
+  <p>The function <a href="lib_prin.html#Print%20Functions">generates formatted text</a>, under the control
+  of the format <code>format</code> and any additional arguments, and stores each generated character in
+  successive locations of the array object whose first element has the address <code>s</code>. The function
+  concludes by storing a null wide character in the next location of the array. If it cannot generate and
+  store all characters in an array of size <code>n</code>, the function returns a negative number. Otherwise,
+  it returns the number of wide characters generated, not including the null wide character.</p>
+
+  <h2><a name="swprintf_s"><code>swprintf_s</code></a></h2>
+  <pre>
+int <b>swprintf_s</b>(wchar_t *restrict s, rsize_t n,
+    const wchar_t *restrict format, ...); <b>[added with TR24731]</b>
+</pre>
+
+  <p>A <a href="index_ext1.html#runtime%20constraint%20violation">runtime constraint violation</a> occurs
+  if:</p>
+
+  <ul>
+    <li><code>s</code> is a null pointer</li>
+
+    <li><code>n</code> is greater than <code><a href="index_ext1.html#RSIZE_MAX">RSIZE_MAX</a></code></li>
+
+    <li><code>format</code> is a null pointer</li>
+
+    <li>the argument corresponding to a <code>%s</code> conversion specifier is a null pointer</li>
+
+    <li><code>format</code> contains a <code>%n</code> conversion specifier</li>
+
+    <li>the function attempts to generate more than <code>n - 1</code> wide characters</li>
+  </ul>
+
+  <p>If such a violation occurs, other than the first two, the function stores a null wide character in
+  <code>s[0]</code>. It then returns zero.</p>
+
+  <p>Otherwise, the function <a href="lib_prin.html#Print%20Functions">generates formatted text</a>, under
+  the control of the format <code>format</code> and any additional arguments, and stores each generated wide
+  character in successive locations of the array object whose first element has the address <code>s</code>.
+  If <code>n</code> is zero, it stores no characters. Otherwise, the function stores up to <code>n - 1</code>
+  wide characters and concludes by storing a null wide character in the next location of the array. It
+  returns the <i>total</i> number of wide characters generated (even those not stored), not including the
+  null wide character, or a negative value if an encoding error occurs.</p>
+
+  <h2><a name="swscanf"><code>swscanf</code></a></h2>
+  <pre>
+int <b>swscanf</b>(const wchar_t *restrict s,
+    const wchar_t *restrict format, ...);
+</pre>
+
+  <p>The function <a href="lib_scan.html#Scan%20Functions">scans formatted text</a>, under the control of the
+  format <code>format</code> and any additional arguments. It accesses each scanned character from successive
+  locations of the array object whose first element has the address <code>s</code>. It returns the number of
+  items matched and assigned, or it returns <a href="stdio.html#EOF"><code>EOF</code></a> if the function
+  does not store values before it accesses a null wide character from the array.</p>
+
+  <h2><a name="swscanf_s"><code>swscanf_s</code></a></h2>
+  <pre>
+int <b>swscanf_s</b>(const wchar_t *restrict s, const wchar_t *restrict format, ...); <b>[added with TR24731]</b>
+</pre>
+
+  <p>A <a href="index_ext1.html#runtime%20constraint%20violation">runtime constraint violation</a> occurs
+  if:</p>
+
+  <ul>
+    <li><code>s</code> is a null pointer</li>
+
+    <li><code>format</code> is a null pointer</li>
+
+    <li>any pointer argument after <code>format</code> is a null pointer</li>
+  </ul>
+
+  <p>If such a violation occurs, the function returns a negative value, after consuming an unspecified amount
+  of input.</p>
+
+  <p>Otherwise, the function <a href="lib_scan.html#Scan%20Functions">scans formatted text</a>, with <a href=
+  "#additional%20scan%20checking">additional checking</a>, under the control of the format
+  <code>format</code> and any additional arguments. It accesses each scanned character from successive
+  locations of the array object whose first element has the address <code>s</code>. It returns the number of
+  items matched and assigned, or it returns <a href="stdio.html#EOF"><code>EOF</code></a> if the function
+  does not store values before it accesses a null wide character from the array.</p>
+
+  <h2><a name="tm"><code>tm</code></a></h2>
+  <pre>
+struct <b>tm;</b>
+</pre>
+
+  <p><code>struct</code> <code>tm</code> contains members that describe various properties of the calendar
+  time. The declaration in this header leaves <code>struct <a href="time.html#tm">tm</a></code> an incomplete
+  type. Include the header <a href="time.html#%3Ctime.h%3E"><code>&lt;time.h&gt;</code></a> to complete the
+  type.</p>
+
+  <h2><a name="ungetwc"><code>ungetwc</code></a></h2>
+  <pre>
+wint_t <b>ungetwc</b>(wint_t c, FILE *stream);
+</pre>
+
+  <p>If <code>c</code> is not equal to <a href="#WEOF"><code>WEOF</code></a>, the function stores
+  <code>(<a href="#wchar_t">wchar_t</a>)c</code> in the object whose address is <code>stream</code> and
+  clears the end-of-file indicator. If <code>c</code> equals <a href="#WEOF"><code>WEOF</code></a> or the
+  store cannot occur, the function returns <a href="#WEOF"><code>WEOF</code></a>; otherwise, it returns
+  <code>(<a href="#wchar_t">wchar_t</a>)c</code>. A subsequent library function call that reads a wide
+  character from the stream <code>stream</code> obtains this stored value, which is then forgotten.</p>
+
+  <p>Thus, you can effectively <a href="stdio.html#push%20back">push back</a> a wide character to a stream
+  after reading a wide character.</p>
+
+  <h2><a name="vfwprintf"><code>vfwprintf</code></a></h2>
+  <pre>
+int <b>vfwprintf</b>(FILE *restrict stream, const wchar_t *restrict format,
+    va_list arg);
+</pre>
+
+  <p>The function <a href="lib_prin.html#Print%20Functions">generates formatted text</a>, under the control
+  of the format <code>format</code> and any additional arguments, and writes each generated wide character to
+  the stream <code>stream</code>. It returns the number of wide characters generated, or it returns a
+  negative value if the function sets the error indicator for the stream.</p>
+
+  <p>The function accesses additional arguments by using the context information designated by
+  <code>ap</code>. The program must execute the macro <a href=
+  "stdarg.html#va_start"><code>va_start</code></a> before it calls the function, and then execute the macro
+  <a href="stdarg.html#va_end"><code>va_end</code></a> after the function returns.</p>
+
+  <h2><a name="vfwprintf_s"><code>vfwprintf_s</code></a></h2>
+  <pre>
+int <b>vfwprintf_s</b>(FILE *restrict stream, const wchar_t *restrict format,
+     va_list ap); <b>[added with TR24731]</b>
+</pre>
+
+  <p>A <a href="index_ext1.html#runtime%20constraint%20violation">runtime constraint violation</a> occurs
+  if:</p>
+
+  <ul>
+    <li><code>stream</code> is a null pointer</li>
+
+    <li><code>format</code> is a null pointer</li>
+
+    <li>the argument corresponding to a <code>%s</code> conversion specifier is a null pointer</li>
+
+    <li><code>format</code> contains a <code>%n</code> conversion specifier</li>
+  </ul>
+
+  <p>If such a violation occurs, the function returns a negative value, after producing an unspecified amount
+  of output.</p>
+
+  <p>Otherwise, the function <a href="lib_prin.html#Print%20Functions">generates formatted text</a>, under
+  the control of the format <code>format</code> and any additional arguments, and writes each generated wide
+  character to the stream <code>stream</code>. It returns the number of wide characters generated, or it
+  returns a negative value if the function sets the error indicator for the stream.</p>
+
+  <p>The function accesses additional arguments by using the context information designated by
+  <code>ap</code>. The program must execute the macro <a href=
+  "stdarg.html#va_start"><code>va_start</code></a> before it calls the function, and then execute the macro
+  <a href="stdarg.html#va_end"><code>va_end</code></a> after the function returns.</p>
+
+  <h2><a name="vfwscanf"><code>vfwscanf</code></a></h2>
+  <pre>
+int <b>vfwscanf</b>(FILE *restrict stream, const wchar_t *restrict format,
+    va_list ap); <b>[added with <a href="lib_over.html#C99">C99</a>]</b>
+</pre>
+
+  <p>The function <a href="lib_scan.html#Scan%20Functions">scans formatted text</a>, under the control of the
+  format <code>format</code> and any additional arguments. It obtains each scanned wide character from the
+  stream <code>stream</code>. It returns the number of input items matched and assigned, or it returns
+  <a href="#WEOF"><code>WEOF</code></a> if the function does not store values before it sets the end-of-file
+  or error indicator for the stream.</p>
+
+  <p>The function accesses additional arguments by using the context information designated by
+  <code>ap</code>. The program must execute the macro <a href=
+  "stdarg.html#va_start"><code>va_start</code></a> before it calls the function, and then execute the macro
+  <a href="stdarg.html#va_end"><code>va_end</code></a> after the function returns.</p>
+
+  <h2><a name="vfwscanf_s"><code>vfwscanf_s</code></a></h2>
+  <pre>
+int <b>vfwscanf_s</b>(FILE *restrict stream, const wchar_t *restrict format,
+    va_list ap); <b>[added with TR24731]</b>
+</pre>
+
+  <p>A <a href="index_ext1.html#runtime%20constraint%20violation">runtime constraint violation</a> occurs
+  if:</p>
+
+  <ul>
+    <li><code>stream</code> is a null pointer</li>
+
+    <li><code>format</code> is a null pointer</li>
+
+    <li>any pointer argument after <code>format</code> is a null pointer</li>
+  </ul>
+
+  <p>If such a violation occurs, the function returns a negative value, after consuming an unspecified amount
+  of input.</p>
+
+  <p>Otherwise, the function <a href="lib_scan.html#Scan%20Functions">scans formatted text</a>, with <a href=
+  "#additional%20scan%20checking">additional checking</a>, under the control of the format
+  <code>format</code> and any additional arguments. It obtains each scanned wide character from the stream
+  <code>stream</code>. It returns the number of input items matched and assigned, or it returns <a href=
+  "stdio.html#EOF"><code>EOF</code></a> if the function does not store values before it sets the end-of-file
+  or error indicator for the stream.</p>
+
+  <p>The function accesses additional arguments by using the context information designated by
+  <code>ap</code>. The program must execute the macro <a href=
+  "stdarg.html#va_start"><code>va_start</code></a> before it calls the function, and then execute the macro
+  <a href="stdarg.html#va_end"><code>va_end</code></a> after the function returns.</p>
+
+  <h2><a name="vsnwprintf_s"><code>vsnwprintf_s</code></a></h2>
+  <pre>
+int <b>vsnwprintf_s</b>(wchar_t *restrict s, rsize_t n, const wchar_t *restrict format,
+    va_list ap); <b>[added with TR24731]</b>
+</pre>
+
+  <p>A <a href="index_ext1.html#runtime%20constraint%20violation">runtime constraint violation</a> occurs
+  if:</p>
+
+  <ul>
+    <li><code>s</code> is a null pointer</li>
+
+    <li><code>n</code> is greater than <code><a href="index_ext1.html#RSIZE_MAX">RSIZE_MAX</a></code></li>
+
+    <li><code>format</code> is a null pointer</li>
+
+    <li>the argument corresponding to a <code>%s</code> conversion specifier is a null pointer</li>
+
+    <li><code>format</code> contains a <code>%n</code> conversion specifier</li>
+  </ul>
+
+  <p>If such a violation occurs, other than the first two, the function stores a null wide character at
+  <code>s[0]]</code>. It then returns a negative value.</p>
+
+  <p>Otherwise, the function <a href="lib_prin.html#Print%20Functions">generates formatted text</a>, under
+  the control of the format <code>format</code> and any additional arguments, and stores generated wide
+  characters in successive locations of the array object whose first element has the address <code>s</code>.
+  If <code>n</code> is zero, it stores no wide characters. Otherwise, the function stores up to <code>n -
+  1</code> wide characters and concludes by storing a null wide character in the next location of the array.
+  It returns the <i>total</i> number of wide characters generated (even those not stored), not including the
+  null wide character, or a negative value if an encoding error occurs.</p>
+
+  <p>The function accesses additional arguments by using the context information designated by
+  <code>ap</code>. The program must execute the macro <a href=
+  "stdarg.html#va_start"><code>va_start</code></a> before it calls the function, and then execute the macro
+  <a href="stdarg.html#va_end"><code>va_end</code></a> after the function returns.</p>
+
+  <h2><a name="vswprintf"><code>vswprintf</code></a></h2>
+  <pre>
+int <b>vswprintf</b>(wchar_t *restrict s, size_t n, const wchar_t *restrict format,
+    va_list arg);
+</pre>
+
+  <p>The function <a href="lib_prin.html#Print%20Functions">generates formatted text</a>, under the control
+  of the format <code>format</code> and any additional arguments, and stores each generated wide character in
+  successive locations of the array object whose first element has the address <code>s</code>. The function
+  concludes by storing a null wide character in the next location of the array. If it cannot generate and
+  store all characters in an array of size <code>n</code>, the function returns a negative number. Otherwise,
+  it returns the number of wide characters generated -- not including the null wide character.</p>
+
+  <p>The function accesses additional arguments by using the context information designated by
+  <code>ap</code>. The program must execute the macro <a href=
+  "stdarg.html#va_start"><code>va_start</code></a> before it calls the function, and then execute the macro
+  <a href="stdarg.html#va_end"><code>va_end</code></a> after the function returns.</p>
+
+  <h2><a name="vswprintf_s"><code>vswprintf_s</code></a></h2>
+  <pre>
+int <b>vswprintf_s</b>(wchar_t *restrict s, rsize_t n,
+    const wchar_t *restrict format,
+    va_list ap); <b>[added with TR24731]</b>
+</pre>
+
+  <p>A <a href="index_ext1.html#runtime%20constraint%20violation">runtime constraint violation</a> occurs
+  if:</p>
+
+  <ul>
+    <li><code>s</code> is a null pointer</li>
+
+    <li><code>n</code> is greater than <code><a href="index_ext1.html#RSIZE_MAX">RSIZE_MAX</a></code></li>
+
+    <li><code>format</code> is a null pointer</li>
+
+    <li>the argument corresponding to a <code>%s</code> conversion specifier is a null pointer</li>
+
+    <li><code>format</code> contains a <code>%n</code> conversion specifier</li>
+
+    <li>the function generates more than <code>n</code> wide characters, counting the terminating null
+    character</li>
+  </ul>
+
+  <p>If such a violation occurs, other than the first two, the function stores a null wide character at
+  <code>s[0]]</code>. It then returns zero.</p>
+
+  <p>Otherwise, the function <a href="lib_prin.html#Print%20Functions">generates formatted text</a>, under
+  the control of the format <code>format</code> and any additional arguments, and stores each generated wide
+  character in successive locations of the array object whose first element has the address <code>s</code>.
+  The function concludes by storing a null wide character in the next location of the array. It returns the
+  number of characters generated, not including the null character, or a negative value if an encoding error
+  occurs.</p>
+
+  <p>The function accesses additional arguments by using the context information designated by
+  <code>ap</code>. The program must execute the macro <a href=
+  "stdarg.html#va_start"><code>va_start</code></a> before it calls the function, and then execute the macro
+  <a href="stdarg.html#va_end"><code>va_end</code></a> after the function returns.</p>
+
+  <h2><a name="vswscanf"><code>vswscanf</code></a></h2>
+  <pre>
+int <b>vswscanf</b>(const wchar_t *restrict s, const wchar_t *restrict format,
+    va_list ap); <b>[added with <a href="lib_over.html#C99">C99</a>]</b>
+</pre>
+
+  <p>The function <a href="lib_scan.html#Scan%20Functions">scans formatted text</a>, under the control of the
+  format <code>format</code> and any additional arguments. It accesses each scanned wide character from
+  successive locations of the array object whose first element has the address <code>s</code>. It returns the
+  number of items matched and assigned, or it returns <a href="#WEOF"><code>WEOF</code></a> if the function
+  does not store values before it accesses a null character from the array.</p>
+
+  <p>The function accesses additional arguments by using the context information designated by
+  <code>ap</code>. The program must execute the macro <a href=
+  "stdarg.html#va_start"><code>va_start</code></a> before it calls the function, and then execute the macro
+  <a href="stdarg.html#va_end"><code>va_end</code></a> after the function returns.</p>
+
+  <h2><a name="vswscanf_s"><code>vswscanf_s</code></a></h2>
+  <pre>
+int <b>vswscanf_s</b>(const wchar_t *restrict s, const wchar_t *restrict format,
+    va_list ap); <b>[added with TR24731]</b>
+</pre>
+
+  <p>A <a href="index_ext1.html#runtime%20constraint%20violation">runtime constraint violation</a> occurs
+  if:</p>
+
+  <ul>
+    <li><code>s</code> is a null pointer</li>
+
+    <li><code>format</code> is a null pointer</li>
+
+    <li>any pointer argument after <code>format</code> is a null pointer</li>
+  </ul>
+
+  <p>If such a violation occurs, the function returns a negative value, after consuming an unspecified amount
+  of input.</p>
+
+  <p>Otherwise, the function <a href="lib_scan.html#Scan%20Functions">scans formatted text</a>, with <a href=
+  "#additional%20scan%20checking">additional checking</a>, under the control of the format
+  <code>format</code> and any additional arguments. It accesses each scanned wide character from successive
+  locations of the array object whose first element has the address <code>s</code>. It returns the number of
+  items matched and assigned, or it returns <a href="stdio.html#EOF"><code>EOF</code></a> if the function
+  does not store values before it accesses a null wide character from the array.</p>
+
+  <p>The function accesses additional arguments by using the context information designated by
+  <code>ap</code>. The program must execute the macro <a href=
+  "stdarg.html#va_start"><code>va_start</code></a> before it calls the function, and then execute the macro
+  <a href="stdarg.html#va_end"><code>va_end</code></a> after the function returns.</p>
+
+  <h2><a name="vwprintf"><code>vwprintf</code></a></h2>
+  <pre>
+int <b>vwprintf</b>(const wchar_t *restrict format,
+    va_list arg);
+</pre>
+
+  <p>The function <a href="lib_prin.html#Print%20Functions">generates formatted text</a>, under the control
+  of the format <code>format</code> and any additional arguments, and writes each generated wide character to
+  the stream <a href="stdio.html#stdout"><code>stdout</code></a>. It returns the number of characters
+  generated, or a negative value if the function sets the error indicator for the stream.</p>
+
+  <p>The function accesses additional arguments by using the context information designated by
+  <code>ap</code>. The program must execute the macro <a href=
+  "stdarg.html#va_start"><code>va_start</code></a> before it calls the function, and then execute the macro
+  <a href="stdarg.html#va_end"><code>va_end</code></a> after the function returns.</p>
+
+  <h2><a name="vwprintf_s"><code>vwprintf_s</code></a></h2>
+  <pre>
+int <b>vwprintf_s</b>(const wchar_t *restrict format,
+    va_list ap); <b>[added with TR24731]</b>
+</pre>
+
+  <p>A <a href="index_ext1.html#runtime%20constraint%20violation">runtime constraint violation</a> occurs
+  if:</p>
+
+  <ul>
+    <li><code>format</code> is a null pointer</li>
+
+    <li>the argument corresponding to a <code>%s</code> conversion specifier is a null pointer</li>
+
+    <li><code>format</code> contains a <code>%n</code> conversion specifier</li>
+  </ul>
+
+  <p>If such a violation occurs, the function returns a negative value, after producing an unspecified amount
+  of output.</p>
+
+  <p>Otherwise, the function <a href="lib_prin.html#Print%20Functions">generates formatted text</a>, under
+  the control of the format <code>format</code> and any additional arguments, and writes each generated wide
+  character to the stream <a href="stdio.html#stdout"><code>stdout</code></a>. It returns the number of wide
+  characters generated, or a negative value if the function sets the error indicator for the stream.</p>
+
+  <p>The function accesses additional arguments by using the context information designated by
+  <code>ap</code>. The program must execute the macro <a href=
+  "stdarg.html#va_start"><code>va_start</code></a> before it calls the function, and then execute the macro
+  <a href="stdarg.html#va_end"><code>va_end</code></a> after the function returns.</p>
+
+  <h2><a name="vwscanf"><code>vwscanf</code></a></h2>
+  <pre>
+int <b>vwscanf</b>(const wchar_t *restrict format,
+    va_list ap); <b>[added with <a href="lib_over.html#C99">C99</a>]</b>
+</pre>
+
+  <p>The function <a href="lib_scan.html#Scan%20Functions">scans formatted text</a>, under the control of the
+  format <code>format</code> and any additional arguments. It obtains each scanned wide character from the
+  stream <a href="stdio.html#stdin"><code>stdin</code></a>. It returns the number of input items matched and
+  assigned, or it returns <a href="#WEOF"><code>WEOF</code></a> if the function does not store values before
+  it sets the end-of-file or error indicators for the stream.</p>
+
+  <p>The function accesses additional arguments by using the context information designated by
+  <code>ap</code>. The program must execute the macro <a href=
+  "stdarg.html#va_start"><code>va_start</code></a> before it calls the function, and then execute the macro
+  <a href="stdarg.html#va_end"><code>va_end</code></a> after the function returns.</p>
+
+  <h2><a name="vwscanf_s"><code>vwscanf_s</code></a></h2>
+  <pre>
+int <b>vwscanf_s</b>(const wchar_t *restrict format,
+    va_list ap); <b>[added with TR24731]</b>
+</pre>
+
+  <p>A <a href="index_ext1.html#runtime%20constraint%20violation">runtime constraint violation</a> occurs
+  if:</p>
+
+  <ul>
+    <li><code>format</code> is a null pointer</li>
+
+    <li>any pointer argument after <code>format</code> is a null pointer</li>
+  </ul>
+
+  <p>If such a violation occurs, the function returns a negative value, after consuming an unspecified amount
+  of input.</p>
+
+  <p>Otherwise, the function <a href="lib_scan.html#Scan%20Functions">scans formatted text</a>, with <a href=
+  "#additional%20scan%20checking">additional checking</a>, under the control of the format
+  <code>format</code> and any additional arguments. It obtains each scanned wide character from the stream
+  <a href="stdio.html#stdin"><code>stdin</code></a>. It returns the number of input items matched and
+  assigned, or it returns <a href="stdio.html#EOF"><code>EOF</code></a> if the function does not store values
+  before it sets the end-of-file or error indicators for the stream.</p>
+
+  <p>The function accesses additional arguments by using the context information designated by
+  <code>ap</code>. The program must execute the macro <a href=
+  "stdarg.html#va_start"><code>va_start</code></a> before it calls the function, and then execute the macro
+  <a href="stdarg.html#va_end"><code>va_end</code></a> after the function returns.</p>
+
+  <h2><a name="WCHAR_MAX"><code>WCHAR_MAX</code></a></h2>
+  <pre>
+#define <b>WCHAR_MAX</b> <i>&lt;#if expression &gt;= 127&gt;</i>
+</pre>
+
+  <p>The macro yields the maximum value for type <a href="#wchar_t"><code>wchar_t</code></a>.</p>
+
+  <h2><a name="WCHAR_MIN"><code>WCHAR_MIN</code></a></h2>
+  <pre>
+#define <b>WCHAR_MIN</b> <i>&lt;#if expression &lt;= 0&gt;</i>
+</pre>
+
+  <p>The macro yields the minimum value for type <a href="#wchar_t"><code>wchar_t</code></a>.</p>
+
+  <h2><a name="wchar_t"><code>wchar_t</code></a></h2>
+  <pre>
+typedef <i>i-type</i> <b>wchar_t;</b> <b>[keyword in C++]</b>
+</pre>
+
+  <p>The type is the integer type <code><i>i-type</i></code> of a <a href=
+  "charset.html#wide-character%20constant">wide-character constant</a>, such as <code>L'X'</code>. You
+  declare an object of type <code>wchar_t</code> to hold a <a href=
+  "charset.html#Wide-Character%20Encoding">wide character</a>.</p>
+
+  <h2><a name="wcrtomb"><code>wcrtomb</code></a></h2>
+  <pre>
+size_t <b>wcrtomb</b>(char *restrict s, wchar_t wc, mbstate_t *restrict ps);
+</pre>
+
+  <p>The function determines the number of bytes needed to represent the wide character <code>wc</code> as a
+  multibyte character, if possible. (Not all values representable as type <a href=
+  "#wchar_t"><code>wchar_t</code></a> are necessarily valid wide-character codes.)</p>
+
+  <p>If <code>ps</code> is not a null pointer, the <a href="charset.html#conversion%20state">conversion
+  state</a> for the multibyte string is assumed to be <code>*ps</code>. Otherwise, it is assumed to be
+  <code>&amp;internal</code>, where <code>internal</code> is an object of type <a href=
+  "#mbstate_t"><code>mbstate_t</code></a> internal to the <code>wcrtomb</code> function. At <a href=
+  "lib_over.html#program%20startup">program startup</a>, <code>internal</code> is initialized to the <a href=
+  "charset.html#initial%20conversion%20state">initial conversion state</a>. No other library function alters
+  the value stored in <code>internal</code>.</p>
+
+  <p>If <code>s</code> is not a null pointer and <code>wc</code> is a valid wide-character code, the function
+  determines <code>x</code>, the number of bytes needed to represent <code>wc</code> as a multibyte
+  character, and stores the converted bytes in the array of <i>char</i> beginning at <code>s</code>.
+  (<code>x</code> cannot be greater than <a href="stdlib.html#MB_CUR_MAX"><code>MB_CUR_MAX</code></a>.) If
+  <code>wc</code> is a null wide character, the function stores any <a href=
+  "charset.html#shift%20sequence">shift sequence</a> needed to restore the <a href=
+  "charset.html#initial%20shift%20state">initial shift state</a>, followed by a null byte. The resulting
+  conversion state is the <a href="charset.html#initial%20conversion%20state">initial conversion
+  state</a>.</p>
+
+  <p>If <code>s</code> is a null pointer, the function effectively returns <code>wcrtomb(buf, L'\0',
+  ps)</code>, where <code>buf</code> is a buffer internal to the function. (The function thus returns the
+  number of bytes needed to restore the <a href="charset.html#initial%20conversion%20state">initial
+  conversion state</a> and to terminate the multibyte string pending from a previous call to
+  <code>wcrtomb</code> or <a href="#wcsrtombs"><code>wcsrtombs</code></a> for the same string and <a href=
+  "charset.html#conversion%20state">conversion state</a>.)</p>
+
+  <p>The function returns:</p>
+
+  <ul>
+    <li><code>(<a href="#size_t">size_t</a>)-1</code> if <code>wc</code> is an invalid wide-character code,
+    in which case the function stores the value <a href="errno.html#EILSEQ"><code>EILSEQ</code></a> in
+    <a href="errno.html#errno"><code>errno</code></a> and leaves the resulting <a href=
+    "charset.html#conversion%20state">conversion state</a> undefined</li>
+
+    <li><code>x</code>, the number of bytes needed to complete the next muitibyte character, in which case
+    the resulting <a href="charset.html#conversion%20state">conversion state</a> indicates that
+    <code>x</code> bytes have been generated</li>
+  </ul>
+
+  <p>The function is not necessarily thread safe if <code>ps</code> is a null pointer.</p>
+
+  <h2><a name="wcrtomb_s"><code>wcrtomb_s</code></a></h2>
+  <pre>
+errno_t <b>wcrtomb_s</b>(int *restrict pstat,
+    char *restrict s, rsize_t maxsize, wchar_t wchar,
+    mbstate_t *restrict ps); <b>[added with TR24731]</b>
+</pre>
+
+  <p>A <a href="index_ext1.html#runtime%20constraint%20violation">runtime constraint violation</a> occurs
+  if:</p>
+
+  <ul>
+    <li><code>maxsize</code> is zero or greater than <code><a href=
+    "index_ext1.html#RSIZE_MAX">RSIZE_MAX</a></code></li>
+
+    <li><code>pstat</code> is a null pointer</li>
+
+    <li><code>s</code> is not a null pointer and <code>maxsize</code> is less than <code>N</code>, the number
+    of bytes needed to represent the multibyte character corresponding to the wide character
+    <code>wchar</code> (<code>N</code> cannot exceed <a href=
+    "stdlib.html#MB_CUR_MAX"><code>MB_CUR_MAX</code></a>.)</li>
+
+    <li><code>s</code> is a null pointer and <code>maxsize</code> is nonzero</li>
+
+    <li><code>ps</code> is a null pointer</li>
+  </ul>
+
+  <p>If such a violation occurs, other than the first one, and <code>s</code> is not a null pointer, the
+  function stores a null wide character in <code>s[0]</code>. If <code>pstat</code> is not a null pointer,
+  the function stores <code>(size_t)-1</code> in <code>*pstat</code>. It returns the error code it reported
+  to the constraint handler.</p>
+
+  <p>Otherwise, the function determines the number of bytes needed to represent the wide character
+  <code>wc</code> as a multibyte character, if possible. (Not all values representable as type <a href=
+  "#wchar_t"><code>wchar_t</code></a> are necessarily valid wide-character codes.) The <a href=
+  "charset.html#conversion%20state">conversion state</a> for the multibyte string is assumed to be
+  <code>*ps</code>.</p>
+
+  <p>If <code>s</code> is not a null pointer and <code>wc</code> is a valid wide-character code, the function
+  determines <code>x</code>, the number of bytes needed to represent <code>wc</code> as a multibyte
+  character, and stores the converted bytes in the array of <i>char</i> beginning at <code>s</code>.
+  (<code>x</code> cannot be greater than <a href="stdlib.html#MB_CUR_MAX"><code>MB_CUR_MAX</code></a>.) If
+  <code>wc</code> is a null wide character, the function stores any <a href=
+  "charset.html#shift%20sequence">shift sequence</a> needed to restore the <a href=
+  "charset.html#initial%20shift%20state">initial shift state</a>, followed by a null byte. The resulting
+  conversion state is the <a href="charset.html#initial%20conversion%20state">initial conversion
+  state</a>.</p>
+
+  <p>If <code>s</code> is a null pointer, the function effectively returns <code>wcrtomb(buf, L'\0',
+  ps)</code>, where <code>buf</code> is a buffer internal to the function. (The function thus returns the
+  number of bytes needed to restore the <a href="charset.html#initial%20conversion%20state">initial
+  conversion state</a> and to terminate the multibyte string pending from a previous call to
+  <code>wcrtomb_s</code> or <a href="#wcsrtombs_s"><code>wcsrtombs_s</code></a> for the same string and
+  <a href="charset.html#conversion%20state">conversion state</a>.)</p>
+
+  <p>The function returns zero if all conversions are successful; otherwise, it returns a nonzero value.</p>
+
+  <h2><a name="wcscat"><code>wcscat</code></a></h2>
+  <pre>
+wchar_t *<b>wcscat</b>(wchar_t *restrict s1, const wchar_t *restrict s2);
+</pre>
+
+  <p>The function copies the wide string <code>s2</code>, including its terminating null wide character, to
+  successive elements of the array that stores the wide string <code>s1</code>, beginning with the element
+  that stores the terminating null wide character of <code>s1</code>. It returns <code>s1</code>.</p>
+
+  <h2><a name="wcscat_s"><code>wcscat_s</code></a></h2>
+  <pre>
+errno_t <b>wcscat_s</b>(wchar_t *restrict s1, rsize_t maxsize,
+    const wchar_t *restrict s2); <b>[added with TR24731]</b>
+</pre>
+
+  <p>A <a href="index_ext1.html#runtime%20constraint%20violation">runtime constraint violation</a> occurs
+  if:</p>
+
+  <ul>
+    <li><code>s1</code> is a null pointer</li>
+
+    <li><code>maxsize</code> is zero or greater than <code><a href=
+    "index_ext1.html#RSIZE_MAX">RSIZE_MAX</a></code></li>
+
+    <li><code>s2</code> is a null pointer</li>
+
+    <li>the value <code>M</code>, given by <code>maxsize - <a href="#wcsnlen_s">wcsnlen_s</a>(s1,
+    maxsize)</code>, is not greater than <code>N</code>, given by <code>wcsnlen_s(s2, M)</code></li>
+
+    <li>the array of <code>N + 1</code> <code>wchar_t</code> beginning at the address <code>s1</code>
+    overlaps the array of <code>N + 1</code> <code>wchar_t</code> beginning at the address <code>s2 +
+    M</code></li>
+  </ul>
+
+  <p>If such a violation occurs, other than the first two, the function stores a null wide character in
+  <code>s1[0]</code>. It returns the error code it reported to the constraint handler.</p>
+
+  <p>Otherwise, the function copies the string <code>s2</code>, including its terminating null wide
+  character, to successive elements of the array of <code>wchar_t</code> that stores the string
+  <code>s1</code>, beginning with the element that stores the terminating null character of <code>s1</code>.
+  It returns zero.</p>
+
+  <h2><a name="wcschr"><code>wcschr</code></a></h2>
+  <pre>
+wchar_t *<b>wcschr</b>(const wchar_t *s, wchar_t c); <b>[not in C++]</b>
+const wchar_t *<b>wcschr</b>(const wchar_t *s, wchar_t c); <b>[C++ only]</b>
+wchar_t *<b>wcschr</b>(wchar_t *s, wchar_t c); <b>[C++ only]</b>
+</pre>
+
+  <p>The function searches for the first element of the wide string <code>s</code> that equals
+  <code>c</code>. It considers the terminating null wide character as part of the wide string. If successful,
+  the function returns the address of the matching element; otherwise, it returns a null pointer.</p>
+
+  <h2><a name="wcscmp"><code>wcscmp</code></a></h2>
+  <pre>
+int <b>wcscmp</b>(const wchar_t *s1, const wchar_t *s2);
+</pre>
+
+  <p>The function compares successive elements from two wide strings, <code>s1</code> and <code>s2</code>,
+  until it finds elements that are not equal.</p>
+
+  <ul>
+    <li>If all elements are equal, the function returns zero.</li>
+  </ul>
+
+  <ul>
+    <li>If the differing element from <code>s1</code> is greater than the element from <code>s2</code>, the
+    function returns a positive number.</li>
+
+    <li>Otherwise, the function returns a negative number.</li>
+  </ul>
+
+  <h2><a name="wcscoll"><code>wcscoll</code></a></h2>
+  <pre>
+int <b>wcscoll</b>(const wchar_t *s1, const wchar_t *s2);
+</pre>
+
+  <p>The function compares two wide strings, <code>s1</code> and <code>s2</code>, using a comparison rule
+  that depends on the current <a href="locale.html#locale">locale</a>. If <code>s1</code> compares greater
+  than <code>s2</code> by this rule, the function returns a positive number. If the two wide strings compare
+  equal, it returns zero. Otherwise, it returns a negative number.</p>
+
+  <h2><a name="wcscpy"><code>wcscpy</code></a></h2>
+  <pre>
+wchar_t *<b>wcscpy</b>(wchar_t *restrict s1, const wchar_t *restrict s2);
+</pre>
+
+  <p>The function copies the wide string <code>s2</code>, including its terminating null wide character, to
+  successive elements of the array whose first element has the address <code>s1</code>. It returns
+  <code>s1</code>.</p>
+
+  <h2><a name="wcscpy_s"><code>wcscpy_s</code></a></h2>
+  <pre>
+errno_t <b>wcscpy_s</b>(wchar_t *restrict s1, rsize_t maxsize,
+    const wchar_t *restrict s2); <b>[added with TR24731]</b>
+</pre>
+
+  <p>A <a href="index_ext1.html#runtime%20constraint%20violation">runtime constraint violation</a> occurs
+  if:</p>
+
+  <ul>
+    <li><code>s1</code> is a null pointer</li>
+
+    <li><code>maxsize</code> is zero or greater than <code><a href=
+    "index_ext1.html#RSIZE_MAX">RSIZE_MAX</a></code></li>
+
+    <li><code>s2</code> is a null pointer</li>
+
+    <li><code>maxsize</code> is not greater than <code>N</code>, given by <code><a href=
+    "#wcsnlen_s">wcsnlen_s</a>(s2, maxsize)</code></li>
+
+    <li>the array of <code>N + 1</code> <code>wchar_t</code> beginning at the address <code>s1</code>
+    overlaps the array of <code>N + 1</code> <code>wchar_t</code> beginning at the address
+    <code>s2</code></li>
+  </ul>
+
+  <p>If such a violation occurs, other than the first two, the function stores a null wide character in
+  <code>s1[0]</code>. It returns the error code it reported to the constraint handler.</p>
+
+  <p>Otherwise, the function copies the wide string <code>s2</code>, including its terminating null wide
+  character, to successive elements of the array of <code>wchar_t</code> whose first element has the address
+  <code>s1</code>. It returns zero.</p>
+
+  <h2><a name="wcscspn"><code>wcscspn</code></a></h2>
+  <pre>
+size_t <b>wcscspn</b>(const wchar_t *s1, const wchar_t *s2);
+</pre>
+
+  <p>The function searches for the first element <code>s1[i]</code> in the wide string <code>s1</code> that
+  equals <i>any one</i> of the elements of the wide string <code>s2</code> and returns <code>i.</code> Each
+  terminating null wide character is considered part of its wide string.</p>
+
+  <h2><a name="wcsftime"><code>wcsftime</code></a></h2>
+  <pre>
+size_t <b>wcsftime</b>(wchar_t *restrict s, size_t maxsize,
+    const wchar_t *restrict format, const struct tm *restrict timeptr);
+</pre>
+
+  <p>The function generates formatted text, under the control of the format <code>format</code> and the
+  values stored in the time structure <code>*tptr</code>. It stores each generated wide character in
+  successive locations of the array object of size <code>n</code> whose first element has the address
+  <code>s</code>. The function then stores a null wide character in the next location of the array. It
+  returns <code>x</code>, the number of wide characters generated, if <code>x &lt; n</code>; otherwise, it
+  returns zero, and the values stored in the array are indeterminate.</p>
+
+  <p>For each wide character other than <code>%</code> in the format, the function stores that wide character
+  in the array object. Each occurrence of <code>%</code> followed by another character in the format is a
+  <b><a name="conversion specifier">conversion specifier.</a></b> For each conversion specifier, the function
+  stores a replacement wide character sequence. Conversion specifiers are the same as for the function
+  <a href="time.html#strftime"><code>strftime</code></a>. The current <a href=
+  "locale.html#locale%20category">locale category</a> <a href="locale.html#LC_TIME"><code>LC_TIME</code></a>
+  can affect these replacement character sequences.</p>
+
+  <h2><a name="wcslen"><code>wcslen</code></a></h2>
+  <pre>
+size_t <b>wcslen</b>(const wchar_t *s);
+</pre>
+
+  <p>The function returns the number of wide characters in the wide string <code>s</code>, <i>not</i>
+  including its terminating null wide character.</p>
+
+  <h2><a name="wcsncat"><code>wcsncat</code></a></h2>
+  <pre>
+wchar_t *<b>wcsncat</b>(wchar_t *restrict s1, const wchar_t *restrict s2,
+    size_t n);
+</pre>
+
+  <p>The function copies the wide string <code>s2</code>, <i>not</i> including its terminating null wide
+  character, to successive elements of the array that stores the wide string <code>s1</code>, beginning with
+  the element that stores the terminating null wide character of <code>s1</code>. The function copies no more
+  than <code>n</code> wide characters from <code>s2</code>. It then stores a null wide character, in the next
+  element to be altered in <code>s1</code>, and returns <code>s1</code>.</p>
+
+  <h2><a name="wcsncat_s"><code>wcsncat_s</code></a></h2>
+  <pre>
+errno_t <b>wcsncat_s</b>(wchar_t *restrict s1, rsize_t maxsize,
+    const wchar_t *restrict s2, rsize_t n); <b>[added with TR24731]</b>
+</pre>
+
+  <p>A <a href="index_ext1.html#runtime%20constraint%20violation">runtime constraint violation</a> occurs
+  if:</p>
+
+  <ul>
+    <li><code>s1</code> is a null pointer</li>
+
+    <li><code>maxsize</code> is zero or greater than <code><a href=
+    "index_ext1.html#RSIZE_MAX">RSIZE_MAX</a></code></li>
+
+    <li><code>s2</code> is a null pointer</li>
+
+    <li><code>n</code> is greater than <code><a href="index_ext1.html#RSIZE_MAX">RSIZE_MAX</a></code></li>
+
+    <li>the value <code>M</code>, given by <code>maxsize - <a href="#wcsnlen_s">wcsnlen_s</a>(s1,
+    maxsize)</code>, is not greater than <code>N</code>, given by <code>wcsnlen_s(s2, n)</code></li>
+
+    <li>the array of <code>N + 1</code> <code>wchar_t</code> beginning at the address <code>s1</code>
+    overlaps the array of <code>N + 1</code> <code>wchar_t</code> beginning at the address <code>s2 +
+    M</code></li>
+  </ul>
+
+  <p>If such a violation occurs, other than the first two, the function stores a null wide character in
+  <code>s1[0]</code>. It returns the error code it reported to the constraint handler.</p>
+
+  <p>Otherwise, the function copies the wide string <code>s2</code>, <i>not</i> including its terminating
+  null wide character, to successive elements of the array of <code>wchar_t</code> that stores the string
+  <code>s1</code>, beginning with the element that stores the terminating null wide character of
+  <code>s1</code>. The function copies no more than <code>n</code> characters from <code>s2</code>. It then
+  stores a null wide character, in the next element to be altered in <code>s1</code>, and returns zero.</p>
+
+  <h2><a name="wcsncmp"><code>wcsncmp</code></a></h2>
+  <pre>
+int <b>wcsncmp</b>(const wchar_t *s1, const wchar_t *s2,
+    size_t n);
+</pre>
+
+  <p>The function compares successive elements from two wide strings, <code>s1</code> and <code>s2</code>,
+  until it finds elements that are not equal or until it has compared the first <code>n</code> elements of
+  the two wide strings.</p>
+
+  <ul>
+    <li>If all elements are equal, the function returns zero.</li>
+
+    <li>If the differing element from <code>s1</code> is greater than the element from <code>s2</code>, the
+    function returns a positive number.</li>
+
+    <li>Otherwise, it returns a negative number.</li>
+  </ul>
+
+  <h2><a name="wcsncpy"><code>wcsncpy</code></a></h2>
+  <pre>
+wchar_t *<b>wcsncpy</b>(wchar_t *restrict s1, const wchar_t *restrict s2,
+    size_t n);
+</pre>
+
+  <p>The function copies the wide string <code>s2</code>, <i>not</i> including its terminating null wide
+  character, to successive elements of the array whose first element has the address <code>s1</code>. It
+  copies no more than <code>n</code> wide characters from <code>s2</code>. The function then stores zero or
+  more null wide characters in the next elements to be altered in <code>s1</code> until it stores a total of
+  <code>n</code> wide characters. It returns <code>s1</code>.</p>
+
+  <h2><a name="wcsncpy_s"><code>wcsncpy_s</code></a></h2>
+  <pre>
+errno_t <b>wcsncpy_s</b>(wchar_t *restrict s1, rsize_t maxsize,
+    const wchar_t *restrict s2, rsize_t n); <b>[added with TR24731]</b>
+</pre>
+
+  <p>A <a href="index_ext1.html#runtime%20constraint%20violation">runtime constraint violation</a> occurs
+  if:</p>
+
+  <ul>
+    <li><code>s1</code> is a null pointer</li>
+
+    <li><code>maxsize</code> is zero or greater than <code><a href=
+    "index_ext1.html#RSIZE_MAX">RSIZE_MAX</a></code></li>
+
+    <li><code>s2</code> is a null pointer</li>
+
+    <li><code>maxsize</code> is not greater than <code>N</code>, given by <code><a href=
+    "#wcsnlen_s">wcsnlen_s</a>(s2, n)</code></li>
+
+    <li>the array of <code>N</code> <code>wchar_t</code> beginning at the address <code>s1</code> overlaps
+    the array of <code>N</code> <code>wchar_t</code> beginning at the address <code>s2</code></li>
+  </ul>
+
+  <p>If such a violation occurs, other than the first two, the function stores a null wide character in
+  <code>s1[0]</code>. It returns the error code it reported to the constraint handler.</p>
+
+  <p>Otherwise, the function copies the wide string <code>s2</code>, <i>not</i> including its terminating
+  null wide character, to successive elements of the array of <code>wchar_t</code> whose first element has
+  the address <code>s1</code>. It copies no more than <code>n</code> wide characters from <code>s2</code>.
+  The function then stores a null wide character in the next elements to be altered in <code>s1</code>. It
+  returns zero.</p>
+
+  <h2><a name="wcsnlen_s"><code>wcsnlen_s</code></a></h2>
+  <pre>
+size_t <b>wcsnlen_s</b>(const wchar_t *s, size_t maxsize); <b>[added with TR24731]</b>
+</pre>
+
+  <p>If <code>s</code> is a null pointer, the function returns zero. Otherwise, if a null wide character
+  occurs in the first <code>maxsize</code> elements of the array beginning at <code>s</code>, the function
+  returns the number of wide characters before the first null wide character. Otherwise, the function returns
+  <code>maxsize</code>.</p>
+
+  <h2><a name="wcspbrk"><code>wcspbrk</code></a></h2>
+  <pre>
+wchar_t *<b>wcspbrk</b>(const wchar_t *s1, const wchar_t *s2); <b>[not in C++]</b>
+const wchar_t *<b>wcspbrk</b>(const wchar_t *s1, const wchar_t *s2); <b>[C++ only]</b>
+wchar_t *<b>wcspbrk</b>(wchar_t *s1, const wchar_t *s2); <b>[C++ only]</b>
+</pre>
+
+  <p>The function searches for the first element <code>s1[i]</code> in the wide string <code>s1</code> that
+  equals <i>any one</i> of the elements of the wide string <code>s2</code>. It considers each terminating
+  null wide character as part of its wide string. If <code>s1[i]</code> is not the terminating null wide
+  character, the function returns <code>&amp;s1[i]</code>; otherwise, it returns a null pointer.</p>
+
+  <h2><a name="wcsrchr"><code>wcsrchr</code></a></h2>
+  <pre>
+wchar_t *<b>wcsrchr</b>(const wchar_t *s, wchar_t c); <b>[not in C++]</b>
+const wchar_t *<b>wcsrchr</b>(const wchar_t *s, wchar_t c); <b>[C++ only]</b>
+wchar_t *<b>wcsrchr</b>(wchar_t *s, wchar_t c); <b>[C++ only]</b>
+</pre>
+
+  <p>The function searches for the last element of the wide string <code>s</code> that equals <code>c</code>.
+  It considers the terminating null wide character as part of the wide string. If successful, the function
+  returns the address of the matching element; otherwise, it returns a null pointer.</p>
+
+  <h2><a name="wcsrtombs"><code>wcsrtombs</code></a></h2>
+  <pre>
+size_t <b>wcsrtombs</b>(char *restrict dst, const wchar_t **restrict src,
+    size_t len, mbstate_t *restrict ps);
+</pre>
+
+  <p>The function converts the wide-character string beginning at <code>*src</code> to a sequence of
+  multibyte characters as if by repeated calls of the form:</p>
+  <pre>
+x = wcrtomb(dst ? dst : buf, *src, ps != 0 ? ps : &amp;internal)
+</pre>
+
+  <p>where <code>buf</code> is an array of type <i>char</i> and <code>internal</code> is an object of type
+  <a href="#mbstate_t"><code>mbstate_t</code></a>, both internal to the <code>wcsrtombs</code> function. At
+  <a href="lib_over.html#program%20startup">program startup</a>, <code>internal</code> is initialized to the
+  <a href="charset.html#initial%20conversion%20state">initial conversion state</a>. No other library function
+  alters the value stored in <code>internal</code>.</p>
+
+  <p>If <code>dst</code> is not a null pointer, the <code>wcsrtombs</code> function stores at most
+  <code>len</code> bytes by calls to <a href="#wcrtomb"><code>wcrtomb</code></a>. The function effectively
+  increments <code>dst</code> by <code>x</code> and <code>*src</code> by one after each call to <a href=
+  "#wcrtomb"><code>wcrtomb</code></a> that stores a <i>complete</i> converted multibyte character in the
+  remaining space available. After a call that stores a complete null multibyte character at <code>dst</code>
+  (including any <a href="charset.html#shift%20sequence">shift sequence</a> needed to restore the <a href=
+  "charset.html#initial%20shift%20state">initial shift state</a>), the function stores a null pointer at
+  <code>*src</code>.</p>
+
+  <p>If <code>dst</code> is a null pointer, <code>len</code> is effectively assigned a large value.</p>
+
+  <p>The function returns:</p>
+
+  <ul>
+    <li><code>(<a href="#size_t">size_t</a>)-1</code>, if a call to <a href=
+    "#wcrtomb"><code>wcrtomb</code></a> returns <code>(<a href="#size_t">size_t</a>)-1</code>, indicating
+    that it has detected an invalid wide-character code</li>
+
+    <li>the number of bytes successfully converted, not including the terminating null byte</li>
+  </ul>
+
+  <p>The function is not necessarily thread safe if <code>ps</code> is a null pointer.</p>
+
+  <h2><a name="wcsrtombs_s"><code>wcsrtombs_s</code></a></h2>
+  <pre>
+errno_t <b>wcsrtombs_s</b>(size_t *restrict psize,
+    char *restrict dst, rsize_t maxsize,
+    const wchar_t *restrict src, rsize_t len,
+    mbstate_t *ps) <b>[added with TR24731]</b>;
+</pre>
+
+  <p>A <a href="index_ext1.html#runtime%20constraint%20violation">runtime constraint violation</a> occurs
+  if:</p>
+
+  <ul>
+    <li><code>dst</code> is not a null pointer and <code>maxsize</code> is zero or greater than
+    <code><a href="index_ext1.html#RSIZE_MAX">RSIZE_MAX</a></code></li>
+
+    <li><code>dst</code> is a null pointer and <code>maxsize</code> is nonzero</li>
+
+    <li><code>psize</code> is a null pointer</li>
+
+    <li><code>src</code> is a null pointer</li>
+
+    <li><code>dst</code> is not a null pointer and <code>len</code> is greater than <code><a href=
+    "index_ext1.html#RSIZE_MAX">RSIZE_MAX</a></code></li>
+
+    <li><code>ps</code> is a null pointer</li>
+
+    <li><code>dst</code> is not a null pointer and the multibyte sequence generated by the function does not
+    end with a null character within the first <code>maxsize</code> elements</li>
+  </ul>
+
+  <p>If such a violation occurs, other than the first one, and <code>dst</code> is not a null pointer, the
+  function stores a null character at <code>dst[0]]</code>. If <code>psize</code> is not a null pointer, the
+  function stores <code>(rsize_t)-1</code> in <code>*psize</code>. It returns the error code it reported to
+  the constraint handler.</p>
+
+  <p>Otherwise, the function converts the wide-character string beginning at <code>*src</code> to a sequence
+  of multibyte characters as if by repeated calls of the form:</p>
+  <pre>
+x = wcrtomb(dst ? dst : buf, *src, ps)
+</pre>
+
+  <p>where <code>buf</code> is an array of type <i>char</i> internal to the <code>wcsrtombs</code>
+  function.</p>
+
+  <p>If <code>dst</code> is not a null pointer, the <code>wcsrtombs_s</code> function stores at most
+  <code>len</code> bytes by calls to <a href="#wcrtomb"><code>wcrtomb</code></a>. The function effectively
+  increments <code>dst</code> by <code>x</code> and <code>*src</code> by one after each call to <a href=
+  "#wcrtomb"><code>wcrtomb</code></a> that stores a <i>complete</i> converted multibyte character in the
+  remaining space available. After a call that stores a complete null multibyte character at <code>dst</code>
+  (including any <a href="charset.html#shift%20sequence">shift sequence</a> needed to restore the <a href=
+  "charset.html#initial%20shift%20state">initial shift state</a>), the function stores a null pointer at
+  <code>*src</code>. If no such null cnaracter is stored, the function stores a null wide immediately after
+  the last stored byte.</p>
+
+  <p>If <code>dst</code> is a null pointer, <code>len</code> is effectively assigned a large value.</p>
+
+  <p>The function returns zero if all conversions are successful; otherwise, it returns a nonzero value.</p>
+
+  <h2><a name="wcsspn"><code>wcsspn</code></a></h2>
+  <pre>
+size_t <b>wcsspn</b>(const wchar_t *s1, const wchar_t *s2);
+</pre>
+
+  <p>The function searches for the first element <code>s1[i]</code> in the wide string <code>s1</code> that
+  equals <i>none</i> of the elements of the wide string <code>s2</code> and returns <code>i</code>. It
+  considers the terminating null wide character as part of the wide string <code>s1</code> only.</p>
+
+  <h2><a name="wcsstr"><code>wcsstr</code></a></h2>
+  <pre>
+wchar_t *<b>wcsstr</b>(const wchar_t *s1, const wchar_t *s2); <b>[not in C++]</b>
+const wchar_t *<b>wcsstr</b>(const wchar_t *s1, const wchar_t *s2); <b>[C++ only]</b>
+wchar_t *<b>wcsstr</b>(wchar_t *s1, const wchar_t *s2); <b>[C++ only]</b>
+</pre>
+
+  <p>The function searches for the first sequence of elements in the wide string <code>s1</code> that matches
+  the sequence of elements in the wide string <code>s2</code>, <i>not</i> including its terminating null wide
+  character. If successful, the function returns the address of the matching first element; otherwise, it
+  returns a null pointer.</p>
+
+  <h2><a name="wcstod"><code>wcstod</code></a></h2>
+  <pre>
+double <b>wcstod</b>(const wchar_t *restrict nptr,
+    wchar_t **restrict endptr);
+</pre>
+
+  <p>The function converts the initial wide characters of the wide string <code>s</code> to an equivalent
+  value <code>x</code> of type <i>double.</i> If <code>endptr</code> is not a null pointer, the function
+  stores a pointer to the unconverted remainder of the wide string in <code>*endptr</code>. The function then
+  returns <code>x</code>.</p>
+
+  <p>The initial wide characters of the wide string <code>s</code> must match the same pattern as recognized
+  by the function <a href="stdlib.html#strtod"><code>strtod</code></a>, where each wide character
+  <code>wc</code> is converted as if by calling <code><a href="#wctob">wctob</a>(wc))</code>.</p>
+
+  <p>If the wide string <code>s</code> matches this pattern, its equivalent value is the value returned by
+  <a href="stdlib.html#strtod"><code>strtod</code></a> for the converted sequence. If the wide string
+  <code>s</code> does not match a valid pattern, the value stored in <code>*endptr</code> is <code>s</code>,
+  and <code>x</code> is zero. If a <a href="math.html#range%20error">range error</a> occurs,
+  <code>wcstod</code> behaves exactly as the functions declared in <a href=
+  "math.html#%3Cmath.h%3E"><code>&lt;math.h&gt;</code></a>.</p>
+
+  <h2><a name="wcstof"><code>wcstof</code></a></h2>
+  <pre>
+float <b>wcstof</b>(const wchar_t *restrict nptr,
+ wchar_t **restrict endptr);
+</pre>
+
+  <p>The function converts the initial wide characters of the wide string <code>s</code> to an equivalent
+  value <code>x</code> of type <i>float.</i> If <code>endptr</code> is not a null pointer, the function
+  stores a pointer to the unconverted remainder of the wide string in <code>*endptr</code>. The function then
+  returns <code>x</code>.</p>
+
+  <p>The initial wide characters of the wide string <code>s</code> must match the same pattern as recognized
+  by the function <a href="stdlib.html#strtod"><code>strtod</code></a>, where each wide character
+  <code>wc</code> is converted as if by calling <code><a href="#wctob">wctob</a>(wc))</code>.</p>
+
+  <p>If the wide string <code>s</code> matches this pattern, its equivalent value is the value returned by
+  <a href="stdlib.html#strtof"><code>strtof</code></a> for the converted sequence. If the wide string
+  <code>s</code> does not match a valid pattern, the value stored in <code>*endptr</code> is <code>s</code>,
+  and <code>x</code> is zero. If a <a href="math.html#range%20error">range error</a> occurs,
+  <code>wcstod</code> behaves exactly as the functions declared in <a href=
+  "math.html#%3Cmath.h%3E"><code>&lt;math.h&gt;</code></a>.</p>
+
+  <h2><a name="wcstok"><code>wcstok</code></a></h2>
+  <pre>
+wchar_t *<b>wcstok</b>(wchar_t *restrict s1, const wchar_t *restrict s2,
+    wchar_t **restrict ptr);
+</pre>
+
+  <p>If <code>s1</code> is not a null pointer, the function begins a search of the wide string
+  <code>s1</code>. Otherwise, it begins a search of the wide string whose address was last stored in
+  <code>*ptr</code> on an earlier call to the function, as described below. The search proceeds as
+  follows:</p>
+
+  <ol>
+    <li>The function searches the wide string for <code>begin</code>, the address of the first element that
+    equals <i>none</i> of the elements of the wide string <code>s2</code> (a set of token separators). It
+    considers the terminating null character as part of the search wide string only.</li>
+
+    <li>If the search does not find an element, the function stores the address of the terminating null wide
+    character in <code>*ptr</code> (so that a subsequent search beginning with that address will fail) and
+    returns a null pointer. Otherwise, the function searches from <code>begin</code> for <code>end</code>,
+    the address of the first element that equals <i>any one</i> of the elements of the wide string
+    <code>s2</code>. It again considers the terminating null wide character as part of the search string
+    only.</li>
+
+    <li>If the search does not find an element, the function stores the address of the terminating null wide
+    character in <code>*ptr</code>. Otherwise, it stores a null wide character in the element whose address
+    is <code>end.</code> Then it stores the address of the next element after <code>end</code> in
+    <code>*ptr</code> (so that a subsequent search beginning with that address will continue with the
+    remaining elements of the wide string) and returns <code>begin</code>.</li>
+  </ol>
+
+  <h2><a name="wcstok_s"><code>wcstok_s</code></a></h2>
+  <pre>
+char 8<b>wcstok_s</b>(wchar_t *restrict s1, rsize_t *restrict psize1,
+    const wchar_t *restrict s2, wchar_t **restrict pbuf1); <b>[added with TR24731]</b>
+</pre>
+
+  <p>A <a href="index_ext1.html#runtime%20constraint%20violation">runtime constraint violation</a> occurs
+  if:</p>
+
+  <ul>
+    <li><code>psize1</code> is a null pointer</li>
+
+    <li><code>*psize1</code> is greater than <code><a href=
+    "index_ext1.html#RSIZE_MAX">RSIZE_MAX</a></code></li>
+
+    <li><code>s2</code> is a null pointer</li>
+
+    <li><code>pbuf1</code> is a null pointer</li>
+
+    <li>the function fails to find the locations <code>begin</code> or <code>end</code>, or a null wide
+    character, in the first <code>*psize1</code> elements of the array to be searched as described below</li>
+  </ul>
+
+  <p>If such a violation occurs, the function stores nothing and returns a null pointer.</p>
+
+  <p>Otherwise, if <code>s1</code> is not a null pointer, the function begins a search of the wide string
+  <code>s1</code>. If <code>s1</code> is a null pointer, it begins a search of the wide string whose address
+  was last stored in an internal static-duration object on an earlier call to the function, as described
+  below. The search proceeds as follows:</p>
+
+  <ol>
+    <li>The function searches the string for <code>begin</code>, the address of the first element that equals
+    <i>none</i> of the elements of the wide string <code>s2</code> (a set of token separators). It considers
+    the terminating null wide character as part of the search string only.</li>
+
+    <li>If the search does not find an element, the function stores the address of the terminating null wide
+    character in the internal static-duration object (so that a subsequent search beginning with that address
+    will fail) and returns a null pointer. Otherwise, the function searches from <code>begin</code> for
+    <code>end</code>, the address of the first element that equals <i>any one</i> of the elements of the
+    string <code>s2</code>. It again considers the terminating null wide character as part of the search
+    string only.</li>
+
+    <li>If the search does not find an element, the function stores the address of the terminating null wide
+    character in the internal static-duration object. Otherwise, it stores a null wide character in the
+    element whose address is <code>end</code>. Then it stores the address of the next element after
+    <code>end</code> in the internal static-duration object (so that a subsequent search beginning with that
+    address will continue with the remaining elements of the string) and returns <code>begin</code>.</li>
+  </ol>
+
+  <h2><a name="wcstol"><code>wcstol</code></a></h2>
+  <pre>
+long <b>wcstol</b>(const wchar_t *restrict nptr, wchar_t **restrict endptr,
+    int base);
+</pre>
+
+  <p>The function converts the initial wide characters of the wide string <code>s</code> to an equivalent
+  value <code>x</code> of type <i>long.</i> If <code>endptr</code> is not a null pointer, the function stores
+  a pointer to the unconverted remainder of the wide string in <code>*endptr</code>. The function then
+  returns <code>x</code>.</p>
+
+  <p>The initial wide characters of the wide string <code>s</code> must match the same pattern as recognized
+  by the function <a href="stdlib.html#strtol"><code>strtol</code></a>, with the same <code>base</code>
+  argument, where each wide character <code>wc</code> is converted as if by calling <code><a href=
+  "#wctob">wctob</a>(wc))</code>.</p>
+
+  <p>If the wide string <code>s</code> matches this pattern, its equivalent value is the value returned by
+  <a href="stdlib.html#strtol"><code>strtol</code></a>, with the same <code>base</code> argument, for the
+  converted sequence. If the wide string <code>s</code> does not match a valid pattern, the value stored in
+  <code>*endptr</code> is <code>s</code>, and <code>x</code> is zero. If the equivalent value is too large in
+  magnitude to represent as type <i>long,</i> <code>wcstol</code> stores the value of <a href=
+  "errno.html#ERANGE"><code>ERANGE</code></a> in <a href="errno.html#errno"><code>errno</code></a> and
+  returns either <a href="limits.html#LONG_MAX"><code>LONG_MAX</code></a> if <code>x</code> is positive or
+  <a href="limits.html#LONG_MIN"><code>LONG_MIN</code></a> if <code>x</code> is negative.</p>
+
+  <h2><a name="wcstold"><code>wcstold</code></a></h2>
+  <pre>
+long double <b>wcstof</b>(const wchar_t *restrict nptr,
+ wchar_t **restrict endptr);
+</pre>
+
+  <p>The function converts the initial wide characters of the wide string <code>s</code> to an equivalent
+  value <code>x</code> of type <i>long double.</i> If <code>endptr</code> is not a null pointer, the function
+  stores a pointer to the unconverted remainder of the wide string in <code>*endptr</code>. The function then
+  returns <code>x</code>.</p>
+
+  <p>The initial wide characters of the wide string <code>s</code> must match the same pattern as recognized
+  by the function <a href="stdlib.html#strtod"><code>strtod</code></a>, where each wide character
+  <code>wc</code> is converted as if by calling <code><a href="#wctob">wctob</a>(wc))</code>.</p>
+
+  <p>If the wide string <code>s</code> matches this pattern, its equivalent value is the value returned by
+  <a href="stdlib.html#strtold"><code>strtold</code></a> for the converted sequence. If the wide string
+  <code>s</code> does not match a valid pattern, the value stored in <code>*endptr</code> is <code>s</code>,
+  and <code>x</code> is zero. If a <a href="math.html#range%20error">range error</a> occurs,
+  <code>wcstod</code> behaves exactly as the functions declared in <a href=
+  "math.html#%3Cmath.h%3E"><code>&lt;math.h&gt;</code></a>.</p>
+
+  <h2><a name="wcstoll"><code>wcstoll</code></a></h2>
+  <pre>
+long long <b>wcstoll</b>(const wchar_t *restrict nptr, wchar_t **restrict endptr,
+    int base);
+</pre>
+
+  <p>The function converts the initial wide characters of the wide string <code>s</code> to an equivalent
+  value <code>x</code> of type <i>long long.</i> If <code>endptr</code> is not a null pointer, the function
+  stores a pointer to the unconverted remainder of the wide string in <code>*endptr</code>. The function then
+  returns <code>x</code>.</p>
+
+  <p>The initial wide characters of the wide string <code>s</code> must match the same pattern as recognized
+  by the function <a href="stdlib.html#strtol"><code>strtol</code></a>, with the same <code>base</code>
+  argument, where each wide character <code>wc</code> is converted as if by calling <code><a href=
+  "#wctob">wctob</a>(wc))</code>.</p>
+
+  <p>If the wide string <code>s</code> matches this pattern, its equivalent value is the value returned by
+  <a href="stdlib.html#strtoll"><code>strtoll</code></a>, with the same <code>base</code> argument, for the
+  converted sequence. If the wide string <code>s</code> does not match a valid pattern, the value stored in
+  <code>*endptr</code> is <code>s</code>, and <code>x</code> is zero. If the equivalent value is too large in
+  magnitude to represent as type <i>long long,</i> <code>wcstoll</code> stores the value of <a href=
+  "errno.html#ERANGE"><code>ERANGE</code></a> in <a href="errno.html#errno"><code>errno</code></a> and
+  returns either <a href="limits.html#LLONG_MAX"><code>LLONG_MAX</code></a> if <code>x</code> is positive or
+  <a href="limits.html#LLONG_MIN"><code>LLONG_MIN</code></a> if <code>x</code> is negative.</p>
+
+  <h2><a name="wcstoul"><code>wcstoul</code></a></h2>
+  <pre>
+unsigned long <b>wcstoul</b>(const wchar_t *restrict nptr,
+     wchar_t **restrict endptr, int base);
+</pre>
+
+  <p>The function converts the initial wide characters of the wide string <code>s</code> to an equivalent
+  value <code>x</code> of type <i>unsigned long.</i> If <code>endptr</code> is not a null pointer, it stores
+  a pointer to the unconverted remainder of the wide string in <code>*endptr</code>. The function then
+  returns <code>x</code>.</p>
+
+  <p><code>wcstoul</code> converts strings exactly as does <a href="#wcstol"><code>wcstol</code></a>, but
+  checks only if the equivalent value is too large to represent as type <i>unsigned long.</i> In this case,
+  <code>wcstoul</code> stores the value of <a href="errno.html#ERANGE"><code>ERANGE</code></a> in <a href=
+  "errno.html#errno"><code>errno</code></a> and returns <a href=
+  "limits.html#ULONG_MAX"><code>ULONG_MAX</code></a>.</p>
+
+  <h2><a name="wcstoull"><code>wcstoull</code></a></h2>
+  <pre>
+unsigned long long <b>wcstoull</b>(const wchar_t *restrict nptr,
+     wchar_t **restrict endptr, int base);
+</pre>
+
+  <p>The function converts the initial wide characters of the wide string <code>s</code> to an equivalent
+  value <code>x</code> of type <i>unsigned long long.</i> If <code>endptr</code> is not a null pointer, it
+  stores a pointer to the unconverted remainder of the wide string in <code>*endptr</code>. The function then
+  returns <code>x</code>.</p>
+
+  <p><code>wcstoull</code> converts strings exactly as does <a href="#wcstoll"><code>wcstoll</code></a>, but
+  checks only if the equivalent value is too large to represent as type <i>unsigned long long.</i> In this
+  case, <code>wcstoull</code> stores the value of <a href="errno.html#ERANGE"><code>ERANGE</code></a> in
+  <a href="errno.html#errno"><code>errno</code></a> and returns <a href=
+  "limits.html#ULLONG_MAX"><code>ULLONG_MAX</code></a>.</p>
+
+  <h2><a name="wcsxfrm"><code>wcsxfrm</code></a></h2>
+  <pre>
+size_t <b>wcsxfrm</b>(wchar_t *restrict s1, const wchar_t *restrict s2,
+    size_t n);
+</pre>
+
+  <p>The function stores a wide string in the array whose first element has the address <code>s1</code>. It
+  stores no more than <code>n</code> wide characters, <i>including</i> the terminating null wide character,
+  and returns the number of wide characters needed to represent the entire wide string, <i>not</i> including
+  the terminating null wide character. If the value returned is <code>n</code> or greater, the values stored
+  in the array are indeterminate. (If <code>n</code> is zero, <code>s1</code> can be a null pointer.)</p>
+
+  <p><code>wcsxfrm</code> generates the wide string it stores from the wide string <code>s2</code> by using a
+  transformation rule that depends on the current <a href="locale.html#locale">locale</a>. For example, if
+  <code>x</code> is a transformation of <code>s1</code> and <code>y</code> is a transformation of
+  <code>s2</code>, then <code><a href="#wcscmp">wcscmp</a>(x, y)</code> returns the same value as
+  <code><a href="#wcscoll">wcscoll</a>(s1, s2)</code>.</p>
+
+  <h2><a name="wctob"><code>wctob</code></a></h2>
+  <pre>
+int <b>wctob</b>(wint_t c);
+</pre>
+
+  <p>The function determines whether <code>c</code> can be represented as a one-byte multibyte character
+  <code>x</code>, beginning in the <a href="charset.html#initial%20shift%20state">initial shift state</a>.
+  (It effectively calls <a href="#wcrtomb"><code>wcrtomb</code></a> to make the conversion.) If so, the
+  function returns <code>x</code>. Otherwise, it returns <a href="stdio.html#EOF"><code>EOF</code></a>.</p>
+
+  <h2><a name="WEOF"><code>WEOF</code></a></h2>
+  <pre>
+#define <b>WEOF</b> <i>&lt;</i>wint_t <i>constant expression&gt;</i>
+</pre>
+
+  <p>The macro yields the return value, of type <a href="#wint_t"><code>wint_t</code></a>, used to signal the
+  end of a <a href="lib_file.html#wide%20stream">wide stream</a> or to report an error condition.</p>
+
+  <h2><a name="wint_t"><code>wint_t</code></a></h2>
+  <pre>
+typedef <i>i_type</i> <b>wint_t;</b>
+</pre>
+
+  <p>The type is the integer type <code><i>i_type</i></code> that can represent all values of type <a href=
+  "#wchar_t"><code>wchar_t</code></a> as well as the value of the macro <a href=
+  "#WEOF"><code>WEOF</code></a>, and that doesn't change when <a href=
+  "express.html#Promoting">promoted</a>.</p>
+
+  <h2><a name="wmemchr"><code>wmemchr</code></a></h2>
+  <pre>
+wchar_t *<b>wmemchr</b>(const wchar_t *s, wchar_t c,
+    size_t n); <b>[not in C++]</b>
+const wchar_t *<b>wmemchr</b>(const wchar_t *s, wchar_t c,
+    size_t n); <b>[C++ only]</b>
+wchar_t *<b>wmemchr</b>(wchar_t *s, wchar_t c,
+    size_t n); <b>[C++ only]</b>
+</pre>
+
+  <p>The function searches for the first element of an array beginning at the address <code>s</code> with
+  size <code>n</code>, that equals <code>c</code>. If successful, it returns the address of the matching
+  element; otherwise, it returns a null pointer.</p>
+
+  <h2><a name="wmemcmp"><code>wmemcmp</code></a></h2>
+  <pre>
+int <b>wmemcmp</b>(const wchar_t *s1, const wchar_t *s2,
+    size_t n);
+</pre>
+
+  <p>The function compares successive elements from two arrays beginning at the addresses <code>s1</code> and
+  <code>s2</code> (both of size <code>n</code>), until it finds elements that are not equal:</p>
+
+  <ul>
+    <li>If all elements are equal, the function returns zero.</li>
+
+    <li>If the differing element from <code>s1</code> is greater than the element from <code>s2</code>, the
+    function returns a positive number.</li>
+
+    <li>Otherwise, the function returns a negative number.</li>
+  </ul>
+
+  <h2><a name="wmemcpy"><code>wmemcpy</code></a></h2>
+  <pre>
+wchar_t *<b>wmemcpy</b>(wchar_t *restrict s1, const wchar_t *restrict s2,
+    size_t n);
+</pre>
+
+  <p>The function copies the array beginning at the address <code>s2</code> to the array beginning at the
+  address <code>s1</code> (both of size <code>n</code>). It returns <code>s1</code>. The elements of the
+  arrays can be accessed and stored in any order.</p>
+
+  <h2><a name="wmemcpy_s"><code>wmemcpy_s</code></a></h2>
+  <pre>
+errno_t <b>wmemcpy_s</b>(wchar_t *restrict s1, rsize_t maxsize,
+    const wchar_t *restrict s2, size_t n); <b>[added with TR24731]</b>
+</pre>
+
+  <p>A <a href="index_ext1.html#runtime%20constraint%20violation">runtime constraint violation</a> occurs
+  if:</p>
+
+  <ul>
+    <li><code>s1</code> is a null pointer</li>
+
+    <li><code>maxsize</code> is greater than <code><a href=
+    "index_ext1.html#RSIZE_MAX">RSIZE_MAX</a></code></li>
+
+    <li><code>s2</code> is a null pointer</li>
+
+    <li><code>n</code> is greater than <code>maxsize</code></li>
+
+    <li>the array of <code>n</code> <code>wchar_t</code> beginning at the address <code>s1</code> overlaps
+    the array of <code>n</code> <code>wchar_t</code> beginning at the address <code>s2</code></li>
+  </ul>
+
+  <p>If such a violation occurs, other than the first two, the function stores null wide characters in the
+  first <code>maxsize</code> elements of the array of <i>char</i> beginning at the address <code>s1</code>.
+  It returns the error code it reported to the constraint handler.</p>
+
+  <p>Otherwise, the function copies the array of <code>wchar_t</code> beginning at the address
+  <code>s2</code> to the array of <code>wchar_t</code> beginning at the address <code>s1</code> (both of size
+  <code>n</code>). It returns zero.</p>
+
+  <h2><a name="wmemmove"><code>wmemmove</code></a></h2>
+  <pre>
+wchar_t *<b>wmemmove</b>(wchar_t *s1, const wchar_t *s2,
+    size_t n);
+</pre>
+
+  <p>The function copies the array beginning at <code>s2</code> to the array beginning at <code>s1</code>
+  (both of size <code>n</code>). It returns <code>s1</code>. If the arrays overlap, the function accesses
+  each of the element values from <code>s2</code> before it stores a new value in that element, so the copy
+  is not corrupted.</p>
+
+  <h2><a name="wmemmove_s"><code>wmemmove_s</code></a></h2>
+  <pre>
+errno_t <b>wmemmove_s</b>(wchar_t *s1, rsize_t maxsize,
+    const wchar_t *s2, size_t n); <b>[added with TR24731]</b>
+</pre>
+
+  <p>A <a href="index_ext1.html#runtime%20constraint%20violation">runtime constraint violation</a> occurs
+  if:</p>
+
+  <ul>
+    <li><code>s1</code> is a null pointer</li>
+
+    <li><code>maxsize</code> is greater than <code><a href=
+    "index_ext1.html#RSIZE_MAX">RSIZE_MAX</a></code></li>
+
+    <li><code>s2</code> is a null pointer</li>
+
+    <li><code>n</code> is greater than <code>maxsize</code></li>
+  </ul>
+
+  <p>If such a violation occurs, other than the first two, the function stores null characters in the first
+  <code>maxsize</code> elements of the array of <code>wchar_t</code> beginning at the address
+  <code>s1</code>. It returns the error code it reported to the constraint handler.</p>
+
+  <p>Otherwise, the function copies the array of <code>wchar_t</code> beginning at <code>s2</code> to the
+  array of <code>wchar_t</code> beginning at <code>s1</code> (both of size <code>n</code>). It returns zero.
+  If the arrays overlap, the function accesses each of the element values from <code>s2</code> before it
+  stores a new value in that element, so the copy is not corrupted.</p>
+
+  <h2><a name="wmemset"><code>wmemset</code></a></h2>
+  <pre>
+wchar_t *<b>wmemset</b>(wchar_t *s, wchar_t c, size_t n);
+</pre>
+
+  <p>The function stores <code>c</code> in each of the elements of the array beginning at <code>s</code>,
+  with size <code>n</code>. It returns <code>s</code>.</p>
+
+  <h2><a name="wprintf"><code>wprintf</code></a></h2>
+  <pre>
+int <b>wprintf</b>(const wchar_t *restrict format, ...);
+</pre>
+
+  <p>The function <a href="lib_prin.html#Print%20Functions">generates formatted text</a>, under the control
+  of the format <code>format</code> and any additional arguments, and writes each generated wide character to
+  the stream <a href="stdio.html#stdout"><code>stdout</code></a>. It returns the number of wide characters
+  generated, or it returns a negative value if the function sets the error indicator for the stream.</p>
+
+  <h2><a name="wprintf_s"><code>wprintf_s</code></a></h2>
+  <pre>
+int <b>wprintf_s</b>(const wchar_t *restrict format, ...); <b>[added with TR24731]</b>
+</pre>
+
+  <p>A <a href="index_ext1.html#runtime%20constraint%20violation">runtime constraint violation</a> occurs
+  if:</p>
+
+  <ul>
+    <li><code>format</code> is a null pointer</li>
+
+    <li>the argument corresponding to a <code>%s</code> conversion specifier is a null pointer</li>
+
+    <li><code>format</code> contains a <code>%n</code> conversion specifier</li>
+  </ul>
+
+  <p>If such a violation occurs, the function returns a negative value, after producing an unspecified amount
+  of output.</p>
+
+  <p>Otherwise, the function <a href="lib_prin.html#Print%20Functions">generates formatted text</a>, under
+  the control of the format <code>format</code> and any additional arguments, and writes each generated wide
+  character to the stream <a href="stdio.html#stdout"><code>stdout</code></a>. It returns the number of wide
+  characters generated, or it returns a negative value if the function sets the error indicator for the
+  stream.</p>
+
+  <h2><a name="wscanf"><code>wscanf</code></a></h2>
+  <pre>
+int <b>wscanf</b>(const wchar_t *restrict format, ...);
+</pre>
+
+  <p>The function <a href="lib_scan.html#Scan%20Functions">scans formatted text</a>, under the control of the
+  format <code>format</code> and any additional arguments. It obtains each scanned wide character from the
+  stream <a href="stdio.html#stdin"><code>stdin</code></a>. It returns the number of input items matched and
+  assigned, or it returns <a href="stdio.html#EOF"><code>EOF</code></a> if the function does not store values
+  before it sets the end-of-file or error indicators for the stream.</p>
+
+  <h2><a name="wscanf_s"><code>wscanf_s</code></a></h2>
+  <pre>
+int <b>wscanf_s</b>(const wchar_t *restrict format, ...); <b>[added with TR24731]</b>
+</pre>
+
+  <p>A <a href="index_ext1.html#runtime%20constraint%20violation">runtime constraint violation</a> occurs
+  if:</p>
+
+  <ul>
+    <li><code>format</code> is a null pointer</li>
+
+    <li>any pointer argument after <code>format</code> is a null pointer</li>
+  </ul>
+
+  <p>If such a violation occurs, the function returns a negative value, after consuming an unspecified amount
+  of input.</p>
+
+  <p>Otherwise, the function <a href="lib_scan.html#Scan%20Functions">scans formatted text</a>, with <a href=
+  "#additional%20scan%20checking">additional checking</a>, under the control of the format
+  <code>format</code> and any additional arguments. It obtains each scanned wide character from the stream
+  <a href="stdio.html#stdin"><code>stdin</code></a>. It returns the number of input items matched and
+  assigned, or it returns <a href="stdio.html#EOF"><code>EOF</code></a> if the function does not store values
+  before it sets the end-of-file or error indicators for the stream.</p>
+  <hr>
+
+  <p>See also the <b><a href="index.html#Table%20of%20Contents">Table of Contents</a></b> and the <b><a href=
+  "_index.html">Index</a></b>.</p>
+
+  <p><i><a href="crit_pjp.html">Copyright</a> &copy; 1992-2010 by P.J. Plauger and Jim Brodie. All rights
+  reserved.</i></p><!--V5.30:126I-->
+</body>
+</html>

@@ -1,0 +1,543 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html>
+<head>
+  <meta name="generator" content=
+  "HTML Tidy for Mac OS X (vers 31 October 2006 - Apple Inc. build 15.15), see www.w3.org">
+
+  <title>&lt;math.h&gt;</title>
+</head>
+
+<body>
+  <h1><a name="&lt;math.h&gt;"><code>&lt;math.h&gt;</code></a></h1>
+  <hr>
+
+  <p><b><code><a href="#HUGE_VAL">HUGE_VAL</a></code></b></p>
+
+  <p><b><code><a href="#abs">abs</a> &middot; <a href="#acos">acos</a> &middot; <a href="#asin">asin</a>
+  &middot; <a href="#atan">atan</a> &middot; <a href="#atan2">atan2</a> &middot; <a href="#ceil">ceil</a>
+  &middot; <a href="#cos">cos</a> &middot; <a href="#cosh">cosh</a> &middot; <a href="#exp">exp</a> &middot;
+  <a href="#fabs">fabs</a> &middot; <a href="#floor">floor</a> &middot; <a href="#fmod">fmod</a> &middot;
+  <a href="#frexp">frexp</a> &middot; <a href="#ldexp">ldexp</a> &middot; <a href="#log">log</a> &middot;
+  <a href="#log10">log10</a> &middot; <a href="#modf">modf</a> &middot; <a href="#pow">pow</a> &middot;
+  <a href="#sin">sin</a> &middot; <a href="#sinh">sinh</a> &middot; <a href="#sqrt">sqrt</a> &middot;
+  <a href="#tan">tan</a> &middot; <a href="#tanh">tanh</a></code></b></p>
+
+  <p><b><code><a href="#acosf">acosf</a> &middot; <a href="#asinf">asinf</a> &middot; <a href=
+  "#atanf">atanf</a> &middot; <a href="#atan2f">atan2f</a> &middot; <a href="#ceilf">ceilf</a> &middot;
+  <a href="#cosf">cosf</a> &middot; <a href="#coshf">coshf</a> &middot; <a href="#expf">expf</a> &middot;
+  <a href="#fabsf">fabsf</a> &middot; <a href="#floorf">floorf</a> &middot; <a href="#fmodf">fmodf</a>
+  &middot; <a href="#frexpf">frexpf</a> &middot; <a href="#ldexpf">ldexpf</a> &middot; <a href=
+  "#logf">logf</a> &middot; <a href="#log10f">log10f</a> &middot; <a href="#modff">modff</a> &middot;
+  <a href="#pow">pow</a> &middot; <a href="#sinf">sinf</a> &middot; <a href="#sinhf">sinhf</a> &middot;
+  <a href="#sqrtf">sqrtf</a> &middot; <a href="#tanf">tanf</a> &middot; <a href=
+  "#tanhf">tanhf</a></code></b></p>
+
+  <p><b><code><a href="#acosl">acosl</a> &middot; <a href="#asinl">asinl</a> &middot; <a href=
+  "#atanl">atanl</a> &middot; <a href="#atan2l">atan2l</a> &middot; <a href="#ceill">ceill</a> &middot;
+  <a href="#cosl">cosl</a> &middot; <a href="#coshl">coshl</a> &middot; <a href="#expl">expl</a> &middot;
+  <a href="#fabsl">fabsl</a> &middot; <a href="#floorl">floorl</a> &middot; <a href="#fmodl">fmodl</a>
+  &middot; <a href="#frexpl">frexpl</a> &middot; <a href="#ldexpl">ldexpl</a> &middot; <a href=
+  "#logl">logl</a> &middot; <a href="#log10l">log10l</a> &middot; <a href="#modfl">modfl</a> &middot;
+  <a href="#pow">pow</a> &middot; <a href="#sinl">sinl</a> &middot; <a href="#sinhl">sinhl</a> &middot;
+  <a href="#sqrtl">sqrtl</a> &middot; <a href="#tanl">tanl</a> &middot; <a href=
+  "#tanhl">tanhl</a></code></b></p>
+  <hr>
+
+  <p>Include the standard header <b><code>&lt;math.h&gt;</code></b> to declare a number of functions that
+  perform common mathematical operations on real floating-point values (of type <i>float, double,</i> or
+  <i>long double</i>).</p>
+
+  <p>A <b><a name="domain error">domain error</a></b> occurs when the function is not defined for its input
+  argument value or values. A function can report a domain error by storing the value of <a href=
+  "errno.html#EDOM"><code>EDOM</code></a> in <a href="errno.html#errno"><code>errno</code></a> and returning
+  a particular value defined for each implementation.</p>
+
+  <p>A <b><a name="range error">range error</a></b> occurs when the return value of the function is defined
+  but cannot be represented. A function can report a range error by storing the value of <a href=
+  "errno.html#ERANGE"><code>ERANGE</code></a> in <a href="errno.html#errno"><code>errno</code></a> and
+  returning one of several values:</p>
+
+  <ul>
+    <li><code><a href="#HUGE_VAL">HUGE_VAL</a></code> -- if the value of a function returning <i>double</i>
+    is positive and too large in magnitude to represent</li>
+
+    <li><code>-<a href="#HUGE_VAL">HUGE_VAL</a></code> -- if the value of a function returning <i>double</i>
+    is negative and too large in magnitude to represent</li>
+
+    <li>zero -- if the value of the function is too small to represent with a finite value</li>
+  </ul>
+  <hr>
+  <pre>
+    /* MACROS */
+#define <a href="#HUGE_VAL"><b>HUGE_VAL</b></a> <i>&lt;double rvalue&gt;</i>
+
+    /* FUNCTIONS */
+double <a href="#abs"><b>abs</b></a>(double x); <b>[C++ only]</b>
+float <a href="#abs"><b>abs</b></a>(float x); <b>[C++ only]</b>
+long double <a href="#abs"><b>abs</b></a>(long double x); <b>[C++ only]</b>
+
+double <a href="#acos"><b>acos</b></a>(double x);
+float <a href="#acos"><b>acos</b></a>(float x); <b>[C++ only]</b>
+long double <a href="#acos"><b>acos</b></a>(long double x); <b>[C++ only]</b>
+float <a href="#acosf"><b>acosf</b></a>(float x); <b>[required with C99]</b>
+long double <a href="#acosl"><b>acosl</b></a>(long double x); <b>[required with C99]</b>
+
+double <a href="#asin"><b>asin</b></a>(double x);
+float <a href="#asin"><b>asin</b></a>(float x); <b>[C++ only]</b>
+long double <a href="#asin"><b>asin</b></a>(long double x); <b>[C++ only]</b>
+float <a href="#asinf"><b>asinf</b></a>(float x); <b>[required with C99]</b>
+long double <a href="#asinl"><b>asinl</b></a>(long double x); <b>[required with C99]</b>
+
+double <a href="#atan"><b>atan</b></a>(double x);
+float <a href="#atan"><b>atan</b></a>(float x); <b>[C++ only]</b>
+long double <a href="#atan"><b>atan</b></a>(long double x); <b>[C++ only]</b>
+float <a href="#atanf"><b>atanf</b></a>(float x); <b>[required with C99]</b>
+long double <a href="#atanl"><b>atanl</b></a>(long double x); <b>[required with C99]</b>
+
+double <a href="#atan2"><b>atan2</b></a>(double y, double x);
+float <a href="#atan2"><b>atan2</b></a>(float y, float x); <b>[C++ only]</b>
+long double <a href="#atan2"><b>atan2</b></a>(long double y, long double x); <b>[C++ only]</b>
+float <a href="#atan2f"><b>atan2f</b></a>(float y, float x); <b>[required with C99]</b>
+long double <a href="#atan2l"><b>atan2l</b></a>(long double y,
+    long double x); <b>[required with C99]</b>
+
+double <a href="#ceil"><b>ceil</b></a>(double x);
+float <a href="#ceil"><b>ceil</b></a>(float x); <b>[C++ only]</b>
+long double <a href="#ceil"><b>ceil</b></a>(long double x); <b>[C++ only]</b>
+float <a href="#ceilf"><b>ceilf</b></a>(float x); <b>[required with C99]</b>
+long double <a href="#ceill"><b>ceill</b></a>(long double x); <b>[required with C99]</b>
+
+double <a href="#cos"><b>cos</b></a>(double x);
+float <a href="#cos"><b>cos</b></a>(float x); <b>[C++ only]</b>
+long double <a href="#cos"><b>cos</b></a>(long double x); <b>[C++ only]</b>
+float <a href="#cosf"><b>cosf</b></a>(float x); <b>[required with C99]</b>
+long double <a href="#cosl"><b>cosl</b></a>(long double x); <b>[required with C99]</b>
+
+double <a href="#cosh"><b>cosh</b></a>(double x);
+float <a href="#cosh"><b>cosh</b></a>(float x); <b>[C++ only]</b>
+long double <a href="#cosh"><b>cosh</b></a>(long double x); <b>[C++ only]</b>
+float <a href="#coshf"><b>coshf</b></a>(float x); <b>[required with C99]</b>
+long double <a href="#coshl"><b>coshl</b></a>(long double x); <b>[required with C99]</b>
+
+double <a href="#exp"><b>exp</b></a>(double x);
+float <a href="#exp"><b>exp</b></a>(float x); <b>[C++ only]</b>
+long double <a href="#exp"><b>exp</b></a>(long double x); <b>[C++ only]</b>
+float <a href="#expf"><b>expf</b></a>(float x); <b>[required with C99]</b>
+long double <a href="#expl"><b>expl</b></a>(long double x); <b>[required with C99]</b>
+
+double <a href="#fabs"><b>fabs</b></a>(double x);
+float <a href="#fabs"><b>fabs</b></a>(float x); <b>[C++ only]</b>
+long double <a href="#fabs"><b>fabs</b></a>(long double x); <b>[C++ only]</b>
+float <a href="#fabsf"><b>fabsf</b></a>(float x); <b>[required with C99]</b>
+long double <a href="#fabsl"><b>fabsl</b></a>(long double x); <b>[required with C99]</b>
+
+double <a href="#floor"><b>floor</b></a>(double x);
+float <a href="#floor"><b>floor</b></a>(float x); <b>[C++ only]</b>
+long double <a href="#floor"><b>floor</b></a>(long double x); <b>[C++ only]</b>
+float <a href="#floorf"><b>floorf</b></a>(float x); <b>[required with C99]</b>
+long double <a href="#floorl"><b>floorl</b></a>(long double x); <b>[required with C99]</b>
+
+double <a href="#fmod"><b>fmod</b></a>(double x, double y);
+float <a href="#fmod"><b>fmod</b></a>(float x, float y); <b>[C++ only]</b>
+long double <a href="#fmod"><b>fmod</b></a>(long double x, long double y); <b>[C++ only]</b>
+float <a href="#fmodf"><b>fmodf</b></a>(float x, float y); <b>[required with C99]</b>
+long double <a href="#fmodl"><b>fmodl</b></a>(long double x,
+    long double y); <b>[required with C99]</b>
+
+double <a href="#frexp"><b>frexp</b></a>(double x, int *pexp);
+float <a href="#frexp"><b>frexp</b></a>(float x, int *pexp); <b>[C++ only]</b>
+long double <a href="#frexp"><b>frexp</b></a>(long double x, int *pexp); <b>[C++ only]</b>
+float <a href="#frexpf"><b>frexpf</b></a>(float x, int *pexp); <b>[required with C99]</b>
+long double <a href="#frexpl"><b>frexpl</b></a>(long double x, int *pexp); <b>[required with C99]</b>
+
+double <a href="#ldexp"><b>ldexp</b></a>(double x, int ex);
+float <a href="#ldexp"><b>ldexp</b></a>(float x, int ex); <b>[C++ only]</b>
+long double <a href="#ldexp"><b>ldexp</b></a>(long double x, int ex); <b>[C++ only]</b>
+float <a href="#ldexpf"><b>ldexpf</b></a>(float x, int ex); <b>[required with C99]</b>
+long double <a href="#ldexpl"><b>ldexpl</b></a>(long double x, int ex); <b>[required with C99]</b>
+
+double <a href="#log"><b>log</b></a>(double x);
+float <a href="#log"><b>log</b></a>(float x); <b>[C++ only]</b>
+long double <a href="#log"><b>log</b></a>(long double x); <b>[C++ only]</b>
+float <a href="#logf"><b>logf</b></a>(float x); <b>[required with C99]</b>
+long double <a href="#logl"><b>logl</b></a>(long double x); <b>[required with C99]</b>
+
+double <a href="#log10"><b>log10</b></a>(double x);
+float <a href="#log10"><b>log10</b></a>(float x); <b>[C++ only]</b>
+long double <a href="#log10"><b>log10</b></a>(long double x); <b>[C++ only]</b>
+float <a href="#log10f"><b>log10f</b></a>(float x); <b>[required with C99]</b>
+long double <a href="#log10l"><b>log10l</b></a>(long double x); <b>[required with C99]</b>
+
+double <a href="#modf"><b>modf</b></a>(double x, double *pint);
+float <a href="#modf"><b>modf</b></a>(float x, float *pint); <b>[C++ only]</b>
+long double <a href="#modf"><b>modf</b></a>(long double x,
+    long double *pint); <b>[C++ only]</b>
+float <a href="#modff"><b>modff</b></a>(float x, float *pint); <b>[required with C99]</b>
+long double <a href="#modfl"><b>modfl</b></a>(long double x,
+    long double *pint); <b>[required with C99]</b>
+
+double <a href="#pow"><b>pow</b></a>(double x, double y);
+float <a href="#pow"><b>pow</b></a>(float x, float y); <b>[C++ only]</b>
+long double <a href="#pow"><b>pow</b></a>(long double x, long double y); <b>[C++ only]</b>
+float <a href="#powf"><b>powf</b></a>(float x, float y); <b>[required with C99]</b>
+long double <a href="#powl"><b>powl</b></a>(long double x,
+    long double y); <b>[required with C99]</b>
+
+double <a href="#sin"><b>sin</b></a>(double x);
+float <a href="#sin"><b>sin</b></a>(float x); <b>[C++ only]</b>
+long double <a href="#sin"><b>sin</b></a>(long double x); <b>[C++ only]</b>
+float <a href="#sinf"><b>sinf</b></a>(float x); <b>[required with C99]</b>
+long double <a href="#sinl"><b>sinl</b></a>(long double x); <b>[required with C99]</b>
+
+double <a href="#sinh"><b>sinh</b></a>(double x);
+float <a href="#sinh"><b>sinh</b></a>(float x); <b>[C++ only]</b>
+long double <a href="#sinh"><b>sinh</b></a>(long double x); <b>[C++ only]</b>
+float <a href="#sinhf"><b>sinhf</b></a>(float x); <b>[required with C99]</b>
+long double <a href="#sinhl"><b>sinhl</b></a>(long double x); <b>[required with C99]</b>
+
+double <a href="#sqrt"><b>sqrt</b></a>(double x);
+float <a href="#sqrt"><b>sqrt</b></a>(float x); <b>[C++ only]</b>
+long double <a href="#sqrt"><b>sqrt</b></a>(long double x); <b>[C++ only]</b>
+float <a href="#sqrtf"><b>sqrtf</b></a>(float x); <b>[required with C99]</b>
+long double <a href="#sqrtl"><b>sqrtl</b></a>(long double x); <b>[required with C99]</b>
+
+double <a href="#tan"><b>tan</b></a>(double x);
+float <a href="#tan"><b>tan</b></a>(float x); <b>[C++ only]</b>
+long double <a href="#tan"><b>tan</b></a>(long double x); <b>[C++ only]</b>
+float <a href="#tanf"><b>tanf</b></a>(float x); <b>[required with C99]</b>
+long double <a href="#tanl"><b>tanl</b></a>(long double x); <b>[required with C99]</b>
+
+double <a href="#tanh"><b>tanh</b></a>(double x);
+float <a href="#tanh"><b>tanh</b></a>(float x); <b>[C++ only]</b>
+long double <a href="#tanh"><b>tanh</b></a>(long double x); <b>[C++ only]</b>
+float <a href="#tanhf"><b>tanhf</b></a>(float x); <b>[required with C99]</b>
+long double <a href="#tanhl"><b>tanhl</b></a>(long double x); <b>[required with C99]</b>
+
+</pre>
+
+  <h2><a name="abs"><code>abs</code></a>, <a name="fabs"><code>fabs</code></a>, <a name=
+  "fabsf"><code>fabsf</code></a>, <a name="fabsl"><code>fabsl</code></a></h2>
+  <pre>
+double <b>abs</b>(double x); <b>[C++ only]</b>
+float <b>abs</b>(float x); <b>[C++ only]</b>
+long double <b>abs</b>(long double x); <b>[C++ only]</b>
+double <b>fabs</b>(double x);
+float <b>fabs</b>(float x); <b>[C++ only]</b>
+long double <b>fabs</b>(long double x); <b>[C++ only]</b>
+float <b>fabsf</b>(float x); <b>[required with C99]</b>
+long double <b>fabsl</b>(long double x); <b>[required with C99]</b>
+</pre>
+
+  <p>The function returns the magnitude of <code>x</code>, <code>|x|</code>.</p>
+
+  <h2><a name="acos"><code>acos</code></a>, <a name="acosf"><code>acosf</code></a>, <a name=
+  "acosl"><code>acosl</code></a></h2>
+  <pre>
+double <b>acos</b>(double x);
+float <b>acos</b>(float x); <b>[C++ only]</b>
+long double <b>acos</b>(long double x); <b>[C++ only]</b>
+float <b>acosf</b>(float x); <b>[required with C99]</b>
+long double <b>acosl</b>(long double x); <b>[required with C99]</b>
+</pre>
+
+  <p>The function returns the angle whose cosine is <code>x</code>, in the range [0, pi] radians. A domain
+  error occurs if <code>1 &lt; |x|</code>.</p>
+
+  <h2><a name="asin"><code>asin</code></a>, <a name="asinf"><code>asinf</code></a>, <a name=
+  "asinl"><code>asinl</code></a></h2>
+  <pre>
+double <b>asin</b>(double x);
+float <b>asin</b>(float x); <b>[C++ only]</b>
+long double <b>asin</b>(long double x); <b>[C++ only]</b>
+float <b>asinf</b>(float x); <b>[required with C99]</b>
+long double <b>asinl</b>(long double x); <b>[required with C99]</b>
+</pre>
+
+  <p>The function returns the angle whose sine is <code>x</code>, in the range [-pi/2, +pi/2] radians. A
+  domain error occurs if <code>1 &lt; |x|</code>.</p>
+
+  <h2><a name="atan"><code>atan</code></a>, <a name="atanf"><code>atanf</code></a>, <a name=
+  "atanl"><code>atanl</code></a></h2>
+  <pre>
+double <b>atan</b>(double x);
+float <b>atan</b>(float x); <b>[C++ only]</b>
+long double <b>atan</b>(long double x); <b>[C++ only]</b>
+float <b>atanf</b>(float x); <b>[required with C99]</b>
+long double <b>atanl</b>(long double x); <b>[required with C99]</b>
+</pre>
+
+  <p>The function returns the angle whose tangent is <code>x</code>, in the range [-pi/2, +pi/2] radians.</p>
+
+  <h2><a name="atan2"><code>atan2</code></a>, <a name="atan2f"><code>atan2f</code></a>, <a name=
+  "atan2l"><code>atan2l</code></a></h2>
+  <pre>
+double <b>atan2</b>(double y, double x);
+float <b>atan2</b>(float y, float x); <b>[C++ only]</b>
+long double <b>atan2</b>(long double y, long double x); <b>[C++ only]</b>
+float <b>atan2f</b>(float y, float x); <b>[required with C99]</b>
+long double <b>atan2l</b>(long double y,
+    long double x); <b>[required with C99]</b>
+</pre>
+
+  <p>The function returns the angle whose tangent is <code>y/x</code>, in the full angular range [-pi, +pi]
+  radians. A domain error may occur if both <code>x</code> and <code>y</code> are zero.</p>
+
+  <h2><a name="ceil"><code>ceil</code></a>, <a name="ceilf"><code>ceilf</code></a>, <a name=
+  "ceill"><code>ceill</code></a></h2>
+  <pre>
+double <b>ceil</b>(double x);
+float <b>ceil</b>(float x); <b>[C++ only]</b>
+long double <b>ceil</b>(long double x); <b>[C++ only]</b>
+float <b>ceilf</b>(float x); <b>[required with C99]</b>
+long double <b>ceill</b>(long double x); <b>[required with C99]</b>
+</pre>
+
+  <p>The function returns the smallest integer value not less than <code>x</code>.</p>
+
+  <h2><a name="cos"><code>cos</code></a>, <a name="cosf"><code>cosf</code></a>, <a name=
+  "cosl"><code>cosl</code></a></h2>
+  <pre>
+double <b>cos</b>(double x);
+float <b>cos</b>(float x); <b>[C++ only]</b>
+long double <b>cos</b>(long double x); <b>[C++ only]</b>
+float <b>cosf</b>(float x); <b>[required with C99]</b>
+long double <b>cosl</b>(long double x); <b>[required with C99]</b>
+</pre>
+
+  <p>The function returns the cosine of <code>x</code>. If <code>x</code> is large the value returned might
+  not be meaningful, but the function reports no error.</p>
+
+  <h2><a name="cosh"><code>cosh</code></a>, <a name="coshf"><code>coshf</code></a>, <a name=
+  "coshl"><code>coshl</code></a></h2>
+  <pre>
+double <b>cosh</b>(double x);
+float <b>cosh</b>(float x); <b>[C++ only]</b>
+long double <b>cosh</b>(long double x); <b>[C++ only]</b>
+float <b>coshf</b>(float x); <b>[required with C99]</b>
+long double <b>coshl</b>(long double x); <b>[required with C99]</b>
+</pre>
+
+  <p>The function returns the hyperbolic cosine of <code>x</code>.</p>
+
+  <h2><a name="exp"><code>exp</code></a>, <a name="expf"><code>expf</code></a>, <a name=
+  "expl"><code>expl</code></a></h2>
+  <pre>
+double <b>exp</b>(double x);
+float <b>exp</b>(float x); <b>[C++ only]</b>
+long double <b>exp</b>(long double x); <b>[C++ only]</b>
+float <b>expf</b>(float x); <b>[required with C99]</b>
+long double <b>expl</b>(long double x); <b>[required with C99]</b>
+</pre>
+
+  <p>The function returns the exponential of <code>x</code>, e^<code>x</code>.</p>
+
+  <h2><a name="floor"><code>floor</code></a>, <a name="floorf"><code>floorf</code></a>, <a name=
+  "floorl"><code>floorl</code></a></h2>
+  <pre>
+double <b>floor</b>(double x);
+float <b>floor</b>(float x); <b>[C++ only]</b>
+long double <b>floor</b>(long double x); <b>[C++ only]</b>
+float <b>floorf</b>(float x); <b>[required with C99]</b>
+long double <b>floorl</b>(long double x); <b>[required with C99]</b>
+</pre>
+
+  <p>The function returns the largest integer value not greater than <code>x</code>.</p>
+
+  <h2><a name="fmod"><code>fmod</code></a>, <a name="fmodf"><code>fmodf</code></a>, <a name=
+  "fmodl"><code>fmodl</code></a></h2>
+  <pre>
+double <b>fmod</b>(double x, double y);
+float <b>fmod</b>(float x, float y); <b>[C++ only]</b>
+long double <b>fmod</b>(long double x, long double y); <b>[C++ only]</b>
+float <b>fmodf</b>(float x, float y); <b>[required with C99]</b>
+long double <b>fmodl</b>(long double x,
+    long double y); <b>[required with C99]</b>
+</pre>
+
+  <p>The function returns the remainder of <code>x/y</code>, which is defined as follows:</p>
+
+  <ul>
+    <li>If <code>y</code> is zero, the function either reports a domain error or simply returns zero.</li>
+
+    <li>Otherwise, the function determines the unique signed integer value <code>i</code> such that the
+    returned value <code>x - i * y</code> has the same sign as <code>x</code> and magnitude less than
+    <code>|y|</code>.</li>
+  </ul>
+
+  <h2><a name="frexp"><code>frexp</code></a>, <a name="frexpf"><code>frexpf</code></a>, <a name=
+  "frexpl"><code>frexpl</code></a></h2>
+  <pre>
+double <b>frexp</b>(double x, int *pexp);
+float <b>frexp</b>(float x, int *pexp); <b>[C++ only]</b>
+long double <b>frexp</b>(long double x, int *pexp); <b>[C++ only]</b>
+float <b>frexpf</b>(float x, int *pexp); <b>[required with C99]</b>
+long double <b>frexpl</b>(long double x, int *pexp); <b>[required with C99]</b>
+</pre>
+
+  <p>The function determines a fraction <code>frac</code> and an exponent integer <code>ex</code> that
+  represent the value of <code>x</code>. It returns the value <code>frac</code> and stores the integer
+  <code>ex</code> in <code>*pexp</code>, such that:</p>
+
+  <ul>
+    <li><code>|frac|</code> is in the interval [1/2, 1) or is zero</li>
+
+    <li><code>x == frac * 2^ex</code></li>
+  </ul>
+
+  <p>If <code>x</code> is zero, <code>*pexp</code> is also zero.</p>
+
+  <h2><a name="HUGE_VAL"><code>HUGE_VAL</code></a></h2>
+  <pre>
+#define <b>HUGE_VAL</b> <i>&lt;double rvalue&gt;</i>
+</pre>
+
+  <p>The macro yields the <i>double</i> value returned by some functions on a range error. The value can be a
+  representation of infinity.</p>
+
+  <h2><a name="ldexp"><code>ldexp</code></a>, <a name="ldexpf"><code>ldexpf</code></a>, <a name=
+  "ldexpl"><code>ldexpl</code></a></h2>
+  <pre>
+double <b>ldexp</b>(double x, int ex);
+float <b>ldexp</b>(float x, int ex); <b>[C++ only]</b>
+long double <b>ldexp</b>(long double x, int ex); <b>[C++ only]</b>
+float <b>ldexpf</b>(float x, int ex); <b>[required with C99]</b>
+long double <b>ldexpl</b>(long double x, int ex); <b>[required with C99]</b>
+</pre>
+
+  <p>The function returns <code>x * 2^ex</code>.</p>
+
+  <h2><a name="log"><code>log</code></a>, <a name="logf"><code>logf</code></a>, <a name=
+  "logl"><code>logl</code></a></h2>
+  <pre>
+double <b>log</b>(double x);
+float <b>log</b>(float x); <b>[C++ only]</b>
+long double <b>log</b>(long double x); <b>[C++ only]</b>
+float <b>logf</b>(float x); <b>[required with C99]</b>
+long double <b>logl</b>(long double x); <b>[required with C99]</b>
+</pre>
+
+  <p>The function returns the natural logarithm of <code>x</code>. A domain error occurs if <code>x &lt;
+  0</code>.</p>
+
+  <h2><a name="log10"><code>log10</code></a>, <a name="log10f"><code>log10f</code></a>, <a name=
+  "log10l"><code>log10l</code></a></h2>
+  <pre>
+double <b>log10</b>(double x);
+float <b>log10</b>(float x); <b>[C++ only]</b>
+long double <b>log10</b>(long double x); <b>[C++ only]</b>
+float <b>log10f</b>(float x); <b>[required with C99]</b>
+long double <b>log10l</b>(long double x); <b>[required with C99]</b>
+</pre>
+
+  <p>The function returns the base-10 logarithm of <code>x</code>. A domain error occurs if <code>x &lt;
+  0</code>.</p>
+
+  <h2><a name="modf"><code>modf</code></a>, <a name="modff"><code>modff</code></a>, <a name=
+  "modfl"><code>modfl</code></a></h2>
+  <pre>
+double <b>modf</b>(double x, double *pint);
+float <b>modf</b>(float x, float *pint); <b>[C++ only]</b>
+long double <b>modf</b>(long double x,
+    long double *pint); <b>[C++ only]</b>
+float <b>modff</b>(float x, float *pint); <b>[required with C99]</b>
+long double <b>modfl</b>(long double x,
+    long double *pint); <b>[required with C99]</b>
+</pre>
+
+  <p>The function determines an integer <code>i</code> plus a fraction <code>frac</code> that represent the
+  value of <code>x</code>. It returns the value <code>frac</code> and stores the integer <code>i</code> in
+  <code>*pint</code>, such that:</p>
+
+  <ul>
+    <li><code>x == frac + i</code></li>
+
+    <li><code>|frac|</code> is in the interval [0, 1)</li>
+
+    <li>both <code>frac</code> and <code>i</code> have the same sign as <code>x</code></li>
+  </ul>
+
+  <h2><a name="pow"><code>pow</code></a>, <a name="powf"><code>powf</code></a>, <a name=
+  "powl"><code>powl</code></a></h2>
+  <pre>
+double <b>pow</b>(double x, double y);
+float <b>pow</b>(float x, float y); <b>[C++ only]</b>
+long double <b>pow</b>(long double x, long double y); <b>[C++ only]</b>
+float <b>powf</b>(float x, float y); <b>[required with C99]</b>
+long double <b>powl</b>(long double x,
+    long double y); <b>[required with C99]</b>
+</pre>
+
+  <p>The function returns <code>x</code> raised to the power <code>y</code>, <code>x^y</code>.</p>
+
+  <h2><a name="sin"><code>sin</code></a>, <a name="sinf"><code>sinf</code></a>, <a name=
+  "sinl"><code>sinl</code></a></h2>
+  <pre>
+double <b>sin</b>(double x);
+float <b>sin</b>(float x); <b>[C++ only]</b>
+long double <b>sin</b>(long double x); <b>[C++ only]</b>
+float <b>sinf</b>(float x); <b>[required with C99]</b>
+long double <b>sinl</b>(long double x); <b>[required with C99]</b>
+</pre>
+
+  <p>The function returns the sine of <code>x</code>. If <code>x</code> is large the value returned might not
+  be meaningful, but the function reports no error.</p>
+
+  <h2><a name="sinh"><code>sinh</code></a>, <a name="sinhf"><code>sinhf</code></a>, <a name=
+  "sinhl"><code>sinhl</code></a></h2>
+  <pre>
+double <b>sinh</b>(double x);
+float <b>sinh</b>(float x); <b>[C++ only]</b>
+long double <b>sinh</b>(long double x); <b>[C++ only]</b>
+float <b>sinhf</b>(float x); <b>[required with C99]</b>
+long double <b>sinhl</b>(long double x); <b>[required with C99]</b>
+</pre>
+
+  <p>The function returns the hyperbolic sine of <code>x</code>.</p>
+
+  <h2><a name="sqrt"><code>sqrt</code></a>, <a name="sqrtf"><code>sqrtf</code></a>, <a name=
+  "sqrtl"><code>sqrtl</code></a></h2>
+  <pre>
+double <b>sqrt</b>(double x);
+float <b>sqrt</b>(float x); <b>[C++ only]</b>
+long double <b>sqrt</b>(long double x); <b>[C++ only]</b>
+float <b>sqrtf</b>(float x); <b>[required with C99]</b>
+long double <b>sqrtl</b>(long double x); <b>[required with C99]</b>
+</pre>
+
+  <p>The function returns the real square root of <code>x</code>, <code>x^(1/2)</code>. A domain error occurs
+  if <code>x &lt; 0</code>.</p>
+
+  <h2><a name="tan"><code>tan</code></a>, <a name="tanf"><code>tanf</code></a>, <a name=
+  "tanl"><code>tanl</code></a></h2>
+  <pre>
+double <b>tan</b>(double x);
+float <b>tan</b>(float x); <b>[C++ only]</b>
+long double <b>tan</b>(long double x); <b>[C++ only]</b>
+float <b>tanf</b>(float x); <b>[required with C99]</b>
+long double <b>tanl</b>(long double x); <b>[required with C99]</b>
+</pre>
+
+  <p>The function returns the tangent of <code>x</code>. If <code>x</code> is large the value returned might
+  not be meaningful, but the function reports no error.</p>
+
+  <h2><a name="tanh"><code>tanh</code></a>, <a name="tanhf"><code>tanhf</code></a>, <a name=
+  "tanhl"><code>tanhl</code></a></h2>
+  <pre>
+double <b>tanh</b>(double x);
+float <b>tanh</b>(float x); <b>[C++ only]</b>
+long double <b>tanh</b>(long double x); <b>[C++ only]</b>
+float <b>tanhf</b>(float x); <b>[required with C99]</b>
+long double <b>tanhl</b>(long double x); <b>[required with C99]</b>
+</pre>
+
+  <p>The function returns the hyperbolic tangent of <code>x</code>.</p>
+  <hr>
+
+  <p>See also the <b><a href="index.html#Table%20of%20Contents">Table of Contents</a></b> and the <b><a href=
+  "_index.html">Index</a></b>.</p>
+
+  <p><i><a href="crit_pjp.html">Copyright</a> &copy; 1992-2010 by P.J. Plauger and Jim Brodie. All rights
+  reserved.</i></p><!--V5.30:126I-->
+</body>
+</html>

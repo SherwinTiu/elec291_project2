@@ -1,0 +1,1073 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html>
+<head>
+  <meta name="generator" content=
+  "HTML Tidy for Mac OS X (vers 31 October 2006 - Apple Inc. build 15.15), see www.w3.org">
+
+  <title>"allocators"</title>
+</head>
+
+<body>
+  <h1><a name="&quot;allocators&quot;"><code>"Dinkum/allocators"</code></a></h1>
+  <hr>
+
+  <p>Include the header <b><code>"Dinkum/allocators"</code></b> to define several templates that help
+  allocate and free memory blocks for <a href="index_alloc.html#node-based%20containers">node-based
+  containers</a>.</p>
+  <pre>
+<code>    // MACROS
+#define <b><a href="#ALLOCATOR_DECL">ALLOCATOR_DECL</a></b>(cache, sync, name) <i>&lt;alloc_template&gt;</i>
+#define <b><a href="#CACHE_CHUNKLIST_MACRO">CACHE_CHUNKLIST</a></b> <i>&lt;cache_class&gt;</i>
+#define <b><a href="#CACHE_FREELIST_MACRO">CACHE_FREELIST</a></b>(max) <i>&lt;cache_class&gt;</i>
+#define <b><a href="#CACHE_SUBALLOC_MACRO">CACHE_SUBALLOC</a></b> <i>&lt;cache_clsas&gt;</i>
+#define <b><a href="#SYNC_DEFAULT_MACRO">SYNC_DEFAULT</a></b> <i>&lt;sync_template&gt;</i>
+
+namespace Dinkum {
+    namespace allocators {
+    //  ALLOCATOR TEMPLATES
+template &lt;class T&gt;
+    class <b><a href="#allocator_chunklist">allocator_chunklist</a></b>;
+template &lt;class T&gt;
+    class <b><a href="#allocator_fixed_size">allocator_fixed_size</a></b>;
+template &lt;class T&gt;
+    class <b><a href="#allocator_newdel">allocator_newdel</a></b>;
+template &lt;class T&gt;
+    class <b><a href="#allocator_suballoc">allocator_suballoc</a></b>;
+template &lt;class T&gt;
+    class <b><a href="#allocator_unbounded">allocator_unbounded</a></b>;
+template &lt;class T&gt;
+    class <b><a href="#allocator_variable_size">allocator_variable_size</a></b>;
+
+    //  SYNCHRONIZATION FILTERS
+template &lt;class Cache&gt;
+    class <b><a href="#sync_none">sync_none</a></b>;
+template &lt;class Cache&gt;
+    class <b><a href="#sync_per_container">sync_per_container</a></b>;
+template &lt;class Cache&gt;
+    class <b><a href="#sync_per_thread">sync_per_thread</a></b>;
+template &lt;class Cache&gt;
+    class <b><a href="#sync_shared">sync_shared</a></b>;
+
+    //  CACHES
+template &lt;std::size_t sz&gt;
+    class <b><a href="#cache_chunklist">cache_chunklist</a></b>;
+template &lt;std::size_t sz, class Max&gt;
+    class <b><a href="#cache_freelist">cache_freelist</a></b>;
+template &lt;std::size_t sz&gt;
+    class <b><a href="#cache_suballoc">cache_suballoc</a></b>;
+
+    //  MAX CLASSES
+class <b><a href="#max_none">max_none</a></b>;
+template &lt;std::size_t max&gt;
+    class <b><a href="#max_fixed_size">max_fixed_size</a></b>;
+class <b><a href="#max_unbounded">max_unbounded</a></b>;
+class <b><a href="#max_variable_size">max_variable_size</a></b>;
+
+    //  SUPPORT CLASSES
+template &lt;class T, class Sync&gt;
+    class <b><a href="#allocator_base">allocator_base</a></b>;
+template &lt;std::size_t sz, class Max&gt;
+    class <b><a href="#freelist">freelist</a></b>;
+template &lt;class Cache&gt;
+    class <b><a href="#rts_alloc">rts_alloc</a></b>;
+
+    //  TEMPLATE OPERATORS
+template &lt;class T, class Sync&gt;
+    bool <b><a href=
+"#allocator_base::operator==">operator==</a></b>(const allocator_base&lt;T, Sync&gt;&amp;, const allocator_base&lt;T, Sync&gt;&amp;);
+template &lt;class T, Sync&gt;
+    bool <b><a href=
+"#allocator_base::operator!=">operator!=</a></b>(const allocator_base&lt;T, Sync&gt;&amp;, const allocator_base&lt;T, Sync&gt;&amp;);
+    }  // namespace allocators
+}  // namespace Dinkum</code>
+</pre>
+  <hr>
+
+  <h2><a name="allocator_base"><code>allocator_base</code></a></h2>
+  <pre>
+template &lt;class T, class Sync&gt; class <b>allocator_base</b> {
+public:
+    typedef std::size_t <b><a href="#allocator_base::size_type">size_type</a></b>;
+    typedef std::ptrdiff_t <b><a href="#allocator_base::difference_type">difference_type</a></b>;
+    typedef T *<b><a href="#allocator_base::pointer">pointer</a></b>;
+    typedef const T *<b><a href="#allocator_base::const_pointer">const_pointer</a></b>;
+    typedef T&amp; <b><a href="#allocator_base::reference">reference</a></b>;
+    typedef const T&amp; <b><a href="#allocator_base::const_reference">const_reference</a></b>;
+    typedef T <b><a href="#allocator_base::value_type">value_type</a></b>;
+    <b><a href="#allocator_base::allocator_base">allocator_base</a></b>();
+    template &lt;class U&gt;
+        <b><a href=
+"#allocator_base::allocator_base">allocator_base</a></b>(const allocator_base&lt;U, Sync&gt;&amp; x);
+    pointer <b><a href="#allocator_base::address">address</a></b>(reference x);
+    const_pointer <b><a href="#allocator_base::address">address</a></b>(const_reference x);
+    template &lt;class U&gt;
+        pointer <b><a href="#allocator_base::allocate">allocate</a></b>(size_type n, const U *hint);
+    pointer <b><a href="#allocator_base::allocate">allocate</a></b>(size_type n);
+    void <b><a href="#allocator_base::deallocate">deallocate</a></b>(pointer p, size_type n);
+    void <b><a href="#allocator_base::construct">construct</a></b>(pointer p, const T&amp; val);
+    void <b><a href="#allocator_base::destroy">destroy</a></b>(pointer p);
+    size_type <b><a href="#allocator_base::max_size()">max_size()</a></b> const;
+
+    char *<b><a href="#allocator_base::_Charalloc">_Charalloc</a></b>(size_type n);
+    void <b><a href="#allocator_base::_Chardealloc">_Chardealloc</a></b>(void *p, size_type n);
+    };
+</pre>
+
+  <p>The template provides the boilerplate needed to create an <a href=
+  "index_alloc.html#allocator">allocator</a> from a <a href=
+  "index_alloc.html#synchronization%20filter">synchronization filter</a>.</p>
+
+  <h3><a name="allocator_base::address"><code>allocator_base::address</code></a></h3>
+  <pre>
+<code>pointer <b>address</b>(reference x);
+const_pointer <b>address</b>(const_reference x);</code>
+</pre>
+
+  <p>The member functions implement <code><a href=
+  "index_alloc.html#allocator::address">allocator::address</a></code> by returning <code>&amp;x</code>.</p>
+
+  <h3><a name="allocator_base::allocate"><code>allocator_base::allocate</code></a></h3>
+  <pre>
+<code>template &lt;class U&gt;
+    pointer <b>allocate</b>(size_type n, const U *hint = 0);</code>
+</pre>
+
+  <p>The member function implements <code><a href=
+  "index_alloc.html#allocator::allocate">allocator::allocate</a></code> by returning the result of a call to
+  <code><a href="index_alloc.html#block_allocator::allocate">Sync::allocate</a>()</code> cast to type
+  <code>T*</code> if <code>n == 1</code>, otherwise by returning the result of a call to <code>operator new(n
+  * sizeof(T))</code> cast to type <code>T*</code>.</p>
+
+  <h3><a name="allocator_base::allocator_base"><code>allocator_base::allocator_base</code></a></h3>
+  <pre>
+<code><b>allocator_base</b>();
+template &lt;class U&gt;
+    <b>allocator_base</b>(const allocator_base&lt;U, Sync&gt;&amp; x);</code>
+</pre>
+
+  <p>The first constructor constructs an <code>allocator_base</code> instance. The second constructor
+  constructs an <code>allocator_base</code> instance such that for any <code>allocator_base&lt;T,
+  Sync&gt;</code> instance <code>a</code>, <code>allocator_base&lt;T, Sync&gt;(allocator_base&lt;U,
+  Sync&gt;(a)) == a</code>.</p>
+
+  <h3><a name="allocator_base::const_pointer"><code>allocator_base::const_pointer</code></a></h3>
+  <pre>
+<code>typedef const T *<b>const_pointer</b>;</code>
+</pre>
+
+  <p>The pointer type implements <code><a href=
+  "index_alloc.html#allocator::const_pointer">allocator::const_pointer</a></code> as a typedef for
+  <code>const T*</code>.</p>
+
+  <h3><a name="allocator_base::const_reference"><code>allocator_base::const_reference</code></a></h3>
+  <pre>
+<code>typedef const T&amp; <b>const_reference</b>;</code>
+</pre>
+
+  <p>The reference type implements <code><a href=
+  "index_alloc.html#allocator::const_reference">allocator::const_reference</a></code> as a typedef for
+  <code>const T&amp;</code>.</p>
+
+  <h3><a name="allocator_base::construct"><code>allocator_base::construct</code></a></h3>
+  <pre>
+<code>void <b>construct</b>(pointer p, const T&amp; val);</code>
+</pre>
+
+  <p>The member function implements <code><a href=
+  "index_alloc.html#allocator::construct">allocator::construct</a></code> by calling <code>new((void*)p
+  T(val)</code>.</p>
+
+  <h3><a name="allocator_base::deallocate"><code>allocator_base::deallocate</code></a></h3>
+  <pre>
+<code>void <b>deallocate</b>(pointer p, size_type n);</code>
+</pre>
+
+  <p>The member function implements <code><a href=
+  "index_alloc.html#allocator::deallocate">allocator::deallocate</a></code> by calling <code><a href=
+  "index_alloc.html#block_allocator::deallocate">Sync::deallocate</a>(p)</code> if <code>n == 1</code>,
+  otherwise by calling <code>operator delete(n * p)</code>.</p>
+
+  <h3><a name="allocator_base::destroy"><code>allocator_base::destroy</code></a></h3>
+  <pre>
+<code>void <b>destroy</b>(pointer p);</code>
+</pre>
+
+  <p>The member function implements <code><a href=
+  "index_alloc.html#allocator::destroy">allocator::destroy</a></code> by calling <code>p-&gt;~T()</code>.</p>
+
+  <h3><a name="allocator_base::difference_type"><code>allocator_base::difference_type</code></a></h3>
+  <pre>
+<code>typedef std::ptrdiff_t <b>difference_type</b>;</code>
+</pre>
+
+  <p>The integer type implements <code><a href=
+  "index_alloc.html#allocator::difference_type">allocator::difference_type</a></code> as a typedef for
+  <code>std::ptrdiff_t</code>.</p>
+
+  <h3><a name="allocator_base::max_size()"><code>allocator_base::max_size()</code></a></h3>
+  <pre>
+<code>size_type <b>max_size()</b> const;</code>
+</pre>
+
+  <p>The member function implements <code><a href=
+  "index_alloc.html#allocator::max_size">allocator::max_size</a></code> by returning <code>(size_t)-1 /
+  sizeof(T)</code> if <code>0 &lt; (size_t)-1 / sizeof(T)</code>, otherwise <code>1</code>.</p>
+
+  <h3><a name="allocator_base::pointer"><code>allocator_base::pointer</code></a></h3>
+  <pre>
+<code>typedef T *<b>pointer</b>;</code>
+</pre>
+
+  <p>The pointer type implements <code><a href=
+  "index_alloc.html#allocator::pointer">allocator::pointer</a></code> as a typedef for <code>T*</code>.</p>
+
+  <h3><a name="allocator_base::reference"><code>allocator_base::reference</code></a></h3>
+  <pre>
+<code>typedef T&amp; <b>reference</b>;</code>
+</pre>
+
+  <p>The reference type implements <code><a href=
+  "index_alloc.html#allocator::reference">allocator::reference</a></code> as a typedef for
+  <code>T&amp;</code>.</p>
+
+  <h3><a name="allocator_base::size_type"><code>allocator_base::size_type</code></a></h3>
+  <pre>
+<code>typedef std::size_t <b>size_type</b>;</code>
+</pre>
+
+  <p>The unsigned integer type implements <code><a href=
+  "index_alloc.html#allocator::size_type">allocator::size_type</a></code> as a typedef for
+  <code>std::size_t</code>.</p>
+
+  <h3><a name="allocator_base::value_type"><code>allocator_base::value_type</code></a></h3>
+  <pre>
+<code>typedef T <b>value_type</b>;</code>
+</pre>
+
+  <p>The object type implements <code><a href=
+  "index_alloc.html#allocator::value_type">allocator::value_type</a></code> as a typedef for
+  <code>T</code>.</p>
+
+  <h3><a name="allocator_base::_Charalloc"><code>allocator_base::_Charalloc</code></a></h3>
+  <pre>
+<code>char *<b>_Charalloc</b>(size_type n);</code>
+</pre>
+
+  <p>The member function implements <code><a href=
+  "index_alloc.html#allocator::_Charalloc">allocator::_Charalloc</a></code> by returning <code><a href=
+  "index_alloc.html#block_allocator::allocate">Sync::allocate</a>(n)</code>.</p>
+
+  <h3><a name="allocator_base::_Chardealloc"><code>allocator_base::_Chardealloc</code></a></h3>
+  <pre>
+<code>void <b>_Chardealloc</b>(void *p, size_type n);</code>
+</pre>
+
+  <p>The member function implements <code><a href=
+  "index_alloc.html#allocator::_Chardealloc">allocator::_Chardealloc</a></code> by calling <code><a href=
+  "index_alloc.html#block_allocator::deallocate">Sync::deallocate</a>(p, n)</code>.</p>
+
+  <h3><a name="allocator_base::operator=="><code>operator==</code></a></h3>
+  <pre>
+<code>template &lt;class T, class Sync&gt;
+    bool <b>operator==</b>(const allocator_base&lt;T, Sync&gt;&amp; a1, const allocator_base&amp;T, Sync;sz&gt;&amp; a2);</code>
+</pre>
+
+  <p>The template operator returns <code>a1.equals(a2)</code>.</p>
+
+  <h3><a name="allocator_base::operator!="><code>operator!=</code></a></h3>
+  <pre>
+<code>template &lt;class T, class Sync&gt;
+    bool <b>operator!=</b>(const allocator_base&lt;T, Sync&gt;&amp; a1, const allocator_base&lt;T, Sync&gt;&amp; a2);</code>
+</pre>
+
+  <p>The template operator returns <code>!(a1 == a2)</code>.</p>
+
+  <h2><a name="ALLOCATOR_DECL"><code>ALLOCATOR_DECL</code></a></h2>
+  <pre>
+#define <b>ALLOCATOR_DECL</b>(cache, sync, name) <i>&lt;alloc_template&gt;</i>
+</pre>
+
+  <p>The macro yields a template definition <code>template &lt;class T&gt; class <b>name</b> {.....}</code>
+  and a specialization <code>template &lt;&gt; class <b>name</b>&lt;void&gt; {.....}</code> which together
+  define an <a href="index_alloc.html#allocator">allocator</a> template class that uses the <a href=
+  "index_alloc.html#synchronization%20filter">synchronization filter</a> <code>sync</code> and a <a href=
+  "index_alloc.html#cache">cache</a> of type <code>cache</code>.</p>
+
+  <p>For compilers that can <a href="index_alloc.html#compile%20rebind">compile rebind</a> the resulting
+  template definition looks like this:</p>
+  <pre>
+template &lt;class T&gt; class name
+    : public Dinkum::allocators::<a href="#allocator_base">allocator_base</a>&lt;T, sync&lt;cache &gt; &gt;
+    {
+    public:
+        name() {}
+        template &lt;class U&gt; name(const name&lt;U&gt;&amp;) {}
+        template &lt;class U&gt; name&amp; operator = (const name&lt;U&gt;&amp;)
+            {return *this; }
+        template &lt;class U&gt; struct rebind
+            {    /* convert a name&lt;T&gt; to a name&lt;U&gt; */
+            typedef name&lt;U&gt; other;
+            };
+    };
+</pre>
+
+  <p>For compilers that cannot <a href="index_alloc.html#compile%20rebind">compile rebind</a> the resulting
+  template definition looks like this:</p>
+  <pre>
+template &lt;class T&lt; class name
+    : public Dinkum::allocators::<a href="#allocator_base">allocator_base</a>&lt;T,
+        sync&lt;Dinkum::allocators::<a href="#rts_alloc">rts_alloc</a>&lt;cache &gt; &gt; &gt;
+    {
+    public:
+        name() {}
+        template &lt;class U&gt; name(const name&lt;U&gt;&amp;) {}
+        template &lt;class U&gt; name&amp; operator = (const name&lt;U&gt;&amp;)
+            {return *this; }
+    };
+</pre>
+
+  <h2><a name="allocator_chunklist"><code>allocator_chunklist</code></a></h2>
+  <pre>
+<a href="#ALLOCATOR_DECL">ALLOCATOR_DECL</a>(CACHE_CHUNKLIST, SYNC_DEFAULT, allocator_chunklist);
+</pre>
+
+  <p>The <a href="index_alloc.html#allocator">allocator</a> template class describes an object that manages
+  storage allocation and freeing for objects of type <code>T</code> using a <a href=
+  "index_alloc.html#cache">cache</a> of type <a href="#cache_chunklist">cache_chunklist</a>.</p>
+
+  <h2><a name="allocator_fixed_size"><code>allocator_fixed_size</code></a></h2>
+  <pre>
+<a href="#ALLOCATOR_DECL">ALLOCATOR_DECL</a>(
+    <a href="#CACHE_FREELIST_MACRO">CACHE_FREELIST</a>(Dinkum::allocators::max_fixed_size&lt;10&gt;),
+    SYNC_DEFAULT, allocator_fixed_size);
+</pre>
+
+  <p>The <a href="index_alloc.html#allocator">allocator</a> template class describes an object that manages
+  storage allocation and freeing for objects of type <code>T</code> using a <a href=
+  "index_alloc.html#cache">cache</a> of type <a href="#cache_freelist">cache_freelist</a> with a length
+  managed by <a href="#max_fixed_size">max_fixed_size</a>.</p>
+
+  <h2><a name="allocator_newdel"><code>allocator_newdel</code></a></h2>
+  <pre>
+<a href="#ALLOCATOR_DECL">ALLOCATOR_DECL</a>(
+    <a href="#CACHE_FREELIST_MACRO">CACHE_FREELIST</a>(Dinkum::allocators::max_none),
+    SYNC_DEFAULT, allocator_newdel);
+</pre>
+
+  <p>The template <code>allocator_newdel</code> implements an <a href=
+  "index_alloc.html#allocator">allocator</a> that uses <code>operator delete</code> to deallocate a memory
+  block and <code>operator new</code> to allocate a memory block.</p>
+
+  <h2><a name="allocator_suballoc"><code>allocator_suballoc</code></a></h2>
+  <pre>
+<a href="#ALLOCATOR_DECL">ALLOCATOR_DECL</a>(CACHE_SUBALLOC,
+SYNC_DEFAULT, allocator_suballoc);
+</pre>
+
+  <p>The <a href="index_alloc.html#allocator">allocator</a> template class describes an object that manages
+  storage allocation and freeing for objects of type <code>T</code> using a <a href=
+  "index_alloc.html#cache">cache</a> of type <a href="#cache_suballoc">cache_suballoc</a>.</p>
+
+  <h2><a name="allocator_unbounded"><code>allocator_unbounded</code></a></h2>
+  <pre>
+<a href="#ALLOCATOR_DECL">ALLOCATOR_DECL</a>(
+    <a href="#CACHE_FREELIST_MACRO">CACHE_FREELIST</a>(Dinkum::allocators::max_unbounded),
+    SYNC_DEFAULT, allocator_unbounded);
+</pre>
+
+  <p>The <a href="index_alloc.html#allocator">allocator</a> template class describes an object that manages
+  storage allocation and freeing for objects of type <code>T</code> using a <a href=
+  "index_alloc.html#cache">cache</a> of type <a href="#cache_freelist">cache_freelist</a> with a length
+  managed by <a href="#max_unbounded">max_unbounded</a>.</p>
+
+  <h2><a name="allocator_variable_size"><code>allocator_variable_size</code></a></h2>
+  <pre>
+<a href="#ALLOCATOR_DECL">ALLOCATOR_DECL</a>(
+    <a href="#CACHE_FREELIST_MACRO">CACHE_FREELIST</a>(Dinkum::allocators::max_variable_size),
+    SYNC_DEFAULT, allocator_variable_size);
+</pre>
+
+  <p>The <a href="index_alloc.html#allocator">allocator</a> template class describes an object that manages
+  storage allocation and freeing for objects of type <code>T</code> using a <a href=
+  "index_alloc.html#cache">cache</a> of type <a href="#cache_freelist">cache_freelist</a> with a length
+  managed by <a href="#max_variable_size">max_variable_size</a>.</p>
+
+  <h2><a name="CACHE_CHUNKLIST_MACRO"><code>CACHE_CHUNKLIST</code></a></h2>
+  <pre>
+#define <b>CACHE_CHUNKLIST</b> <i>&lt;cache_class&gt;</i>
+</pre>
+
+  <p>The macro yields <code>Dinkum::allocators::cache_chunklist&lt;sizeof(T)&gt;</code>.</p>
+
+  <h2><a name="cache_chunklist"><code>cache_chunklist</code></a></h2>
+  <pre>
+template &lt;std::size_t sz, std::size_t NELTS = 20&gt; class <b>cache_chunklist</b> {
+public:
+    <b><a href="#cache_chunklist::cache_chunklist">cache_chunklist</a></b>();
+    template &lt;size_t usz&gt; <b><a href=
+"#cache_chunklist::cache_chunklist">cache_chunklist</a></b>(const cache_chunklist&lt;usz&gt;&amp;);
+    template &lt;size_t usz&gt; cache_chunklist&lt;usz&gt;&amp; <b><a href=
+"#cache_chunklist::operator=">operator=</a></b>(const cache_chunklist&lt;usz&gt;&amp;);
+    void *<b><a href="#cache_chunklist::allocate">allocate</a></b>(std::size_t);
+    void <b><a href="#cache_chunklist::deallocate">deallocate</a></b>(void *, std::size_t);
+};
+</pre>
+
+  <p>The <a href="index_alloc.html#cache">cache</a> template class uses <code>operator new</code> to allocate
+  chunks of raw memory, suballocating blocks to allocate storage for a memory block when needed; it stores
+  deallocated memory blocks in a separate free list for each chunk, and uses <code>operator delete</code> to
+  deallocate a chunk when none of its memory blocks is in use.</p>
+
+  <p><i>Overhead:</i> each memory block holds <code>sz</code> bytes of usable memory and a pointer to the
+  chunk that it belongs to. Each chunk holds <code>NELTS</code> memory blocks, three pointers, an int and the
+  data that <code>operator new</code> and <code>operator delete</code> require.</p>
+
+  <h3><a name="cache_chunklist::allocate"><code>cache_chunklist::allocate</code></a></h3>
+  <pre>
+<code>void *<b>allocate</b>(std::size_t n);</code>
+</pre>
+
+  <p>The member function implements <a href=
+  "index_alloc.html#block_allocator::allocate">block_allocator::allocate</a>.</p>
+
+  <h3><a name="cache_chunklist::cache_chunklist"><code>cache_chunklist::cache_chunklist</code></a></h3>
+  <pre>
+<code><b>cache_chunklist</b>();
+template &lt;size_t usz&gt;
+    <b>cache_chunklist</b>(const cache_chunklist&lt;usz&gt;&amp;);</code>
+</pre>
+
+  <p>The constructors construct a <code>cache_chunklist</code> object.</p>
+
+  <h3><a name="cache_chunklist::deallocate"><code>cache_chunklist::deallocate</code></a></h3>
+  <pre>
+<code>void <b>deallocate</b>(void *, std::size_t);</code>
+</pre>
+
+  <p>The member function implements <a href=
+  "index_alloc.html#block_allocator::deallocate">block_allocator::deallocate</a>.</p>
+
+  <h3><a name="cache_chunklist::operator="><code>cache_chunklist::operator=</code></a></h3>
+  <pre>
+<code>template &lt;size_t usz&gt; cache_chunklist&lt;usz&gt;&amp; <b>operator=</b>(const cache_chunklist&lt;usz&gt;&amp;);</code>
+</pre>
+
+  <p>The template assignment operator does nothing.</p>
+
+  <h2><a name="CACHE_FREELIST_MACRO"><code>CACHE_FREELIST</code></a></h2>
+  <pre>
+#define <b>CACHE_FREELIST</b>(max) <i>&lt;cache_class&gt;</i>
+</pre>
+
+  <p>The macro yields <code>Dinkum::allocators::cache_freelist&lt;sizeof(T), max&gt;</code>.</p>
+
+  <h2><a name="cache_freelist"><code>cache_freelist</code></a></h2>
+  <pre>
+template &lt;std::size_t sz, class Max&gt; class <b>cache_freelist</b> {
+public:
+    <b><a href="#cache_freelist::cache_freelist">cache_freelist</a></b>();
+    template &lt;size_t usz&gt; <b><a href=
+"#cache_freelist::cache_freelist">cache_freelist</a></b>(const cache_freelist&lt;usz&gt;&amp;);
+    template &lt;size_t usz&gt; cache_freelist&lt;usz&gt;&amp; <b><a href=
+"#cache_freelist::operator=">operator=</a></b>(const cache_freelist&lt;usz&gt;&amp;);
+    void *<b><a href="#cache_freelist::allocate">allocate</a></b>(std::size_t);
+    void <b><a href="#cache_freelist::deallocate">deallocate</a></b>(void *, std::size_t);
+};
+</pre>
+
+  <p>The <a href="index_alloc.html#cache">cache</a> template class maintains a free list of memory blocks of
+  size <code>sz</code>. When the free list is full it uses <code>operator delete</code> to deallocate memory
+  blocks. When the free list is empty it uses <code>operator new</code> to allocate new memory blocks. The
+  maximum size of the free list is determined by the class <a href="index_alloc.html#max%20class">max
+  class</a> <code>Max</code>.</p>
+
+  <p><i>Overhead:</i> each memory block holds <code>sz</code> bytes of usable memory and the data that
+  <code>operator new</code> and <code>operator delete</code> require.</p>
+
+  <h3><a name="cache_freelist::allocate"><code>cache_freelist::allocate</code></a></h3>
+  <pre>
+<code>void *<b>allocate</b>(std::size_t);</code>
+</pre>
+
+  <p>The member function implements <a href=
+  "index_alloc.html#block_allocator::allocate">block_allocator::allocate</a>.</p>
+
+  <h3><a name="cache_freelist::cache_freelist"><code>cache_freelist::cache_freelist</code></a></h3>
+  <pre>
+<code><b>cache_freelist</b>();
+template &lt;size_t usz&gt; <b>cache_freelist</b>(const cache_freelist&lt;usz&gt;&amp;);</code>
+</pre>
+
+  <p>The constructors construct a <code>cache_freelist</code> object.</p>
+
+  <h3><a name="cache_freelist::deallocate"><code>cache_freelist::deallocate</code></a></h3>
+  <pre>
+<code>void <b>deallocate</b>(void *, std::size_t);</code>
+</pre>
+
+  <p>The member function implements <a href=
+  "index_alloc.html#block_allocator::deallocate">block_allocator::deallocate</a>.</p>
+
+  <h3><a name="cache_freelist::operator="><code>cache_freelist::operator=</code></a></h3>
+  <pre>
+<code>template &lt;size_t usz&gt; cache_freelist&lt;usz&gt;&amp; <b>operator=</b>(const cache_freelist&lt;usz&gt;&amp;);</code>
+</pre>
+
+  <p>The template assignment operator does nothing.</p>
+
+  <h2><a name="CACHE_SUBALLOC_MACRO"><code>CACHE_SUBALLOC</code></a></h2>
+  <pre>
+#define <b>CACHE_SUBALLOC</b> <i>&lt;cache_class&gt;</i>
+</pre>
+
+  <p>The macro yields <code>Dinkum::allocators::cache_suballoc&lt;sizeof(T)&gt;</code>.</p>
+
+  <h2><a name="cache_suballoc"><code>cache_suballoc</code></a></h2>
+  <pre>
+template &lt;std::size_t sz, size_t NELTS = 20&gt; class <b>cache_suballoc</b> {
+public:
+    <b><a href="#cache_suballoc::cache_suballoc">cache_suballoc</a></b>();
+    template &lt;size_t usz&gt; <b><a href=
+"#cache_suballoc::cache_suballoc">cache_suballoc</a></b>(const cache_suballoc&lt;usz&gt;&amp;);
+    template &lt;size_t usz&gt; cache_suballoc&lt;usz&gt;&amp; <b><a href=
+"#cache_suballoc::operator=">operator=</a></b>(const cache_suballoc&lt;usz&gt;&amp;);
+    void *<b><a href="#cache_suballoc::allocate">allocate</a></b>(std::size_t);
+    void <b><a href="#cache_suballoc::deallocate">deallocate</a></b>(void *, std::size_t);
+};
+</pre>
+
+  <p>The <a href="index_alloc.html#cache">cache</a> template class stores deallocated memory blocks in a free
+  list with unbounded length, using <code><a href="#freelist">freelist</a>&lt;sizeof(T), <a href=
+  "#max_unbounded">max_unbounded</a>&gt;</code>, and suballocates memory blocks from a larger chunk allocated
+  with <code>operator new</code> when the free list is empty.</p>
+
+  <p><i>Overhead:</i> each chunk holds <code>sz * NELTS</code> bytes of usable memory and the data that
+  <code>operator new</code> and <code>operator delete</code> require. Allocated chunks are never freed.</p>
+
+  <h3><a name="cache_suballoc::allocate"><code>cache_suballoc::allocate</code></a></h3>
+  <pre>
+<code>void *<b>allocate</b>(std::size_t);</code>
+</pre>
+
+  <p>The member function implements <a href=
+  "index_alloc.html#block_allocator::allocate">block_allocator::allocate</a>.</p>
+
+  <h3><a name="cache_suballoc::cache_suballoc"><code>cache_suballoc::cache_suballoc</code></a></h3>
+  <pre>
+<code><b>cache_suballoc</b>();
+template &lt;size_t usz&gt; <b>cache_suballoc</b>(const cache_suballoc&lt;usz&gt;&amp;);</code>
+</pre>
+
+  <p>The constructors construct a <code>cache_suballoc</code> object.</p>
+
+  <h3><a name="cache_suballoc::deallocate"><code>cache_suballoc::deallocate</code></a></h3>
+  <pre>
+<code>void <b>deallocate</b>(void *, std::size_t);</code>
+</pre>
+
+  <p>The member function implements <a href=
+  "index_alloc.html#block_allocator::deallocate">block_allocator::deallocate</a>.</p>
+
+  <h3><a name="cache_suballoc::operator="><code>cache_suballoc::operator=</code></a></h3>
+  <pre>
+<code>template &lt;size_t usz&gt; cache_suballoc&lt;usz&gt;&amp; <b>operator=</b>(const cache_suballoc&lt;usz&gt;&amp;);</code>
+</pre>
+
+  <p>The template assignment operator does nothing.</p>
+
+  <h2><a name="freelist"><code>freelist</code></a></h2>
+  <pre>
+template &lt;std::size_t sz, class Max&gt; class <b>freelist</b>
+    : public Max {
+public:
+    <b><a href="#freelist::freelist">freelist</a></b>();
+    bool <b><a href="#freelist::push">push</a></b>(void *);
+    void *<b><a href="#freelist::pop">pop</a></b>();
+};
+</pre>
+
+  <p>The template class <code>freelist</code> manages a list of memory blocks of size <code>sz</code> with
+  the maximum length of the list determined by the <a href="index_alloc.html#max%20class">max class</a>
+  <code>Max</code>.</p>
+
+  <h3><a name="freelist::freelist"><code>freelist::freelist</code></a></h3>
+  <pre>
+<code><b>freelist</b>();</code>
+</pre>
+
+  <p>The constructor constructs a <code>freelist</code> instance.</p>
+
+  <h3><a name="freelist::pop"><code>freelist::pop</code></a></h3>
+  <pre>
+<code>void *<b>pop</b>();</code>
+</pre>
+
+  <p>The member function returns <code>NULL</code> if the list is empty. Otherwise it removes the first
+  memory block from the list and returns a pointer to that block.</p>
+
+  <h3><a name="freelist::push"><code>freelist::push</code></a></h3>
+  <pre>
+<code>bool <b>push</b>(void *ptr);</code>
+</pre>
+
+  <p>The member function returns false if <code>Max::full</code> returns true. Otherwise it adds the memory
+  block pointed to by <code>ptr</code> to the head of the list and returns true.</p>
+
+  <h2><a name="max_fixed_size"><code>max_fixed_size</code></a></h2>
+  <pre>
+template &lt;std::size_t max&gt; class <b>max_fixed_size</b> {
+public:
+    <b><a href="#max_fixed_size::max_fixed_size">max_fixed_size</a></b>()
+        : nblocks(0) {}
+    bool <b><a href="#max_fixed_size::full">full</a></b>()
+        {return max &lt;= nblocks; }
+    void <b><a href="#max_fixed_size::saved">saved</a></b>()
+        {++nblocks; }
+    void <b><a href="#max_fixed_size::released">released</a></b>()
+        {--nblocks; }
+    void <b><a href="#max_fixed_size::allocated">allocated</a></b>(std::size_t = 1) {}
+    void <b><a href="#max_fixed_size::deallocated">deallocated</a></b>(std::size_t = 1) {}
+private:
+    unsigned long nblocks;
+};
+</pre>
+
+  <p>The template class describes a <a href="index_alloc.html#max%20class">max class</a> object that limits a
+  <a href="#freelist">freelist</a> object to a fixed maximum length <code>max</code>.</p>
+
+  <h3><a name="max_fixed_size::allocated"><code>max_fixed_size::allocated</code></a></h3>
+  <pre>
+<code>void <b>allocated</b>(std::size_t = 1) {}</code>
+</pre>
+
+  <p>The member function does nothing.</p>
+
+  <h3><a name="max_fixed_size::deallocated"><code>max_fixed_size::deallocated</code></a></h3>
+  <pre>
+<code>void <b>deallocated</b>(std::size_t = 1) {}</code>
+</pre>
+
+  <p>The member function does nothing.</p>
+
+  <h3><a name="max_fixed_size::full"><code>max_fixed_size::full</code></a></h3>
+  <pre>
+<code>bool <b>full</b>()
+    {return max &lt;= nblocks; }</code>
+</pre>
+
+  <p>The member function returns true if <code>max &lt;= nblocks</code>.</p>
+
+  <h3><a name="max_fixed_size::max_fixed_size"><code>max_fixed_size::max_fixed_size</code></a></h3>
+  <pre>
+<code><b>max_fixed_size</b>()
+    : nblocks(0) {}</code>
+</pre>
+
+  <p>The constructor initializes the stored value <code>nblocks</code> to zero.</p>
+
+  <h3><a name="max_fixed_size::released"><code>max_fixed_size::released</code></a></h3>
+  <pre>
+<code>void <b>released</b>()
+    {--nblocks; }</code>
+</pre>
+
+  <p>The member function decrements the stored value <code>nblocks</code>.</p>
+
+  <h3><a name="max_fixed_size::saved"><code>max_fixed_size::saved</code></a></h3>
+  <pre>
+<code>void <b>saved</b>()
+    {++nblocks; }</code>
+</pre>
+
+  <p>The member function increments the stored value <code>nblocks</code>.</p>
+
+  <h2><a name="max_none"><code>max_none</code></a></h2>
+  <pre>
+template &lt;std::size_t max&gt; class <b>max_none</b> {
+public:
+    bool <b><a href="#max_none::full">full</a></b>() {return true; }
+    void <b><a href="#max_none::saved">saved</a></b>() {}
+    void <b><a href="#max_none::released">released</a></b>() {}
+    void <b><a href="#max_none::allocated">allocated</a></b>(std::size_t = 1) {}
+    void <b><a href="#max_none::deallocated">deallocated</a></b>(std::size_t = 1) {}
+};
+</pre>
+
+  <p>The template class describes a <a href="index_alloc.html#max%20class">max class</a> object that limits a
+  <a href="#freelist">freelist</a> object to a maximum length of zero.</p>
+
+  <h3><a name="max_none::allocated"><code>max_none::allocated</code></a></h3>
+  <pre>
+<code>void <b>allocated</b>(std::size_t = 1) {}</code>
+</pre>
+
+  <p>The member function does nothing.</p>
+
+  <h3><a name="max_none::deallocated"><code>max_none::deallocated</code></a></h3>
+  <pre>
+<code>void <b>deallocated</b>(std::size_t = 1) {}</code>
+</pre>
+
+  <p>The member function does nothing.</p>
+
+  <h3><a name="max_none::full"><code>max_none::full</code></a></h3>
+  <pre>
+<code>bool <b>full</b>()
+    {return true; }</code>
+</pre>
+
+  <p>The member function returns true.</p>
+
+  <h3><a name="max_none::released"><code>max_none::released</code></a></h3>
+  <pre>
+<code>void <b>released</b>() {}</code>
+</pre>
+
+  <p>The member function does nothing.</p>
+
+  <h3><a name="max_none::saved"><code>max_none::saved</code></a></h3>
+  <pre>
+<code>void <b>saved</b>() {}</code>
+</pre>
+
+  <p>The member function does nothing.</p>
+
+  <h2><a name="max_unbounded"><code>max_unbounded</code></a></h2>
+  <pre>
+class <b>max_unbounded</b> {
+public:
+    bool <b><a href="#max_unbounded::full">full</a></b>() {return false; }
+    void <b><a href="#max_unbounded::saved">saved</a></b>() {}
+    void <b><a href="#max_unbounded::released">released</a></b>() {}
+    void <b><a href="#max_unbounded::allocated">allocated</a></b>(std::size_t = 1) {}
+    void <b><a href="#max_unbounded::deallocated">deallocated</a></b>(std::size_t = 1) {}
+};
+</pre>
+
+  <p>The template class describes a <a href="index_alloc.html#max%20class">max class</a> object that does not
+  limit the maximum length of a <a href="#freelist">freelist</a> object.</p>
+
+  <h3><a name="max_unbounded::allocated"><code>max_unbounded::allocated</code></a></h3>
+  <pre>
+<code>void <b>allocated</b>(std::size_t = 1) {}</code>
+</pre>
+
+  <p>The member function does nothing.</p>
+
+  <h3><a name="max_unbounded::deallocated"><code>max_unbounded::deallocated</code></a></h3>
+  <pre>
+<code>void <b>deallocated</b>(std::size_t = 1) {}</code>
+</pre>
+
+  <p>The member function does nothing.</p>
+
+  <h3><a name="max_unbounded::full"><code>max_unbounded::full</code></a></h3>
+  <pre>
+<code>bool <b>full</b>()
+    {return false; }</code>
+</pre>
+
+  <p>The member function returns false.</p>
+
+  <h3><a name="max_unbounded::released"><code>max_unbounded::released</code></a></h3>
+  <pre>
+<code>void <b>released</b>() {}</code>
+</pre>
+
+  <p>The member function does nothing.</p>
+
+  <h3><a name="max_unbounded::saved"><code>max_unbounded::saved</code></a></h3>
+  <pre>
+<code>void <b>saved</b>() {}</code>
+</pre>
+
+  <p>The member function does nothing.</p>
+
+  <h2><a name="max_variable_size"><code>max_variable_size</code></a></h2>
+  <pre>
+class <b>max_variable_size</b> {
+public:
+    <b><a href="#max_variable_size::max_variable_size">max_variable_size</a></b>()
+        : nblocks(0), nallocs(0) {}
+    bool <b><a href="#max_variable_size::full">full</a></b>()
+        {return nallocs / 16 + 16 &lt;= nblocks; }
+    void <b><a href="#max_variable_size::saved">saved</a></b>()
+        {++nblocks; }
+    void <b><a href="#max_variable_size::released">released</a></b>()
+        {--nblocks; }
+    void <b><a href="#max_variable_size::allocated">allocated</a></b>(std::size_t n = 1)
+        {nallocs += n; }
+    void <b><a href="#max_variable_size::deallocated">deallocated</a></b>(std::size_t n = 1);
+        {nallocs -= n; }
+private:
+    unsigned long nblocks;
+    unsigned long nallocs;
+};
+</pre>
+
+  <p>The template class describes a <a href="index_alloc.html#max%20class">max class</a> object that limits a
+  <a href="#freelist">freelist</a> object to a maximum length that is roughly proportional to the number of
+  allocated memory blocks.</p>
+
+  <h3><a name="max_variable_size::allocated"><code>max_variable_size::allocated</code></a></h3>
+  <pre>
+<code>void <b>allocated</b>(std::size_t n = 1)
+    {nallocs += n; }</code>
+</pre>
+
+  <p>The member function adds <code>n</code> to the stored value <code>nallocs</code>.</p>
+
+  <h3><a name="max_variable_size::deallocated"><code>max_variable_size::deallocated</code></a></h3>
+  <pre>
+<code>void <b>deallocated</b>(std::size_t n = 1)
+    {nallocs -= n; }</code>
+</pre>
+
+  <p>The member function subtracts <code>n</code> from the stored value <code>nallocs</code>.</p>
+
+  <h3><a name="max_variable_size::full"><code>max_variable_size::full</code></a></h3>
+  <pre>
+<code>bool <b>full</b>()
+    {return nallocs / 16 + 16 &lt;= nblocks; }</code>
+</pre>
+
+  <p>The member function returns true if <code>nallocs / 16 + 16 &lt;= nblocks</code>.</p>
+
+  <h3><a name=
+  "max_variable_size::max_variable_size"><code>max_variable_size::max_variable_size</code></a></h3>
+  <pre>
+<code><b>max_variable_size</b>()
+    : nblocks(0), nallocs(0) {}</code>
+</pre>
+
+  <p>The constructor initializes the stored values <code>nblocks</code> and <code>nallocs</code> to zero.</p>
+
+  <h3><a name="max_variable_size::released"><code>max_variable_size::released</code></a></h3>
+  <pre>
+<code>void <b>released</b>()
+    {--nblocks; }</code>
+</pre>
+
+  <p>The member function decrements the stored value <code>nblocks</code>.</p>
+
+  <h3><a name="max_variable_size::saved"><code>max_variable_size::saved</code></a></h3>
+  <pre>
+<code>void <b>saved</b>()
+    {++nblocks; }</code>
+</pre>
+
+  <p>The member function increments the stored value <code>nblocks</code>.</p>
+
+  <h2><a name="rts_alloc"><code>rts_alloc</code></a></h2>
+  <pre>
+template &lt;class Cache&gt; class <b>rts_alloc</b> {
+    public:
+        void *<b><a href="#rts_alloc::allocate">allocate</a></b>(std::size_t);
+        void <b><a href="#rts_alloc::deallocate">deallocate</a></b>(void *, std::size_t);
+        bool <b><a href="#rts_alloc::equals">equals</a></b>(const rts_alloc&lt;Cache&gt;&amp;) const;
+    private:
+        Cache <b>caches</b>[COUNT];
+};
+</pre>
+
+  <p>The template class describes a <a href="index_alloc.html#filter">filter</a> that holds an array of
+  <code>Cache</code> instances and determines which instance to use for allocation and deallocation at
+  runtime instead of at compile time. It is used with compilers that cannot <a href=
+  "index_alloc.html#compile%20rebind">compile rebind</a>.</p>
+
+  <h3><a name="rts_alloc::allocate"><code>rts_alloc::allocate</code></a></h3>
+  <pre>
+<code>void *<b>allocate</b>(std::size_t n);</code>
+</pre>
+
+  <p>The member function returns <code>cache[idx].allocate(n)</code>, where the index <code>idx</code> is
+  determined by the requested block size <code>n</code>, or, if <code>n</code> is too large, it returns
+  <code>::operator new(n)</code>.</p>
+
+  <h3><a name="rts_alloc::deallocate"><code>rts_alloc::deallocate</code></a></h3>
+  <pre>
+<code>void <b>deallocate</b>(void *ptr, std::size_t n);</code>
+</pre>
+
+  <p>The member function calls <code>cache[idx].deallocate(ptr, n)</code>, where index <code>idx</code> is
+  determined by the requested block size <code>n</code>, or, if <code>n</code> is too large, it returns
+  <code>::operator delete(ptr)</code>.</p>
+
+  <h3><a name="rts_alloc::equals"><code>rts_alloc::equals</code></a></h3>
+  <pre>
+<code>bool <b>equals</b>(const sync&lt;Cache&gt;&amp; other) const;</code>
+</pre>
+
+  <p>The member function returns <code>cache[0].equals(other.cache[0])</code>.</p>
+
+  <h2><a name="SYNC_DEFAULT_MACRO"><code>SYNC_DEFAULT</code></a></h2>
+  <pre>
+#define <b>SYNC_DEFAULT</b> <i>&lt;sync_template&gt;</i>
+</pre>
+
+  <p>If a compiler supports compiling both single-threaded and multi-threaded applications, for
+  single-threaded applications the macro yields <code>Dinkum::allocators::<a href=
+  "#sync_none">sync_none</a></code>; in all other cases it yields <code>Dinkum::allocators::<a href=
+  "#sync_shared">sync_shared</a></code>.</p>
+
+  <h2><a name="sync_none"><code>sync_none</code></a></h2>
+  <pre>
+template &lt;class Cache&gt; class <b>sync_none</b> {
+    public:
+        void *<b><a href="#sync_none::allocate">allocate</a></b>(std::size_t n)
+            {return cache.allocate(n); }
+        void <b><a href="#sync_none::deallocate">deallocate</a></b>(void *ptr, std::size_t n)
+            {cache.deallocate(ptr, n); }
+        bool <b><a href="#sync_none::equals">equals</a></b>(const sync_none&lt;Cache&gt;&amp;) const
+            {return true; }
+    private:
+        static Cache <b>cache</b>;
+};
+</pre>
+
+  <p>The template class describes a <a href="index_alloc.html#synchronization%20filter">synchronization
+  filter</a> that provides no synchronization.</p>
+
+  <h3><a name="sync_none::allocate"><code>sync_none::allocate</code></a></h3>
+  <pre>
+<code>void *<b>allocate</b>(std::size_t n)
+    {return cache.allocate(n); }</code>
+</pre>
+
+  <p>The member function returns <code>cache.allocate(n)</code>.</p>
+
+  <h3><a name="sync_none::deallocate"><code>sync_none::deallocate</code></a></h3>
+  <pre>
+<code>void <b>deallocate</b>(void *ptr, std::size_t n)
+    {cache.deallocate(ptr, n); }</code>
+</pre>
+
+  <p>The member function calls <code>cache.deallocate(ptr, n)</code>.</p>
+
+  <h3><a name="sync_none::equals"><code>sync_none::equals</code></a></h3>
+  <pre>
+<code>bool <b>equals</b>(const sync&lt;Cache&gt;&amp;) const
+    [return true; }</code>
+</pre>
+
+  <p>The member function returns true.</p>
+
+  <h2><a name="sync_per_container"><code>sync_per_container</code></a></h2>
+  <pre>
+template &lt;class Cache&gt; class <b>sync_per_container</b>
+    : public Cache {
+        public:
+            bool <b><a href=
+"#sync_per_container::equals">equals</a></b>(const sync_per_container&lt;Cache&gt;&amp;) const
+                {return false; }
+};
+</pre>
+
+  <p>The template class describes a <a href="index_alloc.html#synchronization%20filter">synchronization
+  filter</a> that provides a separate <code>Cache</code> object for each allocator object.</p>
+
+  <h3><a name="sync_per_container::equals"><code>sync_per_container::equals</code></a></h3>
+  <pre>
+<code>bool <b>equals</b>(const sync&lt;Cache&gt;&amp;) const
+    [return false; }</code>
+</pre>
+
+  <p>The member function returns false.</p>
+
+  <h2><a name="sync_per_thread"><code>sync_per_thread</code></a></h2>
+  <pre>
+template &lt;class Cache&gt; class <b>sync_per_thread</b> {
+    public:
+        void *<b><a href="#sync_per_thread::allocate">allocate</a></b>(std::size_t);
+        void <b><a href="#sync_per_thread::deallocate">deallocate</a></b>(void *, std::size_t);
+        bool <b><a href=
+"#sync_per_thread::equals">equals</a></b>(const sync_per_thread&lt;Cache&gt;&amp;) const;
+    private:
+        static threads::thread_specific_ptr&lt;Cache&gt; <b>cache_ptr</b>;
+};
+</pre>
+
+  <p>The template class describes a <a href="index_alloc.html#synchronization%20filter">synchronization
+  filter</a> that provides a separate <code>Cache</code> object for each thread.</p>
+
+  <p><b>Caution</b>: allocators that use <code>sync_per_thread</code> can compare equal even though blocks
+  allocated in one thread cannot be deallocated from another thread. When using one of these allocators
+  memory blocks allocated in one thread should not be made visible to other threads. In practice this means
+  that a container that uses one of these allocators should only be accessed by a single thread.</p>
+
+  <h3><a name="sync_per_thread::allocate"><code>sync_per_thread::allocate</code></a></h3>
+  <pre>
+<code>void *<b>allocate</b>(std::size_t n);</code>
+</pre>
+
+  <p>The member function returns the result of a call to <code>Cache::allocate(n)</code> on the
+  <code>Cache</code> object belonging to the current thread. If no <code>Cache</code> object has been
+  allocated for the current thread it first allocates one.</p>
+
+  <h3><a name="sync_per_thread::deallocate"><code>sync_per_thread::deallocate</code></a></h3>
+  <pre>
+<code>void <b>deallocate</b>(void *ptr, std::size_t n);</code>
+</pre>
+
+  <p>The member function calls <code>Cache::deallocate(ptr, n)</code> on the <code>Cache</code> object
+  belonging to the current thread. If no <code>Cache</code> object has been allocated for the current thread
+  it first allocates one.</p>
+
+  <h3><a name="sync_per_thread::equals"><code>sync_per_thread::equals</code></a></h3>
+  <pre>
+<code>bool <b>equals</b>(const sync&lt;Cache&gt;&amp; other) const;</code>
+</pre>
+
+  <p>The member function returns false if no <code>Cache</code> object has been allocated for this object or
+  for <code>other</code> in the current thread. Otherwise it returns the result of applying
+  <code>operator==</code> to the two <code>Cache</code> objects.</p>
+
+  <h2><a name="sync_shared"><code>sync_shared</code></a></h2>
+  <pre>
+template &lt;class Cache&gt; class <b>sync_shared</b> {
+    public:
+        void *<b><a href="#sync_shared::allocate">allocate</a></b>(std::size_t);
+        void <b><a href="#sync_shared::deallocate">deallocate</a></b>(void *, std::size_t);
+        bool <b><a href="#sync_shared::equals">equals</a></b>(const sync_shared&lt;Cache&gt;&amp;) const;
+    private:
+        static Cache <b>cache</b>;
+        static threads::mutex <b>mutex</b>;
+};
+</pre>
+
+  <p>The template class describes a <a href="index_alloc.html#synchronization%20filter">synchronization
+  filter</a> that uses a mutex to control access to a <code>Cache</code> object that is shared by all
+  allocators.</p>
+
+  <h3><a name="sync_shared::allocate"><code>sync_shared::allocate</code></a></h3>
+  <pre>
+<code>void *<b>allocate</b>(std::size_t n);</code>
+</pre>
+
+  <p>The member function locks the mutex, calls <code>cache.allocate(n)</code>, unlocks the mutex, and
+  returns the result of the earlier call to <code>cache.allocate(n)</code>.</p>
+
+  <h3><a name="sync_shared::deallocate"><code>sync_shared::deallocate</code></a></h3>
+  <pre>
+<code>void <b>deallocate</b>(void *ptr, std::size_t n);</code>
+</pre>
+
+  <p>The member function locks the mutex, calls <code>cache.deallocate(ptr, n)</code>, and unlocks the
+  mutex.</p>
+
+  <h3><a name="sync_shared::equals"><code>sync_shared::equals</code></a></h3>
+  <pre>
+<code>bool <b>equals</b>(const sync&lt;Cache&gt;&amp; other) const;</code>
+</pre>
+
+  <p>The member function returns <code>cache.equals(other.cache)</code>.</p>
+  <hr>
+
+  <p>See also the <b><a href="index.html">Table of Contents</a></b> and the <b><a href=
+  "_index.html">Index</a></b>.</p>
+
+  <p><i><a href="crit_pjp.html">Copyright</a> &copy; 1992-2010 by Dinkumware, Ltd. All rights
+  reserved.</i></p><!--V5.30:126I-->
+</body>
+</html>

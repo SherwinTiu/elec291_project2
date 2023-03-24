@@ -1,0 +1,441 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html>
+<head>
+  <meta name="generator" content=
+  "HTML Tidy for Mac OS X (vers 31 October 2006 - Apple Inc. build 15.15), see www.w3.org">
+
+  <title>&lt;limits&gt;</title>
+</head>
+
+<body>
+  <h1><a name="&lt;limits&gt;"><code>&lt;limits&gt;</code></a></h1>
+  <hr>
+
+  <p>Include the standard header <b><code>&lt;limits&gt;</code></b> to define the template class
+  <code>numeric_limits</code>. Explicit specializations of this class describe many arithmetic properties of
+  the scalar types (other than pointers).</p>
+
+  <p>Beginning with <b>C++0X</b>, all static const objects and static functions declared in this header use
+  <code>constexpr</code> to signal that they are treated as compile-time constants.</p>
+  <pre>
+namespace std {
+enum <b><a href="#float_denorm_style">float_denorm_style</a></b>;
+enum <b><a href="#float_round_style">float_round_style</a></b>;
+template&lt;class Ty&gt;
+    class <b><a href="#numeric_limits">numeric_limits</a></b>;
+}  // namespace std
+</pre>
+
+  <h2><a name="float_denorm_style"><code>float_denorm_style</code></a></h2>
+  <pre>
+enum float_denorm_style {
+    <b>denorm_indeterminate</b> = -1,
+    <b>denorm_absent</b> = 0,
+    <b>denorm_present</b> = 1
+    };
+</pre>
+
+  <p>The enumeration describes the various methods that an implementation can choose for representing a
+  denormalized floating-point value -- one too small to represent as a normalized value:</p>
+
+  <ul>
+    <li><b><a name="float_denorm_style::denorm_indeterminate"><code>denorm_indeterminate</code></a></b> --
+    presence or absence of denormalized forms cannot be determined at translation time</li>
+
+    <li><b><a name="float_denorm_style::denorm_absent"><code>denorm_absent</code></a></b> -- denormalized
+    forms are absent</li>
+
+    <li><b><a name="float_denorm_style::denorm_present"><code>denorm_present</code></a></b> -- denormalized
+    forms are present</li>
+  </ul>
+
+  <h2><a name="float_round_style"><code>float_round_style</code></a></h2>
+  <pre>
+enum float_round_style {
+    <b>round_indeterminate</b> = -1,
+    <b>round_toward_zero</b> = 0,
+    <b>round_to_nearest</b> = 1,
+    <b>round_toward_infinity</b> = 2,
+    <b>round_toward_neg_infinity</b> = 3
+    };
+</pre>
+
+  <p>The enumeration describes the various methods that an implementation can choose for rounding a
+  floating-point value to an integer value:</p>
+
+  <ul>
+    <li><b><a name="float_round_style::round_indeterminate"><code>round_indeterminate</code></a></b> --
+    rounding method cannot be determined</li>
+
+    <li><b><a name="float_round_style::round_toward_zero"><code>round_toward_zero</code></a></b> -- round
+    toward zero</li>
+
+    <li><b><a name="float_round_style::round_to_nearest"><code>round_to_nearest</code></a></b> -- round to
+    nearest integer</li>
+
+    <li><b><a name="float_round_style::round_toward_infinity"><code>round_toward_infinity</code></a></b> --
+    round away from zero</li>
+
+    <li><b><a name=
+    "float_round_style::round_toward_neg_infinity"><code>round_toward_neg_infinity</code></a></b> -- round to
+    more negative integer</li>
+  </ul>
+
+  <h2><a name="numeric_limits"><code>numeric_limits</code></a></h2>
+  <pre>
+template&lt;class Ty&gt;
+    class numeric_limits {
+public:
+    static constexpr float_denorm_style <b><a href="#numeric_limits::has_denorm">has_denorm</a></b>
+        = denorm_absent;
+    static constexpr bool <b><a href="#numeric_limits::has_denorm_loss">has_denorm_loss</a></b> = false;
+    static constexpr bool <b><a href="#numeric_limits::has_infinity">has_infinity</a></b> = false;
+    static constexpr bool <b><a href="#numeric_limits::has_quiet_NaN">has_quiet_NaN</a></b> = false;
+    static constexpr bool <b><a href="#numeric_limits::has_signaling_NaN">has_signaling_NaN</a></b> = false;
+    static constexpr bool <b><a href="#numeric_limits::is_bounded">is_bounded</a></b> = false;
+    static constexpr bool <b><a href="#numeric_limits::is_exact">is_exact</a></b> = false;
+    static constexpr bool <b><a href="#numeric_limits::is_iec559">is_iec559</a></b> = false;
+    static constexpr bool <b><a href="#numeric_limits::is_integer">is_integer</a></b> = false;
+    static constexpr bool <b><a href="#numeric_limits::is_modulo">is_modulo</a></b> = false;
+    static constexpr bool <b><a href="#numeric_limits::is_signed">is_signed</a></b> = false;
+    static constexpr bool <b><a href="#numeric_limits::is_specialized">is_specialized</a></b> = false;
+    static constexpr bool <b><a href="#numeric_limits::tinyness_before">tinyness_before</a></b> = false;
+    static constexpr bool <b><a href="#numeric_limits::traps">traps</a></b> = false;
+
+    static constexpr float_round_style <b><a href="#numeric_limits::round_style">round_style</a></b> =
+        round_toward_zero;
+
+    static constexpr int <b><a href="#numeric_limits::digits">digits</a></b> = 0;
+    static constexpr int <b><a href="#numeric_limits::digits10">digits10</a></b> = 0;
+    static constexpr int <b><a href=
+"#numeric_limits::max_digits10">max_digits10</a></b> = 0; <b>[added with C++0X]</b>
+    static constexpr int <b><a href="#numeric_limits::max_exponent">max_exponent</a></b> = 0;
+    static constexpr int <b><a href="#numeric_limits::max_exponent10">max_exponent10</a></b> = 0;
+    static constexpr int <b><a href="#numeric_limits::min_exponent">min_exponent</a></b> = 0;
+    static constexpr int <b><a href="#numeric_limits::min_exponent10">min_exponent10</a></b> = 0;
+    static constexpr int <b><a href="#numeric_limits::radix">radix</a></b> = 0;
+
+    static constexpr Ty <b><a href="#numeric_limits::denorm_min">denorm_min</a></b>() throw();
+    static constexpr Ty <b><a href="#numeric_limits::epsilon">epsilon</a></b>() throw();
+    static constexpr Ty <b><a href="#numeric_limits::infinity">infinity</a></b>() throw();
+    static constexpr Ty <b><a href=
+"#numeric_limits::lowest">lowest</a></b>() throw(); <b>[added with C++0X]</b>
+    static constexpr Ty <b><a href="#numeric_limits::max">max</a></b>() throw();
+    static constexpr Ty <b><a href="#numeric_limits::min">min</a></b>() throw();
+    static constexpr Ty <b><a href="#numeric_limits::quiet_NaN">quiet_NaN</a></b>() throw();
+    static constexpr Ty <b><a href="#numeric_limits::round_error">round_error</a></b>() throw();
+    static constexpr Ty <b><a href="#numeric_limits::signaling_NaN">signaling_NaN</a></b>() throw();
+    };
+</pre>
+
+  <p>The template class describes many arithmetic properties of its parameter type <code>Ty</code>. The
+  header defines explicit specializations for the types <code>wchar_t</code>, <i>bool, char, signed char,
+  unsigned char, short, unsigned short, int, unsigned int, long, unsigned long, float, double,</i> and
+  <i>long double.</i> Beginning with <b>C++0X</b>, it also defines explicit specializations for <i>long
+  long,</i> <i>unsigned long long,</i> <code>char16_t</code>, and <code>char32_t</code>. In addition, the
+  header defines the <i>const, volatile,</i> and <i>const volatile</i> variants of all these types. For all
+  these explicit specializations, the member <code>is_specialized</code> is true, and all relevant members
+  have meaningful values. The program can supply additional explicit specializations.</p>
+
+  <p>For an arbitrary specialization, <i>no</i> members have meaningful values. A member object that does not
+  have a meaningful value stores zero (or false) and a member function that does not return a meaningful
+  value returns <code>Ty(0)</code>.</p>
+
+  <h3><a name="numeric_limits::denorm_min"><code>numeric_limits::denorm_min</code></a></h3>
+  <pre>
+static constexpr Ty <b>denorm_min</b>() throw();
+</pre>
+
+  <p>The function returns the minimum value for the type (which is the same as <a href=
+  "#numeric_limits::min"><code>min</code></a>() if <a href=
+  "#numeric_limits::has_denorm"><code>has_denorm</code></a> is not equal to <code><a href=
+  "#float_denorm_style::denorm_present">denorm_present</a></code>).</p>
+
+  <h3><a name="numeric_limits::digits"><code>numeric_limits::digits</code></a></h3>
+  <pre>
+static constexpr int <b>digits</b> = 0;
+</pre>
+
+  <p>The member stores the number of <a href="#numeric_limits::radix"><code>radix</code></a> digits that the
+  type can represent without change (which is the number of bits other than any sign bit for a predefined
+  integer type, or the number of mantissa digits for a predefined floating-point type).</p>
+
+  <h3><a name="numeric_limits::digits10"><code>numeric_limits::digits10</code></a></h3>
+  <pre>
+static constexpr int <b>digits10</b> = 0;
+</pre>
+
+  <p>The member stores the number of decimal digits that the type can represent without change.</p>
+
+  <h3><a name="numeric_limits::epsilon"><code>numeric_limits::epsilon</code></a></h3>
+  <pre>
+static constexpr Ty <b>epsilon</b>() throw();
+</pre>
+
+  <p>The function returns the difference between 1 and the smallest value greater than 1 that is
+  representable for the type (which is the value <a href=
+  "float.html#FLT_EPSILON"><code>FLT_EPSILON</code></a> for type <i>float</i>).</p>
+
+  <h3><a name="numeric_limits::has_denorm"><code>numeric_limits::has_denorm</code></a></h3>
+  <pre>
+static constexpr float_denorm_style <b>has_denorm</b> =
+    denorm_absent;
+</pre>
+
+  <p>The member stores <code><a href="#float_denorm_style::denorm_present">denorm_present</a></code> for a
+  floating-point type that has denormalized values (effectively a variable number of exponent bits).</p>
+
+  <h3><a name="numeric_limits::has_denorm_loss"><code>numeric_limits::has_denorm_loss</code></a></h3>
+  <pre>
+static constexpr bool <b>has_denorm_loss</b> = false;
+</pre>
+
+  <p>The member stores true for a type that determines whether a value has lost accuracy because it is
+  delivered as a denormalized result (too small to represent as a normalized value) or because it is inexact
+  (not the same as a result not subject to limitations of exponent range and precision), an option with
+  <a href="#IEC%20559">IEC 559</a> floating-point representations that can affect some results.</p>
+
+  <h3><a name="numeric_limits::has_infinity"><code>numeric_limits::has_infinity</code></a></h3>
+  <pre>
+static constexpr bool <b>has_infinity</b> = false;
+</pre>
+
+  <p>The member stores true for a type that has a representation for positive infinity. True if <a href=
+  "#numeric_limits::is_iec559"><code>is_iec559</code></a> is true.</p>
+
+  <h3><a name="numeric_limits::has_quiet_NaN"><code>numeric_limits::has_quiet_NaN</code></a></h3>
+  <pre>
+static constexpr bool <b>has_quiet_NaN</b> = false;
+</pre>
+
+  <p>The member stores true for a type that has a representation for a <b><a name="quiet NaN">quiet
+  NaN</a></b>, an encoding that is ``Not a Number'' which does not <a href="signal.html#signals">signal</a>
+  its presence in an expression. True if <a href="#numeric_limits::is_iec559"><code>is_iec559</code></a> is
+  true.</p>
+
+  <h3><a name="numeric_limits::has_signaling_NaN"><code>numeric_limits::has_signaling_NaN</code></a></h3>
+  <pre>
+static constexpr bool <b>has_signaling_NaN</b> = false;
+</pre>
+
+  <p>The member stores true for a type that has a representation for a <b><a name="signaling NaN">signaling
+  NaN</a></b>, an encoding that is ``Not a Number'' which <a href="signal.html#signals">signals</a> its
+  presence in an expression by reporting an exception. True if <a href=
+  "#numeric_limits::is_iec559"><code>is_iec559</code></a> is true.</p>
+
+  <h3><a name="numeric_limits::infinity"><code>numeric_limits::infinity</code></a></h3>
+  <pre>
+static constexpr Ty <b>infinity</b>() throw();
+</pre>
+
+  <p>The function returns the representation of positive infinity for the type. The return value is
+  meaningful only if <a href="#numeric_limits::has_infinity"><code>has_infinity</code></a> is true.</p>
+
+  <h3><a name="numeric_limits::is_bounded"><code>numeric_limits::is_bounded</code></a></h3>
+  <pre>
+static constexpr bool <b>is_bounded</b> = false;
+</pre>
+
+  <p>The member stores true for a type that has a bounded set of representable values (which is the case for
+  all predefined types).</p>
+
+  <h3><a name="numeric_limits::is_exact"><code>numeric_limits::is_exact</code></a></h3>
+  <pre>
+static constexpr bool <b>is_exact</b> = false;
+</pre>
+
+  <p>The member stores true for a type that has exact representations for all its values (which is the case
+  for all predefined integer types). A fixed-point or rational representation is also considered exact, but
+  not a floating-point representation.</p>
+
+  <h3><a name="numeric_limits::is_iec559"><code>numeric_limits::is_iec559</code></a></h3>
+  <pre>
+static constexpr bool <b>is_iec559</b> = false;
+</pre>
+
+  <p>The member stores true for a type that has a representation conforming to <b><a name="IEC 559">IEC
+  559</a></b>, an international standard for representing floating-point values (also known as <b><a name=
+  "IEEE 754">IEEE 754</a></b> in the USA).</p>
+
+  <h3><a name="numeric_limits::is_integer"><code>numeric_limits::is_integer</code></a></h3>
+  <pre>
+static constexpr bool <b>is_integer</b> = false;
+</pre>
+
+  <p>The member stores true for a type that has an integer representation (which is the case for all
+  predefined integer types).</p>
+
+  <h3><a name="numeric_limits::is_modulo"><code>numeric_limits::is_modulo</code></a></h3>
+  <pre>
+static constexpr bool <b>is_modulo</b> = false;
+</pre>
+
+  <p>The member stores true for a type that has a <b><a name="modulo representation">modulo
+  representation</a></b>, where all results are reduced modulo some value (which is the case for all
+  predefined unsigned integer types).</p>
+
+  <h3><a name="numeric_limits::is_signed"><code>numeric_limits::is_signed</code></a></h3>
+  <pre>
+static constexpr bool <b>is_signed</b> = false;
+</pre>
+
+  <p>The member stores true for a type that has a signed representation (which is the case for all predefined
+  floating-point and signed integer types).</p>
+
+  <h3><a name="numeric_limits::is_specialized"><code>numeric_limits::is_specialized</code></a></h3>
+  <pre>
+static constexpr bool <b>is_specialized</b> = false;
+</pre>
+
+  <p>The member stores true for a type that has an explicit specialization defined for template class
+  <a href="#numeric_limits"><code>numeric_limits</code></a> (which is the case for all scalar types other
+  than pointers).</p>
+
+  <h3><a name="numeric_limits::lowest"><code>numeric_limits::lowest</code></a></h3>
+  <pre>
+static constexpr Ty <b>lowest</b>() throw(); <b>[added with C++0X]</b>
+</pre>
+
+  <p>The function returns the most negative finite value for the type (which is typically <code><a href=
+  "#numeric_limits::min">min</a>()</code> for integer types and <code>-<a href=
+  "#numeric_limits::max">max</a>()</code> for floating-point types). The return value is meaningful if
+  <a href="#numeric_limits::is_bounded"><code>is_bounded</code></a> is true.</p>
+
+  <h3><a name="numeric_limits::max"><code>numeric_limits::max</code></a></h3>
+  <pre>
+static constexpr Ty <b>max</b>() throw();
+</pre>
+
+  <p>The function returns the maximum finite value for the type (which is <a href=
+  "limits.html#INT_MAX"><code>INT_MAX</code></a> for type <i>int</i> and <a href=
+  "float.html#FLT_MAX"><code>FLT_MAX</code></a> for type <i>float</i>). The return value is meaningful if
+  <a href="#numeric_limits::is_bounded"><code>is_bounded</code></a> is true.</p>
+
+  <h3><a name="numeric_limits::max_digits10"><code>numeric_limits::max_digits10</code></a></h3>
+  <pre>
+static constexpr int <b>max_digits10</b> = 0; <b>[added with C++0X]</b>
+</pre>
+
+  <p>The member stores the number of decimal digits required to ensure that two distinct values of the type
+  have distinct decimal representations.</p>
+
+  <h3><a name="numeric_limits::max_exponent"><code>numeric_limits::max_exponent</code></a></h3>
+  <pre>
+static constexpr int <b>max_exponent</b> = 0;
+</pre>
+
+  <p>The member stores the maximum positive integer such that the type can represent as a finite value
+  <a href="#numeric_limits::radix"><code>radix</code></a> raised to that power minus one (which is the value
+  <a href="float.html#FLT_MAX_EXP"><code>FLT_MAX_EXP</code></a> for type <i>float</i>). Meaningful only for
+  floating-point types.</p>
+
+  <h3><a name="numeric_limits::max_exponent10"><code>numeric_limits::max_exponent10</code></a></h3>
+  <pre>
+static constexpr int <b>max_exponent10</b> = 0;
+</pre>
+
+  <p>The member stores the maximum positive integer such that the type can represent as a finite value 10
+  raised to that power (which is the value <a href=
+  "float.html#FLT_MAX_10_EXP"><code>FLT_MAX_10_EXP</code></a> for type <i>float</i>). Meaningful only for
+  floating-point types.</p>
+
+  <h3><a name="numeric_limits::min"><code>numeric_limits::min</code></a></h3>
+  <pre>
+static constexpr Ty <b>min</b>() throw();
+</pre>
+
+  <p>The function returns the minimum normalized value for the type (which is <a href=
+  "limits.html#INT_MIN"><code>INT_MIN</code></a> for type <i>int</i> and <a href=
+  "float.html#FLT_MIN"><code>FLT_MIN</code></a> for type <i>float</i>). The return value is meaningful if
+  <a href="#numeric_limits::is_bounded"><code>is_bounded</code></a> is true or <code>is_bounded</code> is
+  false and <a href="#numeric_limits::is_signed"><code>is_signed</code></a> is false.</p>
+
+  <h3><a name="numeric_limits::min_exponent"><code>numeric_limits::min_exponent</code></a></h3>
+  <pre>
+static constexpr int <b>min_exponent</b> = 0;
+</pre>
+
+  <p>The member stores the minimum negative integer such that the type can represent as a normalized value
+  <a href="#numeric_limits::radix"><code>radix</code></a> raised to that power minus one (which is the value
+  <a href="float.html#FLT_MIN_EXP"><code>FLT_MIN_EXP</code></a> for type <i>float</i>). Meaningful only for
+  floating-point types.</p>
+
+  <h3><a name="numeric_limits::min_exponent10"><code>numeric_limits::min_exponent10</code></a></h3>
+  <pre>
+static constexpr int <b>min_exponent10</b> = 0;
+</pre>
+
+  <p>The member stores the minimum negative integer such that the type can represent as a normalized value 10
+  raised to that power (which is the value <a href=
+  "float.html#FLT_MIN_10_EXP"><code>FLT_MIN_10_EXP</code></a> for type <i>float</i>). Meaningful only for
+  floating-point types.</p>
+
+  <h3><a name="numeric_limits::quiet_NaN"><code>numeric_limits::quiet_NaN</code></a></h3>
+  <pre>
+static constexpr Ty <b>quiet_NaN</b>() throw();
+</pre>
+
+  <p>The function returns a representation of a <a href="#quiet%20NaN">quiet NaN</a> for the type. The return
+  value is meaningful only if <a href="#numeric_limits::has_quiet_NaN"><code>has_quiet_NaN</code></a> is
+  true.</p>
+
+  <h3><a name="numeric_limits::radix"><code>numeric_limits::radix</code></a></h3>
+  <pre>
+static constexpr int <b>radix</b> = 0;
+</pre>
+
+  <p>The member stores the base of the representation for the type (which is 2 for the predefined integer
+  types, and the base to which the exponent is raised, or <a href=
+  "float.html#FLT_RADIX"><code>FLT_RADIX</code></a>, for the predefined floating-point types).</p>
+
+  <h3><a name="numeric_limits::round_error"><code>numeric_limits::round_error</code></a></h3>
+  <pre>
+static constexpr Ty <b>round_error</b>() throw();
+</pre>
+
+  <p>The function returns the maximum rounding error for the type.</p>
+
+  <h3><a name="numeric_limits::round_style"><code>numeric_limits::round_style</code></a></h3>
+  <pre>
+static constexpr <a href="#float_round_style">float_round_style</a> <b>round_style</b> =
+     round_toward_zero;
+</pre>
+
+  <p>The member stores a value that describes the vaious methods that an implementation can choose for
+  rounding a floating-point value to an integer value.</p>
+
+  <h3><a name="numeric_limits::signaling_NaN"><code>numeric_limits::signaling_NaN</code></a></h3>
+  <pre>
+static constexpr Ty <b>signaling_NaN</b>() throw();
+</pre>
+
+  <p>The function returns a representation of a <a href="#signaling%20NaN">signaling NaN</a> for the type.
+  The return value is meaningful only if <a href=
+  "#numeric_limits::has_signaling_NaN"><code>has_signaling_NaN</code></a> is true.</p>
+
+  <h3><a name="numeric_limits::tinyness_before"><code>numeric_limits::tinyness_before</code></a></h3>
+  <pre>
+static constexpr bool <b>tinyness_before</b> = false;
+</pre>
+
+  <p>The member stores true for a type that determines whether a value is ``tiny'' (too small to represent as
+  a normalized value) before rounding, an option with <a href="#IEC%20559">IEC 559</a> floating-point
+  representations that can affect some results.</p>
+
+  <h3><a name="numeric_limits::traps"><code>numeric_limits::traps</code></a></h3>
+  <pre>
+static constexpr bool <b>traps</b> = false;
+</pre>
+
+  <p>The member stores true for a type that generates some kind of <a href="signal.html#signals">signal</a>
+  to report certain arithmetic exceptions.</p>
+  <hr>
+
+  <p>See also the <b><a href="index.html#Table%20of%20Contents">Table of Contents</a></b> and the <b><a href=
+  "_index.html">Index</a></b>.</p>
+
+  <p><i><a href="crit_pjp.html">Copyright</a> &copy; 1992-2010 by P.J. Plauger. All rights reserved.</i></p>
+  <!--V5.30:126I-->
+</body>
+</html>

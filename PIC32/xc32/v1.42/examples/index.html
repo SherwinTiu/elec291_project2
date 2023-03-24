@@ -1,0 +1,383 @@
+<html xmlns:v="urn:schemas-microsoft-com:vml"
+xmlns:o="urn:schemas-microsoft-com:office:office"
+xmlns:w="urn:schemas-microsoft-com:office:word"
+xmlns:x="urn:schemas-microsoft-com:office:excel"
+xmlns:st1="urn:schemas-microsoft-com:office:smarttags"
+xmlns="http://www.w3.org/TR/REC-html40">
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=us-ascii">
+<meta name=ProgId content=Word.Document>
+<meta name=Generator content="Microsoft Word 11">
+<meta name=Originator content="Microsoft Word 11">
+<link rel=File-List href="index_files/filelist.xml">
+<link rel=Edit-Time-Data href="index_files/editdata.mso">
+<!--[if !mso]>
+<style>
+v\:* {behavior:url(#default#VML);}
+o\:* {behavior:url(#default#VML);}
+w\:* {behavior:url(#default#VML);}
+.shape {behavior:url(#default#VML);}
+</style>
+<![endif]-->
+<title>PIC32 Code Examples</title>
+<o:SmartTagType namespaceuri="urn:schemas-microsoft-com:office:smarttags"
+ name="Street"/>
+<o:SmartTagType namespaceuri="urn:schemas-microsoft-com:office:smarttags"
+ name="PostalCode"/>
+<o:SmartTagType namespaceuri="urn:schemas-microsoft-com:office:smarttags"
+ name="State"/>
+<o:SmartTagType namespaceuri="urn:schemas-microsoft-com:office:smarttags"
+ name="address"/>
+<o:SmartTagType namespaceuri="urn:schemas-microsoft-com:office:smarttags"
+ name="City"/>
+<!--[if gte mso 9]><xml>
+ <o:DocumentProperties>
+  <o:Author>Microchip</o:Author>
+  <o:LastAuthor>Nilesh Rajbharti</o:LastAuthor>
+  <o:Revision>65</o:Revision>
+  <o:TotalTime>700</o:TotalTime>
+  <o:Created>2007-04-05T22:08:00Z</o:Created>
+  <o:LastSaved>2007-10-05T21:42:00Z</o:LastSaved>
+  <o:Pages>1</o:Pages>
+  <o:Words>182</o:Words>
+  <o:Characters>1039</o:Characters>
+  <o:Company>Microchip Technology Inc</o:Company>
+  <o:Lines>8</o:Lines>
+  <o:Paragraphs>2</o:Paragraphs>
+  <o:CharactersWithSpaces>1219</o:CharactersWithSpaces>
+  <o:Version>11.8132</o:Version>
+ </o:DocumentProperties>
+</xml><![endif]--><!--[if gte mso 9]><xml>
+ <w:WordDocument>
+  <w:Zoom>BestFit</w:Zoom>
+  <w:ValidateAgainstSchemas/>
+  <w:SaveIfXMLInvalid>false</w:SaveIfXMLInvalid>
+  <w:IgnoreMixedContent>false</w:IgnoreMixedContent>
+  <w:AlwaysShowPlaceholderText>false</w:AlwaysShowPlaceholderText>
+  <w:BrowserLevel>MicrosoftInternetExplorer4</w:BrowserLevel>
+ </w:WordDocument>
+</xml><![endif]--><!--[if gte mso 9]><xml>
+ <w:LatentStyles DefLockedState="false" LatentStyleCount="156">
+ </w:LatentStyles>
+</xml><![endif]--><!--[if !mso]><object
+ classid="clsid:38481807-CA0E-42D2-BF39-B33AF135CC4D" id=ieooui></object>
+<style>
+st1\:*{behavior:url(#ieooui) }
+</style>
+<![endif]-->
+<style>
+<!--dl
+	{list-style-position:outside;}
+dt
+	{list-style-position:outside;}
+ol
+	{list-style-position:outside;}
+ul
+	{list-style-position:outside;}
+li
+	{list-style-position:outside;}
+dd
+	{list-style-position:outside;}
+
+ /* Style Definitions */
+ p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{mso-style-parent:"";
+	margin:0in;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";}
+h1
+	{margin-top:12.0pt;
+	margin-right:0in;
+	margin-bottom:3.0pt;
+	margin-left:.3in;
+	text-indent:-.3in;
+	mso-pagination:widow-orphan;
+	page-break-after:avoid;
+	mso-outline-level:1;
+	tab-stops:list .3in;
+	font-size:14.0pt;
+	font-family:Arial;
+	font-weight:bold;}
+h2
+	{margin-top:12.0pt;
+	margin-right:0in;
+	margin-bottom:3.0pt;
+	margin-left:.4in;
+	text-indent:-.4in;
+	mso-pagination:widow-orphan;
+	page-break-after:avoid;
+	mso-outline-level:2;
+	tab-stops:list .4in;
+	font-size:12.0pt;
+	font-family:Arial;
+	font-weight:bold;}
+a:link, span.MsoHyperlink
+	{color:blue;
+	text-decoration:underline;
+	text-underline:single;}
+a:visited, span.MsoHyperlinkFollowed
+	{color:blue;
+	text-decoration:underline;
+	text-underline:single;}
+p
+	{mso-margin-top-alt:auto;
+	margin-right:0in;
+	mso-margin-bottom-alt:auto;
+	margin-left:0in;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";}
+pre
+	{margin:0in;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+	background:white;
+	font-size:10.0pt;
+	font-family:"Courier New";
+	mso-fareast-font-family:"Times New Roman";
+	color:black;}
+p.heading0, li.heading0, div.heading0
+	{mso-style-name:heading0;
+	mso-margin-top-alt:auto;
+	margin-right:0in;
+	mso-margin-bottom-alt:auto;
+	margin-left:0in;
+	mso-pagination:widow-orphan;
+	font-size:14.0pt;
+	font-family:Arial;
+	mso-fareast-font-family:"Times New Roman";
+	font-weight:bold;}
+span.highlight
+	{mso-style-name:highlight;
+	mso-ansi-font-size:14.5pt;
+	mso-bidi-font-size:14.5pt;
+	font-family:Arial;
+	mso-ascii-font-family:Arial;
+	mso-hansi-font-family:Arial;
+	mso-bidi-font-family:Arial;
+	color:blue;
+	background:white;
+	font-weight:bold;}
+span.heading01
+	{mso-style-name:heading01;
+	mso-ansi-font-size:14.0pt;
+	mso-bidi-font-size:14.0pt;
+	font-family:Arial;
+	mso-ascii-font-family:Arial;
+	mso-hansi-font-family:Arial;
+	mso-bidi-font-family:Arial;
+	color:black;
+	background:white;
+	font-weight:bold;}
+@page Section1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.25in 1.0in 1.25in;
+	mso-header-margin:.5in;
+	mso-footer-margin:.5in;
+	mso-paper-source:0;}
+div.Section1
+	{page:Section1;}
+-->
+</style>
+<!--[if gte mso 10]>
+<style>
+ /* Style Definitions */
+ table.MsoNormalTable
+	{mso-style-name:"Table Normal";
+	mso-tstyle-rowband-size:0;
+	mso-tstyle-colband-size:0;
+	mso-style-noshow:yes;
+	mso-style-parent:"";
+	mso-padding-alt:0in 5.4pt 0in 5.4pt;
+	mso-para-margin:0in;
+	mso-para-margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:10.0pt;
+	font-family:"Times New Roman";
+	mso-ansi-language:#0400;
+	mso-fareast-language:#0400;
+	mso-bidi-language:#0400;}
+table.MsoTableContemporary
+	{mso-style-name:"Table Contemporary";
+	mso-tstyle-rowband-size:1;
+	mso-tstyle-colband-size:0;
+	mso-padding-alt:0in 5.4pt 0in 5.4pt;
+	mso-border-insideh:2.25pt solid white;
+	mso-border-insidev:2.25pt solid white;
+	mso-para-margin:0in;
+	mso-para-margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:10.0pt;
+	font-family:"Times New Roman";
+	mso-ansi-language:#0400;
+	mso-fareast-language:#0400;
+	mso-bidi-language:#0400;}
+table.MsoTableContemporaryFirstRow
+	{mso-style-name:"Table Contemporary";
+	mso-table-condition:first-row;
+	mso-tstyle-shading:white;
+	mso-tstyle-pattern:gray-20 black;
+	mso-tstyle-diagonal-down:0in none windowtext;
+	mso-tstyle-diagonal-up:0in none windowtext;
+	color:windowtext;
+	mso-ansi-font-weight:bold;
+	mso-bidi-font-weight:bold;}
+table.MsoTableContemporaryOddRow
+	{mso-style-name:"Table Contemporary";
+	mso-table-condition:odd-row;
+	mso-tstyle-shading:white;
+	mso-tstyle-pattern:gray-5 black;
+	mso-tstyle-diagonal-down:0in none windowtext;
+	mso-tstyle-diagonal-up:0in none windowtext;
+	color:windowtext;}
+table.MsoTableContemporaryEvenRow
+	{mso-style-name:"Table Contemporary";
+	mso-table-condition:even-row;
+	mso-tstyle-shading:white;
+	mso-tstyle-pattern:gray-20 black;
+	mso-tstyle-diagonal-down:0in none windowtext;
+	mso-tstyle-diagonal-up:0in none windowtext;
+	color:windowtext;}
+table.MsoTableGrid
+	{mso-style-name:"Table Grid";
+	mso-tstyle-rowband-size:0;
+	mso-tstyle-colband-size:0;
+	border:solid windowtext 1.0pt;
+	mso-border-alt:solid windowtext .5pt;
+	mso-padding-alt:0in 5.4pt 0in 5.4pt;
+	mso-border-insideh:.5pt solid windowtext;
+	mso-border-insidev:.5pt solid windowtext;
+	mso-para-margin:0in;
+	mso-para-margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:10.0pt;
+	font-family:"Times New Roman";
+	mso-ansi-language:#0400;
+	mso-fareast-language:#0400;
+	mso-bidi-language:#0400;}
+</style>
+<![endif]--><!-------------------- HEAD --------------------------------------------><!--[if gte mso 9]><xml>
+ <o:shapedefaults v:ext="edit" spidmax="35842"/>
+</xml><![endif]--><!--[if gte mso 9]><xml>
+ <o:shapelayout v:ext="edit">
+  <o:idmap v:ext="edit" data="1"/>
+ </o:shapelayout></xml><![endif]-->
+</head>
+
+<body bgcolor=white lang=EN-US link=blue vlink=blue style='tab-interval:.5in'>
+
+<div class=Section1>
+
+<div>
+
+<p class=MsoNormal><b><span style='font-size:14.0pt;font-family:Arial;
+color:black'><a href="http://www.microchip.com/" title=www.Microchip.com><span
+style='color:black;text-decoration:none;text-underline:none'><img border=0
+width=152 height=42 id="_x0000_i1025" src=MicrochipLogo.gif></span></a><br>
+</span></b><span class=highlight><span style='font-size:17.0pt'>Code Examples<o:p></o:p></span></span></p>
+
+<p class=MsoNormal><span class=highlight><span style='font-size:10.0pt'>v1.0.00</span></span><b><span
+style='font-size:10.0pt;font-family:Arial;color:black'> <o:p></o:p></span></b></p>
+
+</div>
+
+<div class=MsoNormal align=center style='text-align:center'><span
+style='font-size:10.0pt;font-family:Arial;color:black'>
+
+<hr size=2 width="100%" align=center>
+
+</span></div>
+
+<p class=MsoNormal><span style='font-size:10.0pt;font-family:Arial;color:black'>This
+directory contains several code examples for PIC32 family of microcontrollers.
+Each directory may contain more than one code example. Each code example
+directory contains complete source code and MPLAB project files. In addition,
+it also contains a <i style='mso-bidi-font-style:normal'>build.bat</i> file to
+build the project from the command-line. There is also a <i style='mso-bidi-font-style:
+normal'>build_all.bat</i> file at the top level to build all examples at once
+from the command-line. <o:p></o:p></span></p>
+
+<h1>Directory Structure</h1>
+
+<p class=MsoNormal><span style='font-size:10.0pt;font-family:Arial;color:black'>The
+Code Examples directory structure consists of multiple high-level directories
+for each major topic. At the time of publishing this version, there were
+following major topics:<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;font-family:Arial;color:black'><o:p>&nbsp;</o:p></span></p>
+
+<table class=MsoTableContemporary border=0 cellspacing=0 cellpadding=0
+ style='border-collapse:collapse;mso-yfti-tbllook:480;mso-padding-alt:0in 5.4pt 0in 5.4pt'>
+ <tr style='mso-yfti-irow:-1;mso-yfti-firstrow:yes'>
+  <td width=180 valign=top style='width:135.0pt;border-top:none;border-left:
+  none;border-bottom:solid white 2.25pt;border-right:solid white 2.25pt;
+  background:#CCCCCC;mso-shading:white;mso-pattern:gray-20 black;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='mso-yfti-cnfc:1'><b><span style='font-size:10.0pt;
+  font-family:Arial;color:black'>Example Topic/Directory<o:p></o:p></span></b></p>
+  </td>
+  <td width=588 valign=top style='width:441.0pt;border:none;border-bottom:solid white 2.25pt;
+  mso-border-left-alt:solid white 2.25pt;background:#CCCCCC;mso-shading:white;
+  mso-pattern:gray-20 black;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='mso-yfti-cnfc:1'><b><span style='font-size:10.0pt;
+  font-family:Arial;color:black'>Description<o:p></o:p></span></b></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:0'>
+  <td width=180 valign=top style='width:135.0pt;border-top:none;border-left:
+  none;border-bottom:solid white 2.25pt;border-right:solid white 2.25pt;
+  mso-border-top-alt:solid white 2.25pt;background:#F2F2F2;mso-shading:white;
+  mso-pattern:gray-5 black;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='mso-yfti-cnfc:64'><span style='font-size:10.0pt;
+  font-family:Arial;color:black'><a href="assembly_examples/index.html">assembly_examples</a><o:p></o:p></span></p>
+  </td>
+  <td width=588 valign=top style='width:441.0pt;border:none;border-bottom:solid white 2.25pt;
+  mso-border-top-alt:solid white 2.25pt;mso-border-left-alt:solid white 2.25pt;
+  background:#F2F2F2;mso-shading:white;mso-pattern:gray-5 black;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='mso-yfti-cnfc:64'><span style='font-size:10.0pt;
+  font-family:Arial;color:black'>MPLAB ASM32 Assembly language examples<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1'>
+  <td width=180 valign=top style='width:135.0pt;border-top:none;border-left:
+  none;border-bottom:solid white 2.25pt;border-right:solid white 2.25pt;
+  mso-border-top-alt:solid white 2.25pt;background:#CCCCCC;mso-shading:white;
+  mso-pattern:gray-20 black;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='mso-yfti-cnfc:128'><span style='font-size:10.0pt;
+  font-family:Arial;color:black'><a href="xc32_examples/index.html">XC32_examples</a><o:p></o:p></span></p>
+  </td>
+  <td width=588 valign=top style='width:441.0pt;border:none;border-bottom:solid white 2.25pt;
+  mso-border-top-alt:solid white 2.25pt;mso-border-left-alt:solid white 2.25pt;
+  background:#CCCCCC;mso-shading:white;mso-pattern:gray-20 black;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='mso-yfti-cnfc:128'><span style='font-size:10.0pt;
+  font-family:Arial;color:black'>MPLAB XC32 syntax/extension specific examples<o:p></o:p></span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal><span style='font-size:10.0pt;font-family:Arial;color:black'><o:p>&nbsp;</o:p></span></p>
+
+<div class=MsoNormal align=center style='text-align:center'><a
+name="_Peripheral_Library_Examples"></a><span style='font-size:10.0pt;
+font-family:Arial;color:black'>
+
+<hr size=2 width="100%" align=center>
+
+</span></div>
+
+<p class=MsoNormal><span style='font-size:8.0pt;font-family:Arial;color:black;
+background:white'>Microchip Technology Inc. <st1:address w:st="on"><st1:Street
+ w:st="on">2355 W. Chandler Blvd.</st1:Street> <st1:City w:st="on">Chandler</st1:City>,
+ <st1:State w:st="on">AZ</st1:State> <st1:PostalCode w:st="on">85224</st1:PostalCode></st1:address>
+</span><span style='font-size:10.0pt;font-family:Arial;color:black'><o:p></o:p></span></p>
+
+</div>
+
+</body>
+
+</html>

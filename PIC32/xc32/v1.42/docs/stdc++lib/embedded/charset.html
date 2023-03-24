@@ -1,0 +1,327 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html>
+<head>
+  <meta name="generator" content=
+  "HTML Tidy for Mac OS X (vers 31 October 2006 - Apple Inc. build 15.15), see www.w3.org">
+
+  <title>Characters</title>
+</head>
+
+<body>
+  <h1><a name="Characters">Characters</a></h1>
+  <hr>
+
+  <p><b><a href="#Character%20Sets">Character Sets</a> &middot; <a href=
+  "#Character%20Sets%20and%20Locales">Character Sets and Locales</a> &middot; <a href=
+  "#Escape%20Sequences">Escape Sequences</a> &middot; <a href="#Numeric%20Escape%20Sequences">Numeric Escape
+  Sequences</a> &middot; <a href="#Trigraphs">Trigraphs</a> &middot; <a href=
+  "#Multibyte%20Characters">Multibyte Characters</a> &middot; <a href=
+  "#Wide-Character%20Encoding">Wide-Character Encoding</a></b></p>
+  <hr>
+
+  <p>Characters play a central role in Standard C. You represent a C program as one or more <b><a name=
+  "source file">source files</a></b>. The translator reads a source file as a <a name="text stream">text
+  stream</a> consisting of characters that you can read when you display the stream on a terminal screen or
+  produce hard copy with a printer. You often manipulate text when a C program executes. The program might
+  produce a text stream that people can read, or it might read a text stream entered by someone typing at a
+  keyboard or from a file modified using a text editor. This document describes the characters that you use
+  to write C source files and that you manipulate as streams when executing C programs.</p>
+
+  <h2><a name="Character Sets">Character Sets</a></h2>
+
+  <p>When you write a program, you express C source files as <a href="lib_file.html#text%20lines">text
+  lines</a> containing characters from the <b><a name="source character set">source character set</a></b>.
+  When a program executes in the <b><a name="target environment">target environment</a></b>, it uses
+  characters from the <b><a name="target character set">target character set</a></b>. These character sets
+  are related, but need not have the same encoding or all the same members.</p>
+
+  <p>Every character set contains a distinct code value for each character in the <b><a name=
+  "basic C character set">basic C character set</a></b>. A character set can also contain additional
+  characters with other code values. For example:</p>
+
+  <ul>
+    <li>The <b><a name="character constant">character constant</a></b> <code>'x'</code> becomes the value of
+    the code for the character corresponding to <code>x</code> in the target character set.</li>
+
+    <li>The <b><a name="string literal">string literal</a></b> <code>"xyz"</code> becomes a sequence of
+    character constants stored in successive bytes of memory, followed by a byte containing the value
+    zero:<br>
+    <code>{'x', 'y', 'z', '\0'}</code></li>
+  </ul>
+
+  <p>A string literal is one way to specify a <b><a name="null-terminated string">null-terminated
+  string</a></b>, an array of zero or more bytes followed by a byte containing the value zero.</p>
+
+  <p><b><a name="visible graphic characters">Visible graphic characters</a></b> in the basic C character
+  set:</p>
+  <pre>
+<b>Form</b>         <b>Members</b>
+<i>letter</i>       A B C D E F G H I J K L M
+             N O P Q R S T U V W X Y Z
+             a b c d e f g h i j k l m
+             n o p q r s t u v w x y z
+
+<i>digit</i>        0 1 2 3 4 5 6 7 8 9
+
+<i>underscore</i>   _
+
+<i>punctuation</i>  ! " # % &amp; ' ( ) * + , - . / :
+             ; &lt; = &gt; ? [ \ ] ^ { | } ~
+</pre>
+
+  <p><b><a name="additional graphic characters">Additional graphic characters</a></b> in the basic C
+  character set:</p>
+  <pre>
+<b>Character</b>    <b>Meaning</b>
+<a name="space"><i>space</i></a>        <i>leave blank space</i>
+<a name="BEL"><i>BEL</i></a>          <i>signal an alert (BELl)</i>
+<a name="BS"><i>BS</i></a>           <i>go back one position (BackSpace)</i>
+<a name="FF"><i>FF</i></a>           <i>go to top of page (Form Feed)</i>
+<a name="NL"><i>NL</i></a>           <i>go to start of next line (NewLine)</i>
+<a name="CR"><i>CR</i></a>           <i>go to start of this line (Carriage Return)</i>
+<a name="HT"><i>HT</i></a>           <i>go to next Horizontal Tab stop</i>
+<a name="VT"><i>VT</i></a>           <i>go to next Vertical Tab stop</i>
+</pre>
+
+  <p>The code value zero is reserved for the <b><a name="null character">null character</a></b> which is
+  always in the target character set. Code values for the basic C character set are positive when stored in
+  an object of type <i>char.</i> Code values for the digits are contiguous, with increasing value. For
+  example, <code>'0' + 5</code> equals <code>'5'</code>. Code values for any two letters are <i>not</i>
+  necessarily contiguous.</p>
+
+  <h3><a name="Character Sets and Locales">Character Sets and Locales</a></h3>
+
+  <p>An implementation can support multiple <a href="locale.html">locales</a>, each with a different
+  character set. A locale summarizes conventions particular to a given culture, such as how to format dates
+  or how to sort names. To change locales and, therefore, target character sets while the program is running,
+  use the function <a href="locale.html#setlocale"><code>setlocale</code></a>. The translator encodes
+  character constants and string literals for the <a href="locale.html#C%20locale"><code>"C"</code></a>
+  locale, which is the locale in effect at program startup.</p>
+
+  <h2><a name="Escape Sequences">Escape Sequences</a></h2>
+
+  <p>Within character constants and string literals, you can write a variety of <b>escape sequences</b>. Each
+  escape sequence determines the code value for a single character. You use escape sequences to represent
+  character codes:</p>
+
+  <ul>
+    <li>you cannot otherwise write (such as <code>\n</code>)</li>
+
+    <li>that can be difficult to read properly (such as <code>\t</code>)</li>
+
+    <li>that might change value in different target character sets (such as <code>\a</code>)</li>
+
+    <li>that must not change in value among different target environments (such as <code>\0</code>)</li>
+  </ul>
+
+  <p>An escape sequence takes the form shown in the diagram.</p>
+
+  <p><img src="escape.gif"></p>
+
+  <p><b><a name="mnemonic escape sequences">Mnemonic escape sequences</a></b> help you remember the
+  characters they represent:</p>
+  <pre>
+<b>Character</b>    <b>Escape Sequence</b>
+"            \"
+'            \'
+?            \?
+\            \\
+<i>BEL</i>          \a
+<i>BS</i>           \b
+<i>FF</i>           \f
+<i>NL</i>           \n
+<i>CR</i>           \r
+<i>HT</i>           \t
+<i>VT</i>           \v
+</pre>
+
+  <h3><a name="Numeric Escape Sequences">Numeric Escape Sequences</a></h3>
+
+  <p>You can also write <b>numeric escape sequences</b> using either octal or hexadecimal digits. An
+  <b><a name="octal escape sequence">octal escape sequence</a></b> takes one of the forms:</p>
+  <pre>
+    \<i>d</i> <b>or</b> \<i>dd</i> <b>or</b> \<i>ddd</i>
+</pre>
+
+  <p>The escape sequence yields a code value that is the numeric value of the 1-, 2-, or 3-digit octal number
+  following the backslash (<code>\</code>). Each <code><i>d</i></code> can be any digit in the range
+  <code>0-7</code>.</p>
+
+  <p>A <b><a name="hexadecimal escape sequence">hexadecimal escape sequence</a></b> takes one of the
+  forms:</p>
+  <pre>
+    \x<i>h</i> <b>or</b> \x<i>hh</i> <b>or</b> ...
+</pre>
+
+  <p>The escape sequence yields a code value that is the numeric value of the arbitrary-length hexadecimal
+  number following the backslash (<code>\</code>). Each <code><i>h</i></code> can be any decimal digit
+  <code>0-9</code>, or any of the letters <code>a-f</code> or <code>A-F</code>. The letters represent the
+  digit values 10-15, where either <code>a</code> or <code>A</code> has the value 10.</p>
+
+  <p>A numeric escape sequence terminates with the first character that does not fit the digit pattern. Here
+  are some examples:</p>
+
+  <ul>
+    <li>You can write the <a href="#null%20character">null character</a> as <code>'\0'</code>.</li>
+
+    <li>You can write a newline character (<code><i>NL</i></code>) within a string literal by writing:<br>
+    <code>"hi\n" <b>which becomes the array</b><br>
+    {'h', 'i', '\n', 0}</code></li>
+
+    <li>You can write a string literal that begins with a specific numeric value:<br>
+    <code>"\3abc" <b>which becomes the array</b><br>
+    {3, 'a', 'b', 'c', 0}</code></li>
+
+    <li>You can write a string literal that contains the hexadecimal escape sequence <code>\xF</code>
+    followed by the digit <code>3</code> by writing two string literals:<br>
+    <code>"\xF" "3" <b>which becomes the array</b><br>
+    {0xF, '3', 0}</code></li>
+  </ul>
+
+  <h2><a name="Trigraphs">Trigraphs</a></h2>
+
+  <p>A <b>trigraph</b> is a sequence of three characters that begins with two question marks
+  (<code>??</code>). You use trigraphs to write C source files with a character set that does not contain
+  convenient graphic representations for some punctuation characters. (The resultant C source file is not
+  necessarily more readable, but it is unambiguous.)</p>
+
+  <p>The list of all <b><a name="defined trigraphs">defined trigraphs</a></b> is:</p>
+  <pre>
+<b>Character</b>   <b>Trigraph</b>
+[           ??(
+\           ??/
+]           ??)
+^           ??'
+{           ??&lt;
+|           ??!
+}           ??&gt;
+~           ??-
+#           ??=
+</pre>
+
+  <p>These are the only trigraphs. The translator does not alter any other sequence that begins with two
+  question marks.</p>
+
+  <p>For example, the expression statements:</p>
+  <pre>
+    printf("Case ??=3 is done??/n");
+    printf("You said what????/n");
+</pre>
+
+  <p>are equivalent to:</p>
+  <pre>
+    printf("Case #3 is done\n");
+    printf("You said what??\n");
+</pre>
+
+  <p>The translator replaces each trigraph with its equivalent single character representation in an early
+  <a href="preproc.html#Phases%20of%20Translation">phase of translation</a>. You can always treat a trigraph
+  as a single source character.</p>
+
+  <h2><a name="Multibyte Characters">Multibyte Characters</a></h2>
+
+  <p>A source character set or target character set can also contain <b>multibyte characters</b> (sequences
+  of one or more bytes). Each sequence represents a single character in the <b><a name=
+  "extended character set">extended character set</a></b>. You use multibyte characters to represent large
+  sets of characters, such as Kanji. A multibyte character can be a one-byte sequence that is a character
+  from the <a href="#basic%20C%20character%20set">basic C character set</a>, an additional one-byte sequence
+  that is implementation defined, or an additional sequence of two or more bytes that is implementation
+  defined.</p>
+
+  <p>Any multibyte encoding that contains sequences of two or more bytes depends, for its interpretation
+  between bytes, on a <b><a name="conversion state">conversion state</a></b> determined by bytes earlier in
+  the sequence of characters. In the <b><a name="initial conversion state">initial conversion state</a></b>
+  if the byte immediately following matches one of the characters in the basic C character set, the byte must
+  represent that character.</p>
+
+  <p>For example, the <b><a name="EUC encoding">EUC encoding</a></b> is a superset of ASCII. A byte value in
+  the interval [0xA1, 0xFE] is the first of a two-byte sequence (whose second byte value is in the interval
+  [0x80, 0xFF]). All other byte values are one-byte sequences. Since all members of the <a href=
+  "#basic%20C%20character%20set">basic C character set</a> have byte values in the range [0x00, 0x7F] in
+  ASCII, EUC meets the requirements for a multibyte encoding in Standard C. Such a sequence is <i>not</i> in
+  the initial conversion state immediately after a byte value in the interval [0xA1, 0xFe]. It is ill-formed
+  if a second byte value is not in the interval [0x80, 0xFF].</p>
+
+  <p>Multibyte characters can also have a <b><a name="state-dependent encoding">state-dependent
+  encoding</a></b>. How you interpret a byte in such an encoding depends on a conversion state that involves
+  both a <b><a name="parse state">parse state</a></b>, as before, and a <b><a name="shift state">shift
+  state</a></b>, determined by bytes earlier in the sequence of characters. The <b><a name=
+  "initial shift state">initial shift state</a></b>, at the beginning of a new multibyte character, is also
+  the initial conversion state. A subsequent <b><a name="shift sequence">shift sequence</a></b> can determine
+  an <b><a name="alternate shift state">alternate shift state</a></b>, after which all byte sequences
+  (including one-byte sequences) can have a different interpretation. A byte containing the value zero,
+  however, always represents the <a href="#null%20character">null character</a>. It cannot occur as any of
+  the bytes of another multibyte character.</p>
+
+  <p>For example, the <b><a name="JIS encoding">JIS encoding</a></b> is another superset of ASCII. In the
+  initial shift state, each byte represents a single character, except for two three-byte shift
+  sequences:</p>
+
+  <ul>
+    <li>The three-byte sequence <code>"\x1B$B"</code> shifts to two-byte mode. Subsequently, two successive
+    bytes (both with values in the range [0x21, 0x7E]) constitute a single multibyte character.</li>
+
+    <li>The three-byte sequence <code>"\x1B(B"</code> shifts back to the initial shift state.</li>
+  </ul>
+
+  <p>JIS also meets the requirements for a multibyte encoding in Standard C. Such a sequence is <i>not</i> in
+  the initial conversion state when partway through a three-byte shift sequence or when in two-byte mode.</p>
+
+  <p>You can write multibyte characters in C source text as part of a comment, a character constant, a string
+  literal, or a filename in an <a href="preproc.html#include%20directive"><i>include</i> directive</a>. How
+  such characters print is implementation defined. Each sequence of multibyte characters that you write must
+  begin and end in the initial shift state. The program can also include multibyte characters in <a href=
+  "#null-terminated%20string">null-terminated</a> <a href="lib_over.html#C%20string">C strings</a> used by
+  several library functions, including the <a href="lib_prin.html#format%20string">format strings</a> for
+  <a href="stdio.html#printf"><code>printf</code></a> and <a href="stdio.html#scanf"><code>scanf</code></a>.
+  Each such character string must begin and end in the initial shift state.</p>
+
+  <h3><a name="Wide-Character Encoding">Wide-Character Encoding</a></h3>
+
+  <p>Each character in the extended character set also has an integer representation, called a
+  <b>wide-character encoding</b>. Each extended character has a unique wide-character value. The value zero
+  always corresponds to the <b><a name="null wide character">null wide character</a></b>. The type definition
+  <a href="stddef.html#wchar_t"><code>wchar_t</code></a> specifies the integer type that represents wide
+  characters.</p>
+
+  <p>You write a <b><a name="wide-character constant">wide-character constant</a></b> as <code>L'mbc'</code>,
+  where <code>mbc</code> represents a single multibyte character. You write a <b><a name=
+  "wide-character string literal">wide-character string literal</a></b> as <code>L"mbs"</code>, where
+  <code>mbs</code> represents a sequence of zero or more multibyte characters. The wide-character string
+  literal <code>L"xyz"</code> becomes a sequence of wide-character constants stored in successive bytes of
+  memory, followed by a null wide character:<br>
+  <code>{L'x', L'y', L'z', L'\0'}</code></p>
+
+  <p>The following library functions help you convert between the multibyte and wide-character
+  representations of extended characters: <a href="stdlib.html#mblen"><code>mblen</code></a>, <a href=
+  "stdlib.html#mbstowcs"><code>mbstowcs</code></a>, <a href="stdlib.html#mbtowc"><code>mbtowc</code></a>,
+  <a href="stdlib.html#wcstombs"><code>wcstombs</code></a>, <a href=
+  "stdlib.html#wctomb"><code>wctomb</code></a>.</p>
+
+  <p>The macro <a href="limits.html#MB_LEN_MAX"><code>MB_LEN_MAX</code></a> specifies the length of the
+  longest possible multibyte sequence required to represent a single character defined by the implementation
+  across supported locales. And the macro <a href="stdlib.html#MB_CUR_MAX"><code>MB_CUR_MAX</code></a>
+  specifies the length of the longest possible multibyte sequence required to represent a single character
+  defined for the current <a href="locale.html#locale">locale</a>.</p>
+
+  <p>For example, the <a href="#string%20literal">string literal</a> <code>"hello"</code> becomes an array of
+  six <i>char:</i></p>
+  <pre>
+    {'h', 'e', 'l', 'l', 'o', 0}
+</pre>
+
+  <p>while the wide-character string literal <code>L"hello"</code> becomes an array of six integers of type
+  <a href="stddef.html#wchar_t"><code>wchar_t</code></a>:</p>
+  <pre>
+    {L'h', L'e', L'l', L'l', L'o', 0}
+</pre>
+  <hr>
+
+  <p>See also the <b><a href="index.html#Table%20of%20Contents">Table of Contents</a></b> and the <b><a href=
+  "_index.html">Index</a></b>.</p>
+
+  <p><i><a href="crit_pjp.html">Copyright</a> &copy; 1992-2010 by P.J. Plauger and Jim Brodie. All rights
+  reserved.</i></p><!--V5.30:126I-->
+</body>
+</html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html>
+<head>
+  <meta name="generator" content=
+  "HTML Tidy for Mac OS X (vers 31 October 2006 - Apple Inc. build 15.15), see www.w3.org">
+
+  <title>&lt;typeinfo&gt;</title>
+</head>
+
+<body>
+  <h1><a name="&lt;typeinfo&gt;"><code>&lt;typeinfo&gt;</code></a></h1>
+  <hr>
+
+  <p>Include the standard header <b><code>&lt;typeinfo&gt;</code></b> to define several types associated with
+  the type-identification operator <b><a name="typeid"><code>typeid</code></a></b>, which yields information
+  about both static and dynamic types.</p>
+  <pre>
+namespace std {
+class <b><a href="#type_info">type_info</a></b>;
+class <b><a href="#bad_cast">bad_cast</a></b>;
+class <b><a href="#bad_typeid">bad_typeid</a></b>;
+}  // namespace std
+</pre>
+
+  <h2><a name="bad_cast"><code>bad_cast</code></a></h2>
+  <pre>
+class <b>bad_cast</b>
+    : public <a href="exceptio.html#exception">exception</a>
+    {  // reports an exception
+    };
+</pre>
+
+  <p>The class describes an exception thrown to indicate that a <b><a name="dynamic cast">dynamic
+  cast</a></b> expression, of the form:</p>
+  <pre>
+dynamic_cast&lt;type&gt;(expression)
+</pre>
+
+  <p>generated a null pointer to initialize a reference. The value returned by <code><a href=
+  "exceptio.html#exception::what">what</a>()</code> is an implementation-defined <a href=
+  "lib_over.html#C%20string">C string</a>. None of the member functions throw any exceptions.</p>
+
+  <h2><a name="bad_typeid"><code>bad_typeid</code></a></h2>
+  <pre>
+class <b>bad_typeid</b>
+    : public <a href="exceptio.html#exception">exception</a>
+    {  // reports a bad typeid
+    };
+</pre>
+
+  <p>The class describes an exception thrown to indicate that a <a href="#typeid"><code>typeid</code></a>
+  operator encountered a null pointer. The value returned by <code><a href=
+  "exceptio.html#exception::what">what</a>()</code> is an implementation-defined <a href=
+  "lib_over.html#C%20string">C string</a>. None of the member functions throw any exceptions.</p>
+
+  <h2><a name="type_info"><code>type_info</code></a></h2>
+  <pre>
+class <b>type_info</b> {
+public:
+    bool <b><a href="#type_info::before">before</a></b>(const type_info&amp; right) const;
+    const char *<b><a href="#type_info::name">name</a></b>() const;
+
+    bool <b><a href="#type_info::operator==">operator==</a></b>(const type_info&amp; right) const;
+    bool <b><a href="#type_info::operator!=">operator!=</a></b>(const type_info&amp; right) const;
+    };
+</pre>
+
+  <p>The class describes type information generated within the program by the implementation. Objects of this
+  class effectively store a pointer to a <b><a name="names for types">name</a></b> for the type, and an
+  encoded value suitable for comparing two types for equality or <b><a name=
+  "collating order for types">collating order</a></b>. The names, encoded values, and collating order for
+  types are all unspecified and may differ between program executions.</p>
+
+  <p>An expression of the form <code>typeid Ty</code> is the <i>only</i> way to construct a (temporary)
+  <code>typeinfo</code> object. The class has only a private copy constructor. Since the assignment operator
+  is also private, you cannot copy or assign objects of class <code>typeinfo</code> either.</p>
+
+  <h3><a name="type_info::name"><code>type_info::name</code></a></h3>
+  <pre>
+const char *<b>name</b>() const;
+</pre>
+
+  <p>The member function returns a <a href="lib_over.html#C%20string">C string</a> which specifies the
+  <a href="#names%20for%20types">name</a> of the type.</p>
+
+  <h3><a name="type_info::operator!="><code>type_info::operator!=</code></a></h3>
+  <pre>
+bool <b>operator!=</b>(const type_info&amp; right) const;
+</pre>
+
+  <p>The member operator returns <code>!(*this <a href="#type_info::operator==">==</a> right)</code>.</p>
+
+  <h3><a name="type_info::operator=="><code>type_info::operator==</code></a></h3>
+  <pre>
+bool <b>operator==</b>(const type_info&amp; right) const;
+</pre>
+
+  <p>The member operator returns a nonzero value if <code>*this</code> and <code>right</code> represent the
+  same type.</p>
+
+  <h3><a name="type_info::before"><code>type_info::before</code></a></h3>
+  <pre>
+bool <b>before</b>(const type_info&amp; right) const;
+</pre>
+
+  <p>The member function returns a nonzero value if <code>*this</code> precedes <code>right</code> in the
+  <a href="#collating%20order%20for%20types">collating order</a> for types.</p>
+  <hr>
+
+  <p>See also the <b><a href="index.html#Table%20of%20Contents">Table of Contents</a></b> and the <b><a href=
+  "_index.html">Index</a></b>.</p>
+
+  <p><i><a href="crit_pjp.html">Copyright</a> &copy; 1992-2010 by P.J. Plauger. All rights reserved.</i></p>
+  <!--V5.30:126I-->
+</body>
+</html>

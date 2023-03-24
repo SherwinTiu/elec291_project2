@@ -1,0 +1,1415 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html>
+<head>
+  <meta name="generator" content=
+  "HTML Tidy for Mac OS X (vers 31 October 2006 - Apple Inc. build 15.15), see www.w3.org">
+
+  <title>&lt;set&gt;</title>
+</head>
+
+<body>
+  <h1><a name="&lt;set&gt;"><code>&lt;set&gt;</code></a></h1>
+  <hr>
+
+  <p>Include the <a href="index.html#STL">STL</a> standard header <b><code>&lt;set&gt;</code></b> to define
+  the <a href="lib_cont.html#Containers">container</a> template classes <code>set</code> and
+  <code>multiset</code>, and their supporting templates.</p>
+  <pre>
+namespace std {
+template&lt;class Key, class Pr, class Alloc&gt;
+    class <b><a href="#set">set</a></b>;
+template&lt;class Key, class Pr, class Alloc&gt;
+    class <b><a href="#multiset">multiset</a></b>;
+
+        // TEMPLATE FUNCTIONS
+template&lt;class Key, class Pr, class Alloc&gt;
+    bool <b><a href="#operator==">operator==</a></b>(
+        const set&lt;Key, Pr, Alloc&gt;&amp; left,
+        const set&lt;Key, Pr, Alloc&gt;&amp; right);
+template&lt;class Key, class Pr, class Alloc&gt;
+    bool <b><a href="#operator==">operator==</a></b>(
+        const multiset&lt;Key, Pr, Alloc&gt;&amp; left,
+        const multiset&lt;Key, Pr, Alloc&gt;&amp; right);
+template&lt;class Key, class Pr, class Alloc&gt;
+    bool <b><a href="#operator!=">operator!=</a></b>(
+        const set&lt;Key, Pr, Alloc&gt;&amp; left,
+        const set&lt;Key, Pr, Alloc&gt;&amp; right);
+template&lt;class Key, class Pr, class Alloc&gt;
+    bool <b><a href="#operator!=">operator!=</a></b>(
+        const multiset&lt;Key, Pr, Alloc&gt;&amp; left,
+        const multiset&lt;Key, Pr, Alloc&gt;&amp; right);
+template&lt;class Key, class Pr, class Alloc&gt;
+    bool <b><a href="#operator%3C">operator&lt;</a></b>(
+        const set&lt;Key, Pr, Alloc&gt;&amp; left,
+        const set&lt;Key, Pr, Alloc&gt;&amp; right);
+template&lt;class Key, class Pr, class Alloc&gt;
+    bool <b><a href="#operator%3C">operator&lt;</a></b>(
+        const multiset&lt;Key, Pr, Alloc&gt;&amp; left,
+        const multiset&lt;Key, Pr, Alloc&gt;&amp; right);
+template&lt;class Key, class Pr, class Alloc&gt;
+    bool <b><a href="#operator%3E">operator&gt;</a></b>(
+        const set&lt;Key, Pr, Alloc&gt;&amp; left,
+        const set&lt;Key, Pr, Alloc&gt;&amp; right);
+template&lt;class Key, class Pr, class Alloc&gt;
+    bool <b><a href="#operator%3E">operator&gt;</a></b>(
+        const multiset&lt;Key, Pr, Alloc&gt;&amp; left,
+        const multiset&lt;Key, Pr, Alloc&gt;&amp; right);
+template&lt;class Key, class Pr, class Alloc&gt;
+    bool <b><a href="#operator%3C=">operator&lt;=</a></b>(
+        const set&lt;Key, Pr, Alloc&gt;&amp; left,
+        const set&lt;Key, Pr, Alloc&gt;&amp; right);
+template&lt;class Key, class Pr, class Alloc&gt;
+    bool <b><a href="#operator%3C=">operator&lt;=</a></b>(
+        const multiset&lt;Key, Pr, Alloc&gt;&amp; left,
+        const multiset&lt;Key, Pr, Alloc&gt;&amp; right);
+template&lt;class Key, class Pr, class Alloc&gt;
+    bool <b><a href="#operator%3E=">operator&gt;=</a></b>(
+        const set&lt;Key, Pr, Alloc&gt;&amp; left,
+        const set&lt;Key, Pr, Alloc&gt;&amp; right);
+template&lt;class Key, class Pr, class Alloc&gt;
+    bool <b><a href="#operator%3E=">operator&gt;=</a></b>(
+        const multiset&lt;Key, Pr, Alloc&gt;&amp; left,
+        const multiset&lt;Key, Pr, Alloc&gt;&amp; right);
+
+template&lt;class Key, class Pr, class Alloc&gt;
+    void <b><a href="#swap">swap</a></b>(
+        set&lt;Key, Pr, Alloc&gt;&amp; left,
+        set&lt;Key, Pr, Alloc&gt;&amp; right);
+template&lt;class Key, class Pr, class Alloc&gt;
+    void <b><a href="#swap">swap</a></b>(
+        multiset&lt;Key, Pr, Alloc&gt;&amp; left,
+        multiset&lt;Key, Pr, Alloc&gt;&amp; right);
+}  // namespace std
+</pre>
+
+  <h2><a name="multiset"><code>multiset</code></a></h2>
+  <hr>
+
+  <p><b><code><a href="#multiset::allocator_type">allocator_type</a> &middot; <a href=
+  "#multiset::begin">begin</a> &middot; <a href="#multiset::cbegin">cbegin</a> &middot; <a href=
+  "#multiset::cend">cend</a> &middot; <a href="#multiset::clear">clear</a> &middot; <a href=
+  "#multiset::const_iterator">const_iterator</a> &middot; <a href=
+  "#multiset::const_pointer">const_pointer</a> &middot; <a href=
+  "#multiset::const_reference">const_reference</a> &middot; <a href=
+  "#multiset::const_reverse_iterator">const_reverse_iterator</a> &middot; <a href=
+  "#multiset::count">count</a> &middot; <a href="#multiset::crbegin">crbegin</a> &middot; <a href=
+  "#multiset::crend">crend</a> &middot; <a href="#multiset::difference_type">difference_type</a> &middot;
+  <a href="#multiset::emplace">emplace</a> &middot; <a href="#multiset::emplace_hint">emplace_hint</a>
+  &middot; <a href="#multiset::empty">empty</a> &middot; <a href="#multiset::end">end</a> &middot; <a href=
+  "#multiset::equal_range">equal_range</a> &middot; <a href="#multiset::erase">erase</a> &middot; <a href=
+  "#multiset::find">find</a> &middot; <a href="#multiset::get_allocator">get_allocator</a> &middot; <a href=
+  "#multiset::insert">insert</a> &middot; <a href="#multiset::iterator">iterator</a> &middot; <a href=
+  "#multiset::key_comp">key_comp</a> &middot; <a href="#multiset::key_compare">key_compare</a> &middot;
+  <a href="#multiset::key_type">key_type</a> &middot; <a href="#multiset::lower_bound">lower_bound</a>
+  &middot; <a href="#multiset::max_size">max_size</a> &middot; <a href="#multiset::multiset">multiset</a>
+  &middot; <a href="#multiset::operator=">operator=</a> &middot; <a href="#multiset::pointer">pointer</a>
+  &middot; <a href="#multiset::rbegin">rbegin</a> &middot; <a href="#multiset::reference">reference</a>
+  &middot; <a href="#multiset::rend">rend</a> &middot; <a href=
+  "#multiset::reverse_iterator">reverse_iterator</a> &middot; <a href="#multiset::size">size</a> &middot;
+  <a href="#multiset::size_type">size_type</a> &middot; <a href="#multiset::swap">swap</a> &middot; <a href=
+  "#multiset::upper_bound">upper_bound</a> &middot; <a href="#multiset::value_comp">value_comp</a> &middot;
+  <a href="#multiset::value_compare">value_compare</a> &middot; <a href=
+  "#multiset::value_type">value_type</a></code></b></p>
+  <hr>
+  <pre>
+template&lt;class Key, class Pr = less&lt;Key&gt;,
+    class Alloc = allocator&lt;Key&gt; &gt;
+    class <b>multiset</b> {
+public:
+    typedef Key <b><a href="#multiset::key_type">key_type</a></b>;
+    typedef Pr <b><a href="#multiset::key_compare">key_compare</a></b>;
+    typedef Key <b><a href="#multiset::value_type">value_type</a></b>;
+    typedef Pr <b><a href="#multiset::value_compare">value_compare</a></b>;
+    typedef Alloc <b><a href="#multiset::allocator_type">allocator_type</a></b>;
+    typedef typename Alloc::pointer <b><a href="#multiset::pointer">pointer</a></b>;
+    typedef typename Alloc::const_pointer <b><a href="#multiset::const_pointer">const_pointer</a></b>;
+    typedef typename Alloc::reference <b><a href="#multiset::reference">reference</a></b>;
+    typedef typename Alloc::const_reference <b><a href="#multiset::const_reference">const_reference</a></b>;
+    typedef typename Alloc::size_type <b><a href="#multiset::size_type">size_type</a></b>;
+    typedef typename Alloc::difference_type <b><a href="#multiset::difference_type">difference_type</a></b>;
+
+    typedef T0 <b><a href="#multiset::iterator">iterator</a></b>;
+    typedef T1 <b><a href="#multiset::const_iterator">const_iterator</a></b>;
+    typedef reverse_iterator&lt;const_iterator&gt;
+        <b><a href="#multiset::const_reverse_iterator">const_reverse_iterator</a></b>;
+    typedef reverse_iterator&lt;iterator&gt; <b><a href=
+"#multiset::reverse_iterator">reverse_iterator</a></b>;
+
+    <b><a href="#multiset::multiset">multiset</a></b>();
+    explicit <b><a href="#multiset::multiset">multiset</a></b>(const Pr&amp; pred);
+    <b><a href="#multiset::multiset">multiset</a></b>(const Pr&amp; pred, const Alloc&amp; al);
+    <b><a href="#multiset::multiset">multiset</a></b>(const multiset&amp; right);
+    template&lt;class InIt&gt;
+        <b><a href="#multiset::multiset">multiset</a></b>(InIt first, InIt last);
+    template&lt;class InIt&gt;
+        <b><a href="#multiset::multiset">multiset</a></b>(InIt first, InIt last,
+            const Pr&amp; pred);
+    template&lt;class InIt&gt;
+        <b><a href="#multiset::multiset">multiset</a></b>(InIt first, InIt last,
+            const Pr&amp; pred, const Alloc&amp; al);
+
+    <b><a href=
+"#multiset::multiset">multiset</a></b>(initializer_list&lt;Ty&gt; init) <b>[added with C++0X]</b>
+    <b><a href="#multiset::multiset">multiset</a></b>(initializer_list&lt;Ty&gt; init,
+        const Pr&amp; pred); <b>[added with C++0X]</b>
+    <b><a href="#multiset::multiset">multiset</a></b>(initializer_list&lt;Ty&gt; init,
+        const Pr&amp; pred, const Alloc&amp; al); <b>[added with C++0X]</b>
+    <b><a href="#multiset::multiset">multiset</a></b>(multiset&amp;&amp; right); <b>[added with C++0X]</b>
+
+    multiset&amp; <b><a href="#multiset::operator=">operator=</a></b>(const multiset&amp; right);
+    multiset&amp; <b><a href=
+"#multiset::operator=">operator=</a></b>(initializer_list&lt;Ty&gt; init) <b>[added with C++0X]</b>
+    multiset&amp; <b><a href=
+"#multiset::operator=">operator=</a></b>(multiset&amp;&amp; right); <b>[added with C++0X]</b>
+
+    iterator <b><a href="#multiset::begin">begin</a></b>();
+    const_iterator <b><a href="#multiset::begin">begin</a></b>() const;
+    iterator <b><a href="#multiset::end">end</a></b>();
+    const_iterator <b><a href="#multiset::end">end</a></b>() const;
+    reverse_iterator <b><a href="#multiset::rbegin">rbegin</a></b>();
+    const_reverse_iterator <b><a href="#multiset::rbegin">rbegin</a></b>() const;
+    reverse_iterator <b><a href="#multiset::rend">rend</a></b>();
+    const_reverse_iterator <b><a href="#multiset::rend">rend</a></b>() const;
+
+    const_iterator <b><a href="#multiset::cbegin">cbegin</a></b>() const; <b>[added with C++0X]</b>
+    const_iterator <b><a href="#multiset::cend">cend</a></b>() const; <b>[added with C++0X]</b>
+    const_reverse_iterator <b><a href="#multiset::crbegin">crbegin</a></b>() const; <b>[added with C++0X]</b>
+    const_reverse_iterator <b><a href="#multiset::crend">crend</a></b>() const; <b>[added with C++0X]</b>
+
+    size_type <b><a href="#multiset::max_size">max_size</a></b>() const;
+    bool <b><a href="#multiset::empty">empty</a></b>() const;
+    Alloc <b><a href="#multiset::get_allocator">get_allocator</a></b>() const;
+
+    iterator <b><a href="#multiset::insert">insert</a></b>(const value_type&amp; val);
+    iterator <b><a href="#multiset::insert">insert</a></b>(const_iterator where, const value_type&amp; val);
+    template&lt;class InIt&gt;
+        void <b><a href="#multiset::insert">insert</a></b>(InIt first, InIt last);
+    void <b><a href=
+"#multiset::insert">insert</a></b>(initializer_list&lt;Ty&gt; init) <b>[added with C++0X]</b>
+    template&lt;class Valty&gt;
+        pair&lt;iterator, bool&gt; <b><a href=
+"#multiset::insert">insert</a></b>(Valty&amp;&amp; val); <b>[added with C++0X]</b>
+    template&lt;class Valty&gt;
+        iterator <b><a href=
+"#multiset::insert">insert</a></b>(const_iterator where, Valty&amp;&amp; val); <b>[added with C++0X]</b>
+
+    template&lt;class... Valty&gt;
+        pair&lt;iterator, bool&gt; <b><a href=
+"#multiset::emplace">emplace</a></b>(Valty&amp;&amp;... val); <b>[added with C++0X]</b>
+    template&lt;class... Valty&gt;
+        iterator <b><a href=
+"#multiset::emplace_hint">emplace_hint</a></b>(const_iterator where, Valty&amp;&amp;... val); <b>[added with C++0X]</b>
+
+    iterator <b><a href="#multiset::erase">erase</a></b>(const_iterator where);
+    iterator <b><a href="#multiset::erase">erase</a></b>(const_iterator first, const_iterator last);
+    size_type <b><a href="#multiset::erase">erase</a></b>(const Key&amp; keyval);
+    void <b><a href="#multiset::clear">clear</a></b>();
+
+    void <b><a href="#multiset::swap">swap</a></b>(multiset&amp; right);
+
+    key_compare <b><a href="#multiset::key_comp">key_comp</a></b>() const;
+    value_compare <b><a href="#multiset::value_comp">value_comp</a></b>() const;
+    iterator <b><a href="#multiset::find">find</a></b>(const Key&amp; keyval);
+    const_iterator <b><a href="#multiset::find">find</a></b>(const Key&amp; keyval) const;
+    size_type <b><a href="#multiset::count">count</a></b>(const Key&amp; keyval) const;
+    iterator <b><a href="#multiset::lower_bound">lower_bound</a></b>(const Key&amp; keyval);
+    const_iterator <b><a href="#multiset::lower_bound">lower_bound</a></b>(const Key&amp; keyval) const;
+    iterator <b><a href="#multiset::upper_bound">upper_bound</a></b>(const Key&amp; keyval);
+    const_iterator <b><a href="#multiset::upper_bound">upper_bound</a></b>(const Key&amp; keyval) const;
+    pair&lt;iterator, iterator&gt; <b><a href=
+"#multiset::equal_range">equal_range</a></b>(const Key&amp; keyval);
+    pair&lt;const_iterator, const_iterator&gt;
+        <b><a href="#multiset::equal_range">equal_range</a></b>(const Key&amp; keyval) const;
+    };
+</pre>
+
+  <p>The template class describes an object that controls a varying-length sequence of elements of type
+  <code>const Key</code>. The sequence is <a href="lib_stl.html#sequence%20ordering">ordered by</a> the
+  predicate <code>Pr</code>. Each element serves as both a <b>sort key</b> and a <b>value</b>. The sequence
+  is represented in a way that permits lookup, insertion, and removal of an arbitrary element with a number
+  of operations proportional to the logarithm of the number of elements in the sequence (logarithmic time).
+  Moreover, inserting an element invalidates no iterators, and removing an element invalidates only those
+  iterators which point at the removed element.</p>
+
+  <p>The object orders the sequence it controls by calling a stored <b>function object</b> of type
+  <code>Pr</code>. You access this stored object by calling the member function <code><a href=
+  "#multiset::key_comp">key_comp</a>()</code>. Such a function object must impose a <a href=
+  "lib_stl.html#strict%20weak%20ordering">strict weak ordering</a> on sort keys of type <code>Key</code>. For
+  any element <code>X</code> that precedes <code>Y</code> in the sequence, <code>key_comp()(Y, X)</code> is
+  false. (For the default function object <code><a href="functio2.html#less">less</a>&lt;Key&gt;</code>, sort
+  keys never decrease in value.) Unlike template class <code><a href="#set">set</a></code>, an object of
+  template class <code>multiset</code> does not ensure that <code>key_comp()(X, Y)</code> is true. (Keys need
+  not be unique.)</p>
+
+  <p>The object allocates and frees storage for the sequence it controls through a stored <a href=
+  "memory.html#allocator%20object">allocator object</a> of class <code>Alloc</code>. Such an allocator object
+  must have the same external interface as an object of template class <a href=
+  "memory.html#allocator"><code>allocator</code></a>. Note that the stored allocator object is <i>not</i>
+  copied when the container object is assigned.</p>
+
+  <p>Inserting and erasing elements preserves the order of elements with equivalent ordering.</p>
+
+  <h3><code><a name="multiset::allocator_type">multiset::allocator_type</a></code></h3>
+  <pre>
+typedef Alloc <b>allocator_type</b>;
+</pre>
+
+  <p>The type is a synonym for the template parameter <code>Alloc</code>.</p>
+
+  <h3><code><a name="multiset::begin">multiset::begin</a></code></h3>
+  <pre>
+iterator <b>begin</b>();
+const_iterator <b>begin</b>() const;
+</pre>
+
+  <p>The member function returns a bidirectional iterator that points at the first element of the sequence
+  (or just beyond the end of an empty sequence).</p>
+
+  <h3><code><a name="multiset::cbegin">multiset::cbegin</a></code></h3>
+  <pre>
+const_iterator <b>cbegin</b>() const; <b>[added with C++0X]</b>
+</pre>
+
+  <p>The member functions return a bidirectional iterator that points at the first element of the sequence
+  (or just beyond the end of an empty sequence).</p>
+
+  <h3><code><a name="multiset::cend">multiset::cend</a></code></h3>
+  <pre>
+const_reference <b>cend</b>() const; <b>[added with C++0X]</b>
+</pre>
+
+  <p>The member functions return a bidirectional iterator that points just beyond the end of the
+  sequence.</p>
+
+  <h3><code><a name="multiset::clear">multiset::clear</a></code></h3>
+  <pre>
+void <b>clear</b>();
+</pre>
+
+  <p>The member function calls <code><a href="#multiset::erase">erase</a>( <a href=
+  "#multiset::begin">begin</a>(), <a href="#multiset::end">end</a>())</code>.</p>
+
+  <h3><code><a name="multiset::const_iterator">multiset::const_iterator</a></code></h3>
+  <pre>
+typedef T1 <b>const_iterator</b>;
+</pre>
+
+  <p>The type describes an object that can serve as a constant bidirectional iterator for the controlled
+  sequence. It is described here as a synonym for the implementation-defined type <code>T1</code>.</p>
+
+  <h3><code><a name="multiset::const_pointer">multiset::const_pointer</a></code></h3>
+  <pre>
+typedef typename Alloc::const_pointer <b>const_pointer</b>;
+</pre>
+
+  <p>The type describes an object that can serve as a constant pointer to an element of the controlled
+  sequence.</p>
+
+  <h3><code><a name="multiset::const_reference">multiset::const_reference</a></code></h3>
+  <pre>
+typedef typename Alloc::const_reference <b>const_reference</b>;
+</pre>
+
+  <p>The type describes an object that can serve as a constant reference to an element of the controlled
+  sequence.</p>
+
+  <h3><code><a name="multiset::const_reverse_iterator">multiset::const_reverse_iterator</a></code></h3>
+  <pre>
+typedef reverse_iterator&lt;const_iterator&gt;
+    <b>const_reverse_iterator</b>;
+</pre>
+
+  <p>The type describes an object that can serve as a constant reverse bidirectional iterator for the
+  controlled sequence.</p>
+
+  <h3><code><a name="multiset::count">multiset::count</a></code></h3>
+  <pre>
+size_type <b>count</b>(const Key&amp; keyval) const;
+</pre>
+
+  <p>The member function returns the number of elements in the range <code>[<a href=
+  "#multiset::lower_bound">lower_bound</a>(keyval), <a href=
+  "#multiset::upper_bound">upper_bound</a>(keyval)).</code></p>
+
+  <h3><code><a name="multiset::crbegin">multiset::crbegin</a></code></h3>
+  <pre>
+const_reverse_iterator <b>crbegin</b>() const; <b>[added with C++0X]</b>
+</pre>
+
+  <p>The member functions return a reverse iterator that points just beyond the end of the controlled
+  sequence. Hence, it designates the beginning of the reverse sequence.</p>
+
+  <h3><code><a name="multiset::crend">multiset::crend</a></code></h3>
+  <pre>
+const_reverse_iterator <b>crend</b>() const; <b>[added with C++0X]</b>
+</pre>
+
+  <p>The member functions return a reverse iterator that points at the first element of the sequence (or just
+  beyond the end of an empty sequence)). Hence, it designates the end of the reverse sequence.</p>
+
+  <h3><code><a name="multiset::difference_type">multiset::difference_type</a></code></h3>
+  <pre>
+typedef typename Alloc::difference_type <b>difference_type</b>;
+</pre>
+
+  <p>The signed integer type describes an object that can represent the difference between the addresses of
+  any two elements in the controlled sequence.</p>
+
+  <h3><code><a name="multiset::emplace">multiset::emplace</a></code></h3>
+  <pre>
+template&lt;class... Valty&gt;
+    pair&lt;iterator, bool&gt; <b>emplace</b>(Valty&amp;&amp;... val); <b>[added with C++0X]</b>
+</pre>
+
+  <p>The member function returns <code><a href="#multiset::insert">insert</a>(forward&lt;pair&lt;key,
+  mapped_type&gt; &gt;( pair&lt;key, mapped_type&gt;(val...))</code>.</p>
+
+  <h3><code><a name="multiset::emplace_hint">multiset::emplace_hint</a></code></h3>
+  <pre>
+template&lt;class... Valty&gt;
+    iterator <b>emplace_hint</b>(const_iterator where, Valty&amp;&amp;... val); <b>[added with C++0X]</b>
+</pre>
+
+  <p>The member function returns <code>insert(where, forward&lt;pair&lt;key, mapped_type&gt; &gt;(
+  pair&lt;key, mapped_type&gt;(val...))</code>.</p>
+
+  <h3><code><a name="multiset::empty">multiset::empty</a></code></h3>
+  <pre>
+bool <b>empty</b>() const;
+</pre>
+
+  <p>The member function returns true for an empty controlled sequence.</p>
+
+  <h3><code><a name="multiset::end">multiset::end</a></code></h3>
+  <pre>
+iterator <b>end</b>();
+const_iterator <b>end</b>() const;
+</pre>
+
+  <p>The member function returns a bidirectional iterator that points just beyond the end of the
+  sequence.</p>
+
+  <h3><code><a name="multiset::equal_range">multiset::equal_range</a></code></h3>
+  <pre>
+pair&lt;iterator, iterator&gt;
+    <b>equal_range</b>(const Key&amp; keyval);
+pair&lt;const_iterator, const_iterator&gt;
+    <b>equal_range</b>(const Key&amp; keyval) const;
+</pre>
+
+  <p>The member function returns a pair of iterators <code>X</code> such that <code>X.<a href=
+  "utility.html#pair::first">first</a> == <a href="#multiset::lower_bound">lower_bound</a>(keyval)</code> and
+  <code>X.<a href="utility.html#pair::second">second</a> == <a href=
+  "#multiset::upper_bound">upper_bound</a>(keyval)</code>.</p>
+
+  <h3><code><a name="multiset::erase">multiset::erase</a></code></h3>
+  <pre>
+iterator <b>erase</b>(const_iterator where);
+iterator <b>erase</b>(const_iterator first, const_iterator last);
+size_type <b>erase</b>(const Key&amp; keyval);
+</pre>
+
+  <p>The first member function removes the element of the controlled sequence pointed to by
+  <code>where</code>. The second member function removes the elements in the range <code>[first,
+  last)</code>. Both return an iterator that designates the first element remaining beyond any elements
+  removed, or <code><a href="#multiset::end">end</a>()</code> if no such element exists.</p>
+
+  <p>The third member removes the elements with sort keys in the range <code>[<a href=
+  "#multiset::lower_bound">lower_bound</a>(keyval), <a href=
+  "#multiset::upper_bound">upper_bound</a>(keyval)).</code> It returns the number of elements it removes.</p>
+
+  <p>The member functions never throw an exception, nor do they alter the order of any remaining
+  elements.</p>
+
+  <p>In this <a href="index.html#implementation">implementation</a>, the first two member functions return an
+  iterator that designates the first element remaining beyond any elements removed, or <code><a href=
+  "#multiset::end">end</a>()</code> if no such element exists.</p>
+
+  <h3><code><a name="multiset::find">multiset::find</a></code></h3>
+  <pre>
+iterator <b>find</b>(const Key&amp; keyval);
+const_iterator <b>find</b>(const Key&amp; keyval) const;
+</pre>
+
+  <p>The member function returns an iterator that designates the earliest element in the controlled sequence
+  whose sort key has <a href="lib_stl.html#equivalent%20ordering">equivalent ordering</a> to
+  <code>keyval</code>. If no such element exists, the function returns <code><a href=
+  "#multiset::end">end</a>()</code>.</p>
+
+  <h3><code><a name="multiset::get_allocator">multiset::get_allocator</a></code></h3>
+  <pre>
+Alloc <b>get_allocator</b>() const;
+</pre>
+
+  <p>The member function returns the stored <a href="memory.html#allocator%20object">allocator
+  object</a>.</p>
+
+  <h3><code><a name="multiset::insert">multiset::insert</a></code></h3>
+  <pre>
+iterator <b>insert</b>(const value_type&amp; val);
+iterator <b>insert</b>(const_iterator where, const value_type&amp; val);
+template&lt;class InIt&gt;
+    void <b>insert</b>(InIt first, InIt last);
+void <b>insert</b>(initializer_list&lt;Ty&gt; init) <b>[added with C++0X]</b>
+template&lt;class Valty&gt;
+    pair&lt;iterator, bool&gt; <b>insert</b>(Valty&amp;&amp; val); <b>[added with C++0X]</b>
+template&lt;class Valty&gt;
+    iterator <b>insert</b>(const_iterator where, Valty&amp;&amp; val); <b>[added with C++0X]</b>
+</pre>
+
+  <p>The first member function inserts the element <code>val</code> in the controlled sequence, then returns
+  the iterator that designates the inserted element. Beginning with <b>C++0X</b>, insertion occurs at the end
+  of a sequence of elements with <a href="lib_stl.html#equivalent%20ordering">equivalent ordering</a>.</p>
+
+  <p>The second member function returns <code>insert(val)</code>, using <code>where</code> as a starting
+  place within the controlled sequence to search for the insertion point. (Insertion can occur in amortized
+  constant time, instead of logarithmic time, if the insertion point immediately precedes or follows
+  <code>where</code>.) Beginning with <b>C++0X</b>, insertion occurs at the point nearest the position before
+  <code>where</code> in a sequence of elements with equivalent ordering.</p>
+
+  <p>The third member function inserts the sequence of element values, for each <code>it</code> in the range
+  <code>[first, last)</code>, by calling <code>insert(*where)</code>. Beginning with <b>C++0X</b>, insertion
+  of each element occurs at the end of a sequence of elements with equivalent ordering.</p>
+
+  <p>The fourth member function inserts the sequence specified by an object of class <code><b><a href=
+  "lib_cpp.html#initializer_list">initializer_list</a></b>&lt;Ty&gt;</code>.</p>
+
+  <p>The last two member functions behave the same as the first two but with an <a href=
+  "lib_cpp.html#rvalue%20references">rvalue reference</a>.</p>
+
+  <p>If an exception is thrown during the insertion of a single element, the container is left unaltered and
+  the exception is rethrown. If an exception is thrown during the insertion of multiple elements, the
+  container is left in a stable but unspecified state and the exception is rethrown.</p>
+
+  <p>The member functions neveralter the order of any preexisting elements.</p>
+
+  <h3><code><a name="multiset::iterator">multiset::iterator</a></code></h3>
+  <pre>
+typedef T0 <b>iterator</b>;
+</pre>
+
+  <p>The type describes an object that can serve as a bidirectional iterator for the controlled sequence. It
+  is described here as a synonym for the implementation-defined type <code>T0</code>.</p>
+
+  <h3><code><a name="multiset::key_comp">multiset::key_comp</a></code></h3>
+  <pre>
+key_compare <b>key_comp</b>() const;
+</pre>
+
+  <p>The member function returns the stored function object that determines the order of elements in the
+  controlled sequence. The stored object defines the member function:</p>
+  <pre>
+bool operator(const Key&amp; left, const Key&amp; right);
+</pre>
+
+  <p>which returns true if <code>left</code> strictly precedes <code>right</code> in the sort order.</p>
+
+  <h3><code><a name="multiset::key_compare">multiset::key_compare</a></code></h3>
+  <pre>
+typedef Pr <b>key_compare</b>;
+</pre>
+
+  <p>The type describes a function object that can compare two sort keys to determine the relative order of
+  two elements in the controlled sequence.</p>
+
+  <h3><code><a name="multiset::key_type">multiset::key_type</a></code></h3>
+  <pre>
+typedef Key <b>key_type</b>;
+</pre>
+
+  <p>The type describes the sort key object which constitutes each element of the controlled sequence.</p>
+
+  <h3><code><a name="multiset::lower_bound">multiset::lower_bound</a></code></h3>
+  <pre>
+iterator <b>lower_bound</b>(const Key&amp; keyval);
+const_iterator <b>lower_bound</b>(const Key&amp; keyval) const;
+</pre>
+
+  <p>The member function returns an iterator that designates the earliest element <code>X</code> in the
+  controlled sequence for which <code><a href="#multiset::key_comp">key_comp</a>()(X, keyval)</code> is
+  false.</p>If no such element exists, the function returns <code><a href="#multiset::end">end</a>()</code>.
+
+  <h3><code><a name="multiset::multiset">multiset::multiset</a></code></h3>
+  <pre>
+<b>multiset</b>();
+explicit <b>multiset</b>(const Pr&amp; pred);
+<b>multiset</b>(const Pr&amp; pred, const Alloc&amp; al);
+<b>multiset</b>(const multiset&amp; right);
+template&lt;class InIt&gt;
+    <b>multiset</b>(InIt first, InIt last);
+template&lt;class InIt&gt;
+    <b>multiset</b>(InIt first, InIt last,
+        const Pr&amp; pred);
+template&lt;class InIt&gt;
+    <b>multiset</b>(InIt first, InIt last,
+        const Pr&amp; pred, const Alloc&amp; al);
+
+<b>multiset</b>(initializer_list&lt;Ty&gt; init) <b>[added with C++0X]</b>
+<b>multiset</b>(initializer_list&lt;Ty&gt; init,
+    const Pr&amp; pred); <b>[added with C++0X]</b>
+<b>multiset</b>(initializer_list&lt;Ty&gt; init,
+    const Pr&amp; pred, const Alloc&amp; al); <b>[added with C++0X]</b>
+<b>multiset</b>(multiset&amp;&amp; right); <b>[added with C++0X]</b>
+</pre>
+
+  <p>All constructors store an <a href="memory.html#allocator%20object">allocator object</a> and initialize
+  the controlled sequence. The allocator object is the argument <code>al</code>, if present. For the copy
+  constructor, it is <code>right.<a href="#multiset::get_allocator">get_allocator</a>()</code>. Otherwise, it
+  is <code>Alloc()</code>.</p>
+
+  <p>All constructors also store a function object that can later be returned by calling <code><a href=
+  "#multiset::key_comp">key_comp</a>()</code>. The function object is the argument <code>pred</code>, if
+  present. For the copy constructor, it is <code>right.<a href="#multiset::key_comp">key_comp</a>()</code>).
+  Otherwise, it is <code>Pr()</code>.</p>
+
+  <p>The first three constructors specify an empty initial controlled sequence. The fourth constructor
+  specifies a copy of the sequence controlled by <code>right</code>. The next three constructors specify the
+  sequence of element values <code>[first, last)</code>.</p>
+
+  <p>The next three constructors specify the initial controlled sequence with an object of class
+  <code><b><a href="lib_cpp.html#initializer_list">initializer_list</a></b>&lt;Ty&gt;</code>.</p>
+
+  <p>The last constructor is the same as the fourth, but with an <a href=
+  "lib_cpp.html#rvalue%20references">rvalue reference</a>.</p>
+
+  <h3><code><a name="multiset::max_size">multiset::max_size</a></code></h3>
+  <pre>
+size_type <b>max_size</b>() const;
+</pre>
+
+  <p>The member function returns the length of the longest sequence that the object can control.</p>
+
+  <h3><code><a name="multiset::operator=">multiset::operator=</a></code></h3>
+  <pre>
+multiset&amp; <b>operator=</b>(const multiset&amp; right);
+multiset&amp; <b>operator=</b>(initializer_list&lt;Ty&gt; init) <b>[added with C++0X]</b>
+multiset&amp; <b>operator=</b>(multiset&amp;&amp; right); <b>[added with C++0X]</b>
+</pre>
+
+  <p>The first member operator replaces the controlled sequence with a copy of the sequence controlled by
+  <code>right</code>.</p>
+
+  <p>The second member operator replaces the controlled sequence from an object of class <code><b><a href=
+  "lib_cpp.html#initializer_list">initializer_list</a></b>&lt;Ty&gt;</code>.</p>
+
+  <p>The third member operator is the same as the first, but with an <a href=
+  "lib_cpp.html#rvalue%20references">rvalue reference</a>.</p>
+
+  <h3><code><a name="multiset::pointer">multiset::pointer</a></code></h3>
+  <pre>
+typedef typename Alloc::pointer <b>pointer</b>;
+</pre>
+
+  <p>The type describes an object that can serve as a pointer to an element of the controlled sequence.</p>
+
+  <h3><code><a name="multiset::rbegin">multiset::rbegin</a></code></h3>
+  <pre>
+reverse_iterator <b>rbegin</b>();
+const_reverse_iterator <b>rbegin</b>() const;
+</pre>
+
+  <p>The member function returns a reverse bidirectional iterator that points just beyond the end of the
+  controlled sequence. Hence, it designates the beginning of the reverse sequence.</p>
+
+  <h3><code><a name="multiset::reference">multiset::reference</a></code></h3>
+  <pre>
+typedef typename Alloc::reference <b>reference</b>;
+</pre>
+
+  <p>The type describes an object that can serve as a reference to an element of the controlled sequence.</p>
+
+  <h3><code><a name="multiset::rend">multiset::rend</a></code></h3>
+  <pre>
+reverse_iterator <b>rend</b>();
+const_reverse_iterator <b>rend</b>() const;
+</pre>
+
+  <p>The member function returns a reverse bidirectional iterator that points at the first element of the
+  sequence (or just beyond the end of an empty sequence). Hence, it designates the end of the reverse
+  sequence.</p>
+
+  <h3><code><a name="multiset::reverse_iterator">multiset::reverse_iterator</a></code></h3>
+  <pre>
+typedef reverse_iterator&lt;iterator&gt; <b>reverse_iterator</b>;
+</pre>
+
+  <p>The type describes an object that can serve as a reverse bidirectional iterator for the controlled
+  sequence.</p>
+
+  <h3><code><a name="multiset::size">multiset::size</a></code></h3>
+  <pre>
+size_type <b>size</b>() const;
+</pre>
+
+  <p>The member function returns the length of the controlled sequence.</p>
+
+  <h3><code><a name="multiset::size_type">multiset::size_type</a></code></h3>
+  <pre>
+typedef typename Alloc::size_type <b>size_type</b>;
+</pre>
+
+  <p>The unsigned integer type describes an object that can represent the length of any controlled
+  sequence.</p>
+
+  <h3><code><a name="multiset::swap">multiset::swap</a></code></h3>
+  <pre>
+void <b>swap</b>(multiset&amp; right);
+</pre>
+
+  <p>The member function swaps the controlled sequences between <code>*this</code> and <code>right</code>. If
+  <code><a href="#multiset::get_allocator">get_allocator</a>() == right.get_allocator()</code>, it does so in
+  constant time, it throws an exception only as a result of copying the stored function object of type
+  <code>Pr</code>, and it invalidates no references, pointers, or iterators that designate elements in the
+  two controlled sequences. Otherwise, it performs a number of element assignments and constructor calls
+  proportional to the number of elements in the two controlled sequences.</p>
+
+  <h3><code><a name="multiset::upper_bound">multiset::upper_bound</a></code></h3>
+  <pre>
+iterator <b>upper_bound</b>(const Key&amp; keyval)
+const_iterator <b>upper_bound</b>(const Key&amp; keyval) const;
+</pre>
+
+  <p>The member function returns an iterator that designates the earliest element <code>X</code> in the
+  controlled sequence for which <code><a href="#multiset::key_comp">key_comp</a>()(keyval, X)</code> is
+  true.</p>If no such element exists, the function returns <code><a href="#multiset::end">end</a>()</code>.
+
+  <h3><code><a name="multiset::value_comp">multiset::value_comp</a></code></h3>
+  <pre>
+value_compare <b>value_comp</b>() const;
+</pre>
+
+  <p>The member function returns a function object that determines the order of elements in the controlled
+  sequence.</p>
+
+  <h3><code><a name="multiset::value_compare">multiset::value_compare</a></code></h3>
+  <pre>
+typedef Pr <b>value_compare</b>;
+</pre>
+
+  <p>The type describes a function object that can compare two elements as sort keys to determine their
+  relative order in the controlled sequence.</p>
+
+  <h3><code><a name="multiset::value_type">multiset::value_type</a></code></h3>
+  <pre>
+typedef Key <b>value_type</b>;
+</pre>
+
+  <p>The type describes an element of the controlled sequence.</p>
+
+  <h2><a name="operator!="><code>operator!=</code></a></h2>
+  <pre>
+template&lt;class Key, class Pr, class Alloc&gt;
+    bool <b>operator!=</b>(
+        const set &lt;Key, Pr, Alloc&gt;&amp; left,
+        const set &lt;Key, Pr, Alloc&gt;&amp; right);
+template&lt;class Key, class Pr, class Alloc&gt;
+    bool <b>operator!=</b>(
+        const multiset &lt;Key, Pr, Alloc&gt;&amp; left,
+        const multiset &lt;Key, Pr, Alloc&gt;&amp; right);
+</pre>
+
+  <p>The template function returns <code>!(left == right)</code>.</p>
+
+  <h2><a name="operator=="><code>operator==</code></a></h2>
+  <pre>
+template&lt;class Key, class Pr, class Alloc&gt;
+    bool <b>operator==</b>(
+        const set &lt;Key, Pr, Alloc&gt;&amp; left,
+        const set &lt;Key, Pr, Alloc&gt;&amp; right);
+template&lt;class Key, class Pr, class Alloc&gt;
+    bool <b>operator==</b>(
+        const multiset &lt;Key, Pr, Alloc&gt;&amp; left,
+        const multiset &lt;Key, Pr, Alloc&gt;&amp; right);
+</pre>
+
+  <p>The first template function overloads <code>operator==</code> to compare two objects of template class
+  <a href="#set"><code>set</code></a>. The second template function overloads <code>operator==</code> to
+  compare two objects of template class <a href="#multiset"><code>multiset</code></a>. Both functions return
+  <code>left.<a href="#multiset::size">size</a>() == right.size() &amp;&amp; <a href=
+  "algorith.html#equal">equal</a>(left. <a href="#multiset::begin">begin</a>(), left. <a href=
+  "#multiset::end">end</a>(), right.begin())</code>.</p>
+
+  <h2><a name="operator&lt;"><code>operator&lt;</code></a></h2>
+  <pre>
+template&lt;class Key, class Pr, class Alloc&gt;
+    bool <b>operator&lt;</b>(
+        const set &lt;Key, Pr, Alloc&gt;&amp; left,
+        const set &lt;Key, Pr, Alloc&gt;&amp; right);
+template&lt;class Key, class Pr, class Alloc&gt;
+    bool <b>operator&lt;</b>(
+        const multiset &lt;Key, Pr, Alloc&gt;&amp; left,
+        const multiset &lt;Key, Pr, Alloc&gt;&amp; right);
+</pre>
+
+  <p>The first template function overloads <code>operator&lt;</code> to compare two objects of template class
+  <a href="#set"><code>set</code></a>. The second template function overloads <code>operator&lt;</code> to
+  compare two objects of template class <a href="#multiset"><code>multiset</code></a>. Both functions return
+  <code><a href="algorith.html#lexicographical_compare">lexicographical_compare</a>(left. <a href=
+  "#multiset::begin">begin</a>(), left. <a href="#multiset::end">end</a>(), right.begin(), right.end(),
+  left.<a href="#multiset::value_comp">value_comp</a>())</code>.</p>
+
+  <h2><a name="operator&lt;="><code>operator&lt;=</code></a></h2>
+  <pre>
+template&lt;class Key, class Pr, class Alloc&gt;
+    bool <b>operator&lt;=</b>(
+        const set &lt;Key, Pr, Alloc&gt;&amp; left,
+        const set &lt;Key, Pr, Alloc&gt;&amp; right);
+template&lt;class Key, class Pr, class Alloc&gt;
+    bool <b>operator&lt;=</b>(
+        const multiset &lt;Key, Pr, Alloc&gt;&amp; left,
+        const multiset &lt;Key, Pr, Alloc&gt;&amp; right);
+</pre>
+
+  <p>The template function returns <code>!(right &lt; left)</code>.</p>
+
+  <h2><a name="operator&gt;"><code>operator&gt;</code></a></h2>
+  <pre>
+template&lt;class Key, class Pr, class Alloc&gt;
+    bool <b>operator&gt;</b>(
+        const set &lt;Key, Pr, Alloc&gt;&amp; left,
+        const set &lt;Key, Pr, Alloc&gt;&amp; right);
+template&lt;class Key, class Pr, class Alloc&gt;
+    bool <b>operator&gt;</b>(
+        const multiset &lt;Key, Pr, Alloc&gt;&amp; left,
+        const multiset &lt;Key, Pr, Alloc&gt;&amp; right);
+</pre>
+
+  <p>The template function returns <code>right &lt; left</code>.</p>
+
+  <h2><a name="operator&gt;="><code>operator&gt;=</code></a></h2>
+  <pre>
+template&lt;class Key, class Pr, class Alloc&gt;
+    bool <b>operator&gt;=</b>(
+        const set &lt;Key, Pr, Alloc&gt;&amp; left,
+        const set &lt;Key, Pr, Alloc&gt;&amp; right);
+template&lt;class Key, class Pr, class Alloc&gt;
+    bool <b>operator&gt;=</b>(
+        const multiset &lt;Key, Pr, Alloc&gt;&amp; left,
+        const multiset &lt;Key, Pr, Alloc&gt;&amp; right);
+</pre>
+
+  <p>The template function returns <code>!(left &lt; right)</code>.</p>
+
+  <h2><a name="set"><code>set</code></a></h2>
+  <hr>
+
+  <p><b><code><a href="#set::allocator_type">allocator_type</a> &middot; <a href="#set::begin">begin</a>
+  &middot; <a href="#set::cbegin">cbegin</a> &middot; <a href="#set::cend">cend</a> &middot; <a href=
+  "#set::clear">clear</a> &middot; <a href="#set::const_iterator">const_iterator</a> &middot; <a href=
+  "#set::const_pointer">const_pointer</a> &middot; <a href="#set::const_reference">const_reference</a>
+  &middot; <a href="#set::const_reverse_iterator">const_reverse_iterator</a> &middot; <a href=
+  "#set::count">count</a> &middot; <a href="#set::crbegin">crbegin</a> &middot; <a href=
+  "#set::crend">crend</a> &middot; <a href="#set::difference_type">difference_type</a> &middot; <a href=
+  "#set::emplace">emplace</a> &middot; <a href="#set::emplace_hint">emplace_hint</a> &middot; <a href=
+  "#set::empty">empty</a> &middot; <a href="#set::end">end</a> &middot; <a href=
+  "#set::equal_range">equal_range</a> &middot; <a href="#set::erase">erase</a> &middot; <a href=
+  "#set::find">find</a> &middot; <a href="#set::get_allocator">get_allocator</a> &middot; <a href=
+  "#set::insert">insert</a> &middot; <a href="#set::iterator">iterator</a> &middot; <a href=
+  "#set::key_comp">key_comp</a> &middot; <a href="#set::key_compare">key_compare</a> &middot; <a href=
+  "#set::key_type">key_type</a> &middot; <a href="#set::lower_bound">lower_bound</a> &middot; <a href=
+  "#set::max_size">max_size</a> &middot; <a href="#set::operator=">operator=</a> &middot; <a href=
+  "#set::pointer">pointer</a> &middot; <a href="#set::rbegin">rbegin</a> &middot; <a href=
+  "#set::reference">reference</a> &middot; <a href="#set::rend">rend</a> &middot; <a href=
+  "#set::reverse_iterator">reverse_iterator</a> &middot; <a href="#set::set">set</a> &middot; <a href=
+  "#set::size">size</a> &middot; <a href="#set::size_type">size_type</a> &middot; <a href=
+  "#set::swap">swap</a> &middot; <a href="#set::upper_bound">upper_bound</a> &middot; <a href=
+  "#set::value_comp">value_comp</a> &middot; <a href="#set::value_compare">value_compare</a> &middot;
+  <a href="#set::value_type">value_type</a></code></b></p>
+  <hr>
+  <pre>
+template&lt;class Key, class Pr = less&lt;Key&gt;,
+    class Alloc = allocator&lt;Key&gt; &gt;
+    class <b>set</b> {
+public:
+    typedef Key <b><a href="#set::key_type">key_type</a></b>;
+    typedef Pr <b><a href="#set::key_compare">key_compare</a></b>;
+    typedef Key <b><a href="#set::value_type">value_type</a></b>;
+    typedef Pr <b><a href="#set::value_compare">value_compare</a></b>;
+    typedef Alloc <b><a href="#set::allocator_type">allocator_type</a></b>;
+    typedef typename Alloc::pointer <b><a href="#set::pointer">pointer</a></b>;
+    typedef typename Alloc::const_pointer <b><a href="#set::const_pointer">const_pointer</a></b>;
+    typedef typename Alloc::reference <b><a href="#set::reference">reference</a></b>;
+    typedef typename Alloc::const_reference <b><a href="#set::const_reference">const_reference</a></b>;
+    typedef typename Alloc::size_type <b><a href="#set::size_type">size_type</a></b>;
+    typedef typename Alloc::difference_type <b><a href="#set::difference_type">difference_type</a></b>;
+
+    typedef T0 <b><a href="#set::iterator">iterator</a></b>;
+    typedef T1 <b><a href="#set::const_iterator">const_iterator</a></b>;
+    typedef reverse_iterator&lt;const_iterator&gt;
+        <b><a href="#set::const_reverse_iterator">const_reverse_iterator</a></b>;
+    typedef reverse_iterator&lt;iterator&gt; <b><a href="#set::reverse_iterator">reverse_iterator</a></b>;
+
+    <b><a href="#set::set">set</a></b>();
+    explicit <b><a href="#set::set">set</a></b>(const Pr&amp; pred);
+    <b><a href="#set::set">set</a></b>(const Pr&amp; pred, const Alloc&amp; al);
+    <b><a href="#set::set">set</a></b>(const set&amp; right);
+    template&lt;class InIt&gt;
+        <b><a href="#set::set">set</a></b>(InIt first, InIt last);
+    template&lt;class InIt&gt;
+        <b><a href="#set::set">set</a></b>(InIt first, InIt last,
+            const Pr&amp; pred);
+    template&lt;class InIt&gt;
+        <b><a href="#set::set">set</a></b>(InIt first, InIt last,
+            const Pr&amp; pred, const Alloc&amp; al);
+
+    <b><a href="#set::set">set</a></b>(initializer_list&lt;Ty&gt; init) <b>[added with C++0X]</b>
+    <b><a href="#set::set">set</a></b>(initializer_list&lt;Ty&gt; init,
+        const Pr&amp; pred); <b>[added with C++0X]</b>
+    <b><a href="#set::set">set</a></b>(initializer_list&lt;Ty&gt; init,
+        const Pr&amp; pred, const Alloc&amp; al); <b>[added with C++0X]</b>
+    <b><a href="#set::set">set</a></b>(set&amp;&amp; right); <b>[added with C++0X]</b>
+
+    set&amp; <b><a href="#set::operator=">operator=</a></b>(const set&amp; right);
+    set&amp; <b><a href=
+"#set::operator=">operator=</a></b>(initializer_list&lt;Ty&gt; init) <b>[added with C++0X]</b>
+    set&amp; <b><a href="#set::operator=">operator=</a></b>(set&amp;&amp; right); <b>[added with C++0X]</b>
+
+    iterator <b><a href="#set::begin">begin</a></b>();
+    const_iterator <b><a href="#set::begin">begin</a></b>() const;
+    iterator <b><a href="#set::end">end</a></b>();
+    const_iterator <b><a href="#set::end">end</a></b>() const;
+    reverse_iterator <b><a href="#set::rbegin">rbegin</a></b>();
+    const_reverse_iterator <b><a href="#set::rbegin">rbegin</a></b>() const;
+    reverse_iterator <b><a href="#set::rend">rend</a></b>();
+    const_reverse_iterator <b><a href="#set::rend">rend</a></b>() const;
+
+    const_iterator <b><a href="#set::cbegin">cbegin</a></b>() const; <b>[added with C++0X]</b>
+    const_iterator <b><a href="#set::cend">cend</a></b>() const; <b>[added with C++0X]</b>
+    const_reverse_iterator <b><a href="#set::crbegin">crbegin</a></b>() const; <b>[added with C++0X]</b>
+    const_reverse_iterator <b><a href="#set::crend">crend</a></b>() const; <b>[added with C++0X]</b>
+
+    size_type <b><a href="#set::max_size">max_size</a></b>() const;
+    bool <b><a href="#set::empty">empty</a></b>() const;
+    Alloc <b><a href="#set::get_allocator">get_allocator</a></b>() const;
+
+    pair&lt;iterator, bool&gt; <b><a href="#set::insert">insert</a></b>(const value_type&amp; val);
+    iterator <b><a href="#set::insert">insert</a></b>(const_iterator where, const value_type&amp; val);
+    template&lt;class InIt&gt;
+        void <b><a href="#set::insert">insert</a></b>(InIt first, InIt last);
+    void <b><a href="#set::insert">insert</a></b>(initializer_list&lt;Ty&gt; init) <b>[added with C++0X]</b>
+    template&lt;class Valty&gt;
+        pair&lt;iterator, bool&gt; <b><a href=
+"#set::insert">insert</a></b>(Valty&amp;&amp; val); <b>[added with C++0X]</b>
+    template&lt;class Valty&gt;
+        iterator <b><a href=
+"#set::insert">insert</a></b>(const_iterator where, Valty&amp;&amp; val); <b>[added with C++0X]</b>
+
+    template&lt;class... Valty&gt;
+        pair&lt;iterator, bool&gt; <b><a href=
+"#set::emplace">emplace</a></b>(Valty&amp;&amp;... val); <b>[added with C++0X]</b>
+    template&lt;class... Valty&gt;
+        iterator <b><a href=
+"#set::emplace_hint">emplace_hint</a></b>(const_iterator where, Valty&amp;&amp;... val); <b>[added with C++0X]</b>
+
+    iterator <b><a href="#set::erase">erase</a></b>(const_iterator where);
+    iterator <b><a href="#set::erase">erase</a></b>(const_iterator first, const_iterator last);
+    size_type <b><a href="#set::erase">erase</a></b>(const Key&amp; keyval);
+    void <b><a href="#set::clear">clear</a></b>();
+
+    void <b><a href="#set::swap">swap</a></b>(set&amp; right);
+
+    key_compare <b><a href="#set::key_comp">key_comp</a></b>() const;
+    value_compare <b><a href="#set::value_comp">value_comp</a></b>() const;
+    iterator <b><a href="#set::find">find</a></b>(const Key&amp; keyval);
+    const_iterator <b><a href="#set::find">find</a></b>(const Key&amp; keyval) const;
+    size_type <b><a href="#set::count">count</a></b>(const Key&amp; keyval) const;
+    iterator <b><a href="#set::lower_bound">lower_bound</a></b>(const Key&amp; keyval);
+    const_iterator <b><a href="#set::lower_bound">lower_bound</a></b>(const Key&amp; keyval) const;
+    iterator <b><a href="#set::upper_bound">upper_bound</a></b>(const Key&amp; keyval);
+    const_iterator <b><a href="#set::upper_bound">upper_bound</a></b>(const Key&amp; keyval) const;
+    pair&lt;iterator, iterator&gt; <b><a href="#set::equal_range">equal_range</a></b>(const Key&amp; keyval);
+    pair&lt;const_iterator, const_iterator&gt;
+        <b><a href="#set::equal_range">equal_range</a></b>(const Key&amp; keyval) const;
+    };
+</pre>
+
+  <p>The template class describes an object that controls a varying-length sequence of elements of type
+  <code>const Key</code>. The sequence is <a href="lib_stl.html#sequence%20ordering">ordered by</a> the
+  predicate <code>Pr</code>. Each element serves as both a <b>sort key</b> and a <b>value</b>. The sequence
+  is represented in a way that permits lookup, insertion, and removal of an arbitrary element with a number
+  of operations proportional to the logarithm of the number of elements in the sequence (logarithmic time).
+  Moreover, inserting an element invalidates no iterators, and removing an element invalidates only those
+  iterators which point at the removed element.</p>
+
+  <p>The object orders the sequence it controls by calling a stored <b>function object</b> of type
+  <code>Pr</code>. You access this stored object by calling the member function <code><a href=
+  "#set::key_comp">key_comp</a>()</code>. Such a function object must impose a <a href=
+  "lib_stl.html#strict%20weak%20ordering">strict weak ordering</a> on sort keys of type <code>Key</code>. For
+  any element <code>X</code> that precedes <code>Y</code> in the sequence, <code>key_comp()(Y, X)</code> is
+  false. (For the default function object <code><a href="functio2.html#less">less</a>&lt;Key&gt;</code>, sort
+  keys never decrease in value.) Unlike template class <code><a href="#multiset">multiset</a></code>, an
+  object of template class <code>set</code> ensures that <code>key_comp()(X, Y)</code> is true. (Each key is
+  unique.)</p>
+
+  <p>The object allocates and frees storage for the sequence it controls through a stored <a href=
+  "memory.html#allocator%20object">allocator object</a> of class <code>Alloc</code>. Such an allocator object
+  must have the same external interface as an object of template class <a href=
+  "memory.html#allocator"><code>allocator</code></a>. Note that the stored allocator object is <i>not</i>
+  copied when the container object is assigned.</p>
+
+  <h3><code><a name="set::allocator_type">set::allocator_type</a></code></h3>
+  <pre>
+typedef Alloc <b>allocator_type</b>;
+</pre>
+
+  <p>The type is a synonym for the template parameter <code>Alloc</code>.</p>
+
+  <h3><code><a name="set::begin">set::begin</a></code></h3>
+  <pre>
+iterator <b>begin</b>();
+const_iterator <b>begin</b>() const;
+</pre>
+
+  <p>The member function returns a bidirectional iterator that points at the first element of the sequence
+  (or just beyond the end of an empty sequence).</p>
+
+  <h3><code><a name="set::cbegin">set::cbegin</a></code></h3>
+  <pre>
+const_iterator <b>cbegin</b>() const; <b>[added with C++0X]</b>
+</pre>
+
+  <p>The member functions return a bidirectional iterator that points at the first element of the sequence
+  (or just beyond the end of an empty sequence).</p>
+
+  <h3><code><a name="set::cend">set::cend</a></code></h3>
+  <pre>
+const_reference <b>cend</b>() const; <b>[added with C++0X]</b>
+</pre>
+
+  <p>The member functions return a bidirectional iterator that points just beyond the end of the
+  sequence.</p>
+
+  <h3><code><a name="set::clear">set::clear</a></code></h3>
+  <pre>
+void <b>clear</b>();
+</pre>
+
+  <p>The member function calls <code><a href="#set::erase">erase</a>( <a href="#set::begin">begin</a>(),
+  <a href="#set::end">end</a>())</code>.</p>
+
+  <h3><code><a name="set::const_iterator">set::const_iterator</a></code></h3>
+  <pre>
+typedef T1 <b>const_iterator</b>;
+</pre>
+
+  <p>The type describes an object that can serve as a constant bidirectional iterator for the controlled
+  sequence. It is described here as a synonym for the implementation-defined type <code>T1</code>.</p>
+
+  <h3><code><a name="set::const_pointer">set::const_pointer</a></code></h3>
+  <pre>
+typedef typename Alloc::const_pointer <b>const_pointer</b>;
+</pre>
+
+  <p>The type describes an object that can serve as a constant pointer to an element of the controlled
+  sequence.</p>
+
+  <h3><code><a name="set::const_reference">set::const_reference</a></code></h3>
+  <pre>
+typedef typename Alloc::const_reference <b>const_reference</b>;
+</pre>
+
+  <p>The type describes an object that can serve as a constant reference to an element of the controlled
+  sequence.</p>
+
+  <h3><code><a name="set::const_reverse_iterator">set::const_reverse_iterator</a></code></h3>
+  <pre>
+typedef reverse_iterator&lt;const_iterator&gt;
+    <b>const_reverse_iterator</b>;
+</pre>
+
+  <p>The type describes an object that can serve as a constant reverse bidirectional iterator for the
+  controlled sequence.</p>
+
+  <h3><code><a name="set::count">set::count</a></code></h3>
+  <pre>
+size_type <b>count</b>(const Key&amp; keyval) const;
+</pre>
+
+  <p>The member function returns the number of elements in the range <code>[<a href=
+  "#set::lower_bound">lower_bound</a>(keyval), <a href=
+  "#set::upper_bound">upper_bound</a>(keyval)).</code></p>
+
+  <h3><code><a name="set::crbegin">set::crbegin</a></code></h3>
+  <pre>
+const_reverse_iterator <b>crbegin</b>() const; <b>[added with C++0X]</b>
+</pre>
+
+  <p>The member functions return a reverse iterator that points just beyond the end of the controlled
+  sequence. Hence, it designates the beginning of the reverse sequence.</p>
+
+  <h3><code><a name="set::crend">set::crend</a></code></h3>
+  <pre>
+const_reverse_iterator <b>crend</b>() const; <b>[added with C++0X]</b>
+</pre>
+
+  <p>The member functions return a reverse iterator that points at the first element of the sequence (or just
+  beyond the end of an empty sequence)). Hence, it designates the end of the reverse sequence.</p>
+
+  <h3><code><a name="set::difference_type">set::difference_type</a></code></h3>
+  <pre>
+typedef typename Alloc::difference_type <b>difference_type</b>;
+</pre>
+
+  <p>The signed integer type describes an object that can represent the difference between the addresses of
+  any two elements in the controlled sequence.</p>
+
+  <h3><code><a name="set::emplace">set::emplace</a></code></h3>
+  <pre>
+template&lt;class... Valty&gt;
+    pair&lt;iterator, bool&gt; <b>emplace</b>(Valty&amp;&amp;... val); <b>[added with C++0X]</b>
+</pre>
+
+  <p>The member function returns <code><a href="#set::insert">insert</a>(forward&lt;pair&lt;key,
+  mapped_type&gt; &gt;( pair&lt;key, mapped_type&gt;(val...))</code>.</p>
+
+  <h3><code><a name="set::emplace_hint">set::emplace_hint</a></code></h3>
+  <pre>
+template&lt;class... Valty&gt;
+    iterator <b>emplace_hint</b>(const_iterator where, Valty&amp;&amp;... val); <b>[added with C++0X]</b>
+</pre>
+
+  <p>The member function returns <code>insert(where, forward&lt;pair&lt;key, mapped_type&gt; &gt;(
+  pair&lt;key, mapped_type&gt;(val...))</code>.</p>
+
+  <h3><code><a name="set::empty">set::empty</a></code></h3>
+  <pre>
+bool <b>empty</b>() const;
+</pre>
+
+  <p>The member function returns true for an empty controlled sequence.</p>
+
+  <h3><code><a name="set::end">set::end</a></code></h3>
+  <pre>
+iterator <b>end</b>();
+const_iterator <b>end</b>() const;
+</pre>
+
+  <p>The member function returns a bidirectional iterator that points just beyond the end of the
+  sequence.</p>
+
+  <h3><code><a name="set::equal_range">set::equal_range</a></code></h3>
+  <pre>
+pair&lt;iterator, iterator&gt;
+    <b>equal_range</b>(const Key&amp; keyval);
+pair&lt;const_iterator, const_iterator&gt;
+    <b>equal_range</b>(const Key&amp; keyval) const;
+</pre>
+
+  <p>The member function returns a pair of iterators <code>X</code> such that <code>X.<a href=
+  "utility.html#pair::first">first</a> == <a href="#set::lower_bound">lower_bound</a>(keyval)</code> and
+  <code>X.<a href="utility.html#pair::second">second</a> == <a href=
+  "#set::upper_bound">upper_bound</a>(keyval)</code>.</p>
+
+  <h3><code><a name="set::erase">set::erase</a></code></h3>
+  <pre>
+iterator <b>erase</b>(const_iterator where);
+iterator <b>erase</b>(const_iterator first, const_iterator last);
+size_type <b>erase</b>(const Key&amp; keyval);
+</pre>
+
+  <p>The first member function removes the element of the controlled sequence pointed to by
+  <code>where</code>. The second member function removes the elements in the range <code>[first,
+  last)</code>. Both return an iterator that designates the first element remaining beyond any elements
+  removed, or <code><a href="#set::end">end</a>()</code> if no such element exists.</p>
+
+  <p>The third member removes the elements with sort keys in the range <code>[<a href=
+  "#set::lower_bound">lower_bound</a>(keyval), <a href="#set::upper_bound">upper_bound</a>(keyval)).</code>
+  It returns the number of elements it removes.</p>
+
+  <p>The member functions never throw an exception.</p>
+
+  <p>In this <a href="index.html#implementation">implementation</a>, the first two member functions return an
+  iterator that designates the first element remaining beyond any elements removed, or <code><a href=
+  "#set::end">end</a>()</code> if no such element exists.</p>
+
+  <h3><code><a name="set::find">set::find</a></code></h3>
+  <pre>
+iterator <b>find</b>(const Key&amp; keyval);
+const_iterator <b>find</b>(const Key&amp; keyval) const;
+</pre>
+
+  <p>The member function returns an iterator that designates the element in the controlled sequence whose
+  sort key has <a href="lib_stl.html#equivalent%20ordering">equivalent ordering</a> to <code>keyval</code>.
+  If no such element exists, the function returns <code><a href="#set::end">end</a>()</code>.</p>
+
+  <h3><code><a name="set::get_allocator">set::get_allocator</a></code></h3>
+  <pre>
+Alloc <b>get_allocator</b>() const;
+</pre>
+
+  <p>The member function returns the stored <a href="memory.html#allocator%20object">allocator
+  object</a>.</p>
+
+  <h3><code><a name="set::insert">set::insert</a></code></h3>
+  <pre>
+pair&lt;iterator, bool&gt; <b>insert</b>(const value_type&amp; val);
+iterator <b>insert</b>(const_iterator where, const value_type&amp; val);
+template&lt;class InIt&gt;
+    void <b>insert</b>(InIt first, InIt last);
+void <b>insert</b>(initializer_list&lt;Ty&gt; init) <b>[added with C++0X]</b>
+template&lt;class Valty&gt;
+    pair&lt;iterator, bool&gt; <b>insert</b>(Valty&amp;&amp; val); <b>[added with C++0X]</b>
+template&lt;class Valty&gt;
+    iterator <b>insert</b>(const_iterator where, Valty&amp;&amp; val); <b>[added with C++0X]</b>
+</pre>
+
+  <p>The first member function determines whether an element <code>X</code> exists in the sequence whose key
+  has <a href="lib_stl.html#equivalent%20ordering">equivalent ordering</a> to that of <code>val</code>. If
+  not, it creates such an element <code>X</code> and initializes it with <code>val</code>. The function then
+  determines the iterator <code>where</code> that designates <code>X</code>. If an insertion occurred, the
+  function returns <code><a href="utility.html#pair">pair</a>(where, true)</code>. Otherwise, it returns
+  <code>pair(where, false)</code>.</p>
+
+  <p>The second member function returns <code>insert(val).first</code>, using <code>where</code> as a
+  starting place within the controlled sequence to search for the insertion point. (Insertion can occur in
+  amortized constant time, instead of logarithmic time, if the insertion point immediately precedes or
+  follows <code>where</code>.) The third member function inserts the sequence of element values, for each
+  <code>where</code> in the range <code>[first, last)</code>, by calling <code>insert(*where)</code>.</p>
+
+  <p>The fourth member function inserts the sequence specified by an object of class <code><b><a href=
+  "lib_cpp.html#initializer_list">initializer_list</a></b>&lt;Ty&gt;</code>.</p>
+
+  <p>The last two member functions behave the same as the first two but with an <a href=
+  "lib_cpp.html#rvalue%20references">rvalue reference</a>.</p>
+
+  <p>If an exception is thrown during the insertion of a single element, the container is left unaltered and
+  the exception is rethrown. If an exception is thrown during the insertion of multiple elements, the
+  container is left in a stable but unspecified state and the exception is rethrown.</p>
+
+  <h3><code><a name="set::iterator">set::iterator</a></code></h3>
+  <pre>
+typedef T0 <b>iterator</b>;
+</pre>
+
+  <p>The type describes an object that can serve as a bidirectional iterator for the controlled sequence. It
+  is described here as a synonym for the implementation-defined type <code>T0</code>.</p>
+
+  <h3><code><a name="set::key_comp">set::key_comp</a></code></h3>
+  <pre>
+key_compare <b>key_comp</b>() const;
+</pre>
+
+  <p>The member function returns the stored function object that determines the order of elements in the
+  controlled sequence. The stored object defines the member function:</p>
+  <pre>
+bool operator(const Key&amp; left, const Key&amp; right);
+</pre>
+
+  <p>which returns true if <code>left</code> strictly precedes <code>right</code> in the sort order.</p>
+
+  <h3><code><a name="set::key_compare">set::key_compare</a></code></h3>
+  <pre>
+typedef Pr <b>key_compare</b>;
+</pre>
+
+  <p>The type describes a function object that can compare two sort keys to determine the relative order of
+  two elements in the controlled sequence.</p>
+
+  <h3><code><a name="set::key_type">set::key_type</a></code></h3>
+  <pre>
+typedef Key <b>key_type</b>;
+</pre>
+
+  <p>The type describes the sort key object which constitutes each element of the controlled sequence.</p>
+
+  <h3><code><a name="set::lower_bound">set::lower_bound</a></code></h3>
+  <pre>
+iterator <b>lower_bound</b>(const Key&amp; keyval);
+const_iterator <b>lower_bound</b>(const Key&amp; keyval) const;
+</pre>
+
+  <p>The member function returns an iterator that designates the earliest element <code>X</code> in the
+  controlled sequence for which <code><a href="#set::key_comp">key_comp</a>()(X, keyval)</code> is
+  false.</p>If no such element exists, the function returns <code><a href="#set::end">end</a>()</code>.
+
+  <h3><code><a name="set::max_size">set::max_size</a></code></h3>
+  <pre>
+size_type <b>max_size</b>() const;
+</pre>
+
+  <p>The member function returns the length of the longest sequence that the object can control.</p>
+
+  <h3><code><a name="set::operator=">set::operator=</a></code></h3>
+  <pre>
+set&amp; <b>operator=</b>(const set&amp; right);
+set&amp; <b>operator=</b>(initializer_list&lt;Ty&gt; init) <b>[added with C++0X]</b>
+set&amp; <b>operator=</b>(set&amp;&amp; right); <b>[added with C++0X]</b>
+</pre>
+
+  <p>The first member operator replaces the controlled sequence with a copy of the sequence controlled by
+  <code>right</code>.</p>
+
+  <p>The second member operator replaces the controlled sequence from an object of class <code><b><a href=
+  "lib_cpp.html#initializer_list">initializer_list</a></b>&lt;Ty&gt;</code>.</p>
+
+  <p>The third member operator is the same as the first, but with an <a href=
+  "lib_cpp.html#rvalue%20references">rvalue reference</a>.</p>
+
+  <h3><code><a name="set::pointer">set::pointer</a></code></h3>
+  <pre>
+typedef typename Alloc::pointer <b>pointer</b>;
+</pre>
+
+  <p>The type describes an object that can serve as a pointer to an element of the controlled sequence.</p>
+
+  <h3><code><a name="set::rbegin">set::rbegin</a></code></h3>
+  <pre>
+reverse_iterator <b>rbegin</b>();
+const_reverse_iterator <b>rbegin</b>() const;
+</pre>
+
+  <p>The member function returns a reverse bidirectional iterator that points just beyond the end of the
+  controlled sequence. Hence, it designates the beginning of the reverse sequence.</p>
+
+  <h3><code><a name="set::reference">set::reference</a></code></h3>
+  <pre>
+typedef typename Alloc::const_reference <b>const_reference</b>;
+</pre>
+
+  <p>The type describes an object that can serve as a reference to an element of the controlled sequence.</p>
+
+  <h3><code><a name="set::rend">set::rend</a></code></h3>
+  <pre>
+reverse_iterator <b>rend</b>();
+const_reverse_iterator <b>rend</b>() const;
+</pre>
+
+  <p>The member function returns a reverse bidirectional iterator that points at the first element of the
+  sequence (or just beyond the end of an empty sequence). Hence, it designates the end of the reverse
+  sequence.</p>
+
+  <h3><code><a name="set::reverse_iterator">set::reverse_iterator</a></code></h3>
+  <pre>
+typedef reverse_iterator&lt;iterator&gt; <b>reverse_iterator</b>;
+</pre>
+
+  <p>The type describes an object that can serve as a reverse bidirectional iterator for the controlled
+  sequence.</p>
+
+  <h3><code><a name="set::set">set::set</a></code></h3>
+  <pre>
+<b>set</b>();
+explicit <b>set</b>(const Pr&amp; pred);
+<b>set</b>(const Pr&amp; pred, const Alloc&amp; al);
+<b>set</b>(const set&amp; right);
+template&lt;class InIt&gt;
+    <b>set</b>(InIt first, InIt last);
+template&lt;class InIt&gt;
+    <b>set</b>(InIt first, InIt last,
+        const Pr&amp; pred);
+template&lt;class InIt&gt;
+    <b>set</b>(InIt first, InIt last,
+        const Pr&amp; pred, const Alloc&amp; al);
+
+<b>set</b>(initializer_list&lt;Ty&gt; init) <b>[added with C++0X]</b>
+<b>set</b>(initializer_list&lt;Ty&gt; init,
+    const Pr&amp; pred); <b>[added with C++0X]</b>
+<b>set</b>(initializer_list&lt;Ty&gt; init,
+    const Pr&amp; pred, const Alloc&amp; al); <b>[added with C++0X]</b>
+<b>set</b>(set&amp;&amp; right); <b>[added with C++0X]</b>
+</pre>
+
+  <p>All constructors store an <a href="memory.html#allocator%20object">allocator object</a> and initialize
+  the controlled sequence. The allocator object is the argument <code>al</code>, if present. For the copy
+  constructor, it is <code>right.<a href="#set::get_allocator">get_allocator</a>()</code>. Otherwise, it is
+  <code>Alloc()</code>.</p>
+
+  <p>All constructors also store a function object that can later be returned by calling <code><a href=
+  "#set::key_comp">key_comp</a>()</code>. The function object is the argument <code>pred</code>, if present.
+  For the copy constructor, it is <code>right.<a href="#set::key_comp">key_comp</a>()</code>). Otherwise, it
+  is <code>Pr()</code>.</p>
+
+  <p>The first three constructors specify an empty initial controlled sequence. The fourth constructor
+  specifies a copy of the sequence controlled by <code>right</code>. The next three constructors specify the
+  sequence of element values <code>[first, last)</code>.</p>
+
+  <p>The next three constructors specify the initial controlled sequence with an object of class
+  <code><b><a href="lib_cpp.html#initializer_list">initializer_list</a></b>&lt;Ty&gt;</code>.</p>
+
+  <p>The last constructor is the same as the fourth, but with an <a href=
+  "lib_cpp.html#rvalue%20references">rvalue reference</a>.</p>
+
+  <h3><code><a name="set::size">set::size</a></code></h3>
+  <pre>
+size_type <b>size</b>() const;
+</pre>
+
+  <p>The member function returns the length of the controlled sequence.</p>
+
+  <h3><code><a name="set::size_type">set::size_type</a></code></h3>
+  <pre>
+typedef typename Alloc::size_type <b>size_type</b>;
+</pre>
+
+  <p>The unsigned integer type describes an object that can represent the length of any controlled
+  sequence.</p>
+
+  <h3><code><a name="set::swap">set::swap</a></code></h3>
+  <pre>
+void <b>swap</b>(set&amp; right);
+</pre>
+
+  <p>The member function swaps the controlled sequences between <code>*this</code> and <code>right</code>. If
+  <code><a href="#set::get_allocator">get_allocator</a>() == right.get_allocator()</code>, it does so in
+  constant time, it throws an exception only as a result of copying the stored function object of type
+  <code>Pr</code>, and it invalidates no references, pointers, or iterators that designate elements in the
+  two controlled sequences. Otherwise, it performs a number of element assignments and constructor calls
+  proportional to the number of elements in the two controlled sequences.</p>
+
+  <h3><code><a name="set::upper_bound">set::upper_bound</a></code></h3>
+  <pre>
+iterator <b>upper_bound</b>(const Key&amp; keyval)
+const_iterator <b>upper_bound</b>(const Key&amp; keyval) const;
+</pre>
+
+  <p>The member function returns an iterator that designates the earliest element <code>X</code> in the
+  controlled sequence for which <code><a href="#set::key_comp">key_comp</a>()(keyval, X)</code> is
+  true.</p>If no such element exists, the function returns <code><a href="#set::end">end</a>()</code>.
+
+  <h3><code><a name="set::value_comp">set::value_comp</a></code></h3>
+  <pre>
+value_compare <b>value_comp</b>() const;
+</pre>
+
+  <p>The member function returns a function object that determines the order of elements in the controlled
+  sequence.</p>
+
+  <h3><code><a name="set::value_compare">set::value_compare</a></code></h3>
+  <pre>
+typedef Pr <b>value_compare</b>;
+</pre>
+
+  <p>The type describes a function object that can compare two elements as sort keys to determine their
+  relative order in the controlled sequence.</p>
+
+  <h3><code><a name="set::value_type">set::value_type</a></code></h3>
+  <pre>
+typedef Key <b>value_type</b>;
+</pre>
+
+  <p>The type describes an element of the controlled sequence.</p>
+
+  <h2><a name="swap"><code>swap</code></a></h2>
+  <pre>
+template&lt;class Key, class Pr, class Alloc&gt;
+    void <b>swap</b>(
+        multiset &lt;Key, Pr, Alloc&gt;&amp; left,
+        multiset &lt;Key, Pr, Alloc&gt;&amp; right);
+template&lt;class Key, class Pr, class Alloc&gt;
+    void <b>swap</b>(
+        set &lt;Key, Pr, Alloc&gt;&amp; left,
+        set &lt;Key, Pr, Alloc&gt;&amp; right);
+</pre>
+
+  <p>The template function executes <code>left.swap(right)</code>.</p>
+  <hr>
+
+  <p>See also the <b><a href="index.html#Table%20of%20Contents">Table of Contents</a></b> and the <b><a href=
+  "_index.html">Index</a></b>.</p>
+
+  <p><i><a href="crit_pjp.html">Copyright</a> &copy; 1992-2010 by P.J. Plauger. Portions derived from work
+  <a href="crit_hp.html">copyright</a> &copy; 1994 by Hewlett-Packard Company. All rights reserved.</i></p>
+  <!--V5.30:126I-->
+</body>
+</html>

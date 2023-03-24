@@ -1,0 +1,2432 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html>
+<head>
+  <meta name="generator" content=
+  "HTML Tidy for Mac OS X (vers 31 October 2006 - Apple Inc. build 15.15), see www.w3.org">
+
+  <title>&lt;regex&gt;</title>
+</head>
+
+<body>
+  <h1><a name="&lt;regex&gt;"><code>&lt;regex&gt;</code></a></h1>
+
+  <p>[added with <a href="index.html#TR1">TR1</a>]</p>
+  <hr>
+
+  <p><b><code><a href="#basic_regex">basic_regex</a> &middot; <a href=
+  "#regex_constants::error_type">error_type</a> &middot; <a href=
+  "#regex_constants::match_flag_type">match_flag_type</a> &middot; <a href="#match_results">match_results</a>
+  &middot; <a href="#regex_constants">regex_constants</a> &middot; <a href="#regex_error">regex_error</a>
+  &middot; <a href="#regex_iterator">regex_iterator</a> &middot; <a href="#regex_traits">regex_traits</a>
+  &middot; <a href="#regex_traits%3Cchar%3E">regex_traits&lt;char&gt;</a> &middot; <a href=
+  "#regex_traits%3Cwchar_t%3E">regex_traits&lt;wchar_t&gt;</a> &middot; <a href=
+  "#regex_token_iterator">regex_token_iterator</a> &middot; <a href="#sub_match">sub_match</a> &middot;
+  <a href="#regex_constants::syntax_option_type">syntax_option_type</a></code></b></p>
+
+  <p><b><code><a href="#cmatch">cmatch</a> &middot; <a href="#cregex_iterator">cregex_iterator</a> &middot;
+  <a href="#cregex_token_iterator">cregex_token_iterator</a> &middot; <a href="#csub_match">csub_match</a>
+  &middot; <a href="#regex">regex</a> &middot; <a href="#smatch">smatch</a> &middot; <a href=
+  "#sregex_iterator">sregex_iterator</a> &middot; <a href="#sregex_token_iterator">sregex_token_iterator</a>
+  &middot; <a href="#ssub_match">ssub_match</a> &middot; <a href="#wcmatch">wcmatch</a> &middot; <a href=
+  "#wcregex_iterator">wcregex_iterator</a> &middot; <a href=
+  "#wcregex_token_iterator">wcregex_token_iterator</a> &middot; <a href="#wcsub_match">wcsub_match</a>
+  &middot; <a href="#wregex">wregex</a> &middot; <a href="#wsmatch">wsmatch</a> &middot; <a href=
+  "#wsregex_iterator">wsregex_iterator</a> &middot; <a href=
+  "#wsregex_token_iterator">wsregex_token_iterator</a> &middot; <a href=
+  "#wssub_match">wssub_match</a></code></b></p>
+
+  <p><b><code><a href="#regex_match">regex_match</a> &middot; <a href="#regex_replace">regex_replace</a>
+  &middot; <a href="#regex_search">regex_search</a></code></b></p>
+
+  <p><b><code><a href="#operator==">operator==</a> &middot; <a href="#operator!=">operator!=</a> &middot;
+  <a href="#operator%3C">operator&lt;</a> &middot; <a href="#operator%3C=">operator&lt;=</a> &middot;
+  <a href="#operator%3E">operator&gt;</a> &middot; <a href="#operator%3E=">operator&gt;=</a> &middot;
+  <a href="#operator%3C%3C">operator&lt;&lt;</a> &middot; <a href="#swap">swap</a></code></b></p>
+  <hr>
+
+  <p>Include the <a href="index.html#TR1">TR1</a> header <b><code>&lt;regex&gt;</code></b> to define a
+  template class to parse <a href="lib_regex.html#regular%20expression">regular expressions</a> and several
+  template classes and functions to search text for matches to a regular expression object.</p>
+
+  <p>To <b>create</b> a regular expression object use the template class <a href=
+  "#basic_regex">basic_regex</a> or one of its specializations, <a href="#regex">regex</a> and <a href=
+  "#wregex">wregex</a>, along with the syntax flags of type <a href=
+  "#regex_constants::syntax_option_type">syntax_option_type</a>.</p>
+
+  <p>To <b>search</b> text for matches to a regular expression object use the template functions <a href=
+  "#regex_match">regex_match</a> and <a href="#regex_search">regex_search</a>, along with the match flags of
+  type <a href="#regex_constants::match_flag_type">match_flag_type</a>. These functions return their results
+  using the template class <a href="#match_results">match_results</a> and its specializations, <a href=
+  "#cmatch">cmatch</a>, <a href="#wcmatch">wcmatch</a>, <a href="#smatch">smatch</a>, and <a href=
+  "#wsmatch">wsmatch</a>, along with the template class <a href="#sub_match">sub_match</a> and its
+  specializations, <a href="#csub_match">csub_match</a>, <a href="#wcsub_match">wcsub_match</a>, <a href=
+  "#ssub_match">ssub_match</a>, and <a href="#wssub_match">wssub_match</a>.</p>
+
+  <p>To <b>replace</b> text that matches a regular expression object use the template function <a href=
+  "#regex_replace">regex_replace</a>, along with the match flags of type <a href=
+  "#regex_constants::match_flag_type">match_flag_type</a>.</p>
+
+  <p>To <b>iterate</b> through multiple matches of a regular expression object use the template classes
+  <a href="#regex_iterator">regex_iterator</a> and <a href="#regex_token_iterator">regex_token_iterator</a>
+  or one of their specializations, <a href="#cregex_iterator">cregex_iterator</a>, <a href=
+  "#sregex_iterator">sregex_iterator</a>, <a href="#wcregex_iterator">wcregex_iterator</a>, <a href=
+  "#wsregex_iterator">wsregex_iterator</a>, <a href="#cregex_token_iterator">cregex_token_iterator</a>,
+  <a href="#sregex_token_iterator">sregex_token_iterator</a>, <a href=
+  "#wcregex_token_iterator">wcregex_token_iterator</a>, and <a href=
+  "#wsregex_token_iterator">wsregex_token_iterator</a>, along with the match flags of type <a href=
+  "#regex_constants::match_flag_type">match_flag_type</a>.</p>
+
+  <p>To <b>modify</b> some of the details of the grammar of regular expressions write a class that implements
+  the <a href="#regular%20expression%20traits">regular expression traits</a>.</p>
+  <hr>
+  <pre>
+namespace std {
+    namespace tr1 {
+
+    // TEMPLATE CLASS regex_traits AND basic_regex
+ template&lt;class Elem&gt;
+    struct <b><a href="#regex_traits">regex_traits</a></b>;
+ template&lt;&gt;
+    struct <b><a href="#regex_traits%3Cchar%3E">regex_traits&lt;char&gt;</a></b>;
+ template&lt;&gt;
+    struct <b><a href="#regex_traits%3Cwchar_t%3E">regex_traits&lt;wchar_t&gt;</a></b>;
+ template&lt;class Elem,
+    class RXtraits = regex_traits&lt;Elem&gt;,
+    class <b><a href="#basic_regex">basic_regex</a></b>;
+ typedef basic_regex&lt;char&gt; <b><a href="#regex">regex</a></b>;
+ typedef basic_regex&lt;wchar_t&gt; <b><a href="#regex">wregex</a></b>;
+
+    // TEMPLATE CLASS sub_match
+ template&lt;class BidIt&gt;
+    class <b><a href="#sub_match">sub_match</a></b>;
+ typedef sub_match&lt;const char*&gt; <b><a href="#csub_match">csub_match</a></b>;
+ typedef sub_match&lt;const wchar_t*&gt; <b><a href="#wcsub_match">wcsub_match</a></b>;
+ typedef sub_match&lt;string::const_iterator&gt; <b><a href="#ssub_match">ssub_match</a></b>;
+ typedef sub_match&lt;wstring::const_iterator&gt; <b><a href="#wssub_match">wssub_match</a></b>;
+
+    // TEMPLATE CLASS match_results
+ template&lt;class BidIt,
+    class Alloc = allocator&lt;typename iterator_traits&lt;BidIt&gt;::value_type&gt; &gt;
+    class <b><a href="#match_results">match_results</a></b>;
+ typedef match_results&lt;const char*&gt; <b><a href="#cmatch">cmatch</a></b>;
+ typedef match_results&lt;const wchar_t*&gt; <b><a href="#wcmatch">wcmatch</a></b>;
+ typedef match_results&lt;string::const_iterator&gt; <b><a href="#smatch">smatch</a></b>;
+ typedef match_results&lt;wstring::const_iterator&gt; <b><a href="#wsmatch">wsmatch</a></b>;
+
+    // NAMESPACE regex_constants
+        namespace <b><a href="#regex_constants">regex_constants</a></b> {
+  typedef T1 <b><a href="#regex_constants::syntax_option_type">syntax_option_type</a></b>;
+  static const syntax_option_type <b>awk</b>, <b>basic</b>, <b>collate</b>, <b>ECMAScript</b>,
+    <b>egrep</b>, <b>extended</b>, <b>grep</b>, <b>icase</b>, <b>nosubs</b>, <b>optimize</b>;
+  typedef T2 <b><a href="#regex_constants::match_flag_type">match_flag_type</a></b>;
+  static const match_flag_type <b>match_any</b>, <b>match_default</b>, <b>match_not_bol</b>,
+    <b>match_not_bow</b>, <b>match_continuous</b>, <b>match_not_eol</b>, <b>match_not_eow</b>,
+    <b>match_not_null</b>, <b>match_partial</b>, <b>match_prev_avail</b>;
+  typedef T3 <b><a href="#regex_constants::error_type">error_type</a></b>;
+  static const error_type <b>error_badbrace</b>, <b>error_badrepeat</b>, <b>error_brace</b>,
+    <b>error_brack</b>, <b>error_collate</b>, <b>error_complexity</b>, <b>error_ctype</b>,
+    <b>error_escape</b>, <b>error_paren</b>, <b>error_range</b>, <b>error_space</b>,
+    <b>error_stack</b>, <b>error_backref</b>;
+        }  // namespace regex_constants
+
+    // CLASS regex_error
+ class <b><a href="#regex_error">regex_error</a></b>;
+
+    // TEMPLATE FUNCTION regex_match
+ template&lt;class BidIt, class Alloc, class Elem, class RXtraits&gt;
+    bool <b><a href="#regex_match">regex_match</a></b>(BidIt first, Bidit last,
+        match_results&lt;BidIt, Alloc&gt;&amp; match,
+        const basic_regex&lt;Elem, RXtraits&gt;&amp; re,
+        match_flag_type flags = match_default);
+ template&lt;class BidIt, class Elem, class RXtraits&gt;
+    bool <b><a href="#regex_match">regex_match</a></b>(BidIt first, Bidit last,
+        const basic_regex&lt;Elem, RXtraits&gt;&amp; re,
+        match_flag_type flags = match_default);
+
+ template&lt;class Elem, class Alloc, class RXtraits&gt;
+    bool <b><a href="#regex_match">regex_match</a></b>(const Elem* ptr,
+        match_results&lt;const Elem*, Alloc&gt;&amp; match,
+        const basic_regex&lt;Elem, RXtraits&gt;&amp; re,
+        match_flag_type flags = match_default);
+ template&lt;class Elem, class RXtraits&gt;
+    bool <b><a href="#regex_match">regex_match</a></b>(const Elem* ptr,
+        const basic_regex&lt;Elem, RXtraits&gt;&amp; re,
+        match_flag_type flags = match_default);
+
+ template&lt;class IOtraits, class IOalloc, class Alloc, class Elem, class RXtraits&gt;
+    bool <b><a href=
+"#regex_match">regex_match</a></b>(const basic_string&lt;Elem, IOtraits, IOalloc&gt;&amp; str,
+        match_results&lt;typename basic_string&lt;Elem, IOtraits, IOalloc&gt;::const_iterator, Alloc&gt;&amp; match,
+        const basic_regex&lt;Elem, RXtraits&gt;&amp; re,
+        match_flag_type flags = match_default);
+ template&lt;class IOtraits, class IOalloc, class Elem, class RXtraits&gt;
+    bool <b><a href=
+"#regex_match">regex_match</a></b>(const basic_string&lt;Elem, IOtraits, IOalloc&gt;&amp; match,
+        const basic_regex&lt;Elem, RXtraits&gt;&amp; re,
+        match_flag_type flags = match_default);
+
+    // TEMPLATE FUNCTION regex_search
+ template&lt;class BidIt, class Alloc, class Elem, class RXtraits&gt;
+    bool <b><a href="#regex_search">regex_search</a></b>(BidIt first, Bidit last,
+        match_results&lt;BidIt, Alloc&gt;&amp; match,
+        const basic_regex&lt;Elem, RXtraits&gt;&amp; re,
+        match_flag_type flags = match_default);
+ template&lt;class BidIt, class Elem, class RXtraits&gt;
+    bool <b><a href="#regex_search">regex_search</a></b>(BidIt first, Bidit last,
+        const basic_regex&lt;Elem, RXtraits&gt;&amp; re,
+        match_flag_type flags = match_default);
+
+ template&lt;class Elem, class Alloc, class RXtraits&gt;
+    bool <b><a href="#regex_search">regex_search</a></b>(const Elem* ptr,
+        match_results&lt;const Elem*, Alloc&gt;&amp; match,
+        const basic_regex&lt;Elem, RXtraits&gt;&amp; re,
+        match_flag_type flags = match_default);
+ template&lt;class Elem, class RXtraits&gt;
+    bool <b><a href="#regex_search">regex_search</a></b>(const Elem* ptr,
+        const basic_regex&lt;Elem, RXtraits&gt;&amp; re,
+        match_flag_type flags = match_default);
+
+ template&lt;class IOtraits, class IOalloc, class Alloc, class Elem, class RXtraits&gt;
+    bool <b><a href=
+"#regex_search">regex_search</a></b>(const basic_string&lt;Elem, IOtraits, IOalloc&gt;&amp; str,
+        match_results&lt;typename basic_string&lt;Elem, IOtraits, IOalloc&gt;::const_iterator, Alloc&gt;&amp; match,
+        const basic_regex&lt;Elem, RXtraits&gt;&amp; re,
+        match_flag_type flags = match_default);
+ template&lt;class IOtraits, class IOalloc, class Elem, class RXtraits&gt;
+    bool <b><a href=
+"#regex_search">regex_search</a></b>(const basic_string&lt;Elem, IOtraits, IOalloc&gt;&amp; str,
+        const basic_regex&lt;Elem, RXtraits&gt;&amp; re,
+        match_flag_type flags = match_default);
+
+    // TEMPLATE FUNCTION regex_replace
+ template&lt;class OutIt, class BidIt, class RXtraits, class Elem&gt;
+    OutIt <b><a href="#regex_replace">regex_replace</a></b>(OutIt out, BidIt first, BidIt last,
+        const basic_regex&lt;Elem, RXtraits&gt;&amp; re,
+        const basic_string&lt;Elem&gt;&amp; fmt,
+        match_flag_type flags = match_default);
+ template&lt;class RXtraits, class Elem&gt;
+    basic_string&lt;Elem&gt; <b><a href=
+"#regex_replace">regex_replace</a></b>(const basic_string&lt;Elem&gt;&amp; str,
+        const basic_regex&lt;Elem, RXtraits&gt;&amp; re,
+        const basic_string&lt;Elem&gt;&amp; fmt,
+        match_flag_type flags = match_default);
+
+    // REGULAR EXPRESSION ITERATORS
+ template&lt;class BidIt, class Elem = iterator_traits&lt;BidIt&gt;::value_type,
+    class RXtraits = regex_traits&lt;Elem&gt; &gt;
+        class <b><a href="#regex_iterator">regex_iterator</a></b>;
+ typedef regex_iterator&lt;const char*&gt; <b><a href="#cregex_iterator">cregex_iterator</a></b>;
+ typedef regex_iterator&lt;const wchar_t*&gt; <b><a href="#wcregex_iterator">wcregex_iterator</a></b>;
+ typedef regex_iterator&lt;string::const_iterator&gt; <b><a href="#sregex_iterator">sregex_iterator</a></b>;
+ typedef regex_iterator&lt;wstring::const_iterator&gt; <b><a href=
+"#wsregex_iterator">wsregex_iterator</a></b>;
+
+ template&lt;class BidIt, class Elem = iterator_traits&lt;BidIt&gt;::value_type,
+    class RXtraits = regex_traits&lt;Elem&gt; &gt;
+        class <b><a href="#regex_token_iterator">regex_token_iterator</a></b>;
+ typedef regex_token_iterator&lt;const char*&gt; <b><a href=
+"#cregex_token_iterator">cregex_token_iterator</a></b>;
+ typedef regex_token_iterator&lt;const wchar_t*&gt; <b><a href=
+"#wcregex_token_iterator">wcregex_token_iterator</a></b>;
+ typedef regex_token_iterator&lt;string::const_iterator&gt; <b><a href=
+"#sregex_token_iterator">sregex_token_iterator</a></b>;
+ typedef regex_token_iterator&lt;wstring::const_iterator&gt; <b><a href=
+"#wsregex_token_iterator">wsregex_token_iterator</a></b>;
+
+    // STREAM INSERTER
+ template&lt;class Elem, class IOtraits, class Alloc, class BidIt&gt;
+    basic_ostream&lt;Elem, IOtraits&gt;&amp;
+    <b><a href="#operator%3C%3C">operator&lt;&lt;</a></b>(basic_ostream&lt;Elem, IOtraits&gt;&amp; os,
+        const sub_match&lt;BidIt&gt;&amp; submatch);
+
+    // TEMPLATE swap FUNCTIONS
+ template&lt;class Elem, class RXtraits&gt;
+    void <b><a href="#swap">swap</a></b>(basic_regex&lt;Elem, RXtraits&gt;&amp; left,
+        basic_regex&lt;Elem, RXtraits&gt;&amp; right) throw();
+ template&lt;class Elem, class IOtraits, class BidIt, class Alloc&gt;
+    void <b><a href="#swap">swap</a></b>(match_results&lt;BidIt, Alloc&gt;&amp; left,
+        match_results&lt;BidIt, Alloc&gt;&amp; right) throw();
+
+    // COMPARISON OPERATORS FOR match_results
+ template&lt;class BidIt, class Alloc&gt;
+    bool <b><a href="#operator==">operator==</a></b>(const match_results&lt;BidIt, Alloc&gt;&amp; left,
+        const match_results&lt;BidIt, Alloc&gt;&amp; right);
+ template&lt;class BidIt, class Alloc&gt;
+    bool <b><a href="#operator!=">operator!=</a></b>(const match_results&lt;BidIt, Alloc&gt;&amp; left,
+        const match_results&lt;BidIt, Alloc&gt;&amp; right);
+
+    // COMPARISON OPERATORS FOR sub_match
+ template&lt;class BidIt&gt;
+    bool <b><a href="#operator==">operator==</a></b>(const sub_match&lt;BidIt&gt;&amp; left,
+        const sub_match&lt;BidIt&gt;&amp; right);
+ template&lt;class BidIt&gt;
+    bool <b><a href="#operator!=">operator!=</a></b>(const sub_match&lt;BidIt&gt;&amp; left,
+        const sub_match&lt;BidIt&gt;&amp; right);
+ template&lt;class BidIt&gt;
+    bool <b><a href="#operator%3C">operator&lt;</a></b>(const sub_match&lt;BidIt&gt;&amp; left,
+        const sub_match&lt;BidIt&gt;&amp; right);
+ template&lt;class BidIt&gt;
+    bool <b><a href="#operator%3C=">operator&lt;=</a></b>(const sub_match&lt;BidIt&gt;&amp; left,
+        const sub_match&lt;BidIt&gt;&amp; right);
+ template&lt;class BidIt&gt;
+    bool <b><a href="#operator%3E">operator&gt;</a></b>(const sub_match&lt;BidIt&gt;&amp; left,
+        const sub_match&lt;BidIt&gt;&amp; right);
+ template&lt;class BidIt&gt;
+    bool <b><a href="#operator%3E=">operator&gt;=</a></b>(const sub_match&lt;BidIt&gt;&amp; left,
+        const sub_match&lt;BidIt&gt;&amp; right);
+
+ template&lt;class BidIt, class IOtraits, class Alloc&gt;
+    bool <b><a href="#operator==">operator==</a></b>(
+        const basic_string&lt;typename iterator_traits&lt;BidIt&gt;::value_type, IOtraits, Alloc&gt;&amp; left,
+        const sub_match&lt;BidIt&gt;&amp; right);
+ template&lt;class BidIt, class IOtraits, class Alloc&gt;
+    bool <b><a href="#operator!=">operator!=</a></b>(
+        const basic_string&lt;typename iterator_traits&lt;BidIt&gt;::value_type, IOtraits, Alloc&gt;&amp; left,
+        const sub_match&lt;BidIt&gt;&amp; right);
+ template&lt;class BidIt, class IOtraits, class Alloc&gt;
+    bool <b><a href="#operator%3C">operator&lt;</a></b>(
+        const basic_string&lt;typename iterator_traits&lt;BidIt&gt;::value_type, IOtraits, Alloc&gt;&amp; left,
+        const sub_match&lt;BidIt&gt;&amp; right);
+ template&lt;class BidIt, class IOtraits, class Alloc&gt;
+    bool <b><a href="#operator%3C=">operator&lt;=</a></b>(
+        const basic_string&lt;typename iterator_traits&lt;BidIt&gt;::value_type, IOtraits, Alloc&gt;&amp; left,
+        const sub_match&lt;BidIt&gt;&amp; right);
+ template&lt;class BidIt, class IOtraits, class Alloc&gt;
+    bool <b><a href="#operator%3E">operator&gt;</a></b>(
+        const basic_string&lt;typename iterator_traits&lt;BidIt&gt;::value_type, IOtraits, Alloc&gt;&amp; left,
+        const sub_match&lt;BidIt&gt;&amp; right);
+ template&lt;class BidIt, class IOtraits, class Alloc&gt;
+    bool <b><a href="#operator%3E=">operator&gt;=</a></b>(
+        const basic_string&lt;typename iterator_traits&lt;BidIt&gt;::value_type, IOtraits, Alloc&gt;&amp; left,
+        const sub_match&lt;BidIt&gt;&amp; right);
+
+ template&lt;class BidIt, class IOtraits, class Alloc&gt;
+    bool <b><a href="#operator==">operator==</a></b>(const sub_match&lt;BidIt&gt;&amp; left,
+        const basic_string&lt;typename iterator_traits&lt;BidIt&gt;::value_type, IOtraits, Alloc&gt;&amp; right);
+ template&lt;class BidIt, class IOtraits, class Alloc&gt;
+    bool <b><a href="#operator!=">operator!=</a></b>(const sub_match&lt;BidIt&gt;&amp; left,
+        const basic_string&lt;typename iterator_traits&lt;BidIt&gt;::value_type, IOtraits, Alloc&gt;&amp; right);
+ template&lt;class BidIt, class IOtraits, class Alloc&gt;
+    bool <b><a href="#operator%3C">operator&lt;</a></b>(const sub_match&lt;BidIt&gt;&amp; left,
+        const basic_string&lt;typename iterator_traits&lt;BidIt&gt;::value_type, IOtraits, Alloc&gt;&amp; right);
+ template&lt;class BidIt, class IOtraits, class Alloc&gt;
+    bool <b><a href="#operator%3C=">operator&lt;=</a></b>(const sub_match&lt;BidIt&gt;&amp; left,
+        const basic_string&lt;typename iterator_traits&lt;BidIt&gt;::value_type, IOtraits, Alloc&gt;&amp; right);
+ template&lt;class BidIt, class IOtraits, class Alloc&gt;
+    bool <b><a href="#operator%3E">operator&gt;</a></b>(const sub_match&lt;BidIt&gt;&amp; left,
+        const basic_string&lt;typename iterator_traits&lt;BidIt&gt;::value_type, IOtraits, Alloc&gt;&amp; right);
+ template&lt;class BidIt, class IOtraits, class Alloc&gt;
+    bool <b><a href="#operator%3E=">operator&gt;=</a></b>(const sub_match&lt;BidIt&gt;&amp; left,
+        const basic_string&lt;typename iterator_traits&lt;BidIt&gt;::value_type, IOtraits, Alloc&gt;&amp; right);
+
+ template&lt;class BidIt&gt;
+    bool <b><a href=
+"#operator==">operator==</a></b>(const typename iterator_traits&lt;BidIt&gt;::value_type* left,
+        const sub_match&lt;BidIt&gt;&amp; right);
+ template&lt;class BidIt&gt;
+    bool <b><a href=
+"#operator!=">operator!=</a></b>(const typename iterator_traits&lt;BidIt&gt;::value_type* left,
+        const sub_match&lt;BidIt&gt;&amp; right);
+ template&lt;class BidIt&gt;
+    bool <b><a href=
+"#operator%3C">operator&lt;</a></b>(const typename iterator_traits&lt;BidIt&gt;::value_type* left,
+        const sub_match&lt;BidIt&gt;&amp; right);
+ template&lt;class BidIt&gt;
+    bool <b><a href=
+"#operator%3C=">operator&lt;=</a></b>(const typename iterator_traits&lt;BidIt&gt;::value_type* left,
+        const sub_match&lt;BidIt&gt;&amp; right);
+ template&lt;class BidIt&gt;
+    bool <b><a href=
+"#operator%3E">operator&gt;</a></b>(const typename iterator_traits&lt;BidIt&gt;::value_type* left,
+        const sub_match&lt;BidIt&gt;&amp; right);
+ template&lt;class BidIt&gt;
+    bool <b><a href=
+"#operator%3E=">operator&gt;=</a></b>(const typename iterator_traits&lt;BidIt&gt;::value_type* left,
+        const sub_match&lt;BidIt&gt;&amp; right);
+
+ template&lt;class BidIt&gt;
+    bool <b><a href="#operator==">operator==</a></b>(const sub_match&lt;BidIt&gt;&amp; left,
+        const typename iterator_traits&lt;BidIt&gt;::value_type*);
+ template&lt;class BidIt&gt;
+    bool <b><a href="#operator!=">operator!=</a></b>(const sub_match&lt;BidIt&gt;&amp; left,
+        const typename iterator_traits&lt;BidIt&gt;::value_type*);
+ template&lt;class BidIt&gt;
+    bool <b><a href="#operator%3C">operator&lt;</a></b>(const sub_match&lt;BidIt&gt;&amp; left,
+        const typename iterator_traits&lt;BidIt&gt;::value_type*);
+ template&lt;class BidIt&gt;
+    bool <b><a href="#operator%3C=">operator&lt;=</a></b>(const sub_match&lt;BidIt&gt;&amp; left,
+        const typename iterator_traits&lt;BidIt&gt;::value_type*);
+ template&lt;class BidIt&gt;
+    bool <b><a href="#operator%3E">operator&gt;</a></b>(const sub_match&lt;BidIt&gt;&amp; left,
+        const typename iterator_traits&lt;BidIt&gt;::value_type*);
+ template&lt;class BidIt&gt;
+    bool <b><a href="#operator%3E=">operator&gt;=</a></b>(const sub_match&lt;BidIt&gt;&amp; left,
+        const typename iterator_traits&lt;BidIt&gt;::value_type*);
+
+ template&lt;class BidIt&gt;
+    bool <b><a href=
+"#operator==">operator==</a></b>(const typename iterator_traits&lt;BidIt&gt;::value_type&amp; left,
+        const sub_match&lt;BidIt&gt;&amp; right);
+ template&lt;class BidIt&gt;
+    bool <b><a href=
+"#operator!=">operator!=</a></b>(const typename iterator_traits&lt;BidIt&gt;::value_type&amp; left,
+        const sub_match&lt;BidIt&gt;&amp; right);
+ template&lt;class BidIt&gt;
+    bool <b><a href=
+"#operator%3C">operator&lt;</a></b>(const typename iterator_traits&lt;BidIt&gt;::value_type&amp; left,
+        const sub_match&lt;BidIt&gt;&amp; right);
+ template&lt;class BidIt&gt;
+    bool <b><a href=
+"#operator%3C=">operator&lt;=</a></b>(const typename iterator_traits&lt;BidIt&gt;::value_type&amp; left,
+        const sub_match&lt;BidIt&gt;&amp; right);
+ template&lt;class BidIt&gt;
+    bool <b><a href=
+"#operator%3E">operator&gt;</a></b>(const typename iterator_traits&lt;BidIt&gt;::value_type&amp; left,
+        const sub_match&lt;BidIt&gt;&amp; right);
+ template&lt;class BidIt&gt;
+    bool <b><a href=
+"#operator%3E=">operator&gt;=</a></b>(const typename iterator_traits&lt;BidIt&gt;::value_type&amp; left,
+        const sub_match&lt;BidIt&gt;&amp; right);
+
+ template&lt;class BidIt&gt;
+    bool <b><a href="#operator==">operator==</a></b>(const sub_match&lt;BidIt&gt;&amp; left,
+        const typename iterator_traits&lt;BidIt&gt;::value_type&amp; right);
+ template&lt;class BidIt&gt;
+    bool <b><a href="#operator!=">operator!=</a></b>(const sub_match&lt;BidIt&gt;&amp; left,
+        const typename iterator_traits&lt;BidIt&gt;::value_type&amp; right);
+ template&lt;class BidIt&gt;
+    bool <b><a href="#operator%3C">operator&lt;</a></b>(const sub_match&lt;BidIt&gt;&amp; left,
+        const typename iterator_traits&lt;BidIt&gt;::value_type&amp; right);
+ template&lt;class BidIt&gt;
+    bool <b><a href="#operator%3C=">operator&lt;=</a></b>(const sub_match&lt;BidIt&gt;&amp; left,
+        const typename iterator_traits&lt;BidIt&gt;::value_type&amp; right);
+ template&lt;class BidIt&gt;
+    bool <b><a href="#operator%3E">operator&gt;</a></b>(const sub_match&lt;BidIt&gt;&amp; left,
+        const typename iterator_traits&lt;BidIt&gt;::value_type&amp; right);
+ template&lt;class BidIt&gt;
+    bool <b><a href="#operator%3E=">operator&gt;=</a></b>(const sub_match&lt;BidIt&gt;&amp; left,
+        const typename iterator_traits&lt;BidIt&gt;::value_type&amp; right);
+    }  // namespace tr1
+using tr1::basic_regex; using tr1::match_results; <b>[added with C++0X]</b>
+using tr1::regex; using tr1::regex_error;
+using tr1::regex_iterator; using tr1::regex_match;
+using tr1::regex_replace; using tr1::regex_search;
+using tr1::regex_token_iterator; using tr1::regex_traits;
+using tr1::sub_match;
+}  // namespace std
+</pre>
+
+  <h2><code><a name="basic_regex">basic_regex</a></code></h2>
+  <pre>
+template&lt;class Elem,
+    class RXtraits = regex_traits&lt;Elem&gt;,
+    class <b>basic_regex</b> {
+public:
+    <b><a href="#basic_regex::basic_regex">basic_regex</a></b>();
+    <b><a href="#basic_regex::basic_regex">basic_regex</a></b>(initializer_list&lt;Ty&gt; init,
+        flag_type flags = ECMAScript); <b>[added with C++0X]</b>
+    explicit <b><a href="#basic_regex::basic_regex">basic_regex</a></b>(const Elem *ptr,
+        flag_type flags = ECMAScript);
+    <b><a href="#basic_regex::basic_regex">basic_regex</a></b>(const Elem *ptr, size_type len,
+        flag_type flags = ECMAScript);
+    <b><a href="#basic_regex::basic_regex">basic_regex</a></b>(const basic_regex&amp; right);
+    <b><a href=
+"#basic_regex::basic_regex">basic_regex</a></b>(basic_regex&amp;&amp; right); <b>[added with C++0X]</b>
+    template&lt;class STtraits, class STalloc&gt;
+        explicit <b><a href=
+"#basic_regex::basic_regex">basic_regex</a></b>(const basic_string&lt;Elem, STtraits, STalloc&gt;&amp; str,
+            flag_type flags = ECMAScript);
+    template&lt;class FwdIt&gt;
+        explicit <b><a href="#basic_regex::basic_regex">basic_regex</a></b>(FwdIt first, FwdIt last,
+            flag_type flags = ECMAScript);
+
+    basic_regex&amp; <b><a href=
+"#basic_regex::operator=">operator=</a></b>(initializer_list&lt;Ty&gt; init) <b>[added with C++0X]</b>
+    basic_regex&amp; <b><a href="#basic_regex::operator=">operator=</a></b>(const basic_regex&amp; right);
+    basic_regex&amp; <b><a href=
+"#basic_regex::operator=">operator=</a></b>(basic_regex&amp;&amp; right); <b>[added with C++0X]</b>
+    basic_regex&amp; <b><a href="#basic_regex::operator=">operator=</a></b>(const Elem *ptr);
+    template&lt;class STtraits, class STalloc&gt;
+        basic_regex&amp; <b><a href=
+"#basic_regex::operator=">operator=</a></b>(const basic_string&lt;Elem, STtraits, STalloc&gt;&amp; str);
+
+    basic_regex&amp; <b><a href="#basic_regex::assign">assign</a></b>(initializer_list&lt;Ty&gt; init,
+        flag_type flags = ECMAScript) <b>[added with C++0X]</b>
+    basic_regex&amp; <b><a href="#basic_regex::assign">assign</a></b>(const basic_regex&amp; right);
+    basic_regex&amp; <b><a href=
+"#basic_regex::assign">assign</a></b>(basic_regex&amp;&amp; right); <b>[added with C++0X]</b>
+    basic_regex&amp; <b><a href="#basic_regex::assign">assign</a></b>(const Elem *ptr,
+        flag_type flags = ECMAScript);
+    basic_regex&amp; <b><a href="#basic_regex::assign">assign</a></b>(const Elem *ptr, size_type len,
+        flag_type flags = ECMAScript);
+    template&lt;class STtraits, class STalloc&gt;
+    basic_regex&amp; <b><a href=
+"#basic_regex::assign">assign</a></b>(const basic_string&lt;Elem, STtraits, STalloc&gt;&amp; str,
+        flag_type flags = ECMAScript);
+    template&lt;class InIt&gt;
+        basic_regex&amp; <b><a href="#basic_regex::assign">assign</a></b>(InIt first, InIt last,
+            flag_type flags = ECMAScript);
+
+    locale_type <b><a href="#basic_regex::imbue">imbue</a></b>(locale_type loc);
+    locale_type <b><a href="#basic_regex::getloc">getloc</a></b>() const;
+    void <b><a href="#basic_regex::swap">swap</a></b>(basic_regex&amp; other) throw();
+
+    unsigned <b><a href="#basic_regex::mark_count">mark_count</a></b>() const;
+
+    flag_type <b><a href="#basic_regex::flags">flags</a></b>() const;
+
+    typedef Elem <b><a href="#basic_regex::value_type">value_type</a></b>;
+    typedef regex_constants::syntax_option_type <b><a href="#basic_regex::flag_type">flag_type</a></b>;
+    typedef typename RXtraits::locale_type <b><a href="#basic_regex::locale_type">locale_type</a></b>;
+
+    static const flag_type <b><a href="#basic_regex::icase">icase</a></b> = regex_constants::icase;
+    static const flag_type <b><a href="#basic_regex::nosubs">nosubs</a></b> = regex_constants::nosubs;
+    static const flag_type <b><a href="#basic_regex::optimize">optimize</a></b> = regex_constants::optimize;
+    static const flag_type <b><a href="#basic_regex::collate">collate</a></b> = regex_constants::collate;
+
+    static const flag_type <b><a href=
+"#basic_regex::ECMAScript">ECMAScript</a></b> = regex_constants::ECMAScript;
+    static const flag_type <b><a href="#basic_regex::basic">basic</a></b> = regex_constants::basic;
+    static const flag_type <b><a href="#basic_regex::extended">extended</a></b> = regex_constants::extended;
+    static const flag_type <b><a href="#basic_regex::awk">awk</a></b> = regex_constants::awk;
+    static const flag_type <b><a href="#basic_regex::grep">grep</a></b> = regex_constants::grep;
+    static const flag_type <b><a href="#basic_regex::egrep">egrep</a></b> = regex_constants::egrep;
+private:
+    RXtraits traits;    // <b>exposition only</b>
+    };
+</pre>
+
+  <p>The template class describes an object that holds a regular expression. Objects of this template class
+  can be passed to the template functions <a href="#regex_match">regex_match</a>, <a href=
+  "#regex_search">regex_search</a>, and <a href="#regex_replace">regex_replace</a>, along with suitable text
+  string arguments, to search for text that matches the regular expression. The TR1 library provides two
+  specializations of this template class, with the type definitions <a href="#regex">regex</a> for elements
+  of type <i>char</i>, and <a href="#wregex">wregex</a> for elements of type <i>wchar_t</i>.</p>
+
+  <p>The template argument <code>RXtraits</code> describes various important properties of the syntax of the
+  regular expressions that the template class supports. A class that specifies these <a href=
+  "#regular%20expression%20traits">regular expression traits</a> must have the same external interface as an
+  object of template class <a href="#regex_traits">regex_traits</a>.</p>
+
+  <p>Some functions take an <b><a name="operand sequence">operand sequence</a></b> that defines a regular
+  expression. You can specify such an operand sequence several ways:</p>
+
+  <ul>
+    <li><code>ilist</code> -- a sequence of elements described by an object of class <code><b><a href=
+    "lib_cpp.html#initializer_list">initializer_list</a></b>&lt;Ty&gt;</code>, for some element type
+    <code>Ty</code> compatible with the regular expression element type</li>
+
+    <li><code>ptr</code> -- a null-terminated sequence (such as a C string, for <code>Elem</code> of type
+    <i>char</i>) beginning at <code>ptr</code> (which must not be a null pointer), where the terminating
+    element is the value <code>value_type()</code> and is not part of the operand sequence</li>
+
+    <li><code>ptr</code>, <code>count</code> -- a sequence of <code>count</code> elements beginning at
+    <code>ptr</code> (which must not be a null pointer)</li>
+
+    <li><code>str</code> -- the sequence specified by the <code>basic_string</code> object
+    <code>str</code></li>
+
+    <li><code>first</code>, <code>last</code> -- a sequence of elements delimited by the iterators
+    <code>first</code> and <code>last</code>, in the range <code>[first, last)</code></li>
+
+    <li><code>right</code> -- the <code>basic_regex</code> object <code>right</code></li>
+  </ul>
+
+  <p>These member functions also take an argument <code>flags</code> that specifies various options for the
+  interpretation of the regular expression in addition to those described by the <code>RXtraits</code>
+  type.</p>
+
+  <h3><code><a name="basic_regex::assign">basic_regex::assign</a></code></h3>
+  <pre>
+basic_regex&amp; <b>assign</b>(initializer_list&lt;Ty&gt; init,
+    flag_type flags = ECMAScript) <b>[added with C++0X]</b>
+basic_regex&amp; <b>assign</b>(const basic_regex&amp; right);
+basic_regex&amp; <b>assign</b>(basic_regex&amp;&amp; right); <b>[added with C++0X]</b>
+basic_regex&amp; <b>assign</b>(const Elem *ptr,
+    flag_type flags = ECMAScript);
+basic_regex&amp; <b>assign</b>(const Elem *ptr, size_type len,
+    flag_type flags = ECMAScript);
+template&lt;class STtraits, class STalloc&gt;
+    basic_regex&amp; <b>assign</b>(const basic_string&lt;Elem, STtraits, STalloc&gt;&amp; str,
+    flag_type flags = ECMAScript);
+template&lt;class InIt&gt;
+    basic_regex&amp; <b>assign</b>(InIt first, InIt last,
+    flag_type flags = ECMAScript);
+</pre>
+
+  <p>The member functions each replace the regular expression held by <code>*this</code> with the regular
+  expression described by the <a href="#operand%20sequence">operand sequence</a>, then return
+  <code>*this</code>.</p>
+
+  <h3><code><a name="basic_regex::awk">basic_regex::awk</a></code></h3>
+  <pre>
+static const flag_type <b>awk</b> = regex_constants::awk;
+</pre>
+
+  <p>The constant can be passed to the <a href="#basic_regex::basic_regex">constructors</a> or the <a href=
+  "#basic_regex::assign">assign</a> member functions. It has the value <a href=
+  "#regex_constants::awk">regex_constants::awk</a>.</p>
+
+  <h3><code><a name="basic_regex::basic">basic_regex::basic</a></code></h3>
+  <pre>
+static const flag_type <b>basic</b> = regex_constants::basic;
+</pre>
+
+  <p>The constant can be passed to the <a href="#basic_regex::basic_regex">constructors</a> or the <a href=
+  "#basic_regex::assign">assign</a> member functions. It has the value <a href=
+  "#regex_constants::basic">regex_constants::basic</a>.</p>
+
+  <h3><code><a name="basic_regex::basic_regex">basic_regex::basic_regex</a></code></h3>
+  <pre>
+<b>basic_regex</b>();
+<b>basic_regex</b>(initializer_list&lt;Ty&gt; init,
+    flag_type flags = ECMAScript); <b>[added with C++0X]</b>
+template&lt;class STtraits, class STalloc&gt;
+    explicit <b>basic_regex</b>(const basic_string&lt;Elem, STtraits, STalloc&gt;&amp; str,
+    flag_type flags = ECMAScript);
+template&lt;class FwdIt&gt;
+    explicit <b>basic_regex</b>(FwdIt first, FwdIt last,
+    flag_type flags = ECMAScript);
+explicit <b>basic_regex</b>(const Elem *ptr,
+    flag_type flags = ECMAScript);
+explicit <b>basic_regex</b>(const Elem *ptr, size_type len,
+    flag_type flags);
+<b>basic_regex</b>(const basic_regex&amp; right);
+<b>basic_regex</b>(basic_regex&amp;&amp; right); <b>[added with C++0X]</b>
+</pre>
+
+  <p>All constructors store a default-constructed object of type <code>RXtraits</code>.</p>
+
+  <p>The first constructor constructs an <a href="#empty">empty</a> object. The second constructor constructs
+  an object that holds the regular expression described by an object of class <code><b><a href=
+  "lib_cpp.html#initializer_list">initializer_list</a></b>&lt;Ty&gt;</code>. The other constructors construct
+  an object that holds the regular expression described by the <a href="#operand%20sequence">operand
+  sequence</a>.</p>
+
+  <p>An <b><a name="empty">empty</a></b> <code>basic_regex</code> object does not match any character
+  sequence when passed to <a href="#regex_match">regex_match</a>, <a href="#regex_search">regex_search</a>,
+  or <a href="#regex_replace">regex_replace</a>.</p>
+
+  <h3><code><a name="basic_regex::collate">basic_regex::collate</a></code></h3>
+  <pre>
+static const flag_type <b>collate</b> = regex_constants::collate;
+</pre>
+
+  <p>The constant can be passed to the <a href="#basic_regex::basic_regex">constructors</a> or the <a href=
+  "#basic_regex::assign">assign</a> member functions. It has the value <a href=
+  "#regex_constants::collate">regex_constants::collate</a>.</p>
+
+  <h3><code><a name="basic_regex::ECMAScript">basic_regex::ECMAScript</a></code></h3>
+  <pre>
+static const flag_type <b>ECMAScript</b> = regex_constants::ECMAScript;
+</pre>
+
+  <p>The constant can be passed to the <a href="#basic_regex::basic_regex">constructors</a> or the <a href=
+  "#basic_regex::assign">assign</a> member functions. It has the value <a href=
+  "#regex_constants::ECMAScript">regex_constants::ECMAScript</a>.</p>
+
+  <h3><code><a name="basic_regex::egrep">basic_regex::egrep</a></code></h3>
+  <pre>
+static const flag_type <b>egrep</b> = regex_constants::egrep;
+</pre>
+
+  <p>The constant can be passed to the <a href="#basic_regex::basic_regex">constructors</a> or the <a href=
+  "#basic_regex::assign">assign</a> member functions. It has the value <a href=
+  "#regex_constants::egrep">regex_constants::egrep</a>.</p>
+
+  <h3><code><a name="basic_regex::extended">basic_regex::extended</a></code></h3>
+  <pre>
+static const flag_type <b>extended</b> = regex_constants::extended;
+</pre>
+
+  <p>The constant can be passed to the <a href="#basic_regex::basic_regex">constructors</a> or the <a href=
+  "#basic_regex::assign">assign</a> member functions. It has the value <a href=
+  "#regex_constants::extended">regex_constants::extended</a>.</p>
+
+  <h3><code><a name="basic_regex::flag_type">basic_regex::flag_type</a></code></h3>
+  <pre>
+typedef regex_constants::syntax_option_type <b>flag_type</b>;
+</pre>
+
+  <p>The type is a synonym for <a href=
+  "#regex_constants::syntax_option_type">regex_constants::syntax_option_type</a>.</p>
+
+  <h3><code><a name="basic_regex::flags">basic_regex::flags</a></code></h3>
+  <pre>
+flag_type <b>flags</b>() const;
+</pre>
+
+  <p>The member function returns the value of the <code>flag_type</code> argument passed to the most recent
+  call to one of the <a href="#basic_regex::assign">assign</a> member functions or, if no such call has been
+  made, the value passed to the constructor.</p>
+
+  <h3><code><a name="basic_regex::getloc">basic_regex::getloc</a></code></h3>
+  <pre>
+locale_type <b>getloc</b>() const;
+</pre>
+
+  <p>The member function returns <code>traits.<a href="#regex_traits::getloc">getloc</a>()</code>.</p>
+
+  <h3><code><a name="basic_regex::grep">basic_regex::grep</a></code></h3>
+  <pre>
+static const flag_type <b>grep</b> = regex_constants::grep;
+</pre>
+
+  <p>The constant can be passed to the <a href="#basic_regex::basic_regex">constructors</a> or the <a href=
+  "#basic_regex::assign">assign</a> member functions. It has the value <a href=
+  "#regex_constants::grep">regex_constants::grep</a>.</p>
+
+  <h3><code><a name="basic_regex::icase">basic_regex::icase</a></code></h3>
+  <pre>
+static const flag_type <b>icase</b> = regex_constants::icase;
+</pre>
+
+  <p>The constant can be passed to the <a href="#basic_regex::basic_regex">constructors</a> or the <a href=
+  "#basic_regex::assign">assign</a> member functions. It has the value <a href=
+  "#regex_constants::icase">regex_constants::icase</a>.</p>
+
+  <h3><code><a name="basic_regex::imbue">basic_regex::imbue</a></code></h3>
+  <pre>
+locale_type <b>imbue</b>(locale_type loc);
+</pre>
+
+  <p>The member function <a href="#empty">empties</a> <code>*this</code> and returns <code>traits.<a href=
+  "#regex_traits::imbue">imbue</a>(loc)</code>.</p>
+
+  <h3><code><a name="basic_regex::locale_type">basic_regex::locale_type</a></code></h3>
+  <pre>
+typedef typename RXtraits::locale_type <b>locale_type</b>;
+</pre>
+
+  <p>The type is a synonym for <a href="#regex_traits::locale_type">regex_traits::locale_type</a>.</p>
+
+  <h3><code><a name="basic_regex::mark_count">basic_regex::mark_count</a></code></h3>
+  <pre>
+unsigned <b>mark_count</b>() const;
+</pre>
+
+  <p>The member function returns the number of <a href="lib_regex.html#capture%20group">capture groups</a> in
+  the regular expression.</p>
+
+  <h3><code><a name="basic_regex::nosubs">basic_regex::nosubs</a></code></h3>
+  <pre>
+static const flag_type <b>nosubs</b> = regex_constants::nosubs;
+</pre>
+
+  <p>The constant can be passed to the <a href="#basic_regex::basic_regex">constructors</a> or the <a href=
+  "#basic_regex::assign">assign</a> member functions. It has the value <a href=
+  "#regex_constants::nosubs">regex_constants::nosubs</a>.</p>
+
+  <h3><code><a name="basic_regex::operator=">basic_regex::operator=</a></code></h3>
+  <pre>
+basic_regex&amp; <b>operator=</b>(initializer_list&lt;Ty&gt; init) <b>[added with C++0X]</b>
+basic_regex&amp; <b>operator=</b>(const basic_regex&amp; right);
+basic_regex&amp; <b>operator=</b>(basic_regex&amp;&amp; right); <b>[added with C++0X]</b>
+basic_regex&amp; <b>operator=</b>(const Elem *str);
+template&lt;class STtraits, class STalloc&gt;
+    basic_regex&amp; <b>operator=</b>(const basic_string&lt;Elem, STtraits, STalloc&gt;&amp; str);
+</pre>
+
+  <p>The first member operator effectively returns <code><a href=
+  "#basic_regex::assign">assign</a>(init)</code>. The remaining member operators each replace the regular
+  expression held by <code>*this</code> with the regular expression described by the <a href=
+  "#operand%20sequence">operand sequence</a>, then return <code>*this</code>.</p>
+
+  <h3><code><a name="basic_regex::optimize">basic_regex::optimize</a></code></h3>
+  <pre>
+static const flag_type <b>optimize</b> = regex_constants::optimize;
+</pre>
+
+  <p>The constant can be passed to the <a href="#basic_regex::basic_regex">constructors</a> or the <a href=
+  "#basic_regex::assign">assign</a> member functions. It has the value <a href=
+  "#regex_constants::optimize">regex_constants::optimize</a>.</p>
+
+  <h3><code><a name="basic_regex::swap">basic_regex::swap</a></code></h3>
+  <pre>
+void <b>swap</b>(basic_regex&amp; right) throw();
+</pre>
+
+  <p>The member function swaps the regular expressions between <code>*this</code> and <code>right</code>. It
+  does so in constant time and throws no exceptions.</p>
+
+  <h3><code><a name="basic_regex::value_type">basic_regex::value_type</a></code></h3>
+  <pre>
+typedef Elem <b>value_type</b>;
+</pre>
+
+  <p>The type is a synonym for the template parameter <code>Elem</code>.</p>
+
+  <h2><code><a name="cmatch">cmatch</a></code></h2>
+  <pre>
+typedef match_results&lt;const char*&gt; <b>cmatch</b>;
+</pre>
+
+  <p>The type describes a specialization of template class <a href="#match_results">match_results</a> for
+  iterators of type <i>const char*</i>.</p>
+
+  <h2><code><a name="cregex_iterator">cregex_iterator</a></code></h2>
+  <pre>
+typedef regex_iterator&lt;const char*&gt; <b>cregex_iterator</b>;
+</pre>
+
+  <p>The type describes a specialization of template class <a href="#regex_iterator">regex_iterator</a> for
+  iterators of type <i>const char*</i>.</p>
+
+  <h2><code><a name="cregex_token_iterator">cregex_token_iterator</a></code></h2>
+  <pre>
+typedef regex_token_iterator&lt;const char*&gt; <b>cregex_token_iterator</b>;
+</pre>
+
+  <p>The type describes a specialization of template class <a href=
+  "#regex_token_iterator">regex_token_iterator</a> for iterators of type <i>const char*</i>.</p>
+
+  <h2><code><a name="csub_match">csub_match</a></code></h2>
+  <pre>
+typedef sub_match&lt;const char*&gt; <b>csub_match</b>;
+</pre>
+
+  <p>The type describes a specialization of template class <a href="#sub_match">sub_match</a> for iterators
+  of type <i>const char*</i>.</p>
+
+  <h2><code><a name="match_results">match_results</a></code></h2>
+  <pre>
+template&lt;class BidIt,
+    class Alloc = allocator&lt;typename iterator_traits&lt;BidIt&gt;::value_type&gt; &gt;
+    class <b>match_results</b> {
+public:
+    explicit <b><a href=
+"#match_results::match_results">match_results</a></b>(const Alloc&amp; alloc = Alloc());
+    <b><a href="#match_results::match_results">match_results</a></b>(const match_results&amp; right);
+    <b><a href=
+"#match_results::match_results">match_results</a></b>(match_results&amp;&amp; right); <b>[added with C++0X]</b>
+
+    match_results&amp; <b><a href=
+"#match_results::operator=">operator=</a></b>(const match_results&amp; right);
+    match_results&amp; <b><a href=
+"#match_results::operator=">operator=</a></b>(match_results&amp;&amp; right); <b>[added with C++0X]</b>
+
+    difference_type <b><a href="#match_results::position">position</a></b>(size_type sub = 0) const;
+    difference_type <b><a href="#match_results::length">length</a></b>(size_type sub = 0) const;
+    string_type <b><a href="#match_results::str">str</a></b>(size_type sub = 0) const;
+    const_reference <b><a href="#match_results::operator[]">operator[]</a></b>(size_type n) const;
+
+    const_reference <b><a href="#match_results::prefix">prefix</a></b>() const;
+    const_reference <b><a href="#match_results::suffix">suffix</a></b>() const;
+    const_iterator <b><a href="#match_results::begin">begin</a></b>() const;
+    const_iterator <b><a href="#match_results::end">end</a></b>() const;
+
+    template&lt;class OutIt&gt;
+        OutIt <b><a href="#match_results::format">format</a></b>(OutIt out,
+            const string_type&amp; fmt, match_flag_type flags = format_default) const;
+    string_type <b><a href="#match_results::format">format</a></b>(const string_type&amp; fmt,
+        match_flag_type flags = format_default) const;
+
+    allocator_type <b><a href="#match_results::get_allocator">get_allocator</a></b>() const;
+    void <b><a href="#match_results::swap">swap</a></b>(const match_results&amp; other) throw();
+
+    size_type <b><a href="#match_results::size">size</a></b>() const;
+    size_type <b><a href="#match_results::max_size">max_size</a></b>() const;
+    bool <b><a href="#match_results::empty">empty</a></b>() const;
+
+    typedef sub_match&lt;BidIt&gt; <b><a href="#match_results::value_type">value_type</a></b>;
+    typedef const typename Alloc::const_reference <b><a href=
+"#match_results::const_reference">const_reference</a></b>;
+    typedef const_reference <b><a href="#match_results::reference">reference</a></b>;
+    typedef <i>T0</i> <b><a href="#match_results::const_iterator">const_iterator</a></b>;
+    typedef const_iterator <b><a href="#match_results::iterator">iterator</a></b>;
+    typedef typename iterator_traits&lt;BidIt&gt;::difference_type <b><a href=
+"#match_results::difference_type">difference_type</a></b>;
+    typedef typename Alloc::size_type <b><a href="#match_results::size_type">size_type</a></b>;
+    typedef Alloc <b><a href="#match_results::allocator_type">allocator_type</a></b>;
+    typedef typename iterator_traits&lt;BidIt&gt;::value_type <b><a href=
+"#match_results::char_type">char_type</a></b>;
+    typedef basic_string&lt;char_type&gt; <b><a href="#match_results::string_type">string_type</a></b>;
+    };
+</pre>
+
+  <p>The template class describes an object that controls a non-modifiable sequence of elements of type
+  <code>sub_match&lt;BidIt&gt;</code> generated by a regular expression search. Each element points to the
+  subsequence that matched the capture group corresponding to that element.</p>
+
+  <h3><code><a name="match_results::allocator_type">match_results::allocator_type</a></code></h3>
+  <pre>
+typedef Alloc <b>allocator_type</b>;
+</pre>
+
+  <p>The typedef is a synonym for the template argument <code>Alloc</code>.</p>
+
+  <h3><code><a name="match_results::begin">match_results::begin</a></code></h3>
+  <pre>
+const_iterator <b>begin</b>() const;
+</pre>
+
+  <p>The member function returns a random access iterator that points at the first element of the sequence
+  (or just beyond the end of an empty sequence).</p>
+
+  <h3><code><a name="match_results::char_type">match_results::char_type</a></code></h3>
+  <pre>
+typedef typename iterator_traits&lt;BidIt&gt;::value_type <b>char_type</b>;
+</pre>
+
+  <p>The typedef is a synonym for the type <code>iterator_traits&lt;BidIt&gt;::value_type</code>, which is
+  the element type of the character sequence that was searched.</p>
+
+  <h3><code><a name="match_results::const_iterator">match_results::const_iterator</a></code></h3>
+  <pre>
+typedef <i>T0</i> <b>const_iterator</b>;
+</pre>
+
+  <p>The typedef describes an object that can serve as a constant random-access iterator for the controlled
+  sequence.</p>
+
+  <h3><code><a name="match_results::const_reference">match_results::const_reference</a></code></h3>
+  <pre>
+typedef const typename Alloc::const_reference <b>const_reference</b>;
+</pre>
+
+  <p>The typedef describes an object that can serve as a constant reference to an element of the controlled
+  sequence.</p>
+
+  <h3><code><a name="match_results::difference_type">match_results::difference_type</a></code></h3>
+  <pre>
+typedef typename iterator_traits&lt;BidIt&gt;::difference_type <b>difference_type</b>;
+</pre>
+
+  <p>The typedef is a synonym for the type <code>iterator_traits&lt;BidIt&gt;::difference_type</code>; it
+  describes an object that can represent the difference between any two iterators that point at elements of
+  the controlled sequence.</p>
+
+  <h3><code><a name="match_results::empty">match_results::empty</a></code></h3>
+  <pre>
+bool <b>empty</b>() const;
+</pre>
+
+  <p>The member function returns true only if the regular expression search failed.</p>
+
+  <h3><code><a name="match_results::end">match_results::end</a></code></h3>
+  <pre>
+const_iterator <b>end</b>() const;
+</pre>
+
+  <p>The member function returns an iterator that points just beyond the end of the sequence.</p>
+
+  <h3><code><a name="match_results::format">match_results::format</a></code></h3>
+  <pre>
+template&lt;class OutIt&gt;
+    OutIt <b>format</b>(OutIt out,
+        const string_type&amp; fmt, match_flag_type flags = format_default) const;
+string_type <b>format</b>(const string_type&amp; fmt, match_flag_type flags = format_default) const;
+</pre>
+
+  <p>Each member function generates <a href="#formatted%20text">formatted text</a> under the control of the
+  format <code>fmt</code>. The first member function writes the formatted text to the sequence defined by its
+  argument <code>out</code> and returns <code>out</code>. The second member function returns a string object
+  holding a copy of the formatted text.</p>
+
+  <p>To generate <b><a name="formatted text">formatted text</a></b>, literal text in the format string is
+  ordinarily copied to the target sequence. Each escape sequence in the format string is replaced by the text
+  that it represents. The details of the copying and replacement are controlled by the <a href=
+  "#format%20flags">format flags</a> passed to the function.</p>
+
+  <h3><code><a name="match_results::get_allocator">match_results::get_allocator</a></code></h3>
+  <pre>
+allocator_type <b>get_allocator</b>() const;
+</pre>
+
+  <p>The member function returns a copy of the allocator object used by <code>*this</code> to allocate its
+  <code>sub_match</code> objects.</p>
+
+  <h3><code><a name="match_results::iterator">match_results::iterator</a></code></h3>
+  <pre>
+typedef const_iterator <b>iterator</b>;
+</pre>
+
+  <p>The type describes an object that can serve as a random-access iterator for the controlled sequence.</p>
+
+  <h3><code><a name="match_results::length">match_results::length</a></code></h3>
+  <pre>
+difference_type <b>length</b>(size_type sub = 0) const;
+</pre>
+
+  <p>The member function returns <code>(*this)[sub].length()</code>.</p>
+
+  <h3><code><a name="match_results::match_results">match_results::match_results</a></code></h3>
+  <pre>
+explicit <b>match_results</b>(const Alloc&amp; alloc = Alloc());
+<b>match_results</b>(const match_results&amp; right);
+<b>match_results</b>(match_results&amp;&amp; right); <b>[added with C++0X]</b>
+</pre>
+
+  <p>The first constructor constructs a <code>match_results</code> object that holds no submatches. The
+  second constructor constructs a <code>match_results</code> object that is a copy of <code>right</code>. The
+  third constructor behaves the same as the second, using an <a href=
+  "lib_cpp.html#rvalue%20references">rvalue reference</a>.</p>
+
+  <h3><code><a name="match_results::max_size">match_results::max_size</a></code></h3>
+  <pre>
+size_type <b>max_size</b>() const;
+</pre>
+
+  <p>The member function returns the length of the longest sequence that the object can control.</p>
+
+  <h3><code><a name="match_results::operator=">match_results::operator=</a></code></h3>
+  <pre>
+match_results&amp; <b>operator=</b>(const match_results&amp; right);
+match_results&amp; <b>operator=</b>(match_results&amp;&amp; right); <b>[added with C++0X]</b>
+</pre>
+
+  <p>The member operator replaces the sequence controlled by <code>*this</code> with a copy of the sequence
+  controlled by <code>right</code>.</p>
+
+  <h3><code><a name="match_results::operator[]">match_results::operator[]</a></code></h3>
+  <pre>
+const_reference <b>operator[]</b>(size_type n) const;
+</pre>
+
+  <p>The member function returns a reference to element <code>n</code> of the controlled sequence, or a
+  reference to an empty <code>sub_match</code> object if <code>size() &lt;= n</code> or if <a href=
+  "lib_regex.html#capture%20group">capture group</a> <code>n</code> was not part of the match.</p>
+
+  <h3><code><a name="match_results::position">match_results::position</a></code></h3>
+  <pre>
+difference_type <b>position</b>(size_type sub = 0) const;
+</pre>
+
+  <p>The member function returns <code>std::distance(prefix().first, (*this)[sub].first)</code>, that is, the
+  distance from the first character in the target sequence to the first character in the submatch pointed to
+  by element <code>n</code> of the controlled sequence.</p>
+
+  <h3><code><a name="match_results::prefix">match_results::prefix</a></code></h3>
+  <pre>
+const_reference <b>prefix</b>() const;
+</pre>
+
+  <p>The member function returns a reference to an object of type <code>sub_match&lt;BidIt&gt;</code> that
+  points to the character sequence that begins at the start of the target sequence and ends at
+  <code>(*this)[0].first</code>, that is, it points to the text that precedes the matched subsequence.</p>
+
+  <h3><code><a name="match_results::reference">match_results::reference</a></code></h3>
+  <pre>
+typedef const_reference <b>reference</b>;
+</pre>
+
+  <p>The type is a synonym for the type <code>const_reference</code>.</p>
+
+  <h3><code><a name="match_results::size">match_results::size</a></code></h3>
+  <pre>
+size_type <b>size</b>() const;
+</pre>
+
+  <p>The member function returns one more than the number of <a href="lib_regex.html#capture%20group">capture
+  groups</a> in the regular expression that was used for the search, or zero if no search has been made.</p>
+
+  <h3><code><a name="match_results::size_type">match_results::size_type</a></code></h3>
+  <pre>
+typedef typename Alloc::size_type <b>size_type</b>;
+</pre>
+
+  <p>The type is a synonym for the type <code>Alloc::size_type</code>.</p>
+
+  <h3><code><a name="match_results::str">match_results::str</a></code></h3>
+  <pre>
+string_type <b>str</b>(size_type sub = 0) const;
+</pre>
+
+  <p>The member function returns <code>string_type((*this)[sub])</code>.</p>
+
+  <h3><code><a name="match_results::string_type">match_results::string_type</a></code></h3>
+  <pre>
+typedef basic_string&lt;char_type&gt; <b>string_type</b>;
+</pre>
+
+  <p>The type is a synonym for the type <code>basic_string&lt;char_type&gt;</code>.</p>
+
+  <h3><code><a name="match_results::suffix">match_results::suffix</a></code></h3>
+  <pre>
+const_reference <b>suffix</b>() const;
+</pre>
+
+  <p>The member function returns a reference to an object of type <code>sub_match&lt;BidIt&gt;</code> that
+  points to the character sequence that begins at <code>(*this)[size() - 1].second</code> and ends at the end
+  of the target sequence, that is, it points to the text that follows the matched subsequence.</p>
+
+  <h3><code><a name="match_results::swap">match_results::swap</a></code></h3>
+  <pre>
+void <b>swap</b>(const match_results&amp; right) throw();
+</pre>
+
+  <p>The member function swaps the contents of <code>*this</code> and <code>right</code> in constant time and
+  does not throw exceptions.</p>
+
+  <h3><code><a name="match_results::value_type">match_results::value_type</a></code></h3>
+  <pre>
+typedef sub_match&lt;BidIt&gt; <b>value_type</b>;
+</pre>
+
+  <p>The typedef is a synonym for the type <code>sub_match&lt;BidIt&gt;</code>.</p>
+
+  <h2><code><a name="operator==">operator==</a></code></h2>
+  <pre>
+template&lt;class BidIt&gt;
+    bool <b>operator==</b>(const sub_match&lt;BidIt&gt;&amp; left,
+        const sub_match&lt;BidIt&gt;&amp; right);
+template&lt;class BidIt, class IOtraits, class Alloc&gt;
+    bool <b>operator==</b>(
+        const basic_string&lt;typename iterator_traits&lt;BidIt&gt;::value_type, IOtraits, Alloc&gt;&amp; left,
+        const sub_match&lt;BidIt&gt;&amp; right);
+template&lt;class BidIt, class IOtraits, class Alloc&gt;
+    bool <b>operator==</b>(const sub_match&lt;BidIt&gt;&amp; left,
+        const basic_string&lt;typename iterator_traits&lt;BidIt&gt;::value_type, IOtraits, Alloc&gt;&amp; right);
+template&lt;class BidIt&gt;
+    bool <b>operator==</b>(const typename iterator_traits&lt;BidIt&gt;::value_type* left,
+        const sub_match&lt;BidIt&gt;&amp; right);
+template&lt;class BidIt&gt;
+    bool <b>operator==</b>(const sub_match&lt;BidIt&gt;&amp; left,
+        const typename iterator_traits&lt;BidIt&gt;::value_type* right);
+template&lt;class BidIt&gt;
+    bool <b>operator==</b>(const typename iterator_traits&lt;BidIt&gt;::value_type&amp; left,
+        const sub_match&lt;BidIt&gt;&amp; right);
+template&lt;class BidIt&gt;
+    bool <b>operator==</b>(const sub_match&lt;BidIt&gt;&amp; left,
+        const typename iterator_traits&lt;BidIt&gt;::value_type&amp; right);
+template&lt;class BidIt, class Alloc&gt;
+    bool <b>operator==</b>(const match_results&lt;BidIt, Alloc&gt;&amp; left,
+        const match_results&lt;BidIt, Alloc&gt;&amp; right);
+</pre>
+
+  <p>Each template operator <a href="#converts">converts</a> each of its arguments to a string type and
+  returns the result of comparing the converted objects for equality.</p>
+
+  <p>When a template operator <b><a name="converts">converts</a></b> its arguments to a string type it uses
+  the first of the following transformations that applies:</p>
+
+  <ul>
+    <li>arguments whose types are a specialization of template class <code>match_results</code> or
+    <code>sub_match</code> are converted by calling the <code>str</code> member function;</li>
+
+    <li>arguments whose types are a specialization of the template class <code>basic_string</code> are
+    unchanged;</li>
+
+    <li>all other argument types are converted by passing the argument value to the constructor for an
+    appropriate specialization of the template class <code>basic_string</code>.</li>
+  </ul>
+
+  <h2><code><a name="operator!=">operator!=</a></code></h2>
+  <pre>
+template&lt;class BidIt&gt;
+    bool <b>operator!=</b>(const sub_match&lt;BidIt&gt;&amp; left,
+        const sub_match&lt;BidIt&gt;&amp; right);
+template&lt;class BidIt, class IOtraits, class Alloc&gt;
+    bool <b>operator!=</b>(
+        const basic_string&lt;typename iterator_traits&lt;BidIt&gt;::value_type, IOtraits, Alloc&gt;&amp; left,
+        const sub_match&lt;BidIt&gt;&amp; right);
+template&lt;class BidIt, class IOtraits, class Alloc&gt;
+    bool <b>operator!=</b>(const sub_match&lt;BidIt&gt;&amp; left,
+        const basic_string&lt;typename iterator_traits&lt;BidIt&gt;::value_type, IOtraits, Alloc&gt;&amp; right);
+template&lt;class BidIt&gt;
+    bool <b>operator!=</b>(const typename iterator_traits&lt;BidIt&gt;::value_type *left,
+        const sub_match&lt;BidIt&gt;&amp; right);
+template&lt;class BidIt&gt;
+    bool <b>operator!=</b>(const sub_match&lt;BidIt&gt;&amp; left,
+        const typename iterator_traits&lt;BidIt&gt;::value_type *right);
+template&lt;class BidIt&gt;
+    bool <b>operator!=</b>(const typename iterator_traits&lt;BidIt&gt;::value_type&amp; left,
+        const sub_match&lt;BidIt&gt;&amp; right);
+template&lt;class BidIt&gt;
+    bool <b>operator!=</b>(const sub_match&lt;BidIt&gt;&amp; left,
+        const typename iterator_traits&lt;BidIt&gt;::value_type&amp; right);
+template&lt;class BidIt, class Alloc&gt;
+    bool <b>operator!=</b>(const match_results&lt;BidIt, Alloc&gt;&amp; left,
+        const match_results&lt;BidIt, Alloc&gt;&amp; right);
+</pre>
+
+  <p>Each template operator returns <code>!(left == right)</code>.</p>
+
+  <h2><code><a name="operator&lt;">operator&lt;</a></code></h2>
+  <pre>
+template&lt;class BidIt&gt;
+    bool <b>operator&lt;</b>(const sub_match&lt;BidIt&gt;&amp; left,
+        const sub_match&lt;BidIt&gt;&amp; right);
+template&lt;class BidIt, class IOtraits, class Alloc&gt;
+    bool <b>operator&lt;</b>(
+        const basic_string&lt;typename iterator_traits&lt;BidIt&gt;::value_type, IOtraits, Alloc&gt;&amp; left,
+        const sub_match&lt;BidIt&gt;&amp; right);
+template&lt;class BidIt, class IOtraits, class Alloc&gt;
+    bool <b>operator&lt;</b>(const sub_match&lt;BidIt&gt;&amp; left,
+        const basic_string&lt;typename iterator_traits&lt;BidIt&gt;::value_type, IOtraits, Alloc&gt;&amp; right);
+template&lt;class BidIt&gt;
+    bool <b>operator&lt;</b>(const typename iterator_traits&lt;BidIt&gt;::value_type *left,
+        const sub_match&lt;BidIt&gt;&amp; right);
+template&lt;class BidIt&gt;
+    bool <b>operator&lt;</b>(const sub_match&lt;BidIt&gt;&amp; left,
+        const typename iterator_traits&lt;BidIt&gt;::value_type *right);
+template&lt;class BidIt&gt;
+    bool <b>operator&lt;</b>(const typename iterator_traits&lt;BidIt&gt;::value_type&amp; left,
+        const sub_match&lt;BidIt&gt;&amp; right);
+template&lt;class BidIt&gt;
+    bool <b>operator&lt;</b>(const sub_match&lt;BidIt&gt;&amp; left,
+        const typename iterator_traits&lt;BidIt&gt;::value_type&amp; right);
+</pre>
+
+  <p>Each template operator <a href="#converts">converts</a> its arguments to a string type and returns true
+  only if the converted value of <code>left</code> compares less than the converted value of
+  <code>right</code>.</p>
+
+  <h2><code><a name="operator&lt;=">operator&lt;=</a></code></h2>
+  <pre>
+template&lt;class BidIt&gt;
+    bool <b>operator&lt;=</b>(const sub_match&lt;BidIt&gt;&amp; left,
+        const sub_match&lt;BidIt&gt;&amp; right);
+template&lt;class BidIt, class IOtraits, class Alloc&gt;
+    bool <b>operator&lt;=</b>(
+        const basic_string&lt;typename iterator_traits&lt;BidIt&gt;::value_type, IOtraits, Alloc&gt;&amp; left,
+        const sub_match&lt;BidIt&gt;&amp; right);
+template&lt;class BidIt, class IOtraits, class Alloc&gt;
+    bool <b>operator&lt;=</b>(const sub_match&lt;BidIt&gt;&amp; left,
+        const basic_string&lt;typename iterator_traits&lt;BidIt&gt;::value_type, IOtraits, Alloc&gt;&amp; right);
+template&lt;class BidIt&gt;
+    bool <b>operator&lt;=</b>(const typename iterator_traits&lt;BidIt&gt;::value_type *left,
+        const sub_match&lt;BidIt&gt;&amp; right);
+template&lt;class BidIt&gt;
+    bool <b>operator&lt;=</b>(const sub_match&lt;BidIt&gt;&amp; left,
+        const typename iterator_traits&lt;BidIt&gt;::value_type *right);
+template&lt;class BidIt&gt;
+    bool <b>operator&lt;=</b>(const typename iterator_traits&lt;BidIt&gt;::value_type&amp; left,
+        const sub_match&lt;BidIt&gt;&amp; right);
+template&lt;class BidIt&gt;
+    bool <b>operator&lt;=</b>(const sub_match&lt;BidIt&gt;&amp; left,
+        const typename iterator_traits&lt;BidIt&gt;::value_type&amp; right);
+</pre>
+
+  <p>Each template operator returns <code>!(right &lt; left)</code>.</p>
+
+  <h2><code><a name="operator&gt;">operator&gt;</a></code></h2>
+  <pre>
+template&lt;class BidIt&gt;
+    bool <b>operator&gt;</b>(const sub_match&lt;BidIt&gt;&amp; left,
+        const sub_match&lt;BidIt&gt;&amp; right);
+template&lt;class BidIt, class IOtraits, class Alloc&gt;
+    bool <b>operator&gt;</b>(
+        const basic_string&lt;typename iterator_traits&lt;BidIt&gt;::value_type, IOtraits, Alloc&gt;&amp; left,
+        const sub_match&lt;BidIt&gt;&amp; right);
+template&lt;class BidIt, class IOtraits, class Alloc&gt;
+    bool <b>operator&gt;</b>(const sub_match&lt;BidIt&gt;&amp; left,
+        const basic_string&lt;typename iterator_traits&lt;BidIt&gt;::value_type, IOtraits, Alloc&gt;&amp; right);
+template&lt;class BidIt&gt;
+    bool <b>operator&gt;</b>(const typename iterator_traits&lt;BidIt&gt;::value_type *left,
+        const sub_match&lt;BidIt&gt;&amp; right);
+template&lt;class BidIt&gt;
+    bool <b>operator&gt;</b>(const sub_match&lt;BidIt&gt;&amp; left,
+        const typename iterator_traits&lt;BidIt&gt;::value_type *right);
+template&lt;class BidIt&gt;
+    bool <b>operator&gt;</b>(const typename iterator_traits&lt;BidIt&gt;::value_type&amp; left,
+        const sub_match&lt;BidIt&gt;&amp; right);
+template&lt;class BidIt&gt;
+    bool <b>operator&gt;</b>(const sub_match&lt;BidIt&gt;&amp; left,
+        const typename iterator_traits&lt;BidIt&gt;::value_type&amp; right);
+</pre>
+
+  <p>Each template operator returns <code>right &lt; left</code>.</p>
+
+  <h2><code><a name="operator&gt;=">operator&gt;=</a></code></h2>
+  <pre>
+template&lt;class BidIt&gt;
+    bool <b>operator&gt;=</b>(const sub_match&lt;BidIt&gt;&amp; left,
+        const sub_match&lt;BidIt&gt;&amp; right);
+template&lt;class BidIt, class IOtraits, class Alloc&gt;
+    bool <b>operator&gt;=</b>(
+        const basic_string&lt;typename iterator_traits&lt;BidIt&gt;::value_type, IOtraits, Alloc&gt;&amp; left,
+        const sub_match&lt;BidIt&gt;&amp; right);
+template&lt;class BidIt, class IOtraits, class Alloc&gt;
+    bool <b>operator&gt;=</b>(const sub_match&lt;BidIt&gt;&amp; left,
+        const basic_string&lt;typename iterator_traits&lt;BidIt&gt;::value_type, IOtraits, Alloc&gt;&amp; right);
+template&lt;class BidIt&gt;
+    bool <b>operator&gt;=</b>(const typename iterator_traits&lt;BidIt&gt;::value_type *left,
+        const sub_match&lt;BidIt&gt;&amp; right);
+template&lt;class BidIt&gt;
+    bool <b>operator&gt;=</b>(const sub_match&lt;BidIt&gt;&amp; left,
+        const typename iterator_traits&lt;BidIt&gt;::value_type *right);
+template&lt;class BidIt&gt;
+    bool <b>operator&gt;=</b>(const typename iterator_traits&lt;BidIt&gt;::value_type&amp; left,
+        const sub_match&lt;BidIt&gt;&amp; right);
+template&lt;class BidIt&gt;
+    bool <b>operator&gt;=</b>(const sub_match&lt;BidIt&gt;&amp; left,
+        const typename iterator_traits&lt;BidIt&gt;::value_type&amp; right);
+</pre>
+
+  <p>Each template operator returns <code>!(left &lt; right)</code>.</p>
+
+  <h2><code><a name="operator&lt;&lt;">operator&lt;&lt;</a></code></h2>
+  <pre>
+template&lt;class Elem, class IOtraits, class Alloc, class BidIt&gt;
+    basic_ostream&lt;Elem, IOtraits&gt;&amp;
+    <b>operator&lt;&lt;</b>(basic_ostream&lt;Elem, IOtraits&gt;&amp; os,
+        const sub_match&lt;BidIt&gt;&amp; right);
+</pre>
+
+  <p>The template operator returns <code>os &lt;&lt; right.str()</code>.</p>
+
+  <h2><code><a name="regex">regex</a></code></h2>
+  <pre>
+typedef basic_regex&lt;char&gt; <b>regex</b>;
+</pre>
+
+  <p>The type describes a specialization of template class <a href="#basic_regex">basic_regex</a> for
+  elements of type <i>char</i>.</p>
+
+  <h2><code><a name="regex_constants">regex_constants</a></code></h2>
+  <pre>
+namespace <b>regex_constants</b> {
+  typedef T1 <b><a href="#regex_constants::syntax_option_type">syntax_option_type</a></b>;
+  typedef T2 <b><a href="#regex_constants::match_flag_type">match_flag_type</a></b>;
+  typedef T3 <b><a href="#regex_constants::error_type">error_type</a></b>;
+  }
+</pre>
+
+  <p>The namespace <code>regex_constants</code> within <code>std::tr1</code> encapsulates several flag types
+  and their associated flag values.</p>
+
+  <h3><code><a name="regex_constants::error_type">regex_constants::error_type</a></code></h3>
+  <pre>
+typedef T3 <b>error_type</b>;
+static const error_type <b>error_badbrace</b>, <b>error_badrepeat</b>, <b>error_brace</b>,
+  <b>error_brack</b>, <b>error_collate</b>, <b>error_complexity</b>, <b>error_ctype</b>,
+  <b>error_escape</b>, <b>error_paren</b>, <b>error_range</b>, <b>error_space</b>,
+  <b>error_stack</b>, <b>error_backref</b>;
+</pre>
+
+  <p>The type is an enumerated type that describes an object that can hold <b><a name="error flags">error
+  flags</a></b>. The distinct flag values are:</p>
+
+  <ul>
+    <li><b><code><a name="regex_constants::error_badbrace">error_badbrace</a></code></b> -- the expression
+    contained an invalid count in a { } expression</li>
+
+    <li><b><code><a name="regex_constants::error_badrepeat">error_badrepeat</a></code></b> -- a repeat
+    expression (one of '*', '?', '+', '{' in most contexts) was not preceded by an expression</li>
+
+    <li><b><code><a name="regex_constants::error_brace">error_brace</a></code></b> -- the expression
+    contained an unmatched '{' or '}'</li>
+
+    <li><b><code><a name="regex_constants::error_brack">error_brack</a></code></b> -- the expression
+    contained an unmatched '[' or ']'</li>
+
+    <li><b><code><a name="regex_constants::error_collate">error_collate</a></code></b> -- the expression
+    contained an invalid collating element name</li>
+
+    <li><b><code><a name="regex_constants::error_complexity">error_complexity</a></code></b> -- an attempted
+    match failed because it was too complex</li>
+
+    <li><b><code><a name="regex_constants::error_ctype">error_ctype</a></code></b> -- the expression
+    contained an invalid character class name</li>
+
+    <li><b><code><a name="regex_constants::error_escape">error_escape</a></code></b> -- the expression
+    contained an invalid escape sequence</li>
+
+    <li><b><code><a name="regex_constants::error_paren">error_paren</a></code></b> -- the expression
+    contained an unmatched '(' or ')'</li>
+
+    <li><b><code><a name="regex_constants::error_range">error_range</a></code></b> -- the expression
+    contained an invalid character range specifier</li>
+
+    <li><b><code><a name="regex_constants::error_space">error_space</a></code></b> -- parsing a regular
+    expression failed because there were not enough resources available</li>
+
+    <li><b><code><a name="regex_constants::error_stack">error_stack</a></code></b> -- an attempted match
+    failed because there was not enough memory available</li>
+
+    <li><b><code><a name="regex_constants::error_backref">error_backref</a></code></b> -- the expression
+    contained an invalid back reference</li>
+  </ul>
+
+  <h3><code><a name="regex_constants::match_flag_type">regex_constants::match_flag_type</a></code></h3>
+  <pre>
+typedef T2 <b>match_flag_type</b>;
+static const match_flag_type <b>match_any</b>, <b>match_default</b>, <b>match_not_bol</b>,
+  <b>match_not_bow</b>, <b>match_continuous</b>, <b>match_not_eol</b>, <b>match_not_eow</b>,
+  <b>match_not_null</b>, <b>match_partial</b>, <b>match_prev_avail</b>;
+</pre>
+
+  <p>The type is a bitmask type that describes options to be used when matching a text sequence against a
+  regular expression and format flags to be used when replacing text. Options can be combined with
+  <code>|</code>.</p>
+
+  <p>The match options are:</p>
+
+  <ul>
+    <li><b><code><a name="regex_constants::match_default">match_default</a></code></b></li>
+
+    <li><b><code><a name="regex_constants::match_not_bol">match_not_bol</a></code></b> -- do not treat the
+    first position in the target sequence as the beginning of a line</li>
+
+    <li><b><code><a name="regex_constants::match_not_eol">match_not_eol</a></code></b> -- do not treat the
+    past-the-end position in the target sequence as the end of a line</li>
+
+    <li><b><code><a name="regex_constants::match_not_bow">match_not_bow</a></code></b> -- do not treat the
+    first position in the target sequence as the beginning of a word</li>
+
+    <li><b><code><a name="regex_constants::match_not_eow">match_not_eow</a></code></b> -- do not treat the
+    past-the-end position in the target sequence as the end of a word</li>
+
+    <li><b><code><a name="regex_constants::match_any">match_any</a></code></b> -- if more than one match is
+    possible any match is acceptable</li>
+
+    <li><b><code><a name="regex_constants::match_not_null">match_not_null</a></code></b> -- do not treat an
+    empty subsequence as a match</li>
+
+    <li><b><code><a name="regex_constants::match_continuous">match_continuous</a></code></b> -- do not search
+    for matches other than at the beginning of the target sequence</li>
+
+    <li><b><code><a name="regex_constants::match_prev_avail">match_prev_avail</a></code></b> --
+    <code>--first</code> is a valid iterator; ignore <code>match_not_bol</code> and
+    <code>match_not_bow</code> if set</li>
+  </ul>
+
+  <p>The <b><a name="format flags">format flags</a></b> are:</p>
+
+  <ul>
+    <li><b><code><a name="regex_constants::format_default">format_default</a></code></b> -- use <a href=
+    "lib_regex.html#ECMAScript%20format%20rules">ECMAScript format rules</a></li>
+
+    <li><b><code><a name="regex_constants::format_sed">format_sed</a></code></b> -- use <a href=
+    "lib_regex.html#sed%20format%20rules">sed format rules</a></li>
+
+    <li><b><code><a name="regex_constants::format_no_copy">format_no_copy</a></code></b> -- do not copy text
+    that does not match the regular expression</li>
+
+    <li><b><code><a name="regex_constants::format_first_only">format_first_only</a></code></b> -- do not
+    search for matches after the first one</li>
+  </ul>
+
+  <h3><code><a name="regex_constants::syntax_option_type">regex_constants::syntax_option_type</a></code></h3>
+  <pre>
+typedef T1 <b>syntax_option_type</b>;
+static const syntax_option_type <b>awk</b>, <b>basic</b>, <b>collate</b>, <b>ECMAScript</b>,
+  <b>egrep</b>, <b>extended</b>, <b>grep</b>, <b>icase</b>, <b>nosubs</b>, <b>optimize</b>;
+</pre>
+
+  <p>The type is a bitmask type that describes language specifiers and syntax modifiers to be used when
+  compiling a regular expression. Options can be combined with <code>|</code>. No more than one language
+  specifier should be used at a time.</p>
+
+  <p>The language specifiers are:</p>
+
+  <ul>
+    <li><b><code><a name="regex_constants::basic">basic</a></code></b> -- compile as <a href=
+    "lib_regex.html#BRE">BRE</a></li>
+
+    <li><b><code><a name="regex_constants::extended">extended</a></code></b> -- compile as <a href=
+    "lib_regex.html#ERE">ERE</a></li>
+
+    <li><b><code><a name="regex_constants::ECMAScript">ECMAScript</a></code></b> -- compile as <a href=
+    "lib_regex.html#ECMAScript">ECMAScript</a></li>
+
+    <li><b><code><a name="regex_constants::awk">awk</a></code></b> -- compile as <a href=
+    "lib_regex.html#awk">awk</a></li>
+
+    <li><b><code><a name="regex_constants::grep">grep</a></code></b> -- compile as <a href=
+    "lib_regex.html#grep">grep</a></li>
+
+    <li><b><code><a name="regex_constants::egrep">egrep</a></code></b> -- compile as <a href=
+    "lib_regex.html#egrep">egrep</a></li>
+  </ul>
+
+  <p>The syntax modifiers are:</p>
+
+  <ul>
+    <li><b><code><a name="regex_constants::icase">icase</a></code></b> -- make matches <a href=
+    "lib_regex.html#case-insensitive">case-insensitive</a></li>
+
+    <li><b><code><a name="regex_constants::nosubs">nosubs</a></code></b> -- the implementaton need not keep
+    track of the contents of <a href="lib_regex.html#capture%20group">capture groups</a></li>
+
+    <li><b><code><a name="regex_constants::optimize">optimize</a></code></b> -- the implementation should
+    emphasize speed of matching rather than speed of regular expression compilation</li>
+
+    <li><b><code><a name="regex_constants::collate">collate</a></code></b> -- make matches <a href=
+    "lib_regex.html#locale-sensitive">locale-sensitive</a></li>
+  </ul>
+
+  <h2><code><a name="regex_error">regex_error</a></code></h2>
+  <pre>
+class <b>regex_error</b>
+    : public std::runtime_error {
+public:
+    explicit <b><a href="#regex_error::regex_error">regex_error</a></b>(regex_constants::error_code error);
+    regex_constants::error_code <b><a href="#regex_error::code">code</a></b>() const;
+    };
+</pre>
+
+  <p>The class describes an exception object thrown to report an error in the construction or use of a
+  <code>basic_regex</code> object.</p>
+
+  <h3><code><a name="regex_error::code">regex_error::code</a></code></h3>
+  <pre>
+regex_constants::error_code <b>code</b>() const;
+</pre>
+
+  <p>The member function returns the value that was passed to the object's constructor.</p>
+
+  <h3><code><a name="regex_error::regex_error">regex_error::regex_error</a></code></h3>
+  <pre>
+<b>regex_error</b>(regex_constants::error_code error);
+</pre>
+
+  <p>The constructor constructs an object that holds the value <code>error</code>.</p>
+
+  <h2><code><a name="regex_iterator">regex_iterator</a></code></h2>
+  <pre>
+template&lt;class BidIt, class Elem = iterator_traits&lt;BidIt&gt;::value_type,
+    class RXtraits = regex_traits&lt;Elem&gt; &gt;
+        class <b>regex_iterator</b> {
+public:
+    typedef basic_regex&lt;Elem, RXtraits&gt; <b><a href="#regex_iterator::regex_type">regex_type</a></b>;
+    typedef match_results&lt;BidIt&gt; <b><a href="#regex_iterator::value_type">value_type</a></b>;
+    typedef std::forward_iterator_tag <b><a href=
+"#regex_iterator::iterator_category">iterator_category</a></b>;
+    typedef std::ptrdiff_t <b><a href="#regex_iterator::difference_type">difference_type</a></b>;
+    typedef const match_results&lt;BidIt&gt;* <b><a href="#regex_iterator::pointer">pointer</a></b>;
+    typedef const match_results&lt;BidIt&gt;&amp; <b><a href="#regex_iterator::pointer">reference</a></b>;
+
+    <b><a href="#regex_iterator::regex_iterator">regex_iterator</a></b>();
+    <b><a href="#regex_iterator::regex_iterator">regex_iterator</a></b>(BidIt first, BidIt last,
+        const regex_type&amp; re,
+        regex_constants::match_flag_type f = regex_constants::match_default);
+
+    bool <b><a href="#regex_iterator::operator==">operator==</a></b>(const regex_iterator&amp; right); const
+    bool <b><a href="#regex_iterator::operator!=">operator!=</a></b>(const regex_iterator&amp; right); const
+
+    const match_results&lt;BidIt&gt;&amp; <b><a href="#regex_iterator::operator*">operator*</a></b>(); const
+    const match_results&lt;BidIt&gt; *<b><a href=
+"#regex_iterator::operator-%3E">operator-&gt;</a></b>(); const
+    regex_iterator&amp; <b><a href="#regex_iterator::operator++">operator++</a></b>();
+    regex_iterator&amp; <b><a href="#regex_iterator::operator++">operator++</a></b>(int);
+
+    BidIt begin;                            // <b>exposition only</b>
+    BidIt end;                              // <b>exposition only</b>
+    regex_type *pregex;                     // <b>exposition only</b>
+    regex_constants::match_flag_type flags; // <b>exposition only</b>
+    match_results&lt;BidIt&gt; match;             // <b>exposition only</b>
+    };
+</pre>
+
+  <p>The template class describes a constant forward iterator object. It extracts objects of type
+  <code>match_results&lt;BidIt&gt;</code> by repeatedly applying its regular expression object
+  <code>*pregex</code> to the character sequence defined by the iterator range <code>[begin, end)</code>.</p>
+
+  <h3><code><a name="regex_iterator::difference_type">regex_iterator::difference_type</a></code></h3>
+  <pre>
+typedef std::ptrdiff_t <b>difference_type</b>;
+</pre>
+
+  <p>The type is a synonym for <code>std::ptrdiff_t</code>.</p>
+
+  <h3><code><a name="regex_iterator::iterator_category">regex_iterator::iterator_category</a></code></h3>
+  <pre>
+typedef std::forward_iterator_tag <b>iterator_category</b>;
+</pre>
+
+  <p>The type is a synonym for <code>std::forward_iterator_tag</code>.</p>
+
+  <h3><code><a name="regex_iterator::operator==">regex_iterator::operator==</a></code></h3>
+  <pre>
+bool <b>operator==</b>(const regex_iterator&amp; right);
+</pre>
+
+  <p>The member function returns true if <code>*this</code> and <code>right</code> are both end-of-sequence
+  iterators or if neither is an end-of-sequence iterator and <code>begin == right.begin</code>, <code>end ==
+  right.end</code>, <code>pregex == right.pregex</code>, and <code>flags == right.flags</code>. Otherwise it
+  returns false.</p>
+
+  <h3><code><a name="regex_iterator::operator!=">regex_iterator::operator!=</a></code></h3>
+  <pre>
+bool <b>operator!=</b>(const regex_iterator&amp; right);
+</pre>
+
+  <p>The member function returns <code>!(*this == right)</code>.</p>
+
+  <h3><code><a name="regex_iterator::operator*">regex_iterator::operator*</a></code></h3>
+  <pre>
+const match_results&lt;BidIt&gt;&amp; <b>operator*</b>();
+</pre>
+
+  <p>The member function returns the stored value <code>match</code>.</p>
+
+  <h3><code><a name="regex_iterator::operator-&gt;">regex_iterator::operator-&gt;</a></code></h3>
+  <pre>
+const match_results&lt;BidIt&gt; *<b>operator-&gt;</b>();
+</pre>
+
+  <p>The member function returns the address of the stored value <code>match</code>.</p>
+
+  <h3><code><a name="regex_iterator::operator++">regex_iterator::operator++</a></code></h3>
+  <pre>
+regex_iterator&amp; <b>operator++</b>();
+regex_iterator&amp; <b>operator++</b>(int);
+</pre>
+
+  <p>If the current match has no characters the first operator calls <code>regex_search(begin, end, match,
+  *pregex, flags | regex_constants::match_prev_avail | regex_constants::match_not_null)</code>; otherwise it
+  advances the stored value <code>begin</code> to point to the first character after the current match then
+  calls <code>regex_search(begin, end, match, *pregex, flags | regex_constants::match_prev_avail)</code>. In
+  either case, if the search fails the operator sets the object to an end-of-sequence iterator. The operator
+  returns the object.</p>
+
+  <p>The second operator makes a copy of the object, increments the object, then returns the copy.</p>
+
+  <h3><code><a name="regex_iterator::pointer">regex_iterator::pointer</a></code></h3>
+  <pre>
+typedef const match_results&lt;BidIt&gt; *<b>pointer</b>;
+</pre>
+
+  <p>The type is a synonym for <code>match_results&lt;BidIt&gt;*</code>, where <code>BidIt</code> is the
+  template parameter.</p>
+
+  <h3><code><a name="regex_iterator::reference">regex_iterator::reference</a></code></h3>
+  <pre>
+typedef const match_results&lt;BidIt&gt;&amp; <b>reference</b>;
+</pre>
+
+  <p>The type is a synonym for <code>match_results&lt;BidIt&gt;&amp;</code>, where <code>BidIt</code> is the
+  template parameter.</p>
+
+  <h3><code><a name="regex_iterator::regex_iterator">regex_iterator::regex_iterator</a></code></h3>
+  <pre>
+<b>regex_iterator</b>();
+<b>regex_iterator</b>(BidIt first, BidIt last,
+    const regex_type&amp; re,
+    regex_constants::match_flag_type f = regex_constants::match_default);
+</pre>
+
+  <p>The first constructor constructs an end-of-sequence iterator. The second constructor initializes the
+  stored value <code>begin</code> with <code>first</code>, the stored value <code>end</code> with
+  <code>last</code>, the stored value <code>pregex</code> with <code>&amp;re</code>, and the stored value
+  <code>flags</code> with <code>f</code>. It then calls <code>regex_search(begin, end, match, *pregex,
+  flags)</code>. If the search fails, the constructor sets the object to an end-of-sequence iterator.</p>
+
+  <h3><code><a name="regex_iterator::regex_type">regex_iterator::regex_type</a></code></h3>
+  <pre>
+typedef basic_regex&lt;Elem, RXtraits&gt; <b>regex_type</b>;
+</pre>
+
+  <p>The typedef is a synonym for <code>basic_regex&lt;Elem, RXtraits&gt;</code>.</p>
+
+  <h3><code><a name="regex_iterator::value_type">regex_iterator::value_type</a></code></h3>
+  <pre>
+typedef match_results&lt;BidIt&gt; <b>value_type</b>;
+</pre>
+
+  <p>The type is a synonym for <code>match_results&lt;BidIt&gt;</code>, where <code>BidIt</code> is the
+  template parameter.</p>
+
+  <h2><code><a name="regex_match">regex_match</a></code></h2>
+  <pre>
+template&lt;class BidIt, class Alloc, class Elem, class RXtraits, class Alloc2&gt;
+    bool <b>regex_match</b>(BidIt first, Bidit last,
+        match_results&lt;BidIt, Alloc&gt;&amp; match,
+        const basic_regex&lt;Elem, RXtraits, Alloc2&gt;&amp; re,
+        match_flag_type flags = match_default);
+template&lt;class BidIt, class Elem, class RXtraits, class Alloc2&gt;
+    bool <b>regex_match</b>(BidIt first, Bidit last,
+        const basic_regex&lt;Elem, RXtraits, Alloc2&gt;&amp; re,
+        match_flag_type flags = match_default);
+template&lt;class Elem, class Alloc, class RXtraits, class Alloc2&gt;
+    bool <b>regex_match</b>(const Elem *ptr,
+        match_results&lt;const Elem*, Alloc&gt;&amp; match,
+        const basic_regex&lt;Elem, RXtraits, Alloc2&gt;&amp; re,
+        match_flag_type flags = match_default);
+template&lt;class Elem, class RXtraits, class Alloc2&gt;
+    bool <b>regex_match</b>(const Elem *ptr,
+        const basic_regex&lt;Elem, RXtraits, Alloc2&gt;&amp; re,
+        match_flag_type flags = match_default);
+template&lt;class IOtraits, class IOalloc, class Alloc, class Elem, class RXtraits, class Alloc2&gt;
+    bool <b>regex_match</b>(const basic_string&lt;Elem, IOtraits, IOalloc&gt;&amp; str,
+        match_results&lt;typename basic_string&lt;Elem, IOtraits, IOalloc&gt;::const_iterator, Alloc&gt;&amp; match,
+        const basic_regex&lt;Elem, RXtraits, Alloc2&gt;&amp; re,
+        match_flag_type flags = match_default);
+template&lt;class IOtraits, class IOalloc, class Elem, class RXtraits, class Alloc2&gt;
+    bool <b>regex_match</b>(const basic_string&lt;Elem, IOtraits, IOalloc&gt;&amp; str,
+        const basic_regex&lt;Elem, RXtraits, Alloc2&gt;&amp; re,
+        match_flag_type flags = match_default);
+</pre>
+
+  <p>Each template function returns true only if its <a href="#operand%20sequence">operand sequence</a>
+  exactly <a href="lib_regex.html#match">matches</a> its regular expression argument <code>re</code>. The
+  functions that take a <code>match_results</code> object set its members to reflect whether the match
+  succeeded and if so what the various <a href="lib_regex.html#capture%20group">capture groups</a> in the
+  regular expression captured.</p>
+
+  <h2><code><a name="regex_replace">regex_replace</a></code></h2>
+  <pre>
+template&lt;class OutIt, class BidIt, class RXtraits, class Alloc, class Elem&gt;
+    OutIt <b>regex_replace</b>(OutIt out,
+        BidIt first, BidIt last,
+        const basic_regex&lt;Elem, RXtraits, Alloc&gt;&amp; re,
+        const basic_string&lt;Elem&gt;&amp; fmt,
+        match_flag_type flags = match_default);
+template&lt;class RXtraits, class Alloc, class Elem&gt;
+    basic_string&lt;Elem&gt; <b>regex_replace</b>(const basic_string&lt;Elem&gt;&amp; str,
+        const basic_regex&lt;Elem, RXtraits, Alloc&gt;&amp; re,
+        const basic_string&lt;Elem&gt;&amp; fmt,
+        match_flag_type flags = match_default);
+</pre>
+
+  <p>The first function constructs a <a href="#regex_iterator">regex_iterator</a> object <code>iter(first,
+  last, re, flags)</code> and uses it to split its input range <code>[first, last)</code> into a series of
+  subsequences
+  <code>T<sub>0</sub>M<sub>0</sub>T<sub>1</sub>M<sub>1</sub>...T<sub>N-1</sub>M<sub>N-1</sub>T<sub>N</sub></code>,
+  where <code>M<sub>n</sub></code> is the <code>n<sup>th</sup></code> match detected by the iterator. If no
+  matches are found, <code>T<sub>0</sub></code> is the entire input range and <code>N</code> is zero. If
+  <code>(flags &amp; format_first_only) != 0</code> only the first match is used, <code>T<sub>1</sub></code>
+  is all of the input text that follows the match, and <code>N</code> is 1. For each <code>i</code> in the
+  range <code>[0, N)</code>, if <code>(flags &amp; format_no_copy) == 0</code> it copies the text in the
+  range <code>T<sub>i</sub></code> to the iterator <code>out</code>. It then calls <code>m.format(out, fmt,
+  flags)</code>, where <code>m</code> is the <code>match_results</code> object returned by the iterator
+  object <code>iter</code> for the subsequence <code>M<sub>i</sub></code>. Finally, if <code>(flags &amp;
+  format_no_copy) == 0</code> it copies the text in the range <code>T<sub>N</sub></code> to the iterator
+  <code>out</code>. The function returns <code>out</code>.</p>
+
+  <p>The second function constructs a local variable <code>result</code> of type
+  <code>basic_string&lt;charT&gt;</code> and calls <code>regex_replace(back_inserter(result), str.begin(),
+  str.end(), re, fmt, flags)</code>. It returns <code>result</code>.</p>
+
+  <h2><code><a name="regex_search">regex_search</a></code></h2>
+  <pre>
+template&lt;class BidIt, class Alloc, class Elem, class RXtraits, class Alloc2&gt;
+    bool <b>regex_search</b>(BidIt first, Bidit last,
+        match_results&lt;BidIt, Alloc&gt;&amp; match,
+        const basic_regex&lt;Elem, RXtraits, Alloc2&gt;&amp; re,
+        match_flag_type flags = match_default);
+template&lt;class BidIt, class Elem, class RXtraits, class Alloc2&gt;
+    bool <b>regex_search</b>(BidIt first, Bidit last,
+        const basic_regex&lt;Elem, RXtraits, Alloc2&gt;&amp; re,
+        match_flag_type flags = match_default);
+template&lt;class Elem, class Alloc, class RXtraits, class Alloc2&gt;
+    bool <b>regex_search</b>(const Elem* ptr,
+        match_results&lt;const Elem*, Alloc&gt;&amp; match,
+        const basic_regex&lt;Elem, RXtraits, Alloc2&gt;&amp; re,
+        match_flag_type flags = match_default);
+template&lt;class Elem, class RXtraits, class Alloc2&gt;
+    bool <b>regex_search</b>(const Elem* ptr,
+        const basic_regex&lt;Elem, RXtraits, Alloc2&gt;&amp; re,
+        match_flag_type flags = match_default);
+template&lt;class IOtraits, class IOalloc, class Alloc, class Elem, class RXtraits, class Alloc2&gt;
+    bool <b>regex_search</b>(const basic_string&lt;Elem, IOtraits, IOalloc&gt;&amp; str,
+        match_results&lt;typename basic_string&lt;Elem, IOtraits, IOalloc&gt;::const_iterator, Alloc&gt;&amp; match,
+        const basic_regex&lt;Elem, RXtraits, Alloc2&gt;&amp; re,
+        match_flag_type flags = match_default);
+template&lt;class IOtraits, class IOalloc, class Elem, class RXtraits, class Alloc2&gt;
+    bool <b>regex_search</b>(const basic_string&lt;Elem, IOtraits, IOalloc&gt;&amp; str,
+        const basic_regex&lt;Elem, RXtraits, Alloc2&gt;&amp; re,
+        match_flag_type flags = match_default);
+</pre>
+
+  <p>Each template function returns true only if a <a href="lib_regex.html#search">search</a> for its regular
+  expression argument <code>re</code> in its <a href="#operand%20sequence">operand sequence</a> succeeds. The
+  functions that take a <code>match_results</code> object set its members to reflect whether the search
+  succeeded and if so what the various <a href="lib_regex.html#capture%20group">capture groups</a> in the
+  regular expression captured.</p>
+
+  <h2><code><a name="regex_token_iterator">regex_token_iterator</a></code></h2>
+  <pre>
+template&lt;class BidIt, class Elem = iterator_traits&lt;BidIt&gt;::value_type,
+    class RXtraits = regex_traits&lt;Elem&gt; &gt;
+        class <b>regex_token_iterator</b> {
+public:
+    typedef basic_regex&lt;Elem, RXtraits&gt; <b><a href=
+"#regex_token_iterator::regex_type">regex_type</a></b>;
+    typedef sub_match&lt;BidIt&gt; <b><a href="#regex_token_iterator::value_type">value_type</a></b>;
+    typedef std::forward_iterator_tag <b><a href=
+"#regex_token_iterator::iterator_category">iterator_category</a></b>;
+    typedef std::ptrdiff_t <b><a href="#regex_token_iterator::difference_type">difference_type</a></b>;
+    typedef const sub_match&lt;BidIt&gt; *<b><a href="#regex_token_iterator::pointer">pointer</a></b>;
+    typedef const sub_match&lt;BidIt&gt;&amp; <b><a href="#regex_token_iterator::pointer">reference</a></b>;
+
+    <b><a href="#regex_token_iterator::regex_token_iterator">regex_token_iterator</a></b>();
+    <b><a href=
+"#regex_token_iterator::regex_token_iterator">regex_token_iterator</a></b>(BidIt first, BidIt last,
+        const regex_type&amp; re, int submatch = 0,
+        regex_constants::match_flag_type f = regex_constants::match_default);
+    <b><a href=
+"#regex_token_iterator::regex_token_iterator">regex_token_iterator</a></b>(BidIt first, BidIt last,
+        const regex_type&amp; re, const std::vector&lt;int&gt; submatches,
+        regex_constants::match_flag_type f = regex_constants::match_default);
+    template&lt;std::size_t N&gt;
+        <b><a href=
+"#regex_token_iterator::regex_token_iterator">regex_token_iterator</a></b>(BidIt first, BidIt last,
+            const regex_type&amp; re, const int (&amp;submatches)[N],
+            regex_constants::match_flag_type f = regex_constants::match_default);
+    <b><a href=
+"#regex_token_iterator::regex_token_iterator">regex_token_iterator</a></b>(BidIt first, BidIt last,
+        const regex_type&amp; re, initializer_list&lt;int&gt; init,
+        regex_constants::match_flag_type f = regex_constants::match_default);
+
+    bool <b><a href=
+"#regex_token_iterator::operator==">operator==</a></b>(const regex_token_iterator&amp; right); const
+    bool <b><a href=
+"#regex_token_iterator::operator!=">operator!=</a></b>(const regex_token_iterator&amp; right); const
+
+    const basic_string&lt;Elem&gt;&amp; <b><a href=
+"#regex_token_iterator::operator*">operator*</a></b>(); const
+    const basic_string&lt;Elem&gt; *<b><a href=
+"#regex_token_iterator::operator-%3E">operator-&gt;</a></b>(); const
+    regex_token_iterator&amp; <b><a href="#regex_token_iterator::operator++">operator++</a></b>();
+    regex_token_iterator&amp; <b><a href="#regex_token_iterator::operator++">operator++</a></b>(int);
+
+private:
+    regex_iterator&lt;BidIt, Elem, RXtraits&gt; it; // <b>exposition only</b>
+    vector&lt;int&gt; subs;                         // <b>exposition only</b>
+    int pos;                                  // <b>exposition only</b>
+    };
+</pre>
+
+  <p>The template class describes a constant forward iterator object. Conceptually, it holds a
+  <code>regex_iterator</code> object that it uses to search for regular expression matches in a character
+  sequence. It extracts objects of type <code>sub_match&lt;BidIt&gt;</code> representing the submatches
+  identified by the index values in the stored vector <code>subs</code> for each regular expression
+  match.</p>
+
+  <p>An <b><a name="index value">index value</a></b> of -1 designates the character sequence beginning
+  immediately after the end of the previous regular expression match, or beginning at the start of the
+  character sequence if there was no previous regular expression match, and extending to but not including
+  the first character of the current regular expression match, or to the end of the character sequence if
+  there is no current match. Any other index value <code>idx</code> designates the contents of the capture
+  group held in <code>it.match[idx]</code>.</p>
+
+  <h3><code><a name=
+  "regex_token_iterator::difference_type">regex_token_iterator::difference_type</a></code></h3>
+  <pre>
+typedef std::ptrdiff_t <b>difference_type</b>;
+</pre>
+
+  <p>The type is a synonym for <code>std::ptrdiff_t</code>.</p>
+
+  <h3><code><a name=
+  "regex_token_iterator::iterator_category">regex_token_iterator::iterator_category</a></code></h3>
+  <pre>
+typedef std::forward_iterator_tag <b>iterator_category</b>;
+</pre>
+
+  <p>The type is a synonym for <code>std::forward_iterator_tag</code>.</p>
+
+  <h3><code><a name="regex_token_iterator::operator==">regex_token_iterator::operator==</a></code></h3>
+  <pre>
+bool <b>operator==</b>(const regex_token_iterator&amp; right);
+</pre>
+
+  <p>The member function returns <code>it == right.it &amp;&amp; subs == right.subs &amp;&amp; pos ==
+  right.pos</code>.</p>
+
+  <h3><code><a name="regex_token_iterator::operator!=">regex_token_iterator::operator!=</a></code></h3>
+  <pre>
+bool <b>operator!=</b>(const regex_token_iterator&amp; right);
+</pre>
+
+  <p>The member function returns <code>!(*this == right)</code>.</p>
+
+  <h3><code><a name="regex_token_iterator::operator*">regex_token_iterator::operator*</a></code></h3>
+  <pre>
+const sub_match&lt;BidIt&gt;&amp; <b>operator*</b>();
+</pre>
+
+  <p>The member function returns a <code>sub_match&lt;BidIt&gt;</code> object representing the capture group
+  identified by the <b><a href="#index%20value">index value</a></b> <code>subs[pos]</code>.</p>
+
+  <h3><code><a name="regex_token_iterator::operator-&gt;">regex_token_iterator::operator-&gt;</a></code></h3>
+  <pre>
+const sub_match&lt;BidIt&gt; *<b>operator-&gt;</b>();
+</pre>
+
+  <p>The member function returns a pointer to a <code>sub_match&lt;BidIt&gt;</code> object representing the
+  capture group identified by the <b><a href="#index%20value">index value</a></b> <code>subs[pos]</code>.</p>
+
+  <h3><code><a name="regex_token_iterator::operator++">regex_token_iterator::operator++</a></code></h3>
+  <pre>
+regex_token_iterator&amp; <b>operator++</b>();
+regex_token_iterator&amp; <b>operator++</b>(int);
+</pre>
+
+  <p>If the stored iterator <code>it</code> is an end-of-sequence iterator the first operator sets the stored
+  value <code>pos</code> to the value of <code>subs.size()</code> (thus making an end-of-sequence iterator).
+  Otherwise the operator increments the stored value <code>pos</code>; if the result is equal to the value
+  <code>subs.size()</code> it sets the stored value <code>pos</code> to zero and increments the stored
+  iterator <code>it</code>. If incrementing the stored iterator leaves it unequal to an end-of-sequence
+  iterator the operator does nothing further. Otherwise, if the end of the preceding match was at the end of
+  the character sequence the operator sets the stored value of <code>pos</code> to <code>subs.size()</code>.
+  Otherwise, the operator repeatedly increments the stored value <code>pos</code> until <code>pos ==
+  subs.size()</code> or <code>subs[pos] == -1</code> (thus ensuring that the next dereference of the iterator
+  will return the tail of the character sequence if one of the <b><a href="#index%20value">index
+  values</a></b> is -1). In all cases the operator returns the object.</p>
+
+  <p>The second operator makes a copy of the object, increments the object, then returns the copy.</p>
+
+  <h3><code><a name="regex_token_iterator::pointer">regex_token_iterator::pointer</a></code></h3>
+  <pre>
+typedef const sub_match&lt;BidIt&gt; *<b>pointer</b>;
+</pre>
+
+  <p>The type is a synonym for <code>sub_match&lt;BidIt&gt;*</code>, where <code>BidIt</code> is the template
+  parameter.</p>
+
+  <h3><code><a name="regex_token_iterator::reference">regex_token_iterator::reference</a></code></h3>
+  <pre>
+typedef const sub_match&lt;BidIt&gt;&amp; <b>reference</b>;
+</pre>
+
+  <p>The type is a synonym for <code>sub_match&lt;BidIt&gt;&amp;</code>, where <code>BidIt</code> is the
+  template parameter.</p>
+
+  <h3><code><a name=
+  "regex_token_iterator::regex_token_iterator">regex_token_iterator::regex_token_iterator</a></code></h3>
+  <pre>
+<b>regex_token_iterator</b>();
+<b>regex_token_iterator</b>(BidIt first, BidIt last,
+    const regex_type&amp; re, int submatch = 0,
+    regex_constants::match_flag_type f = regex_constants::match_default);
+<b>regex_token_iterator</b>(BidIt first, BidIt last,
+    const regex_type&amp; re, const vector&lt;int&gt; submatches,
+    regex_constants::match_flag_type f = regex_constants::match_default);
+template&lt;std::size_t N&gt;
+    <b>regex_token_iterator</b>(BidIt first, BidIt last,
+    const regex_type&amp; re, const int (&amp;submatches)[N],
+    regex_constants::match_flag_type f = regex_constants::match_default);
+<b>regex_token_iterator</b>(BidIt first, BidIt last,
+    const regex_type&amp; re, initializer_list&lt;int&gt; init,
+    regex_constants::match_flag_type f = regex_constants::match_default);
+</pre>
+
+  <p>The first constructor constructs an end-of-sequence iterator.</p>
+
+  <p>The second constructor constructs an object whose stored iterator <code>it</code> is initialized to
+  <code>regex_iterator&lt;BidIt, Elem, RXtraits&gt;(first, last, re, f)</code>, whose stored vector
+  <code>subs</code> holds exactly one integer, with value <code>submatch</code>, and whose stored value
+  <code>pos</code> is zero. Note: the resulting object extracts the submatch identified by the <b><a href=
+  "#index%20value">index value</a></b> <code>submatch</code> for each successful regular expression
+  match.</p>
+
+  <p>The third constructor constructs an object whose stored iterator <code>it</code> is initialized to
+  <code>regex_iterator&lt;BidIt, Elem, RXtraits&gt;(first, last, re, f)</code>, whose stored vector
+  <code>subs</code> holds a copy of the constructor argument <code>submatches</code>, and whose stored value
+  <code>pos</code> is zero.</p>
+
+  <p>The fourth constructor constructs an object whose stored iterator <code>it</code> is initialized to
+  <code>regex_iterator&lt;BidIt, Elem, RXtraits&gt;(first, last, re, f)</code>, whose stored vector
+  <code>subs</code> holds the <code>N</code> values pointed to by the constructor argument
+  <code>submatches</code>, and whose stored value <code>pos</code> is zero.</p>
+
+  <p>The fifth constructor constructs an object whose stored iterator <code>it</code> is initialized to
+  <code>regex_iterator&lt;BidIt, Elem, RXtraits&gt;(first, last, re, f)</code>, whose stored vector
+  <code>subs</code> holds the sequence of elements from an object of class <code><b><a href=
+  "lib_cpp.html#initializer_list">initializer_list</a></b>&lt;int&gt;</code>, and whose stored value
+  <code>pos</code> is zero.</p>
+
+  <h3><code><a name="regex_token_iterator::regex_type">regex_token_iterator::regex_type</a></code></h3>
+  <pre>
+typedef basic_regex&lt;Elem, RXtraits&gt; <b>regex_type</b>;
+</pre>
+
+  <p>The typedef is a synonym for <code>basic_regex&lt;Elem, RXtraits&gt;</code>.</p>
+
+  <h3><code><a name="regex_token_iterator::value_type">regex_token_iterator::value_type</a></code></h3>
+  <pre>
+typedef sub_match&lt;BidIt&gt; <b>value_type</b>;
+</pre>
+
+  <p>The type is a synonym for <code>sub_match&lt;BidIt&gt;</code>, where <code>BidIt</code> is the template
+  parameter.</p>
+
+  <h2><code><a name="regex_traits">regex_traits</a></code></h2>
+  <pre>
+template&lt;class Elem&gt;
+    struct <b>regex_traits</b> {
+    <b><a href="#regex_traits::regex_traits">regex_traits</a></b>();
+
+    static size_type <b><a href="#regex_traits::length">length</a></b>(const char_type *str);
+    char_type <b><a href="#regex_traits::translate">translate</a></b>(char_type ch) const;
+    char_type <b><a href="#regex_traits::translate_nocase">translate_nocase</a></b>(char_type ch) const;
+    template&lt;class FwdIt&gt;
+        string_type <b><a href="#regex_traits::transform">transform</a></b>(FwdIt first, FwdIt last) const;
+    template&lt;class FwdIt&gt;
+        string_type <b><a href=
+"#regex_traits::transform_primary">transform_primary</a></b>(FwdIt first, FwdIt last) const;
+
+    template&lt;class FwdIt&gt;
+        char_class_type <b><a href=
+"#regex_traits::lookup_classname">lookup_classname</a></b>(FwdIt first, FwdIt last,
+            bool caseless) const;
+    template&lt;class FwdIt&gt;
+        string_type <b><a href=
+"#regex_traits::lookup_collatename">lookup_collatename</a></b>(FwdIt first, FwdIt last) const;
+    bool <b><a href="#regex_traits::isctype">isctype</a></b>(char_type ch, char_class_type cls) const;
+
+    int <b><a href="#regex_traits::value">value</a></b>(Elem ch, int base) const;
+
+    locale_type <b><a href="#regex_traits::imbue">imbue</a></b>(locale_type loc);
+    locale_type <b><a href="#regex_traits::getloc">getloc</a></b>() const;
+
+    typedef Elem <b><a href="#regex_traits::char_type">char_type</a></b>;
+    typedef T6 <b><a href="#regex_traits::size_type">size_type</a></b>;
+    typedef basic_string&lt;Elem&gt; <b><a href="#regex_traits::string_type">string_type</a></b>;
+    typedef T7 <b><a href="#regex_traits::locale_type">locale_type</a></b>;
+    typedef T8 <b><a href="#regex_traits::char_class_type">char_class_type</a></b>;
+    };
+</pre>
+
+  <p>The template class describes various <b><a name="regular expression traits">regular expression
+  traits</a></b> for type <i>Elem</i>. The template class <a href="#basic_regex">basic_regex</a> uses this
+  information to manipulate elements of type <i>Elem</i>.</p>
+
+  <p>Each <code>regex_traits</code> object holds an object of type <code>regex_traits::locale</code> which is
+  used by some of its member functions. The <b><a name="default locale">default locale</a></b> is a copy of
+  <code>regex_traits::locale()</code>. The member function <code>imbue</code> replaces the locale object, and
+  the member function <code>getloc</code> returns a copy of the locale object.</p>
+
+  <h3><code><a name="regex_traits::char_class_type">regex_traits::char_class_type</a></code></h3>
+  <pre>
+typedef T8 <b>char_class_type</b>;
+</pre>
+
+  <p>The type is a synonym for an unspecified type that designates character classes. Values of this type can
+  be combined using the <code>|</code> operator to designate character classes that are the union of the
+  classes designated by the operands.</p>
+
+  <h3><code><a name="regex_traits::char_type">regex_traits::char_type</a></code></h3>
+  <pre>
+typedef Elem <b>char_type</b>;
+</pre>
+
+  <p>The typedef is a synonym for the template argument <code>Elem</code>.</p>
+
+  <h3><code><a name="regex_traits::getloc">regex_traits::getloc</a></code></h3>
+  <pre>
+locale_type <b>getloc</b>() const;
+</pre>
+
+  <p>The member function returns the stored <code>locale</code> object.</p>
+
+  <h3><code><a name="regex_traits::imbue">regex_traits::imbue</a></code></h3>
+  <pre>
+locale_type <b>imbue</b>(locale_type loc);
+</pre>
+
+  <p>The member function copies <code>loc</code> to the stored <code>locale</code> object and returns a copy
+  of the previous value of the stored <code>locale</code> object.</p>
+
+  <h3><code><a name="regex_traits::isctype">regex_traits::isctype</a></code></h3>
+  <pre>
+bool <b>isctype</b>(char_type ch, char_class_type cls) const;
+</pre>
+
+  <p>The member function returns true only if the character <code>ch</code> is in the character class
+  designated by <code>cls</code>.</p>
+
+  <h3><code><a name="regex_traits::length">regex_traits::length</a></code></h3>
+  <pre>
+static size_type <b>length</b>(const char_type *str);
+</pre>
+
+  <p>The static member function returns <code>std::char_traits&lt;char_type&gt;::length(str)</code>.</p>
+
+  <h3><code><a name="regex_traits::locale_type">regex_traits::locale_type</a></code></h3>
+  <pre>
+typedef T7 <b>locale_type</b>;
+</pre>
+
+  <p>The typedef is a synonym for a type that encapsulates locales. In the specializations
+  <code>regex_traits&lt;char&gt;</code> and <code>regex_traits&lt;wchar_t&gt;</code> it is a synonym for
+  <code>std::locale</code>.</p>
+
+  <h3><code><a name="regex_traits::lookup_classname">regex_traits::lookup_classname</a></code></h3>
+  <pre>
+template&lt;class FwdIt&gt;
+    char_class_type <b>lookup_classname</b>(FwdIt first, FwdIt last,
+        bool caseless) const;
+</pre>
+
+  <p>The member function returns a value that designates the character class named by the character sequence
+  pointed to by its arguments. If <code>caseless</code>, a character class that includes either lower case or
+  upper case is extended to include both cases.</p>
+
+  <p>The specialization <code>regex_traits&lt;char&gt;</code> recognizes the names <code>"d"</code>,
+  <code>"s"</code>, <code>"w"</code>, <code>"alnum"</code>, <code>"alpha"</code>, <code>"blank"</code>,
+  <code>"cntrl"</code>, <code>"digit"</code>, <code>"graph"</code>, <code>"lower"</code>,
+  <code>"print"</code>, <code>"punct"</code>, <code>"space"</code>, <code>"upper"</code>, and
+  <code>"xdigit"</code>, all without regard to case.</p>
+
+  <p>The specialization <code>regex_traits&lt;wchar_t&gt;</code> recognizes the names <code>L"d"</code>,
+  <code>L"s"</code>, <code>L"w"</code>, <code>L"alnum"</code>, <code>L"alpha"</code>, <code>L"blank"</code>,
+  <code>L"cntrl"</code>, <code>L"digit"</code>, <code>L"graph"</code>, <code>L"lower"</code>,
+  <code>L"print"</code>, <code>L"punct"</code>, <code>L"space"</code>, <code>L"upper"</code>, and
+  <code>L"xdigit"</code>, all without regard to case.</p>
+
+  <h3><code><a name="regex_traits::lookup_collatename">regex_traits::lookup_collatename</a></code></h3>
+  <pre>
+template&lt;class FwdIt&gt;
+string_type <b>lookup_collatename</b>(FwdIt first, FwdIt last) const;
+</pre>
+
+  <p>The member function returns a string object containing the collating element corresponding to the
+  sequence <code>[first, last)</code>, or an empty string if the sequence is not a valid collating
+  element.</p>
+
+  <h3><code><a name="regex_traits::regex_traits">regex_traits::regex_traits</a></code></h3>
+  <pre>
+<b>regex_traits</b>();
+</pre>
+
+  <p>The constructor constructs an object whose stored <code>locale</code> object is initialized to the
+  <a href="#default%20locale">default locale</a>.</p>
+
+  <h3><code><a name="regex_traits::size_type">regex_traits::size_type</a></code></h3>
+  <pre>
+typedef T6 <b>size_type</b>;
+</pre>
+
+  <p>The typedef is a synonym for an unsigned integral type. In the specializations
+  <code>regex_traits&lt;char&gt;</code> and <code>regex_traits&lt;wchar_t&gt;</code> it is a synonym for
+  <code>std::size_t</code>.</p>
+
+  <p>The typedef is a synonym for <code>std::size_t</code>.</p>
+
+  <h3><code><a name="regex_traits::string_type">regex_traits::string_type</a></code></h3>
+  <pre>
+typedef basic_string&lt;Elem&gt; <b>string_type</b>;
+</pre>
+
+  <p>The typedef is a synonym for <code>basic_string&lt;Elem&gt;</code>.</p>
+
+  <h3><code><a name="regex_traits::value">regex_traits::value</a></code></h3>
+  <pre>
+int <b>value</b>(Elem ch, int radix) const;
+</pre>
+
+  <p>The member function returns the value represented by the character <code>ch</code> in the base
+  <code>radix</code>, or -1 if <code>ch</code> is not a valid digit in the base <code>radix</code>. The
+  function will only be called with a <code>radix</code> argument of 8, 10, or 16.</p>
+
+  <h3><code><a name="regex_traits::transform">regex_traits::transform</a></code></h3>
+  <pre>
+template&lt;class FwdIt&gt;
+    string_type <b>transform</b>(FwdIt first, FwdIt last) const;
+</pre>
+
+  <p>The member function returns a string that it generates by using a transformation rule that depends on
+  the stored <code>locale</code> object. For two character sequences designated by the iterator ranges
+  <code>[first1, last1)</code> and <code>[first2, last2)</code>, <code>transform(first1, last1) &lt;
+  transform(first2, last2)</code> if the character sequence designated by the iterator range <code>[first1,
+  last1)</code> sorts before the character sequence designated by the iterator range <code>[first2,
+  last2)</code>.</p>
+
+  <h3><code><a name="regex_traits::transform_primary">regex_traits::transform_primary</a></code></h3>
+  <pre>
+template&lt;class FwdIt&gt;
+    string_type <b>transform_primary</b>(FwdIt first, FwdIt last) const;
+</pre>
+
+  <p>The member function returns a string that it generates by using a transformation rule that depends on
+  the stored <code>locale</code> object. For two character sequences designated by the iterator ranges
+  <code>[first1, last1)</code> and <code>[first2, last2)</code>, <code>transform_primary(first1, last1) &lt;
+  transform_primary(first2, last2)</code> if the character sequence designated by the iterator range
+  <code>[first1, last1)</code> sorts before the character sequence designated by the iterator range
+  <code>[first2, last2)</code> without regard for case or accents.</p>
+
+  <h3><code><a name="regex_traits::translate">regex_traits::translate</a></code></h3>
+  <pre>
+char_type <b>translate</b>(char_type ch) const;
+</pre>
+
+  <p>The member function returns a character that it generates by using a transformation rule that depends on
+  the stored <code>locale</code> object. For two <code>char_type</code> objects <code>ch1</code> and
+  <code>ch2</code>, <code>translate(ch1) == translate(ch2)</code> only if <code>ch1</code> and
+  <code>ch2</code> should match when one occurs in the regular expression definition and the other occurs at
+  a corresponding position in the target sequence for a <a href=
+  "lib_regex.html#locale-sensitive">locale-sensitive</a> match.</p>
+
+  <h3><code><a name="regex_traits::translate_nocase">regex_traits::translate_nocase</a></code></h3>
+  <pre>
+char_type <b>translate_nocase</b>(char_type ch) const;
+</pre>
+
+  <p>The member function returns a character that it generates by using a transformation rule that depends on
+  the stored <code>locale</code> object. For two <code>char_type</code> objects <code>ch1</code> and
+  <code>ch2</code>, <code>translate_nocase(ch1) == translate_nocase(ch2)</code> only if <code>ch1</code> and
+  <code>ch2</code> should match when one occurs in the regular expression definition and the other occurs at
+  a corresponding position in the target sequence for a <a href=
+  "lib_regex.html#case-insensitive">case-insensitive</a> match.</p>
+
+  <h2><code><a name="regex_traits&lt;char&gt;">regex_traits&lt;char&gt;</a></code></h2>
+  <pre>
+template &lt;&gt;
+    class regex_traits&lt;char&gt;
+</pre>
+
+  <p>The class is an explicit specialization of template class <a href="#regex_traits">regex_traits</a> for
+  elements of type <i>char</i> (so that it can take advantage of library functions that manipulate objects of
+  this type).</p>
+
+  <h2><code><a name="regex_traits&lt;wchar_t&gt;">regex_traits&lt;wchar_t&gt;</a></code></h2>
+  <pre>
+template &lt;&gt;
+    class regex_traits&lt;wchar_t&gt;
+</pre>
+
+  <p>The class is an explicit specialization of template class <a href="#regex_traits">regex_traits</a> for
+  elements of type <i>wchar_t</i> (so that it can take advantage of library functions that manipulate objects
+  of this type).</p>
+
+  <h2><code><a name="smatch">smatch</a></code></h2>
+  <pre>
+typedef match_results&lt;string::const_iterator&gt; <b>smatch</b>;
+</pre>
+
+  <p>The type describes a specialization of template class <a href="#match_results">match_results</a> for
+  iterators of type <i>string::const_iterator</i>.</p>
+
+  <h2><code><a name="sregex_iterator">sregex_iterator</a></code></h2>
+  <pre>
+typedef regex_iterator&lt;string::const_iterator&gt; <b>sregex_iterator</b>;
+</pre>
+
+  <p>The type describes a specialization of template class <a href="#regex_iterator">regex_iterator</a> for
+  iterators of type <i>string::const_iterator</i>.</p>
+
+  <h2><code><a name="sregex_token_iterator">sregex_token_iterator</a></code></h2>
+  <pre>
+typedef regex_token_iterator&lt;string::const_iterator&gt; <b>sregex_token_iterator</b>;
+</pre>
+
+  <p>The type describes a specialization of template class <a href=
+  "#regex_token_iterator">regex_token_iterator</a> for iterators of type <i>string::const_iterator</i>.</p>
+
+  <h2><code><a name="ssub_match">ssub_match</a></code></h2>
+  <pre>
+typedef sub_match&lt;string::const_iterator&gt; <b>ssub_match</b>;
+</pre>
+
+  <p>The type describes a specialization of template class <a href="#sub_match">sub_match</a> for iterators
+  of type <i>string::const_iterator</i>.</p>
+
+  <h2><code><a name="sub_match">sub_match</a></code></h2>
+  <pre>
+template&lt;class BidIt&gt;
+    class <b>sub_match</b>
+        : public std::pair&lt;BidIt, BidIt&gt; {
+public:
+    bool <b><a href="#sub_match::matched">matched</a></b>;
+
+    int <b><a href="#sub_match::compare">compare</a></b>(const sub_match&amp; right) const;
+    int <b><a href=
+"#sub_match::compare">compare</a></b>(const basic_string&lt;value_type&gt;&amp; right) const;
+    int <b><a href="#sub_match::compare">compare</a></b>(const value_type *right) const;
+
+    difference_type <b><a href="#sub_match::length">length</a></b>() const;
+    <b><a href=
+"#sub_match::operator%20basic_string%3Cvalue_type%3E">operator basic_string&lt;value_type&gt;</a></b>() const;
+    basic_string&lt;value_type&gt; <b><a href="#sub_match::str">str</a></b>() const;
+
+    typedef typename iterator_traits&lt;BidIt&gt;::value_type <b><a href=
+"#sub_match::value_type">value_type</a></b>;
+    typedef typename iterator_traits&lt;BidIt&gt;::difference_type <b><a href=
+"#sub_match::difference_type">difference_type</a></b>;
+    typedef BidIt <b><a href="#sub_match::iterator">iterator</a></b>;
+    };
+</pre>
+
+  <p>The template class describes an object that designates a sequence of characters that matched a <a href=
+  "lib_regex.html#capture%20group">capture group</a> in a call to <a href="#regex_match">regex_match</a> or
+  to <a href="#regex_search">regex_search</a>. Objects of type <a href="#match_results">match_results</a>
+  hold an array of these objects, one for each capture group in the regular expression that was used in the
+  search.</p>
+
+  <p>If the capture group was not matched the object's data member <code>matched</code> holds false, and the
+  two iterators <code>first</code> and <code>second</code> (inherited from the base <code>std::pair</code>)
+  are equal. If the capture group was matched, <code>matched</code> holds true, the iterator
+  <code>first</code> points to the first character in the target sequence that matched the capture group, and
+  the iterator <code>second</code> points one position past the last character in the target sequence that
+  matched the capture group. Note that for a <a href="#zero-length">zero-length</a> match the member
+  <code>matched</code> holds true, the two iterators will be equal, and both will point to the position of
+  the match.</p>
+
+  <p>A <b><a name="zero-length">zero-length</a></b> match can occur when a capture group consists solely of
+  an assertion, or of a repetition that allows zero repeats. For example:</p>
+
+  <ul>
+    <li><b>"^"</b> matches the target sequence "a"; the <code>sub_match</code> object corresponding to
+    capture group 0 holds iterators that both point to the first character in the sequence.</li>
+
+    <li><b>"b(a*)b"</b> matches the target sequence "bb"; the <code>sub_match</code> object corresponding to
+    capture group 1 holds iterators that both point to the second character in the sequence.</li>
+  </ul>
+
+  <h3><code><a name="sub_match::compare">sub_match::compare</a></code></h3>
+  <pre>
+int <b>compare</b>(const sub_match&amp; right) const;
+int <b>compare</b>(const basic_string&lt;value_type&gt;&amp; right) const;
+int <b>compare</b>(const value_type *right) const;
+</pre>
+
+  <p>The first member function compares the matched sequence <code>[first, second)</code> to the matched
+  sequence <code>[right.first, right.second)</code>. The second member function compares the matched sequence
+  <code>[first, second)</code> to the character sequence <code>[right.begin(), right.end())</code>. The third
+  member function compares the matched sequence <code>[first, second)</code> to the character sequence
+  <code>[right, right + std::char_traits&lt;value_type&gt;::length(right))</code>.</p>
+
+  <p>Each function returns:</p>
+
+  <ul>
+    <li>a negative value if the first differing value in the matched sequence compares less than the
+    corresponding element in the operand sequence (as determined by
+    <code>std::char_traits&lt;value_type&gt;::compare</code>), or if the two have a common prefix but the
+    target sequence is longer</li>
+
+    <li>zero if the two compare equal element by element and have the same length</li>
+
+    <li>a positive value otherwise</li>
+  </ul>
+
+  <h3><code><a name="sub_match::difference_type">sub_match::difference_type</a></code></h3>
+  <pre>
+typedef typename iterator_traits&lt;BidIt&gt;::difference_type <b>difference_type</b>;
+</pre>
+
+  <p>The typedef is a synonym for <code>iterator_traits&lt;BidIt&gt;::difference_type</code>.</p>
+
+  <h3><code><a name="sub_match::iterator">sub_match::iterator</a></code></h3>
+  <pre>
+typedef BidIt <b>iterator</b>;
+</pre>
+
+  <p>The typedef is a synonym for the template type argument <code>Bidit</code>.</p>
+
+  <h3><code><a name="sub_match::length">sub_match::length</a></code></h3>
+  <pre>
+difference_type <b>length</b>() const;
+</pre>
+
+  <p>The member function returns the length of the matched sequence, or zero if there was no matched
+  sequence.</p>
+
+  <h3><code><a name="sub_match::matched">sub_match::matched</a></code></h3>
+  <pre>
+bool <b>matched</b>;
+</pre>
+
+  <p>The member holds <code>true</code> only if the capture group associated with <code>*this</code> was part
+  of the regular expression match.</p>
+
+  <h3><code><a name="sub_match::operator basic_string&lt;value_type&gt;">sub_match::operator
+  basic_string&lt;value_type&gt;</a></code></h3>
+  <pre>
+<b>operator basic_string&lt;value_type&gt;</b>() const;
+</pre>
+
+  <p>The member operator returns <code>str()</code>.</p>
+
+  <h3><code><a name="sub_match::str">sub_match::str</a></code></h3>
+  <pre>
+basic_string&lt;value_type&gt; <b>str</b>() const;
+</pre>
+
+  <p>The member function returns <code>basic_string&lt;value_type&gt;(first, second)</code>.</p>
+
+  <h3><code><a name="sub_match::value_type">sub_match::value_type</a></code></h3>
+  <pre>
+typedef typename iterator_traits&lt;BidIt&gt;::value_type <b>value_type</b>;
+</pre>
+
+  <p>The typedef is a synonym for <code>iterator_traits&lt;BidIt&gt;::value_type</code>.</p>
+
+  <h2><code><a name="swap">swap</a></code></h2>
+  <pre>
+template&lt;class Elem, class RXtraits&gt;
+    void <b>swap</b>(basic_regex&lt;Elem, RXtraits, Alloc&gt;&amp; left,
+        basic_regex&lt;Elem, RXtraits&gt;&amp; right) throw();
+template&lt;class Elem, class IOtraits, class BidIt, class Alloc&gt;
+    void <b>swap</b>(match_results&lt;BidIt, Alloc&gt;&amp; left,
+        match_results&lt;BidIt, Alloc&gt;&amp; right) throw();
+</pre>
+
+  <p>The template functions swap the contents of their respective arguments in constant time and do not throw
+  exceptions.</p>
+
+  <h2><code><a name="wcmatch">wcmatch</a></code></h2>
+  <pre>
+typedef match_results&lt;const wchar_t *&gt; <b>wcmatch</b>;
+</pre>
+
+  <p>The type describes a specialization of template class <a href="#match_results">match_results</a> for
+  iterators of type <i>const wchar_t*</i>.</p>
+
+  <h2><code><a name="wcregex_iterator">wcregex_iterator</a></code></h2>
+  <pre>
+typedef regex_iterator&lt;const wchar_t*&gt; <b>wcregex_iterator</b>;
+</pre>
+
+  <p>The type describes a specialization of template class <a href="#regex_iterator">regex_iterator</a> for
+  iterators of type <i>const wchar_t*</i>.</p>
+
+  <h2><code><a name="wcregex_token_iterator">wcregex_token_iterator</a></code></h2>
+  <pre>
+typedef regex_token_iterator&lt;const wchar_t*&gt; <b>wcregex_token_iterator</b>;
+</pre>
+
+  <p>The type describes a specialization of template class <a href=
+  "#regex_token_iterator">regex_token_iterator</a> for iterators of type <i>const wchar_t*</i>.</p>
+
+  <h2><code><a name="wcsub_match">wcsub_match</a></code></h2>
+  <pre>
+typedef sub_match&lt;const wchar_t*&gt; <b>wcsub_match</b>;
+</pre>
+
+  <p>The type describes a specialization of template class <a href="#sub_match">sub_match</a> for iterators
+  of type <i>const wchar_t*</i>.</p>
+
+  <h2><code><a name="wsmatch">wsmatch</a></code></h2>
+  <pre>
+typedef match_results&lt;wstring::const_iterator&gt; <b>wsmatch</b>;
+</pre>
+
+  <p>The type describes a specialization of template class <a href="#match_results">match_results</a> for
+  iterators of type <i>wstring::const_iterator</i>.</p>
+
+  <h2><code><a name="wsregex_iterator">wsregex_iterator</a></code></h2>
+  <pre>
+typedef regex_iterator&lt;wstring::const_iterator&gt; <b>wsregex_iterator</b>;
+</pre>
+
+  <p>The type describes a specialization of template class <a href="#regex_iterator">regex_iterator</a> for
+  iterators of type <i>wstring::const_iterator</i>.</p>
+
+  <h2><code><a name="wsregex_token_iterator">wsregex_token_iterator</a></code></h2>
+  <pre>
+typedef regex_token_iterator&lt;wstring::const_iterator&gt; <b>wsregex_token_iterator</b>;
+</pre>
+
+  <p>The type describes a specialization of template class <a href=
+  "#regex_token_iterator">regex_token_iterator</a> for iterators of type <i>wstring::const_iterator</i>.</p>
+
+  <h2><code><a name="wssub_match">wssub_match</a></code></h2>
+  <pre>
+typedef sub_match&lt;wstring::const_iterator&gt; <b>wssub_match</b>;
+</pre>
+
+  <p>The type describes a specialization of template class <a href="#sub_match">sub_match</a> for iterators
+  of type <i>wstring::const_iterator</i>.</p>
+
+  <h2><code><a name="wregex">wregex</a></code></h2>
+  <pre>
+typedef basic_regex&lt;wchar_t&gt; <b>wregex</b>;
+</pre>
+
+  <p>The type describes a specialization of template class <a href="#basic_regex">basic_regex</a> for
+  elements of type <i>wchar_t</i>.</p>
+  <hr>
+
+  <p>See also the <b><a href="index.html#Table%20of%20Contents">Table of Contents</a></b> and the <b><a href=
+  "_index.html">Index</a></b>.</p>
+
+  <p><i><a href="crit_pjp.html">Copyright</a> &copy; 1992-2010 by Dinkumware, Ltd. All rights
+  reserved.</i></p><!--V5.30:126I-->
+</body>
+</html>

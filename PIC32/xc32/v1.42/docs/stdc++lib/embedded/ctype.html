@@ -1,0 +1,252 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html>
+<head>
+  <meta name="generator" content=
+  "HTML Tidy for Mac OS X (vers 31 October 2006 - Apple Inc. build 15.15), see www.w3.org">
+
+  <title>&lt;ctype.h&gt;</title>
+</head>
+
+<body>
+  <h1><a name="&lt;ctype.h&gt;"><code>&lt;ctype.h&gt;</code></a></h1>
+  <hr>
+
+  <p><b><code><a href="#isalnum">isalnum</a> &middot; <a href="#isalpha">isalpha</a> &middot; <a href=
+  "#iscntrl">iscntrl</a> &middot; <a href="#isdigit">isdigit</a> &middot; <a href="#isgraph">isgraph</a>
+  &middot; <a href="#islower">islower</a> &middot; <a href="#isprint">isprint</a> &middot; <a href=
+  "#ispunct">ispunct</a> &middot; <a href="#isspace">isspace</a> &middot; <a href="#isupper">isupper</a>
+  &middot; <a href="#isxdigit">isxdigit</a> &middot; <a href="#tolower">tolower</a> &middot; <a href=
+  "#toupper">toupper</a></code></b></p>
+  <hr>
+
+  <p>Include the standard header <b><code>&lt;ctype.h&gt;</code></b> to declare several functions that are
+  useful for classifying and mapping codes from the target character set. Every function that has a parameter
+  of type <i>int</i> can accept the value of the macro <a href="stdio.html#EOF"><code>EOF</code></a> or any
+  value representable as type <i>unsigned char.</i> Thus, the argument can be the value returned by any of
+  the functions <a href="stdio.html#fgetc"><code>fgetc</code></a>, <a href=
+  "stdio.html#fputc"><code>fputc</code></a>, <a href="stdio.html#getc"><code>getc</code></a>, <a href=
+  "stdio.html#getchar"><code>getchar</code></a>, <a href="stdio.html#putc"><code>putc</code></a>, <a href=
+  "stdio.html#putchar"><code>putchar</code></a>, <a href="#tolower"><code>tolower</code></a>, <a href=
+  "#toupper"><code>toupper</code></a>, and <a href="stdio.html#ungetc"><code>ungetc</code></a>. You must not
+  call these functions with other argument values.</p>
+
+  <p>Other library functions use these functions. The function <a href=
+  "stdio.html#scanf"><code>scanf</code></a>, for example, uses the function <a href=
+  "#isspace"><code>isspace</code></a> to determine valid white space within an input field.</p>
+
+  <p>The <b><a name="character classification">character classification</a></b> functions are strongly
+  interrelated. Many are defined in terms of other functions. For characters in the <a href=
+  "charset.html#basic%20C%20character%20set">basic C character set</a>, here are the dependencies between
+  these functions:</p>
+
+  <p><img src="ctype.gif"></p>
+
+  <p>The diagram indicates with <code>+</code> those functions that can define additional characters in
+  locales other than the <a href="locale.html#C%20locale"><code>"C"</code></a> locale. <b>Boldface</b>
+  indicates a feature added with <a href="lib_over.html#C99">C99</a>.</p>
+
+  <p>The diagram tells you that the function <a href="#isprint"><code>isprint</code></a> returns nonzero for
+  <code><i>space</i></code> or for any character for which the function <a href=
+  "#isgraph"><code>isgraph</code></a> returns nonzero. The function <a href=
+  "#isgraph"><code>isgraph</code></a>, in turn, returns nonzero for any character for which either the
+  function <a href="#isalnum"><code>isalnum</code></a> or the function <a href=
+  "#ispunct"><code>ispunct</code></a> returns nonzero. The function <a href=
+  "#isdigit"><code>isdigit</code></a>, on the other hand, returns nonzero only for the digits
+  <code>0-9</code>.</p>
+
+  <p>An implementation can define additional characters that return nonzero for some of these functions. Any
+  character set can contain additional characters that return nonzero for:</p>
+
+  <ul>
+    <li><a href="#iscntrl"><code>iscntrl</code></a> (provided the characters cause <a href=
+    "#isprint"><code>isprint</code></a> to return zero)</li>
+
+    <li><a href="#ispunct"><code>ispunct</code></a> (provided the characters cause <a href=
+    "#isalnum"><code>isalnum</code></a> to return zero)</li>
+  </ul>
+
+  <p>The diagram indicates with <code>++</code> those functions that can define additional characters in any
+  character set. Moreover, locales other than the <a href="locale.html#C%20locale"><code>"C"</code></a>
+  locale can define additional characters that return nonzero for:</p>
+
+  <ul>
+    <li><a href="#isalpha"><code>isalpha</code></a>, <a href="#isupper"><code>isupper</code></a>, and
+    <a href="#islower"><code>islower</code></a> (provided the characters cause <a href=
+    "#iscntrl"><code>iscntrl</code></a>, <a href="#isdigit"><code>isdigit</code></a>, <a href=
+    "#ispunct"><code>ispunct</code></a>, and <a href="#isspace"><code>isspace</code></a> to return zero)</li>
+
+    <li><a href="#isspace"><code>isspace</code></a> (provided the characters cause <a href=
+    "#isprint"><code>isprint</code></a> to return zero)</li>
+  </ul>
+
+  <p>Note that an implementation can define locales other than the <a href=
+  "locale.html#C%20locale"><code>"C"</code></a> locale in which a character can cause <a href=
+  "#isalpha"><code>isalpha</code></a> (and hence <a href="#isalnum"><code>isalnum</code>)</a> to return
+  nonzero, yet still cause <a href="#isupper"><code>isupper</code></a> and <a href=
+  "#islower"><code>islower</code></a> to return zero.</p>
+  <pre>
+int <a href="#isalnum"><b>isalnum</b></a>(int c);
+int <a href="#isalpha"><b>isalpha</b></a>(int c);
+int <a href="#iscntrl"><b>iscntrl</b></a>(int c);
+int <a href="#isdigit"><b>isdigit</b></a>(int c);
+int <a href="#isgraph"><b>isgraph</b></a>(int c);
+int <a href="#islower"><b>islower</b></a>(int c);
+int <a href="#isprint"><b>isprint</b></a>(int c);
+int <a href="#ispunct"><b>ispunct</b></a>(int c);
+int <a href="#isspace"><b>isspace</b></a>(int c);
+int <a href="#isupper"><b>isupper</b></a>(int c);
+int <a href="#isxdigit"><b>isxdigit</b></a>(int c);
+int <a href="#tolower"><b>tolower</b></a>(int c);
+int <a href="#toupper"><b>toupper</b></a>(int c);
+</pre>
+
+  <h2><a name="isalnum"><code>isalnum</code></a></h2>
+  <pre>
+int <b>isalnum</b>(int c);
+</pre>
+
+  <p>The function returns nonzero if <code>c</code> is any of:</p>
+  <pre>
+a b c d e f g h i j k l m n o p q r s t u v w x y z
+A B C D E F G H I J K L M N O P Q R S T U V W X Y Z
+0 1 2 3 4 5 6 7 8 9
+</pre>
+
+  <p>or any other locale-specific alphabetic character.</p>
+
+  <h2><a name="isalpha"><code>isalpha</code></a></h2>
+  <pre>
+int <b>isalpha</b>(int c);
+</pre>
+
+  <p>The function returns nonzero if <code>c</code> is any of:</p>
+  <pre>
+a b c d e f g h i j k l m n o p q r s t u v w x y z
+A B C D E F G H I J K L M N O P Q R S T U V W X Y Z
+</pre>
+
+  <p>or any other locale-specific alphabetic character.</p>
+
+  <h2><a name="iscntrl"><code>iscntrl</code></a></h2>
+  <pre>
+int <b>iscntrl</b>(int c);
+</pre>
+
+  <p>The function returns nonzero if <code>c</code> is any of:</p>
+  <pre>
+<i>BEL BS CR FF HT NL VT</i>
+</pre>
+
+  <p>or any other implementation-defined control character.</p>
+
+  <h2><a name="isdigit"><code>isdigit</code></a></h2>
+  <pre>
+int <b>isdigit</b>(int c);
+</pre>
+
+  <p>The function returns nonzero if <code>c</code> is any of:</p>
+  <pre>
+0 1 2 3 4 5 6 7 8 9
+</pre>
+
+  <h2><a name="isgraph"><code>isgraph</code></a></h2>
+  <pre>
+int <b>isgraph</b>(int c);
+</pre>
+
+  <p>The function returns nonzero if <code>c</code> is any character for which either <a href=
+  "#isalnum"><code>isalnum</code></a> or <a href="#ispunct"><code>ispunct</code></a> returns nonzero.</p>
+
+  <h2><a name="islower"><code>islower</code></a></h2>
+  <pre>
+int <b>islower</b>(int c);
+</pre>
+
+  <p>The function returns nonzero if <code>c</code> is any of:</p>
+  <pre>
+a b c d e f g h i j k l m n o p q r s t u v w x y z
+</pre>
+
+  <p>or any other locale-specific lowercase character.</p>
+
+  <h2><a name="isprint"><code>isprint</code></a></h2>
+  <pre>
+int <b>isprint</b>(int c);
+</pre>
+
+  <p>The function returns nonzero if <code>c</code> is <code><i>space</i></code> or a character for which
+  <a href="#isgraph"><code>isgraph</code></a> returns nonzero.</p>
+
+  <h2><a name="ispunct"><code>ispunct</code></a></h2>
+  <pre>
+int <b>ispunct</b>(int c);
+</pre>
+
+  <p>The function returns nonzero if <code>c</code> is any of:</p>
+  <pre>
+! " # % &amp; ' ( ) ; &lt;
+= &gt; ? [ \ ] * + , -
+. / : ^ _ { | } ~
+</pre>
+
+  <p>or any other implementation-defined punctuation character.</p>
+
+  <h2><a name="isspace"><code>isspace</code></a></h2>
+  <pre>
+int <b>isspace</b>(int c);
+</pre>
+
+  <p>The function returns nonzero if <code>c</code> is any of:</p>
+  <pre>
+<i>CR FF HT NL VT space</i>
+</pre>
+
+  <p>or any other locale-specific space character.</p>
+
+  <h2><a name="isupper"><code>isupper</code></a></h2>
+  <pre>
+int <b>isupper</b>(int c);
+</pre>
+
+  <p>The function returns nonzero if <code>c</code> is any of:</p>
+  <pre>
+A B C D E F G H I J K L M N O P Q R S T U V W X Y Z
+</pre>
+
+  <p>or any other locale-specific uppercase character.</p>
+
+  <h2><a name="isxdigit"><code>isxdigit</code></a></h2>
+  <pre>
+int <b>isxdigit</b>(int c);
+</pre>
+
+  <p>The function returns nonzero if <code>c</code> is any of:</p>
+  <pre>
+0 1 2 3 4 5 6 7 8 9 a b c d e f A B C D E F
+</pre>
+
+  <h2><a name="tolower"><code>tolower</code></a></h2>
+  <pre>
+int <b>tolower</b>(int c);
+</pre>
+
+  <p>The function returns the corresponding lowercase letter if one exists and if <code><a href=
+  "#isupper">isupper</a>(c)</code>; otherwise, it returns <code>c</code>.</p>
+
+  <h2><a name="toupper"><code>toupper</code></a></h2>
+  <pre>
+int <b>toupper</b>(int c);
+</pre>
+
+  <p>The function returns the corresponding uppercase letter if one exists and if <code><a href=
+  "#islower">islower</a>(c)</code>; otherwise, it returns <code>c</code>.</p>
+  <hr>
+
+  <p>See also the <b><a href="index.html#Table%20of%20Contents">Table of Contents</a></b> and the <b><a href=
+  "_index.html">Index</a></b>.</p>
+
+  <p><i><a href="crit_pjp.html">Copyright</a> &copy; 1992-2010 by P.J. Plauger and Jim Brodie. All rights
+  reserved.</i></p><!--V5.30:126I-->
+</body>
+</html>

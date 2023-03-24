@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html>
+<head>
+  <meta name="generator" content=
+  "HTML Tidy for Mac OS X (vers 31 October 2006 - Apple Inc. build 15.15), see www.w3.org">
+
+  <title>"exceptions"</title>
+</head>
+
+<body>
+  <h1><a name="&quot;exceptions&quot;">"Dinkum/threads/exceptions"</a></h1>
+  <hr>
+
+  <p>Include the header <b><code>"Dinkum/threads/exceptions"</code></b> to define classes used for reporting
+  exceptions during thread operations.</p>
+  <pre>
+namespace Dinkum {
+    namespace threads {
+    class <b><a href="#lock_error">lock_error</a></b>;
+    class <b><a href="#thread_resource_error">thread_resource_error</a></b>;
+    }  // namespace threads
+} // namespace Dinkum
+</pre>
+
+  <h2><a name="lock_error">lock_error</a></h2>
+  <pre>
+class <b>lock_error</b>
+    : public std::runtime_error
+    {
+public:
+    lock_error();
+    };
+</pre>
+
+  <p>The class describes an exception thrown to indicate that an attempted operation involving a lock failed
+  because the lock was not in a required state.</p>
+
+  <h2><a name="thread_resource_error">thread_resource_error</a></h2>
+  <pre>
+class <b>thread_resource_error</b>
+    : public std::runtime_error
+    {
+public:
+    thread_resource_error();
+    };
+</pre>
+
+  <p>The class describes an exception thrown to indicate that an attempted operation failed because a
+  required resource other than memory was not available.</p>
+  <hr>
+
+  <p>See also the <b><a href="index.html">Table of Contents</a></b> and the <b><a href=
+  "_index.html">Index</a></b>.</p>
+
+  <p><i><a href="crit_pjp.html">Copyright</a> &copy; 1992-2010 by Dinkumware, Ltd. Portions derived from work
+  <a href="crit_wek.html">copyright</a> &copy; 2001 by William E. Kempf. All rights reserved.</i></p>
+  <!--V5.30:126I-->
+</body>
+</html>

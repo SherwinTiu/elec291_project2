@@ -1,0 +1,679 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html>
+<head>
+  <meta name="generator" content=
+  "HTML Tidy for Mac OS X (vers 31 October 2006 - Apple Inc. build 15.15), see www.w3.org">
+
+  <title>&lt;complex&gt;</title>
+</head>
+
+<body>
+  <h1><a name="&lt;complex&gt;"><code>&lt;complex&gt;</code></a></h1>
+  <hr>
+
+  <p><b><code><a href="#abs">abs</a> &middot; <a href="#arg">arg</a> &middot; <a href="#complex">complex</a>
+  &middot; <a href="#conj">conj</a> &middot; <a href="#cos">cos</a> &middot; <a href="#cosh">cosh</a>
+  &middot; <a href="#double_complex">double_complex</a> &middot; <a href="#exp">exp</a> &middot; <a href=
+  "#float_complex">float_complex</a> &middot; <a href="#imag">imag</a> &middot; <a href="#log">log</a>
+  &middot; <a href="#log10">log10</a> &middot; <a href="#norm">norm</a> &middot; <a href=
+  "#operator!=">operator!=</a> &middot; <a href="#operator*">operator*</a> &middot; <a href=
+  "#operator+">operator+</a> &middot; <a href="#operator-">operator-</a> &middot; <a href=
+  "#operator/">operator/</a> &middot; <a href="#operator%3C%3C">operator&lt;&lt;</a> &middot; <a href=
+  "#operator==">operator==</a> &middot; <a href="#operator%3E%3E">operator&gt;&gt;</a> &middot; <a href=
+  "#polar">polar</a> &middot; <a href="#pow">pow</a> &middot; <a href="#real">real</a> &middot; <a href=
+  "#sin">sin</a> &middot; <a href="#sinh">sinh</a> &middot; <a href="#sqrt">sqrt</a> &middot; <a href=
+  "#tan">tan</a> &middot; <a href="#tanh">tanh</a> &middot; <a href=
+  "#__STD_COMPLEX">__STD_COMPLEX</a></code></b></p>
+  <hr>
+
+  <p>Include the standard header <b><code>&lt;complex&gt;</code></b> to define classes
+  <code>double_complex</code> and <code>float_complex</code> and a host of supporting functions. Unless
+  otherwise specified, functions that can return multiple values return an imaginary part in the half-open
+  interval <code>(-pi, pi]</code>.</p>
+
+  <p>Beginning with <b>C++0X</b>, some functions and constructors declared in this header use
+  <code>constexpr</code> to signal that they are treated as compile-time constants.</p>
+
+  <p>Many of the functions declared in this header have <b><a name="additional overloads">additional
+  overloads</a></b>, which behave much like the generic functions defined in the C99 header
+  <code>&lt;tgmath.h&gt;</code>. The following functions have such additional overloads:</p>
+  <pre>
+abs      conj     polar
+acos     cos      pow
+acosh    cosh     real
+arg      exp      sin
+asin     imag     sinh
+asinh    log      sqrt
+atan     log10    tan
+atanh    norm     tanh
+</pre>
+  <hr>
+  <pre>
+        // DECLARATIONS
+#define <b><a href="#__STD_COMPLEX">__STD_COMPLEX</a></b>
+
+        // CLASSES
+class double_complex;
+class float_complex;
+
+        // double_complex FUNCTIONS
+double_complex <b><a href="#operator+">operator+</a></b>(const double_complex&amp; left,
+    const double_complex&amp; right);
+double_complex <b><a href="#operator+">operator+</a></b>(const double_complex&amp; left,
+    const double&amp; right);
+double_complex <b><a href="#operator+">operator+</a></b>(const double&amp; left,
+    const double_complex&amp; right);
+double_complex <b><a href="#operator-">operator-</a></b>(const double_complex&amp; left,
+    const double_complex&amp; right);
+double_complex <b><a href="#operator-">operator-</a></b>(const double_complex&amp; left,
+    const double&amp; right);
+double_complex <b><a href="#operator-">operator-</a></b>(const double&amp; left,
+    const double_complex&amp; right);
+double_complex <b><a href="#operator*">operator*</a></b>(const double_complex&amp; left,
+    const double_complex&amp; right);
+double_complex <b><a href="#operator*">operator*</a></b>(const double_complex&amp; left,
+    const double&amp; right);
+double_complex <b><a href="#operator*">operator*</a></b>(const double&amp; left,
+    const double_complex&amp; right);
+double_complex <b><a href="#operator/">operator/</a></b>(const double_complex&amp; left,
+    const double_complex&amp; right);
+double_complex <b><a href="#operator/">operator/</a></b>(const double_complex&amp; left,
+    const double&amp; right);
+double_complex <b><a href="#operator/">operator/</a></b>(const double&amp; left,
+    const double_complex&amp; right);
+double_complex <b><a href="#operator+">operator+</a></b>(const double_complex&amp; left);
+double_complex <b><a href="#operator-">operator-</a></b>(const double_complex&amp; left);
+bool <b><a href="#operator==">operator==</a></b>(const double_complex&amp; left,
+    const double_complex&amp; right);
+bool <b><a href="#operator==">operator==</a></b>(const double_complex&amp; left,
+    const double&amp; right);
+bool <b><a href="#operator==">operator==</a></b>(const double&amp; left,
+    const double_complex&amp; right);
+bool <b><a href="#operator!=">operator!=</a></b>(const double_complex&amp; left,
+    const double_complex&amp; right);
+bool <b><a href="#operator!=">operator!=</a></b>(const double_complex&amp; left,
+    const double&amp; right);
+bool <b><a href="#operator!=">operator!=</a></b>(const double&amp; left,
+    const double_complex&amp; right);
+istream&amp; <b><a href=
+"#operator%3E%3E">operator&gt;&gt;</a></b>(istream&amp; istr, double_complex&amp; right);
+ostream&amp; <b><a href=
+"#operator%3C%3C">operator&lt;&lt;</a></b>(ostream&amp; ostr, const double_complex&amp; right);
+double <b><a href="#real">real</a></b>(const double_complex&amp; left);
+double <b><a href="#imag">imag</a></b>(const double_complex&amp; left);
+double <b><a href="#abs">abs</a></b>(const double_complex&amp; left);
+double <b><a href="#arg">arg</a></b>(const double_complex&amp; left);
+double <b><a href="#norm">norm</a></b>(const double_complex&amp; left);
+double_complex <b><a href="#conj">conj</a></b>(const double_complex&amp; left);
+double_complex <b><a href="#polar">polar</a></b>(const double&amp; rho,
+    const double&amp; theta = 0);
+double_complex <b><a href="#cos">cos</a></b>(const double_complex&amp; left);
+double_complex <b><a href="#cosh">cosh</a></b>(const double_complex&amp; left);
+double_complex <b><a href="#exp">exp</a></b>(const double_complex&amp; left);
+double_complex <b><a href="#log">log</a></b>(const double_complex&amp; left);
+double_complex <b><a href="#log10">log10</a></b>(const double_complex&amp; left);
+double_complex <b><a href="#pow">pow</a></b>(const double_complex&amp; left,
+    const double&amp; right);
+double_complex <b><a href="#pow">pow</a></b>(const double_complex&amp; left,
+    const double_complex&amp; right);
+double_complex <b><a href="#pow">pow</a></b>(const double&amp; left,
+    const double_complex&amp; right);
+double_complex <b><a href="#sin">sin</a></b>(const double_complex&amp; left);
+double_complex <b><a href="#sinh">sinh</a></b>(const double_complex&amp; left);
+double_complex <b><a href="#sqrt">sqrt</a></b>(const double_complex&amp; left);
+
+        // float_complex FUNCTIONS
+bool <b><a href="#operator==">operator==</a></b>(const float&amp; left,
+    const float_complex&amp; right);
+bool <b><a href="#operator!=">operator!=</a></b>(const float_complex&amp; left,
+    const float_complex&amp; right);
+bool <b><a href="#operator!=">operator!=</a></b>(const float_complex&amp; left,
+    const float&amp; right);
+bool <b><a href="#operator!=">operator!=</a></b>(const float&amp; left,
+    const float_complex&amp; right);
+istream&amp; <b><a href=
+"#operator%3E%3E">operator&gt;&gt;</a></b>(istream&amp; istr, float_complex&amp; right);
+ostream&amp; <b><a href=
+"#operator%3C%3C">operator&lt;&lt;</a></b>(ostream&amp; ostr, const float_complex&amp; right);
+float <b><a href="#real">real</a></b>(const float_complex&amp; left);
+float <b><a href="#imag">imag</a></b>(const float_complex&amp; left);
+float <b><a href="#abs">abs</a></b>(const float_complex&amp; left);
+float <b><a href="#arg">arg</a></b>(const float_complex&amp; left);
+float <b><a href="#norm">norm</a></b>(const float_complex&amp; left);
+float_complex <b><a href="#conj">conj</a></b>(const float_complex&amp; left);
+float_complex <b><a href="#polar">polar</a></b>(const float&amp; rho,
+    const float&amp; theta = 0);
+float_complex <b><a href="#cos">cos</a></b>(const float_complex&amp; left);
+float_complex <b><a href="#cosh">cosh</a></b>(const float_complex&amp; left);
+float_complex <b><a href="#exp">exp</a></b>(const float_complex&amp; left);
+float_complex <b><a href="#log">log</a></b>(const float_complex&amp; left);
+float_complex <b><a href="#log10">log10</a></b>(const float_complex&amp; left);
+float_complex <b><a href="#pow">pow</a></b>(const float_complex&amp; left,
+    const float&amp; right);
+float_complex <b><a href="#pow">pow</a></b>(const float_complex&amp; left,
+    const float_complex&amp; right);
+float_complex <b><a href="#pow">pow</a></b>(const float&amp; left,
+    const float_complex&amp; right);
+float_complex <b><a href="#sin">sin</a></b>(const float_complex&amp; left);
+float_complex <b><a href="#sinh">sinh</a></b>(const float_complex&amp; left);
+float_complex <b><a href="#sqrt">sqrt</a></b>(const float_complex&amp; left);
+        // END OF DECLARATIONS
+</pre>
+
+  <h2><a name="abs"><code>abs</code></a></h2>
+  <pre>
+double <b>abs</b>(const double_complex&amp; left);
+float <b>abs</b>(const float_complex&amp; left);
+</pre>
+
+  <p>The function returns the magnitude of <code>left</code>.</p>
+
+  <h2><a name="arg"><code>arg</code></a></h2>
+  <pre>
+double <b>arg</b>(const double_complex&amp; left);
+float <b>arg</b>(const float_complex&amp; left);
+</pre>
+
+  <p>The function returns the phase angle of <code>left</code>.</p>
+
+  <h2><a name="complex"><code>complex</code></a></h2>
+  <pre>
+template&lt;class Ty&gt;
+    class <b>complex</b> {
+public:
+    typedef Ty <b><a href="#complex::value_type">value_type</a></b>;
+
+    Ty <b><a href="#complex::real">real</a></b>() const;
+    void <b><a href="#complex::real">real</a></b>(Ty val);
+    Ty <b><a href="#complex::imag">imag</a></b>() const;
+    void <b><a href="#complex::imag">imag</a></b>(Ty val);
+
+    <b><a href="#complex::complex">complex</a></b>(const Ty&amp; realval = 0, const Ty&amp; imagval = 0);
+    <b><a href="#complex::complex">complex</a></b>(const complex&amp; right);
+    complex&amp; <b><a href="#complex::operator=">operator=</a></b>(const complex&amp; right);
+    complex&amp; <b><a href="#complex::operator+=">operator+=</a></b>(const complex&amp; right);
+    complex&amp; <b><a href="#complex::operator-=">operator-=</a></b>(const complex&amp; right);
+    complex&amp; <b><a href="#complex::operator*=">operator*=</a></b>(const complex&amp; right);
+    complex&amp; <b><a href="#complex::operator/=">operator/=</a></b>(const complex&amp; right);
+    complex&amp; <b><a href="#complex::operator=">operator=</a></b>(const Ty&amp; right);
+    complex&amp; <b><a href="#complex::operator=">operator=</a></b>(const Ty&amp; right);
+    complex&amp; <b><a href="#complex::operator+=">operator+=</a></b>(const Ty&amp; right);
+    complex&amp; <b><a href="#complex::operator-=">operator-=</a></b>(const Ty&amp; right);
+    complex&amp; <b><a href="#complex::operator*=">operator*=</a></b>(const Ty&amp; right);
+    complex&amp; <b><a href="#complex::operator/=">operator/=</a></b>(const Ty&amp; right);
+    };
+</pre>
+
+  <p>The template class doesn't really exist. It is a convenient fiction for describing the behavior common
+  to the two types:</p>
+
+  <ul>
+    <li><code><a href="#double_complex">double_complex</a></code> -- which behaves like
+    <code>complex&lt;double&gt;</code></li>
+
+    <li><code><a href="#float_complex">float_complex</a></code> -- which behaves like
+    <code>complex&lt;float&gt;</code></li>
+  </ul>
+
+  <p>The template class describes an object that stores two objects of type <b><code>Ty</code></b>, one that
+  represents the real part of a complex number and one that represents the imaginary part.</p>
+
+  <h3><a name="complex::complex"><code>complex::complex</code></a></h3>
+  <pre>
+<b>complex</b>(const Ty&amp; realval = 0, const Ty&amp; imagval = 0);
+<b>complex</b>(const complex&amp; right);
+</pre>
+
+  <p>The first constructor initializes the stored real part to <code>realval</code> and the stored imaginary
+  part to <code>imagval</code>. The second constructor initializes the stored real part to
+  <code>right.real()</code> and the stored imaginary part to <code>right.imag()</code>.</p>
+
+  <h3><a name="complex::imag"><code>complex::imag</code></a></h3>
+  <pre>
+Ty <b>imag</b>() const;
+void <b>imag</b>(Ty val);
+</pre>
+
+  <p>The first member function returns the stored imaginary part. The second member function stores
+  <code>val</code> in the imaginary part.</p>
+
+  <h3><a name="complex::operator*="><code>complex::operator*=</code></a></h3>
+  <pre>
+complex&amp; <b>operator*=</b>(const complex&amp; right);
+complex&amp; <b>operator*=</b>(const Ty&amp; right);
+</pre>
+
+  <p>The first member function replaces the stored real and imaginary parts with those corresponding to the
+  complex product of <code>*this</code> and <code>right</code>. It then returns <code>*this</code>.</p>
+
+  <p>The second member function multiplies both the stored real part and the stored imaginary part with
+  <code>right</code>. It then returns <code>*this</code>.</p>
+
+  <h3><a name="complex::operator+="><code>complex::operator+=</code></a></h3>
+  <pre>
+complex&amp; <b>operator+=</b>(const complex&amp; right);
+complex&amp; <b>operator+=</b>(const Ty&amp; right);
+</pre>
+
+  <p>The first member function replaces the stored real and imaginary parts with those corresponding to the
+  complex sum of <code>*this</code> and <code>right</code>. It then returns <code>*this</code>.</p>
+
+  <p>The second member function adds <code>right</code> to the stored real part. It then returns
+  <code>*this</code>.</p>
+
+  <h3><a name="complex::operator-="><code>complex::operator-=</code></a></h3>
+  <pre>
+complex&amp; <b>operator-=</b>(const complex&amp; right);
+complex&amp; <b>operator-=</b>(const Ty&amp; right);
+</pre>
+
+  <p>The first member function replaces the stored real and imaginary parts with those corresponding to the
+  complex difference of <code>*this</code> and <code>right</code>. It then returns <code>*this</code>.</p>
+
+  <p>The second member function subtracts <code>right</code> from the stored real part. It then returns
+  <code>*this</code>.</p>
+
+  <h3><a name="complex::operator/="><code>complex::operator/=</code></a></h3>
+  <pre>
+complex&amp; <b>operator/=</b>(const complex&amp; right);
+complex&amp; <b>operator/=</b>(const Ty&amp; right);
+</pre>
+
+  <p>The first member function replaces the stored real and imaginary parts with those corresponding to the
+  complex quotient of <code>*this</code> and <code>right</code>. It then returns <code>*this</code>.</p>
+
+  <p>The second member function multiplies both the stored real part and the stored imaginary part with
+  <code>right</code>. It then returns <code>*this</code>.</p>
+
+  <h3><a name="complex::operator="><code>complex::operator=</code></a></h3>
+  <pre>
+complex&amp; <b>operator=</b>(const complex&amp; right);
+complex&amp; <b>operator=</b>(const Ty&amp; right);
+</pre>
+
+  <p>The first member function replaces the stored real part with <code>right.real()</code> and the stored
+  imaginary part with <code>right.imag()</code>. It then returns <code>*this</code>.</p>
+
+  <p>The second member function replaces the stored real part with <code>right</code> and the stored
+  imaginary part with zero. It then returns <code>*this</code>.</p>
+
+  <h3><a name="complex::real"><code>complex::real</code></a></h3>
+  <pre>
+Ty <b>real</b>() const;
+void <b>real</b>(Ty val);
+</pre>
+
+  <p>The first member function returns the stored real part. The second member function stores
+  <code>val</code> in the real part.</p>
+
+  <h3><a name="complex::value_type"><code>complex::value_type</code></a></h3>
+  <pre>
+typedef Ty <b>value_type</b>;
+</pre>
+
+  <p>The type is a synonym for the template parameter <code>Ty</code>.</p>
+
+  <h2><a name="conj"><code>conj</code></a></h2>
+  <pre>
+double_complex <b>conj</b>(const double_complex&amp; left);
+float_complex <b>conj</b>(const float_complex&amp; left);
+</pre>
+
+  <p>The function returns the conjugate of <code>left</code>.</p>
+
+  <h2><a name="cos"><code>cos</code></a></h2>
+  <pre>
+double_complex <b>cos</b>(const double_complex&amp; left);
+float_complex <b>cos</b>(const float_complex&amp; left);
+</pre>
+
+  <p>The function returns the cosine of <code>left</code>.</p>
+
+  <h2><a name="cosh"><code>cosh</code></a></h2>
+  <pre>
+double_complex <b>cosh</b>(const double_complex&amp; left);
+float_complex <b>cosh</b>(const float_complex&amp; left);
+</pre>
+
+  <p>The function returns the hyperbolic cosine of <code>left</code>.</p>
+
+  <h2><a name="double_complex"><code>double_complex</code></a></h2>
+  <pre>
+class <b>double_complex</b> : public complex&lt;double&gt; {
+public:
+    <b>double_complex</b>(double realval = 0, double imagval = 0);
+    <b>double_complex</b>(const float_complex&amp; right);
+    double_complex&amp; <b>operator=</b>(const double right);
+    };
+</pre>
+
+  <p>The class describes an object that stores two objects of type <i>double,</i> one that represents the
+  real part of a complex number and one that represents the imaginary part. The class differs from its
+  fictitious base class <code><a href="#complex">complex</a>&lt;double&gt;</code> only in the constructors it
+  defines. The first constructor initializes the stored real part to <code>realval</code> and the stored
+  imaginary part to <code>imagval</code>. The second constructor initializes the stored real part to
+  <code>right.real()</code> and the stored imaginary part to <code>right.imag()</code>. The assignment
+  operator stores <code>right</code> in the stored real part and zero in the stored imaginary part.</p>
+
+  <h2><a name="exp"><code>exp</code></a></h2>
+  <pre>
+double_complex <b>exp</b>(const double_complex&amp; left);
+float_complex <b>exp</b>(const float_complex&amp; left);
+</pre>
+
+  <p>The function returns the exponential of <code>left</code>.</p>
+
+  <h2><a name="float_complex"><code>float_complex</code></a></h2>
+  <pre>
+class <b>float_complex</b> : public complex&lt;float&gt; {
+public:
+    <b>float_complex</b>(float realval = 0, float imagval = 0);
+    explicit <b>float_complex</b>(const double_complex&amp; right);
+    float_complex&amp; <b>operator=</b>(const float right);
+    };
+</pre>
+
+  <p>The class describes an object that stores two objects of type <i>float,</i> one that represents the real
+  part of a complex number and one that represents the imaginary part. The class differs from its fictitious
+  base class <code><a href="#complex">complex</a>&lt;float&gt;</code> only in the constructors it defines.
+  The first constructor initializes the stored real part to <code>realval</code> and the stored imaginary
+  part to <code>imagval</code>. The second constructor initializes the stored real part to
+  <code>right.real()</code> and the stored imaginary part to <code>right.imag()</code>. The assignment
+  operator stores <code>right</code> in the stored real part and zero in the stored imaginary part.</p>
+
+  <h2><a name="imag"><code>imag</code></a></h2>
+  <pre>
+double <b>imag</b>(const double_complex&amp; left);
+float <b>imag</b>(const float_complex&amp; left);
+</pre>
+
+  <p>The function returns the imaginary part of <code>left</code>.</p>
+
+  <h2><a name="log"><code>log</code></a></h2>
+  <pre>
+double_complex <b>log</b>(const double_complex&amp; left);
+float_complex <b>log</b>(const float_complex&amp; left);
+</pre>
+
+  <p>The function returns the logarithm of <code>left</code>. The branch cuts are along the negative real
+  axis.</p>
+
+  <h2><a name="log10"><code>log10</code></a></h2>
+  <pre>
+double_complex <b>log10</b>(const double_complex&amp; left);
+float_complex <b>log10</b>(const float_complex&amp; left);
+</pre>
+
+  <p>The function returns the base 10 logarithm of <code>left</code>. The branch cuts are along the negative
+  real axis.</p>
+
+  <h2><a name="norm"><code>norm</code></a></h2>
+  <pre>
+double <b>norm</b>(const double_complex&amp; left);
+float <b>norm</b>(const float_complex&amp; left);
+</pre>
+
+  <p>The function returns the squared magnitude of <code>left</code>.</p>
+
+  <h2><a name="operator!="><code>operator!=</code></a></h2>
+  <pre>
+bool <b>operator!=</b>(const double_complex&amp; left,
+    const double_complex&amp; right);
+bool <b>operator!=</b>(const double_complex&amp; left,
+    const double&amp; right);
+bool <b>operator!=</b>(const double&amp; left,
+    const double_complex&amp; right);
+bool <b>operator!=</b>(const float_complex&amp; left,
+    const float_complex&amp; right);
+bool <b>operator!=</b>(const float_complex&amp; left,
+    const float&amp; right);
+bool <b>operator!=</b>(const float&amp; left,
+    const float_complex&amp; right);
+</pre>
+
+  <p>The operators each return true only if <code><a href="#real">real</a>(left) != real(right) || <a href=
+  "#imag">imag</a>(left) != imag(right)</code>.</p>
+
+  <h2><a name="operator*"><code>operator*</code></a></h2>
+  <pre>
+double_complex <b>operator*</b>(const double_complex&amp; left,
+    const double_complex;&amp; right);
+double_complex <b>operator*</b>(const double_complex&amp; left,
+    const double&amp; right);
+double_complex <b>operator*</b>(const double&amp; left,
+    const double_complex&amp; right);
+float_complex <b>operator*</b>(const float_complex&amp; left,
+    const float_complex;&amp; right);
+float_complex <b>operator*</b>(const float_complex&amp; left,
+    const float&amp; right);
+float_complex <b>operator*</b>(const float&amp; left,
+    const float_complex&amp; right);
+</pre>
+
+  <p>The operators each convert both operands to the return type, then return the complex product of the
+  converted <code>left</code> and <code>right</code>.</p>
+
+  <h2><a name="operator+"><code>operator+</code></a></h2>
+  <pre>
+double_complex <b>operator+</b>(const double_complex&amp; left,
+    const double_complex;&amp; right);
+double_complex <b>operator+</b>(const double_complex&amp; left,
+    const double&amp; right);
+double_complex <b>operator+</b>(const double&amp; left,
+    const double_complex&amp; right);
+double_complex <b>operator+</b>(const double_complex&amp; left);
+float_complex <b>operator+</b>(const float_complex&amp; left,
+    const float_complex;&amp; right);
+float_complex <b>operator+</b>(const float_complex&amp; left,
+    const float&amp; right);
+float_complex <b>operator+</b>(const float&amp; left,
+    const float_complex&amp; right);
+float_complex <b>operator+</b>(const float_complex&amp; left);
+</pre>
+
+  <p>The binary operators each convert both operands to the return type, then return the complex sum of the
+  converted <code>left</code> and <code>right</code>.</p>
+
+  <p>The unary operator returns <code>left</code>.</p>
+
+  <h2><a name="operator-"><code>operator-</code></a></h2>
+  <pre>
+double_complex <b>operator-</b>(const double_complex&amp; left,
+    const double_complex;&amp; right);
+double_complex <b>operator-</b>(const double_complex&amp; left,
+    const double&amp; right);
+double_complex <b>operator-</b>(const double&amp; left,
+    const double_complex&amp; right);
+double_complex <b>operator-</b>(const double_complex&amp; left);
+float_complex <b>operator-</b>(const float_complex&amp; left,
+    const float_complex;&amp; right);
+float_complex <b>operator-</b>(const float_complex&amp; left,
+    const float&amp; right);
+float_complex <b>operator-</b>(const float&amp; left,
+    const float_complex&amp; right);
+float_complex <b>operator-</b>(const float_complex&amp; left);
+</pre>
+
+  <p>The binary operators each convert both operands to the return type, then return the complex difference
+  of the converted <code>left</code> and <code>right</code>.</p>
+
+  <p>The unary operator returns a value whose real part is <code>-<a href="#real">real</a>(left)</code> and
+  whose imaginary part is <code>-<a href="#imag">imag</a>(left)</code>.</p>
+
+  <h2><a name="operator/"><code>operator/</code></a></h2>
+  <pre>
+double_complex <b>operator/</b>(const double_complex&amp; left,
+    const double_complex;&amp; right);
+double_complex <b>operator/</b>(const double_complex&amp; left,
+    const double&amp; right);
+double_complex <b>operator/</b>(const double&amp; left,
+    const double_complex&amp; right);
+float_complex <b>operator/</b>(const float_complex&amp; left,
+    const float_complex;&amp; right);
+float_complex <b>operator/</b>(const float_complex&amp; left,
+    const float&amp; right);
+float_complex <b>operator/</b>(const float&amp; left,
+    const float_complex&amp; right);
+</pre>
+
+  <p>The operators each convert both operands to the return type, then return the complex quotient of the
+  converted <code>left</code> and <code>right</code>.</p>
+
+  <h2><a name="operator&lt;&lt;"><code>operator&lt;&lt;</code></a></h2>
+  <pre>
+ostream&amp; <b><a href="#operator%3C%3C">operator&lt;&lt;</a></b>(ostream&amp; ostr,
+    const double_complex&amp; right);
+ostream&amp; <b><a href="#operator%3C%3C">operator&lt;&lt;</a></b>(ostream&amp; ostr,
+    const float_complex&amp; right);
+</pre>
+
+  <p>The template function inserts the complex value <code>right</code> in the output stream
+  <code>ostr</code>, effectively by executing:</p>
+  <pre>
+ostringstream osstr;
+osstr.flags(ostr.flags());
+osstr.precision(ostr.precision());
+osstr &lt;&lt; '(' &lt;&lt; real(right) &lt;&lt; ','
+    &lt;&lt; imag(right) &lt;&lt; ')';
+ostr &lt;&lt; osstr.str().c_str();
+</pre>
+
+  <p>Thus, if <code>ostr.<a href="ios.html#ios_base::width">width</a>()</code> is greater than zero, any
+  padding occurs either before or after the parenthesized pair of values, which itself contains no padding.
+  The function returns <code>ostr</code>.</p>
+
+  <h2><a name="operator=="><code>operator==</code></a></h2>
+  <pre>
+bool <b>operator==</b>(const double_complex&amp; left,
+    const double_complex&amp; right);
+bool <b>operator==</b>(const double_complex&amp; left,
+    const double&amp; right);
+bool <b>operator==</b>(const double&amp; left,
+    const double_complex&amp; right);
+bool <b>operator==</b>(const float_complex&amp; left,
+    const float_complex&amp; right);
+bool <b>operator==</b>(const float_complex&amp; left,
+    const float&amp; right);
+bool <b>operator==</b>(const float&amp; left,
+    const float_complex&amp; right);
+</pre>
+
+  <p>The operators each return true only if <code><a href="#real">real</a>(left) == real(right) &amp;&amp;
+  <a href="#imag">imag</a>(left) == imag(right)</code>.</p>
+
+  <h2><a name="operator&gt;&gt;"><code>operator&gt;&gt;</code></a></h2>
+  <pre>
+istream&amp; <b>operator&gt;&gt;</b>(istream&amp; istr,
+    double_complex&amp; right);
+istream&amp; <b>operator&gt;&gt;</b>(istream&amp; istr,
+    float_complex&amp; right);
+</pre>
+
+  <p>The template function attempts to extract a complex value from the input stream <code>istr</code>,
+  effectively by executing:</p>
+  <pre>
+istr &gt;&gt; ch &amp;&amp; ch == '('
+    &amp;&amp; istr &gt;&gt; re &gt;&gt; ch &amp;&amp; ch == ','
+    &amp;&amp; istr &gt;&gt; im &gt;&gt; ch &amp;&amp; ch == ')'
+</pre>
+
+  <p>Here, <code>ch</code> is an object of type <i>char,</i> and <code>re</code> and <code>im</code> are
+  objects of the same type as <code>right.real()</code>.</p>
+
+  <p>If the result of this expression is true, the function stores <code>re</code> in the real part and
+  <code>im</code> in the imaginary part of <code>right</code>. In any event, the function returns
+  <code>istr</code>.</p>
+
+  <h2><a name="polar"><code>polar</code></a></h2>
+  <pre>
+double_complex <b>polar</b>(const double&amp; rho,
+    const double&amp; theta = 0);
+float_complex <b>polar</b>(const float&amp; rho,
+    const float&amp; theta);
+</pre>
+
+  <p>The function returns the complex value whose magnitude is <code>rho</code> and whose phase angle is
+  <code>theta</code>.</p>
+
+  <h2><a name="pow"><code>pow</code></a></h2>
+  <pre>
+double_complex <b>pow</b>(const double_complex&amp; left, const Ty&amp; right);
+double_complex <b>pow</b>(const double_complex&amp; left,
+    const double_complex&amp; right);
+double_complex <b>pow</b>(const Ty&amp; left, const double_complex&amp; right);
+float_complex <b>pow</b>(const float_complex&amp; left, const Ty&amp; right);
+float_complex <b>pow</b>(const float_complex&amp; left,
+    const float_complex&amp; right);
+float_complex <b>pow</b>(const Ty&amp; left, const float_complex&amp; right);
+</pre>
+
+  <p>The functions each effectively convert both operands to the return type, then return the converted
+  <code>left</code> to the power <code>right</code>. The branch cut for <code>left</code> is along the
+  negative real axis.</p>
+
+  <h2><a name="real"><code>real</code></a></h2>
+  <pre>
+double <b>real</b>(const double_complex&amp; left);
+float <b>real</b>(const float_complex&amp; left);
+</pre>
+
+  <p>The function returns the real part of <code>left</code>.</p>
+
+  <h2><a name="sin"><code>sin</code></a></h2>
+  <pre>
+double_complex <b>sin</b>(const double_complex&amp; left);
+float_complex <b>sin</b>(const float_complex&amp; left);
+</pre>
+
+  <p>The function returns the sine of <code>left</code>.</p>
+
+  <h2><a name="sinh"><code>sinh</code></a></h2>
+  <pre>
+double_complex <b>sinh</b>(const double_complex&amp; left);
+float_complex <b>sinh</b>(const float_complex&amp; left);
+</pre>
+
+  <p>The function returns the hyperbolic sine of <code>left</code>.</p>
+
+  <h2><a name="sqrt"><code>sqrt</code></a></h2>
+  <pre>
+double_complex <b>sqrt</b>(const double_complex&amp; left);
+float_complex <b>sqrt</b>(const float_complex&amp; left);
+</pre>
+
+  <p>The function returns the square root of <code>left</code>, with phase angle in the half-open interval
+  <code>(-pi/2, pi/2]</code>. The branch cuts are along the negative real axis.</p>
+
+  <h2><a name="__STD_COMPLEX"><code>__STD_COMPLEX</code></a></h2>
+  <pre>
+#define <b>__STD_COMPLEX</b>
+</pre>
+
+  <p>The macro is defined, with an unspecified expansion, to indicate compliance with the specifications of
+  this header.</p>
+
+  <h2><a name="tan"><code>tan</code></a></h2>
+  <pre>
+double_complex <b>tan</b>(const double_complex&amp; left);
+float_complex <b>tan</b>(const float_complex&amp; left);
+</pre>
+
+  <p>The function returns the tangent of <code>left</code>.</p>
+
+  <h2><a name="tanh"><code>tanh</code></a></h2>
+  <pre>
+double_complex <b>tanh</b>(const double_complex&amp; left);
+float_complex <b>tanh</b>(const float_complex&amp; left);
+</pre>
+
+  <p>The function returns the hyperbolic tangent of <code>left</code>.</p>
+  <hr>
+
+  <p>See also the <b><a href="index.html#Table%20of%20Contents">Table of Contents</a></b> and the <b><a href=
+  "_index.html">Index</a></b>.</p>
+
+  <p><i><a href="crit_pjp.html">Copyright</a> &copy; 1992-2010 by P.J. Plauger. All rights reserved.</i></p>
+  <!--V5.30:126I-->
+</body>
+</html>

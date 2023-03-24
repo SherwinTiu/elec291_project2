@@ -1,0 +1,260 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html>
+<head>
+  <meta name="generator" content=
+  "HTML Tidy for Mac OS X (vers 31 October 2006 - Apple Inc. build 15.15), see www.w3.org">
+
+  <title>&lt;exception&gt;</title>
+</head>
+
+<body>
+  <h1><a name="&lt;exception&gt;"><code>&lt;exception&gt;</code></a></h1>
+  <hr>
+
+  <p>Include the standard header <b><code>&lt;exception&gt;</code></b> to define several types and functions
+  related to the handling of exceptions.</p>
+  <pre>
+        // DECLARATIONS
+class <b><a href="#exception">exception</a></b>;
+class <b><a href="#bad_exception">bad_exception</a></b>;
+
+typedef T1 <b><a href="#exception_ptr">exception_ptr</a></b>; <b>[added with C++0X]</b>
+class <b><a href="#nested_exception">nested_exception</a></b>; <b>[added with C++0X]</b>
+
+        // FUNCTIONS
+typedef void (*<b><a href="#terminate_handler">terminate_handler</a></b>)();
+typedef void (*<b><a href="#unexpected_handler">unexpected_handler</a></b>)();
+terminate_handler
+    <b><a href="#set_terminate">set_terminate</a></b>(terminate_handler pnew) throw();
+unexpected_handler
+    <b><a href="#set_unexpected">set_unexpected</a></b>(unexpected_handler pnew) throw();
+void <b><a href="#terminate">terminate</a></b>();
+void <b><a href="#unexpected">unexpected</a></b>();
+bool <b><a href="#uncaught_exception">uncaught_exception</a></b>();
+
+exception_ptr <b><a href="#current_exception">current_exception</a></b>(); <b>[added with C++0X]</b>
+void <b><a href="#rethrow_exception">rethrow_exception</a></b>(exception_ptr ptr); <b>[added with C++0X]</b>
+template&lt;class Ex&gt;
+        exception_ptr <b><a href="#copy_exception">copy_exception</a></b>(Ex ex); <b>[added with C++0X]</b>
+template&lt;class Ex&gt;
+        void <b><a href=
+"#rethrow_if_nested">rethrow_if_nested</a></b>(const Ex&amp; ex); <b>[added with C++0X]</b>
+template&lt;class Ty&gt;
+        void <b><a href=
+"#throw_with_nested">throw_with_nested</a></b>(Ty&amp;&amp; val); <b>[added with C++0X]</b>
+        // END OF DECLARATIONS
+</pre>
+
+  <h2><a name="bad_exception"><code>bad_exception</code></a></h2>
+  <pre>
+class <b>bad_exception</b>
+    : public <a href="#exception">exception</a> {
+    };
+</pre>
+
+  <p>The class describes an exception that can be thrown from an <a href="#unexpected%20handler">unexpected
+  handler</a>. The value returned by <code><a href="#exception::what">what</a>()</code> is an
+  implementation-defined <a href="lib_over.html#C%20string">C string</a>. None of the member functions throw
+  any exceptions.</p>
+
+  <h2><a name="exception"><code>exception</code></a></h2>
+  <pre>
+class <b>exception</b> {
+public:
+    <b>exception</b>() throw();
+    <b>exception</b>(const exception&amp; right) throw();
+    exception&amp; <b>operator=</b>(const exception&amp; right) throw();
+    virtual <b>~exception</b>() throw();
+    virtual const char *<b>what</b>() const throw();
+    };
+</pre>
+
+  <p>The class serves as the base class for all exceptions thrown by certain expressions and by the Standard
+  C++ library. The <a href="lib_over.html#C%20string">C string</a> value returned by <b><code><a name=
+  "exception::what">what</a>()</code></b> is left unspecified by the default constructor, but may be defined
+  by the constructors for certain derived classes as an implementation-defined <a href=
+  "lib_over.html#C%20string">C string</a>.</p>
+
+  <p>None of the member functions throw any exceptions.</p>
+
+  <h2><a name="copy_exception"><code>copy_exception</code></a></h2>
+  <pre>
+template&lt;class Ex&gt;
+    exception_ptr <b>copy_exception</b>(Ex ex); <b>[added with C++0X]</b>
+</pre>
+
+  <p>The function returns an <a href="#exception%20pointer">exception pointer</a> that designates the
+  exception <code>Ex</code> as a thrown exception.</p>
+
+  <h2><a name="current_exception"><code>current_exception</code></a></h2>
+  <pre>
+exception_ptr <b>current_exception</b>(); <b>[added with C++0X]</b>
+</pre>
+
+  <p>The function returns an <a href="#exception%20pointer">exception pointer</a> that designates the current
+  thrown exception, or a null exception pointer if no such exception exists.</p>
+
+  <h2><a name="exception_ptr"><code>exception_ptr</code></a></h2>
+  <pre>
+typedef T1 <b>exception_ptr</b>; <b>[added with C++0X]</b>
+</pre>
+
+  <p>The typedef is a synonym for the unspecified type <code>T1</code>, which describes an <b><a name=
+  "exception pointer">exception pointer</a></b> that can designate a current thrown exception, or a null
+  value if no such exception exists. The thrown exception object has a lifetime at least as long as that of
+  the exception pointer.</p>
+
+  <h2><a name="nested_exception"><code>nested_exception</code></a></h2>
+  <pre>
+class <b>nested_exception</b> {
+public:
+    <b>nested_exception</b>() throw();
+    <b>nested_exception</b>(const exception&amp;) throw() = default;
+    nested_exception&amp; <b>operator=</b>(const nested_exception&amp; right) throw() = default;
+    virtual <b>~nested_exception</b>() throw() = default;
+
+    void <b>rethrow_nested</b>() const; // doesn't return
+    exception_ptr <b>nested_ptr</b>() const;
+    };
+</pre>
+
+  <p>The class serves as a wrapper for the current thrown exception as an object of type <code><a href=
+  "#exception_ptr">exception_ptr</a></code>. The default constructor stores <code><a href=
+  "#current_exception">current_exception</a>()</code> which you can retrieve by calling the member function
+  <code>nested_ptr()</code> or rethrow by calling the member function <code>rethrow_nested()</code>.</p>
+
+  <h2><a name="rethrow_exception"><code>rethrow_exception</code></a></h2>
+  <pre>
+void <b>rethrow_exception</b>(exception_ptr ptr); <b>[added with C++0X]</b>
+</pre>
+
+  <p>The function uses the <a href="#exception%20pointer">exception pointer</a> <code>ptr</code> to rethrow
+  an earlier thrown exception.</p>
+
+  <p><code>rethrow_exception</code> never returns to its caller.</p>
+
+  <h2><a name="rethrow_if_nested"><code>rethrow_if_nested</code></a></h2>
+  <pre>
+template&lt;class Ex&gt;
+        void <b>rethrow_if_nested</b>(const Ex&amp; ex); <b>[added with C++0X]</b>
+</pre>
+
+  <p>The function calls <code>ex.rethrow_nested()</code> if <code>ex</code> is publicly derived from
+  <code><a href="#nested_exception">nested_exception</a></code>. Otherwise it does nothing.</p>
+
+  <h2><a name="set_terminate"><code>set_terminate</code></a></h2>
+  <pre>
+terminate_handler
+    <b>set_terminate</b>(terminate_handler pnew) throw();
+</pre>
+
+  <p>The function establishes a new <a href="#terminate%20handler">terminate handler</a> as the function
+  <code>*pnew</code>. Thus, <code>pnew</code> must not be a null pointer. The function returns the address of
+  the previous terminate handler.</p>
+
+  <h2><a name="set_unexpected"><code>set_unexpected</code></a></h2>
+  <pre>
+unexpected_handler
+    <b>set_unexpected</b>(unexpected_handler pnew) throw();
+</pre>
+
+  <p>The function establishes a new <a href="#unexpected%20handler">unexpected handler</a> as the function
+  <code>*pnew</code>. Thus, <code>pnew</code> must not be a null pointer. The function returns the address of
+  the previous unexpected handler.</p>
+
+  <h2><a name="terminate"><code>terminate</code></a></h2>
+  <pre>
+void <b>terminate</b>();
+</pre>
+
+  <p>The function calls a <b><a name="terminate handler">terminate handler</a></b>, a function of type
+  <code>void ()</code>. If <code>terminate</code> is called directly by the program, the terminate handler is
+  the one most recently set by a call to <code><a href="#set_terminate">set_terminate</a></code>. If
+  <code>terminate</code> is called for any of several other reasons during evaluation of a throw expression,
+  the terminate handler is the one in effect immediately after evaluating the throw expression.</p>
+
+  <p>A terminate handler must not return to its caller. At <a href="lib_over.html#program%20startup">program
+  startup</a>, the terminate handler is a function that calls <code><a href=
+  "stdlib.html#abort">abort</a>()</code>.</p>
+
+  <h2><a name="terminate_handler"><code>terminate_handler</code></a></h2>
+  <pre>
+typedef void (*<b>terminate_handler</b>)();
+</pre>
+
+  <p>The type describes a pointer to a function suitable for use as a <a href=
+  "#terminate%20handler">terminate handler</a>.</p>
+
+  <h2><a name="throw_with_nested"><code>throw_with_nested</code></a></h2>
+  <pre>
+template&lt;class Ty&gt;
+        void <b>throw_with_nested</b>(Ty&amp;&amp; val); <b>[added with C++0X]</b>
+</pre>
+
+  <p>The function throws <code>val</code> if <code>Ty</code> is derived from <code><a href=
+  "#nested_exception">nested_exception</a></code> or is not suitable for use as a base class. Otherwise it
+  throws an object that contains both the base class <code>nested_exception</code>, default initialized, and
+  the base class <code>Ty</code>, initialized with <code>val</code>.</p>
+
+  <p><code>throw_with_nested</code> never returns to its caller.</p>
+
+  <h2><a name="uncaught_exception"><code>uncaught_exception</code></a></h2>
+  <pre>
+bool <b>uncaught_exception</b>();
+</pre>
+
+  <p>The function returns true only if a thrown exception is being currently processed. Specifically, it
+  returns true after completing evaluation of a throw expression and before completing initialization of the
+  exception declaration in the matching handler or calling <code><a href="#unexpected">unexpected</a></code>
+  as a result of the throw expression.</p>
+
+  <h2><a name="unexpected"><code>unexpected</code></a></h2>
+  <pre>
+void <b>unexpected</b>();
+</pre>
+
+  <p>The function calls an <b><a name="unexpected handler">unexpected handler</a></b>, a function of type
+  <code>void ()</code>. If <code>unexpected</code> is called directly by the program, the unexpected handler
+  is the one most recently set by a call to <code><a href="#set_unexpected">set_unexpected</a></code>. If
+  <code>unexpected</code> is called when control leaves a function by a thrown exception of a type not
+  permitted by an <b><a name="exception specification">exception specification</a></b> for the function, as
+  in:</p>
+  <pre>
+void func() throw()   // function may throw no exceptions
+    {throw "bad"; }   // throw calls unexpected()
+</pre>
+
+  <p>the unexpected handler is the one in effect immediately after evaluating the throw expression.</p>
+
+  <p>An unexpected handler must not return to its caller. It may terminate execution by:</p>
+
+  <ul>
+    <li>throwing an object of a type listed in the exception specification (or an object of any type if the
+    unexpected handler is called directly by the program)</li>
+
+    <li>throwing an object of type <a href="#bad_exception"><code>bad_exception</code></a></li>
+
+    <li>calling <code><a href="#terminate">terminate</a>()</code>, <code><a href=
+    "stdlib.html#abort">abort</a>()</code>, or <code><a href="stdlib.html#exit">exit</a>(int)</code></li>
+  </ul>
+
+  <p>At <a href="lib_over.html#program%20startup">program startup</a>, the unexpected handler is a function
+  that calls <code><a href="#terminate">terminate</a>()</code>.</p>
+
+  <h2><a name="unexpected_handler"><code>unexpected_handler</code></a></h2>
+  <pre>
+typedef void (*<b>unexpected_handler</b>)();
+</pre>
+
+  <p>The type describes a pointer to a function suitable for use as an <a href=
+  "#unexpected%20handler">unexpected handler</a>.</p>
+  <hr>
+
+  <p>See also the <b><a href="index.html#Table%20of%20Contents">Table of Contents</a></b> and the <b><a href=
+  "_index.html">Index</a></b>.</p>
+
+  <p><i><a href="crit_pjp.html">Copyright</a> &copy; 1992-2010 by P.J. Plauger. All rights reserved.</i></p>
+  <!--V5.30:126I-->
+</body>
+</html>

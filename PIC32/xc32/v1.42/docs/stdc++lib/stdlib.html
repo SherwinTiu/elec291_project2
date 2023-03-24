@@ -1,0 +1,1195 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html>
+<head>
+  <meta name="generator" content=
+  "HTML Tidy for Mac OS X (vers 31 October 2006 - Apple Inc. build 15.15), see www.w3.org">
+
+  <title>&lt;stdlib.h&gt;</title>
+</head>
+
+<body>
+  <h1><a name="&lt;stdlib.h&gt;"><code>&lt;stdlib.h&gt;</code></a></h1>
+  <hr>
+
+  <p><b><code><a href="#EXIT_FAILURE">EXIT_FAILURE</a> &middot; <a href="#EXIT_SUCCESS">EXIT_SUCCESS</a>
+  &middot; <a href="#MB_CUR_MAX">MB_CUR_MAX</a> &middot; <a href="#NULL">NULL</a> &middot; <a href=
+  "#RAND_MAX">RAND_MAX</a></code></b></p>
+
+  <p><b><code><a href="#abort">abort</a> &middot; <a href="#abs">abs</a> &middot; <a href=
+  "#atexit">atexit</a> &middot; <a href="#atof">atof</a> &middot; <a href="#atoi">atoi</a> &middot; <a href=
+  "#atol">atol</a> &middot; <a href="#atoll">atoll</a> &middot; <a href="#bsearch">bsearch</a> &middot;
+  <a href="#calloc">calloc</a> &middot; <a href="#div">div</a> &middot; <a href="#div_t">div_t</a> &middot;
+  <a href="#_Exit">_Exit</a> &middot; <a href="#exit">exit</a> &middot; <a href="#free">free</a> &middot;
+  <a href="#getenv">getenv</a> &middot; <a href="#labs">labs</a> &middot; <a href="#llabs">llabs</a> &middot;
+  <a href="#ldiv">ldiv</a> &middot; <a href="#ldiv_t">ldiv_t</a> &middot; <a href="#lldiv">ldiv</a> &middot;
+  <a href="#lldiv_t">ldiv_t</a> &middot; <a href="#malloc">malloc</a> &middot; <a href="#mblen">mblen</a>
+  &middot; <a href="#mbstowcs">mbstowcs</a> &middot; <a href="#mbtowc">mbtowc</a> &middot; <a href=
+  "#qsort">qsort</a> &middot; <a href="#rand">rand</a> &middot; <a href="#realloc">realloc</a> &middot;
+  <a href="#size_t">size_t</a> &middot; <a href="#srand">srand</a> &middot; <a href="#strtod">strtod</a>
+  &middot; <a href="#strtof">strtof</a> &middot; <a href="#strtol">strtol</a> &middot; <a href=
+  "#strtold">strtold</a> &middot; <a href="#strtoll">strtoll</a> &middot; <a href="#strtoul">strtoul</a>
+  &middot; <a href="#strtoull">strtoull</a> &middot; <a href="#system">system</a> &middot; <a href=
+  "#wchar_t">wchar_t</a> &middot; <a href="#wcstombs">wcstombs</a> &middot; <a href=
+  "#wctomb">wctomb</a></code></b></p>
+
+  <p><b><code><a href="#abort_handler_s">abort_handler_s</a> &middot; <a href="#bsearch_s">bsearch_s</a>
+  &middot; <a href="#constraint_handler_t">constraint_handler_t</a> &middot; <a href="#errno_t">errno_t</a>
+  &middot; <a href="#getenv_s">getenv_s</a> &middot; <a href="#ignore_handler_s">ignore_handler_s</a>
+  &middot; <a href="#mbstowcs_s">mbstowcs_s</a> &middot; <a href="#qsort_s">qsort_s</a> &middot; <a href=
+  "#rsize_t">rsize_t</a> &middot; <a href="#set_constraint_handler_s">set_constraint_handler_s</a> &middot;
+  <a href="#wcstombs_s">wcstombs_s</a> &middot; <a href="#wctomb_s">wctomb_s</a></code></b></p>
+  <hr>
+
+  <p>Include the standard header <b><code>&lt;stdlib.h&gt;</code></b> to declare an assortment of useful
+  functions and to define the macros and types that help you use them.</p>
+  <pre>
+    /* MACROS */
+#define <a href="#EXIT_FAILURE"><b>EXIT_FAILURE</b></a> <i>&lt;rvalue integer expression&gt;</i>
+#define <a href="#EXIT_SUCCESS"><b>EXIT_SUCCESS</b></a> <i>&lt;rvalue integer expression&gt;</i>
+#define <a href="#MB_CUR_MAX"><b>MB_CUR_MAX</b></a> <i>&lt;rvalue integer expression &gt;= 1&gt;</i>
+#define <a href="#NULL"><b>NULL</b></a> <i>&lt;either 0, 0L, or (void *)0&gt;</i> <b>[0 in C++]</b>
+#define <a href="#RAND_MAX"><b>RAND_MAX</b></a> <i>&lt;integer constant expression &gt;= 32,767&gt;</i>
+
+    /* TYPES */
+typedef struct {
+    int quot, rem;
+    } <a href="#div_t"><b>div_t</b></a>;
+typedef struct {
+    long quot, rem;
+    } <a href="#ldiv_t"><b>ldiv_t</b></a>;
+typedef struct { <b>[added with C99]</b>
+    long long quot, rem;
+    } <a href="#lldiv_t"><b>lldiv_t</b></a>;
+
+typedef <i>ui-type</i> <a href="#size_t"><b>size_t</b></a>;
+typedef <i>i-type</i> <a href="#wchar_t"><b>wchar_t</b></a>; <b>[keyword in C++]</b>
+
+    /* FUNCTIONS */
+int <a href="#abs"><b>abs</b></a>(int i);
+long <a href="#abs"><b>abs</b></a>(long i); <b>[C++ only]</b>
+long long <a href="#abs"><b>abs</b></a>(long long i); <b>[C++ only, added with C99]</b>
+long long <a href="#llabs"><b>llabs</b></a>(long long i); <b>[added with C99]</b>
+long <a href="#labs"><b>labs</b></a>(long i);
+
+div_t <a href="#div"><b>div</b></a>(int numer, int denom);
+ldiv_t <a href="#div"><b>div</b></a>(long numer, long denom); <b>[C++ only]</b>
+lldiv_t <a href="#div"><b>div</b></a>(long long numer, long long denom); <b>[C++ only, added with C99]</b>
+lldiv_t <a href="#lldiv"><b>lldiv</b></a>(long long numer, long long denom); <b>[added with C99]</b>
+ldiv_t <a href="#ldiv"><b>ldiv</b></a>(long numer, long denom);
+
+int <a href="#rand"><b>rand</b></a>(void);
+void <a href="#srand"><b>srand</b></a>(unsigned int seed);
+
+double <a href="#atof"><b>atof</b></a>(const char *s);
+int <a href="#atoi"><b>atoi</b></a>(const char *s);
+long <a href="#atol"><b>atol</b></a>(const char *s);
+long long <a href="#atoll"><b>atoll</b></a>(const char *s); <b>[added with C99]</b>
+
+double <a href="#strtod"><b>strtod</b></a>(const char *restrict s, char **restrict endptr);
+float <a href=
+"#strtof"><b>strtof</b></a>(const char *restrict s, char **restrict endptr); <b>[added with C99]</b>
+long double <a href="#strtold"><b>strtold</b></a>(const char *restrict s,
+    char **restrict endptr); <b>[added with C99]</b>
+
+long long <a href="#strtoll"><b>strtoll</b></a>(const char *restrict s, char **restrict endptr,
+    int base); <b>[added with C99]</b>
+unsigned long long <a href="#strtoull"><b>strtoull</b></a>(const char *restrict s, char **restrict endptr,
+    int base); <b>[added with C99]</b>
+
+long <a href="#strtol"><b>strtol</b></a>(const char *restrict s, char **restrict endptr, int base);
+unsigned long <a href="#strtoul"><b>strtoul</b></a>(const char *restrict s, char **restrict endptr,
+    int base);
+
+void *<a href="#calloc"><b>calloc</b></a>(size_t nelem, size_t size);
+void <a href="#free"><b>free</b></a>(void *ptr);
+void *<a href="#malloc"><b>malloc</b></a>(size_t size);
+void *<a href="#realloc"><b>realloc</b></a>(void *ptr, size_t size);
+
+int <a href="#mblen"><b>mblen</b></a>(const char *s, size_t n);
+size_t <a href="#mbstowcs"><b>mbstowcs</b></a>(wchar_t *restrict wcs, const char *restrict s, size_t n);
+int <a href="#mbtowc"><b>mbtowc</b></a>(wchar_t *restrict pwc, const char *restrict s, size_t n);
+size_t <a href="#wcstombs"><b>wcstombs</b></a>(char *restrict s, const wchar_t *restrict wcs, size_t n);
+int <a href="#wctomb"><b>wctomb</b></a>(char *s, wchar_t wchar);
+
+void <a href="#_Exit"><b>_Exit</b></a>(int status); <b>[added with C99]</b>
+void <a href="#exit"><b>exit</b></a>(int status);
+void <a href="#abort"><b>abort</b></a>(void);
+char *<a href="#getenv"><b>getenv</b></a>(const char *name);
+int <a href="#system"><b>system</b></a>(const char *s);
+
+extern "C++"
+    void *<a href="#bsearch"><b>bsearch</b></a>(const void *key, const void *base,
+        size_t nelem, size_t size,
+        int (*cmp)(const void *ck, const void *ce)); <b>[C++ only]</b>
+extern "C" <b>[C++ only]</b>
+    void *<a href="#bsearch"><b>bsearch</b></a>(const void *key, const void *base,
+        size_t nelem, size_t size,
+        int (*cmp)(const void *ck, const void *ce));
+
+extern "C++"
+    void <a href="#qsort"><b>qsort</b></a>(void *base, size_t nelem, size_t size,
+        int (*cmp)(const void *e1, const void *e2)); <b>[C++ only]</b>
+extern "C" <b>[C++ only]</b>
+    void <a href="#qsort"><b>qsort</b></a>(void *base, size_t nelem, size_t size,
+        int (*cmp)(const void *e1, const void *e2));
+
+#if __STDC_WANT_LIB_EXT1__ <b>[added with <a href="index_ext1.html#TR24731">TR24731</a>]</b>
+typedef void (*<a href="#constraint_handler_t"><b>constraint_handler_t</b></a>)(const char *restrict s,
+    void *restrict p, errno_t errcode);
+typedef int <a href="#errno_t"><b>errno_t</b></a>;
+typedef size_t <a href="#rsize_t"><b>rsize_t</b></a>;
+
+constraint_handler_t <a href="#set_constraint_handler_s"><b>set_constraint_handler_s</b></a>(
+    constraint_handler_t new_hand);
+void <a href="#abort_handler_s"><b>abort_handler_s</b></a>(const char *restrict s,
+    void *restrict p, errno_t errcode);
+void <a href="#ignore_handler_s"><b>ignore_handler_s</b></a>(const char *restrict s,
+    void *restrict p, errno_t errcode);
+
+errno_t <a href="#getenv_s"><b>getenv_s</b></a>(size_t *restrict needed, char *restrict s,
+    rsize_t maxsize, const char *restrict name);
+
+errno_t <a href="#wctomb_s"><b>wctomb_s</b></a>(int *restrict pstat,
+    char *restrict s, rsize_t maxsize, wchar_t wchar);
+errno_t <a href="#mbstowcs_s"><b>mbstowcs_s</b></a>(size_t *restrict psize,
+    wchar_t *restrict wcs, rsize_t maxsize,
+    const char *restrict s, rsize_t n);
+errno_t <a href="#wcstombs_s"><b>wcstombs_s</b></a>(size_t *restrict psize,
+    char *restrict s, rsize_t maxsize,
+    const wchar_t *restrict wcs, rsize_t n);
+
+extern "C++"
+    void *<a href="#bsearch_s"><b>bsearch_s</b></a>(const void *key, const void *base,
+        rsize_t nelem, rsize_t size,
+        int (*cmp)(const void *ck, const void *ce,
+            void *context); <b>[C++ only]</b>
+extern "C" <b>[C++ only]</b>
+    void *<a href="#bsearch_s"><b>bsearch_s</b></a>(const void *key, const void *base,
+        rsize_t nelem, rsize_t size,
+        int (*cmp)(const void *ck, const void *ce,
+            void *context);
+
+extern "C++"
+    void <a href="#qsort_s"><b>qsort_s</b></a>(void *base, rsize_t nelem, rsize_t size,
+        int (*cmp)(const void *e1, const void *e2,
+            void *context), <b>[C++ only]</b>
+extern "C" <b>[C++ only]</b>
+    void <a href="#qsort_s"><b>qsort_s</b></a>(void *base, rsize_t nelem, rsize_t size,
+        int (*cmp)(const void *e1, const void *e2,
+            void *context);
+#endif /* __STDC_WANT_LIB_EXT1__ */
+</pre>
+
+  <h2><a name="abort"><code>abort</code></a></h2>
+  <pre>
+void <b>abort</b>(void);
+</pre>
+
+  <p>The function calls <code><a href="signal.html#raise">raise</a>(SIGABRT)</code>, which reports the abort
+  signal, <a href="signal.html#SIGABRT"><code>SIGABRT</code></a>. Default handling for the abort signal is to
+  cause abnormal program termination and report unsuccessful termination to the target environment. Whether
+  or not the target environment flushes output streams, closes open files, or removes temporary files on
+  abnormal termination is implementation defined. If you specify handling that causes <a href=
+  "signal.html#raise"><code>raise</code></a> to return control to <code>abort</code>, the function calls
+  <code><a href="#exit">exit</a>(EXIT_FAILURE)</code>, to report unsuccessful termination with <a href=
+  "#EXIT_FAILURE"><code>EXIT_FAILURE</code></a>.</p>
+
+  <p><code>abort</code> never returns to its caller.</p>
+
+  <h2><a name="abort_handler_s"><code>abort_handler_s</code></a></h2>
+  <pre>
+void <b>abort_handler_s</b>(const char *s, void *p,
+    errno_t errcode); <b>[added with TR24731]</b>
+</pre>
+
+  <p>The function writes <code>mesg</code> to the standard error stream and calls <code><a href=
+  "#abort">abort</a></code>. It can serve as a <a href="index_ext1.html#constraint%20handler">constraint
+  handler</a>.</p>
+
+  <h2><a name="abs"><code>abs</code></a></h2>
+  <pre>
+int <b>abs</b>(int i);
+long <b>abs</b>(long i); <b>[C++ only]</b>
+long long <b>abs</b>(long long i); <b>[C++ only, added with C99]</b>
+</pre>
+
+  <p>The function returns the absolute value of <code>i</code>, <code>|i|</code>. The version that accepts a
+  <i>long</i> argument behaves the same as <a href="#abs"><code>labs</code></a></p>
+
+  <h2><a name="atexit"><code>atexit</code></a></h2>
+  <pre>
+extern "C++"
+    int <b>atexit</b>(void (*func)(void)); <b>[C++ only]</b>
+extern "C" <b>[C++ only]</b>
+    int <b>atexit</b>(void (*func)(void));
+</pre>
+
+  <p>The function registers the function whose address is <code>func</code> to be called by <a href=
+  "#exit"><code>exit</code></a> (or when <a href="lib_over.html#main"><code>main</code></a> returns) and
+  returns zero if successful. The functions are called in reverse order of registry. You can register at
+  least 32 functions.</p>
+
+  <p>Furthermore, in C++, if control leaves a called function because it fails to handle a thrown exception,
+  <code>terminate</code> is called.</p>
+
+  <p>The function is thread safe.</p>
+
+  <h2><a name="atof"><code>atof</code></a></h2>
+  <pre>
+double <b>atof</b>(const char *s);
+</pre>
+
+  <p>The function converts the initial characters of the string <code>s</code> to an equivalent value
+  <code>x</code> of type <i>double</i> and then returns <code>x.</code> The conversion is the same as for
+  <code><a href="#strtod">strtod</a>(s, 0)</code>, except that a value is not necessarily stored in <a href=
+  "errno.html#errno"><code>errno</code></a> if a conversion error occurs.</p>
+
+  <h2><a name="atoi"><code>atoi</code></a></h2>
+  <pre>
+int <b>atoi</b>(const char *s);
+</pre>
+
+  <p>The function converts the initial characters of the string <code>s</code> to an equivalent value
+  <code>x</code> of type <i>int</i> and then returns <code>x.</code> The conversion is the same as for
+  <code>(int)<a href="#strtol">strtol</a>(s, 0, 10)</code>, except that a value is not necessarily stored in
+  <a href="errno.html#errno"><code>errno</code></a> if a conversion error occurs.</p>
+
+  <h2><a name="atol"><code>atol</code></a></h2>
+  <pre>
+long <b>atol</b>(const char *s);
+</pre>
+
+  <p>The function converts the initial characters of the string <code>s</code> to an equivalent value
+  <code>x</code> of type <i>long</i> and then returns <code>x.</code> The conversion is the same as for
+  <code><a href="#strtol">strtol</a>(s, 0, 10)</code>, except that a value is not necessarily stored in
+  <a href="errno.html#errno"><code>errno</code></a> if a conversion error occurs.</p>
+
+  <h2><a name="atoll"><code>atoll</code></a></h2>
+  <pre>
+long long <b>atoll</b>(const char *s); <b>[added with C99]</b>
+</pre>
+
+  <p>The function converts the initial characters of the string <code>s</code> to an equivalent value
+  <code>x</code> of type <i>long long</i> and then returns <code>x.</code> The conversion is the same as for
+  <code><a href="#strtoll">strtoll</a>(s, 0, 10)</code>, except that a value is not necessarily stored in
+  <a href="errno.html#errno"><code>errno</code></a> if a conversion error occurs.</p>
+
+  <h2><a name="bsearch"><code>bsearch</code></a></h2>
+  <pre>
+extern "C++"
+    void *<b>bsearch</b>(const void *key, const void *base,
+        size_t nelem, size_t size,
+        int (*cmp)(const void *ck, const void *ce)); <b>[C++ only]</b>
+extern "C" <b>[C++ only]</b>
+    void *<b>bsearch</b>(const void *key, const void *base,
+        size_t nelem, size_t size,
+        int (*cmp)(const void *ck, const void *ce));
+</pre>
+
+  <p>The function searches an array of ordered values and returns the address of an array element that equals
+  the search key <code>key</code> (if one exists); otherwise, it returns a null pointer. The array consists
+  of <code>nelem</code> elements, each of <code>size</code> bytes, beginning with the element whose address
+  is <code>base</code>.</p>
+
+  <p><code>bsearch</code> calls the comparison function whose address is <code>cmp</code> to compare the
+  search key with elements of the array. The comparison function must return:</p>
+
+  <ul>
+    <li>a negative value if the search key <code>ck</code> is less than the array element
+    <code>ce</code></li>
+
+    <li>zero if the two are equal</li>
+
+    <li>a positive value if the search key is greater than the array element</li>
+  </ul>
+
+  <p><code>bsearch</code> assumes that the array elements are in nondescending order according to the same
+  comparison rules that are used by the comparison function.</p>
+
+  <h2><a name="bsearch_s"><code>bsearch_s</code></a></h2>
+  <pre>
+extern "C++"
+    void *<b>bsearch_s</b>(const void *key, const void *base,
+        rsize_t nelem, rsize_t size,
+        int (*cmp)(const void *ck, const void *ce,
+            void *context); <b>[C++ only]</b>
+extern "C" <b>[C++ only]</b>
+    void *<b>bsearch_s</b>(const void *key, const void *base,
+        rsize_t nelem, rsize_t size,
+        int (*cmp)(const void *ck, const void *ce,
+            void *context); <b>[added with TR24731]</b>
+</pre>
+
+  <p>A <a href="index_ext1.html#runtime%20constraint%20violation">runtime constraint violation</a> occurs
+  if:</p>
+
+  <ul>
+    <li><code>nelem</code> is greater than <code><a href=
+    "index_ext1.html#RSIZE_MAX">RSIZE_MAX</a></code></li>
+
+    <li><code>size</code> is greater than <code><a href="index_ext1.html#RSIZE_MAX">RSIZE_MAX</a></code></li>
+
+    <li><code>nelem</code> is nonzero and <code>key</code> is a null pointer</li>
+
+    <li><code>nelem</code> is nonzero and <code>base</code> is a null pointer</li>
+
+    <li><code>nelem</code> is nonzero and <code>cmp</code> is a null pointer</li>
+  </ul>
+
+  <p>If such a violation occurs, the function returns a null pointer.</p>
+
+  <p>Otherwise, the function searches an array of ordered values and returns the address of an array element
+  that equals the search key <code>key</code> (if one exists); otherwise, it returns a null pointer. The
+  array consists of <code>nelem</code> elements, each of <code>size</code> bytes, beginning with the element
+  whose address is <code>base</code>.</p>
+
+  <p><code>bsearch</code> calls the comparison function whose address is <code>cmp</code> to compare the
+  search key with elements of the array, passing <code>context</code> as the third argument. The comparison
+  function must return:</p>
+
+  <ul>
+    <li>a negative value if the search key <code>ck</code> is less than the array element
+    <code>ce</code></li>
+
+    <li>zero if the two are equal</li>
+
+    <li>a positive value if the search key is greater than the array element</li>
+  </ul>
+
+  <p><code>bsearch</code> assumes that the array elements are in nondescending order according to the same
+  comparison rules that are used by the comparison function.</p>
+
+  <h2><a name="calloc"><code>calloc</code></a></h2>
+  <pre>
+void *<b>calloc</b>(size_t nelem, size_t size);
+</pre>
+
+  <p>The function allocates an array object containing <code>nelem</code> elements each of size
+  <code>size</code>, stores zeros in all bytes of the array, and returns the address of the first element of
+  the array if successful; otherwise, it returns a null pointer. You can safely convert the return value to
+  an object pointer of any type whose size in bytes is not greater than <code>size</code>.</p>
+
+  <h2><a name="constraint_handler_t"><code>constraint_handler_t</code></a></h2>
+  <pre>
+typedef void (*<b>constraint_handler_t</b>(const char *restrict s,
+    void *restrict p, errno_t errcode); <b>[added with TR24731]</b>
+</pre>
+
+  <p>The type describes a pointer to a function suitable for use as a <a href=
+  "index_ext1.html#constraint%20handler">constraint handler</a>.</p>
+
+  <h2><a name="div"><code>div</code></a></h2>
+  <pre>
+div_t <b>div</b>(int numer, int denom);
+ldiv_t <b>div</b>(long numer, long denom); <b>[C++ only]</b>
+lldiv_t <b>div</b>(long long numer, long long denom); <b>[C++ only, added with C99]</b>
+</pre>
+
+  <p>The function divides <code>numer</code> by <code>denom</code> and returns both quotient and remainder in
+  the structure result <code>x</code>, if the quotient can be represented. The structure member
+  <code>x.quot</code> is the algebraic quotient truncated toward zero. The structure member
+  <code>x.rem</code> is the remainder, such that <code>numer == x.quot*denom + x.rem</code>.</p>
+
+  <h2><a name="div_t"><code>div_t</code></a></h2>
+  <pre>
+typedef struct {
+    int quot, rem;
+    } <b>div_t</b>;
+</pre>
+
+  <p>The type is the structure type returned by the function <a href="#div"><code>div</code></a>. The
+  structure contains members that represent the quotient (<code>quot</code>) and remainder (<code>rem</code>)
+  of a signed integer division with operands of type <i>int.</i> The members shown above can occur in either
+  order.</p>
+
+  <h2><a name="errno_t"><code>errno_t</code></a></h2>
+  <pre>
+typedef int <b>errno_t</b>; <b>[added with TR24731]</b>
+</pre>
+
+  <p>The type is a synonym for <i>int,</i> used to represent a value that can be stored in <a href=
+  "errno.html#errno"><code>errno</code></a>.</p>
+
+  <h2><a name="exit"><code>exit</code></a></h2>
+  <pre>
+void <b>exit</b>(int status);
+</pre>
+
+  <p>The function calls all functions registered by <a href="#atexit"><code>atexit</code></a>, closes all
+  files, and returns control to the target environment. If <code>status</code> is zero or <a href=
+  "#EXIT_SUCCESS"><code>EXIT_SUCCESS</code></a>, the program reports successful termination. If
+  <code>status</code> is <a href="#EXIT_FAILURE"><code>EXIT_FAILURE</code></a>, the program reports
+  unsuccessful termination. An implementation can define additional values for <code>status</code>.</p>
+
+  <p><code>exit</code> never returns to its caller.</p>
+
+  <h2><a name="_Exit"><code>_Exit</code></a></h2>
+  <pre>
+void <b>_Exit</b>(int status); <b>[added with C99]</b>
+</pre>
+
+  <p>The function returns control to the target environment. The value of <code>status</code> has the same
+  effect as for a call to <a href="#exit"><code>exit</code></a>. The function does <i>not</i> call functions
+  registered by <a href="#atexit"><code>atexit</code></a>. It may or may not close files.</p>
+
+  <p><code>_Exit</code> never returns to its caller.</p>
+
+  <h2><a name="EXIT_FAILURE"><code>EXIT_FAILURE</code></a></h2>
+  <pre>
+#define <b>EXIT_FAILURE</b> <i>&lt;rvalue integer expression&gt;</i>
+</pre>
+
+  <p>The macro yields the value of the <code>status</code> argument to <a href="#exit"><code>exit</code></a>
+  that reports unsuccessful termination.</p>
+
+  <h2><a name="EXIT_SUCCESS"><code>EXIT_SUCCESS</code></a></h2>
+  <pre>
+#define <b>EXIT_SUCCESS</b> <i>&lt;rvalue integer expression&gt;</i>
+</pre>
+
+  <p>The macro yields the value of the <code>status</code> argument to <a href="#exit"><code>exit</code></a>
+  that reports successful termination.</p>
+
+  <h2><a name="free"><code>free</code></a></h2>
+  <pre>
+void <b>free</b>(void *ptr);
+</pre>
+
+  <p>If <code>ptr</code> is not a null pointer, the function deallocates the object whose address is
+  <code>ptr</code>; otherwise, it does nothing. You can deallocate only objects that you first allocate by
+  calling <a href="#calloc"><code>calloc</code></a>, <a href="#malloc"><code>malloc</code></a>, or <a href=
+  "#realloc"><code>realloc</code></a>.</p>
+
+  <h2><a name="getenv"><code>getenv</code></a></h2>
+  <pre>
+char *<b>getenv</b>(const char *name);
+</pre>
+
+  <p>The function searches an <b><a name="environment list">environment list</a></b>, which each
+  implementation defines, for an entry whose name matches the string <code>name</code>. If the function finds
+  a match, it returns a pointer to a static-duration object that holds the definition associated with the
+  target environment name. Otherwise, it returns a null pointer. Do not alter the value stored in the object.
+  If you call <code>getenv</code> again, the value stored in the object can change. No target environment
+  names are required of all environments.</p>
+
+  <p>The function is thread safe.</p>
+
+  <h2><a name="getenv_s"><code>getenv_s</code></a></h2>
+  <pre>
+errno_t <b>getenv_s</b>(size_t *restrict needed, char *restrict s,
+    rsize_t maxsize, const char *restrict name); <b>[added with TR24731]</b>
+</pre>
+
+  <p>A <a href="index_ext1.html#runtime%20constraint%20violation">runtime constraint violation</a> occurs
+  if:</p>
+
+  <ul>
+    <li><code>s</code> is a null pointer</li>
+
+    <li><code>maxsize</code> is zero or greater than <code><a href=
+    "index_ext1.html#RSIZE_MAX">RSIZE_MAX</a></code></li>
+
+    <li><code>name</code> is a null pointer</li>
+  </ul>
+
+  <p>If such a violation occurs, and <code>needed</code> is not a null pointer, the function stores zero in
+  <code>*len</code>. It then returns the error code it reported to the constraint handler.</p>
+
+  <p>Otherwise, the function searches the <b><a href="#environment%20list">environment list</a></b> for an
+  entry whose name matches the string <code>name</code>. If the function finds a match:</p>
+
+  <ul>
+    <li>if <code>needed</code> is not a null pointer, the function stores in <code>*len</code> the length of
+    the null-terminated definition associated with the target environment name</li>
+
+    <li>if that length is less than <code>maxsize</code>, the function copies the definition to
+    <code>s</code> and returns zero</li>
+
+    <li>if that length is not less than <code>maxsize</code>, the function stores a null character in
+    <code>s[0]</code> and returns a nonzero value</li>
+  </ul>
+
+  <p>If the function does not find a match:</p>
+
+  <ul>
+    <li>if <code>needed</code> is not a null pointer, the function stores zero in <code>*len</code></li>
+
+    <li>the function stores a null character in <code>s[0]</code> and returns a nonzero value</li>
+  </ul>
+
+  <h2><a name="ignore_handler_s"><code>ignore_handler_s</code></a></h2>
+  <pre>
+void <b>ignore_handler_s</b>(const char *s, void *p,
+    errno_t errcode); <b>[added with TR24731]</b>
+</pre>
+
+  <p>The function simply returns. It can serve as a <a href="index_ext1.html#constraint%20handler">constraint
+  handler</a>.</p>
+
+  <h2><a name="labs"><code>labs</code></a></h2>
+  <pre>
+long <b>labs</b>(long i);
+</pre>
+
+  <p>The function returns the absolute value of <code>i</code>, <code>|i|</code>, the same as <a href=
+  "#abs"><code>abs</code></a>.</p>
+
+  <h2><a name="llabs"><code>llabs</code></a></h2>
+  <pre>
+long long <b>llabs</b>(long long i); <b>[added with C99]</b>
+</pre>
+
+  <p>The function returns the absolute value of <code>i</code>, <code>|i|</code>, the same as <a href=
+  "#abs"><code>abs</code></a>.</p>
+
+  <h2><a name="ldiv"><code>ldiv</code></a></h2>
+  <pre>
+ldiv_t <b>ldiv</b>(long numer, long denom);
+</pre>
+
+  <p>The function divides <code>numer</code> by <code>denom</code> and returns both quotient and remainder in
+  the structure result <code>x</code>, if the quotient can be represented. The structure member
+  <code>x.quot</code> is the algebraic quotient truncated toward zero. The structure member
+  <code>x.rem</code> is the remainder, such that <code>numer == x.quot*denom + x.rem</code>.</p>
+
+  <h2><a name="lldiv"><code>lldiv</code></a></h2>
+  <pre>
+lldiv_t <b>lldiv</b>(long long numer, long long denom); <b>[added with C99]</b>
+</pre>
+
+  <p>The function divides <code>numer</code> by <code>denom</code> and returns both quotient and remainder in
+  the structure result <code>x</code>, if the quotient can be represented. The structure member
+  <code>x.quot</code> is the algebraic quotient truncated toward zero. The structure member
+  <code>x.rem</code> is the remainder, such that <code>numer == x.quot*denom + x.rem</code>.</p>
+
+  <h2><a name="ldiv_t"><code>ldiv_t</code></a></h2>
+  <pre>
+typedef struct {
+    long quot, rem;
+    } <b>ldiv_t</b>;
+</pre>
+
+  <p>The type is the structure type returned by the function <a href="#ldiv"><code>ldiv</code></a>. The
+  structure contains members that represent the quotient (<code>quot</code>) and remainder (<code>rem</code>)
+  of a signed integer division with operands of type <i>long.</i> The members shown above can occur in either
+  order.</p>
+
+  <h2><a name="lldiv_t"><code>lldiv_t</code></a></h2>
+  <pre>
+typedef struct { <b>[added with C99]</b>
+    long long quot, rem;
+    } <b>lldiv_t</b>;
+</pre>
+
+  <p>The type is the structure type returned by the function <a href="#lldiv"><code>lldiv</code></a>. The
+  structure contains members that represent the quotient (<code>quot</code>) and remainder (<code>rem</code>)
+  of a signed integer division with operands of type <i>long long.</i> The members shown above can occur in
+  either order.</p>
+
+  <h2><a name="malloc"><code>malloc</code></a></h2>
+  <pre>
+void *<b>malloc</b>(size_t size);
+</pre>
+
+  <p>The function allocates an object of size <code>size</code>, and returns the address of the object if
+  successful; otherwise, it returns a null pointer. The values stored in the object are indeterminate. You
+  can safely convert the return value to an object pointer of any type whose size is not greater than
+  <code>size</code>.</p>
+
+  <h2><a name="MB_CUR_MAX"><code>MB_CUR_MAX</code></a></h2>
+  <pre>
+#define <b>MB_CUR_MAX</b> <i>&lt;rvalue integer expression &gt;= 1&gt;</i>
+</pre>
+
+  <p>The macro yields the maximum number of characters that constitute a <a href=
+  "charset.html#Multibyte%20Characters">multibyte character</a> in the current <a href=
+  "locale.html">locale</a>. Its value is &lt;= <a href=
+  "limits.html#MB_LEN_MAX"><code>MB_LEN_MAX</code></a>.</p>
+
+  <h2><a name="mblen"><code>mblen</code></a></h2>
+  <pre>
+int <b>mblen</b>(const char *s, size_t n);
+</pre>
+
+  <p>If <code>s</code> is not a null pointer, the function returns the number of bytes in the multibyte
+  string <code>s</code> that constitute the next multibyte character, or it returns -1 if the next
+  <code>n</code> (or the remaining) bytes do not constitute a valid multibyte character. <code>mblen</code>
+  does not include the terminating null in the count of bytes. The function can use a <a href=
+  "charset.html#conversion%20state">conversion state</a> stored in an internal static-duration object to
+  determine how to interpret the multibyte string.</p>
+
+  <p>If <code>s</code> is a null pointer and if multibyte characters have a <a href=
+  "charset.html#state-dependent%20encoding">state-dependent encoding</a> in the current <a href=
+  "locale.html#locale">locale</a>, the function stores the <a href=
+  "charset.html#initial%20conversion%20state">initial conversion state</a> in its internal static-duration
+  object and returns nonzero; otherwise, it returns zero.</p>
+
+  <h2><a name="mbstowcs"><code>mbstowcs</code></a></h2>
+  <pre>
+size_t <b>mbstowcs</b>(wchar_t *restrict wcs, const char *restrict s, size_t n);
+</pre>
+
+  <p>The function stores a wide character string, in successive elements of the array whose first element has
+  the address <code>wcs</code>, by converting, in turn, each of the multibyte characters in the multibyte
+  string <code>s</code>. The string begins in the <a href="charset.html#initial%20conversion%20state">initial
+  conversion state</a>. The function converts each character as if by calling <a href=
+  "#mbtowc"><code>mbtowc</code></a> (except that the internal conversion state stored for that function is
+  unaffected). It stores at most <code>n</code> wide characters, stopping after it stores a null wide
+  character. It returns the number of wide characters it stores, not counting the null wide character, if all
+  conversions are successful; otherwise, it returns -1.</p>
+
+  <h2><a name="mbstowcs_s"><code>mbstowcs_s</code></a></h2>
+  <pre>
+errno_t <b>mbstowcs_s</b>(size_t *restrict psize,
+    wchar_t *restrict wcs, rsize_t maxsize,
+    const char *restrict s, rsize_t n); <b>[added with TR24731]</b>
+</pre>
+
+  <p>A <a href="index_ext1.html#runtime%20constraint%20violation">runtime constraint violation</a> occurs
+  if:</p>
+
+  <ul>
+    <li><code>wcs</code> is not a null pointer and <code>maxsize</code> is zero or greater than
+    <code><a href="index_ext1.html#RSIZE_MAX">RSIZE_MAX</a></code></li>
+
+    <li><code>wcs</code> is a null pointer and <code>maxsize</code> is nonzero</li>
+
+    <li><code>psize</code> is a null pointer</li>
+
+    <li><code>s</code> is a null pointer</li>
+
+    <li><code>wcs</code> is not a null pointer and <code>n</code> is greater than <code><a href=
+    "index_ext1.html#RSIZE_MAX">RSIZE_MAX</a></code></li>
+
+    <li><code>wcs</code> is not a null pointer and the wide-character sequence generated by the function does
+    not end with a null wide character within the first <code>maxsize</code> elements</li>
+  </ul>
+
+  <p>If such a violation occurs, other than the first one, and <code>wcs</code> is not a null pointer, the
+  function stores a null wide character at <code>wcs[0]]</code>. If <code>psize</code> is not a null pointer,
+  the function stores <code>(rsize_t)-1</code> in <code>*psize</code>. It returns the error code it reported
+  to the constraint handler.</p>
+
+  <p>Otherwise, the function stores a wide character string, in successive elements of the array whose first
+  element has the address <code>wcs</code>, by converting, in turn, each of the multibyte characters in the
+  multibyte string <code>s</code>. The string begins in the <a href=
+  "charset.html#initial%20conversion%20state">initial conversion state</a>. The function converts each
+  character as if by calling <a href="#mbtowc"><code>mbtowc</code></a> (except that the internal conversion
+  state stored for that function is unaffected). It stores at most <code>maxsize</code> wide characters,
+  stopping after it stores a null wide character. If the conversion stores no null wide character, and stores
+  less than <code>maxsize</code> wide characters, the function stores a null wide character at the end of the
+  converted wide characters.</p>
+
+  <p>The function stores at <code>*psize</code> the number of converted wide characters, not counting any
+  terminating null wide character. It returns zero if all conversions are successful; otherwise, it returns a
+  nonzero value.</p>
+
+  <h2><a name="mbtowc"><code>mbtowc</code></a></h2>
+  <pre>
+int <b>mbtowc</b>(wchar_t *restrict pwc, const char *restrict s, size_t n);
+</pre>
+
+  <p>If <code>s</code> is not a null pointer, the function determines <code>x</code>, the number of bytes in
+  the multibyte string <code>s</code> that constitute the next multibyte character. (<code>x</code> cannot be
+  greater than <a href="#MB_CUR_MAX"><code>MB_CUR_MAX</code></a>.) If <code>pwc</code> is not a null pointer,
+  the function converts the next multibyte character to its corresponding wide-character value and stores
+  that value in <code>*pwc</code>. It then returns <code>x</code>, or it returns -1 if the next
+  <code>n</code> or the remaining bytes do not constitute a valid multibyte character. <code>mbtowc</code>
+  does not include the terminating null character in the count of bytes. The function can use a <a href=
+  "charset.html#conversion%20state">conversion state</a> stored in an internal static-duration object to
+  determine how to interpret the multibyte string.</p>
+
+  <p>If <code>s</code> is a null pointer and if multibyte characters have a <a href=
+  "charset.html#state-dependent%20encoding">state-dependent encoding</a> in the current <a href=
+  "locale.html#locale">locale</a>, the function stores the <a href=
+  "charset.html#initial%20conversion%20state">initial conversion state</a> in its internal static-duration
+  object and returns nonzero; otherwise, it returns zero.</p>
+
+  <p>The function is not necessarily thread safe.</p>
+
+  <h2><a name="NULL"><code>NULL</code></a></h2>
+  <pre>
+#define <b>NULL</b> <i>&lt;either 0, 0L, or (void *)0&gt;</i> <b>[0 in C++]</b>
+</pre>
+
+  <p>The macro yields a null pointer constant that is usable as an <a href=
+  "express.html#address%20constant%20expression">address constant expression</a>.</p>
+
+  <h2><a name="qsort"><code>qsort</code></a></h2>
+  <pre>
+extern "C++"
+    void <b>qsort</b>(void *base, size_t nelem, size_t size,
+        int (*cmp)(const void *e1, const void *e2)); <b>[C++ only]</b>
+extern "C" <b>[C++ only]</b>
+    void <b>qsort</b>(void *base, size_t nelem, size_t size,
+        int (*cmp)(const void *e1, const void *e2));
+</pre>
+
+  <p>The function sorts, in place, an array consisting of <code>nelem</code> elements, each of
+  <code>size</code> bytes, beginning with the element whose address is <code>base</code>. It calls the
+  comparison function whose address is <code>cmp</code> to compare pairs of elements. The comparison function
+  must return a negative value if <code>e1</code> is less than <code>e2</code>, zero if the two are equal, or
+  a positive value if <code>e1</code> is greater than <code>e2</code>. Two array elements that are equal can
+  appear in the sorted array in either order.</p>
+
+  <h2><a name="qsort_s"><code>qsort_s</code></a></h2>
+  <pre>
+extern "C++"
+    void <b>qsort_s</b>(void *base, rsize_t nelem, rsize_t size,
+        int (*cmp)(const void *e1, const void *e2,
+            void *context); <b>[C++ only]</b>
+extern "C" <b>[C++ only]</b>
+    void <b>qsort_s</b>(void *base, rsize_t nelem, rsize_t size,
+        int (*cmp)(const void *e1, const void *e2,
+            void *context); <b>[added with TR24731]</b>
+</pre>
+
+  <p>A <a href="index_ext1.html#runtime%20constraint%20violation">runtime constraint violation</a> occurs
+  if:</p>
+
+  <ul>
+    <li><code>nelem</code> is greater than <code><a href=
+    "index_ext1.html#RSIZE_MAX">RSIZE_MAX</a></code></li>
+
+    <li><code>size</code> is greater than <code><a href="index_ext1.html#RSIZE_MAX">RSIZE_MAX</a></code></li>
+
+    <li><code>nelem</code> is nonzero and <code>base</code> is a null pointer</li>
+
+    <li><code>nelem</code> is nonzero and <code>cmp</code> is a null pointer</li>
+  </ul>
+
+  <p>If such a violation occurs, the function does nothing.</p>
+
+  <p>Otherwise, the function sorts, in place, an array consisting of <code>nelem</code> elements, each of
+  <code>size</code> bytes, beginning with the element whose address is <code>base</code>. It calls the
+  comparison function whose address is <code>cmp</code> to compare pairs of elements, passing
+  <code>context</code> as the third argument. The comparison function must return a negative value if
+  <code>e1</code> is less than <code>e2</code>, zero if the two are equal, or a positive value if
+  <code>e1</code> is greater than <code>e2</code>. Two array elements that are equal can appear in the sorted
+  array in either order.</p>
+
+  <h2><a name="rand"><code>rand</code></a></h2>
+  <pre>
+int <b>rand</b>(void);
+</pre>
+
+  <p>The function computes a pseudo-random number <code>x</code> based on a seed value stored in an internal
+  static-duration object, alters the stored seed value, and returns <code>x</code>. <code>x</code> is in the
+  interval [0, <a href="#RAND_MAX"><code>RAND_MAX</code></a>].</p>
+
+  <p>The function is not necessarily thread safe.</p>
+
+  <h2><a name="RAND_MAX"><code>RAND_MAX</code></a></h2>
+  <pre>
+#define <b>RAND_MAX</b> <i>&lt;integer constant expression &gt;= 32,767&gt;</i>
+</pre>
+
+  <p>The macro yields the maximum value returned by <a href="#rand"><code>rand</code></a>.</p>
+
+  <h2><a name="realloc"><code>realloc</code></a></h2>
+  <pre>
+void *<b>realloc</b>(void *ptr, size_t size);
+</pre>
+
+  <p>The function allocates an object of size <code>size</code>, possibly obtaining initial stored values
+  from the object whose address is <code>ptr</code>. It returns the address of the new object if successful;
+  otherwise, it returns a null pointer. You can safely convert the return value to an object pointer of any
+  type whose size is not greater than <code>size</code>.</p>
+
+  <p>If <code>ptr</code> is not a null pointer, it must be the address of an existing object that you first
+  allocate by calling <a href="#calloc"><code>calloc</code></a>, <a href="#malloc"><code>malloc</code></a>,
+  or <code>realloc</code>. If the existing object is not larger than the newly allocated object,
+  <code>realloc</code> copies the entire existing object to the initial part of the allocated object. (The
+  values stored in the remainder of the object are indeterminate.) Otherwise, the function copies only the
+  initial part of the existing object that fits in the allocated object. If <code>realloc</code> succeeds in
+  allocating a new object, it deallocates the existing object. Otherwise, the existing object is left
+  unchanged.</p>
+
+  <p>If <code>ptr</code> is a null pointer, the function does not store initial values in the newly created
+  object.</p>
+
+  <h2><a name="rsize_t"><code>rsize_t</code></a></h2>
+  <pre>
+typedef size_t <b>rsize_t</b>; <b>[added with TR24731]</b>
+</pre>
+
+  <p>The type is a synonym for <code>size_t</code>, used to represent a function argument to be checked on
+  entry to a function. It is a <a href="index_ext1.html#runtime%20constraint%20violation">runtime constraint
+  violation</a> for an argument of type <code>rsize_t</code> to be greater than <code><a href=
+  "index_ext1.html#RSIZE_MAX">RSIZE_MAX</a></code>.</p>
+
+  <h2><a name="set_constraint_handler_s"><code>set_constraint_handler_s</code></a></h2>
+  <pre>
+constraint_handler_t <b>set_constraint_handler_s</b>(
+    constraint_handler_t new_hand); <b>[added with TR24731]</b>
+</pre>
+
+  <p>The function sets the pointer to the current <a href="index_ext1.html#constraint%20handler">constraint
+  handler</a> to <code>new_hand</code> and returns the previous pointer.</p>
+
+  <h2><a name="size_t"><code>size_t</code></a></h2>
+  <pre>
+typedef <i>ui-type</i> <b>size_t</b>;
+</pre>
+
+  <p>The type is the unsigned integer type <code><i>ui-type</i></code> of an object that you declare to store
+  the result of the <a href="express.html#sizeof%20operator"><i>sizeof</i></a> operator.</p>
+
+  <h2><a name="srand"><code>srand</code></a></h2>
+  <pre>
+void <b>srand</b>(unsigned int seed);
+</pre>
+
+  <p>The function stores the seed value <code>seed</code> in a static-duration object that <a href=
+  "#rand"><code>rand</code></a> uses to compute a pseudo-random number. From a given seed value, that
+  function always generates the same sequence of return values. The program behaves as if the target
+  environment calls <code>srand(1)</code> at program startup.</p>
+
+  <h2><a name="strtod"><code>strtod</code></a></h2>
+  <pre>
+double <b>strtod</b>(const char *restrict s, char **restrict endptr);
+</pre>
+
+  <p>The function converts the initial characters of the string <code>s</code> to an equivalent value
+  <code>x</code> of type <i>double.</i> If <code>endptr</code> is not a null pointer, the function stores a
+  pointer to the unconverted remainder of the string in <code>*endptr</code>. The function then returns
+  <code>x</code>.</p>
+
+  <p>The initial characters of the string <code>s</code> must consist of zero or more characters for which
+  <a href="ctype.html#isspace"><code>isspace</code></a> returns nonzero, followed by the longest sequence of
+  one or more characters that match any part of the full pattern for <code>strtod</code> shown in the
+  diagram.</p>
+
+  <p><img src="strtod0.gif" align="right"></p>
+
+  <p><b>Boldface</b> indicates a feature added with <a href="lib_over.html#C99">C99</a>.</p>
+
+  <p>Here, <code><i>inf</i></code> is the sequence of characters <code>inf</code> or <code>infinity</code>
+  with individual letters in either case, to represent the special value infinity. Similarly,
+  <code><i>nan</i></code> is the sequence of characters <code>nan</code> or
+  <code>nan(<i>qualifier</i>)</code> with individual letters in either case, to represent the special value
+  not-a-number (NaN). A <code><i>qualifier</i></code> is any sequence of zero or more letters, digits, and
+  underscores. Each implementation defines what effect, if any, a <code><i>qualifier</i></code> has on the
+  actual encoding of a NaN.</p>
+
+  <p>The pattern for a <code>strtod</code> hexadecimal string is shown in the diagram.</p>
+
+  <p><img src="strtodx.gif"></p>
+
+  <p>Here, <code><i>hex</i></code> is a hexadecimal digit, in either case, and a <code><i>point</i></code> is
+  the <a href="locale.html#decimal_point">decimal-point</a> character for the current <a href=
+  "locale.html#locale">locale</a>. (It is the dot (<code>.</code>) in the <a href=
+  "locale.html#C%20locale"><code>"C"</code></a> locale.) If the string <code>s</code> matches this pattern,
+  its equivalent value is the hexadecimal integer represented by any digits to the left of the
+  <code><i>point</i></code>, plus the hexadecimal fraction represented by any digits to the right of the
+  <code><i>point</i></code>, times 2 raised to the signed decimal integer power that follows an optional
+  <code>p</code> or <code>P</code>. A leading minus sign negates the value.</p>
+
+  <p>The pattern for a <code>strtod</code> decimal string is shown in the diagram.</p>
+
+  <p><img src="strtod.gif"></p>
+
+  <p>Here, a <code><i>point</i></code> is the <a href="locale.html#decimal_point">decimal-point</a> character
+  for the current <a href="locale.html#locale">locale</a>. (It is the dot (<code>.</code>) in the <a href=
+  "locale.html#C%20locale"><code>"C"</code></a> locale.) If the string <code>s</code> matches this pattern,
+  its equivalent value is the decimal integer represented by any digits to the left of the
+  <code><i>point</i></code>, plus the decimal fraction represented by any digits to the right of the
+  <code><i>point</i></code>, times 10 raised to the signed decimal integer power that follows an optional
+  <code>e</code> or <code>E</code>. A leading minus sign negates the value.</p>
+
+  <p>In locales other than the <a href="locale.html#C%20locale"><code>"C"</code></a> locale,
+  <code>strtod</code> can define additional patterns as well.</p>
+
+  <p>If the string <code>s</code> does not match a valid pattern, the value stored in <code>*endptr</code> is
+  <code>s</code>, and <code>x</code> is zero. If a <a href="math.html#range%20error">range error</a> occurs,
+  <code>strtod</code> behaves exactly as the functions declared in <a href=
+  "math.html#%3Cmath.h%3E"><code>&lt;math.h&gt;</code></a>.</p>
+
+  <h2><a name="strtof"><code>strtof</code></a></h2>
+  <pre>
+float <b>strtof</b>(const char *restrict s, char **restrict endptr); <b>[added with C99]</b>
+</pre>
+
+  <p>The function converts the initial characters of the string <code>s</code> to an equivalent value
+  <code>x</code> of type <i>float.</i> If <code>endptr</code> is not a null pointer, the function stores a
+  pointer to the unconverted remainder of the string in <code>*endptr</code>. The function then returns
+  <code>x</code>. <code>strtof</code> converts strings exactly as does <a href=
+  "#strtod"><code>strtod</code></a>.</p>
+
+  <p>If the string <code>s</code> does not match a valid pattern, the value stored in <code>*endptr</code> is
+  <code>s</code>, and <code>x</code> is zero. If a <a href="math.html#range%20error">range error</a> occurs,
+  <code>strtod</code> behaves exactly as the functions declared in <a href=
+  "math.html#%3Cmath.h%3E"><code>&lt;math.h&gt;</code></a>.</p>
+
+  <h2><a name="strtol"><code>strtol</code></a></h2>
+  <pre>
+long <b>strtol</b>(const char *restrict s, char **restrict endptr,
+    int base);
+</pre>
+
+  <p>The function converts the initial characters of the string <code>s</code> to an equivalent value
+  <code>x</code> of type <i>long.</i> If <code>endptr</code> is not a null pointer, it stores a pointer to
+  the unconverted remainder of the string in <code>*endptr</code>. The function then returns
+  <code>x</code>.</p>
+
+  <p>The initial characters of the string <code>s</code> must consist of zero or more characters for which
+  <a href="ctype.html#isspace"><code>isspace</code></a> returns nonzero, followed by the longest sequence of
+  one or more characters that match the pattern for <code>strtol</code> shown in the diagram.</p>
+
+  <p><img src="strtol.gif"></p>
+
+  <p>The function accepts the sequences <code>0x</code> or <code>0X</code> only when <code>base</code> equals
+  zero or 16. The letters <code>a-z</code> or <code>A-Z</code> represent digits in the range [10, 36). If
+  <code>base</code> is in the range [2, 36], the function accepts only digits with values less than
+  <code>base</code>. If <code>base</code> == 0, then a leading <code>0x</code> or <code>0X</code> (after any
+  sign) indicates a hexadecimal (base 16) integer, a leading <code>0</code> indicates an octal (base 8)
+  integer, and any other valid pattern indicates a decimal (base 10) integer.</p>
+
+  <p>If the string <code>s</code> matches this pattern, its equivalent value is the signed integer of the
+  appropriate base represented by the digits that match the pattern. (A leading minus sign negates the
+  value.) In locales other than the <a href="locale.html#C%20locale"><code>"C"</code></a> locale,
+  <code>strtol</code> can define additional patterns as well.</p>
+
+  <p>If the string <code>s</code> does not match a valid pattern, the value stored in <code>*endptr</code> is
+  <code>s</code>, and <code>x</code> is zero. If the equivalent value is too large to represent as type
+  <i>long,</i> <code>strtol</code> stores the value of <a href="errno.html#ERANGE"><code>ERANGE</code></a> in
+  <a href="errno.html#errno"><code>errno</code></a> and returns either <a href=
+  "limits.html#LONG_MAX"><code>LONG_MAX</code></a>, if <code>x</code> is positive, or <a href=
+  "limits.html#LONG_MIN"><code>LONG_MIN</code></a>, if <code>x</code> is negative.</p>
+
+  <h2><a name="strtold"><code>strtold</code></a></h2>
+  <pre>
+long double <b>strtold</b>(const char *restrict s,
+    char **restrict endptr); <b>[added with C99]</b>
+</pre>
+
+  <p>The function converts the initial characters of the string <code>s</code> to an equivalent value
+  <code>x</code> of type <i>long double.</i> If <code>endptr</code> is not a null pointer, the function
+  stores a pointer to the unconverted remainder of the string in <code>*endptr</code>. The function then
+  returns <code>x</code>. <code>strtold</code> converts strings exactly as does <a href=
+  "#strtod"><code>strtod</code></a>.</p>
+
+  <p>If the string <code>s</code> does not match a valid pattern, the value stored in <code>*endptr</code> is
+  <code>s</code>, and <code>x</code> is zero. If a <a href="math.html#range%20error">range error</a> occurs,
+  <code>strtod</code> behaves exactly as the functions declared in <a href=
+  "math.html#%3Cmath.h%3E"><code>&lt;math.h&gt;</code></a>.</p>
+
+  <h2><a name="strtoll"><code>strtoll</code></a></h2>
+  <pre>
+long long <b>strtoll</b>(const char *restrict s, char **restrict endptr,
+    int base); <b>[added with C99]</b>
+</pre>
+
+  <p>The function converts the initial characters of the string <code>s</code> to an equivalent value
+  <code>x</code> of type <i>long long.</i> If <code>endptr</code> is not a null pointer, it stores a pointer
+  to the unconverted remainder of the string in <code>*endptr</code>. The function then returns
+  <code>x</code>. <code>strtoll</code> converts strings exactly as does <a href=
+  "#strtol"><code>strtol</code></a>.</p>
+
+  <p>If the string <code>s</code> does not match a valid pattern, the value stored in <code>*endptr</code> is
+  <code>s</code>, and <code>x</code> is zero. If the equivalent value is too large to represent as type
+  <i>long long,</i> <code>strtoll</code> stores the value of <a href=
+  "errno.html#ERANGE"><code>ERANGE</code></a> in <a href="errno.html#errno"><code>errno</code></a> and
+  returns either <a href="limits.html#LLONG_MAX"><code>LLONG_MAX</code></a>, if <code>x</code> is positive,
+  or <a href="limits.html#LLONG_MIN"><code>LLONG_MIN</code></a>, if <code>x</code> is negative.</p>
+
+  <h2><a name="strtoul"><code>strtoul</code></a></h2>
+  <pre>
+unsigned long <b>strtoul</b>(const char *restrict s, char **restrict endptr,
+    int base);
+</pre>
+
+  <p>The function converts the initial characters of the string <code>s</code> to an equivalent value
+  <code>x</code> of type <i>unsigned long.</i> If <code>endptr</code> is not a null pointer, it stores a
+  pointer to the unconverted remainder of the string in <code>*endptr</code>. The function then returns
+  <code>x</code>.</p>
+
+  <p><code>strtoul</code> converts strings exactly as does <a href="#strtol"><code>strtol</code></a>, but
+  reports a range error only if the equivalent value is too large to represent as type <i>unsigned long.</i>
+  In this case, <code>strtoul</code> stores the value of <a href="errno.html#ERANGE"><code>ERANGE</code></a>
+  in <a href="errno.html#errno"><code>errno</code></a> and returns <a href=
+  "limits.html#ULONG_MAX"><code>ULONG_MAX</code></a>.</p>
+
+  <h2><a name="strtoull"><code>strtoull</code></a></h2>
+  <pre>
+unsigned long long <b>strtoull</b>(const char *restrict s, char **restrict endptr,
+    int base); <b>[added with C99]</b>
+</pre>
+
+  <p>The function converts the initial characters of the string <code>s</code> to an equivalent value
+  <code>x</code> of type <i>unsigned long long.</i> If <code>endptr</code> is not a null pointer, it stores a
+  pointer to the unconverted remainder of the string in <code>*endptr</code>. The function then returns
+  <code>x</code>. <code>strtoull</code> converts strings exactly as does <a href=
+  "#strtoul"><code>strtoul</code></a>.</p>
+
+  <p>If the string <code>s</code> does not match a valid pattern, the value stored in <code>*endptr</code> is
+  <code>s</code>, and <code>x</code> is zero. If the equivalent value is too large to represent as type
+  <i>unsigned long long,</i> <code>strtoull</code> stores the value of <a href=
+  "errno.html#ERANGE"><code>ERANGE</code></a> in <a href="errno.html#errno"><code>errno</code></a> and
+  returns <a href="limits.html#ULLONG_MAX"><code>ULLONG_MAX</code></a>.</p>
+
+  <h2><a name="system"><code>system</code></a></h2>
+  <pre>
+int <b>system</b>(const char *s);
+</pre>
+
+  <p>If <code>s</code> is not a null pointer, the function passes the string <code>s</code> to be executed by
+  a <b><a name="command processor">command processor</a></b>, supplied by the target environment, and returns
+  the status reported by the command processor. If <code>s</code> is a null pointer, the function returns
+  nonzero only if the target environment supplies a command processor. Each implementation defines what
+  strings its command processor accepts.</p>
+
+  <h2><a name="wchar_t"><code>wchar_t</code></a></h2>
+  <pre>
+typedef <i>i-type</i> <b>wchar_t</b>; <b>[keyword in C++]</b>
+</pre>
+
+  <p>The type is the integer type <code><i>i-type</i></code> of a <a href=
+  "charset.html#wide-character%20constant">wide-character constant</a>, such as <code>L'X'</code>. You
+  declare an object of type <code>wchar_t</code> to hold a <a href=
+  "charset.html#Wide-Character%20Encoding">wide character</a>.</p>
+
+  <h2><a name="wcstombs"><code>wcstombs</code></a></h2>
+  <pre>
+size_t <b>wcstombs</b>(char *restrict s, const wchar_t *restrict wcs, size_t n);
+</pre>
+
+  <p>The function stores a multibyte string, in successive elements of the array whose first element has the
+  address <code>s</code>, by converting in turn each of the wide characters in the string <code>wcs</code>.
+  The multibyte string begins in the <a href="charset.html#initial%20conversion%20state">initial conversion
+  state</a>. The function converts each wide character as if by calling <a href=
+  "#wctomb"><code>wctomb</code></a> (except that the <a href="charset.html#conversion%20state">conversion
+  state</a> stored for that function is unaffected). It stores no more than <code>n</code> bytes, stopping
+  after it stores a null character. It returns the number of bytes it stores, not counting the null
+  character, if all conversions are successful; otherwise, it returns -1.</p>
+
+  <h2><a name="wcstombs_s"><code>wcstombs_s</code></a></h2>
+  <pre>
+errno_t <b>wcstombs_s</b>(size_t *restrict psize,
+    char *restrict s, rsize_t maxsize,
+    const wchar_t *restrict wcs, rsize_t n) <b>[added with TR24731]</b>;
+</pre>
+
+  <p>A <a href="index_ext1.html#runtime%20constraint%20violation">runtime constraint violation</a> occurs
+  if:</p>
+
+  <ul>
+    <li><code>s</code> is not a null pointer and <code>maxsize</code> is zero or greater than <code><a href=
+    "index_ext1.html#RSIZE_MAX">RSIZE_MAX</a></code></li>
+
+    <li><code>s</code> is a null pointer and <code>maxsize</code> is nonzero</li>
+
+    <li><code>psize</code> is a null pointer</li>
+
+    <li><code>wcs</code> is a null pointer</li>
+
+    <li><code>s</code> is not a null pointer and <code>n</code> is greater than <code><a href=
+    "index_ext1.html#RSIZE_MAX">RSIZE_MAX</a></code></li>
+
+    <li><code>s</code> is not a null pointer and the multibyte sequence generated by the function does not
+    end with a null character within the first <code>maxsize</code> elements</li>
+  </ul>
+
+  <p>If such a violation occurs, other than the first one, and <code>s</code> is not a null pointer, the
+  function stores a null character at <code>s[0]</code>. If <code>psize</code> is not a null pointer, the
+  function stores <code>(rsize_t)-1</code> in <code>*psize</code>. It returns the error code it reported to
+  the constraint handler.</p>
+
+  <p>Otherwise, the function stores a multibyte string, in successive elements of the array whose first
+  element has the address <code>s</code>, by converting in turn each of the wide characters in the string
+  <code>wcs</code>. The multibyte string begins in the <a href=
+  "charset.html#initial%20conversion%20state">initial conversion state</a>. The function converts each wide
+  character as if by calling <a href="#wctomb"><code>wctomb</code></a> (except that the <a href=
+  "charset.html#conversion%20state">conversion state</a> stored for that function is unaffected). It stores
+  no more than <code>maxsize</code> bytes, stopping after it stores a null character. It returns zero if all
+  conversions are successful; otherwise, it returns a nonzero value. If the conversion stores no null
+  character, and stores less than <code>maxsize</code> characters, the function stores a null character at
+  the end of the converted characters.</p>
+
+  <p>The function stores at <code>*psize</code> the number of converted characters, not counting any
+  terminating null character. It returns zero if all conversions are successful; otherwise, it returns a
+  nonzero value.</p>
+
+  <h2><a name="wctomb"><code>wctomb</code></a></h2>
+  <pre>
+int <b>wctomb</b>(char *s, wchar_t wchar);
+</pre>
+
+  <p>If <code>s</code> is not a null pointer, the function determines <code>N</code>, the number of bytes
+  needed to represent the multibyte character corresponding to the wide character <code>wchar</code>.
+  <code>N</code> cannot exceed <a href="#MB_CUR_MAX"><code>MB_CUR_MAX</code></a>. The function converts
+  <code>wchar</code> to its corresponding multibyte character, which it stores in successive elements of the
+  array whose first element has the address <code>s</code>. It then returns <code>N</code>, or it returns -1
+  if <code>wchar</code> does not correspond to a valid multibyte character. <code>wctomb</code> includes the
+  terminating null character in the count of bytes. The function can use a <a href=
+  "charset.html#conversion%20state">conversion state</a> stored in a static-duration object to determine how
+  to interpret the multibyte character string.</p>
+
+  <p>If <code>s</code> is a null pointer and if multibyte characters have a <a href=
+  "charset.html#state-dependent%20encoding">state-dependent encoding</a> in the current <a href=
+  "locale.html#locale">locale</a>, the function stores the <a href=
+  "charset.html#initial%20conversion%20state">initial conversion state</a> in its static-duration object and
+  returns nonzero; otherwise, it returns zero.</p>
+
+  <p>The function is not necessarily thread safe.</p>
+
+  <h2><a name="wctomb_s"><code>wctomb_s</code></a></h2>
+  <pre>
+errno_t <b>wctomb_s</b>(int *restrict pstat,
+    char *restrict s, rsize_t maxsize, wchar_t wchar); <b>[added with TR24731]</b>
+</pre>
+
+  <p>A <a href="index_ext1.html#runtime%20constraint%20violation">runtime constraint violation</a> occurs
+  if:</p>
+
+  <ul>
+    <li><code>pstat</code> is a null pointer</li>
+
+    <li><code>s</code> is not a null pointer and <code>maxsize</code> is less than <code>N</code>, the number
+    of bytes needed to represent the multibyte character corresponding to the wide character
+    <code>wchar</code> (<code>N</code> cannot exceed <a href="#MB_CUR_MAX"><code>MB_CUR_MAX</code></a>.)</li>
+
+    <li><code>s</code> is a null pointer and <code>maxsize</code> is nonzero</li>
+
+    <li><code>maxsize</code> is greater than <code><a href=
+    "index_ext1.html#RSIZE_MAX">RSIZE_MAX</a></code></li>
+  </ul>
+
+  <p>If such a violation occurs, and <code>s</code> is not a null pointer, the function accesses at most the
+  first <code>N</code> characters beginning at <code>s</code>. The function does not store anything into
+  <code>*pstat</code>. It returns the error code it reported to the constraint handler.</p>
+
+  <p>Otherwise, if <code>s</code> is not a null pointer:</p>
+
+  <ul>
+    <li>the function converts <code>wchar</code> to its corresponding multibyte character, which it stores in
+    successive elements of the array whose first element has the address <code>s</code></li>
+
+    <li>it stores in <code>*pstat</code> either <code>N</code>, if <code>wchar</code> corresponds to a valid
+    multibyte character, or -1.</li>
+  </ul>
+
+  <p><code>wctomb_s</code> includes the terminating null character in the count of bytes. The function can
+  use a <a href="charset.html#conversion%20state">conversion state</a> stored in a static-duration object to
+  determine how to interpret the multibyte character string.</p>
+
+  <p>If <code>s</code> is a null pointer:</p>
+
+  <ul>
+    <li>if multibyte characters have a <a href="charset.html#state-dependent%20encoding">state-dependent
+    encoding</a> in the current <a href="locale.html#locale">locale</a>, the function stores the <a href=
+    "charset.html#initial%20conversion%20state">initial conversion state</a> in its static-duration object,
+    stores a nonzero value in <code>*pstat</code> and returns a nonzero value</li>
+
+    <li>otherwise, the function stores zero in <code>*pstat</code> and returns zero.</li>
+  </ul>
+  <hr>
+
+  <p>See also the <b><a href="index.html#Table%20of%20Contents">Table of Contents</a></b> and the <b><a href=
+  "_index.html">Index</a></b>.</p>
+
+  <p><i><a href="crit_pjp.html">Copyright</a> &copy; 1992-2010 by P.J. Plauger and Jim Brodie. All rights
+  reserved.</i></p><!--V5.30:126I-->
+</body>
+</html>

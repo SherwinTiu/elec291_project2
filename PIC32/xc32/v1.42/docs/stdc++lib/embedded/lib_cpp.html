@@ -1,0 +1,294 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html>
+<head>
+  <meta name="generator" content=
+  "HTML Tidy for Mac OS X (vers 31 October 2006 - Apple Inc. build 15.15), see www.w3.org">
+
+  <title>C++ Library Overview</title>
+</head>
+
+<body>
+  <h1><a name="C++ Library Overview">C++ Library Overview</a></h1>
+  <hr>
+
+  <p><b><a href="#Using%20C++%20Library%20Headers">Using C++ Library Headers</a> &middot; <a href=
+  "#C++%20Library%20Conventions">C++ Library Conventions</a> &middot; <a href="#iostreams">Iostreams
+  Conventions</a> &middot; <a href="#C++%20Program%20Startup%20and%20Termination">Program Startup and
+  Termination</a> &middot; <a href="#Exceptions">Exceptions</a> &middot; <a href="#C++0X">C++0X
+  Additions</a></b></p>
+
+  <p>All C++ library entities are declared or defined in one or more <a href=
+  "lib_over.html#standard%20headers">standard headers</a>. To make use of a library entity in a program,
+  write an <a href="preproc.html#include%20directive"><i>include</i> directive</a> that names the relevant
+  standard header. The full set of 28 <b><a name="C++ library headers">C++ library headers</a></b> (along
+  with the additional 15 <a href="lib_over.html#standard%20headers">Standard C headers</a>) constitutes a
+  <b><a name="hosted implementation">hosted implementation</a></b> of Embedded C++: <code><a href=
+  "cassert.html">&lt;cassert&gt;</a></code>, <code><a href="cctype.html">&lt;cctype&gt;</a></code>,
+  <code><a href="cerrno.html">&lt;cerrno&gt;</a></code>, <code><a href=
+  "cfloat.html">&lt;cfloat&gt;</a></code>, <code><a href="climits.html">&lt;climits&gt;</a></code>,
+  <code><a href="clocale.html">&lt;clocale&gt;</a></code>, <code><a href=
+  "cmath.html">&lt;cmath&gt;</a></code>, <code><a href="complex.html">&lt;complex&gt;</a></code>,
+  <code><a href="csetjmp.html">&lt;csetjmp&gt;</a></code>, <code><a href=
+  "csignal.html">&lt;csignal&gt;</a></code>, <code><a href="cstdarg.html">&lt;cstdarg&gt;</a></code>,
+  <code><a href="cstddef.html">&lt;cstddef&gt;</a></code>, <code><a href=
+  "cstdio.html">&lt;cstdio&gt;</a></code>, <code><a href="cstdlib.html">&lt;cstdlib&gt;</a></code>,
+  <code><a href="cstring.html">&lt;cstring&gt;</a></code>, <code><a href=
+  "ctime.html">&lt;ctime&gt;</a></code>, <code><a href="fstream.html">&lt;fstream&gt;</a></code>,
+  <code><a href="iomanip.html">&lt;iomanip&gt;</a></code>, <code><a href="ios.html">&lt;ios&gt;</a></code>,
+  <code><a href="iosfwd.html">&lt;iosfwd&gt;</a></code>, <code><a href=
+  "iostream.html">&lt;iostream&gt;</a></code>, <code><a href="istream.html">&lt;istream&gt;</a></code>,
+  <code><a href="new.html">&lt;new&gt;</a></code>, <code><a href="ostream.html">&lt;ostream&gt;</a></code>,
+  <code><a href="sstream.html">&lt;sstream&gt;</a></code>, <code><a href=
+  "streambu.html">&lt;streambuf&gt;</a></code>, <code><a href="string2.html">&lt;string&gt;</a></code>, and
+  <code><a href="strstrea.html">&lt;strstream&gt;</a></code></p>
+
+  <p>A <b><a name="freestanding implementation">freestanding implementation</a></b> of the C++ library
+  provides only a subset of these headers: <code><a href="cstddef.html">&lt;cstddef&gt;</a></code>,
+  <code><a href="cstdlib.html">&lt;cstdlib&gt;</a></code> (declaring at least the functions <a href=
+  "stdlib.html#abort"><code>abort</code></a>, <a href="stdlib.html#atexit"><code>atexit</code></a>, and
+  <a href="stdlib.html#exit"><code>exit</code></a>), <code><a href="new.html">&lt;new&gt;</a></code>, and
+  <code><a href="cstdarg.html">&lt;cstdarg&gt;</a></code>.</p>
+
+  <p>The C++ library headers also have a broader subdivision -- <a href="#iostreams">iostreams</a>
+  headers.</p>
+
+  <h2><a name="Using C++ Library Headers">Using C++ Library Headers</a></h2>
+
+  <p>You include the contents of a standard header by naming it in an <a href=
+  "preproc.html#include%20directive"><i>include</i> directive</a>, as in:</p>
+  <pre>
+#include &lt;iostream&gt;  /* include I/O facilities */
+</pre>
+
+  <p>You can include the standard headers in any order, a standard header more than once, or two or more
+  standard headers that define the same macro or the same type. Do not include a standard header within a
+  declaration. Do not define macros that have the same names as keywords before you include a standard
+  header.</p>
+
+  <p>A C++ library header includes any other C++ library headers it needs to define needed types. (Always
+  include explicitly any C++ library headers needed in a translation unit, however, lest you guess wrong
+  about its actual dependencies.) A Standard C header never includes another standard header. A standard
+  header declares or defines only the entities described for it in this document.</p>
+
+  <p>Every function in the library is declared in a standard header. Unlike in Standard C, the standard
+  header never provides a <a href="lib_over.html#masking%20macro">masking macro</a>, with the same name as
+  the function, that masks the function declaration and achieves the same effect.</p>
+
+  <p>The C++ Standard requires that nearly all names in the C++ library headers be defined in the
+  <b><code><a name="std namespace">std</a></code></b> namespace, or in a namespace nested within the
+  <code>std</code> namespace. Otherwise, all names are defined in the global namespace. In this <a href=
+  "index.html#implementation">implementation</a>, however, you can ignore namespaces.</p>
+
+  <h2><a name="C++ Library Conventions">C++ Library Conventions</a></h2>
+
+  <p>The C++ library obeys much the same <a href="lib_over.html#C%20Library%20Conventions">conventions</a> as
+  the Standard C library, plus a few more outlined here.</p>
+
+  <p>An implementation has certain latitude in how it declares types and functions in the C++ library:</p>
+
+  <ul>
+    <li>Names of functions in the Standard C library may have either <b><a name=
+    "extern &quot;C++&quot;"><code>extern "C++"</code></a></b> or <b><a name=
+    "extern &quot;C&quot;"><code>extern "C"</code></a></b> linkage. Include the appropriate <a href=
+    "lib_over.html#standard%20headers">Standard C header</a> rather than declare a library entity
+    inline.</li>
+
+    <li>A member function name in a library class may have additional function signatures over those listed
+    in this document. You can be sure that a function call described here behaves as expected, but you cannot
+    reliably take the address of a library member function. (The type may not be what you expect.)</li>
+
+    <li>A library class may have undocumented (non-virtual) base classes. A class documented as derived from
+    another class may, in fact, be derived from that class through other undocumented classes.</li>
+
+    <li>A type defined as a synonym for some integer type may be the same as one of several different integer
+    types.</li>
+
+    <li>A <b><a name="bitmask type">bitmask type</a></b> can be implemented as either an integer type or an
+    enumeration. In either case, you can perform bitwise operations (such as AND and OR) on values of the
+    same bitmask type. The <i>elements</i> <code>A</code> and <code>B</code> of a bitmask type are nonzero
+    values such that <code>A &amp; B</code> is zero. Beginning with <b>C++0X</b>, the bitwise operations are
+    declared as <code>constexpr</code> to signal that they are treated as compile-time constants.</li>
+
+    <li>A library function that has no exception specification can throw an arbitrary exception, unless its
+    definition clearly restricts such a possibility.</li>
+  </ul>
+
+  <p>On the other hand, there are some restrictions you can count on:</p>
+
+  <ul>
+    <li>The Standard C library uses no <a name="masking macro">masking macros</a>. Only specific function
+    signatures are reserved, not the names of the functions themselves.</li>
+
+    <li>A library function name outside a class will <i>not</i> have additional, undocumented, function
+    signatures. You can reliably take its address.</li>
+
+    <li>Base classes and member functions described as virtual are assuredly virtual, while those described
+    as non-virtual are assuredly non-virtual.</li>
+
+    <li>Two types defined by the C++ library are always different unless this document explicitly suggests
+    otherwise.</li>
+
+    <li>Functions supplied by the library, including the default versions of <a href=
+    "new.html#replaceable%20functions">replaceable functions</a>, can throw <i>at most</i> those exceptions
+    listed in any exception specification. No destructors supplied by the library throw exceptions. Functions
+    in the <a href="index.html#Standard%20C%20Library">Standard C library</a> may propagate an exception, as
+    when <code><a href="stdlib.html#qsort">qsort</a></code> calls a comparison function that throws an
+    exception, but they do not otherwise throw exceptions.</li>
+  </ul>
+
+  <h2><a name="iostreams">Iostreams Conventions</a></h2>
+
+  <p>The <b>iostreams</b> headers support conversions between text and encoded forms, and input and output to
+  external <a href="lib_file.html#files">files</a>: <code><a href="fstream.html">&lt;fstream&gt;</a></code>,
+  <code><a href="iomanip.html">&lt;iomanip&gt;</a></code>, <code><a href="ios.html">&lt;ios&gt;</a></code>,
+  <code><a href="iosfwd.html">&lt;iosfwd&gt;</a></code>, <code><a href=
+  "iostream.html">&lt;iostream&gt;</a></code>, <code><a href="istream.html">&lt;istream&gt;</a></code>,
+  <code><a href="ostream.html">&lt;ostream&gt;</a></code>, <code><a href=
+  "sstream.html">&lt;sstream&gt;</a></code>, <code><a href="streambu.html">&lt;streambuf&gt;</a></code>, and
+  <code><a href="strstrea.html">&lt;strstream&gt;</a></code>.</p>
+
+  <p>The simplest use of iostreams requires only that you include the header <code>&lt;iostream&gt;</code>.
+  You can then extract values from <a href="iostream.html#cin"><code>cin</code></a>, to read the <a href=
+  "lib_over.html#standard%20input">standard input</a>. The rules for doing so are outlined in the description
+  of the class <code><a href="istream.html#istream">istream</a></code>. You can also insert values to
+  <a href="iostream.html#cout"><code>cout</code></a>, to write the <a href=
+  "lib_over.html#standard%20output">standard output</a>. The rules for doing so are outlined in the
+  description of the class <code><a href="ostream.html#ostream">ostream</a></code>. Format control common to
+  both extractors and insertors is managed by the class <code><a href="ios.html#ios">ios</a></code>.
+  Manipulating this format information in the guise of extracting and inserting objects is the province of
+  several <a href="iomanip.html">manipulators</a>.</p>
+
+  <p>You can perform the same iostreams operations on files that you open by name, using the classes declared
+  in <code>&lt;fstream&gt;</code>. To convert between iostreams and objects of class <code><a href=
+  "string2.html#string">string</a></code>, use the classes declared in <code>&lt;sstream&gt;</code>. And to
+  do the same with <a href="lib_over.html#C%20string">C strings</a>, use the classes declared in
+  <code>&lt;strstream&gt;</code>.</p>
+
+  <p>The remaining headers provide support services, typically of direct interest to only the most advanced
+  users of the iostreams classes.</p>
+
+  <h2><a name="C++ Program Startup and Termination">C++ Program Startup and Termination</a></h2>
+
+  <p>A C++ program performs the same operations as does a C program <a href=
+  "lib_over.html#program%20startup">program startup</a> and at <a href=
+  "lib_over.html#program%20termination">program termination</a>, plus a few more outlined here.</p>
+
+  <p>Before the target environment calls the function <a href="lib_over.html#main"><code>main</code></a>, and
+  after it stores any constant initial values you specify in all objects that have static duration, the
+  program executes any remaining constructors for such static objects. The order of execution is not
+  specified between translation units, but you can nevertheless assume that some <a href=
+  "#iostreams">iostreams</a> objects are properly initialized for use by these static constructors. These
+  control text streams:</p>
+
+  <ul>
+    <li><b><a href="iostream.html#cin"><code>cin</code></a></b> -- for <a href=
+    "lib_over.html#standard%20input">standard input</a></li>
+
+    <li><b><a href="iostream.html#cout"><code>cout</code></a></b> -- for <a href=
+    "lib_over.html#standard%20output">standard output</a></li>
+  </ul>
+
+  <p>You can also use these objects within the destructors called for static objects, during <a href=
+  "lib_over.html#program%20termination">program termination</a>.</p>
+
+  <p>As with C, returning from <a href="lib_over.html#main"><code>main</code></a> or calling <a href=
+  "stdlib.html#exit"><code>exit</code></a> calls all functions registered with <a href=
+  "stdlib.html#atexit"><code>atexit</code></a> in reverse order of registry.</p>
+
+  <h2><a name="Exceptions">Exceptions</a></h2>
+
+  <p>In this <a href="index.html#implementation">implementation</a>, exception handling can be either enabled
+  or disabled. This document describes all behavior as if exception handling is enabled. If exception
+  handling is disabled, however:</p>
+
+  <ul>
+    <li>Throw specifications in library function declarations are not actually present.</li>
+
+    <li>Catch clauses in library function definitions likewise are not actually present. It is not possible
+    for the program to catch an exception, except in the limited sense outlined below. Hence, the library has
+    no occasion to rethrow an exception.</li>
+
+    <li>Rather than throw an exception, as in <code>throw ex</code>, the library actually calls
+    <code>ex.<a href="#_Raise">_Raise</a>()</code>.</li>
+  </ul>
+
+  <p>Here, <code>void <a name="_Raise">_Raise</a>()</code> is a member function of class
+  <code>exception</code>, the base class for all exceptions thrown by the library. It performs the following
+  operations, in order:</p>
+
+  <ol>
+    <li>If a <b><a name="raise handler">raise handler</a></b> has been registered by an earlier call to the
+    static member function <code>exception:: <a name="_Set_raise_handler">_Set_raise_handler</a>(void
+    (*)(const exception&amp;)</code>, then <code>_Raise</code> calls the raise handler.</li>
+
+    <li><code>_Raise</code> then calls the protected virtual member function <code>void <a name=
+    "_Doraise">_Doraise</a>()</code>, which typically calls <code><a href="#_Throw">_Throw</a>(*this)</code>
+    in any class derived from <code>exception</code>. (This ensures that the most derived version of the
+    virtual public member function <code>what</code> gets called by <code>_Throw</code>, as outlined
+    below.)</li>
+
+    <li><code>_Raise</code> then calls <code>_Throw(*this)</code>.</li>
+  </ol>
+
+  <p>The replaceable global function <code>void <a name="_Throw">_Throw</a>(const exception&amp; ex)</code>
+  never returns to its caller. If the pointer returned by <code>ex.what()</code> is not a null pointer, the
+  function writes to the <a href="lib_over.html#standard%20error">standard error</a> output stream a
+  diagnostic message that includes the <a href="charset.html#null-terminated%20string">null-terminated
+  string</a> designated by the pointer. In any event, the function then calls <code><a href=
+  "stdlib.html#abort">abort</a></code>.</p>
+
+  <p>The net effect of all this machinery is to supply several levels of control, in lieu of the normal
+  exception-handling machinery:</p>
+
+  <ul>
+    <li>You can dynamically specify a raise handler that is called whenever the library would normally throw
+    any exception derived from class <code>exception</code>.</li>
+
+    <li>You can override <code>_Doraise</code>, in a class you derive from <code>exception</code>, to get
+    control whenever an object of that class would normally be thrown by the library (assuming that any raise
+    handler you register returns to its caller).</li>
+
+    <li>You can define your own version of <code>_Throw</code>, to statically handle termination on all
+    thrown exceptions as you see fit.</li>
+  </ul>
+
+  <h2><a name="C++0X">C++0X Additions</a></h2>
+
+  <p>(Note: None of the features added with C++0X are a part of EC++.)</p>
+
+  <p>A number of new features are added with <b>C++0X</b>, a revision of the C++ Standard intended to be
+  finalized circa 2009. They are labeled as such throughout this document. Some features that are of
+  particular interest:</p>
+
+  <p>A parameter of type <code><a name="initializer_list">initializer_list</a></code> takes a brace-enclosed
+  initializer list as its corresponding argument. It behaves just like a sequence of elements of type
+  <code>Ty</code>.</p>
+
+  <p>An <b><a name="rvalue references">rvalue reference</a></b> is indicated by <code>&amp;&amp;</code> in a
+  context where you can write <code>&amp;</code> to indicate a reference. As a function parameter, an rvalue
+  reference matches only an argument that is <b><a name="movable">movable</a></b> -- it will assuredly be
+  destroyed at the end of the function-call expression, or the program promises that it will be destroyed
+  before any further use. Hence, the function can commandeer data owned by the argument, thus <b>moving</b>
+  data instead of <b>copying</b> it, so long as the resultant argument can be properly destroyed. (A function
+  overload with an rvalue reference of the form <code>T&amp;&amp;</code> typically accompanies an older
+  function overload with a corresponding const reference of the form <code>const T&amp;</code>. The former
+  can alter the (temporary) object, while the latter promises to leave the object unaltered.</p>
+
+  <p>Similarly, objects of some types can be <b><a name="swappable">swappable</a></b> even if they cannot be
+  copied or assigned.</p>
+
+  <p>A <b><a name="variadic templates">variadic template</a></b> includes template parameters with ellipsis
+  (<code>...</code>), each of which matches a comma-separated list of zero or more template parameters. The
+  ellipsis notation can further be used in several ways within the template definition to indicate argument
+  lists and derived type lists, among other things. Hence, a single variadic template can represent an
+  open-ended set of templates that differ in the number of template parameters they accept.</p>
+  <hr>
+
+  <p>See also the <b><a href="index.html#Table%20of%20Contents">Table of Contents</a></b> and the <b><a href=
+  "_index.html">Index</a></b>.</p>
+
+  <p><i><a href="crit_pjp.html">Copyright</a> &copy; 1992-2010 by P.J. Plauger. All rights reserved.</i></p>
+  <!--V5.30:126I-->
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html>
+<head>
+  <meta name="generator" content=
+  "HTML Tidy for Mac OS X (vers 31 October 2006 - Apple Inc. build 15.15), see www.w3.org">
+
+  <title>"xtimec.h"</title>
+</head>
+
+<body>
+  <h1><a name="&quot;xtimec.h&quot;"><code>"Dinkum/threads/xtimec.h"</code></a></h1>
+  <hr>
+
+  <p><b><code><a href="#TIME_UTC">TIME_UTC</a> &middot; <a href="#xtime">xtime</a> &middot; <a href=
+  "#xtime_get">xtime_get</a></code></b></p>
+  <hr>
+
+  <p>Include the header <b><code>"Dinkum/threads/xtimec.h"</code></b> so that you can perform high-resolution
+  time operations.</p>
+  <pre>
+    /* TYPES */
+typedef <i>o-type</i> <b><a href="#xtime">xtime</a></b>;
+
+    /* CONSTANTS */
+enum { <b><a href="#TIME_UTC">TIME_UTC</a></b> = <i>&lt;integer constant expression&gt;</i> };
+
+    /* FUNCTIONS */
+int <b><a href="#xtime_get">xtime_get</a></b>(xtime *, int);
+</pre>
+
+  <h2><a name="TIME_UTC"><code>TIME_UTC</code></a></h2>
+  <pre>
+enum { <b>TIME_UTC</b> = <i>&lt;integer constant expression&gt;</i> };
+</pre>
+
+  <p>The compile-time constant is a non-zero value that designates Coordinated Universal Time (UTC) as the
+  time base for the values set by <a href="#xtime_get">xtime_get</a>.</p>
+
+  <h2><a name="xtime"><code>xtime</code></a></h2>
+  <pre>
+typedef struct {
+    time_t sec; <b>/* seconds since 1 Jan. 1970 00:00:00 */</b>
+    long nsec;  <b>/* nanoseconds since time specified by sec */</b>
+    } <b>xtime</b>;
+</pre>
+
+  <p>The struct <code>xtime</code> contains members that describe times with nanosecond resolution. The
+  comment following each member desribes its meaning.</p>
+
+  <h2><a name="xtime_get"><code>xtime_get</code></a></h2>
+  <pre>
+int <b>xtime_get</b>(xtime *xt, int base);
+</pre>
+
+  <p>The function sets the <code>xtime</code> object pointed to by <code>xt</code> to hold the current time
+  based on the time base <code>base</code>. If successful it returns the non-zero value <code>base</code>,
+  which must be <a href="#TIME_UTC">TIME_UTC</a>; otherwise it returns 0. Note that although an
+  <code>xtime</code> object describes times with nanosecond resolution the actual resolution in an
+  <code>xtime</code> object is system dependent.</p>
+  <hr>
+
+  <p>See also the <b><a href="index.html">Table of Contents</a></b> and the <b><a href=
+  "_index.html">Index</a></b>.</p>
+
+  <p><i><a href="crit_pjp.html">Copyright</a> &copy; 1992-2010 by Dinkumware, Ltd. Portions derived from work
+  <a href="crit_wek.html">Copyright</a> &copy; 2001 by William E. Kempf. All rights reserved.</i></p>
+  <!--V5.30:126I-->
+</body>
+</html>

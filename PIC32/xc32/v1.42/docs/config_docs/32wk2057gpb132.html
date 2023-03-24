@@ -1,0 +1,1210 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html>
+<head>
+  <meta name="generator" content=
+  "HTML Tidy for Mac OS X (vers 31 October 2006 - Apple Inc. build 15.15), see www.w3.org">
+
+  <title>Config-Bit Settings for PIC32WK2057GPB132</title>
+</head>
+
+<body bgcolor="#FFFFE0" style="font-family: sans-serif">
+  <p>[ <a href="../XC32MasterIndex.htm">Documentation Index</a> | <a href="../PIC32ConfigSet.html">Device
+  index</a> ]</p>
+
+  <h1>Configuration-Bit Settings for PIC32WK2057GPB132</h1>
+
+  <p>(Data Sheet # <a href=
+  "http://www.microchip.com/wwwproducts/Devices.aspx?Product=PIC32WK2057GPB132&amp;ds=1" target=
+  "Datasheet">DS-</a>)</p>
+
+  <p>Usage:<br>
+  <strong>#pragma config</strong> <em>SETTING</em> = <em>VALUE</em><br></p>
+
+  <table frame="box" rules="cols" summary='TDO enable for 2-wire JTAG' style='margin:10px;' cellpadding="3">
+    <tr style="border: 2px solid;">
+      <th>TDOEN</th>
+
+      <th>TDO enable for 2-wire JTAG</th>
+    </tr>
+
+    <tr>
+      <td>TDOEN = ON</td>
+
+      <td><font size="2">2-wire JTAG protocol uses TDO</font></td>
+    </tr>
+
+    <tr>
+      <td>TDOEN = OFF</td>
+
+      <td><font size="2">2-wire JTAG protocol does not use TDO</font></td>
+    </tr>
+  </table>
+
+  <table frame="box" rules="cols" summary='Trace Output Enable' style='margin:10px;' cellpadding="3">
+    <tr style="border: 2px solid;">
+      <th>TROEN</th>
+
+      <th>Trace Output Enable</th>
+    </tr>
+
+    <tr>
+      <td>TROEN = ON</td>
+
+      <td><font size="2">Start Trace Clock and enable Trace Outputs (Trace Probe must be present)</font></td>
+    </tr>
+
+    <tr>
+      <td>TROEN = OFF</td>
+
+      <td><font size="2">Stop Trace Clock and disable Trace Outputs</font></td>
+    </tr>
+  </table>
+
+  <table frame="box" rules="cols" summary='JTAG Enable' style='margin:10px;' cellpadding="3">
+    <tr style="border: 2px solid;">
+      <th>JTAGEN</th>
+
+      <th>JTAG Enable</th>
+    </tr>
+
+    <tr>
+      <td>JTAGEN = ON</td>
+
+      <td><font size="2">JTAG Port Enabled</font></td>
+    </tr>
+
+    <tr>
+      <td>JTAGEN = OFF</td>
+
+      <td><font size="2">JTAG Port Disabled</font></td>
+    </tr>
+  </table>
+
+  <table frame="box" rules="cols" summary='USB Suspend Sleep Enable' style='margin:10px;' cellpadding="3">
+    <tr style="border: 2px solid;">
+      <th>USBSSEN</th>
+
+      <th>USB Suspend Sleep Enable</th>
+    </tr>
+
+    <tr>
+      <td>USBSSEN = ON</td>
+
+      <td><font size="2">USB FREF clock is shut down when suspend mode is active</font></td>
+    </tr>
+
+    <tr>
+      <td>USBSSEN = OFF</td>
+
+      <td><font size="2">USB FREF clock continues to run when suspend mode is active</font></td>
+    </tr>
+  </table>
+
+  <table frame="box" rules="cols" summary='Permission Group LOCK' style='margin:10px;' cellpadding="3">
+    <tr style="border: 2px solid;">
+      <th>PGLOCK</th>
+
+      <th>Permission Group LOCK</th>
+    </tr>
+
+    <tr>
+      <td>PGLOCK = ON</td>
+
+      <td><font size="2">CFGPG SFR bits are locked and cannot be modified</font></td>
+    </tr>
+
+    <tr>
+      <td>PGLOCK = OFF</td>
+
+      <td><font size="2">CFGPG SFR bits are not locked and can be modified</font></td>
+    </tr>
+  </table>
+
+  <table frame="box" rules="cols" summary='Peripheral Module Disable (PMD) LOCK' style='margin:10px;'
+  cellpadding="3">
+    <tr style="border: 2px solid;">
+      <th>PMDLOCK</th>
+
+      <th>Peripheral Module Disable (PMD) LOCK</th>
+    </tr>
+
+    <tr>
+      <td>PMDLOCK = ON</td>
+
+      <td><font size="2">PMDx SFR bits are locked and cannot be modified</font></td>
+    </tr>
+
+    <tr>
+      <td>PMDLOCK = OFF</td>
+
+      <td><font size="2">PMDx SFR bits are not locked and can be modified</font></td>
+    </tr>
+  </table>
+
+  <table frame="box" rules="cols" summary='IO LOCK' style='margin:10px;' cellpadding="3">
+    <tr style="border: 2px solid;">
+      <th>IOLOCK</th>
+
+      <th>IO LOCK</th>
+    </tr>
+
+    <tr>
+      <td>IOLOCK = ON</td>
+
+      <td><font size="2">IO Remap SFR bits are locked and cannot be modified</font></td>
+    </tr>
+
+    <tr>
+      <td>IOLOCK = OFF</td>
+
+      <td><font size="2">IO Remap SFR are not locked and can be modified</font></td>
+    </tr>
+  </table>
+
+  <table frame="box" rules="cols" summary='Configuration Register Lock' style='margin:10px;' cellpadding="3">
+    <tr style="border: 2px solid;">
+      <th>CFGLOCK</th>
+
+      <th>Configuration Register Lock</th>
+    </tr>
+
+    <tr>
+      <td>CFGLOCK = ON</td>
+
+      <td><font size="2">All OTP memory self-writes, BCFG0 and System Config registers, are locked and can
+      not be written - CFGLOCK value can not be changed</font></td>
+    </tr>
+
+    <tr>
+      <td>CFGLOCK = ON_W</td>
+
+      <td><font size="2">All OTP memory self-writes, BCFG0 and System Config registers, are locked and can
+      not be written - CFGLOCK value can be changed</font></td>
+    </tr>
+
+    <tr>
+      <td>CFGLOCK = OFF</td>
+
+      <td><font size="2">All OTP memory self-writes, BCFG0 and System Config registers, are not locked and
+      can be written - CFGLOCK value can be changed</font></td>
+    </tr>
+  </table>
+
+  <table frame="box" rules="cols" summary='OCMP Alternate Clock Selection' style='margin:10px;' cellpadding=
+  "3">
+    <tr style="border: 2px solid;">
+      <th>OC_ACLK</th>
+
+      <th>OCMP Alternate Clock Selection</th>
+    </tr>
+
+    <tr>
+      <td>OC_ACLK = OCMP_ALT_TMR</td>
+
+      <td><font size="2">OCMP module use an alternative TMR pair as their timebase clock</font></td>
+    </tr>
+
+    <tr>
+      <td>OC_ACLK = OCMP_TMR2_TMR3</td>
+
+      <td><font size="2">All OCMP Modules use TMR2/TMR3 as their timebase clock</font></td>
+    </tr>
+  </table>
+
+  <table frame="box" rules="cols" summary='ICAP Alternate Clock Selection' style='margin:10px;' cellpadding=
+  "3">
+    <tr style="border: 2px solid;">
+      <th>IC_ACLK</th>
+
+      <th>ICAP Alternate Clock Selection</th>
+    </tr>
+
+    <tr>
+      <td>IC_ACLK = ICAP_ALT_TMR</td>
+
+      <td><font size="2">ICAP module use an alternative TMR pair as their timebase clock</font></td>
+    </tr>
+
+    <tr>
+      <td>IC_ACLK = ICAP_TMR2_TMR3</td>
+
+      <td><font size="2">All ICAP Modules use TMR2/TMR3 as their timebase clock</font></td>
+    </tr>
+  </table>
+
+  <table frame="box" rules="cols" summary='External Programming Clock enable' style='margin:10px;'
+  cellpadding="3">
+    <tr style="border: 2px solid;">
+      <th>EPGMCLK</th>
+
+      <th>External Programming Clock enable</th>
+    </tr>
+
+    <tr>
+      <td>EPGMCLK = TSTFRC</td>
+
+      <td><font size="2">In ICSP (TMOD0) mode, enable the FRC clock to be driven by the TSTFRC Pin
+      Function</font></td>
+    </tr>
+
+    <tr>
+      <td>EPGMCLK = FRC</td>
+
+      <td><font size="2">In ICSP (TMOD0) mode, the FRC clock is always driven by the FRC
+      oscillator</font></td>
+    </tr>
+  </table>
+
+  <table frame="box" rules="cols" summary='Background Debugger Access Selection' style='margin:10px;'
+  cellpadding="3">
+    <tr style="border: 2px solid;">
+      <th>DEBUG</th>
+
+      <th>Background Debugger Access Selection</th>
+    </tr>
+
+    <tr>
+      <td>DEBUG = JTAG</td>
+
+      <td><font size="2">4-wire JTAG I/F Enabled - EMUC/EMUD Disabled - ICD Module Disabled</font></td>
+    </tr>
+
+    <tr>
+      <td>DEBUG = JTAG_ICD</td>
+
+      <td><font size="2">4-wire JTAG I/F Enabled - EMUC/EMUD Disabled - ICD Module Enabled</font></td>
+    </tr>
+
+    <tr>
+      <td>DEBUG = EMUC</td>
+
+      <td><font size="2">EMUC/EMUD Enabled - 4-wire JTAG I/F Disabled - ICD Module Disabled</font></td>
+    </tr>
+
+    <tr>
+      <td>DEBUG = EMUC_ICD</td>
+
+      <td><font size="2">EMUC/EMUD Enabled - 4-wire JTAG I/F Disabled - ICD Module Enabled</font></td>
+    </tr>
+  </table>
+
+  <table frame="box" rules="cols" summary='EMUC/EMUD Communication Channel Select' style='margin:10px;'
+  cellpadding="3">
+    <tr style="border: 2px solid;">
+      <th>ICESEL</th>
+
+      <th>EMUC/EMUD Communication Channel Select</th>
+    </tr>
+
+    <tr>
+      <td>ICESEL = ICS_PGx1</td>
+
+      <td><font size="2">ICE EMUC1/EMUD1 pins are shared with PGC1/PGD1</font></td>
+    </tr>
+
+    <tr>
+      <td>ICESEL = ICS_PGx2</td>
+
+      <td><font size="2">ICE EMUC2/EMUD2 pins are shared with PGC2/PGD2</font></td>
+    </tr>
+
+    <tr>
+      <td>ICESEL = ICS_PGx3</td>
+
+      <td><font size="2">ICE EMUC3/EMUD3 pins are shared with PGC3/PGD3</font></td>
+    </tr>
+
+    <tr>
+      <td>ICESEL = ICS_PGx4</td>
+
+      <td><font size="2">ICE EMUC4/EMUD4 pins are shared with PGC4/PGD4</font></td>
+    </tr>
+  </table>
+
+  <table frame="box" rules="cols" summary='Trace Enable' style='margin:10px;' cellpadding="3">
+    <tr style="border: 2px solid;">
+      <th>TRCEN</th>
+
+      <th>Trace Enable</th>
+    </tr>
+
+    <tr>
+      <td>TRCEN = ON</td>
+
+      <td><font size="2">Trace features in the CPU are enabled</font></td>
+    </tr>
+
+    <tr>
+      <td>TRCEN = OFF</td>
+
+      <td><font size="2">Trace features in the CPU are disabled</font></td>
+    </tr>
+  </table>
+
+  <table frame="box" rules="cols" summary='Selects CRU handling of MCLR Control' style='margin:10px;'
+  cellpadding="3">
+    <tr style="border: 2px solid;">
+      <th>SMCLR</th>
+
+      <th>Selects CRU handling of MCLR Control</th>
+    </tr>
+
+    <tr>
+      <td>SMCLR = MCLR_NORM</td>
+
+      <td><font size="2">Legacy mode (system clear does not reset all state of device)</font></td>
+    </tr>
+
+    <tr>
+      <td>SMCLR = MCLR_POR</td>
+
+      <td><font size="2">MCLR causes a faux POR</font></td>
+    </tr>
+  </table>
+
+  <table frame="box" rules="cols" summary='UART1 High Speed Mode Enable' style='margin:10px;' cellpadding=
+  "3">
+    <tr style="border: 2px solid;">
+      <th>HSUARTEN</th>
+
+      <th>UART1 High Speed Mode Enable</th>
+    </tr>
+
+    <tr>
+      <td>HSUARTEN = ON</td>
+
+      <td><font size="2">UART1 is driven from/to dedicated pins, resulting in the highest possible maximum
+      baud rate</font></td>
+    </tr>
+
+    <tr>
+      <td>HSUARTEN = OFF</td>
+
+      <td><font size="2">UART1 is driven through PPS (I/O remap), resulting in a lower maximum baud
+      rate</font></td>
+    </tr>
+  </table>
+
+  <table frame="box" rules="cols" summary='Disable CLASSB Device Functionality' style='margin:10px;'
+  cellpadding="3">
+    <tr style="border: 2px solid;">
+      <th>CLASSBDIS</th>
+
+      <th>Disable CLASSB Device Functionality</th>
+    </tr>
+
+    <tr>
+      <td>CLASSBDIS = ENABLE</td>
+
+      <td><font size="2">CLASSB functions enabled</font></td>
+    </tr>
+
+    <tr>
+      <td>CLASSBDIS = DISABLE</td>
+
+      <td><font size="2">CLASSB functions disabled</font></td>
+    </tr>
+  </table>
+
+  <table frame="box" rules="cols" summary='USB USBID Selection bit' style='margin:10px;' cellpadding="3">
+    <tr style="border: 2px solid;">
+      <th>USBIDIO</th>
+
+      <th>USB USBID Selection bit</th>
+    </tr>
+
+    <tr>
+      <td>USBIDIO = ON</td>
+
+      <td><font size="2">USBID pin is controlled by the USB Module</font></td>
+    </tr>
+
+    <tr>
+      <td>USBIDIO = OFF</td>
+
+      <td><font size="2">USBID pin is controlled by the Port Function</font></td>
+    </tr>
+  </table>
+
+  <table frame="box" rules="cols" summary='USB VBUS_ON Selection bit' style='margin:10px;' cellpadding="3">
+    <tr style="border: 2px solid;">
+      <th>VBUSIO</th>
+
+      <th>USB VBUS_ON Selection bit</th>
+    </tr>
+
+    <tr>
+      <td>VBUSIO = ON</td>
+
+      <td><font size="2">VBUS_ON pin is controlled by the USB Module</font></td>
+    </tr>
+
+    <tr>
+      <td>VBUSIO = OFF</td>
+
+      <td><font size="2">VBUS_ON pin is controlled by the Port Function</font></td>
+    </tr>
+  </table>
+
+  <table frame="box" rules="cols" summary='Watchdog Timer Post-scale Select Sleep bits' style='margin:10px;'
+  cellpadding="3">
+    <tr style="border: 2px solid;">
+      <th>WDTPSS</th>
+
+      <th>Watchdog Timer Post-scale Select Sleep bits</th>
+    </tr>
+
+    <tr>
+      <td>WDTPSS = PSS1048576</td>
+
+      <td><font size="2">1:1048576</font></td>
+    </tr>
+
+    <tr>
+      <td>WDTPSS = PSS524288</td>
+
+      <td><font size="2">1:524288</font></td>
+    </tr>
+
+    <tr>
+      <td>WDTPSS = PSS262144</td>
+
+      <td><font size="2">1:262144</font></td>
+    </tr>
+
+    <tr>
+      <td>WDTPSS = PSS131072</td>
+
+      <td><font size="2">1:131072</font></td>
+    </tr>
+
+    <tr>
+      <td>WDTPSS = PSS65536</td>
+
+      <td><font size="2">1:65536</font></td>
+    </tr>
+
+    <tr>
+      <td>WDTPSS = PSS32768</td>
+
+      <td><font size="2">1:32768</font></td>
+    </tr>
+
+    <tr>
+      <td>WDTPSS = PSS16384</td>
+
+      <td><font size="2">1:16384</font></td>
+    </tr>
+
+    <tr>
+      <td>WDTPSS = PSS8192</td>
+
+      <td><font size="2">1:8192</font></td>
+    </tr>
+
+    <tr>
+      <td>WDTPSS = PSS4096</td>
+
+      <td><font size="2">1:4096</font></td>
+    </tr>
+
+    <tr>
+      <td>WDTPSS = PSS2048</td>
+
+      <td><font size="2">1:2048</font></td>
+    </tr>
+
+    <tr>
+      <td>WDTPSS = PSS1024</td>
+
+      <td><font size="2">1:1024</font></td>
+    </tr>
+
+    <tr>
+      <td>WDTPSS = PSS512</td>
+
+      <td><font size="2">1:512</font></td>
+    </tr>
+
+    <tr>
+      <td>WDTPSS = PSS256</td>
+
+      <td><font size="2">1:256</font></td>
+    </tr>
+
+    <tr>
+      <td>WDTPSS = PSS128</td>
+
+      <td><font size="2">1:128</font></td>
+    </tr>
+
+    <tr>
+      <td>WDTPSS = PSS64</td>
+
+      <td><font size="2">1:64</font></td>
+    </tr>
+
+    <tr>
+      <td>WDTPSS = PSS32</td>
+
+      <td><font size="2">1:32</font></td>
+    </tr>
+
+    <tr>
+      <td>WDTPSS = PSS16</td>
+
+      <td><font size="2">1:16</font></td>
+    </tr>
+
+    <tr>
+      <td>WDTPSS = PSS8</td>
+
+      <td><font size="2">1:8</font></td>
+    </tr>
+
+    <tr>
+      <td>WDTPSS = PSS4</td>
+
+      <td><font size="2">1:4</font></td>
+    </tr>
+
+    <tr>
+      <td>WDTPSS = PSS2</td>
+
+      <td><font size="2">1:2</font></td>
+    </tr>
+
+    <tr>
+      <td>WDTPSS = PSS1</td>
+
+      <td><font size="2">1:1</font></td>
+    </tr>
+  </table>
+
+  <table frame="box" rules="cols" summary='Dead Man Timer Count Window Interval bits' style='margin:10px;'
+  cellpadding="3">
+    <tr style="border: 2px solid;">
+      <th>DMTINTV</th>
+
+      <th>Dead Man Timer Count Window Interval bits</th>
+    </tr>
+
+    <tr>
+      <td>DMTINTV = WIN_0</td>
+
+      <td><font size="2">Window/Interval value is zero for cfg_dmt_intv[31:0] - windowed mode is
+      disabled</font></td>
+    </tr>
+
+    <tr>
+      <td>DMTINTV = WIN_1_2</td>
+
+      <td><font size="2">Window/Interval value is 1/2 Counter value for cfg_dmt_intv[31:0]</font></td>
+    </tr>
+
+    <tr>
+      <td>DMTINTV = WIN_3_4</td>
+
+      <td><font size="2">Window/Interval value is 3/4 Counter value for cfg_dmt_intv[31:0]</font></td>
+    </tr>
+
+    <tr>
+      <td>DMTINTV = WIN_7_8</td>
+
+      <td><font size="2">Window/Interval value is 7/8 Counter value for cfg_dmt_intv[31:0]</font></td>
+    </tr>
+
+    <tr>
+      <td>DMTINTV = WIN_15_16</td>
+
+      <td><font size="2">Window/Interval value is 15/16 Counter value for cfg_dmt_intv[31:0]</font></td>
+    </tr>
+
+    <tr>
+      <td>DMTINTV = WIN_31_32</td>
+
+      <td><font size="2">Window/Interval value is 31/32 Counter value for cfg_dmt_intv[31:0]</font></td>
+    </tr>
+
+    <tr>
+      <td>DMTINTV = WIN_63_64</td>
+
+      <td><font size="2">Window/Interval value is 63/64 Counter value for cfg_dmt_intv[31:0]</font></td>
+    </tr>
+
+    <tr>
+      <td>DMTINTV = WIN_127_128</td>
+
+      <td><font size="2">Window/Interval value is 127/128 Counter value for cfg_dmt_intv[31:0]</font></td>
+    </tr>
+  </table>
+
+  <table frame="box" rules="cols" summary='Low Power (Secondary) Oscillator Enable bit' style='margin:10px;'
+  cellpadding="3">
+    <tr style="border: 2px solid;">
+      <th>LPOSCEN</th>
+
+      <th>Low Power (Secondary) Oscillator Enable bit</th>
+    </tr>
+
+    <tr>
+      <td>LPOSCEN = LPOSCE</td>
+
+      <td><font size="2">Enable Low Power (Secondary) Oscillator, also at reset</font></td>
+    </tr>
+
+    <tr>
+      <td>LPOSCEN = LPOSCD</td>
+
+      <td><font size="2">Disable Low Power (Secondary) Oscillator</font></td>
+    </tr>
+  </table>
+
+  <table frame="box" rules="cols" summary='Primary Oscillator Configuration bits' style='margin:10px;'
+  cellpadding="3">
+    <tr style="border: 2px solid;">
+      <th>POSCMOD</th>
+
+      <th>Primary Oscillator Configuration bits</th>
+    </tr>
+
+    <tr>
+      <td>POSCMOD = OFF</td>
+
+      <td><font size="2">Primary oscillator disabled</font></td>
+    </tr>
+
+    <tr>
+      <td>POSCMOD = HS</td>
+
+      <td><font size="2">HS oscillator mode selected</font></td>
+    </tr>
+  </table>
+
+  <table frame="box" rules="cols" summary='SOSC Selection Configuration bit' style='margin:10px;'
+  cellpadding="3">
+    <tr style="border: 2px solid;">
+      <th>SOSCSEL</th>
+
+      <th>SOSC Selection Configuration bit</th>
+    </tr>
+
+    <tr>
+      <td>SOSCSEL = CRYSTAL</td>
+
+      <td><font size="2">Crystal (SOSCI/SOSCO) mode</font></td>
+    </tr>
+
+    <tr>
+      <td>SOSCSEL = DIGITAL</td>
+
+      <td><font size="2">Digital (SCLKI) mode</font></td>
+    </tr>
+  </table>
+
+  <table frame="box" rules="cols" summary='Software Clock Switching Enable' style='margin:10px;' cellpadding=
+  "3">
+    <tr style="border: 2px solid;">
+      <th>CKSWEN</th>
+
+      <th>Software Clock Switching Enable</th>
+    </tr>
+
+    <tr>
+      <td>CKSWEN = ON</td>
+
+      <td><font size="2">Software Clock Switching Enabled</font></td>
+    </tr>
+
+    <tr>
+      <td>CKSWEN = OFF</td>
+
+      <td><font size="2">Software Clock Switching Disabled</font></td>
+    </tr>
+  </table>
+
+  <table frame="box" rules="cols" summary='Fail-Safe Clock Monitor Enable' style='margin:10px;' cellpadding=
+  "3">
+    <tr style="border: 2px solid;">
+      <th>FSCMEN</th>
+
+      <th>Fail-Safe Clock Monitor Enable</th>
+    </tr>
+
+    <tr>
+      <td>FSCMEN = ON</td>
+
+      <td><font size="2">FSCM Enabled</font></td>
+    </tr>
+
+    <tr>
+      <td>FSCMEN = OFF</td>
+
+      <td><font size="2">FSCM Disabled</font></td>
+    </tr>
+  </table>
+
+  <table frame="box" rules="cols" summary='Watchdog Timer Post-scale Select Run bits' style='margin:10px;'
+  cellpadding="3">
+    <tr style="border: 2px solid;">
+      <th>WDTPSR</th>
+
+      <th>Watchdog Timer Post-scale Select Run bits</th>
+    </tr>
+
+    <tr>
+      <td>WDTPSR = PSR1048576</td>
+
+      <td><font size="2">1:1048576</font></td>
+    </tr>
+
+    <tr>
+      <td>WDTPSR = PSR524288</td>
+
+      <td><font size="2">1:524288</font></td>
+    </tr>
+
+    <tr>
+      <td>WDTPSR = PSR262144</td>
+
+      <td><font size="2">1:262144</font></td>
+    </tr>
+
+    <tr>
+      <td>WDTPSR = PSR131072</td>
+
+      <td><font size="2">1:131072</font></td>
+    </tr>
+
+    <tr>
+      <td>WDTPSR = PSR65536</td>
+
+      <td><font size="2">1:65536</font></td>
+    </tr>
+
+    <tr>
+      <td>WDTPSR = PSR32768</td>
+
+      <td><font size="2">1:32768</font></td>
+    </tr>
+
+    <tr>
+      <td>WDTPSR = PSR16384</td>
+
+      <td><font size="2">1:16384</font></td>
+    </tr>
+
+    <tr>
+      <td>WDTPSR = PSR8192</td>
+
+      <td><font size="2">1:8192</font></td>
+    </tr>
+
+    <tr>
+      <td>WDTPSR = PSR4096</td>
+
+      <td><font size="2">1:4096</font></td>
+    </tr>
+
+    <tr>
+      <td>WDTPSR = PSR2048</td>
+
+      <td><font size="2">1:2048</font></td>
+    </tr>
+
+    <tr>
+      <td>WDTPSR = PSR1024</td>
+
+      <td><font size="2">1:1024</font></td>
+    </tr>
+
+    <tr>
+      <td>WDTPSR = PSR512</td>
+
+      <td><font size="2">1:512</font></td>
+    </tr>
+
+    <tr>
+      <td>WDTPSR = PSR256</td>
+
+      <td><font size="2">1:256</font></td>
+    </tr>
+
+    <tr>
+      <td>WDTPSR = PSR128</td>
+
+      <td><font size="2">1:128</font></td>
+    </tr>
+
+    <tr>
+      <td>WDTPSR = PSR64</td>
+
+      <td><font size="2">1:64</font></td>
+    </tr>
+
+    <tr>
+      <td>WDTPSR = PSR32</td>
+
+      <td><font size="2">1:32</font></td>
+    </tr>
+
+    <tr>
+      <td>WDTPSR = PSR16</td>
+
+      <td><font size="2">1:16</font></td>
+    </tr>
+
+    <tr>
+      <td>WDTPSR = PSR8</td>
+
+      <td><font size="2">1:8</font></td>
+    </tr>
+
+    <tr>
+      <td>WDTPSR = PSR4</td>
+
+      <td><font size="2">1:4</font></td>
+    </tr>
+
+    <tr>
+      <td>WDTPSR = PSR2</td>
+
+      <td><font size="2">1:2</font></td>
+    </tr>
+
+    <tr>
+      <td>WDTPSR = PSR1</td>
+
+      <td><font size="2">1:1</font></td>
+    </tr>
+  </table>
+
+  <table frame="box" rules="cols" summary='Watchdog Timer Stop during Flash Programming bit' style=
+  'margin:10px;' cellpadding="3">
+    <tr style="border: 2px solid;">
+      <th>WDTSPGM</th>
+
+      <th>Watchdog Timer Stop during Flash Programming bit</th>
+    </tr>
+
+    <tr>
+      <td>WDTSPGM = STOP</td>
+
+      <td><font size="2">The WDT stops during OTP programming (legacy)</font></td>
+    </tr>
+
+    <tr>
+      <td>WDTSPGM = RUN</td>
+
+      <td><font size="2">The WDT runs during OTP programming (for read/execute while programming flash
+      systems)</font></td>
+    </tr>
+  </table>
+
+  <table frame="box" rules="cols" summary='Windowed Watchdog Timer Disable bit' style='margin:10px;'
+  cellpadding="3">
+    <tr style="border: 2px solid;">
+      <th>WINDIS</th>
+
+      <th>Windowed Watchdog Timer Disable bit</th>
+    </tr>
+
+    <tr>
+      <td>WINDIS = NORMAL</td>
+
+      <td><font size="2">Standard WDT selected; windowed WDT disabled</font></td>
+    </tr>
+
+    <tr>
+      <td>WINDIS = WINDOW</td>
+
+      <td><font size="2">Windowed WDT enabled</font></td>
+    </tr>
+  </table>
+
+  <table frame="box" rules="cols" summary='Watchdog Timer Enable bit' style='margin:10px;' cellpadding="3">
+    <tr style="border: 2px solid;">
+      <th>WDT_EN</th>
+
+      <th>Watchdog Timer Enable bit</th>
+    </tr>
+
+    <tr>
+      <td>WDT_EN = ON</td>
+
+      <td><font size="2">WDT enabled</font></td>
+    </tr>
+
+    <tr>
+      <td>WDT_EN = OFF</td>
+
+      <td><font size="2">WDT disabled (control is placed on the SWDTEN bit)</font></td>
+    </tr>
+  </table>
+
+  <table frame="box" rules="cols" summary='Watchdog Timer Window Size bits' style='margin:10px;' cellpadding=
+  "3">
+    <tr style="border: 2px solid;">
+      <th>WINSZ</th>
+
+      <th>Watchdog Timer Window Size bits</th>
+    </tr>
+
+    <tr>
+      <td>WINSZ = WINSZ_75</td>
+
+      <td><font size="2">Window size is 75%</font></td>
+    </tr>
+
+    <tr>
+      <td>WINSZ = WINSZ_50</td>
+
+      <td><font size="2">Window size is 50%</font></td>
+    </tr>
+
+    <tr>
+      <td>WINSZ = WINSZ_37</td>
+
+      <td><font size="2">Window size is 37.5%</font></td>
+    </tr>
+
+    <tr>
+      <td>WINSZ = WINSZ_25</td>
+
+      <td><font size="2">Window size is 25%</font></td>
+    </tr>
+  </table>
+
+  <table frame="box" rules="cols" summary='Dead Man Timer Count Select bits' style='margin:10px;'
+  cellpadding="3">
+    <tr style="border: 2px solid;">
+      <th>DMTCNT</th>
+
+      <th>Dead Man Timer Count Select bits</th>
+    </tr>
+
+    <tr>
+      <td>DMTCNT = DMT8</td>
+
+      <td><font size="2">Counter value is 2^8</font></td>
+    </tr>
+
+    <tr>
+      <td>DMTCNT = DMT9</td>
+
+      <td><font size="2">Counter value is 2^9</font></td>
+    </tr>
+
+    <tr>
+      <td>DMTCNT = DMT10</td>
+
+      <td><font size="2">Counter value is 2^10</font></td>
+    </tr>
+
+    <tr>
+      <td>DMTCNT = DMT11</td>
+
+      <td><font size="2">Counter value is 2^11</font></td>
+    </tr>
+
+    <tr>
+      <td>DMTCNT = DMT12</td>
+
+      <td><font size="2">Counter value is 2^12</font></td>
+    </tr>
+
+    <tr>
+      <td>DMTCNT = DMT13</td>
+
+      <td><font size="2">Counter value is 2^13</font></td>
+    </tr>
+
+    <tr>
+      <td>DMTCNT = DMT14</td>
+
+      <td><font size="2">Counter value is 2^14</font></td>
+    </tr>
+
+    <tr>
+      <td>DMTCNT = DMT15</td>
+
+      <td><font size="2">Counter value is 2^15</font></td>
+    </tr>
+
+    <tr>
+      <td>DMTCNT = DMT16</td>
+
+      <td><font size="2">Counter value is 2^16</font></td>
+    </tr>
+
+    <tr>
+      <td>DMTCNT = DMT17</td>
+
+      <td><font size="2">Counter value is 2^17</font></td>
+    </tr>
+
+    <tr>
+      <td>DMTCNT = DMT18</td>
+
+      <td><font size="2">Counter value is 2^18</font></td>
+    </tr>
+
+    <tr>
+      <td>DMTCNT = DMT19</td>
+
+      <td><font size="2">Counter value is 2^19</font></td>
+    </tr>
+
+    <tr>
+      <td>DMTCNT = DMT20</td>
+
+      <td><font size="2">Counter value is 2^20</font></td>
+    </tr>
+
+    <tr>
+      <td>DMTCNT = DMT21</td>
+
+      <td><font size="2">Counter value is 2^21</font></td>
+    </tr>
+
+    <tr>
+      <td>DMTCNT = DMT22</td>
+
+      <td><font size="2">Counter value is 2^22</font></td>
+    </tr>
+
+    <tr>
+      <td>DMTCNT = DMT23</td>
+
+      <td><font size="2">Counter value is 2^23</font></td>
+    </tr>
+
+    <tr>
+      <td>DMTCNT = DMT24</td>
+
+      <td><font size="2">Counter value is 2^24</font></td>
+    </tr>
+
+    <tr>
+      <td>DMTCNT = DMT25</td>
+
+      <td><font size="2">Counter value is 2^25</font></td>
+    </tr>
+
+    <tr>
+      <td>DMTCNT = DMT26</td>
+
+      <td><font size="2">Counter value is 2^26</font></td>
+    </tr>
+
+    <tr>
+      <td>DMTCNT = DMT27</td>
+
+      <td><font size="2">Counter value is 2^27</font></td>
+    </tr>
+
+    <tr>
+      <td>DMTCNT = DMT28</td>
+
+      <td><font size="2">Counter value is 2^28</font></td>
+    </tr>
+
+    <tr>
+      <td>DMTCNT = DMT29</td>
+
+      <td><font size="2">Counter value is 2^29</font></td>
+    </tr>
+
+    <tr>
+      <td>DMTCNT = DMT30</td>
+
+      <td><font size="2">Counter value is 2^30</font></td>
+    </tr>
+
+    <tr>
+      <td>DMTCNT = DMT31</td>
+
+      <td><font size="2">Counter value is 2^31</font></td>
+    </tr>
+  </table>
+
+  <table frame="box" rules="cols" summary='Dead Man Timer Enable bit' style='margin:10px;' cellpadding="3">
+    <tr style="border: 2px solid;">
+      <th>DMT_EN</th>
+
+      <th>Dead Man Timer Enable bit</th>
+    </tr>
+
+    <tr>
+      <td>DMT_EN = ON</td>
+
+      <td><font size="2">DMT enabled</font></td>
+    </tr>
+
+    <tr>
+      <td>DMT_EN = OFF</td>
+
+      <td><font size="2">DMT disabled (control is placed on the DMTCON.ON bit)</font></td>
+    </tr>
+  </table>
+
+  <table frame="box" rules="cols" summary='User unique ID, readable using the JTAG USER_ID instruction'
+  style='margin:10px;' cellpadding="3">
+    <tr style="border: 2px solid;">
+      <th>USER_ID</th>
+
+      <th>User unique ID, readable using the JTAG USER_ID instruction</th>
+    </tr>
+
+    <tr>
+      <td>USER_ID = 00000000</td>
+
+      <td><font size="2">Range is from 0 to 0xffff</font></td>
+    </tr>
+  </table>
+
+  <table frame="box" rules="cols" summary='' style='margin:10px;' cellpadding="3">
+    <tr style="border: 2px solid;">
+      <th>CPN</th>
+
+      <th></th>
+    </tr>
+
+    <tr>
+      <td>CPN = OFF</td>
+
+      <td><font size="2">Protection Disabled</font></td>
+    </tr>
+
+    <tr>
+      <td>CPN = ON</td>
+
+      <td><font size="2">Protection Enabled</font></td>
+    </tr>
+  </table>
+
+  <table frame="box" rules="cols" summary='Boot Source Select' style='margin:10px;' cellpadding="3">
+    <tr style="border: 2px solid;">
+      <th>BOOTSEL</th>
+
+      <th>Boot Source Select</th>
+    </tr>
+
+    <tr>
+      <td>BOOTSEL = IPF</td>
+
+      <td><font size="2">SPI0 connected at power-up to the in-package SPI Flash Memory</font></td>
+    </tr>
+
+    <tr>
+      <td>BOOTSEL = EXTF</td>
+
+      <td><font size="2">SPI0 connected at power-up to the external SPI Flash Memory</font></td>
+    </tr>
+  </table>
+
+  <p>[ <a href="../XC32MasterIndex.htm">Documentation Index</a> | <a href="../PIC32ConfigSet.html">Device
+  index</a> ]</p>
+</body>
+</html>

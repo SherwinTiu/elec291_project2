@@ -1,0 +1,655 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html>
+<head>
+  <meta name="generator" content=
+  "HTML Tidy for Mac OS X (vers 31 October 2006 - Apple Inc. build 15.15), see www.w3.org">
+
+  <title>&lt;stdint.h&gt;</title>
+</head>
+
+<body>
+  <h1><a name="&lt;stdint.h&gt;"><code>&lt;stdint.h&gt;</code></a></h1>
+
+  <p>[added with <a href="lib_over.html#C99">C99</a>]</p>
+  <hr>
+
+  <p>Include the standard header <b><code>&lt;stdint.h&gt;</code></b> to define various integer types, and
+  related macros, with size constraints.</p>
+  <hr>
+
+  <p><b><code><a href="#int8_t">int8_t</a> &middot; <a href="#int16_t">int16_t</a> &middot; <a href=
+  "#int32_t">int32_t</a> &middot; <a href="#int64_t">int64_t</a> &middot; <a href=
+  "#int_fast8_t">int_fast8_t</a> &middot; <a href="#int_fast16_t">int_fast16_t</a> &middot; <a href=
+  "#int_fast32_t">int_fast32_t</a> &middot; <a href="#int_fast64_t">int_fast64_t</a> &middot; <a href=
+  "#int_least8_t">int_least8_t</a> &middot; <a href="#int_least16_t">int_least16_t</a> &middot; <a href=
+  "#int_least32_t">int_least32_t</a> &middot; <a href="#int_least64_t">int_least64_t</a></code></b></p>
+
+  <p><b><code><a href="#uint8_t">uint8_t</a> &middot; <a href="#uint16_t">uint16_t</a> &middot; <a href=
+  "#uint32_t">uint32_t</a> &middot; <a href="#uint64_t">uint64_t</a> &middot; <a href=
+  "#uint_fast8_t">uint_fast8_t</a> &middot; <a href="#uint_fast16_t">uint_fast16_t</a> &middot; <a href=
+  "#uint_fast32_t">uint_fast32_t</a> &middot; <a href="#uint_fast64_t">uint_fast64_t</a> &middot; <a href=
+  "#uint_least8_t">uint_least8_t</a> &middot; <a href="#uint_least16_t">uint_least16_t</a> &middot; <a href=
+  "#uint_least32_t">uint_least32_t</a> &middot; <a href="#uint_least64_t">uint_least64_t</a></code></b></p>
+
+  <p><b><code><a href="#intmax_t">intmax_t</a> &middot; <a href="#intptr_t">intptr_t</a> &middot; <a href=
+  "#uintmax_t">uintmax_t</a> &middot; <a href="#uintptr_t">uintptr_t</a></code></b></p>
+
+  <p><b><code><a href="#INT8_C">INT8_C</a> &middot; <a href="#INT16_C">INT16_C</a> &middot; <a href=
+  "#INT32_C">INT32_C</a> &middot; <a href="#INT64_C">INT64_C</a> &middot; <a href="#INT8_MAX">INT8_MAX</a>
+  &middot; <a href="#INT16_MAX">INT16_MAX</a> &middot; <a href="#INT32_MAX">INT32_MAX</a> &middot; <a href=
+  "#INT64_MAX">INT64_MAX</a> &middot; <a href="#INT8_MIN">INT8_MIN</a> &middot; <a href=
+  "#INT16_MIN">INT16_MIN</a> &middot; <a href="#INT32_MIN">INT32_MIN</a> &middot; <a href=
+  "#INT64_MIN">INT64_MIN</a> &middot; <a href="#INT_FAST8_MAX">INT_FAST8_MAX</a> &middot; <a href=
+  "#INT_FAST16_MAX">INT_FAST16_MAX</a> &middot; <a href="#INT_FAST32_MAX">INT_FAST32_MAX</a> &middot;
+  <a href="#INT_FAST64_MAX">INT_FAST64_MAX</a> &middot; <a href="#INT_FAST8_MIN">INT_FAST8_MIN</a> &middot;
+  <a href="#INT_FAST16_MIN">INT_FAST16_MIN</a> &middot; <a href="#INT_FAST32_MIN">INT_FAST32_MIN</a> &middot;
+  <a href="#INT_FAST64_MIN">INT_FAST64_MIN</a> &middot; <a href="#INT_LEAST8_MAX">INT_LEAST8_MAX</a> &middot;
+  <a href="#INT_LEAST16_MAX">INT_LEAST16_MAX</a> &middot; <a href="#INT_LEAST32_MAX">INT_LEAST32_MAX</a>
+  &middot; <a href="#INT_LEAST64_MAX">INT_LEAST64_MAX</a> &middot; <a href=
+  "#INT_LEAST8_MIN">INT_LEAST8_MIN</a> &middot; <a href="#INT_LEAST16_MIN">INT_LEAST16_MIN</a> &middot;
+  <a href="#INT_LEAST32_MIN">INT_LEAST32_MIN</a> &middot; <a href=
+  "#INT_LEAST64_MIN">INT_LEAST64_MIN</a></code></b></p>
+
+  <p><b><code><a href="#UINT8_C">UINT8_C</a> &middot; <a href="#UINT16_C">UINT16_C</a> &middot; <a href=
+  "#UINT32_C">UINT32_C</a> &middot; <a href="#UINT64_C">UINT64_C</a> &middot; <a href=
+  "#UINTMAX_C">UINTMAX_C</a> &middot; <a href="#UINT8_MAX">UINT8_MAX</a> &middot; <a href=
+  "#UINT16_MAX">UINT16_MAX</a> &middot; <a href="#UINT32_MAX">UINT32_MAX</a> &middot; <a href=
+  "#UINT64_MAX">UINT64_MAX</a> &middot; <a href="#UINT_FAST8_MAX">UINT_FAST8_MAX</a> &middot; <a href=
+  "#UINT_FAST16_MAX">UINT_FAST16_MAX</a> &middot; <a href="#UINT_FAST32_MAX">UINT_FAST32_MAX</a> &middot;
+  <a href="#UINT_FAST64_MAX">UINT_FAST64_MAX</a> &middot; <a href="#UINT_LEAST8_MAX">UINT_LEAST8_MAX</a>
+  &middot; <a href="#UINT_LEAST16_MAX">UINT_LEAST16_MAX</a> &middot; <a href=
+  "#UINT_LEAST32_MAX">UINT_LEAST32_MAX</a> &middot; <a href=
+  "#UINT_LEAST64_MAX">UINT_LEAST64_MAX</a></code></b></p>
+
+  <p><b><code><a href="#INTMAX_C">INTMAX_C</a> &middot; <a href="#INTMAX_MAX">INTMAX_MAX</a> &middot;
+  <a href="#INTMAX_MIN">INTMAX_MIN</a> &middot; <a href="#INTPTR_MAX">INTPTR_MAX</a> &middot; <a href=
+  "#INTPTR_MIN">INTPTR_MIN</a> &middot; <a href="#PTRDIFF_MAX">PTRDIFF_MAX</a> &middot; <a href=
+  "#PTRDIFF_MIN">PTRDIFF_MIN</a> &middot; <a href="#SIG_ATOMIC_MAX">SIG_ATOMIC_MAX</a> &middot; <a href=
+  "#SIG_ATOMIC_MIN">SIG_ATOMIC_MIN</a> &middot; <a href="#SIZE_MAX">SIZE_MAX</a> &middot; <a href=
+  "#WCHAR_MAX">WCHAR_MAX</a> &middot; <a href="#WCHAR_MIN">WCHAR_MIN</a> &middot; <a href=
+  "#WINT_MAX">WINT_MAX</a> &middot; <a href="#WINT_MIN">WINT_MIN</a> &middot; <a href=
+  "#UINTMAX_MAX">UINTMAX_MAX</a> &middot; <a href="#UINTPTR_MAX">UINTPTR_MAX</a></code></b></p>
+
+  <p><b><code><a href="#RSIZE_MAX">RSIZE_MAX</a></code></b></p>
+  <hr>
+
+  <p>Note that the definitions shown below for the types and macros are merely representative -- they can
+  vary among implementations.</p>
+  <pre>
+        /* TYPE DEFINITIONS */
+typedef signed char <a href="#int8_t"><b>int8_t</b></a>;
+typedef short <a href="#int16_t"><b>int16_t</b></a>;
+typedef long <a href="#int32_t"><b>int32_t</b></a>;
+typedef long long <a href="#int64_t"><b>int64_t</b></a>;
+
+typedef unsigned char <a href="#uint8_t"><b>uint8_t</b></a>;
+typedef unsigned short <a href="#uint16_t"><b>uint16_t</b></a>;
+typedef unsigned long <a href="#uint32_t"><b>uint32_t</b></a>;
+typedef unsigned long long <a href="#uint64_t"><b>uint64_t</b></a>;
+
+typedef signed char <a href="#int_least8_t"><b>int_least8_t</b></a>;
+typedef short <a href="#int_least16_t"><b>int_least16_t</b></a>;
+typedef long <a href="#int_least32_t"><b>int_least32_t</b></a>;
+typedef long long <a href="#int_least64_t"><b>int_least64_t</b></a>;
+
+typedef unsigned char <a href="#uint_least8_t"><b>uint_least8_t</b></a>;
+typedef unsigned short <a href="#uint_least16_t"><b>uint_least16_t</b></a>;
+typedef unsigned long <a href="#uint_least32_t"><b>uint_least32_t</b></a>;
+typedef unsigned long long <a href="#uint_least64_t"><b>uint_least64_t</b></a>;
+
+typedef signed char <a href="#int_fast8_t"><b>int_fast8_t</b></a>;
+typedef short <a href="#int_fast16_t"><b>int_fast16_t</b></a>;
+typedef long <a href="#int_fast32_t"><b>int_fast32_t</b></a>;
+typedef long long <a href="#int_fast64_t"><b>int_fast64_t</b></a>;
+
+typedef unsigned char <a href="#uint_fast8_t"><b>uint_fast8_t</b></a>;
+typedef unsigned short <a href="#uint_fast16_t"><b>uint_fast16_t</b></a>;
+typedef unsigned long <a href="#uint_fast32_t"><b>uint_fast32_t</b></a>;
+typedef unsigned long long <a href="#uint_fast64_t"><b>uint_fast64_t</b></a>;
+
+typedef long <a href="#intptr_t"><b>intptr_t</b></a>;
+typedef unsigned long <a href="#uintptr_t"><b>uintptr_t</b></a>;
+
+typedef long long <a href="#intmax_t"><b>intmax_t</b></a>;
+typedef unsigned long long <a href="#uintmax_t"><b>uintmax_t</b></a>;
+
+        /* LIMIT MACROS */
+#define <a href="#INT8_MIN"><b>INT8_MIN</b></a>    (-0x7f - 1)
+#define <a href="#INT16_MIN"><b>INT16_MIN</b></a>   (-0x7fff - 1)
+#define <a href="#INT32_MIN"><b>INT32_MIN</b></a>   (-0x7fffffff - 1)
+#define <a href="#INT64_MIN"><b>INT64_MIN</b></a>   (-0x7fffffffffffffff - 1)
+
+#define <a href="#INT8_MAX"><b>INT8_MAX</b></a>    0x7f <b>[exact]</b>
+#define <a href="#INT16_MAX"><b>INT16_MAX</b></a>   0x7fff <b>[exact]</b>
+#define <a href="#INT32_MAX"><b>INT32_MAX</b></a>   0x7fffffff <b>[exact]</b>
+#define <a href="#INT64_MAX"><b>INT64_MAX</b></a>   0x7fffffffffffffff <b>[exact]</b>
+
+#define <a href="#UINT8_MAX"><b>UINT8_MAX</b></a>   0xff <b>[exact]</b>
+#define <a href="#UINT16_MAX"><b>UINT16_MAX</b></a>  0xffff <b>[exact]</b>
+#define <a href="#UINT32_MAX"><b>UINT32_MAX</b></a>  0xffffffff <b>[exact]</b>
+#define <a href="#UINT64_MAX"><b>UINT64_MAX</b></a>  0xffffffffffffffff <b>[exact]</b>
+
+#define <a href="#INT_LEAST8_MIN"><b>INT_LEAST8_MIN</b></a>    (-0x7f - 1)
+#define <a href="#INT_LEAST16_MIN"><b>INT_LEAST16_MIN</b></a>   (-0x7fff - 1)
+#define <a href="#INT_LEAST32_MIN"><b>INT_LEAST32_MIN</b></a>   (-0x7fffffff - 1)
+#define <a href="#INT_LEAST64_MIN"><b>INT_LEAST64_MIN</b></a>   (-0x7fffffffffffffff - 1)
+
+#define <a href="#INT_LEAST8_MAX"><b>INT_LEAST8_MAX</b></a>    0x7f
+#define <a href="#INT_LEAST16_MAX"><b>INT_LEAST16_MAX</b></a>   0x7fff
+#define <a href="#INT_LEAST32_MAX"><b>INT_LEAST32_MAX</b></a>   0x7fffffff
+#define <a href="#INT_LEAST64_MAX"><b>INT_LEAST64_MAX</b></a>   0x7fffffffffffffff
+
+#define <a href="#UINT_LEAST8_MAX"><b>UINT_LEAST8_MAX</b></a>   0xff
+#define <a href="#UINT_LEAST16_MAX"><b>UINT_LEAST16_MAX</b></a>  0xffff
+#define <a href="#UINT_LEAST32_MAX"><b>UINT_LEAST32_MAX</b></a>  0xffffffff
+#define <a href="#UINT_LEAST64_MAX"><b>UINT_LEAST64_MAX</b></a>  0xffffffffffffffff
+
+#define <a href="#INT_FAST8_MIN"><b>INT_FAST8_MIN</b></a>     (-0x7f - 1)
+#define <a href="#INT_FAST16_MIN"><b>INT_FAST16_MIN</b></a>    (-0x7fff - 1)
+#define <a href="#INT_FAST32_MIN"><b>INT_FAST32_MIN</b></a>    (-0x7fffffff - 1)
+#define <a href="#INT_FAST64_MIN"><b>INT_FAST64_MIN</b></a>    (-0x7fffffffffffffff - 1)
+
+#define <a href="#INT_FAST8_MAX"><b>INT_FAST8_MAX</b></a>     0x7f
+#define <a href="#INT_FAST16_MAX"><b>INT_FAST16_MAX</b></a>    0x7fff
+#define <a href="#INT_FAST32_MAX"><b>INT_FAST32_MAX</b></a>    0x7fffffff
+#define <a href="#INT_FAST64_MAX"><b>INT_FAST64_MAX</b></a>    0x7fffffffffffffff
+
+#define <a href="#UINT_FAST8_MAX"><b>UINT_FAST8_MAX</b></a>    0xff
+#define <a href="#UINT_FAST16_MAX"><b>UINT_FAST16_MAX</b></a>   0xffff
+#define <a href="#UINT_FAST32_MAX"><b>UINT_FAST32_MAX</b></a>   0xffffffff
+#define <a href="#UINT_FAST64_MAX"><b>UINT_FAST64_MAX</b></a>   0xffffffffffffffff
+
+#define <a href="#INTPTR_MIN"><b>INTPTR_MIN</b></a>        (-0x7fffffff - 1)
+#define <a href="#INTPTR_MAX"><b>INTPTR_MAX</b></a>        0x7fffffff
+#define <a href="#UINTPTR_MAX"><b>UINTPTR_MAX</b></a>       0xffffffff
+
+#define <a href="#INT8_C"><b>INT8_C</b></a>(x)    (x)
+#define <a href="#INT16_C"><b>INT16_C</b></a>(x)   (x)
+#define <a href="#INT32_C"><b>INT32_C</b></a>(x)   ((x) + (INT32_MAX - INT32_MAX))
+#define <a href="#INT64_C"><b>INT64_C</b></a>(x)   ((x) + (INT64_MAX - INT64_MAX))
+
+#define <a href="#UINT8_C"><b>UINT8_C</b></a>(x)   (x)
+#define <a href="#UINT16_C"><b>UINT16_C</b></a>(x)  (x)
+#define <a href="#UINT32_C"><b>UINT32_C</b></a>(x)  ((x) + (UINT32_MAX - UINT32_MAX))
+#define <a href="#UINT64_C"><b>UINT64_C</b></a>(x)  ((x) + (UINT64_MAX - UINT64_MAX))
+
+#define <a href="#INTMAX_C"><b>INTMAX_C</b></a>(x)  ((x) + (INT64_MAX - INT64_MAX))
+#define <a href="#UINTMAX_C"><b>UINTMAX_C</b></a>(x) ((x) + (UINT64_MAX - UINT64_MAX))
+
+#define <a href="#PTRDIFF_MIN"><b>PTRDIFF_MIN</b></a>  INT32_MIN
+#define <a href="#PTRDIFF_MAX"><b>PTRDIFF_MAX</b></a>  INT32_MAX
+
+#define <a href="#SIG_ATOMIC_MIN"><b>SIG_ATOMIC_MIN</b></a>    INT32_MIN
+#define <a href="#SIG_ATOMIC_MAX"><b>SIG_ATOMIC_MAX</b></a>    INT32_MAX
+
+#define <a href="#SIZE_MAX"><b>SIZE_MAX</b></a>     UINT32_MAX
+
+#define <a href="#WCHAR_MIN"><b>WCHAR_MIN</b></a>    0
+#define <a href="#WCHAR_MAX"><b>WCHAR_MAX</b></a>    UINT16_MAX
+
+#define <a href="#WINT_MIN"><b>WINT_MIN</b></a>     0
+#define <a href="#WINT_MAX"><b>WINT_MAX</b></a>     UINT16_MAX
+
+#define <a href="#INTMAX_MIN"><b>INTMAX_MIN</b></a>        (-0x7fffffffffffffff - 1)
+#define <a href="#INTMAX_MAX"><b>INTMAX_MAX</b></a>        0x7fffffffffffffff
+#define <a href="#UINTMAX_MAX"><b>UINTMAX_MAX</b></a>       0xffffffffffffffff
+
+#if __STDC_WANT_LIB_EXT1__ <b>[added with <a href="index_ext1.html#TR24731">TR24731</a>]</b>
+ #define <a href="#RSIZE_MAX"><b>RSIZE_MAX</b></a>   (SIZE_MAX / 2)
+#endif /* __STDC_WANT_LIB_EXT1__ */
+</pre>
+
+  <h2><a name="INT8_C"><code>INT8_C</code></a>, <a name="INT16_C"><code>INT16_C</code></a>, <a name=
+  "INT32_C"><code>INT32_C</code></a>, <a name="INT64_C"><code>INT64_C</code></a></h2>
+  <pre>
+#define <b>INT8_C</b>(x)    (x)
+#define <b>INT16_C</b>(x)   (x)
+#define <b>INT32_C</b>(x)   ((x) + (INT32_MAX - INT32_MAX))
+#define <b>INT64_C</b>(x)   ((x) + (INT64_MAX - INT64_MAX))
+</pre>
+
+  <p>The macros each convert an integer literal to a signed integer type whose representation has at least
+  eight, 16, 32, or 64 bits, respectively. Note that the definitions shown here are merely
+  representative.</p>
+
+  <h2><a name="INT8_MAX"><code>INT8_MAX</code></a>, <a name="INT16_MAX"><code>INT16_MAX</code></a>, <a name=
+  "INT32_MAX"><code>INT32_MAX</code></a>, <a name="INT64_MAX"><code>INT64_MAX</code></a></h2>
+  <pre>
+#define <b>INT8_MAX</b>    0x7f <b>[exact]</b>
+#define <b>INT16_MAX</b>   0x7fff <b>[exact]</b>
+#define <b>INT32_MAX</b>   0x7fffffff <b>[exact]</b>
+#define <b>INT64_MAX</b>   0x7fffffffffffffff <b>[exact]</b>
+</pre>
+
+  <p>The macros each expand to an <a href="preproc.html#if%20expression"><i>#if</i> expression</a> that
+  yields the maximum value representable as type <a href="#int8_t"><code>int8_t</code></a>, <a href=
+  "#int16_t"><code>int16_t</code></a>, <a href="#int32_t"><code>int32_t</code></a>, or <a href=
+  "#int64_t"><code>int64_t</code></a>, respectively. Note that the definitions shown here are
+  <i>exact.</i></p>
+
+  <h2><a name="INT8_MIN"><code>INT8_MIN</code></a>, <a name="INT16_MIN"><code>INT16_MIN</code></a>, <a name=
+  "INT32_MIN"><code>INT32_MIN</code></a>, <a name="INT64_MIN"><code>INT64_MIN</code></a></h2>
+  <pre>
+#define <b>INT8_MIN</b>    (-0x7f - 1)
+#define <b>INT16_MIN</b>   (-0x7fff - 1)
+#define <b>INT32_MIN</b>   (-0x7fffffff - 1)
+#define <b>INT64_MIN</b>   (-0x7fffffffffffffff - 1)
+</pre>
+
+  <p>The macros each expand to an <a href="preproc.html#if%20expression"><i>#if</i> expression</a> that
+  yields the minimum value representable as type <a href="#int8_t"><code>int8_t</code></a>, <a href=
+  "#int16_t"><code>int16_t</code></a>, <a href="#int32_t"><code>int32_t</code></a>, or <a href=
+  "#int64_t"><code>int64_t</code></a>, respectively. Note that the definitions shown here are merely
+  representative.</p>
+
+  <h2><a name="int8_t"><code>int8_t</code></a>, <a name="int16_t"><code>int16_t</code></a>, <a name=
+  "int32_t"><code>int32_t</code></a>, <a name="int64_t"><code>int64_t</code></a></h2>
+  <pre>
+typedef signed char <b>int8_t</b>;
+typedef short <b>int16_t</b>;
+typedef long <b>int32_t</b>;
+typedef long long <b>int64_t</b>;
+</pre>
+
+  <p>The types each specify a signed integer type whose representation has exactly eight, 16, 32, or 64 bits,
+  respectively. Note that the definitions shown here are merely representative.</p>
+
+  <h2><a name="INT_FAST8_MAX"><code>INT_FAST8_MAX</code></a>, <a name=
+  "INT_FAST16_MAX"><code>INT_FAST16_MAX</code></a>, <a name="INT_FAST32_MAX"><code>INT_FAST32_MAX</code></a>,
+  <a name="INT_FAST64_MAX"><code>INT_FAST64_MAX</code></a></h2>
+  <pre>
+#define <b>INT_FAST8_MAX</b>     0x7f
+#define <b>INT_FAST16_MAX</b>    0x7fff
+#define <b>INT_FAST32_MAX</b>    0x7fffffff
+#define <b>INT_FAST64_MAX</b>    0x7fffffffffffffff
+</pre>
+
+  <p>The macros each expand to an <a href="preproc.html#if%20expression"><i>#if</i> expression</a> that
+  yields the maximum value representable as type <a href="#int_fast8_t"><code>int_fast8_t</code></a>,
+  <a href="#int_fast16_t"><code>int_fast16_t</code></a>, <a href=
+  "#int_fast32_t"><code>int_fast32_t</code></a>, or <a href="#int_fast64_t"><code>int_fast64_t</code></a>,
+  respectively. Note that the definitions shown here are merely representative.</p>
+
+  <h2><a name="INT_FAST8_MIN"><code>INT_FAST8_MIN</code></a>, <a name=
+  "INT_FAST16_MIN"><code>INT_FAST16_MIN</code></a>, <a name="INT_FAST32_MIN"><code>INT_FAST32_MIN</code></a>,
+  <a name="INT_FAST64_MIN"><code>INT_FAST64_MIN</code></a></h2>
+  <pre>
+#define <b>INT_FAST8_MIN</b>     (-0x7f - 1)
+#define <b>INT_FAST16_MIN</b>    (-0x7fff - 1)
+#define <b>INT_FAST32_MIN</b>    (-0x7fffffff - 1)
+#define <b>INT_FAST64_MIN</b>    (-0x7fffffffffffffff - 1)
+</pre>
+
+  <p>The macros each expand to an <a href="preproc.html#if%20expression"><i>#if</i> expression</a> that
+  yields the minimum value representable as type <a href="#int_fast8_t"><code>int_fast8_t</code></a>,
+  <a href="#int_fast16_t"><code>int_fast16_t</code></a>, <a href=
+  "#int_fast32_t"><code>int_fast32_t</code></a>, or <a href="#int_fast64_t"><code>int_fast64_t</code></a>,
+  respectively. Note that the definitions shown here are merely representative.</p>
+
+  <h2><a name="int_fast8_t"><code>int_fast8_t</code></a>, <a name=
+  "int_fast16_t"><code>int_fast16_t</code></a>, <a name="int_fast32_t"><code>int_fast32_t</code></a>,
+  <a name="int_fast64_t"><code>int_fast64_t</code></a></h2>
+  <pre>
+typedef signed char <b>int_fast8_t</b>;
+typedef short <b>int_fast16_t</b>;
+typedef long <b>int_fast32_t</b>;
+typedef long long <b>int_fast64_t</b>;
+</pre>
+
+  <p>The types each specify a signed integer type that supports the fastest operations among those whose
+  representation has at least eight, 16, 32, or 64 bits, respectively. Note that the definitions shown here
+  are merely representative.</p>
+
+  <h2><a name="INT_LEAST8_MAX"><code>INT_LEAST8_MAX</code></a>, <a name=
+  "INT_LEAST16_MAX"><code>INT_LEAST16_MAX</code></a>, <a name=
+  "INT_LEAST32_MAX"><code>INT_LEAST32_MAX</code></a>, <a name=
+  "INT_LEAST64_MAX"><code>INT_LEAST64_MAX</code></a></h2>
+  <pre>
+#define <b>INT_LEAST8_MAX</b>    0x7f
+#define <b>INT_LEAST16_MAX</b>   0x7fff
+#define <b>INT_LEAST32_MAX</b>   0x7fffffff
+#define <b>INT_LEAST64_MAX</b>   0x7fffffffffffffff
+</pre>
+
+  <p>The macros each expand to an <a href="preproc.html#if%20expression"><i>#if</i> expression</a> that
+  yields the maximum value representable as type <a href="#int_least8_t"><code>int_least8_t</code></a>,
+  <a href="#int_least16_t"><code>int_least16_t</code></a>, <a href=
+  "#int_least32_t"><code>int_least32_t</code></a>, or <a href=
+  "#int_least64_t"><code>int_least64_t</code></a>, respectively. Note that the definitions shown here are
+  merely representative.</p>
+
+  <h2><a name="INT_LEAST8_MIN"><code>INT_LEAST8_MIN</code></a>, <a name=
+  "INT_LEAST16_MIN"><code>INT_LEAST16_MIN</code></a>, <a name=
+  "INT_LEAST32_MIN"><code>INT_LEAST32_MIN</code></a>, <a name=
+  "INT_LEAST64_MIN"><code>INT_LEAST64_MIN</code></a></h2>
+  <pre>
+#define <b>INT_LEAST8_MIN</b>    (-0x7f - 1)
+#define <b>INT_LEAST16_MIN</b>   (-0x7fff - 1)
+#define <b>INT_LEAST32_MIN</b>   (-0x7fffffff - 1)
+#define <b>INT_LEAST64_MIN</b>   (-0x7fffffffffffffff - 1)
+</pre>
+
+  <p>The macros each expand to an <a href="preproc.html#if%20expression"><i>#if</i> expression</a> that
+  yields the minimum value representable as type <a href="#int_least8_t"><code>int_least8_t</code></a>,
+  <a href="#int_least16_t"><code>int_least16_t</code></a>, <a href=
+  "#int_least32_t"><code>int_least32_t</code></a>, or <a href=
+  "#int_least64_t"><code>int_least64_t</code></a>, respectively. Note that the definitions shown here are
+  merely representative.</p>
+
+  <h2><a name="int_least8_t"><code>int_least8_t</code></a>, <a name=
+  "int_least16_t"><code>int_least16_t</code></a>, <a name="int_least32_t"><code>int_least32_t</code></a>,
+  <a name="int_least64_t"><code>int_least64_t</code></a></h2>
+  <pre>
+typedef signed char <b>int_least8_t</b>;
+typedef short <b>int_least16_t</b>;
+typedef long <b>int_least32_t</b>;
+typedef long long <b>int_least64_t</b>;
+</pre>
+
+  <p>The types each specify a signed integer type whose representation has at least eight, 16, 32, or 64
+  bits, respectively. Note that the definitions shown here are merely representative.</p>
+
+  <h2><a name="INTMAX_C"><code>INTMAX_C</code></a></h2>
+  <pre>
+#define <b>INTMAX_C</b>(x)  ((x) + (INT64_MAX - INT64_MAX))
+</pre>
+
+  <p>The macro converts an integer literal to the largest signed integer type. Note that the definition shown
+  here is merely representative.</p>
+
+  <h2><a name="INTMAX_MAX"><code>INTMAX_MAX</code></a></h2>
+  <pre>
+#define <b>INTMAX_MAX</b>        0x7fffffffffffffff
+</pre>
+
+  <p>The macro expands to an <a href="preproc.html#if%20expression"><i>#if</i> expression</a> that yields the
+  maximum value representable as type <a href="#intmax_t"><code>intmax_t</code></a>. Note that the definition
+  shown here is merely representative.</p>
+
+  <h2><a name="INTMAX_MIN"><code>INTMAX_MIN</code></a></h2>
+  <pre>
+#define <b>INTMAX_MIN</b>        (-0x7fffffffffffffff - 1)
+</pre>
+
+  <p>The macro expands to an <a href="preproc.html#if%20expression"><i>#if</i> expression</a> that yields the
+  minimum value representable as type <a href="#intmax_t"><code>intmax_t</code></a>. Note that the definition
+  shown here is merely representative.</p>
+
+  <h2><a name="intmax_t"><code>intmax_t</code></a></h2>
+  <pre>
+typedef long long <b>intmax_t</b>;
+</pre>
+
+  <p>The type specifies the largest signed integer type. Note that the definition shown here is merely
+  representative.</p>
+
+  <h2><a name="INTPTR_MAX"><code>INTPTR_MAX</code></a></h2>
+  <pre>
+#define <b>INTPTR_MAX</b>        0x7fffffff
+</pre>
+
+  <p>The macro expands to an <a href="preproc.html#if%20expression"><i>#if</i> expression</a> that yields the
+  maximum value representable as type <a href="#intptr_t"><code>intptr_t</code></a>. Note that the definition
+  shown here is merely representative.</p>
+
+  <h2><a name="INTPTR_MIN"><code>INTPTR_MIN</code></a></h2>
+  <pre>
+#define <b>INTPTR_MIN</b>        (-0x7fffffff - 1)
+</pre>
+
+  <p>The macro expands to an <a href="preproc.html#if%20expression"><i>#if</i> expression</a> that yields the
+  minimum value representable as type <a href="#intptr_t"><code>intptr_t</code></a>. Note that the definition
+  shown here is merely representative.</p>
+
+  <h2><a name="intptr_t"><code>intptr_t</code></a></h2>
+  <pre>
+typedef long <b>intptr_t</b>;
+</pre>
+
+  <p>The type specifies a signed integer type large enough to support interconversion with a void pointer.
+  (You can convert a void pointer to <code>intptr_t</code> and back, and the result compares equal to the
+  original pointer value.) Note that the definition shown here is merely representative.</p>
+
+  <h2><a name="PTRDIFF_MAX"><code>PTRDIFF_MAX</code></a></h2>
+  <pre>
+#define <b>PTRDIFF_MAX</b>  INT32_MAX
+</pre>
+
+  <p>The macro expands to an <a href="preproc.html#if%20expression"><i>#if</i> expression</a> that yields the
+  maximum value representable as type <a href="stddef.html#ptrdiff_t"><code>ptrdiff_t</code></a>. Note that
+  the definition shown here is merely representative.</p>
+
+  <h2><a name="PTRDIFF_MIN"><code>PTRDIFF_MIN</code></a></h2>
+  <pre>
+#define <b>PTRDIFF_MIN</b>  INT32_MIN
+</pre>
+
+  <p>The macro expands to an <a href="preproc.html#if%20expression"><i>#if</i> expression</a> that yields the
+  minimum value representable as type <a href="stddef.html#ptrdiff_t"><code>ptrdiff_t</code></a>. Note that
+  the definition shown here is merely representative.</p>
+
+  <h2><a name="RSIZE_MAX"><code>RSIZE_MAX</code></a></h2>
+  <pre>
+#define <b>RSIZE_MAX</b>   (SIZE_MAX / 2) <b>[added with TR24731]</b>
+</pre>
+
+  <p>The macro expands to an <a href="preproc.html#if%20expression"><i>#if</i> expression</a> that yields the
+  maximum valid value representable as type <a href="stddef.html#rsize_t"><code>rsize_t</code></a>. (It is a
+  <a href="index_ext1.html#runtime%20constraint%20violation">runtime constraint violation</a> for an argument
+  of type <code>rsize_t</code> to be greater than <code>RSIZE_MAX</code>.) Note that the definition shown
+  here is merely representative.</p>
+
+  <h2><a name="SIG_ATOMIC_MAX"><code>SIG_ATOMIC_MAX</code></a></h2>
+  <pre>
+#define <b>SIG_ATOMIC_MAX</b>    INT32_MAX
+</pre>
+
+  <p>The macro expands to an <a href="preproc.html#if%20expression"><i>#if</i> expression</a> that yields the
+  maximum value representable as type <a href="signal.html#sig_atomic_t"><code>sig_atomic_t</code></a>. Note
+  that the definition shown here is merely representative.</p>
+
+  <h2><a name="SIG_ATOMIC_MIN"><code>SIG_ATOMIC_MIN</code></a></h2>
+  <pre>
+#define <b>SIG_ATOMIC_MIN</b>    INT32_MIN
+</pre>
+
+  <p>The macro expands to an <a href="preproc.html#if%20expression"><i>#if</i> expression</a> that yields the
+  minimum value representable as type <a href="signal.html#sig_atomic_t"><code>sig_atomic_t</code></a>. Note
+  that the definition shown here is merely representative.</p>
+
+  <h2><a name="SIZE_MAX"><code>SIZE_MAX</code></a></h2>
+  <pre>
+#define <b>SIZE_MAX</b>     UINT32_MAX
+</pre>
+
+  <p>The macro expands to an <a href="preproc.html#if%20expression"><i>#if</i> expression</a> that yields the
+  maximum value representable as type <a href="stddef.html#size_t"><code>size_t</code></a>. Note that the
+  definition shown here is merely representative.</p>
+
+  <h2><a name="UINT8_C"><code>UINT8_C</code></a>, <a name="UINT16_C"><code>UINT16_C</code></a>, <a name=
+  "UINT32_C"><code>UINT32_C</code></a>, <a name="UINT64_C"><code>UINT64_C</code></a></h2>
+  <pre>
+#define <b>UINT8_C</b>(x)   (x)
+#define <b>UINT16_C</b>(x)  (x)
+#define <b>UINT32_C</b>(x)  ((x) + (UINT32_MAX - UINT32_MAX))
+#define <b>UINT64_C</b>(x)  ((x) + (UINT64_MAX - UINT64_MAX))
+</pre>
+
+  <p>The macros each convert an integer literal to an unsigned integer type whose representation has at least
+  eight, 16, 32, or 64 bits, respectively. Note that the definitions shown here are merely
+  representative.</p>
+
+  <h2><a name="UINT8_MAX"><code>UINT8_MAX</code></a>, <a name="UINT16_MAX"><code>UINT16_MAX</code></a>,
+  <a name="UINT32_MAX"><code>UINT32_MAX</code></a>, <a name="UINT64_MAX"><code>UINT64_MAX</code></a></h2>
+  <pre>
+#define <b>UINT8_MAX</b>   0xff <b>[exact]</b>
+#define <b>UINT16_MAX</b>  0xffff <b>[exact]</b>
+#define <b>UINT32_MAX</b>  0xffffffff <b>[exact]</b>
+#define <b>UINT64_MAX</b>  0xffffffffffffffff <b>[exact]</b>
+</pre>
+
+  <p>The macros each expand to an <a href="preproc.html#if%20expression"><i>#if</i> expression</a> that
+  yields the maximum value representable as type <a href="#uint8_t"><code>uint8_t</code></a>, <a href=
+  "#uint16_t"><code>uint16_t</code></a>, <a href="#uint32_t"><code>uint32_t</code></a>, or <a href=
+  "#uint64_t"><code>uint64_t</code></a>, respectively. Note that the definitions shown here are
+  <i>exact.</i></p>
+
+  <h2><a name="uint8_t"><code>uint8_t</code></a>, <a name="uint16_t"><code>uint16_t</code></a>, <a name=
+  "uint32_t"><code>uint32_t</code></a>, <a name="uint64_t"><code>uint64_t</code></a></h2>
+  <pre>
+typedef unsigned char <b>uint8_t</b>;
+typedef unsigned short <b>uint16_t</b>;
+typedef unsigned long <b>uint32_t</b>;
+typedef unsigned long long <b>uint64_t</b>;
+</pre>
+
+  <p>The types each specify an unsigned integer type whose representation has exactly eight, 16, 32, or 64
+  bits, respectively. Note that the definitions shown here are merely representative.</p>
+
+  <h2><a name="UINT_FAST8_MAX"><code>UINT_FAST8_MAX</code></a>, <a name=
+  "UINT_FAST16_MAX"><code>UINT_FAST16_MAX</code></a>, <a name=
+  "UINT_FAST32_MAX"><code>UINT_FAST32_MAX</code></a>, <a name=
+  "UINT_FAST64_MAX"><code>UINT_FAST64_MAX</code></a></h2>
+  <pre>
+#define <b>UINT_FAST8_MAX</b>    0xff
+#define <b>UINT_FAST16_MAX</b>   0xffff
+#define <b>UINT_FAST32_MAX</b>   0xffffffff
+#define <b>UINT_FAST64_MAX</b>   0xffffffffffffffff
+</pre>
+
+  <p>The macros each expand to an <a href="preproc.html#if%20expression"><i>#if</i> expression</a> that
+  yields the maximum value representable as type <a href="#uint_fast8_t"><code>uint_fast8_t</code></a>,
+  <a href="#uint_fast16_t"><code>uint_fast16_t</code></a>, <a href=
+  "#uint_fast32_t"><code>uint_fast32_t</code></a>, or <a href=
+  "#uint_fast64_t"><code>uint_fast64_t</code></a>, respectively. Note that the definitions shown here are
+  merely representative</p>
+
+  <h2><a name="uint_fast8_t"><code>uint_fast8_t</code></a>, <a name=
+  "uint_fast16_t"><code>uint_fast16_t</code></a>, <a name="uint_fast32_t"><code>uint_fast32_t</code></a>,
+  <a name="uint_fast64_t"><code>uint_fast64_t</code></a></h2>
+  <pre>
+typedef unsigned char <b>uint_fast8_t</b>;
+typedef unsigned short <b>uint_fast16_t</b>;
+typedef unsigned long <b>uint_fast32_t</b>;
+typedef unsigned long long <b>uint_fast64_t</b>;
+</pre>
+
+  <p>The types each specify an unsigned integer type that supports the fastest operations among those whose
+  representation has at least eight, 16, 32, or 64 bits, respectively. Note that the definitions shown here
+  are merely representative.</p>
+
+  <h2><a name="UINT_LEAST8_MAX"><code>UINT_LEAST8_MAX</code></a>, <a name=
+  "UINT_LEAST16_MAX"><code>UINT_LEAST16_MAX</code></a>, <a name=
+  "UINT_LEAST32_MAX"><code>UINT_LEAST32_MAX</code></a>, <a name=
+  "UINT_LEAST64_MAX"><code>UINT_LEAST64_MAX</code></a></h2>
+  <pre>
+#define <b>UINT_LEAST8_MAX</b>   0xff
+#define <b>UINT_LEAST16_MAX</b>  0xffff
+#define <b>UINT_LEAST32_MAX</b>  0xffffffff
+#define <b>UINT_LEAST64_MAX</b>  0xffffffffffffffff
+</pre>
+
+  <p>The macros each expand to an <a href="preproc.html#if%20expression"><i>#if</i> expression</a> that
+  yields the maximum value representable as type <a href="#uint_least8_t"><code>uint_least8_t</code></a>,
+  <a href="#uint_least16_t"><code>uint_least16_t</code></a>, <a href=
+  "#uint_least32_t"><code>uint_least32_t</code></a>, or <a href=
+  "#uint_least64_t"><code>uint_least64_t</code></a>, respectively. Note that the definitions shown here are
+  merely representative</p>
+
+  <h2><a name="uint_least8_t"><code>uint_least8_t</code></a>, <a name=
+  "uint_least16_t"><code>uint_least16_t</code></a>, <a name="uint_least32_t"><code>uint_least32_t</code></a>,
+  <a name="uint_least64_t"><code>uint_least64_t</code></a></h2>
+  <pre>
+typedef unsigned char <b>uint_least8_t</b>;
+typedef unsigned short <b>uint_least16_t</b>;
+typedef unsigned long <b>uint_least32_t</b>;
+typedef unsigned long long <b>uint_least64_t</b>;
+</pre>
+
+  <p>The types each specify an unsigned integer type whose representation has at least eight, 16, 32, or 64
+  bits, respectively. Note that the definitions shown here are merely representative.</p>
+
+  <h2><a name="UINTMAX_C"><code>UINTMAX_C</code></a></h2>
+  <pre>
+#define <b>UINTMAX_C</b>(x) ((x) + (UINT64_MAX - UINT64_MAX))
+</pre>
+
+  <p>The macro converts an unsuffixed integer literal to the largest unsigned integer type. Note that the
+  definition shown here is merely representative.</p>
+
+  <h2><a name="UINTMAX_MAX"><code>UINTMAX_MAX</code></a></h2>
+  <pre>
+#define <b>UINTMAX_MAX</b>       0xffffffffffffffff
+</pre>
+
+  <p>The macro expands to an <a href="preproc.html#if%20expression"><i>#if</i> expression</a> that yields the
+  maximum value representable as type <a href="#uintmax_t"><code>uintmax_t</code></a>. Note that the
+  definition shown here is merely representative.</p>
+
+  <h2><a name="uintmax_t"><code>uintmax_t</code></a></h2>
+  <pre>
+typedef unsigned long long <b>uintmax_t</b>;
+</pre>
+
+  <p>The type specifies the largest unsigned integer type. Note that the definition shown here is merely
+  representative.</p>
+
+  <h2><a name="UINTPTR_MAX"><code>UINTPTR_MAX</code></a></h2>
+  <pre>
+#define <b>UINTPTR_MAX</b>       0xffffffff
+</pre>
+
+  <p>The macro expands to an <a href="preproc.html#if%20expression"><i>#if</i> expression</a> that yields the
+  maximum value representable as type <a href="#uintptr_t"><code>uintptr_t</code></a>. Note that the
+  definition shown here is merely representative.</p>
+
+  <h2><a name="uintptr_t"><code>uintptr_t</code></a></h2>
+  <pre>
+typedef unsigned long <b>uintptr_t</b>;
+</pre>
+
+  <p>The type specifies an unsigned integer type large enough to support interconversion with a void pointer.
+  (You can convert a void pointer to <code>uintptr_t</code> and back, and the result compares equal to the
+  original pointer value.) Note that the definition shown here is merely representative.</p>
+
+  <h2><a name="WCHAR_MAX"><code>WCHAR_MAX</code></a></h2>
+  <pre>
+#define <b>WCHAR_MAX</b>    UINT16_MAX
+</pre>
+
+  <p>The macro expands to an <a href="preproc.html#if%20expression"><i>#if</i> expression</a> that yields the
+  maximum value representable as type <a href="stddef.html#wchar_t"><code>wchar_t</code></a>. Note that the
+  definition shown here is merely representative.</p>
+
+  <h2><a name="WCHAR_MIN"><code>WCHAR_MIN</code></a></h2>
+  <pre>
+#define <b>WCHAR_MIN</b>    0
+</pre>
+
+  <p>The macro expands to an <a href="preproc.html#if%20expression"><i>#if</i> expression</a> that yields the
+  minimum value representable as type <a href="stddef.html#wchar_t"><code>wchar_t</code></a>. Note that the
+  definition shown here is merely representative.</p>
+
+  <h2><a name="WINT_MAX"><code>WINT_MAX</code></a></h2>
+  <pre>
+#define <b>WINT_MAX</b>     UINT16_MAX
+</pre>
+
+  <p>The macro expands to an <a href="preproc.html#if%20expression"><i>#if</i> expression</a> that yields the
+  maximum value representable as type <a href="wchar.html#wint_t"><code>wint_t</code></a>. Note that the
+  definition shown here is merely representative.</p>
+
+  <h2><a name="WINT_MIN"><code>WINT_MIN</code></a></h2>
+  <pre>
+#define <b>WINT_MIN</b>     0
+</pre>
+
+  <p>The macro expands to an <a href="preproc.html#if%20expression"><i>#if</i> expression</a> that yields the
+  minimum value representable as type <a href="wchar.html#wint_t"><code>wint_t</code></a>. Note that the
+  definition shown here is merely representative.</p>
+
+  <p><i><a href="crit_pjp.html">Copyright</a> &copy; 1992-2010 by P.J. Plauger. All rights reserved.</i></p>
+  <!--V5.30:126I-->
+</body>
+</html>

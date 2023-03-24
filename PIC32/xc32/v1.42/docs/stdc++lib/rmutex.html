@@ -1,0 +1,158 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html>
+<head>
+  <meta name="generator" content=
+  "HTML Tidy for Mac OS X (vers 31 October 2006 - Apple Inc. build 15.15), see www.w3.org">
+
+  <title>"recursive_mutex"</title>
+</head>
+
+<body>
+  <h1><a name="&quot;recursive_mutex&quot;">"Dinkum/threads/recursive_mutex"</a></h1>
+  <hr>
+
+  <p>Include the header <b><code>"Dinkum/threads/recursive_mutex"</code></b> to define the recursive <a href=
+  "index_thr.html#mutex">mutex</a> classes <code>recursive_mutex</code>, <code>recursive_try_mutex</code>,
+  and <code>recursive_timed_mutex</code>.</p>
+  <pre>
+namespace Dinkum {
+    namespace threads {
+    class <b><a href="#recursive_mutex">recursive_mutex</a></b>;
+    class <b><a href="#recursive_try_mutex">recursive_try_mutex</a></b>;
+    class <b><a href="#recursive_timed_mutex">recursive_timed_mutex</a></b>;
+    }  // namespace threads
+} // namespace Dinkum
+</pre>
+
+  <h2><a name="recursive_mutex"><code>recursive_mutex</code></a></h2>
+  <pre>
+class <b>recursive_mutex</b>
+    {
+public:
+    <b><a href="#recursive_mutex::recursive_mutex">recursive_mutex</a></b>();
+    <b><a href="#recursive_mutex::~recursive_mutex">~recursive_mutex</a></b>();
+    typedef SL0 <b><a href="#scoped_lock">scoped_lock</a></b>;
+
+<i>    // exposition only
+private:
+    // not implemented
+    recursive_mutex(const recursive_mutex&amp;);
+    recursive_mutex&amp; operator= (const recursive_mutex&amp;);</i>
+    };
+</pre>
+
+  <p>The class describes an object that can be used with a <a href="mutex.html#lock%20object">lock object</a>
+  to provide a recursive <a href="index_thr.html#mutex">mutex</a> object. Objects of class
+  <code>recursive_mutex</code> cannot be copied.</p>
+
+  <h3><code><a name="recursive_mutex::recursive_mutex">recursive_mutex::recursive_mutex</a></code></h3>
+  <pre>
+<b>recursive_mutex</b>();
+</pre>
+
+  <p>The constructor constructs a <code>mutex</code> in the unlocked state.</p>
+
+  <h3><code><a name="recursive_mutex::~recursive_mutex">recursive_mutex::~recursive_mutex</a></code></h3>
+  <pre>
+<b>~recursive_mutex</b>();
+</pre>
+
+  <p><i><a href="index_thr.html#Precondition">Precondition</a>:</i> the object must not be locked.</p>
+
+  <p>The destructor releases any resources used by the object.</p>
+
+  <h2><a name="recursive_timed_mutex"><code>recursive_timed_mutex</code></a></h2>
+  <pre>
+class <b>recursive_timed_mutex</b>
+    {
+public:
+    <b><a href="#recursive_timed_mutex::recursive_timed_mutex">recursive_timed_mutex</a></b>();
+    <b><a href="#recursive_timed_mutex::~recursive_timed_mutex">~recursive_timed_mutex</a></b>();
+    typedef SL0 <b><a href="#scoped_lock">scoped_lock</a></b>;
+    typedef SL1 <b><a href="#scoped_try_lock">scoped_try_lock</a></b>;
+    typedef SL2 <b><a href="#scoped_timed_lock">scoped_timed_lock</a></b>;
+
+<i>    // exposition only
+private:
+    // not implemented
+    recursive_timed_mutex(const recursive_timed_mutex&amp;);
+    recursive_timed_mutex&amp; operator= (const recursive_timed_mutex&amp;);</i>
+    };
+</pre>
+
+  <p>The class describes an object that can be used with a <b><a name="scoped_lock">scoped_lock</a></b>, a
+  <b><a name="scoped_try_lock">scoped_try_lock</a></b>, or a <b><a name=
+  "scoped_timed_lock">scoped_timed_lock</a></b> to provide a recursive <a href=
+  "index_thr.html#mutex">mutex</a> object that supports <a href="index_thr.html#test%20and%20return">test and
+  return</a> and <a href="index_thr.html#timeout">timeout</a>. Objects of class
+  <code>recursive_timed_mutex</code> cannot be copied.</p>
+
+  <h3><code><a name=
+  "recursive_timed_mutex::recursive_timed_mutex">recursive_timed_mutex::recursive_timed_mutex</a></code></h3>
+  <pre>
+<b>recursive_timed_mutex</b>();
+</pre>
+
+  <p>The constructor constructs a <code>recursive_timed_mutex</code> in the unlocked state.</p>
+
+  <h3><code><a name=
+  "recursive_timed_mutex::~recursive_timed_mutex">recursive_timed_mutex::~recursive_timed_mutex</a></code></h3>
+  <pre>
+<b>~recursive_timed_mutex</b>();
+</pre>
+
+  <p><i><a href="index_thr.html#Precondition">Precondition</a>:</i> the object must not be locked.</p>
+
+  <p>The destructor releases any resources used by the object.</p>
+
+  <h2><a name="recursive_try_mutex"><code>recursive_try_mutex</code></a></h2>
+  <pre>
+class <b>recursive_try_mutex</b>
+    {
+public:
+    <b><a href="#recursive_try_mutex::recursive_try_mutex">recursive_try_mutex</a></b>();
+    <b><a href="#recursive_try_mutex::~recursive_try_mutex">~recursive_try_mutex</a></b>();
+    typedef SL0 <b><a href="#scoped_lock">scoped_lock</a></b>;
+    typedef SL1 <b><a href="#scoped_try_lock">scoped_try_lock</a></b>;
+
+<i>    // exposition only
+private:
+    // not implemented
+    recursive_try_mutex(const recursive_try_mutex&amp;);
+    recursive_try_mutex&amp; operator= (const recursive_try_mutex&amp;);</i>
+    };
+</pre>
+
+  <p>The class describes an object that can be used with a <a href="#scoped_lock">scoped_lock</a> or a
+  <a href="#scoped_try_lock">scoped_try_lock</a> to provide a recursive <a href=
+  "index_thr.html#mutex">mutex</a> object that supports <a href="index_thr.html#test%20and%20return">test and
+  return</a>. Objects of class <code>recursive_try_mutex</code> cannot be copied.</p>
+
+  <h3><code><a name=
+  "recursive_try_mutex::recursive_try_mutex">recursive_try_mutex::recursive_try_mutex</a></code></h3>
+  <pre>
+<b>recursive_try_mutex</b>();
+</pre>
+
+  <p>The constructor constructs a <code>recursive_try_mutex</code> in the unlocked state.</p>
+
+  <h3><code><a name=
+  "recursive_try_mutex::~recursive_try_mutex">recursive_try_mutex::~recursive_try_mutex</a></code></h3>
+  <pre>
+<b>~recursive_try_mutex</b>();
+</pre>
+
+  <p><i><a href="index_thr.html#Precondition">Precondition</a>:</i> the object must not be locked.</p>
+
+  <p>The destructor releases any resources used by the object.</p>
+  <hr>
+
+  <p>See also the <b><a href="index.html">Table of Contents</a></b> and the <b><a href=
+  "_index.html">Index</a></b>.</p>
+
+  <p><i><a href="crit_pjp.html">Copyright</a> &copy; 1992-2010 by Dinkumware, Ltd. Portions derived from work
+  <a href="crit_wek.html">copyright</a> &copy; 2001 by William E. Kempf. All rights reserved.</i></p>
+  <!--V5.30:126I-->
+</body>
+</html>

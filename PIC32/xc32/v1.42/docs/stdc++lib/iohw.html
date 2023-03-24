@@ -1,0 +1,165 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html>
+<head>
+  <meta name="generator" content=
+  "HTML Tidy for Mac OS X (vers 31 October 2006 - Apple Inc. build 15.15), see www.w3.org">
+
+  <title>&lt;iohw.h&gt;</title>
+</head>
+
+<body>
+  <h1><a name="&lt;iohw.h&gt;"><code>&lt;iohw.h&gt;</code></a></h1>
+
+  <p>[added with <a name="TR18015">TR18015</a> and <a name="TR18037">TR18037</a>]</p>
+  <hr>
+
+  <p><b><code><a href="#ioindex_t">ioindex_t</a> &middot; <a href="#ioreg">ioreg</a></code></b></p>
+
+  <p><b><code><a href="#ioand">ioand</a> &middot; <a href="#ioandbuf">ioandbuf</a> &middot; <a href=
+  "#ioandbufl">ioandbufl</a> &middot; <a href="#ioandl">ioandl</a> &middot; <a href=
+  "#iogroup_acquire">iogroup_acquire</a> &middot; <a href="#iogroup_map">iogroup_map</a> &middot; <a href=
+  "#iogroup_release">iogroup_release</a> &middot; <a href="#ioor">ioor</a> &middot; <a href=
+  "#ioorbuf">ioorbuf</a> &middot; <a href="#ioorbufl">ioorbufl</a> &middot; <a href="#ioorl">ioorl</a>
+  &middot; <a href="#iord">iord</a> &middot; <a href="#iordbuf">iordbuf</a> &middot; <a href=
+  "#iordbufl">iordbufl</a> &middot; <a href="#iordl">iordl</a> &middot; <a href="#iowr">iowr</a> &middot;
+  <a href="#iowrbuf">iowrbuf</a> &middot; <a href="#iowrbufl">iowrbufl</a> &middot; <a href=
+  "#iowrl">iowrl</a> &middot; <a href="#ioxor">ioxor</a> &middot; <a href="#ioxorbuf">ioxorbuf</a> &middot;
+  <a href="#ioxorbufl">ioxorbufl</a> &middot; <a href="#ioxorl">ioxorl</a></code></b></p>
+  <hr>
+
+  <p>Include the added header <b><code>&lt;iohw.h&gt;</code></b> so that you can write low-level I/O hardware
+  drivers in C that are easier to port to different architectures.</p>
+
+  <p>Note that the use of this header does <b>not</b> require the additions to the C language mandated by
+  TR18037, which include fixed-point arithmetic and named address spaces.</p>
+  <pre>
+    /* TYPES */
+typedef <i>i-type</i> <a name="ioindex_t"><b>ioindex_t</b></a>;
+typedef <i>i-type</i> <a name="ioreg"><b>ioreg</b></a>;
+
+    /* FUNCTIONS (all masked by macros) */
+unsigned int <a name="iord"><b>iord</b></a>(ioreg dev);
+unsigned long <a name="iordl"><b>iordl</b></a>(ioreg dev);
+unsigned int <a name="iordbuf"><b>iordbuf</b></a>(ioreg dev, ioindex_t idx);
+unsigned long <a name="iordbufl"><b>iordbufl</b></a>(ioreg dev, ioindex_t idx);
+
+void <a name="iowr"><b>iowr</b></a>(ioreg dev, unsigned int val);
+void <a name="iowrl"><b>iowrl</b></a>(ioreg dev, unsigned int val);
+void <a name="iowrbuf"><b>iowrbuf</b></a>(ioreg dev, ioindex_t idx, unsigned int val);
+void <a name="iowrbufl"><b>iowrbufl</b></a>(ioreg dev, ioindex_t idx, unsigned int val);
+
+void <a name="ioor"><b>ioor</b></a>(ioreg dev, unsigned int val);
+void <a name="ioorl"><b>ioorl</b></a>(ioreg dev, unsigned int val);
+void <a name="ioorbuf"><b>ioorbuf</b></a>(ioreg dev, ioindex_t idx, unsigned int val);
+void <a name="ioorbufl"><b>ioorbufl</b></a>(ioreg dev, ioindex_t idx, unsigned int val);
+
+void <a name="ioand"><b>ioand</b></a>(ioreg dev, unsigned int val);
+void <a name="ioandl"><b>ioandl</b></a>(ioreg dev, unsigned int val);
+void <a name="ioandbuf"><b>ioandbuf</b></a>(ioreg dev, ioindex_t idx, unsigned int val);
+void <a name="ioandbufl"><b>ioandbufl</b></a>(ioreg dev, ioindex_t idx, unsigned int val);
+
+void <a name="ioxor"><b>ioxor</b></a>(ioreg dev, unsigned int val);
+void <a name="ioxorl"><b>ioxorl</b></a>(ioreg dev, unsigned int val);
+void <a name="ioxorbuf"><b>ioxorbuf</b></a>(ioreg dev, ioindex_t idx, unsigned int val);
+void <a name="ioxorbufl"><b>ioxorbufl</b></a>(ioreg dev, ioindex_t idx, unsigned int val);
+
+void <a name="iogroup_acquire"><b>iogroup_acquire</b></a>(int group);
+void <a name="iogroup_release"><b>iogroup_release</b></a>(int group);
+void <a name="iogroup_map"><b>iogroup_map</b></a>(int group, int direct);
+</pre>
+
+  <p>The header <code>&lt;iohw.h&gt;</code> defines two types and a number of functions, all of which are
+  typically masked as macros. You should view this header as a prototype for defining the atomic operations
+  needed to express a low-level I/O hardware driver (thus the root name <b>iohw</b>) that is intended to be
+  reasonably portable C. The facilities in this header are structured around a few basic concepts:</p>
+
+  <ul>
+    <li>The type <b><code>ioreg</code></b> describes the space of all I/O addresses. These can be port
+    addresses, for processors with port I/O instructions, or memory addresses, for processors with
+    memory-mapped I/O hardware. In a simpler implementation, the actual argument corresponding to the
+    parameter name <code>dev</code> can also be used to construct the name of a function to call.</li>
+
+    <li>The type <b><code>ioindex_t</code></b> describes an integer type that can be used to index into a
+    <b><a name="hardware buffer">hardware buffer</a></b>, an array of I/O addresses.</li>
+
+    <li>An argument named <b><code>group</code></b> describes the space of all <b><a name=
+    "hardware group">hardware groups</a></b>, which might be meaningful on an architecture that supports
+    switching among groups of similar I/O addresses by changing a base address dynamically. In a simpler
+    implementation, the actual argument corresponding to the parameter name <code>dev</code> can also be used
+    to construct the name of a function to call.</li>
+  </ul>
+
+  <p>The function names are thus suggestive of specific I/O operations, though they have no required
+  semantics:</p>
+
+  <ul>
+    <li><b><code>iord</code></b> reads a port and returns as the value of the function.</li>
+
+    <li><b><code>iowr</code></b> writes <code>val</code> to a port.</li>
+
+    <li><b><code>ioor</code></b> ORs <code>val</code> into a port (bitwise inclusive OR).</li>
+
+    <li><b><code>ioand</code></b> ANDs <code>val</code> into a port (bitwise AND).</li>
+
+    <li><b><code>ioxor</code></b> XORs <code>val</code> into a port (bitwise exclusive OR).</li>
+  </ul>
+
+  <p>Moreover:</p>
+
+  <ul>
+    <li>The suffix <b><code>buf</code></b> performs the operation with the element <code>idx</code> of a
+    buffer.</li>
+
+    <li>The suffix <b><code>l</code></b> (lowercase <b><code>L</code></b>) takes the type of the port as
+    <code>unsigned long</code> instead of <code>unsigned int</code>.</li>
+  </ul>
+
+  <p>Similarly, functions whose name begins with <b><code>iogroup_</code></b> operate on hardware groups:</p>
+
+  <ul>
+    <li>The suffix <b><code>acquire</code></b> establishes <code>group</code> as the active hardware
+    group.</li>
+
+    <li>The suffix <b><code>release</code></b> disestablished <code>group</code> as the active hardware
+    group.</li>
+
+    <li>The suffix <b><code>map</code></b> maps the dynamic <code>group</code> into the actual hardware group
+    <code>direct</code>.</li>
+  </ul>
+
+  <p>In this <a href="index.html#implementation">implementation</a>, all functions are masked by macros that
+  follow the pattern:</p>
+  <pre>
+#define _IOHW_CAT(x, y)    x##_##y   /* expand arguments and paste */
+#define iordbuf(dev, idx)  _IOHW_CAT(dev, brd)(idx)
+</pre>
+
+  <p>Thus, the first argument (after macro expansion) is pasted onto a suitable suffix to produce the name of
+  the actual function to call. So you can write code such as:</p>
+  <pre>
+#define KBD         kbd   /* root name of keyboard functions */
+#define KBD_STATUS  0     /* first of two adjacent ports */
+#define KBD_DATA    1     /* second of two adjacent ports */
+#define KBD_DONE    0x80  /* DONE status bit */
+
+extern unsigned int kbd_brd(ioindex_t idx);  /* actual driver */
+
+unsigned int getkbd()
+    {   /* read keyboard when ready */
+    while ((iordbuf(KBD, KBD_STATUS) &amp; KBD_DONE) == 0)
+        ;   /* wait until character is present */
+    return (iordbuf(KBD, KBD_DATA));  /* read character and clear DONE */
+    }
+</pre>
+
+  <p>All actual driver calls will be to the function (or macro) <code>kbd_brd</code>.</p>
+  <hr>
+
+  <p>See also the <b><a href="index.html#Table%20of%20Contents">Table of Contents</a></b> and the <b><a href=
+  "_index.html">Index</a></b>.</p>
+
+  <p><i><a href="crit_pjp.html">Copyright</a> &copy; 1992-2010 by P.J. Plauger. All rights reserved.</i></p>
+  <!--V5.30:126I-->
+</body>
+</html>

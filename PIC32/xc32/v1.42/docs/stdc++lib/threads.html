@@ -1,0 +1,578 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html>
+<head>
+  <meta name="generator" content=
+  "HTML Tidy for Mac OS X (vers 31 October 2006 - Apple Inc. build 15.15), see www.w3.org">
+
+  <title>"threads.h"</title>
+</head>
+
+<body>
+  <h1><a name="&quot;threads.h&quot;"><code>"Dinkum/threads/threads.h"</code></a></h1>
+  <hr>
+
+  <p><b><code><a href="#call_once">call_once</a> &middot; <a href="#cnd_broadcast">cnd_broadcast</a> &middot;
+  <a href="#cnd_destroy">cnd_destroy</a> &middot; <a href="#cnd_init">cnd_init</a> &middot; <a href=
+  "#cnd_signal">cnd_signal</a> &middot; <a href="#cnd_t">cnd_t</a> &middot; <a href=
+  "#cnd_timedwait">cnd_timedwait</a> &middot; <a href="#cnd_wait">cnd_wait</a> &middot; <a href=
+  "#mtx_destroy">mtx_destroy</a> &middot; <a href="#mtx_init">mtx_init</a> &middot; <a href=
+  "#mtx_lock">mtx_lock</a> &middot; <a href="#mtx_plain">mtx_plain</a> &middot; <a href=
+  "#mtx_recursive">mtx_recursive</a> &middot; <a href="#mtx_t">mtx_t</a> &middot; <a href=
+  "#mtx_timed">mtx_timed</a> &middot; <a href="#mtx_timedlock">mtx_timedlock</a> &middot; <a href=
+  "#mtx_try">mtx_try</a> &middot; <a href="#mtx_trylock">mtx_trylock</a> &middot; <a href=
+  "#mtx_unlock">mtx_unlock</a> &middot; <a href="#once_flag">once_flag</a> &middot; <a href=
+  "#ONCE_FLAG_INIT">ONCE_FLAG_INIT</a> &middot; <a href="#thrd_abort">thrd_abort</a> &middot; <a href=
+  "#thrd_busy">thrd_busy</a> &middot; <a href="#thrd_create">thrd_create</a> &middot; <a href=
+  "#thrd_current">thrd_current</a> &middot; <a href="#thrd_detach">thrd_detach</a> &middot; <a href=
+  "#thrd_equal">thrd_equal</a> &middot; <a href="#thrd_error">thrd_error</a> &middot; <a href=
+  "#thrd_exit">thrd_exit</a> &middot; <a href="#thrd_join">thrd_join</a> &middot; <a href=
+  "#thrd_nomem">thrd_nomem</a> &middot; <a href="#thrd_sleep">thrd_sleep</a> &middot; <a href=
+  "#thrd_start_t">thrd_start_t</a> &middot; <a href="#thrd_success">thrd_success</a> &middot; <a href=
+  "#thrd_t">thrd_t</a> &middot; <a href="#thrd_timedout">thrd_timedout</a> &middot; <a href=
+  "#thrd_yield">thrd_yield</a> &middot; <a href="#tss_create">tss_create</a> &middot; <a href=
+  "#TSS_DTOR_ITERATIONS">TSS_DTOR_ITERATIONS</a> &middot; <a href="#tss_delete">tss_delete</a> &middot;
+  <a href="#tss_dtor_t">tss_dtor_t</a> &middot; <a href="#tss_get">tss_get</a> &middot; <a href=
+  "#tss_set">tss_set</a> &middot; <a href="#tss_t">tss_t</a></code></b></p>
+  <hr>
+
+  <p>Include the header <b><code>"Dinkum/threads/threads.h"</code></b> so that you can perform thread-related
+  operations.</p>
+  <pre>
+    /* RETURN VALUES */
+enum {
+    <b><a href="#thrd_success">thrd_success</a></b> = .....,
+    <b><a href="#thrd_nomem">thrd_nomem</a></b> = .....,
+    <b><a href="#thrd_timedout">thrd_timedout</a></b> = .....,
+    <b><a href="#thrd_busy">thrd_busy</a></b> = .....,
+    <b><a href="#thrd_error">thrd_error</a></b> = .....
+    };
+
+    /* THREADS */
+typedef <i>o-type</i> <b><a href="#thrd_t">thrd_t</a></b>;
+typedef int (*<b><a href="#thrd_start_t">thrd_start_t</a></b>)(void*);
+
+int <b><a href="#thrd_create">thrd_create</a></b>(thrd_t *, thrd_start_t, void*);
+int <b><a href="#thrd_detach">thrd_detach</a></b>(thrd_t);
+void <b><a href="#thrd_exit">thrd_exit</a></b>(int);
+int <b><a href="#thrd_join">thrd_join</a></b>(thrd_t, int*);
+void <b><a href="#thrd_sleep">thrd_sleep</a></b>(const xtime*);
+void <b><a href="#thrd_yield">thrd_yield</a></b>(void);
+
+int <b><a href="#thrd_equal">thrd_equal</a></b>(thrd_t, thrd_t);
+thrd_t <b><a href="#thrd_current">thrd_current</a></b>(void);
+
+    /* MUTEXES */
+typedef <i>o-type</i> <b><a href="#mtx_t">mtx_t</a></b>;
+enum {
+    <b><a href="#mtx_plain">mtx_plain</a></b> = .....,
+    <b><a href="#mtx_try">mtx_try</a></b> = .....,
+    <b><a href="#mtx_timed">mtx_timed</a></b> = .....,
+    <b><a href="#mtx_recursive">mtx_recursive</a></b> = .....
+    };
+
+int <b><a href="#mtx_init">mtx_init</a></b>(mtx_t*, int);
+void <b><a href="#mtx_destroy">mtx_destroy</a></b>(mtx_t*);
+int <b><a href="#mtx_lock">mtx_lock</a></b>(mtx_t*);
+int <b><a href="#mtx_trylock">mtx_trylock</a></b>(mtx_t*);
+int <b><a href="#mtx_timedlock">mtx_timedlock</a></b>(mtx_t*, const xtime*);
+int <b><a href="#mtx_unlock">mtx_unlock</a></b>(mtx_t*);
+
+    /* CONDITION VARIABLES */
+typedef <i>o_type</i> <b><a href="#cnd_t">cnd_t </a></b>;
+
+int <b><a href="#cnd_init">cnd_init</a></b>(cnd_t*);
+void <b><a href="#cnd_destroy">cnd_destroy</a></b>(cnd_t*);
+int <b><a href="#cnd_wait">cnd_wait</a></b>(cnd_t*, mtx_t*);
+int <b><a href="#cnd_timedwait">cnd_timedwait</a></b>(cnd_t*, mtx_t*, const xtime*);
+int <b><a href="#cnd_signal">cnd_signal</a></b>(cnd_t*);
+int <b><a href="#cnd_broadcast">cnd_broadcast</a></b>(cnd_t*);
+
+    /* THREAD-SPECIFIC STORAGE */
+typedef <i>i-type</i> <b><a href="#tss_t">tss_t</a></b>;
+typedef void (*<b><a href="#tss_dtor_t">tss_dtor_t</a></b>)(void*);
+
+int <b><a href="#tss_create">tss_create</a></b>(tss_t*, tss_dtor_t);
+int <b><a href="#tss_delete">tss_delete</a></b>(tss_t);
+int <b><a href="#tss_set">tss_set</a></b>(tss_t, void*);
+void *<b><a href="#tss_get">tss_get</a></b>(tss_t);
+#define <b><a href=
+"#TSS_DTOR_ITERATIONS">TSS_DTOR_ITERATIONS</a></b> <i>&lt;integer constant expression&gt;</i>
+
+    /* ONCE FUNCTIONS */
+typedef <i>o-type</i> <b><a href="#once_flag">once_flag</a></b>;
+
+#define <b><a href="#ONCE_FLAG_INIT">ONCE_FLAG_INIT</a></b> <i>&lt;object initializer&gt;</i>
+void <b><a href="#call_once">call_once</a></b>(once_flag*, void (*)(void));
+
+    /* UTILITY FUNCTIONS */
+void <b><a href="#thrd_abort">thrd_abort</a></b>(const char *);
+</pre>
+
+  <h2><a name="call_once"><code>call_once</code></a></h2>
+  <pre>
+void <b>call_once</b>(once_flag *flag, void (*func)(void));
+</pre>
+
+  <p>The function uses <code>*flag</code> to ensure that <code>func</code> is called exactly once.</p>
+
+  <h2><a name="cnd_broadcast"><code>cnd_broadcast</code></a></h2>
+  <pre>
+int <b>cnd_broadcast</b>(cnd_t *cond);
+</pre>
+
+  <p><i>Returns:</i> the usual <a href="cthrd_over.html#return%20value">return value</a>.</p>
+
+  <p>The function unblocks all of the threads that are blocked on the <a href=
+  "cthrd_over.html#Condition%20Variables">condition variable</a> <code>*cond</code> at the time of the call.
+  If no threads are blocked on the condition variable at the time of the call the function does nothing.</p>
+
+  <h2><a name="cnd_destroy"><code>cnd_destroy</code></a></h2>
+  <pre>
+void <b>cnd_destroy</b>(cnd_t *cond);
+</pre>
+
+  <p><i><a href="index_thr.html#Precondition">Precondition</a>:</i> no threads are blocked waiting for
+  <code>*cond</code>.</p>
+
+  <p>The function releases any resources used by the <a href=
+  "cthrd_over.html#Condition%20Variables">condition variable</a> <code>*cond</code>.</p>
+
+  <h2><a name="cnd_init"><code>cnd_init</code></a></h2>
+  <pre>
+int <b>cnd_init</b>(cnd_t *cond);
+</pre>
+
+  <p><i>Returns:</i> the usual <a href="cthrd_over.html#return%20value">return value</a>.</p>
+
+  <p>The function creates a <a href="cthrd_over.html#Condition%20Variables">condition variable</a>. If it
+  succeeds it sets <code>*cond</code> to a value that uniquely identifies the newly created condition
+  variable. A thread that calls <a href="#cnd_wait">cnd_wait</a> on a newly created condition variable will
+  block.</p>
+
+  <h2><a name="cnd_signal"><code>cnd_signal</code></a></h2>
+  <pre>
+int <b>cnd_signal</b>(cnd_t *cond);
+</pre>
+
+  <p><i>Returns:</i> the usual <a href="cthrd_over.html#return%20value">return value</a>.</p>
+
+  <p>The function unblocks one of the threads that is blocked on the <a href=
+  "cthrd_over.html#Condition%20Variables">condition variable</a> <code>*cond</code> at the time of the call.
+  If no threads are blocked on the condition variable at the time of the call the function does nothing.</p>
+
+  <h2><a name="cnd_t"><code>cnd_t</code></a></h2>
+  <pre>
+typedef <i>o-type</i> <b>cnd_t</b>;
+</pre>
+
+  <p>The type is an object type <i>o-type</i> that holds an identifier for a <a href=
+  "cthrd_over.html#Condition%20Variables">condition variable</a>.</p>
+
+  <h2><a name="cnd_timedwait"><code>cnd_timedwait</code></a></h2>
+  <pre>
+int <b>cnd_timedwait</b>(cnd_t *cond, mtx_t *mtx, const xtime *xt);
+</pre>
+
+  <p><i><a href="index_thr.html#Requires">Requires</a>:</i> the <a href="cthrd_over.html#Mutexes">mutex</a>
+  <code>*mtx</code> must be locked by the calling thread</p>
+
+  <p><i>Returns:</i> the usual <a href="cthrd_over.html#return%20value">return value</a>.</p>
+
+  <p>The function atomically unlocks the <a href="cthrd_over.html#Mutexes">mutex</a> <code>mtx</code> and
+  blocks until the <a href="cthrd_over.html#Condition%20Variables">condition variable</a> <code>*cond</code>
+  is signaled by a call to <a href="#cnd_signal">cnd_signal</a> or to <a href=
+  "#cnd_broadcast">cnd_broadcast</a>, or until after the time specified by the <a href=
+  "xtimec.html#xtime">xtime</a> object <code>*xt</code>. When the calling thread becomes unblocked it locks
+  <code>*mtx</code> before it returns.</p>
+
+  <h2><a name="cnd_wait"><code>cnd_wait</code></a></h2>
+  <pre>
+int <b>cnd_wait</b>(cnd_t *cond, mtx_t *mtx);
+</pre>
+
+  <p><i><a href="index_thr.html#Requires">Requires</a>:</i> the <a href="cthrd_over.html#Mutexes">mutex</a>
+  <code>*mtx</code> must be locked by the calling thread</p>
+
+  <p><i>Returns:</i> the usual <a href="cthrd_over.html#return%20value">return value</a>.</p>
+
+  <p>The function atomically unlocks the <a href="cthrd_over.html#Mutexes">mutex</a> and blocks until the
+  <a href="cthrd_over.html#Condition%20Variables">condition variable</a> <code>*cond</code> is signaled by a
+  call to <a href="#cnd_signal">cnd_signal</a> or to <a href="#cnd_broadcast">cnd_broadcast</a>. When the
+  calling thread becomes unblocked it locks <code>*mtx</code> before it returns.</p>
+
+  <h2><a name="mtx_destroy"><code>mtx_destroy</code></a></h2>
+  <pre>
+void <b>mtx_destroy</b>(mtx_t *mtx);
+</pre>
+
+  <p><i><a href="index_thr.html#Precondition">Precondition</a>:</i> no threads are blocked waiting for
+  <code>*mtx</code>.</p>
+
+  <p>The function releases any resources used by the <a href="cthrd_over.html#Mutexes">mutex</a>
+  <code>*mtx</code>.</p>
+
+  <h2><a name="mtx_init"><code>mtx_init</code></a></h2>
+  <pre>
+int <b>mtx_init</b>(mtx_t *mtx, int type);
+</pre>
+
+  <p><i>Returns:</i> the usual <a href="cthrd_over.html#return%20value">return value</a>.</p>
+
+  <p>The function creates a <a href="cthrd_over.html#Mutexes">mutex</a> object with properties indicated by
+  <code>type</code>, which must have one of the six values</p>
+
+  <ul>
+    <li><code><a href="#mtx_plain">mtx_plain</a></code> -- for a simple <a href=
+    "index_thr.html#non-recursive">non-recursive</a> mutex</li>
+
+    <li><code><a href="#mtx_timed">mtx_timed</a></code> -- for a non-recursive mutex that supports <a href=
+    "index_thr.html#timeout">timeout</a></li>
+
+    <li><code><a href="#mtx_try">mtx_try</a></code> -- for a non-recursive mutex that supports <a href=
+    "index_thr.html#test%20and%20return">test and return</a></li>
+
+    <li><code>mtx_plain | <a href="#mtx_recursive">mtx_recursive</a></code> -- for a simple <a href=
+    "index_thr.html#recursive">recursive</a> mutex</li>
+
+    <li><code>mtx_timed | mtx_recursive</code> -- for a recursive mutex that supports <a href=
+    "index_thr.html#timeout">timeout</a></li>
+
+    <li><code>mtx_try | mtx_recursive</code> -- for a recursive mutex that supports <a href=
+    "index_thr.html#test%20and%20return">test and return</a></li>
+  </ul>
+
+  <p>If it succeeds it sets <code>*mtx</code> to a value that uniquely identifies the newly created
+  mutex.</p>
+
+  <h2><a name="mtx_lock"><code>mtx_lock</code></a></h2>
+  <pre>
+int <b>mtx_lock</b>(mtx_t *mtx);
+</pre>
+
+  <p><i><a href="index_thr.html#Precondition">Precondition</a>:</i> if the <a href=
+  "cthrd_over.html#Mutexes">mutex</a> is <a href="index_thr.html#non-recursive">non-recursive</a> it must not
+  be locked by the calling thread.</p>
+
+  <p><i>Returns:</i> the usual <a href="cthrd_over.html#return%20value">return value</a>.</p>
+
+  <p>The function blocks until it locks the <a href="cthrd_over.html#Mutexes">mutex</a>
+  <code>*mtx</code>.</p>
+
+  <h2><a name="mtx_plain"><code>mtx_plain</code></a></h2>
+  <pre>
+enum { <b>mtx_plain</b> = ..... };
+</pre>
+
+  <p>The compile-time constant is passed to <a href="#mtx_init">mtx_init</a> to create a <a href=
+  "cthrd_over.html#Mutexes">mutex</a> object that supports neither <a href=
+  "index_thr.html#timeout">timeout</a> nor <a href="index_thr.html#test%20and%20return">test and
+  return</a>.</p>
+
+  <h2><a name="mtx_recursive"><code>mtx_recursive</code></a></h2>
+  <pre>
+enum { <b>mtx_recursive</b> = ..... };
+</pre>
+
+  <p>The compile-time constant is passed to <a href="#mtx_init">mtx_init</a> to create a <a href=
+  "cthrd_over.html#Mutexes">mutex</a> object that supports <a href="index_thr.html#recursive">recursive</a>
+  locking.</p>
+
+  <h2><a name="mtx_t"><code>mtx_t</code></a></h2>
+  <pre>
+typedef <i>o-type</i> <b>mtx_t</b>;
+</pre>
+
+  <p>The type is an object type <i>o-type</i> that holds an identifier for a <a href=
+  "cthrd_over.html#Mutexes">mutex</a>.</p>
+
+  <h2><a name="mtx_timed"><code>mtx_timed</code></a></h2>
+  <pre>
+enum { <b>mtx_timed</b> = ..... };
+</pre>
+
+  <p>The compile-time constant is passed to <a href="#mtx_init">mtx_init</a> to create a <a href=
+  "cthrd_over.html#Mutexes">mutex</a> object that supports <a href="index_thr.html#timeout">timeout</a>.</p>
+
+  <h2><a name="mtx_timedlock"><code>mtx_timedlock</code></a></h2>
+  <pre>
+int <b>mtx_timedlock</b>(mtx_t *mtx, const xtime *xt);
+</pre>
+
+  <p><i><a href="index_thr.html#Precondition">Precondition</a>:</i> the <a href=
+  "cthrd_over.html#Mutexes">mutex</a> <code>*mtx</code> must be of type <a href="#mtx_timed">mtx_timed</a> or
+  of type <code>mtx_timed | mtx_recursive</code>.</p>
+
+  <p><i>Returns:</i> the usual <a href="cthrd_over.html#return%20value">return value</a>.</p>
+
+  <p>The function blocks until it locks the <a href="cthrd_over.html#Mutexes">mutex</a> <code>*mtx</code> or
+  until the time specified by the <a href="xtimec.html#xtime">xtime</a> object <code>*xt</code>.</p>
+
+  <h2><a name="mtx_try"><code>mtx_try</code></a></h2>
+  <pre>
+enum { <b>mtx_try</b> = ..... };
+</pre>
+
+  <p>The compile-time constant is passed to <a href="#mtx_init">mtx_init</a> to create a <a href=
+  "cthrd_over.html#Mutexes">mutex</a> object that supports <a href="index_thr.html#test%20and%20return">test
+  and return</a>.</p>
+
+  <h2><a name="mtx_trylock"><code>mtx_trylock</code></a></h2>
+  <pre>
+int <b>mtx_trylock</b>(mtx_t *mtx);
+</pre>
+
+  <p><i><a href="index_thr.html#Precondition">Precondition</a>:</i> the <a href=
+  "cthrd_over.html#Mutexes">mutex</a> <code>*mtx</code> must be of type <a href="#mtx_try">mtx_try</a>, of
+  type <code>mtx_try | mtx_recursive</code>, of type <a href="#mtx_timed">mtx_timed</a>, or of type
+  <code>mtx_timed | mtx_recursive</code>.</p>
+
+  <p><i>Returns:</i> the usual <a href="cthrd_over.html#return%20value">return value</a>.</p>
+
+  <p>The function attempts to lock the <a href="cthrd_over.html#Mutexes">mutex</a> <code>*mtx</code>. If the
+  mutex is already locked the function returns without blocking.</p>
+
+  <h2><a name="mtx_unlock"><code>mtx_unlock</code></a></h2>
+  <pre>
+int <b>mtx_unlock</b>(mtx_t *mtx);
+</pre>
+
+  <p><i><a href="index_thr.html#Precondition">Precondition</a>:</i> the <a href=
+  "cthrd_over.html#Mutexes">mutex</a> <code>*mtx</code> must be locked by the calling thread.</p>
+
+  <p><i>Returns:</i> the usual <a href="cthrd_over.html#return%20value">return value</a>.</p>
+
+  <p>The function unlocks the <a href="cthrd_over.html#Mutexes">mutex</a> <code>*mtx</code>.</p>
+
+  <h2><a name="once_flag"><code>once_flag</code></a></h2>
+  <pre>
+typedef <i>o-type</i> <b>once_flag</b>;
+</pre>
+
+  <p>The type is an object type <i>o-type</i> that holds a flag for use by <a href=
+  "#call_once">call_once</a>.</p>
+
+  <h2><a name="ONCE_FLAG_INIT"><code>ONCE_FLAG_INIT</code></a></h2>
+  <pre>
+#define <b>ONCE_FLAG_INIT</b> <i>&lt;object initializer&gt;</i>
+</pre>
+
+  <p>The macro yields a value that can be used to initialize an object of type <a href=
+  "#once_flag">once_flag</a>.</p>
+
+  <h2><a name="thrd_abort"><code>thrd_abort</code></a></h2>
+  <pre>
+void <b>thrd_abort</b>(const char *msg);
+</pre>
+
+  <p>The function writes <code>msg</code> to standard error then calls <code>abort</code>.</p>
+
+  <h2><a name="thrd_busy"><code>thrd_busy</code></a></h2>
+  <pre>
+enum { <b>thrd_busy</b> = ..... };
+</pre>
+
+  <p>The compile-time constant is returned by a function to indicate that the requested operation failed
+  because a resource requested by a <a href="index_thr.html#test%20and%20return">test and return</a> function
+  is already in use.</p>
+
+  <h2><a name="thrd_create"><code>thrd_create</code></a></h2>
+  <pre>
+int <b>thrd_create</b>(thrd_t *thr, thrd_start_t func, void *arg);
+</pre>
+
+  <p><i>Returns:</i> the usual <a href="cthrd_over.html#return%20value">return value</a>.</p>
+
+  <p>The function creates a new <a href="cthrd_over.html#Threads">thread</a> executing
+  <code>func(arg)</code>. If it succeeds it sets <code>*thr</code> to a value that uniquely identifies the
+  newly created thread. The function does not return until the new thread has begun execution.</p>
+
+  <h2><a name="thrd_current"><code>thrd_current</code></a></h2>
+  <pre>
+thrd_t <b>thrd_current</b>(void);
+</pre>
+
+  <p>The function returns a value that uniquely identifies the <a href="cthrd_over.html#Threads">thread</a>
+  that called it.</p>
+
+  <h2><a name="thrd_detach"><code>thrd_detach</code></a></h2>
+  <pre>
+int <b>thrd_detach</b>(thrd_t thr);
+</pre>
+
+  <p><i><a href="index_thr.html#Requires">Requires</a>:</i> the application must not have previously called
+  <code>thrd_detach</code> or <a href="#thrd_join">thrd_join</a> for the <a href=
+  "cthrd_over.html#Threads">thread</a> identified by <code>thr</code>.</p>
+
+  <p><i>Returns:</i> the usual <a href="cthrd_over.html#return%20value">return value</a>.</p>
+
+  <p>The function tells the operating system to dispose of any resources allocated to the thread identified
+  by <code>thr</code> when that thread terminates.</p>
+
+  <h2><a name="thrd_equal"><code>thrd_equal</code></a></h2>
+  <pre>
+int <b>thrd_equal</b>(thrd_t thr0, thrd_t thr1);
+</pre>
+
+  <p>The function returns zero if <code>thr0</code> and <code>thr1</code> refer to different threads.
+  Otherwise it returns a non-zero value.</p>
+
+  <h2><a name="thrd_error"><code>thrd_error</code></a></h2>
+  <pre>
+enum { <b>thrd_error</b> = ..... };
+</pre>
+
+  <p>The compile-time constant is returned by a function to indicate that the requested operation failed.</p>
+
+  <h2><a name="thrd_exit"><code>thrd_exit</code></a></h2>
+  <pre>
+void <b>thrd_exit</b>(int res);
+</pre>
+
+  <p>The function terminates execution of the calling <a href="cthrd_over.html#Threads">thread</a> and sets
+  its <a href="cthrd_over.html#result%20code">result code</a> to <code>res</code>.</p>
+
+  <h2><a name="thrd_join"><code>thrd_join</code></a></h2>
+  <pre>
+int <b>thrd_join</b>(thrd_t thr, int *res);
+</pre>
+
+  <p><i><a href="index_thr.html#Requires">Requires</a>:</i> the application must not have previously called
+  <code>thrd_join</code> or <a href="#thrd_detach">thrd_detach</a> for the <a href=
+  "cthrd_over.html#Threads">thread</a> identified by <code>thr</code>.</p>
+
+  <p><i>Returns:</i> the usual <a href="cthrd_over.html#return%20value">return value</a>.</p>
+
+  <p>The function tells the operating system to dispose of any resources allocated to the <code>thread</code>
+  identified by <code>thr</code> when that thread terminates and blocks until that thread has terminated. If
+  <code>res</code> is not a null pointer it stores the thread's <a href=
+  "cthrd_over.html#result%20code">result code</a> in <code>*res</code>.</p>
+
+  <h2><a name="thrd_nomem"><code>thrd_nomem</code></a></h2>
+  <pre>
+enum { <b>thrd_nomem</b> = ..... };
+</pre>
+
+  <p>The compile-time constant is returned by a function to indicate that the requested operation failed
+  because it was unable to allocate memory.</p>
+
+  <h2><a name="thrd_sleep"><code>thrd_sleep</code></a></h2>
+  <pre>
+void <b>thrd_sleep</b>(const xtime *xt);
+</pre>
+
+  <p>The function suspends execution of the calling <a href="cthrd_over.html#Threads">thread</a> until after
+  the time specified by the <a href="xtimec.html#xtime">xtime</a> object <code>*xt</code>.</p>
+
+  <h2><a name="thrd_start_t"><code>thrd_start_t</code></a></h2>
+  <pre>
+typedef int (*<b>thrd_start_t</b>)(void*);
+</pre>
+
+  <p>The type is the function type that is passed to <a href="#thrd_create">thrd_create</a> to create a new
+  <a href="cthrd_over.html#Threads">thread</a>.</p>
+
+  <h2><a name="thrd_success"><code>thrd_success</code></a></h2>
+  <pre>
+enum { <b>thrd_success</b> = ..... };
+</pre>
+
+  <p>The compile-time constant is returned by a function to indicate that the requested operation
+  succeeded.</p>
+
+  <h2><a name="thrd_t"><code>thrd_t</code></a></h2>
+  <pre>
+typedef <i>o-type</i> <b>thrd_t</b>;
+</pre>
+
+  <p>The type is an object type <i>o-type</i> that holds an identifier for a <a href=
+  "cthrd_over.html#Threads">thread</a>.</p>
+
+  <h2><a name="thrd_timedout"><code>thrd_timedout</code></a></h2>
+  <pre>
+enum { <b>thrd_timedout</b> = ..... };
+</pre>
+
+  <p>The compile-time constant is returned by a timed wait function to indicate that the time specified in
+  the call was reached without acquiring the requested resource.</p>
+
+  <h2><a name="thrd_yield"><code>thrd_yield</code></a></h2>
+  <pre>
+void <b>thrd_yield</b>(void);
+</pre>
+
+  <p>The function permits other threads to run even if the current thread would ordinarily continue to
+  run.</p>
+
+  <h2><a name="tss_create"><code>tss_create</code></a></h2>
+  <pre>
+int <b>tss_create</b>(tss_t *key, tss_dtor_t dtor);
+</pre>
+
+  <p><i>Returns:</i> the usual <a href="cthrd_over.html#return%20value">return value</a>.</p>
+
+  <p>The function creates a <a href="cthrd_over.html#Thread-specific%20Storage">thread-specific storage</a>
+  pointer with <a href="cthrd_over.html#destructor">destructor</a> <code>dtor</code>, which may be null. If
+  it succeeds it sets <code>*key</code> to a value that uniquely identifies the newly created pointer.</p>
+
+  <h2><a name="TSS_DTOR_ITERATIONS"><code>TSS_DTOR_ITERATIONS</code></a></h2>
+  <pre>
+#define <b>TSS_DTOR_ITERATIONS</b> <i>&lt;integer constant expression&gt;</i>
+</pre>
+
+  <p>The macro yields the maximum number of times that <a href="cthrd_over.html#destructor">destructors</a>
+  will be called when a thread terminates.</p>
+
+  <h2><a name="tss_dtor_t"><code>tss_dtor_t</code></a></h2>
+  <pre>
+typedef void (*<b>tss_dtor_t</b>)(void*);
+</pre>
+
+  <p>The type is the function type for a <a href="cthrd_over.html#destructor">destructor</a> for a <a href=
+  "cthrd_over.html#Thread-specific%20Storage">thread-specific storage</a> pointer.</p>
+
+  <h2><a name="tss_delete"><code>tss_delete</code></a></h2>
+  <pre>
+void <b>tss_delete</b>(tss_t key);
+</pre>
+
+  <p>The function releases any resources used by the <a href=
+  "cthrd_over.html#Thread-specific%20Storage">thread-specific storage</a> pointer <code>key</code>.</p>
+
+  <h2><a name="tss_get"><code>tss_get</code></a></h2>
+  <pre>
+void *<b>tss_get</b>(tss_t key);
+</pre>
+
+  <p>The function returns the value for the current thread held in the <a href=
+  "cthrd_over.html#Thread-specific%20Storage">thread-specific storage</a> pointer identified by
+  <code>key</code>.</p>
+
+  <h2><a name="tss_set"><code>tss_set</code></a></h2>
+  <pre>
+int <b>tss_set</b>(tss_t key, void *val);
+</pre>
+
+  <p><i>Returns:</i> the usual <a href="cthrd_over.html#return%20value">return value</a>.</p>
+
+  <p>The function sets the value for the current thread held in the <a href=
+  "cthrd_over.html#Thread-specific%20Storage">thread-specific storage</a> pointer identified by
+  <code>key</code> to <code>val</code>.</p>
+
+  <h2><a name="tss_t"><code>tss_t</code></a></h2>
+  <pre>
+typedef <i>o-type</i> <b>tss_t</b>;
+</pre>
+
+  <p>The type is an object type <i>o-type</i> that holds an identifier for a <a href=
+  "cthrd_over.html#Thread-specific%20Storage">thread-specific storage</a> pointer.</p>
+  <hr>
+
+  <p>See also the <b><a href="index.html">Table of Contents</a></b> and the <b><a href=
+  "_index.html">Index</a></b>.</p>
+
+  <p><i><a href="crit_pjp.html">Copyright</a> &copy; 1992-2010 by Dinkumware, Ltd. Portions derived from work
+  <a href="crit_wek.html">Copyright</a> &copy; 2001 by William E. Kempf. All rights reserved.</i></p>
+  <!--V5.30:126I-->
+</body>
+</html>

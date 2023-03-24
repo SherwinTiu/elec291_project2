@@ -1,0 +1,427 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html>
+<head>
+  <meta name="generator" content=
+  "HTML Tidy for Mac OS X (vers 31 October 2006 - Apple Inc. build 15.15), see www.w3.org">
+
+  <title>&lt;sstream&gt;</title>
+</head>
+
+<body>
+  <h1><a name="&lt;sstream&gt;"><code>&lt;sstream&gt;</code></a></h1>
+  <hr>
+
+  <p><b><code><a href="#istringstream">istringstream</a> &middot; <a href="#ostringstream">ostringstream</a>
+  &middot; <a href="#stringbuf">stringbuf</a></code></b></p>
+  <hr>
+
+  <p>Include the <a href="lib_cpp.html#iostreams">iostreams</a> standard header
+  <b><code>&lt;sstream&gt;</code></b> to define several classes that support iostreams operations on
+  sequences stored in an allocated array object. Such sequences are easily converted to and from objects of
+  class <code><a href="string2.html#string">string</a></code>.</p>
+  <pre>
+        // DECLARATIONS
+class <b><a href="#stringbuf">stringbuf</a></b>;
+class <b><a href="#istringstream">istringstream</a></b>;
+class <b><a href="#ostringstream">ostringstream</a></b>;
+        // END OF DECLARATIONS
+</pre>
+
+  <h2><a name="istringstream"><code>istringstream</code></a></h2>
+  <pre>
+class <b>istringstream</b> : public istream {
+public:
+    explicit <b><a href="#istringstream::istringstream">istringstream</a></b>(ios_base::openmode mode =
+        ios_base::in);
+    explicit <b><a href="#istringstream::istringstream">istringstream</a></b>(const string&amp; str,
+        ios_base::openmode mode = ios_base::in);
+    stringbuf *<b><a href="#istringstream::rdbuf">rdbuf</a></b>() const;
+    string <b><a href="#istringstream::str">str</a></b>();
+    void <b><a href="#istringstream::str">str</a></b>(const string&amp; newstr);
+    };
+</pre>
+
+  <p>The class describes an object that controls extraction of elements and encoded objects from a <a href=
+  "streambu.html#stream%20buffer">stream buffer</a> of class <code><a href="#stringbuf">stringbuf</a></code>.
+  The object stores an object of class <code>stringbuf</code>.</p>
+
+  <h3><a name="istringstream::allocator_type"><code>istringstream::allocator_type</code></a></h3>
+  <pre>
+typedef Alloc <b>allocator_type</b>;
+</pre>
+
+  <p>The type is a synonym for the template parameter <code>Alloc</code>.</p>
+
+  <h3><a name="istringstream::istringstream"><code>istringstream::istringstream</code></a></h3>
+  <pre>
+explicit <b>istringstream</b>(ios_base::openmode mode =
+    ios_base::in);
+explicit <b>istringstream</b>(const string&amp; str,
+    ios_base::openmode mode = ios_base::in);
+</pre>
+
+  <p>The first constructor initializes the base class by calling <code><a href=
+  "istream.html#istream::istream">istream</a>(sb)</code>, where <code>sb</code> is the stored object of class
+  <code><a href="#stringbuf">stringbuf</a></code>. It also initializes <code>sb</code> by calling
+  <code><a href="#stringbuf::stringbuf">stringbuf</a>(mode | ios_base::in)</code>.</p>
+
+  <p>The second constructor initializes the base class by calling <code>istream(sb)</code>. It also
+  initializes <code>sb</code> by calling <code><a href="#stringbuf::stringbuf">stringbuf</a>(str, mode |
+  ios_base::in)</code>.</p>
+
+  <h3><a name="istringstream::rdbuf"><code>istringstream::rdbuf</code></a></h3>
+  <pre>
+stringbuf *<b>rdbuf</b>() const
+</pre>
+
+  <p>The member function returns the address of the stored stream buffer, of type pointer to <code><a href=
+  "#stringbuf">stringbuf</a></code>.</p>
+
+  <h3><a name="istringstream::str"><code>istringstream::str</code></a></h3>
+  <pre>
+string <b>str</b>() const;
+void <b>str</b>(const string&amp; newstr);
+</pre>
+
+  <p>The first member function returns <code><a href="#istringstream::rdbuf">rdbuf</a>()-&gt; <a href=
+  "#stringbuf::str">str</a>()</code>. The second member function calls <code>rdbuf()-&gt;
+  str(newstr)</code>.</p>
+
+  <h2><a name="ostringstream"><code>ostringstream</code></a></h2>
+  <pre>
+class <b>ostringstream</b> : public ostream {
+public:
+    explicit <b><a href="#ostringstream::ostringstream">ostringstream</a></b>(ios_base::openmode mode =
+        ios_base::out);
+    explicit <b><a href="#ostringstream::ostringstream">ostringstream</a></b>(const string&amp; str,
+        ios_base::openmode mode = ios_base::out);
+    stringbuf *<b><a href="#ostringstream::rdbuf">rdbuf</a></b>() const;
+    string <b><a href="#ostringstream::str">str</a></b>();
+    void <b><a href="#ostringstream::str">str</a></b>(const string&amp; newstr);
+    };
+</pre>
+
+  <p>The class describes an object that controls insertion of elements and encoded objects into a <a href=
+  "streambu.html#stream%20buffer">stream buffer</a> of class <code><a href="#stringbuf">stringbuf</a></code>.
+  The object stores an object of class <code>stringbuf</code>.</p>
+
+  <h3><a name="ostringstream::allocator_type"><code>ostringstream::allocator_type</code></a></h3>
+  <pre>
+typedef Alloc <b>allocator_type</b>;
+</pre>
+
+  <p>The type is a synonym for the template parameter <code>Alloc</code>.</p>
+
+  <h3><a name="ostringstream::ostringstream"><code>ostringstream::ostringstream</code></a></h3>
+  <pre>
+explicit <b>ostringstream</b>(ios_base::openmode mode =
+    ios_base::out);
+explicit <b>ostringstream</b>(const string&amp; str,
+    ios_base::openmode mode = ios_base::out);
+</pre>
+
+  <p>The first constructor initializes the base class by calling <code><a href=
+  "ostream.html#ostream::ostream">ostream</a>(sb)</code>, where <code>sb</code> is the stored object of class
+  <code><a href="#stringbuf">stringbuf</a></code>. It also initializes <code>sb</code> by calling
+  <code><a href="#stringbuf::stringbuf">stringbuf</a>(mode | ios_base::out)</code>.</p>
+
+  <p>The second constructor initializes the base class by calling <code>ostream(sb)</code>. It also
+  initializes <code>sb</code> by calling <code><a href="#stringbuf::stringbuf">stringbuf</a>(str, mode |
+  ios_base::out)</code>.</p>
+
+  <h3><a name="ostringstream::rdbuf"><code>ostringstream::rdbuf</code></a></h3>
+  <pre>
+stringbuf *<b>rdbuf</b>() const
+</pre>
+
+  <p>The member function returns the address of the stored stream buffer, of type pointer to <code><a href=
+  "#stringbuf">stringbuf</a></code>.</p>
+
+  <h3><a name="ostringstream::str"><code>ostringstream::str</code></a></h3>
+  <pre>
+string <b>str</b>() const;
+void <b>str</b>(const string&amp; newstr);
+</pre>
+
+  <p>The first member function returns <code><a href="#ostringstream::rdbuf">rdbuf</a>()-&gt; <a href=
+  "#stringbuf::str">str</a>()</code>. The second member function calls <code>rdbuf()-&gt;
+  str(newstr)</code>.</p>
+
+  <h2><a name="stringbuf"><code>stringbuf</code></a></h2>
+  <pre>
+class <b>stringbuf</b> : public streambuf {
+public:
+    <b><a href="#stringbuf::stringbuf">stringbuf</a></b>(ios_base::openmode mode =
+        ios_base::in | ios_base::out);
+    <b><a href="#stringbuf::stringbuf">stringbuf</a></b>(const string&amp; str,
+        ios_base::openmode mode =
+            ios_base::in | ios_base::out);
+    string <b><a href="#stringbuf::str">str</a></b>() const;
+    void <b><a href="#stringbuf::str">str</a></b>(const string&amp; newstr);
+
+protected:
+    virtual pos_type <b><a href="#stringbuf::seekoff">seekoff</a></b>(off_type off,
+        ios_base::seekdir way,
+        ios_base::openmode mode =
+            ios_base::in | ios_base::out);
+    virtual pos_type <b><a href="#stringbuf::seekpos">seekpos</a></b>(pos_type sp,
+        ios_base::openmode mode =
+            ios_base::in | ios_base::out);
+    virtual int_type <b><a href="#stringbuf::underflow">underflow</a></b>();
+    virtual int_type <b><a href="#stringbuf::pbackfail">pbackfail</a></b>(int_type meta =
+        traits_type::eof());
+    virtual int_type <b><a href="#stringbuf::overflow">overflow</a></b>(int_type meta =
+        traits_type::eof());
+    };
+</pre>
+
+  <p>The class describes a <b><a href="streambu.html#stream%20buffer">stream buffer</a></b> that controls the
+  transmission of elements to and from a sequence of elements stored in an array object. The object is
+  allocated, extended, and freed as necessary to accommodate changes in the sequence.</p>
+
+  <p>An object of class <code>stringbuf</code> stores a copy of the <code>ios_base::<a href=
+  "ios.html#ios_base::openmode">openmode</a></code> argument from its constructor as its <b><a name=
+  "stringbuf mode">stringbuf mode</a></b> <code>mode</code>:</p>
+
+  <ul>
+    <li>If <code>mode &amp; ios_base::<a href="ios.html#ios_base::in">in</a></code> is nonzero, the <a href=
+    "streambu.html#input%20buffer">input buffer</a> is accessible.</li>
+
+    <li>If <code>mode &amp; ios_base::<a href="ios.html#ios_base::out">out</a></code> is nonzero, the
+    <a href="streambu.html#output%20buffer">output buffer</a> is accessible.</li>
+  </ul>
+
+  <h3><a name="stringbuf::allocator_type"><code>stringbuf::allocator_type</code></a></h3>
+  <pre>
+typedef Alloc <b>allocator_type</b>;
+</pre>
+
+  <p>The type is a synonym for the template parameter <code>Alloc</code>.</p>
+
+  <h3><a name="stringbuf::stringbuf"><code>stringbuf::stringbuf</code></a></h3>
+  <pre>
+<b>stringbuf</b>(ios_base::openmode mode =
+    ios_base::in | ios_base::out);
+<b>stringbuf</b>(const string&amp; str,
+    ios_base::openmode mode =
+        ios_base::in | ios_base::out);
+</pre>
+
+  <p>The first constructor stores a null pointer in all the pointers controlling the <a href=
+  "streambu.html#input%20buffer">input buffer</a> and the <a href="streambu.html#output%20buffer">output
+  buffer</a>. It also stores <code>mode</code> as the <a href="#stringbuf%20mode">stringbuf mode</a>.</p>
+
+  <p>The second constructor allocates a copy of the sequence controlled by the string object
+  <code>str</code>. If <code>mode &amp; ios_base::in</code> is nonzero, it sets the input buffer to begin
+  reading at the start of the sequence. If <code>mode &amp; ios_base::out</code> is nonzero, it sets the
+  output buffer to begin writing at the start of the sequence. It also stores <code>mode</code> as the
+  <a href="#stringbuf%20mode">stringbuf mode</a>.</p>
+
+  <p>The third constructor initializes the object with the contents of <code>right</code>, treated as an
+  <a href="lib_cpp.html#rvalue%20references">rvalue reference</a>.</p>
+
+  <h3><a name="stringbuf::char_type"><code>stringbuf::char_type</code></a></h3>
+  <pre>
+typedef char <b>char_type</b>;
+</pre>
+
+  <p>The type is a synonym for <i>char.</i></p>
+
+  <h3><a name="stringbuf::int_type"><code>stringbuf::int_type</code></a></h3>
+  <pre>
+typedef traits_type::int_type <b>int_type</b>;
+</pre>
+
+  <p>The type is a synonym for <code>traits_type::<a href=
+  "string2.html#char_traits::int_type">int_type</a></code>.</p>
+
+  <h3><a name="stringbuf::off_type"><code>stringbuf::off_type</code></a></h3>
+  <pre>
+typedef traits_type::off_type <b>off_type</b>;
+</pre>
+
+  <p>The type is a synonym for <code>traits_type::<a href=
+  "string2.html#char_traits::off_type">off_type</a></code>.</p>
+
+  <h3><a name="stringbuf::overflow"><code>stringbuf::overflow</code></a></h3>
+  <pre>
+virtual int_type <b>overflow</b>(int_type meta =
+    traits_type::eof());
+</pre>
+
+  <p>If <code>meta</code> does not compare equal to <code>traits_type::<a href=
+  "string2.html#char_traits::eof">eof</a>()</code>, the protected virtual member function endeavors to insert
+  the element <code>traits_type::<a href=
+  "string2.html#char_traits::to_char_type">to_char_type</a>(meta)</code> into the <a href=
+  "streambu.html#output%20buffer">output buffer</a>. It can do so in various ways:</p>
+
+  <ul>
+    <li>If a <a href="streambu.html#write%20position">write position</a> is available, it can store the
+    element into the write position and increment the next pointer for the output buffer.</li>
+
+    <li>It can make a write position available by allocating new or additional storage for the output buffer.
+    (Extending the output buffer this way also extends any associated <a href=
+    "streambu.html#input%20buffer">input buffer</a>.)</li>
+  </ul>
+
+  <p>If the function cannot succeed, it returns <code>traits_type::eof()</code>. Otherwise, it returns
+  <code>traits_type::<a href="string2.html#char_traits::not_eof">not_eof</a>(meta)</code>.</p>
+
+  <h3><a name="stringbuf::pbackfail"><code>stringbuf::pbackfail</code></a></h3>
+  <pre>
+virtual int_type <b>pbackfail</b>(int_type meta =
+    traits_type::eof());
+</pre>
+
+  <p>The protected virtual member function endeavors to put back an element into the <a href=
+  "streambu.html#input%20buffer">input buffer</a>, then make it the current element (pointed to by the next
+  pointer). If <code>meta</code> compares equal to <code>traits_type::<a href=
+  "string2.html#char_traits::eof">eof</a>()</code>, the element to push back is effectively the one already
+  in the stream before the current element. Otherwise, that element is replaced by <code>byte =
+  traits_type::<a href="string2.html#char_traits::to_char_type">to_char_type</a>(meta)</code>. The function
+  can put back an element in various ways:</p>
+
+  <ul>
+    <li>If a <a href="streambu.html#putback%20position">putback position</a> is available, and the element
+    stored there compares equal to <code>byte</code>, it can simply decrement the next pointer for the input
+    buffer.</li>
+
+    <li>If a putback position is available, and if the <a href="#stringbuf%20mode">stringbuf mode</a> permits
+    the sequence to be altered (<code>mode &amp; ios_base::<a href="ios.html#ios_base::out">out</a></code> is
+    nonzero), it can store <code>byte</code> into the putback position and decrement the next pointer for the
+    input buffer.</li>
+  </ul>
+
+  <p>If the function cannot succeed, it returns <code>traits_type::eof()</code>. Otherwise, it returns
+  <code>traits_type::<a href="string2.html#char_traits::not_eof">not_eof</a>(meta)</code>.</p>
+
+  <h3><a name="stringbuf::pos_type"><code>stringbuf::pos_type</code></a></h3>
+  <pre>
+typedef traits_type::pos_type <b>pos_type</b>;
+</pre>
+
+  <p>The type is a synonym for <code>traits_type::<a href=
+  "string2.html#char_traits::pos_type">pos_type</a></code>.</p>
+
+  <h3><a name="stringbuf::seekoff"><code>stringbuf::seekoff</code></a></h3>
+  <pre>
+virtual pos_type <b>seekoff</b>(off_type off,
+    ios_base::seekdir way,
+    ios_base::openmode mode =
+        ios_base::in | ios_base::out);
+</pre>
+
+  <p>The protected virtual member function endeavors to alter the current positions for the controlled
+  streams. For an object of class <code>stringbuf</code>, a stream position consists purely of a stream
+  offset. Offset zero designates the first element of the controlled sequence.</p>
+
+  <p>The new position is determined as follows:</p>
+
+  <ul>
+    <li>If <code>way == ios_base::<a href="ios.html#ios_base::beg">beg</a></code>, the new position is the
+    beginning of the stream plus <code>off</code>.</li>
+
+    <li>If <code>way == ios_base::<a href="ios.html#ios_base::cur">cur</a></code>, the new position is the
+    current stream position plus <code>off</code>.</li>
+
+    <li>If <code>way == ios_base::<a href="ios.html#ios_base::end">end</a></code>, the new position is the
+    end of the stream plus <code>off</code>.</li>
+  </ul>
+
+  <p>If <code>mode &amp; ios_base::in</code> is nonzero, the function alters the next position to read in the
+  <a href="streambu.html#input%20buffer">input buffer</a>. If <code>mode &amp; ios_base::out</code> is
+  nonzero, the function alters the next position to write in the <a href=
+  "streambu.html#output%20buffer">output buffer</a>. For a stream to be affected, its buffer must exist. For
+  a positioning operation to succeed, the resulting stream position must be zero or lie within the controlled
+  sequence. If the function affects both stream positions, <code>way</code> must be
+  <code>ios_base::beg</code> or <code>ios_base::end</code> and both streams are positioned at the same
+  element. Otherwise (or if neither position is affected) the positioning operation fails.</p>
+
+  <p>If the function succeeds in altering either or both of the stream positions, it returns the resultant
+  stream position. Otherwise, it fails and returns an invalid stream position.</p>
+
+  <h3><a name="stringbuf::seekpos"><code>stringbuf::seekpos</code></a></h3>
+  <pre>
+virtual pos_type <b>seekpos</b>(pos_type sp,
+    ios_base::openmode mode =
+        ios_base::in | ios_base::out);
+</pre>
+
+  <p>The protected virtual member function endeavors to alter the current positions for the controlled
+  streams. For an object of class <code>stringbuf</code>, a stream position consists purely of a stream
+  offset. Offset zero designates the first element of the controlled sequence. The new position is determined
+  by <code>sp</code>.</p>
+
+  <p>If <code>mode &amp; ios_base::in</code> is nonzero, the function alters the next position to read in the
+  <a href="streambu.html#input%20buffer">input buffer</a>. If <code>mode &amp; ios_base::out</code> is
+  nonzero, the function alters the next position to write in the <a href=
+  "streambu.html#output%20buffer">output buffer</a>. For a stream to be affected, its buffer must exist. For
+  a positioning operation to succeed, the resulting stream position must lie within the controlled sequence.
+  Otherwise (or if neither position is affected) the positioning operation fails.</p>
+
+  <p>If the function succeeds in altering either or both of the stream positions, it returns the resultant
+  stream position. Otherwise, it fails and returns an invalid stream position.</p>
+
+  <h3><a name="stringbuf::str"><code>stringbuf::str</code></a></h3>
+  <pre>
+string <b>str</b>() const;
+void <b>str</b>(const string&amp; newstr);
+</pre>
+
+  <p>The first member function returns an object of class <code><a href=
+  "string2.html#string">string</a></code>, whose controlled sequence is a copy of the sequence controlled by
+  <code>*this</code>. The sequence copied depends on the stored <a href="#stringbuf%20mode">stringbuf
+  mode</a> <code>mode</code>:</p>
+
+  <ul>
+    <li>If <code>mode &amp; ios_base::<a href="ios.html#ios_base::out">out</a></code> is nonzero and an
+    <a href="streambu.html#output%20buffer">output buffer</a> exists, the sequence is the entire output
+    buffer (<code><a href="streambu.html#streambuf::epptr">epptr</a>() - <a href=
+    "streambu.html#streambuf::pbase">pbase</a>()</code> elements beginning with <code>pbase()</code>).</li>
+
+    <li>Otherwise, if <code>mode &amp; ios_base::<a href="ios.html#ios_base::in">in</a></code> is nonzero and
+    an <a href="streambu.html#input%20buffer">input buffer</a> exists, the sequence is the entire input
+    buffer (<code><a href="streambu.html#streambuf::egptr">egptr</a>() - <a href=
+    "streambu.html#streambuf::eback">eback</a>()</code> elements beginning with <code>eback()</code>).</li>
+
+    <li>Otherwise, the copied sequence is empty.</li>
+  </ul>
+
+  <p>The second member function deallocates any sequence currently controlled by <code>*this</code>. It then
+  allocates a copy of the sequence controlled by <code>newstr</code>. If <code>mode &amp; ios_base::in</code>
+  is nonzero, it sets the input buffer to begin reading at the beginning of the sequence. If <code>mode &amp;
+  ios_base::out</code> is nonzero, it sets the output buffer to begin writing at the beginning of the
+  sequence.</p>
+
+  <h3><a name="stringbuf::traits_type"><code>stringbuf::traits_type</code></a></h3>
+  <pre>
+typedef char_traits <b>traits_type</b>;
+</pre>
+
+  <p>The type is a synonym for <code><a href="string2.html#char_traits">char_traits</a></code>.</p>
+
+  <h3><a name="stringbuf::underflow"><code>stringbuf::underflow</code></a></h3>
+  <pre>
+virtual int_type <b>underflow</b>();
+</pre>
+
+  <p>The protected virtual member function endeavors to extract the current element <code>byte</code> from
+  the <a href="streambu.html#input%20buffer">input buffer</a>, then advance the current stream position, and
+  return the element as <code>traits_type::<a href=
+  "string2.html#char_traits::to_int_type">to_int_type</a>(byte)</code>. It can do so in only one way: If a
+  <a href="streambu.html#read%20position">read position</a> is available, it takes <code>byte</code> as the
+  element stored in the read position and advances the next pointer for the input buffer.</p>
+
+  <p>If the function cannot succeed, it returns <code>traits_type::<a href=
+  "string2.html#char_traits::eof">eof</a>()</code>. Otherwise, it returns the current element in the input
+  stream, converted as described above.</p>
+  <hr>
+
+  <p>See also the <b><a href="index.html#Table%20of%20Contents">Table of Contents</a></b> and the <b><a href=
+  "_index.html">Index</a></b>.</p>
+
+  <p><i><a href="crit_pjp.html">Copyright</a> &copy; 1992-2010 by P.J. Plauger. All rights reserved.</i></p>
+  <!--V5.30:126I-->
+</body>
+</html>

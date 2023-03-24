@@ -1,0 +1,1842 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+
+<html>
+<head>
+  <meta name="generator" content=
+  "HTML Tidy for Mac OS X (vers 31 October 2006 - Apple Inc. build 15.15), see www.w3.org">
+
+  <title>&lt;string&gt;</title>
+</head>
+
+<body>
+  <h1><a name="&lt;string&gt;"><code>&lt;string&gt;</code></a></h1>
+  <hr>
+
+  <p><b><code><a href="#basic_string">basic_string</a> &middot; <a href="#char_traits">char_traits</a>
+  &middot; <a href="#char_traits%3Cchar%3E">char_traits&lt;char&gt;</a> &middot; <a href=
+  "#char_traits%3Cwchar_t%3E">char_traits&lt;wchar_t&gt;</a> &middot; <a href="#getline">getline</a> &middot;
+  <a href="#operator+">operator+</a> &middot; <a href="#operator!=">operator!=</a> &middot; <a href=
+  "#operator==">operator==</a> &middot; <a href="#operator%3C">operator&lt;</a> &middot; <a href=
+  "#operator%3C%3C">operator&lt;&lt;</a> &middot; <a href="#operator%3C=">operator&lt;=</a> &middot; <a href=
+  "#operator%3E">operator&gt;</a> &middot; <a href="#operator%3E=">operator&gt;=</a> &middot; <a href=
+  "#operator%3E%3E">operator&gt;&gt;</a> &middot; <a href="#string">string</a> &middot; <a href=
+  "#swap">swap</a> &middot; <a href="#wstring">wstring</a></code></b></p>
+  <hr>
+
+  <p>Include the standard header <b><code>&lt;string&gt;</code></b> to define the <a href=
+  "lib_cont.html#Containers">container</a> template class <a href=
+  "#basic_string"><code>basic_string</code></a> and various supporting templates.</p>
+  <pre>
+namespace std {
+template&lt;class Elem&gt;
+    class <b><a href="#char_traits">char_traits</a></b>;
+template&lt;&gt;
+    class <b><a href="#char_traits%3Cchar%3E">char_traits&lt;char&gt;</a></b>;
+template&lt;&gt;
+    class <b><a href="#char_traits%3Cwchar_t%3E">char_traits&lt;wchar_t&gt;</a></b>;
+
+template&lt;class Elem,
+    class Tr = char_traits&lt;Elem&gt;,
+    class Alloc = allocator&lt;Elem&gt; &gt;
+    class <b><a href="#basic_string">basic_string</a></b>;
+typedef basic_string&lt;char&gt; <b><a href="#string">string</a></b>;
+typedef basic_string&lt;wchar_t&gt; <b><a href="#wstring">wstring</a></b>;
+
+        // TEMPLATE FUNCTIONS
+template&lt;class Elem, class Tr, class Alloc&gt;
+    basic_string&lt;Elem, Tr, Alloc&gt; <b><a href="#operator+">operator+</a></b>(
+        const basic_string&lt;Elem, Tr, Alloc&gt;&amp; left,
+        const basic_string&lt;Elem, Tr, Alloc&gt;&amp; right);
+template&lt;class Elem, class Tr, class Alloc&gt;
+    basic_string&lt;Elem, Tr, Alloc&gt; <b><a href="#operator+">operator+</a></b>(
+        const basic_string&lt;Elem, Tr, Alloc&gt;&amp; left,
+        const Elem *right);
+template&lt;class Elem, class Tr, class Alloc&gt;
+    basic_string&lt;Elem, Tr, Alloc&gt; <b><a href="#operator+">operator+</a></b>(
+        const basic_string&lt;Elem, Tr, Alloc&gt;&amp; left,
+        Elem right);
+template&lt;class Elem, class Tr, class Alloc&gt;
+    basic_string&lt;Elem, Tr, Alloc&gt; <b><a href="#operator+">operator+</a></b>(
+        const Elem *left,
+        const basic_string&lt;Elem, Tr, Alloc&gt;&amp; right);
+template&lt;class Elem, class Tr, class Alloc&gt;
+    basic_string&lt;Elem, Tr, Alloc&gt; <b><a href="#operator+">operator+</a></b>(
+        Elem left,
+        const basic_string&lt;Elem, Tr, Alloc&gt;&amp; right);
+
+template&lt;class Elem, class Tr, class Alloc&gt;
+    basic_string&lt;Elem, Tr, Alloc&gt;&amp;&amp; <b><a href=
+"#operator+">operator+</a></b>( <b>[added with C++0X]</b>
+        const basic_string&lt;Elem, Tr, Alloc&gt;&amp; left,
+        const basic_string&lt;Elem, Tr, Alloc&gt;&amp;&amp; right);
+template&lt;class Elem, class Tr, class Alloc&gt;
+    basic_string&lt;Elem, Tr, Alloc&gt;&amp;&amp; <b><a href=
+"#operator+">operator+</a></b>( <b>[added with C++0X]</b>
+        const basic_string&lt;Elem, Tr, Alloc&gt;&amp;&amp; left,
+        const basic_string&lt;Elem, Tr, Alloc&gt;&amp; right);
+template&lt;class Elem, class Tr, class Alloc&gt;
+    basic_string&lt;Elem, Tr, Alloc&gt;&amp;&amp; <b><a href=
+"#operator+">operator+</a></b>( <b>[added with C++0X]</b>
+        const basic_string&lt;Elem, Tr, Alloc&gt;&amp;&amp; left,
+        const basic_string&lt;Elem, Tr, Alloc&gt;&amp;&amp; right);
+template&lt;class Elem, class Tr, class Alloc&gt;
+    basic_string&lt;Elem, Tr, Alloc&gt;&amp;&amp; <b><a href=
+"#operator+">operator+</a></b>( <b>[added with C++0X]</b>
+        const basic_string&lt;Elem, Tr, Alloc&gt;&amp;&amp; left,
+        const Elem *right);
+template&lt;class Elem, class Tr, class Alloc&gt;
+    basic_string&lt;Elem, Tr, Alloc&gt;&amp;&amp; <b><a href=
+"#operator+">operator+</a></b>( <b>[added with C++0X]</b>
+        const basic_string&lt;Elem, Tr, Alloc&gt;&amp;&amp; left,
+        Elem right);
+template&lt;class Elem, class Tr, class Alloc&gt;
+    basic_string&lt;Elem, Tr, Alloc&gt;&amp;&amp; <b><a href=
+"#operator+">operator+</a></b>( <b>[added with C++0X]</b>
+        const Elem *left,
+        const basic_string&lt;Elem, Tr, Alloc&gt;&amp;&amp; right);
+template&lt;class Elem, class Tr, class Alloc&gt;
+    basic_string&lt;Elem, Tr, Alloc&gt;&amp;&amp; <b><a href=
+"#operator+">operator+</a></b>( <b>[added with C++0X]</b>
+        Elem left,
+        const basic_string&lt;Elem, Tr, Alloc&gt;&amp;&amp; right);
+
+template&lt;class Elem, class Tr, class Alloc&gt;
+    bool <b><a href="#operator==">operator==</a></b>(
+        const basic_string&lt;Elem, Tr, Alloc&gt;&amp; left,
+        const basic_string&lt;Elem, Tr, Alloc&gt;&amp; right);
+template&lt;class Elem, class Tr, class Alloc&gt;
+    bool <b><a href="#operator==">operator==</a></b>(
+        const basic_string&lt;Elem, Tr, Alloc&gt;&amp; left,
+        const Elem *right);
+template&lt;class Elem, class Tr, class Alloc&gt;
+    bool <b><a href="#operator==">operator==</a></b>(
+        const Elem *left,
+        const basic_string&lt;Elem, Tr, Alloc&gt;&amp; right);
+
+template&lt;class Elem, class Tr, class Alloc&gt;
+    bool <b><a href="#operator!=">operator!=</a></b>(
+        const basic_string&lt;Elem, Tr, Alloc&gt;&amp; left,
+        const basic_string&lt;Elem, Tr, Alloc&gt;&amp; right);
+template&lt;class Elem, class Tr, class Alloc&gt;
+    bool <b><a href="#operator!=">operator!=</a></b>(
+        const basic_string&lt;Elem, Tr, Alloc&gt;&amp; left,
+        const Elem *right);
+template&lt;class Elem, class Tr, class Alloc&gt;
+    bool <b><a href="#operator!=">operator!=</a></b>(
+        const Elem *left,
+        const basic_string&lt;Elem, Tr, Alloc&gt;&amp; right);
+
+template&lt;class Elem, class Tr, class Alloc&gt;
+    bool <b><a href="#operator%3C">operator&lt;</a></b>(
+        const basic_string&lt;Elem, Tr, Alloc&gt;&amp; left,
+        const basic_string&lt;Elem, Tr, Alloc&gt;&amp; right);
+template&lt;class Elem, class Tr, class Alloc&gt;
+    bool <b><a href="#operator%3C">operator&lt;</a></b>(
+        const basic_string&lt;Elem, Tr, Alloc&gt;&amp; left,
+        const Elem *right);
+template&lt;class Elem, class Tr, class Alloc&gt;
+    bool <b><a href="#operator%3C">operator&lt;</a></b>(
+        const Elem *left,
+        const basic_string&lt;Elem, Tr, Alloc&gt;&amp; right);
+
+template&lt;class Elem, class Tr, class Alloc&gt;
+    bool <b><a href="#operator%3E=">operator&gt;=</a></b>(
+        const basic_string&lt;Elem, Tr, Alloc&gt;&amp; left,
+        const basic_string&lt;Elem, Tr, Alloc&gt;&amp; right);
+template&lt;class Elem, class Tr, class Alloc&gt;
+    bool <b><a href="#operator%3E=">operator&gt;=</a></b>(
+        const basic_string&lt;Elem, Tr, Alloc&gt;&amp; left,
+        const Elem *right);
+template&lt;class Elem, class Tr, class Alloc&gt;
+    bool <b><a href="#operator%3E=">operator&gt;=</a></b>(
+        const Elem *left,
+        const basic_string&lt;Elem, Tr, Alloc&gt;&amp; right);
+
+template&lt;class Elem, class Tr, class Alloc&gt;
+    bool <b><a href="#operator%3E">operator&gt;</a></b>(
+        const basic_string&lt;Elem, Tr, Alloc&gt;&amp; left,
+        const basic_string&lt;Elem, Tr, Alloc&gt;&amp; right);
+template&lt;class Elem, class Tr, class Alloc&gt;
+    bool <b><a href="#operator%3E">operator&gt;</a></b>(
+        const basic_string&lt;Elem, Tr, Alloc&gt;&amp; left,
+        const Elem *right);
+template&lt;class Elem, class Tr, class Alloc&gt;
+    bool <b><a href="#operator%3E">operator&gt;</a></b>(
+        const Elem *left,
+        const basic_string&lt;Elem, Tr, Alloc&gt;&amp; right);
+
+template&lt;class Elem, class Tr, class Alloc&gt;
+    bool <b><a href="#operator%3C=">operator&lt;=</a></b>(
+        const basic_string&lt;Elem, Tr, Alloc&gt;&amp; left,
+        const basic_string&lt;Elem, Tr, Alloc&gt;&amp; right);
+template&lt;class Elem, class Tr, class Alloc&gt;
+    bool <b><a href="#operator%3C=">operator&lt;=</a></b>(
+        const basic_string&lt;Elem, Tr, Alloc&gt;&amp; left,
+        const Elem *right);
+template&lt;class Elem, class Tr, class Alloc&gt;
+    bool <b><a href="#operator%3C=">operator&lt;=</a></b>(
+        const Elem *left,
+        const basic_string&lt;Elem, Tr, Alloc&gt;&amp; right);
+
+template&lt;class Elem, class Tr, class Alloc&gt;
+    void <b><a href="#swap">swap</a></b>(
+        basic_string&lt;Elem, Tr, Alloc&gt;&amp; left,
+        basic_string&lt;Elem, Tr, Alloc&gt;&amp; right);
+
+template&lt;class Elem, class Tr, class Alloc&gt;
+    basic_ostream&lt;Elem&gt;&amp; <b><a href="#operator%3C%3C">operator&lt;&lt;</a></b>(
+        basic_ostream&lt;Elem&gt;&amp; ostr,
+        const basic_string&lt;Elem, Tr, Alloc&gt;&amp; str);
+
+template&lt;class Elem, class Tr, class Alloc&gt;
+    basic_istream&lt;Elem&gt;&amp; <b><a href="#operator%3E%3E">operator&gt;&gt;</a></b>(
+        basic_istream&lt;Elem&gt;&amp; istr,
+        basic_string&lt;Elem, Tr, Alloc&gt;&amp; str);
+
+template&lt;class Elem, class Tr, class Alloc&gt;
+    basic_istream&lt;Elem, Tr&gt;&amp; <b><a href="#getline">getline</a></b>(
+        basic_istream&lt;Elem, Tr&gt;&amp; istr,
+        basic_string&lt;Elem, Tr, Alloc&gt;&amp; str);
+ template&lt;class Elem, class Tr, class Alloc&gt;
+    basic_istream&lt;Elem, Tr&gt;&amp; <b><a href="#getline">getline</a></b>(
+        basic_istream&lt;Elem, Tr&gt;&amp; istr,
+        basic_string&lt;Elem, Tr, Alloc&gt;&amp; str,
+        Elem delim); <b>[replaced with C++0X]</b>
+template&lt;class Elem, class Tr, class Alloc&gt;
+    basic_istream&lt;Elem, Tr&gt;&amp; <b><a href="#getline">getline</a></b>(
+        basic_istream&lt;Elem, Tr&gt;&amp;&amp; istr,
+        basic_string&lt;Elem, Tr, Alloc&gt;&amp; str); <b>[added with C++0X]</b>
+ template&lt;class Elem, class Tr, class Alloc&gt;
+    basic_istream&lt;Elem, Tr&gt;&amp; <b><a href="#getline">getline</a></b>(
+        basic_istream&lt;Elem, Tr&gt;&amp;&amp; istr,
+        basic_string&lt;Elem, Tr, Alloc&gt;&amp; str,
+        Elem delim); <b>[added with C++0X]</b>
+}  // namespace std
+</pre>
+
+  <h2><a name="basic_string" id="basic_string"><code>basic_string</code></a></h2>
+  <hr>
+
+  <p><b><code><a href="#basic_string::basic_string">basic_string</a> &middot; <a href=
+  "#basic_string::allocator_type">allocator_type</a> &middot; <a href="#basic_string::append">append</a>
+  &middot; <a href="#basic_string::assign">assign</a> &middot; <a href="#basic_string::at">at</a> &middot;
+  <a href="#basic_string::begin">begin</a> &middot; <a href="#basic_string::c_str">c_str</a> &middot;
+  <a href="#basic_string::capacity">capacity</a> &middot; <a href="#basic_string::clear">clear</a> &middot;
+  <a href="#basic_string::compare">compare</a> &middot; <a href=
+  "#basic_string::const_iterator">const_iterator</a> &middot; <a href=
+  "#basic_string::const_pointer">const_pointer</a> &middot; <a href=
+  "#basic_string::const_reference">const_reference</a> &middot; <a href=
+  "#basic_string::const_reverse_iterator">const_reverse_iterator</a> &middot; <a href=
+  "#basic_string::copy">copy</a> &middot; <a href="#basic_string::data">data</a> &middot; <a href=
+  "#basic_string::difference_type">difference_type</a> &middot; <a href="#basic_string::empty">empty</a>
+  &middot; <a href="#basic_string::end">end</a> &middot; <a href="#basic_string::erase">erase</a> &middot;
+  <a href="#basic_string::find">find</a> &middot; <a href=
+  "#basic_string::find_first_not_of">find_first_not_of</a> &middot; <a href=
+  "#basic_string::find_first_of">find_first_of</a> &middot; <a href=
+  "#basic_string::find_last_not_of">find_last_not_of</a> &middot; <a href=
+  "#basic_string::find_last_of">find_last_of</a> &middot; <a href=
+  "#basic_string::get_allocator">get_allocator</a> &middot; <a href="#basic_string::insert">insert</a>
+  &middot; <a href="#basic_string::iterator">iterator</a> &middot; <a href="#basic_string::length">length</a>
+  &middot; <a href="#basic_string::max_size">max_size</a> &middot; <a href="#basic_string::npos">npos</a>
+  &middot; <a href="#basic_string::operator+=">operator+=</a> &middot; <a href=
+  "#basic_string::operator=">operator=</a> &middot; <a href="#basic_string::operator[]">operator[]</a>
+  &middot; <a href="#basic_string::pointer">pointer</a> &middot; <a href=
+  "#basic_string::pop_back">pop_back</a> &middot; <a href="#basic_string::push_back">push_back</a> &middot;
+  <a href="#basic_string::rbegin">rbegin</a> &middot; <a href="#basic_string::reference">reference</a>
+  &middot; <a href="#basic_string::rend">rend</a> &middot; <a href="#basic_string::replace">replace</a>
+  &middot; <a href="#basic_string::reserve">reserve</a> &middot; <a href="#basic_string::resize">resize</a>
+  &middot; <a href="#basic_string::reverse_iterator">reverse_iterator</a> &middot; <a href=
+  "#basic_string::rfind">rfind</a> &middot; <a href="#basic_string::shrink_to_fit">shrink_to_fit</a> &middot;
+  <a href="#basic_string::size">size</a> &middot; <a href="#basic_string::size_type">size_type</a> &middot;
+  <a href="#basic_string::substr">substr</a> &middot; <a href="#basic_string::swap">swap</a> &middot;
+  <a href="#basic_string::traits_type">traits_type</a> &middot; <a href=
+  "#basic_string::value_type">value_type</a></code></b></p>
+  <hr>
+  <pre>
+template&lt;class Elem,
+    class Tr = <a href="#char_traits">char_traits</a>&lt;Elem&gt;,
+    class Alloc = allocator&lt;Elem&gt; &gt;
+    class <b>basic_string</b> {
+public:
+    typedef Tr <b><a href="#basic_string::traits_type">traits_type</a></b>;
+    typedef Alloc <b><a href="#basic_string::allocator_type">allocator_type</a></b>;
+    typedef typename allocator_type::pointer <b><a href="#basic_string::pointer">pointer</a></b>;
+    typedef typename allocator_type::const_pointer <b><a href=
+"#basic_string::const_pointer">const_pointer</a></b>;
+    typedef typename allocator_type::reference <b><a href="#basic_string::reference">reference</a></b>;
+    typedef typename allocator_type::const_reference <b><a href=
+"#basic_string::const_reference">const_reference</a></b>;
+    typedef typename allocator_type::value_type <b><a href="#basic_string::value_type">value_type</a></b>;
+    typedef typename allocator_type::size_type <b><a href="#basic_string::size_type">size_type</a></b>;
+    typedef typename allocator_type::difference_type <b><a href=
+"#basic_string::difference_type">difference_type</a></b>;
+
+    typedef T0 <b><a href="#basic_string::iterator">iterator</a></b>;
+    typedef T1 <b><a href="#basic_string::const_iterator">const_iterator</a></b>;
+    typedef reverse_iterator&lt;iterator&gt;
+        <b><a href="#basic_string::reverse_iterator">reverse_iterator</a></b>;
+    typedef reverse_iterator&lt;const_iterator&gt;
+        <b><a href="#basic_string::const_reverse_iterator">const_reverse_iterator</a></b>;
+
+    static const size_type <b><a href="#basic_string::npos">npos</a></b> = -1;
+
+    <b><a href="#basic_string::basic_string">basic_string</a></b>();
+    explicit <b><a href="#basic_string::basic_string">basic_string</a></b>(const allocator_type&amp; al);
+    <b><a href="#basic_string::basic_string">basic_string</a></b>(const basic_string&amp; right);
+    <b><a href=
+"#basic_string::basic_string">basic_string</a></b>(basic_string&amp;&amp; right); <b>[added with C++0X]</b>
+    <b><a href=
+"#basic_string::basic_string">basic_string</a></b>(const basic_string&amp; right, size_type roff,
+        size_type count = npos);
+    <b><a href=
+"#basic_string::basic_string">basic_string</a></b>(const basic_string&amp; right, size_type roff,
+        size_type count, const allocator_type&amp; al);
+    <b><a href="#basic_string::basic_string">basic_string</a></b>(const value_type *ptr, size_type count);
+    <b><a href="#basic_string::basic_string">basic_string</a></b>(const value_type *ptr, size_type count,
+        const allocator_type&amp; al);
+    <b><a href="#basic_string::basic_string">basic_string</a></b>(const value_type *ptr);
+    <b><a href="#basic_string::basic_string">basic_string</a></b>(const value_type *ptr,
+        const allocator_type&amp; al);
+    <b><a href="#basic_string::basic_string">basic_string</a></b>(size_type count, value_type ch);
+    <b><a href="#basic_string::basic_string">basic_string</a></b>(size_type count, value_type ch,
+        const allocator_type&amp; al);
+
+    <b><a href=
+"#basic_string::basic_string">basic_string</a></b>(initializer_list init); <b>[added with C++0X]</b>
+    <b><a href="#basic_string::basic_string">basic_string</a></b>(initializer_list init,
+        const allocator_type&amp; al); <b>[added with C++0X]</b>
+    template &lt;class InIt&gt;
+        <b><a href="#basic_string::basic_string">basic_string</a></b>(InIt first, InIt last);
+    template &lt;class InIt&gt;
+        <b><a href="#basic_string::basic_string">basic_string</a></b>(InIt first, InIt last,
+            const allocator_type&amp; al);
+
+    allocator_type <b><a href="#basic_string::get_allocator">get_allocator</a></b>() const;
+
+    basic_string&amp; <b><a href="#basic_string::operator=">operator=</a></b>(const basic_string&amp; right);
+    basic_string&amp; <b><a href="#basic_string::operator=">operator=</a></b>(basic_string&amp;&amp; right);
+    basic_string&amp; <b><a href="#basic_string::operator=">operator=</a></b>(const value_type *ptr);
+    basic_string&amp; <b><a href="#basic_string::operator=">operator=</a></b>(value_type ch);
+    basic_string&amp; <b><a href=
+"#basic_string::operator=">operator=</a></b>(initializer_list&lt;Elem&gt; init); <b>[added with C++0X]</b>
+
+    iterator <b><a href="#basic_string::begin">begin</a></b>();
+    const_iterator <b><a href="#basic_string::begin">begin</a></b>() const;
+    iterator <b><a href="#basic_string::end">end</a></b>();
+    const_iterator <b><a href="#basic_string::end">end</a></b>() const;
+    reverse_iterator <b><a href="#basic_string::rbegin">rbegin</a></b>();
+    const_reverse_iterator <b><a href="#basic_string::rbegin">rbegin</a></b>() const;
+    reverse_iterator <b><a href="#basic_string::rend">rend</a></b>();
+    const_reverse_iterator <b><a href="#basic_string::rend">rend</a></b>() const;
+
+    const_reference <b><a href="#basic_string::at">at</a></b>(size_type off) const;
+    reference <b><a href="#basic_string::at">at</a></b>(size_type off);
+    const_reference <b><a href="#basic_string::operator[]">operator[]</a></b>(size_type off) const;
+    reference <b><a href="#basic_string::operator[]">operator[]</a></b>(size_type off);
+
+    const value_type *<b><a href="#basic_string::c_str">c_str</a></b>() const;
+    const value_type *<b><a href="#basic_string::data">data</a></b>() const;
+
+    size_type <b><a href="#basic_string::length">length</a></b>() const;
+    size_type <b><a href="#basic_string::size">size</a></b>() const;
+    size_type <b><a href="#basic_string::max_size">max_size</a></b>() const;
+
+    void <b><a href="#basic_string::resize">resize</a></b>(size_type newsize, value_type ch = value_type());
+    size_type <b><a href="#basic_string::capacity">capacity</a></b>() const;
+    void <b><a href="#basic_string::reserve">reserve</a></b>(size_type count = 0);
+    bool <b><a href="#basic_string::empty">empty</a></b>() const;
+
+    basic_string&amp; <b><a href=
+"#basic_string::operator+=">operator+=</a></b>(const basic_string&amp; right);
+    basic_string&amp; <b><a href="#basic_string::operator+=">operator+=</a></b>(const value_type *ptr);
+    basic_string&amp; <b><a href="#basic_string::operator+=">operator+=</a></b>(value_type ch);
+    basic_string&amp; <b><a href=
+"#basic_string::operator+=">operator+=</a></b>(initializer_list&lt;Elem&gt; init); <b>[added with C++0X]</b>
+
+    void <b><a href="#basic_string::push_back">push_back</a></b>(value_type ch);
+</pre>
+  <pre>
+    basic_string&amp; <b><a href="#basic_string::append">append</a></b>(const basic_string&amp; right);
+    basic_string&amp; <b><a href="#basic_string::append">append</a></b>(const basic_string&amp; right,
+        size_type roff, size_type count);
+    basic_string&amp; <b><a href="#basic_string::append">append</a></b>(const value_type *ptr,
+        size_type count);
+    basic_string&amp; <b><a href="#basic_string::append">append</a></b>(const value_type *ptr);
+    basic_string&amp; <b><a href="#basic_string::append">append</a></b>(size_type count, value_type ch);
+    basic_string&amp; <b><a href=
+"#basic_string::append">append</a></b>(initializer_list&lt;Elem&gt; init); <b>[added with C++0X]</b>
+    template&lt;class InIt&gt;
+        basic_string&amp; <b><a href="#basic_string::append">append</a></b>(InIt first, InIt last);
+
+    basic_string&amp; <b><a href="#basic_string::assign">assign</a></b>(const basic_string&amp; right);
+    basic_string&amp; <b><a href="#basic_string::assign">assign</a></b>(basic_string&amp;&amp; right);
+    basic_string&amp; <b><a href="#basic_string::assign">assign</a></b>(const basic_string&amp; right,
+        size_type roff, size_type count);
+    basic_string&amp; <b><a href="#basic_string::assign">assign</a></b>(const value_type *ptr,
+        size_type count);
+    basic_string&amp; <b><a href="#basic_string::assign">assign</a></b>(const value_type *ptr);
+    basic_string&amp; <b><a href="#basic_string::assign">assign</a></b>(size_type count, value_type ch);
+    basic_string&amp; <b><a href=
+"#basic_string::assign">assign</a></b>(initializer_list&lt;Elem&gt; init); <b>[added with C++0X]</b>
+    template&lt;class InIt&gt;
+        basic_string&amp; <b><a href="#basic_string::assign">assign</a></b>(InIt first, InIt last);
+
+    basic_string&amp; <b><a href="#basic_string::insert">insert</a></b>(size_type off,
+        const basic_string&amp; right);
+    basic_string&amp; <b><a href="#basic_string::insert">insert</a></b>(size_type off,
+        const basic_string&amp; right, size_type roff,
+            size_type count);
+    basic_string&amp; <b><a href="#basic_string::insert">insert</a></b>(size_type off,
+        const value_type *ptr, size_type count);
+    basic_string&amp; <b><a href="#basic_string::insert">insert</a></b>(size_type off,
+        const value_type *ptr);
+    basic_string&amp; <b><a href="#basic_string::insert">insert</a></b>(size_type off,
+        size_type count, value_type ch);
+    iterator <b><a href="#basic_string::insert">insert</a></b>(const_iterator where,
+        value_type ch = value_type());
+    void <b><a href=
+"#basic_string::insert">insert</a></b>(const_iterator where, size_type count, value_type ch);
+    void <b><a href="#basic_string::insert">insert</a></b>(const_iterator where,
+        initializer_list&lt;Elem&gt; init); <b>[added with C++0X]</b>
+    template&lt;class InIt&gt;
+        void <b><a href="#basic_string::insert">insert</a></b>(const_iterator where,
+            InIt first, InIt last);
+
+    basic_string&amp; <b><a href="#basic_string::erase">erase</a></b>(size_type off = 0,
+        size_type count = npos);
+    iterator <b><a href="#basic_string::erase">erase</a></b>(const_iterator where);
+    iterator <b><a href="#basic_string::erase">erase</a></b>(const_iterator first, const_iterator last);
+    void <b><a href="#basic_string::clear">clear</a></b>();
+
+    basic_string&amp; <b><a href="#basic_string::replace">replace</a></b>(size_type off, size_type n0,
+        const basic_string&amp; right);
+    basic_string&amp; <b><a href="#basic_string::replace">replace</a></b>(size_type off, size_type n0,
+        const basic_string&amp; right, size_type roff,
+            size_type count);
+    basic_string&amp; <b><a href="#basic_string::replace">replace</a></b>(size_type off, size_type n0,
+        const value_type *ptr, size_type count);
+    basic_string&amp; <b><a href="#basic_string::replace">replace</a></b>(size_type off, size_type n0,
+        const value_type *ptr);
+    basic_string&amp; <b><a href="#basic_string::replace">replace</a></b>(size_type off, size_type n0,
+        size_type count, value_type ch);
+    basic_string&amp; <b><a href="#basic_string::replace">replace</a></b>(iterator first, iterator last,
+        const basic_string&amp; right);
+    basic_string&amp; <b><a href="#basic_string::replace">replace</a></b>(iterator first, iterator last,
+        const value_type *ptr, size_type count);
+    basic_string&amp; <b><a href="#basic_string::replace">replace</a></b>(iterator first, iterator last,
+        const value_type *ptr);
+    basic_string&amp; <b><a href="#basic_string::replace">replace</a></b>(iterator first, iterator last,
+        size_type count, value_type ch);
+    basic_string&amp; <b><a href="#basic_string::replace">replace</a></b>(iterator first, iterator last,
+        initializer_list&lt;Elem&gt; init); <b>[added with C++0X]</b>
+    template&lt;class InIt&gt;
+        basic_string&amp;
+            <b><a href="#basic_string::replace">replace</a></b>(iterator first, iterator last,
+                InIt first2, InIt last2);
+
+    size_type <b><a href="#basic_string::copy">copy</a></b>(value_type *ptr, size_type count,
+        size_type off = 0) const;
+    void <b><a href="#basic_string::swap">swap</a></b>(basic_string&amp; right);
+</pre>
+  <pre>
+    size_type <b><a href="#basic_string::find">find</a></b>(const basic_string&amp; right,
+        size_type off = 0) const;
+    size_type <b><a href="#basic_string::find">find</a></b>(const value_type *ptr, size_type off,
+        size_type count) const;
+    size_type <b><a href="#basic_string::find">find</a></b>(const value_type *ptr,
+        size_type off = 0) const;
+    size_type <b><a href="#basic_string::find">find</a></b>(value_type ch, size_type off = 0) const;
+
+    size_type <b><a href="#basic_string::find">rfind</a></b>(const basic_string&amp; right,
+        size_type off = npos) const;
+    size_type <b><a href="#basic_string::rfind">rfind</a></b>(const value_type *ptr, size_type off,
+        size_type count = npos) const;
+    size_type <b><a href="#basic_string::rfind">rfind</a></b>(const value_type *ptr,
+        size_type off = npos) const;
+    size_type <b><a href="#basic_string::rfind">rfind</a></b>(value_type ch,
+        size_type off = npos) const;
+
+    size_type <b><a href="#basic_string::rfind">find_first_of</a></b>(const basic_string&amp; right,
+        size_type off = 0) const;
+    size_type <b><a href="#basic_string::rfind">find_first_of</a></b>(const value_type *ptr,
+        size_type off, size_type count) const;
+    size_type <b><a href="#basic_string::find_first_of">find_first_of</a></b>(const value_type *ptr,
+        size_type off = 0) const;
+    size_type <b><a href="#basic_string::find_first_of">find_first_of</a></b>(value_type ch,
+        size_type off = 0) const;
+
+    size_type <b><a href="#basic_string::find_last_of">find_last_of</a></b>(const basic_string&amp; right,
+        size_type off = npos) const;
+    size_type <b><a href="#basic_string::find_last_of">find_last_of</a></b>(const value_type *ptr,
+        size_type off, size_type count = npos) const;
+    size_type <b><a href="#basic_string::find_last_of">find_last_of</a></b>(const value_type *ptr,
+        size_type off = npos) const;
+    size_type <b><a href="#basic_string::find_last_of">find_last_of</a></b>(value_type ch,
+        size_type off = npos) const;
+
+    size_type <b><a href=
+"#basic_string::find_first_not_of">find_first_not_of</a></b>(const basic_string&amp; right,
+        size_type off = 0) const;
+    size_type <b><a href="#basic_string::find_first_not_of">find_first_not_of</a></b>(const value_type *ptr,
+        size_type off, size_type count) const;
+    size_type <b><a href="#basic_string::find_first_not_of">find_first_not_of</a></b>(const value_type *ptr,
+        size_type off = 0) const;
+    size_type <b><a href="#basic_string::find_first_not_of">find_first_not_of</a></b>(value_type ch,
+        size_type off = 0) const;
+
+    size_type <b><a href=
+"#basic_string::find_last_not_of">find_last_not_of</a></b>(const basic_string&amp; right,
+        size_type off = npos) const;
+    size_type <b><a href="#basic_string::find_last_not_of">find_last_not_of</a></b>(const value_type *ptr,
+        size_type off, size_type count) const;
+    size_type <b><a href="#basic_string::find_last_not_of">find_last_not_of</a></b>(const value_type *ptr,
+        size_type off = npos) const;
+    size_type <b><a href="#basic_string::find_last_not_of">find_last_not_of</a></b>(value_type ch,
+        size_type off = npos) const;
+
+    basic_string <b><a href="#basic_string::substr">substr</a></b>(size_type off = 0,
+        size_type count = npos) const;
+
+    int <b><a href="#basic_string::compare">compare</a></b>(const basic_string&amp; right) const;
+    int <b><a href="#basic_string::compare">compare</a></b>(size_type off, size_type n0,
+        const basic_string&amp; right) const;
+    int <b><a href="#basic_string::compare">compare</a></b>(size_type off, size_type n0,
+        const basic_string&amp; right, size_type roff, size_type count) const;
+    int <b><a href="#basic_string::compare">compare</a></b>(const value_type *ptr) const;
+    int <b><a href="#basic_string::compare">compare</a></b>(size_type off, size_type n0,
+        const value_type *ptr) const;
+    int <b><a href="#basic_string::compare">compare</a></b>(size_type off, size_type n0,
+        const value_type *ptr, size_type roff) const;
+    };
+</pre>
+
+  <p>The template class describes an object that controls a varying-length sequence of elements of type
+  <code>Elem</code>, also known as <code><a href="#basic_string::value_type">value_type</a></code>. Such an
+  element type must not require explicit construction or destruction, and it must be suitable for use as the
+  <code>Elem</code> parameter to <a href="istream.html#basic_istream"><code>basic_istream</code></a> or
+  <a href="ostream.html#basic_ostream"><code>basic_ostream</code></a>. (A ``plain old data structure,'' or
+  <b><a name="POD" id="POD">POD</a></b>, from C generally meets this criterion.) The Standard C++ library
+  provides two specializations of this template class, with the type definitions <a href=
+  "#string"><code>string</code></a>, for elements of type <i>char,</i> and <a href=
+  "#wstring"><code>wstring</code></a>, for elements of type <code>wchar_t</code>.</p>
+
+  <p>Various important properties of the elements in a <code>basic_string</code> specialization are described
+  by the class <code>Tr</code>, also known as <code><a href=
+  "#basic_string::traits_type">traits_type</a></code>. A class that specifies these <a href=
+  "#character%20traits">character traits</a> must have the same external interface as an object of template
+  class <a href="#char_traits"><code>char_traits</code></a>.</p>
+
+  <p>The object allocates and frees storage for the sequence it controls through a stored <a href=
+  "memory.html#allocator%20object">allocator object</a> of class <code>Alloc</code>, also known as
+  <code><a href="#basic_string::allocator_type">allocator_type</a></code>. Such an allocator object must have
+  the same external interface as an object of template class <a href=
+  "memory.html#allocator"><code>allocator</code></a>. (Class <a href=
+  "#char_traits"><code>char_traits</code></a> has no provision for alternate addressing schemes, such as
+  might be required to implement a <a href="memory.html#far%20heap">far heap</a>.) Note that the stored
+  allocator object is <i>not</i> copied when the container object is assigned.</p>
+
+  <p>The sequences controlled by an object of template class <code>basic_string</code> are usually called
+  <b><a name="strings" id="strings">strings</a></b>. These objects should not be confused, however, with the
+  null-terminated <a href="lib_over.html#C%20string">C strings</a> used throughout the Standard C++
+  library.</p>
+
+  <p>Many member functions require an <b><a name="operand sequence">operand sequence</a></b> of elements. You
+  can specify such an operand sequence several ways:</p>
+
+  <ul>
+    <li><code>ch</code> -- one element with value <code>ch</code></li>
+
+    <li><code>count, ch</code> -- a repetition of <code>count</code> elements each with value
+    <code>ch</code></li>
+
+    <li><code>ptr</code> -- a null-terminated sequence (such as a <a href="lib_over.html#C%20string">C
+    string</a>, for <code>Elem</code> of type <i>char</i>) beginning at <code>ptr</code> (which must not be a
+    null pointer), where the terminating element is the value <code>value_type()</code> and is not part of
+    the operand sequence</li>
+
+    <li><code>ptr, count</code> -- a sequence of <code>count</code> elements beginning at <code>ptr</code>
+    (which must not be a null pointer)</li>
+
+    <li><code>right</code> -- the sequence specified by the <code>basic_string</code> object
+    <code>right</code></li>
+
+    <li><code>right, roff, count</code> -- the substring of the <code>basic_string</code> object
+    <code>right</code> with up to <code>count</code> elements (or through the end of the string, whichever
+    comes first) beginning at position <code>roff</code></li>
+
+    <li><code>first, last</code> -- a sequence of elements delimited by the iterators <code>first</code> and
+    <code>last</code>, in the range <code>[first, last)</code>, which <i>may</i> overlap the sequence
+    controlled by the string object whose member function is being called</li>
+
+    <li><code>init</code> [beginning with <b>C++0X</b>] -- a sequence of elements controlled by an object of
+    type <code>initializer_list&lt;Elem&gt;</code></li>
+  </ul>
+
+  <p>If a <b><a name="position argument">position argument</a></b> (such as <code>roff</code> above) is
+  beyond the end of the string on a call to a <code>basic_string</code> member function, the function reports
+  an <b><a name="out-of-range error">out-of-range error</a></b> by throwing an object of class <a href=
+  "stdexcep.html#out_of_range"><code>out_of_range</code></a>.</p>
+
+  <p>If a function is asked to generate a sequence longer than <code><a href=
+  "#basic_string::max_size">max_size</a>()</code> elements, the function reports a <b><a name=
+  "length error">length error</a></b> by throwing an object of class <a href=
+  "stdexcep.html#length_error"><code>length_error</code></a>.</p>
+
+  <p>References, pointers, and iterators that designate elements of the controlled sequence can become
+  invalid after any call to a function that alters the controlled sequence, or after the first call to the
+  non-const member functions <code><a href="#basic_string::at">at</a></code>, <code><a href=
+  "#basic_string::begin">begin</a></code>, <code><a href="#basic_string::end">end</a></code>, <code><a href=
+  "#basic_string::operator[]">operator[]</a></code>, <code><a href="#basic_string::rbegin">rbegin</a></code>,
+  or <code><a href="#basic_string::rend">rend</a></code>. (The idea is to permit (but not require) multiple
+  strings to share the same representation until one string becomes a candidate for change, at which point
+  that string makes a private copy of the representation, using a discipline called <b><a name=
+  "copy on write">copy on write</a></b>.)</p>
+
+  <h3><code><a name="basic_string::allocator_type" id=
+  "basic_string::allocator_type">basic_string::allocator_type</a></code></h3>
+  <pre>
+typedef Alloc <b>allocator_type</b>;
+</pre>
+
+  <p>The type is a synonym for the template parameter <code>Alloc</code>.</p>
+
+  <h3><code><a name="basic_string::append" id="basic_string::append">basic_string::append</a></code></h3>
+  <pre>
+basic_string&amp; <b>append</b>(const value_type *ptr);
+basic_string&amp; <b>append</b>(const value_type *ptr,
+    size_type count);
+basic_string&amp; <b>append</b>(const basic_string&amp; right,
+    size_type roff, size_type count);
+basic_string&amp; <b>append</b>(const basic_string&amp; right);
+basic_string&amp; <b>append</b>(size_type count, value_type ch);
+basic_string&amp; <b>append</b>(initializer_list&lt;Elem&gt; init); <b>[added with C++0X]</b>
+template&lt;class InIt&gt;
+    basic_string&amp; <b>append</b>(InIt first, InIt last);
+</pre>
+
+  <p>If <code>InIt</code> is an integer type, the template member function behaves the same as
+  <code>append((size_type)first, (value_type)last)</code>. Otherwise, the member functions each append the
+  <a href="#operand%20sequence">operand sequence</a> to the end of the sequence controlled by
+  <code>*this</code>, then return <code>*this</code>.</p>
+
+  <h3><code><a name="basic_string::assign" id="basic_string::assign">basic_string::assign</a></code></h3>
+  <pre>
+basic_string&amp; <b>assign</b>(const basic_string&amp; right);
+basic_string&amp; <b>assign</b>(basic_string&amp;&amp; right);
+basic_string&amp; <b>assign</b>(const basic_string&amp; right,
+    size_type roff, size_type count);
+basic_string&amp; <b>assign</b>(const value_type *ptr);
+basic_string&amp; <b>assign</b>(const value_type *ptr,
+    size_type count);
+basic_string&amp; <b>assign</b>(size_type count, value_type ch);
+basic_string&amp; <b>assign</b>(initializer_list&lt;Elem&gt; init); <b>[added with C++0X]</b>
+template&lt;class InIt&gt;
+    basic_string&amp; <b>assign</b>(InIt first, InIt last);
+</pre>
+
+  <p>If <code>InIt</code> is an integer type, the template member function behaves the same as
+  <code>assign((size_type)first, (value_type)last)</code>. Otherwise, the member functions each replace the
+  sequence controlled by <code>*this</code> with the <a href="#operand%20sequence">operand sequence</a>, then
+  return <code>*this</code>.</p>
+
+  <h3><code><a name="basic_string::at" id="basic_string::at">basic_string::at</a></code></h3>
+  <pre>
+const_reference <b>at</b>(size_type off) const;
+reference <b>at</b>(size_type off);
+</pre>
+
+  <p>The member functions each return a reference to the element of the controlled sequence at position
+  <code>off</code>, or report an <a href="#out-of-range%20error">out-of-range error</a>.</p>
+
+  <h3><code><a name="basic_string::basic_string" id=
+  "basic_string::basic_string">basic_string::basic_string</a></code></h3>
+  <pre>
+<b>basic_string</b>();
+explicit <b>basic_string</b>(const allocator_type&amp; al);
+<b>basic_string</b>(const basic_string&amp; right);
+<b>basic_string</b>(basic_string&amp;&amp; right); <b>[added with C++0X]</b>
+<b>basic_string</b>(const basic_string&amp; right, size_type roff,
+    size_type count = npos);
+<b>basic_string</b>(const basic_string&amp; right, size_type roff,
+    size_type count, const allocator_type&amp; al);
+<b>basic_string</b>(const value_type *ptr, size_type count);
+<b>basic_string</b>(const value_type *ptr, size_type count,
+    const allocator_type&amp; al);
+<b>basic_string</b>(const value_type *ptr);
+<b>basic_string</b>(const value_type *ptr,
+    const allocator_type&amp; al);
+<b>basic_string</b>(size_type count, value_type ch);
+<b>basic_string</b>(size_type count, value_type ch,
+    const allocator_type&amp; al);
+<b>basic_string</b>(initializer_list init); <b>[added with C++0X]</b>
+<b>basic_string</b>(initializer_list init,
+    const allocator_type&amp; al); <b>[added with C++0X]</b>
+template &lt;class InIt&gt;
+    <b>basic_string</b>(InIt first, InIt last);
+template &lt;class InIt&gt;
+    <b>basic_string</b>(InIt first, InIt last, const allocator_type&amp; al);
+</pre>
+
+  <p>All constructors store an <a href="memory.html#allocator%20object">allocator object</a> and initialize
+  the controlled sequence. The allocator object is the argument <code>al</code>, if present. For the copy
+  constructor, it is <code>right.<a href="#basic_string::get_allocator">get_allocator</a>()</code>.
+  Otherwise, it is <code>Alloc()</code>.</p>
+
+  <p>The controlled sequence is initialized to a copy of the <a href="#operand%20sequence">operand
+  sequence</a> specified by the remaining operands. A constructor with no operand sequence specifies an empty
+  initial controlled sequence. If <code>InIt</code> is an integer type in a template constructor, the operand
+  sequence <code>first, last</code> behaves the same as <code>(size_type)first, (value_type)last</code>.</p>
+
+  <h3><code><a name="basic_string::begin" id="basic_string::begin">basic_string::begin</a></code></h3>
+  <pre>
+const_iterator <b>begin</b>() const;
+iterator <b>begin</b>();
+</pre>
+
+  <p>The member functions each return a random-access iterator that points at the first element of the
+  sequence (or just beyond the end of an empty sequence).</p>
+
+  <h3><code><a name="basic_string::c_str" id="basic_string::c_str">basic_string::c_str</a></code></h3>
+  <pre>
+const value_type <b>*c_str</b>() const;
+</pre>
+
+  <p>The member function returns a pointer to a non-modifiable <a href="lib_over.html#C%20string">C
+  string</a> constructed by adding a terminating null element (<code>value_type()</code>) to the controlled
+  sequence. Calling any non-const member function for <code>*this</code> can invalidate the pointer.</p>
+
+  <h3><code><a name="basic_string::capacity" id=
+  "basic_string::capacity">basic_string::capacity</a></code></h3>
+  <pre>
+size_type <b>capacity</b>() const;
+</pre>
+
+  <p>The member function returns the storage currently allocated to hold the controlled sequence, a value at
+  least as large as <code><a href="#basic_string::size">size</a>()</code>.</p>
+
+  <h3><code><a name="basic_string::clear" id="basic_string::clear">basic_string::clear</a></code></h3>
+  <pre>
+void <b>clear</b>();
+</pre>
+
+  <p>The member function calls <code><a href="#basic_string::erase">erase</a>( <a href=
+  "#basic_string::begin">begin</a>(), <a href="#basic_string::end">end</a>())</code>.</p>
+
+  <h3><code><a name="basic_string::compare" id="basic_string::compare">basic_string::compare</a></code></h3>
+  <pre>
+int <b>compare</b>(const basic_string&amp; right) const;
+int <b>compare</b>(size_type off, size_type n0,
+    const basic_string&amp; right) const;
+int <b>compare</b>(size_type off, size_type n0,
+    const basic_string&amp; right, size_type roff, size_type count) const;
+int <b>compare</b>(const value_type *ptr) const;
+int <b>compare</b>(size_type off, size_type n0,
+    const value_type *ptr) const;
+int <b>compare</b>(size_type off, size_type n0,
+    const value_type *ptr, size_type roff) const;
+</pre>
+
+  <p>The member functions each compare up to <code>n0</code> elements of the controlled sequence beginning
+  with position <code>off</code>, or the entire controlled sequence if these arguments are not supplied, to
+  the <a href="#operand%20sequence">operand sequence</a>. Each function returns:</p>
+
+  <ul>
+    <li>a negative value if the first differing element in the controlled sequence compares less than the
+    corresponding element in the operand sequence (as determined by <code>traits_type::<a href=
+    "#char_traits::compare">compare</a></code>), or if the two have a common prefix but the operand sequence
+    is longer</li>
+
+    <li>zero if the two compare equal element by element and are the same length</li>
+
+    <li>a positive value otherwise</li>
+  </ul>
+
+  <h3><code><a name="basic_string::const_iterator" id=
+  "basic_string::const_iterator">basic_string::const_iterator</a></code></h3>
+  <pre>
+typedef T1 <b>const_iterator</b>;
+</pre>
+
+  <p>The type describes an object that can serve as a constant random-access iterator for the controlled
+  sequence. It is described here as a synonym for the implementation-defined type <code>T1</code>.</p>
+
+  <h3><code><a name="basic_string::const_pointer" id=
+  "basic_string::const_pointer">basic_string::const_pointer</a></code></h3>
+  <pre>
+typedef typename allocator_type::const_pointer <b>const_pointer</b>;
+</pre>
+
+  <p>The type describes a pointer to a const element.</p>
+
+  <h3><code><a name="basic_string::const_reference" id=
+  "basic_string::const_reference">basic_string::const_reference</a></code></h3>
+  <pre>
+typedef typename allocator_type::const_reference
+    <b>const_reference</b>;
+</pre>
+
+  <p>The type describes a reference to an element.</p>
+
+  <h3><code><a name="basic_string::const_reverse_iterator" id=
+  "basic_string::const_reverse_iterator">basic_string::const_reverse_iterator</a></code></h3>
+  <pre>
+typedef reverse_iterator&lt;const_iterator&gt; <b>const_reverse_iterator</b>;
+</pre>
+
+  <p>The type describes an object that can serve as a constant reverse iterator for the controlled
+  sequence.</p>
+
+  <h3><code><a name="basic_string::copy" id="basic_string::copy">basic_string::copy</a></code></h3>
+  <pre>
+size_type <b>copy</b>(value_type *ptr, size_type count,
+    size_type off = 0) const;
+</pre>
+
+  <p>The member function copies up to <code>count</code> elements from the controlled sequence, beginning at
+  position <code>off</code>, to the array of <code>value_type</code> beginning at <code>ptr</code>. It
+  returns the number of elements actually copied.</p>
+
+  <h3><code><a name="basic_string::data" id="basic_string::data">basic_string::data</a></code></h3>
+  <pre>
+const value_type <b>*data</b>() const;
+</pre>
+
+  <p>The member function returns a pointer to the first element of the sequence (or, for an empty sequence, a
+  non-null pointer that cannot be dereferenced).</p>
+
+  <h3><code><a name="basic_string::difference_type" id=
+  "basic_string::difference_type">basic_string::difference_type</a></code></h3>
+  <pre>
+typedef typename allocator_type::difference_type <b>difference_type</b>;
+</pre>
+
+  <p>The signed integer type describes an object that can represent the difference between the addresses of
+  any two elements in the controlled sequence.</p>
+
+  <h3><code><a name="basic_string::empty" id="basic_string::empty">basic_string::empty</a></code></h3>
+  <pre>
+bool <b>empty</b>() const;
+</pre>
+
+  <p>The member function returns true for an empty controlled sequence.</p>
+
+  <h3><code><a name="basic_string::end" id="basic_string::end">basic_string::end</a></code></h3>
+  <pre>
+const_iterator <b>end</b>() const;
+iterator <b>end</b>();
+</pre>
+
+  <p>The member functions each return a random-access iterator that points just beyond the end of the
+  sequence.</p>
+
+  <h3><code><a name="basic_string::erase" id="basic_string::erase">basic_string::erase</a></code></h3>
+  <pre>
+iterator <b>erase</b>(const_iterator first, const_iterator last);
+iterator <b>erase</b>(const_iterator where);
+basic_string&amp; <b>erase</b>(size_type off = 0,
+    size_type count = npos);
+</pre>
+
+  <p>The first member function removes the elements of the controlled sequence in the range <code>[first,
+  last)</code>. The second member function removes the element of the controlled sequence pointed to by
+  <code>where</code>. Both return an iterator that designates the first element remaining beyond any elements
+  removed, or <code><a href="#basic_string::end">end</a>()</code> if no such element exists.</p>
+
+  <p>The third member function removes up to <code>count</code> elements of the controlled sequence beginning
+  at position <code>off</code>, then returns <code>*this</code>.</p>
+
+  <h3><code><a name="basic_string::find" id="basic_string::find">basic_string::find</a></code></h3>
+  <pre>
+size_type <b>find</b>(value_type ch, size_type off = 0) const;
+size_type <b>find</b>(const value_type *ptr,
+    size_type off = 0) const;
+size_type <b>find</b>(const value_type *ptr, size_type off,
+    size_type count) const;
+size_type <b>find</b>(const basic_string&amp; right,
+    size_type off = 0) const;
+</pre>
+
+  <p>The member functions each find the first (lowest beginning position) subsequence in the controlled
+  sequence, beginning on or after position <code>off</code>, that matches the <a href=
+  "#operand%20sequence">operand sequence</a> specified by the remaining operands. If it succeeds, it returns
+  the position where the matching subsequence begins. Otherwise, the function returns <code><a href=
+  "#basic_string::npos">npos</a></code>.</p>
+
+  <h3><code><a name="basic_string::find_first_not_of" id=
+  "basic_string::find_first_not_of">basic_string::find_first_not_of</a></code></h3>
+  <pre>
+size_type <b>find_first_not_of</b>(value_type ch,
+    size_type off = 0) const;
+size_type <b>find_first_not_of</b>(const value_type *ptr,
+    size_type off = 0) const;
+size_type <b>find_first_not_of</b>(const value_type *ptr,
+    size_type off, size_type count) const;
+size_type <b>find_first_not_of</b>(const basic_string&amp; right,
+    size_type off = 0) const;
+</pre>
+
+  <p>The member functions each find the first (lowest position) element of the controlled sequence, at or
+  after position <code>off</code>, that matches <i>none</i> of the elements in the <a href=
+  "#operand%20sequence">operand sequence</a> specified by the remaining operands. If it succeeds, it returns
+  the position. Otherwise, the function returns <code><a href="#basic_string::npos">npos</a></code>.</p>
+
+  <h3><code><a name="basic_string::find_first_of" id=
+  "basic_string::find_first_of">basic_string::find_first_of</a></code></h3>
+  <pre>
+size_type <b>find_first_of</b>(value_type ch,
+    size_type off = 0) const;
+size_type <b>find_first_of</b>(const value_type *ptr,
+    size_type off = 0) const;
+size_type <b>find_first_of</b>(const value_type *ptr,
+    size_type off, size_type count) const;
+size_type <b>find_first_of</b>(const basic_string&amp; right,
+    size_type off = 0) const;
+</pre>
+
+  <p>The member functions each find the first (lowest position) element of the controlled sequence, at or
+  after position <code>off</code>, that matches <i>any</i> of the elements in the <a href=
+  "#operand%20sequence">operand sequence</a> specified by the remaining operands. If it succeeds, it returns
+  the position. Otherwise, the function returns <code><a href="#basic_string::npos">npos</a></code>.</p>
+
+  <h3><code><a name="basic_string::find_last_not_of" id=
+  "basic_string::find_last_not_of">basic_string::find_last_not_of</a></code></h3>
+  <pre>
+size_type <b>find_last_not_of</b>(value_type ch,
+    size_type off = npos) const;
+size_type <b>find_last_not_of</b>(const value_type *ptr,
+    size_type off = npos) const;
+size_type <b>find_last_not_of</b>(const value_type *ptr,
+    size_type off, size_type count) const;
+size_type <b>find_last_not_of</b>(const basic_string&amp; right,
+    size_type off = npos) const;
+</pre>
+
+  <p>The member functions each find the last (highest position) element of the controlled sequence, at or
+  before position <code>off</code>, that matches <i>none</i> of the elements in the <a href=
+  "#operand%20sequence">operand sequence</a> specified by the remaining operands. If it succeeds, it returns
+  the position. Otherwise, the function returns <code><a href="#basic_string::npos">npos</a></code>.</p>
+
+  <h3><code><a name="basic_string::find_last_of" id=
+  "basic_string::find_last_of">basic_string::find_last_of</a></code></h3>
+  <pre>
+size_type <b>find_last_of</b>(value_type ch,
+    size_type off = npos) const;
+size_type <b>find_last_of</b>(const value_type *ptr,
+    size_type off = npos) const;
+size_type <b>find_last_of</b>(const value_type *ptr,
+    size_type off, size_type count = npos) const;
+size_type <b>find_last_of</b>(const basic_string&amp; right,
+    size_type off = npos) const;
+</pre>
+
+  <p>The member functions each find the last (highest position) element of the controlled sequence, at or
+  before position <code>off</code>, that matches <i>any</i> of the elements in the <a href=
+  "#operand%20sequence">operand sequence</a> specified by the remaining operands. If it succeeds, it returns
+  the position. Otherwise, the function returns <code><a href="#basic_string::npos">npos</a></code>.</p>
+
+  <h3><code><a name="basic_string::get_allocator" id=
+  "basic_string::get_allocator">basic_string::get_allocator</a></code></h3>
+  <pre>
+allocator_type <b>get_allocator</b>() const;
+</pre>
+
+  <p>The member function returns the stored <a href="memory.html#allocator%20object">allocator
+  object</a>.</p>
+
+  <h3><code><a name="basic_string::insert" id="basic_string::insert">basic_string::insert</a></code></h3>
+  <pre>
+basic_string&amp; <b>insert</b>(size_type off, const value_type *ptr);
+basic_string&amp; <b>insert</b>(size_type off, const value_type *ptr,
+    size_type count);
+basic_string&amp; <b>insert</b>(size_type off,
+    const basic_string&amp; right);
+basic_string&amp; <b>insert</b>(size_type off,
+    const basic_string&amp; right, size_type roff, size_type count);
+basic_string&amp; <b>insert</b>(size_type off,
+    size_type count, value_type ch);
+iterator <b>insert</b>(const_iterator where,
+    value_type ch = value_type());
+void <b>insert</b>(const_iterator where,
+    initializer_list&lt;Elem&gt; init); <b>[added with C++0X]</b>
+template&lt;class InIt&gt;
+    void <b>insert</b>(const_iterator where, InIt first, InIt last);
+void <b>insert</b>(const_iterator where, size_type count, value_type ch);
+</pre>
+
+  <p>The member functions each insert, before position <code>off</code> or before the element pointed to by
+  <code>where</code> in the controlled sequence, the <a href="#operand%20sequence">operand sequence</a>
+  specified by the remaining operands. A function that returns a value returns <code>*this</code>. If
+  <code>InIt</code> is an integer type in the template member function, the operand sequence <code>first,
+  last</code> behaves the same as <code>(size_type)first, (value_type)last</code>.</p>
+
+  <h3><code><a name="basic_string::iterator" id=
+  "basic_string::iterator">basic_string::iterator</a></code></h3>
+  <pre>
+typedef T0 <b>iterator</b>;
+</pre>
+
+  <p>The type describes an object that can serve as a random-access iterator for the controlled sequence. It
+  is described here as a synonym for the implementation-defined type <code>T0</code>.</p>
+
+  <h3><code><a name="basic_string::length" id="basic_string::length">basic_string::length</a></code></h3>
+  <pre>
+size_type <b>length</b>() const;
+</pre>
+
+  <p>The member function returns the length of the controlled sequence (same as <code><a href=
+  "#basic_string::size">size</a>()</code>).</p>
+
+  <h3><code><a name="basic_string::max_size" id=
+  "basic_string::max_size">basic_string::max_size</a></code></h3>
+  <pre>
+size_type <b>max_size</b>() const;
+</pre>
+
+  <p>The member function returns the length of the longest sequence that the object can control.</p>
+
+  <h3><code><a name="basic_string::npos" id="basic_string::npos">basic_string::npos</a></code></h3>
+  <pre>
+static const size_type <b>npos</b> = -1;
+</pre>
+
+  <p>The constant is the largest representable value of type <a href=
+  "#basic_string::size_type"><code>size_type</code></a>. It is assuredly larger than <code><a href=
+  "#basic_string::max_size">max_size</a>()</code>, hence it serves as either a very large value or as a
+  special code.</p>
+
+  <h3><code><a name="basic_string::operator+=">basic_string::operator+=</a></code></h3>
+  <pre>
+basic_string&amp; <b>operator+=</b>(value_type ch);
+basic_string&amp; <b>operator+=</b>(const value_type *ptr);
+basic_string&amp; <b>operator+=</b>(const basic_string&amp; right);
+basic_string&amp; <b>operator+=</b>(initializer_list&lt;Elem&gt; init); <b>[added with C++0X]</b>
+</pre>
+
+  <p>The operators each append the <a href="#operand%20sequence">operand sequence</a> to the end of the
+  sequence controlled by <code>*this</code>, then return <code>*this</code>.</p>
+
+  <h3><code><a name="basic_string::operator=">basic_string::operator=</a></code></h3>
+  <pre>
+basic_string&amp; <b>operator=</b>(const basic_string&amp; right);
+basic_string&amp; <b>operator=</b>(basic_string&amp;&amp; right);
+basic_string&amp; <b>operator=</b>(const value_type *ptr);
+basic_string&amp; <b>operator=</b>(value_type ch);
+basic_string&amp; <b>operator=</b>(initializer_list&lt;Elem&gt; init); <b>[added with C++0X]</b>
+</pre>
+
+  <p>The operators each replace the sequence controlled by <code>*this</code> with the <a href=
+  "#operand%20sequence">operand sequence</a>, then return <code>*this</code>.</p>
+
+  <h3><code><a name="basic_string::operator[]">basic_string::operator[]</a></code></h3>
+  <pre>
+const_reference <b>operator[]</b>(size_type off) const;
+reference <b>operator[]</b>(size_type off);
+</pre>
+
+  <p>The member functions each return a reference to the element of the controlled sequence at position
+  <code>off</code>. If that position is invalid, the behavior is undefined. Note, however, that
+  <code>cstr[cstr.size()] == 0</code> for the first member function.</p>
+
+  <h3><code><a name="basic_string::pointer" id="basic_string::pointer">basic_string::pointer</a></code></h3>
+  <pre>
+typedef typename allocator_type::pointer <b>pointer</b>;
+</pre>
+
+  <p>The type describes a pointer to an element.</p>
+
+  <h3><code><a name="basic_string::pop_back" id=
+  "basic_string::pop_back">basic_string::pop_back</a></code></h3>
+  <pre>
+void <b>pop_back</b>();
+</pre>
+
+  <p>The member function effectively calls <code><a href="#basic_string::erase">erase</a>( <a href=
+  "#basic_string::size">size</a>() - 1)</code> to erase the last element of the sequence, which must be
+  non-empty.</p>
+
+  <h3><code><a name="basic_string::push_back" id=
+  "basic_string::push_back">basic_string::push_back</a></code></h3>
+  <pre>
+void <b>push_back</b>(value_type ch);
+</pre>
+
+  <p>The member function effectively calls <code><a href="#basic_string::insert">insert</a>( <a href=
+  "#basic_string::end">end</a>(), ch)</code>.</p>
+
+  <h3><code><a name="basic_string::rbegin" id="basic_string::rbegin">basic_string::rbegin</a></code></h3>
+  <pre>
+const_reverse_iterator <b>rbegin</b>() const;
+reverse_iterator <b>rbegin</b>();
+</pre>
+
+  <p>The member function returns a reverse iterator that points just beyond the end of the controlled
+  sequence. Hence, it designates the beginning of the reverse sequence.</p>
+
+  <h3><code><a name="basic_string::reference" id=
+  "basic_string::reference">basic_string::reference</a></code></h3>
+  <pre>
+typedef typename allocator_type::reference <b>reference</b>;
+</pre>
+
+  <p>The type describes a reference to an element.</p>
+
+  <h3><code><a name="basic_string::rend" id="basic_string::rend">basic_string::rend</a></code></h3>
+  <pre>
+const_reverse_iterator <b>rend</b>() const;
+reverse_iterator <b>rend</b>();
+</pre>
+
+  <p>The member functions each return a reverse iterator that points at the first element of the sequence (or
+  just beyond the end of an empty sequence). Hence, the function designates the end of the reverse
+  sequence.</p>
+
+  <h3><code><a name="basic_string::replace" id="basic_string::replace">basic_string::replace</a></code></h3>
+  <pre>
+basic_string&amp; <b>replace</b>(size_type off, size_type n0,
+    const value_type *ptr);
+basic_string&amp; <b>replace</b>(size_type off, size_type n0,
+    const value_type *ptr, size_type count);
+basic_string&amp; <b>replace</b>(size_type off, size_type n0,
+    const basic_string&amp; right);
+basic_string&amp; <b>replace</b>(size_type off, size_type n0,
+    const basic_string&amp; right, size_type roff, size_type count);
+basic_string&amp; <b>replace</b>(size_type off, size_type n0,
+    size_type count, value_type ch);
+basic_string&amp; <b>replace</b>(iterator first, iterator last,
+    const value_type *ptr);
+basic_string&amp; <b>replace</b>(iterator first, iterator last,
+    const value_type *ptr, size_type count);
+basic_string&amp; <b>replace</b>(iterator first, iterator last,
+    const basic_string&amp; right);
+basic_string&amp; <b>replace</b>(iterator first, iterator last,
+    size_type count, value_type ch);
+basic_string&amp; <b>replace</b>(iterator first, iterator last,
+    initializer_list&lt;Elem&gt; init); <b>[added with C++0X]</b>
+template&lt;class InIt&gt;
+    basic_string&amp;
+        <b>replace</b>(iterator first, iterator last,
+            InIt first2, InIt last2);
+</pre>
+
+  <p>The member functions each replace up to <code>n0</code> elements of the controlled sequence beginning
+  with position <code>off</code>, or the elements of the controlled sequence beginning with the one pointed
+  to by <code>first</code>, up to but not including <code>last</code>. The replacement is the <a href=
+  "#operand%20sequence">operand sequence</a> specified by the remaining operands. The function then returns
+  <code>*this</code>. If <code>InIt</code> is an integer type in the template member function, the operand
+  sequence <code>first2, last2</code> behaves the same as <code>(size_type)first2,
+  (value_type)last2</code>.</p>
+
+  <h3><code><a name="basic_string::reserve" id="basic_string::reserve">basic_string::reserve</a></code></h3>
+  <pre>
+void <b>reserve</b>(size_type count = 0);
+</pre>
+
+  <p>The member function ensures that <code><a href="#basic_string::capacity">capacity</a>()</code>
+  henceforth returns at least <code>count</code>.</p>
+
+  <h3><code><a name="basic_string::resize" id="basic_string::resize">basic_string::resize</a></code></h3>
+  <pre>
+void <b>resize</b>(size_type newsize, value_type ch = value_type());
+</pre>
+
+  <p>The member function ensures that <code><a href="#basic_string::size">size</a>()</code> henceforth
+  returns <code>newsize</code>. If it must make the controlled sequence longer, it appends elements with
+  value <code>ch</code>. To make the controlled sequence shorter, the member function effectively calls
+  <code><a href="#basic_string::erase">erase</a>(begin() + newsize, end())</code>.</p>
+
+  <h3><code><a name="basic_string::reverse_iterator" id=
+  "basic_string::reverse_iterator">basic_string::reverse_iterator</a></code></h3>
+  <pre>
+typedef reverse_iterator&lt;iterator&gt;
+    <b>reverse_iterator</b>;
+</pre>
+
+  <p>The type describes an object that can serve as a reverse iterator for the controlled sequence.</p>
+
+  <h3><code><a name="basic_string::rfind" id="basic_string::rfind">basic_string::rfind</a></code></h3>
+  <pre>
+size_type <b>rfind</b>(value_type ch, size_type off = npos) const;
+size_type <b>rfind</b>(const value_type *ptr,
+    size_type off = npos) const;
+size_type <b>rfind</b>(const value_type *ptr,
+    size_type off, size_type count = npos) const;
+size_type <b>rfind</b>(const basic_string&amp; right,
+    size_type off = npos) const;
+</pre>
+
+  <p>The member functions each find the last (highest beginning position) subsequence in the controlled
+  sequence, beginning on or before position <code>off</code>, that matches the <a href=
+  "#operand%20sequence">operand sequence</a> specified by the remaining operands. If it succeeds, the
+  function returns the position where the matching subsequence begins. Otherwise, it returns <code><a href=
+  "#basic_string::npos">npos</a></code>.</p>
+
+  <h3><code><a name="basic_string::shrink_to_fit" id=
+  "basic_string::shrink_to_fit">basic_string::shrink_to_fit</a></code></h3>
+  <pre>
+void <b>shrink_to_fit</b>();
+</pre>
+
+  <p>The member function eliminates any unneeded storage in the container.</p>
+
+  <h3><code><a name="basic_string::size" id="basic_string::size">basic_string::size</a></code></h3>
+  <pre>
+size_type <b>size</b>() const;
+</pre>
+
+  <p>The member function returns the length of the controlled sequence.</p>
+
+  <h3><code><a name="basic_string::size_type" id=
+  "basic_string::size_type">basic_string::size_type</a></code></h3>
+  <pre>
+typedef typename allocator_type::size_type <b>size_type</b>;
+</pre>
+
+  <p>The unsigned integer type describes an object that can represent the length of any controlled
+  sequence.</p>
+
+  <h3><code><a name="basic_string::substr" id="basic_string::substr">basic_string::substr</a></code></h3>
+  <pre>
+basic_string <b>substr</b>(size_type off = 0,
+    size_type count = npos) const;
+</pre>
+
+  <p>The member function returns an object whose controlled sequence is a copy of up to <code>count</code>
+  elements of the controlled sequence beginning at position <code>off</code>.</p>
+
+  <h3><code><a name="basic_string::swap" id="basic_string::swap">basic_string::swap</a></code></h3>
+  <pre>
+void <b>swap</b>(basic_string&amp; right);
+</pre>
+
+  <p>The member function swaps the controlled sequences between <code>*this</code> and <code>str</code>. If
+  <code><a href="#basic_string::get_allocator">get_allocator</a>() == right.get_allocator()</code>, they do
+  so in constant time, it throws no exceptions, and it invalidates no references, pointers, or iterators that
+  designate elements in the two controlled sequences. Otherwise, it performs a number of element assignments
+  and constructor calls proportional to the number of elements in the two controlled sequences.</p>
+
+  <h3><code><a name="basic_string::traits_type" id=
+  "basic_string::traits_type">basic_string::traits_type</a></code></h3>
+  <pre>
+typedef Tr <b>traits_type</b>;
+</pre>
+
+  <p>The type is a synonym for the template parameter <code>Tr</code>.</p>
+
+  <h3><code><a name="basic_string::value_type" id=
+  "basic_string::value_type">basic_string::value_type</a></code></h3>
+  <pre>
+typedef typename allocator_type::value_type <b>value_type</b>;
+</pre>
+
+  <p>The type describes an element.</p>
+
+  <h2><a name="char_traits" id="char_traits"><code>char_traits</code></a></h2>
+  <pre>
+template&lt;class Elem&gt;
+    class <b>char_traits</b> {
+public:
+    typedef Elem <b><a href="#char_traits::char_type">char_type</a></b>;
+    typedef T1 <b><a href="#char_traits::int_type">int_type</a></b>;
+    typedef T2 <b><a href="#char_traits::pos_type">pos_type</a></b>;
+    typedef T3 <b><a href="#char_traits::off_type">off_type</a></b>;
+    typedef T4 <b><a href="#char_traits::state_type">state_type</a></b>;
+    static void <b><a href=
+"#char_traits::assign">assign</a></b>(char_type&amp; left, const char_type&amp; right);
+    static char_type *<b><a href="#char_traits::assign">assign</a></b>(char_type *first, size_t count,
+        char_type ch);
+    static int <b><a href="#char_traits::compare">compare</a></b>(const char_type *first1,
+        const char_type *first2, size_t count);
+    static size_t <b><a href="#char_traits::length">length</a></b>(const char_type *first);
+    static char_type *<b><a href="#char_traits::copy">copy</a></b>(char_type *first1,
+        const char_type *first2, size_t count);
+    static char_type *<b><a href="#char_traits::move">move</a></b>(char_type *first1,
+        const char_type *first2, size_t count);
+    static const char_type *<b><a href="#char_traits::find">find</a></b>(const char_type *first,
+        size_t count, const char_type&amp; ch);
+
+    static bool <b><a href="#char_traits::eq">eq</a></b>(const char_type&amp; left,
+        const char_type&amp; right); <b>[replaced with C++0X]</b>
+    static constexpr bool <b><a href="#char_traits::eq">eq</a></b>(char_type left,
+        char_type right); <b>[added with C++0X]</b>
+
+    static bool <b><a href="#char_traits::lt">lt</a></b>(const char_type&amp; left,
+        const char_type&amp; right); <b>[replaced with C++0X]</b>
+    static constexpr bool <b><a href="#char_traits::lt">lt</a></b>(char_type left,
+        char_type right); <b>[added with C++0X]</b>
+
+    static char_type <b><a href=
+"#char_traits::to_char_type">to_char_type</a></b>(const int_type&amp; meta); <b>[replaced with C++0X]</b>
+    static constexpr char_type <b><a href=
+"#char_traits::to_char_type">to_char_type</a></b>(int_type meta); <b>[added with C++0X]</b>
+
+    static int_type <b><a href=
+"#char_traits::to_int_type">to_int_type</a></b>(const char_type&amp; ch); <b>[replaced with C++0X]</b>
+    static constexpr int_type <b><a href=
+"#char_traits::to_int_type">to_int_type</a></b>(char_type ch); <b>[added with C++0X]</b>
+
+    static bool <b><a href="#char_traits::eq_int_type">eq_int_type</a></b>(const int_type&amp; left,
+        const int_type&amp; right); <b>[replaced with C++0X]</b>
+    static constexpr bool <b><a href="#char_traits::eq_int_type">eq_int_type</a></b>( int_type left,
+        int_type right); <b>[added with C++0X]</b>
+
+    static int_type <b><a href=
+"#char_traits::not_eof">not_eof</a></b>(const int_type&amp; meta); <b>[replaced with C++0X]</b>
+    static constexpr int_type <b><a href=
+"#char_traits::not_eof">not_eof</a></b>(int_type meta); <b>[added with C++0X]</b>
+
+    static int_type <b><a href="#char_traits::eof">eof</a></b>(); <b>[replaced with C++0X]</b>
+    static constexpr int_type <b><a href="#char_traits::eof">eof</a></b>(); <b>[added with C++0X]</b>
+    };
+</pre>
+
+  <p>The template class describes various <b><a name="character traits">character traits</a></b> for type
+  <code>Elem</code>. The template class <a href="#basic_string"><code>basic_string</code></a> as well as
+  several iostreams template classes, including <a href="ios.html#basic_ios"><code>basic_ios</code></a>, use
+  this information to manipulate elements of type <code>Elem</code>. Such an element type must not require
+  explicit construction or destruction. It must supply a default constructor, a copy constructor, and an
+  assignment operator, with the expected semantics. A bitwise copy must have the same effect as an
+  assignment.</p>
+
+  <p>Note that the C++ Standard requires <b>only</b> the explicit specializations
+  <code>char_traits&lt;char&gt;</code>, <code>char_traits&lt;wchar_t&gt;</code>, and, beginning with
+  <b>C++0X</b>, <code>char_traits&lt;char16_t&gt;</code> and <code>char_traits&lt;char32_t&gt;</code>.</p>
+
+  <p>This <a href="index.html#implementation">implementation</a>, also supplies the template version,
+  with:</p>
+
+  <ul>
+    <li><code>int_type</code> defined as <code>long</code></li>
+
+    <li><code>eof()</code> defined as <code>(int_type)EOF</code></li>
+  </ul>
+
+  <p>If these choices don't meet your needs, you must supply your own traits class.</p>
+
+  <p>Not all parts of the Standard C++ Library rely completely upon the member functions of
+  <code>char_traits&lt;Elem&gt;</code> to manipulate an element. Specifically, <a href=
+  "istream.html#formatted%20input%20functions">formatted input functions</a> and <a href=
+  "ostream.html#formatted%20output%20functions">formatted output functions</a> make use of the following
+  additional operations, also with the expected semantics:</p>
+
+  <ul>
+    <li><code>operator==(Elem)</code> and <code>operator!=(Elem)</code> to compare elements</li>
+
+    <li><code>(char)ch</code> to convert an element <code>ch</code> to its corresponding single-byte
+    character code, or <code>'\0'</code> if no such code exists</li>
+
+    <li><code>(Elem)ch</code> to convert a <code>char</code> value <code>ch</code> to its correponding
+    character code of type <code>Elem</code></li>
+
+    <li style="list-style: none">
+      <p>None of the member functions of class <code>char_traits</code> may throw exceptions.</p>
+    </li>
+  </ul>
+
+  <h3><code><a name="char_traits::assign" id="char_traits::assign">char_traits::assign</a></code></h3>
+  <pre>
+static void <b>assign</b>(char_type&amp; left, const char_type&amp; right);
+static char_type *<b>assign</b>(char_type *first, size_t count,
+    char_type ch);
+</pre>
+
+  <p>The first static member function assigns <code>right</code> to <code>left</code>. The second static
+  member function assigns <code>ch</code> to each element <code>X[N]</code> for <code>N</code> in the range
+  <code>[0, count)</code>, then returns <code>first</code></p>
+
+  <h3><code><a name="char_traits::char_type" id=
+  "char_traits::char_type">char_traits::char_type</a></code></h3>
+  <pre>
+typedef Elem <b>char_type</b>;
+</pre>
+
+  <p>The type is a synonym for the template parameter <code>Elem</code>.</p>
+
+  <h3><code><a name="char_traits::compare" id="char_traits::compare">char_traits::compare</a></code></h3>
+  <pre>
+static int <b>compare</b>(const char_type *first1,
+    const char_type *first2, size_t count);
+</pre>
+
+  <p>The static member function compares the sequence of length <code>count</code> beginning at
+  <code>first1</code>to the sequence of the same length beginning at <code>first2</code>. The function
+  returns:</p>
+
+  <ul>
+    <li>a negative value if the first differing element in <code>first1</code> (as determined by
+    <code><a href="#char_traits::eq">eq</a></code>) compares less than the corresponding element in
+    <code>first2</code> (as determined by <code><a href="#char_traits::lt">lt</a></code>)</li>
+
+    <li>zero if the two compare equal element by element</li>
+
+    <li>a positive value otherwise</li>
+  </ul>
+
+  <h3><code><a name="char_traits::copy" id="char_traits::copy">char_traits::copy</a></code></h3>
+  <pre>
+static char_type <b>*copy</b>(char_type *first1, const char_type *first2,
+    size_t count);
+</pre>
+
+  <p>The static member function copies the sequence of <code>count</code> elements beginning at
+  <code>first2</code> to the array beginning at <code>first1</code>, then returns <code>first1</code>. The
+  source and destination must not overlap.</p>
+
+  <h3><a name="char_traits::eof" id="char_traits::eof"><code>char_traits::eof</code></a></h3>
+  <pre>
+static int_type <b>eof</b>(); <b>[replaced with C++0X]</b>
+static constexpr int_type <b>eof</b>(); <b>[added with C++0X]</b>
+</pre>
+
+  <p>The static member function returns a value that represents end-of-file (such as <code><a href=
+  "stdio.html#EOF">EOF</a></code> or <code><a href="wchar.html#WEOF">WEOF</a></code>). If the value is also
+  representable as type <code>Elem</code>, it must correspond to no <i>valid</i> value of that type.</p>
+
+  <h3><code><a name="char_traits::eq" id="char_traits::eq">char_traits::eq</a></code></h3>
+  <pre>
+static bool <b>eq</b>(const char_type&amp; left, const char_type&amp; right); <b>[replaced with C++0X]</b>
+static constexpr bool <b>eq</b>(char_type left, char_type right); <b>[added with C++0X]</b>
+</pre>
+
+  <p>The static member function returns true if <code>left</code> compares equal to <code>right</code>.</p>
+
+  <h3><a name="char_traits::eq_int_type" id=
+  "char_traits::eq_int_type"><code>char_traits::eq_int_type</code></a></h3>
+  <pre>
+static bool <b>eq_int_type</b>(const int_type&amp; left, const int_type&amp; right); <b>[replaced with C++0X]</b>
+static constexpr bool <b>eq_int_type</b>(int_type left, int_type right); <b>[added with C++0X]</b>
+</pre>
+
+  <p>The static member function returns true if <code>left</code> compares equal to <code>right</code>.</p>
+
+  <h3><code><a name="char_traits::find" id="char_traits::find">char_traits::find</a></code></h3>
+  <pre>
+static const char_type *<b>find</b>(const char_type *first,
+    size_t count, const char_type&amp; ch);
+</pre>
+
+  <p>The static member function determines the lowest <code>N</code> in the range <code>[0, count)</code> for
+  which <code><a href="#char_traits::eq">eq</a>(first[N], ch)</code> is true. If successful, it returns
+  <code>first + N</code>. Otherwise, it returns a null pointer.</p>
+
+  <h3><a name="char_traits::int_type" id="char_traits::int_type"><code>char_traits::int_type</code></a></h3>
+  <pre>
+typedef T1 <b>int_type</b>;
+</pre>
+
+  <p>The type is (typically) an integer type <code>T1</code> that describes an object that can represent any
+  element of the controlled sequence as well as the value returned by <code><a href=
+  "#char_traits::eof">eof</a>()</code>.</p>
+
+  <h3><code><a name="char_traits::length" id="char_traits::length">char_traits::length</a></code></h3>
+  <pre>
+static size_t <b>length</b>(const char_type *first);
+</pre>
+
+  <p>The static member function returns the number of elements <code>N</code> in the sequence beginning at
+  <code>first</code> up to but not including the element <code>first[N]</code> which compares equal to
+  <code>char_type()</code>.</p>
+
+  <h3><code><a name="char_traits::lt" id="char_traits::lt">char_traits::lt</a></code></h3>
+  <pre>
+static bool <b>lt</b>(const char_type&amp; left, const char_type&amp; right); <b>[replaced with C++0X]</b>
+static constexpr bool <b>lt</b>(char_type left, char_type right); <b>[added with C++0X]</b>
+</pre>
+
+  <p>The static member function returns true if <code>left</code> compares less than <code>right</code>.</p>
+
+  <h3><code><a name="char_traits::move" id="char_traits::move">char_traits::move</a></code></h3>
+  <pre>
+static char_type <b>*move</b>(char_type *first1, const char_type *first2,
+    size_t count);
+</pre>
+
+  <p>The static member function copies the sequence of <code>count</code> elements beginning at
+  <code>first2</code> to the array beginning at <code>first1</code>, then returns <code>first1</code>. The
+  source and destination may overlap.</p>
+
+  <h3><a name="char_traits::not_eof" id="char_traits::not_eof"><code>char_traits::not_eof</code></a></h3>
+  <pre>
+static int_type <b>not_eof</b>(const int_type&amp; meta); <b>[replaced with C++0X]</b>
+static constexpr int_type <b>not_eof</b>(int_type meta); <b>[added with C++0X]</b>
+</pre>
+
+  <p>If <code>!<a href="#char_traits::eq_int_type">eq_int_type</a>( <a href="#char_traits::eof">eof</a>(),
+  meta)</code>, the static member function returns <code>meta</code>. Otherwise, it returns a value other
+  than <code>eof()</code>.</p>
+
+  <h3><a name="char_traits::off_type" id="char_traits::off_type"><code>char_traits::off_type</code></a></h3>
+  <pre>
+typedef T3 <b>off_type</b>;
+</pre>
+
+  <p>The type is a signed integer type <code>T3</code> that describes an object that can store a byte offset
+  involved in various stream positioning operations. It is typically a synonym for <code><a href=
+  "ios.html#streamoff">streamoff</a></code>, but in any case it has essentially the same properties as that
+  type.</p>
+
+  <h3><a name="char_traits::pos_type" id="char_traits::pos_type"><code>char_traits::pos_type</code></a></h3>
+  <pre>
+typedef T2 <b>pos_type</b>;
+</pre>
+
+  <p>The type is an opaque type <code>T2</code> that describes an object that can store all the information
+  needed to restore an arbitrary <a href="lib_file.html#file-position%20indicator">file-position
+  indicator</a> within a stream. It is typically a synonym for <code><a href=
+  "ios.html#streampos">streampos</a></code>, but in any case it has essentially the same properties as that
+  type.</p>
+
+  <h3><a name="char_traits::state_type" id=
+  "char_traits::state_type"><code>char_traits::state_type</code></a></h3>
+  <pre>
+typedef T4 <b>state_type</b>;
+</pre>
+
+  <p>The type is an opaque type <code>T4</code> that describes an object that can represent a <a href=
+  "charset.html#conversion%20state">conversion state</a>. It is typically a synonym for <code><a href=
+  "wchar.html#mbstate_t">mbstate_t</a></code>, but in any case it has essentially the same properties as that
+  type.</p>
+
+  <h3><a name="char_traits::to_char_type" id=
+  "char_traits::to_char_type"><code>char_traits::to_char_type</code></a></h3>
+  <pre>
+static char_type <b>to_char_type</b>(const int_type&amp; meta); <b>[replaced with C++0X]</b>
+static constexpr char_type <b>to_char_type</b>(int_type meta); <b>[added with C++0X]</b>
+</pre>
+
+  <p>The static member function returns <code>meta</code> represented as type <code>Elem</code>. A value of
+  <code>meta</code> that cannot be so represented yields an unspecified result.</p>
+
+  <h3><a name="char_traits::to_int_type" id=
+  "char_traits::to_int_type"><code>char_traits::to_int_type</code></a></h3>
+  <pre>
+static int_type <b>to_int_type</b>(char_type meta); <b>[replaced with C++0X]</b>
+static constexpr int_type <b>to_int_type</b>(char_type meta); <b>[added with C++0X]</b>
+</pre>
+
+  <p>The static member function returns <code>ch</code> represented as type <code>int_type</code>. It must be
+  possible to convert any value <code>ch</code> of type <code>Elem</code> to <code>int_type</code> (by
+  evaluating <code>meta = <a href="#char_traits::to_int_type">to_int_type</a>(ch)</code>) then back to
+  <code>Elem</code> (by evaluating <code>ch = <a href=
+  "#char_traits::to_char_type">to_char_type</a>(meta)</code>) and obtain a value that compares equal to
+  <code>ch</code>.</p>
+
+  <h2><a name="char_traits&lt;char&gt;"><code>char_traits&lt;char&gt;</code></a></h2>
+  <pre>
+template&lt;&gt;
+    class <b>char_traits&lt;char&gt;</b>;
+</pre>
+
+  <p>The class is an explicit specialization of template class <a href=
+  "#char_traits"><code>char_traits</code></a> for elements of type <i>char,</i> (so that it can take
+  advantage of library functions that manipulate objects of this type).</p>
+
+  <h2><a name="char_traits&lt;wchar_t&gt;"><code>char_traits&lt;wchar_t&gt;</code></a></h2>
+  <pre>
+template&lt;&gt;
+    class <b>char_traits&lt;wchar_t&gt;</b>;
+</pre>
+
+  <p>The class is an explicit specialization of template class <a href=
+  "#char_traits"><code>char_traits</code></a> for elements of type <code>wchar_t</code> (so that it can take
+  advantage of library functions that manipulate objects of this type).</p>
+
+  <h2><a name="getline" id="getline"><code>getline</code></a></h2>
+  <pre>
+template&lt;class Elem, class Tr, class Alloc&gt;
+    basic_istream&lt;Elem, Tr&gt;&amp; <b>getline</b>(
+        basic_istream&lt;Elem, Tr&gt;&amp; istr,
+        basic_string&lt;Elem, Tr, Alloc&gt;&amp; str);
+template&lt;class Elem, class Tr, class Alloc&gt;
+    basic_istream&lt;Elem, Tr&gt;&amp; <b>getline</b>(
+        basic_istream&lt;Elem, Tr&gt;&amp; istr,
+        basic_string&lt;Elem, Tr, Alloc&gt;&amp; str,
+        Elem delim); <b>[replaced with C++0X]</b>
+template&lt;class Elem, class Tr, class Alloc&gt;
+    basic_istream&lt;Elem, Tr&gt;&amp; <b>getline</b>(
+        basic_istream&lt;Elem, Tr&gt;&amp;&amp; istr,
+        basic_string&lt;Elem, Tr, Alloc&gt;&amp; str); <b>[added with C++0X]</b>
+template&lt;class Elem, class Tr, class Alloc&gt;
+    basic_istream&lt;Elem, Tr&gt;&amp; <b>getline</b>(
+        basic_istream&lt;Elem, Tr&gt;&amp;&amp; istr,
+        basic_string&lt;Elem, Tr, Alloc&gt;&amp; str,
+        Elem delim); <b>[added with C++0X]</b>
+</pre>
+
+  <p>The first function returns <code>getline(istr, str, istr.widen('\n'))</code>.</p>
+
+  <p>The second function replaces the sequence controlled by <code>str</code> with a sequence of elements
+  extracted from the stream <code>istr</code>. In order of testing, extraction stops:</p>
+
+  <ol>
+    <li>at end of file</li>
+
+    <li>after the function extracts an element that compares equal to <code>delim</code>, in which case the
+    element is neither put back nor appended to the controlled sequence</li>
+
+    <li>after the function extracts <code>str.<a href="#basic_string::max_size">max_size</a>()</code>
+    elements, in which case the function calls <code><a href=
+    "ios.html#basic_ios::setstate">setstate</a>(ios_base::failbit)</code>.</li>
+  </ol>
+
+  <p>If the function extracts no elements, it calls <code>setstate(failbit)</code>. In any case, it returns
+  <code>istr</code>.</p>
+
+  <p>The remaining functions are analogs to earlier ones, but with <a href=
+  "lib_cpp.html#rvalue%20references">rvalue references</a>.</p>
+
+  <h2><a name="operator+"><code>operator+</code></a></h2>
+  <pre>
+template&lt;class Elem, class Tr, class Alloc&gt;
+    basic_string&lt;Elem, Tr, Alloc&gt; <b>operator+</b>(
+        const basic_string&lt;Elem, Tr, Alloc&gt;&amp; left,
+        const basic_string&lt;Elem, Tr, Alloc&gt;&amp; right);
+template&lt;class Elem, class Tr, class Alloc&gt;
+    basic_string&lt;Elem, Tr, Alloc&gt; <b>operator+</b>(
+        const basic_string&lt;Elem, Tr, Alloc&gt;&amp; left,
+        const Elem *right);
+template&lt;class Elem, class Tr, class Alloc&gt;
+    basic_string&lt;Elem, Tr, Alloc&gt; <b>operator+</b>(
+        const basic_string&lt;Elem, Tr, Alloc&gt;&amp; left,
+        Elem right);
+template&lt;class Elem, class Tr, class Alloc&gt;
+    basic_string&lt;Elem, Tr, Alloc&gt; <b>operator+</b>(
+        const Elem *left,
+        const basic_string&lt;Elem, Tr, Alloc&gt;&amp; right);
+template&lt;class Elem, class Tr, class Alloc&gt;
+    basic_string&lt;Elem, Tr, Alloc&gt; <b>operator+</b>(
+        Elem left,
+        const basic_string&lt;Elem, Tr, Alloc&gt;&amp; right);
+
+template&lt;class Elem, class Tr, class Alloc&gt;
+    basic_string&lt;Elem, Tr, Alloc&gt;&amp;&amp; <b>operator+</b>(
+        const basic_string&lt;Elem, Tr, Alloc&gt;&amp; left,
+        const basic_string&lt;Elem, Tr, Alloc&gt;&amp;&amp; right); <b>[added with C++0X]</b>
+template&lt;class Elem, class Tr, class Alloc&gt;
+    basic_string&lt;Elem, Tr, Alloc&gt;&amp;&amp; <b>operator+</b>(
+        const basic_string&lt;Elem, Tr, Alloc&gt;&amp;&amp; left,
+        const basic_string&lt;Elem, Tr, Alloc&gt;&amp; right); <b>[added with C++0X]</b>
+template&lt;class Elem, class Tr, class Alloc&gt;
+    basic_string&lt;Elem, Tr, Alloc&gt;&amp;&amp; <b>operator+</b>(
+        const basic_string&lt;Elem, Tr, Alloc&gt;&amp;&amp; left,
+        const basic_string&lt;Elem, Tr, Alloc&gt;&amp;&amp; right); <b>[added with C++0X]</b>
+template&lt;class Elem, class Tr, class Alloc&gt;
+    basic_string&lt;Elem, Tr, Alloc&gt;&amp;&amp; <b>operator+</b>(
+        const basic_string&lt;Elem, Tr, Alloc&gt;&amp;&amp; left,
+        const Elem *right); <b>[added with C++0X]</b>
+template&lt;class Elem, class Tr, class Alloc&gt;
+    basic_string&lt;Elem, Tr, Alloc&gt;&amp;&amp; <b>operator+</b>(
+        const basic_string&lt;Elem, Tr, Alloc&gt;&amp;&amp; left,
+        Elem right); <b>[added with C++0X]</b>
+template&lt;class Elem, class Tr, class Alloc&gt;
+    basic_string&lt;Elem, Tr, Alloc&gt;&amp;&amp; <b>operator+</b>(
+        const Elem *left,
+        const basic_string&lt;Elem, Tr, Alloc&gt;&amp;&amp; right); <b>[added with C++0X]</b>
+template&lt;class Elem, class Tr, class Alloc&gt;
+    basic_string&lt;Elem, Tr, Alloc&gt;&amp;&amp; <b>operator+</b>(
+        Elem left,
+        const basic_string&lt;Elem, Tr, Alloc&gt;&amp;&amp; right); <b>[added with C++0X]</b>
+</pre>
+
+  <p>The functions each overload <code>operator+</code> to concatenate two objects of template class <a href=
+  "#basic_string"><code>basic_string</code></a>. All effectively return <code>basic_string&lt;Elem, Tr,
+  Alloc&gt;(left).<a href="#basic_string::append">append</a>(right)</code>.</p>
+
+  <h2><a name="operator!="><code>operator!=</code></a></h2>
+  <pre>
+template&lt;class Elem, class Tr, class Alloc&gt;
+    bool <b>operator!=</b>(
+        const basic_string&lt;Elem, Tr, Alloc&gt;&amp; left,
+        const basic_string&lt;Elem, Tr, Alloc&gt;&amp; right);
+template&lt;class Elem, class Tr, class Alloc&gt;
+    bool <b>operator!=</b>(
+        const basic_string&lt;Elem, Tr, Alloc&gt;&amp; left,
+        const Elem *right);
+template&lt;class Elem, class Tr, class Alloc&gt;
+    bool <b>operator!=</b>(
+        const Elem *left,
+        const basic_string&lt;Elem, Tr, Alloc&gt;&amp; right);
+</pre>
+
+  <p>The template functions each overload <code>operator!=</code> to compare two objects of template class
+  <a href="#basic_string"><code>basic_string</code></a>. All effectively return <code>basic_string&lt;Elem,
+  Tr, Alloc&gt;(left).<a href="#basic_string::compare">compare</a>(right) != 0</code>.</p>
+
+  <h2><a name="operator=="><code>operator==</code></a></h2>
+  <pre>
+template&lt;class Elem, class Tr, class Alloc&gt;
+    bool <b>operator==</b>(
+        const basic_string&lt;Elem, Tr, Alloc&gt;&amp; left,
+        const basic_string&lt;Elem, Tr, Alloc&gt;&amp; right);
+template&lt;class Elem, class Tr, class Alloc&gt;
+    bool <b>operator==</b>(
+        const basic_string&lt;Elem, Tr, Alloc&gt;&amp; left,
+        const Elem *right);
+template&lt;class Elem, class Tr, class Alloc&gt;
+    bool <b>operator==</b>(
+        const Elem *left,
+        const basic_string&lt;Elem, Tr, Alloc&gt;&amp; right);
+</pre>
+
+  <p>The template functions each overload <code>operator==</code> to compare two objects of template class
+  <a href="#basic_string"><code>basic_string</code></a>. All effectively return <code>basic_string&lt;Elem,
+  Tr, Alloc&gt;(left).<a href="#basic_string::compare">compare</a>(right) == 0</code>.</p>
+
+  <h2><a name="operator&lt;"><code>operator&lt;</code></a></h2>
+  <pre>
+template&lt;class Elem, class Tr, class Alloc&gt;
+    bool <b>operator&lt;</b>(
+        const basic_string&lt;Elem, Tr, Alloc&gt;&amp; left,
+        const basic_string&lt;Elem, Tr, Alloc&gt;&amp; right);
+template&lt;class Elem, class Tr, class Alloc&gt;
+    bool <b>operator&lt;</b>(
+        const basic_string&lt;Elem, Tr, Alloc&gt;&amp; left,
+        const Elem *right);
+template&lt;class Elem, class Tr, class Alloc&gt;
+    bool <b>operator&lt;</b>(
+        const Elem *left,
+        const basic_string&lt;Elem, Tr, Alloc&gt;&amp; right);
+</pre>
+
+  <p>The template functions each overload <code>operator&lt;</code> to compare two objects of template class
+  <a href="#basic_string"><code>basic_string</code></a>. All effectively return <code>basic_string&lt;Elem,
+  Tr, Alloc&gt;(left).<a href="#basic_string::compare">compare</a>(right) &lt; 0</code>.</p>
+
+  <h2><a name="operator&lt;&lt;"><code>operator&lt;&lt;</code></a></h2>
+  <pre>
+template&lt;class Elem, class Tr, class Alloc&gt;
+    basic_ostream&lt;Elem, Tr&gt;&amp; <b>operator&lt;&lt;</b>(
+        basic_ostream&lt;Elem, Tr&gt;&amp; ostr,
+        const basic_string&lt;Elem, Tr, Alloc&gt;&amp; str);
+</pre>
+
+  <p>The template function overloads <code>operator&lt;&lt;</code> to insert an object <code>str</code> of
+  template class <a href="#basic_string"><code>basic_string</code></a> into the stream <code>ostr</code> The
+  function effectively returns <code>ostr.<a href="ostream.html#basic_ostream::write">write</a>( str.<a href=
+  "#basic_string::c_str">c_str</a>(), str.<a href="#basic_string::size">size</a>())</code>.</p>
+
+  <h2><a name="operator&lt;="><code>operator&lt;=</code></a></h2>
+  <pre>
+template&lt;class Elem, class Tr, class Alloc&gt;
+    bool <b>operator&lt;=</b>(
+        const basic_string&lt;Elem, Tr, Alloc&gt;&amp; left,
+        const basic_string&lt;Elem, Tr, Alloc&gt;&amp; right);
+template&lt;class Elem, class Tr, class Alloc&gt;
+    bool <b>operator&lt;=</b>(
+        const basic_string&lt;Elem, Tr, Alloc&gt;&amp; left,
+        const Elem *right);
+template&lt;class Elem, class Tr, class Alloc&gt;
+    bool <b>operator&lt;=</b>(
+        const Elem *left,
+        const basic_string&lt;Elem, Tr, Alloc&gt;&amp; right);
+</pre>
+
+  <p>The template functions each overload <code>operator&lt;=</code> to compare two objects of template class
+  <a href="#basic_string"><code>basic_string</code></a>. All effectively return <code>basic_string&lt;Elem,
+  Tr, Alloc&gt;(left).<a href="#basic_string::compare">compare</a>(right) &lt;= 0</code>.</p>
+
+  <h2><a name="operator&gt;"><code>operator&gt;</code></a></h2>
+  <pre>
+template&lt;class Elem, class Tr, class Alloc&gt;
+    bool <b>operator&gt;</b>(
+        const basic_string&lt;Elem, Tr, Alloc&gt;&amp; left,
+        const basic_string&lt;Elem, Tr, Alloc&gt;&amp; right);
+template&lt;class Elem, class Tr, class Alloc&gt;
+    bool <b>operator&gt;</b>(
+        const basic_string&lt;Elem, Tr, Alloc&gt;&amp; left,
+        const Elem *right);
+template&lt;class Elem, class Tr, class Alloc&gt;
+    bool <b>operator&gt;</b>(
+        const Elem *left,
+        const basic_string&lt;Elem, Tr, Alloc&gt;&amp; right);
+</pre>
+
+  <p>The template functions each overload <code>operator&gt;</code> to compare two objects of template class
+  <a href="#basic_string"><code>basic_string</code></a>. All effectively return <code>basic_string&lt;Elem,
+  Tr, Alloc&gt;(left).<a href="#basic_string::compare">compare</a>(right) &gt; 0</code>.</p>
+
+  <h2><a name="operator&gt;="><code>operator&gt;=</code></a></h2>
+  <pre>
+template&lt;class Elem, class Tr, class Alloc&gt;
+    bool <b>operator&gt;=</b>(
+        const basic_string&lt;Elem, Tr, Alloc&gt;&amp; left,
+        const basic_string&lt;Elem, Tr, Alloc&gt;&amp; right);
+template&lt;class Elem, class Tr, class Alloc&gt;
+    bool <b>operator&gt;=</b>(
+        const basic_string&lt;Elem, Tr, Alloc&gt;&amp; left,
+        const Elem *right);
+template&lt;class Elem, class Tr, class Alloc&gt;
+    bool <b>operator&gt;=</b>(
+        const Elem *left,
+        const basic_string&lt;Elem, Tr, Alloc&gt;&amp; right);
+</pre>
+
+  <p>The template functions each overload <code>operator&gt;=</code> to compare two objects of template class
+  <a href="#basic_string"><code>basic_string</code></a>. All effectively return <code>basic_string&lt;Elem,
+  Tr, Alloc&gt;(left).<a href="#basic_string::compare">compare</a>(right) &gt;= 0</code>.</p>
+
+  <h2><a name="operator&gt;&gt;"><code>operator&gt;&gt;</code></a></h2>
+  <pre>
+template&lt;class Elem, class Tr, class Alloc&gt;
+    basic_istream&lt;Elem, Tr&gt;&amp; <b>operator&gt;&gt;</b>(
+        basic_istream&lt;Elem, Tr&gt;&amp; istr,
+        basic_string&lt;Elem, Tr, Alloc&gt;&amp; str);
+</pre>
+
+  <p>The template function overloads <code>operator&gt;&gt;</code> to replace the sequence controlled by
+  <code>str</code> with a sequence of elements extracted from the stream <code>istr</code>. Extraction
+  stops:</p>
+
+  <ul>
+    <li>at end of file</li>
+
+    <li>after the function extracts <code>istr.<a href="ios.html#ios_base::width">width</a>()</code>
+    elements, if that value is nonzero</li>
+
+    <li>after the function extracts <code>istr.<a href="#basic_string::max_size">max_size</a>()</code>
+    elements</li>
+
+    <li>after the function extracts an element <code>ch</code> for which <code><a href=
+    "locale2.html#use_facet">use_facet</a>&lt; <a href="locale2.html#ctype">ctype</a>&lt;Elem&gt; &gt;(
+    <a href="ios.html#ios_base::getloc">getloc</a>()). <a href="locale2.html#ctype::is">is</a>(
+    ctype&lt;Elem&gt;::<a href="locale2.html#ctype_base::space">space</a>, ch)</code> is true, in which case
+    the character is put back</li>
+  </ul>
+
+  <p>If the function extracts no elements, it calls <code><a href=
+  "ios.html#basic_ios::setstate">setstate</a>(ios_base::failbit)</code>. In any case, it calls
+  <code>istr.width(0)</code> and returns <code>*this</code>.</p>
+
+  <h2><a name="string" id="string"><code>string</code></a></h2>
+  <pre>
+typedef basic_string&lt;char&gt; <b>string</b>;
+</pre>
+
+  <p>The type describes a specialization of template class <a href=
+  "#basic_string"><code>basic_string</code></a> specialized for elements of type <i>char.</i></p>
+
+  <h2><a name="swap" id="swap"><code>swap</code></a></h2>
+  <pre>
+template&lt;class Tr, class Alloc&gt;
+    void <b>swap</b>(
+        basic_string&amp; left,
+        basic_string&amp; right);
+</pre>
+
+  <p>The template function executes <code>left.<a href="#basic_string::swap">swap</a>(right)</code>.</p>
+
+  <h2><a name="wstring" id="wstring"><code>wstring</code></a></h2>
+  <pre>
+typedef basic_string&lt;wchar_t&gt; <b>wstring</b>;
+</pre>
+
+  <p>The type describes a specialization of template class <a href=
+  "#basic_string"><code>basic_string</code></a> for elements of type <code>wchar_t</code>.</p>
+  <hr>
+
+  <p>See also the <b><a href="index.html#Table%20of%20Contents">Table of Contents</a></b> and the <b><a href=
+  "_index.html">Index</a></b>.</p>
+
+  <p><i><a href="crit_pjp.html">Copyright</a> &copy; 1992-2010 by P.J. Plauger. All rights reserved.</i></p>
+  <!--V5.30:126I-->
+</body>
+</html>

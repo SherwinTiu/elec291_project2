@@ -1,0 +1,644 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html>
+<head>
+  <meta name="generator" content=
+  "HTML Tidy for Mac OS X (vers 31 October 2006 - Apple Inc. build 15.15), see www.w3.org">
+
+  <title>&lt;istream&gt;</title>
+</head>
+
+<body>
+  <h1><a name="&lt;istream&gt;"><code>&lt;istream&gt;</code></a></h1>
+  <hr>
+
+  <p><b><code><a href="#istream">istream</a> &middot; <a href="#operator%3E%3E">operator&gt;&gt;</a> &middot;
+  <a href="#ws">ws</a></code></b></p>
+  <hr>
+
+  <p>Include the <a href="lib_cpp.html#iostreams">iostreams</a> standard header
+  <b><code>&lt;istream&gt;</code></b> to define class <code><a href="#istream">istream</a></code>, which
+  mediates extractions for the iostreams. The header also defines a related <a href=
+  "ios.html#manipulators">manipulator</a>. (This header is typically included for you by another of the
+  iostreams headers. You seldom have occasion to include it directly.)</p>
+  <pre>
+        // DECLARATIONS
+class <b><a href="#istream">istream</a></b>;
+
+        // EXTRACTORS
+istream&amp;
+    <b><a href="#operator%3E%3E">operator&gt;&gt;</a></b>(istream&amp; istr, char *str);
+istream&amp;
+    <b><a href="#operator%3E%3E">operator&gt;&gt;</a></b>(istream&amp; istr, char&amp; ch);
+istream&amp;
+    <b><a href="#operator%3E%3E">operator&gt;&gt;</a></b>(istream&amp; istr, signed char *str);
+istream&amp;
+    <b><a href="#operator%3E%3E">operator&gt;&gt;</a></b>(istream&amp; istr, signed char&amp; ch);
+istream&amp;
+    <b><a href="#operator%3E%3E">operator&gt;&gt;</a></b>(istream&amp; istr, unsigned char *str);
+istream&amp;
+    <b><a href="#operator%3E%3E">operator&gt;&gt;</a></b>(istream&amp; istr, unsigned char&amp; ch);
+
+        // MANIPULATORS
+istream&amp; <b><a href="#ws">ws</a></b>(istream&amp; istr);
+        // END OF DECLARATIONS
+</pre>
+
+  <h2><a name="istream"><code>istream</code></a></h2>
+  <hr>
+
+  <p><b><code><a href="#istream::istream">istream</a> &middot; <a href="#istream::gcount">gcount</a> &middot;
+  <a href="#istream::get">get</a> &middot; <a href="#istream::getline">getline</a> &middot; <a href=
+  "#istream::ignore">ignore</a> &middot; <a href="#istream::operator%3E%3E">operator&gt;&gt;</a> &middot;
+  <a href="#istream::peek">peek</a> &middot; <a href="#istream::putback">putback</a> &middot; <a href=
+  "#istream::read">read</a> &middot; <a href="#istream::readsome">readsome</a> &middot; <a href=
+  "#istream::seekg">seekg</a> &middot; <a href="#istream::sentry">sentry</a> &middot; <a href=
+  "#istream::sync">sync</a> &middot; <a href="#istream::tellg">tellg</a> &middot; <a href=
+  "#istream::unget">unget</a></code></b></p>
+  <hr>
+  <pre>
+class <b>istream</b> : public ios {
+public:
+    explicit <b><a href="#istream::istream">istream</a></b>(streambuf *strbuf);
+
+    class <b><a href="#istream::sentry">sentry</a></b>;
+    virtual <b>~istream</b>();
+
+    istream&amp; <b><a href="#istream::operator%3E%3E">operator&gt;&gt;</a></b>(
+        istream&amp; (*pfn)(istream&amp;));
+    istream&amp; <b><a href="#istream::operator%3E%3E">operator&gt;&gt;</a></b>(
+        ios_base&amp; (*pfn)(ios_base&amp;));
+    istream&amp; <b><a href="#istream::operator%3E%3E">operator&gt;&gt;</a></b>(
+        ios&amp; (*pfn)(ios&amp;));
+    istream&amp; <b><a href="#istream::operator%3E%3E">operator&gt;&gt;</a></b>(
+        streambuf *strbuf);
+
+    istream&amp; <b><a href="#istream::operator%3E%3E">operator&gt;&gt;</a></b>(bool&amp; val);
+    istream&amp; <b><a href="#istream::operator%3E%3E">operator&gt;&gt;</a></b>(short&amp; val);
+    istream&amp; <b><a href="#istream::operator%3E%3E">operator&gt;&gt;</a></b>(unsigned short&amp; val);
+    istream&amp; <b><a href="#istream::operator%3E%3E">operator&gt;&gt;</a></b>(int&amp; val);
+    istream&amp; <b><a href="#istream::operator%3E%3E">operator&gt;&gt;</a></b>(unsigned int&amp; val);
+    istream&amp; <b><a href="#istream::operator%3E%3E">operator&gt;&gt;</a></b>(long&amp; val);
+    istream&amp; <b><a href="#istream::operator%3E%3E">operator&gt;&gt;</a></b>(unsigned long&amp; val);
+
+    istream&amp; <b><a href=
+"#istream::operator%3E%3E">operator&gt;&gt;</a></b>(long long&amp; val); <b>[added with C++0X]</b>
+    istream&amp; <b><a href=
+"#istream::operator%3E%3E">operator&gt;&gt;</a></b>(unsigned long long&amp; val); <b>[added with C++0X]</b>
+
+    istream&amp; <b><a href="#istream::operator%3E%3E">operator&gt;&gt;</a></b>(void *&amp; val);
+    istream&amp; <b><a href="#istream::operator%3E%3E">operator&gt;&gt;</a></b>(float&amp; val);
+    istream&amp; <b><a href="#istream::operator%3E%3E">operator&gt;&gt;</a></b>(double&amp; val);
+    istream&amp; <b><a href="#istream::operator%3E%3E">operator&gt;&gt;</a></b>(long double&amp; val);
+
+    streamsize <b><a href="#istream::gcount">gcount</a></b>() const;
+
+    int_type <b><a href="#istream::get">get</a></b>();
+    istream&amp; <b><a href="#istream::get">get</a></b>(char_type&amp; ch);
+    istream&amp; <b><a href="#istream::get">get</a></b>(char_type *str, streamsize count);
+    istream&amp;
+        <b><a href="#istream::get">get</a></b>(char_type *str, streamsize count, char_type delim);
+    istream&amp; <b><a href="#istream::get">get</a></b>(streambuf&amp; strbuf);
+    istream&amp; <b><a href="#istream::get">get</a></b>(streambuf&amp; strbuf, char_type delim);
+
+    istream&amp; <b><a href="#istream::getline">getline</a></b>(char_type *str, streamsize count);
+    istream&amp; <b><a href="#istream::getline">getline</a></b>(char_type *str, streamsize count,
+        char_type delim);
+
+    istream&amp; <b><a href="#istream::ignore">ignore</a></b>(streamsize count = 1,
+        int_type delim = traits_type::eof());
+    int_type <b><a href="#istream::peek">peek</a></b>();
+    istream&amp; <b><a href="#istream::read">read</a></b>(char_type *str, streamsize count);
+    streamsize <b><a href="#istream::readsome">readsome</a></b>(char_type *str, streamsize count);
+
+    istream&amp; <b><a href="#istream::putback">putback</a></b>(char_type ch);
+    istream&amp; <b><a href="#istream::unget">unget</a></b>();
+
+    pos_type <b><a href="#istream::tellg">tellg</a></b>();
+    istream&amp; <b><a href="#istream::seekg">seekg</a></b>(pos_type pos);
+    istream&amp; <b><a href="#istream::seekg">seekg</a></b>(off_type off,
+        ios_base::seek_dir way);
+    int <b><a href="#istream::sync">sync</a></b>();
+    };
+</pre>
+
+  <p>The class describes an object that controls extraction of elements and encoded objects from a <a href=
+  "streambu.html#stream%20buffer">stream buffer</a> with elements of type <i>char,</i> also known as
+  <code><a href="ios.html#ios::char_type">char_type</a></code>, whose <a href=
+  "string2.html#character%20traits">character traits</a> are determined by the class <code><a href=
+  "string2.html#char_traits">char_traits</a></code>, also known as <code><a href=
+  "ios.html#ios::traits_type">traits_type</a></code>.</p>
+
+  <p>Most of the member functions that overload <code><a href=
+  "#istream::operator%3E%3E">operator&gt;&gt;</a></code> are <b><a name="formatted input functions">formatted
+  input functions</a></b>. They follow the pattern:</p>
+  <pre>
+    iostate state = goodbit;
+    const sentry ok(*this);
+    if (ok)
+        {try
+            {&lt;extract elements and convert
+            accumulate flags in state
+            store a successful conversion&gt; }
+        catch (...)
+            {try
+                {setstate(badbit); }
+            catch (...)
+                {}
+            if ((exceptions() &amp; badbit) != 0)
+                throw; }}
+    setstate(state);
+    return (*this);
+</pre>
+
+  <p>Many other member functions are <b><a name="unformatted input functions">unformatted input
+  functions</a></b>. They follow the pattern:</p>
+  <pre>
+    iostate state = goodbit;
+    count = 0;    // the value returned by gcount
+    const sentry ok(*this, true);
+    if (ok)
+        {try
+            {&lt;extract elements and deliver
+            count extracted elements in count
+            accumulate flags in state&gt; }
+        catch (...)
+            {try
+                {setstate(badbit); }
+            catch (...)
+                {}
+            if ((exceptions() &amp; badbit) != 0)
+                throw; }}
+    setstate(state);
+</pre>
+
+  <p>Both groups of functions call <code><a href="ios.html#ios::setstate">setstate</a>(eofbit)</code> if they
+  encounter end-of-file while extracting elements.</p>
+
+  <p>An object of class <code>istream</code> stores:</p>
+
+  <ul>
+    <li>a public base object of class <b><code><a href="ios.html#ios">ios</a></code></b></li>
+
+    <li>an <b><a name="extraction count">extraction count</a></b> for the last unformatted input operation
+    (called <code>count</code> in the code above)</li>
+  </ul>
+
+  <h3><a name="istream::istream"><code>istream::istream</code></a></h3>
+  <pre>
+explicit <b>istream</b>(streambuf *strbuf);
+</pre>
+
+  <p>The constructor initializes the base class by calling <code><a href=
+  "ios.html#ios::init">init</a>(strbuf)</code>. It also stores zero in the <a href=
+  "#extraction%20count">extraction count</a>.</p>
+
+  <h3><a name="istream::gcount"><code>istream::gcount</code></a></h3>
+  <pre>
+streamsize <b>gcount</b>() const;
+</pre>
+
+  <p>The member function returns the <a href="#extraction%20count">extraction count</a>.</p>
+
+  <h3><a name="istream::get"><code>istream::get</code></a></h3>
+  <pre>
+int_type <b><a href="#istream::get">get</a></b>();
+istream&amp; <b>get</b>(char_type&amp; ch);
+istream&amp; <b>get</b>(char_type *str, streamsize count);
+istream&amp; <b>get</b>(char_type *str, streamsize count,
+    char_type delim);
+istream&amp; <b>get</b>(streambuf&amp; strbuf);
+istream&amp; <b>get</b>(streambuf&amp; strbuf, char_type delim);
+</pre>
+
+  <p>The first of these <a href="#unformatted%20input%20functions">unformatted input functions</a> extracts
+  an element, if possible, as if by returning <code>rdbuf()-&gt;<a href=
+  "streambu.html#streambuf::sbumpc">sbumpc</a>()</code>. Otherwise, it returns <code>traits_type::<a href=
+  "string2.html#char_traits::eof">eof</a>()</code>. If the function extracts no element, it calls
+  <code><a href="ios.html#ios::setstate">setstate</a>(failbit)</code>.</p>
+
+  <p>The second function extracts the <a href="ios.html#ios::int_type"><code>int_type</code></a> element
+  <code>meta</code> the same way. If <code>meta</code> compares equal to <code>traits_type::<a href=
+  "string2.html#char_traits::eof">eof</a>()</code>, the function calls <code><a href=
+  "ios.html#ios::setstate">setstate</a>(failbit)</code>. Otherwise, it stores <code>traits_type::<a href=
+  "string2.html#char_traits::to_char_type">to_char_type</a>(meta)</code> in <code>ch</code>. The function
+  returns <code>*this</code>.</p>
+
+  <p>The third function returns <code>get(str, count, widen('\n'))</code>.</p>
+
+  <p>The fourth function extracts up to <code>N</code> elements, where <code>N = count &lt;= 1 ? 0 : count -
+  1</code>, and stores them in the array beginning at <code>str</code>. It always stores
+  <code>char_type()</code> after any extracted elements it stores. In order of testing, extraction stops:</p>
+
+  <ol>
+    <li>at end of file</li>
+
+    <li>after the function extracts an element that compares equal to <code>delim</code>, in which case the
+    element is put back to the controlled sequence</li>
+
+    <li>after the function extracts <code>N</code> elements</li>
+  </ol>
+
+  <p>If the function extracts no elements, it calls <code><a href=
+  "ios.html#ios::setstate">setstate</a>(failbit)</code>. In any case, it returns <code>*this</code>.</p>
+
+  <p>The fifth function returns <code>get(strbuf, widen('\n'))</code>.</p>
+
+  <p>The sixth function extracts elements and inserts them in <code>strbuf</code>. Extraction stops on
+  end-of-file or on an element that compares equal to <code>delim</code> (which is not extracted). It also
+  stops, without extracting the element in question, if an insertion fails or throws an exception (which is
+  caught but not rethrown). If the function extracts no elements, it calls <code><a href=
+  "ios.html#ios::setstate">setstate</a>(failbit)</code>. In any case, the function returns
+  <code>*this</code>.</p>
+
+  <h3><a name="istream::getline"><code>istream::getline</code></a></h3>
+  <pre>
+istream&amp; <b>getline</b>(char_type *str, streamsize count);
+istream&amp; <b>getline</b>(char_type *str, streamsize count,
+    char_type delim);
+</pre>
+
+  <p>The first of these <a href="#unformatted%20input%20functions">unformatted input functions</a> returns
+  <code>getline(str, count, widen('\n'))</code>.</p>
+
+  <p>The second function extracts up to <code>N</code> elements, where <code>N = count &lt;= 1 ? 0 : count -
+  1</code>, and stores them in the array beginning at <code>str</code>. It always stores
+  <code>char_type()</code> after any extracted elements it stores. In order of testing, extraction stops:</p>
+
+  <ol>
+    <li>at end of file</li>
+
+    <li>after the function extracts an element that compares equal to <code>delim</code>, in which case the
+    element is neither put back nor appended to the controlled sequence</li>
+
+    <li>after the function extracts <code>N</code> elements</li>
+  </ol>
+
+  <p>If the function extracts no elements or <code>N</code> elements, it calls <code><a href=
+  "ios.html#ios::setstate">setstate</a>(failbit)</code>. In any case, it returns <code>*this</code>.</p>
+
+  <h3><a name="istream::ignore"><code>istream::ignore</code></a></h3>
+  <pre>
+istream&amp; <b>ignore</b>(streamsize count = 1,
+    int_type delim = traits_type::eof());
+</pre>
+
+  <p>The <a href="#unformatted%20input%20functions">unformatted input function</a> extracts up to
+  <code>count</code> elements and discards them. If <code>count</code> equals <code><a href=
+  "limits.html#INT_MAX">INT_MAX</a></code>, however, it is taken as arbitrarily large. Extraction stops early
+  on end-of-file or on an element <code>ch</code> such that <code>traits_type::<a href=
+  "string2.html#char_traits::to_int_type">to_int_type</a>(ch)</code> compares equal to <code>delim</code>
+  (which is also extracted). The function returns <code>*this</code>.</p>
+
+  <h3><a name="istream::operator&gt;&gt;"><code>istream::operator&gt;&gt;</code></a></h3>
+  <pre>
+istream&amp; <b>operator&gt;&gt;</b>(
+    istream&amp; (*pfn)(istream&amp;));
+istream&amp; <b>operator&gt;&gt;</b>(
+    ios_base&amp; (*pfn)(ios_base&amp;));
+istream&amp; <b>operator&gt;&gt;</b>(
+    ios&amp; (*pfn)(ios&amp;));
+istream&amp; <b>operator&gt;&gt;</b>(
+    streambuf *strbuf);
+istream&amp; <b>operator&gt;&gt;</b>(bool&amp; val);
+istream&amp; <b>operator&gt;&gt;</b>(short&amp; val);
+istream&amp; <b>operator&gt;&gt;</b>(unsigned short&amp; val);
+istream&amp; <b>operator&gt;&gt;</b>(int&amp; val);
+istream&amp; <b>operator&gt;&gt;</b>(unsigned int&amp; val);
+istream&amp; <b>operator&gt;&gt;</b>(long&amp; val);
+istream&amp; <b>operator&gt;&gt;</b>(unsigned long&amp; val);
+
+istream&amp; <b>operator&gt;&gt;</b>(long long&amp; val); <b>[added with C++0X]</b>
+istream&amp; <b>operator&gt;&gt;</b>(unsigned long long&amp; val); <b>[added with C++0X]</b>
+
+istream&amp; <b>operator&gt;&gt;</b>(void *&amp; val);
+istream&amp; <b>operator&gt;&gt;</b>(float&amp; val);
+istream&amp; <b>operator&gt;&gt;</b>(double&amp; val);
+istream&amp; <b>operator&gt;&gt;</b>(long double&amp; val);
+</pre>
+
+  <p>The first member function ensures that an expression of the form <code>istr &gt;&gt; ws</code> calls
+  <code><a href="#ws">ws</a>(istr)</code>, then returns <code>*this</code>. The second and third functions
+  ensure that other <a href="ios.html#manipulators">manipulators</a>, such as <code><a href=
+  "ios.html#hex">hex</a></code> behave similarly.</p>
+
+  <p>The function:</p>
+  <pre>
+istream&amp; <b>operator&gt;&gt;</b>(
+    streambuf *strbuf);
+</pre>
+
+  <p>extracts elements, if <code>strbuf</code> is not a null pointer, and inserts them in
+  <code>strbuf</code>. Extraction stops on end-of-file. It also stops, without extracting the element in
+  question, if an insertion fails or throws an exception (which is caught but not rethrown). If the function
+  extracts no elements, it calls <code><a href="ios.html#ios::setstate">setstate</a>(failbit)</code>. In any
+  case, the function returns <code>*this</code>.</p>
+
+  <p>The remaining functions constitute the <a href="#formatted%20input%20functions">formatted input
+  functions</a>.</p>
+
+  <p>The function:</p>
+  <pre>
+istream&amp; <b>operator&gt;&gt;</b>(bool&amp; val);
+</pre>
+
+  <p>extracts a field and converts it to a boolean value. The function endeavors to match a complete,
+  nonempty <b><a name="boolean input field">boolean input field</a></b>. If successful it converts the
+  boolean input field to a value of type <code>bool</code> and stores that value in <code>val</code>.</p>
+
+  <p>A boolean input field takes one of two forms. If <code><a href="ios.html#ios_base::flags">flags</a>()
+  &amp; ios_base::<a href="ios.html#ios_base::boolalpha">boolalpha</a></code> is false, it is the same as an
+  <a href="#integer%20input%20field">integer input field</a>, except that the converted value must be either
+  0 (for false) or 1 (for true). Otherwise, the sequence must match either <code>false</code> (for false), or
+  <code>true</code> (for true). The function returns <code>*this</code>.</p>
+
+  <p>The functions:</p>
+  <pre>
+istream&amp; <b>operator&gt;&gt;</b>(short&amp; val);
+istream&amp; <b>operator&gt;&gt;</b>(unsigned short&amp; val);
+istream&amp; <b>operator&gt;&gt;</b>(int&amp; val);
+istream&amp; <b>operator&gt;&gt;</b>(unsigned int&amp; val);
+istream&amp; <b>operator&gt;&gt;</b>(long&amp; val);
+istream&amp; <b>operator&gt;&gt;</b>(unsigned long&amp; val);
+
+istream&amp; <b>operator&gt;&gt;</b>(long long&amp; val); <b>[added with C++0X]</b>
+istream&amp; <b>operator&gt;&gt;</b>(unsigned long long&amp; val); <b>[added with C++0X]</b>
+
+istream&amp; <b>operator&gt;&gt;</b>(void *&amp; val);
+</pre>
+
+  <p>each extract a field and convert it to a numeric value. Each function endeavors to match a complete,
+  nonempty <b><a name="integer input field">integer input field</a></b>. If successful, it stores the result
+  in <code>val</code>. Otherwise, the function stores nothing in <code>val</code> and calls <code><a href=
+  "ios.html#ios::setstate">setstate</a>(ios_base::failbit)</code>. If the function encounters end of file, it
+  calls <code>setstate(ios_base::eofbit)</code>.</p>
+
+  <p>The integer input field is converted by the same rules used by the <a href=
+  "lib_scan.html#Scan%20Functions">scan functions</a> for matching and converting a series of <i>char</i>
+  elements from a file. The equivalent <a href="lib_scan.html#scan%20conversion%20specification">scan
+  conversion specification</a> is determined as follows:</p>
+
+  <ul>
+    <li>If <code><a href="ios.html#ios_base::flags">flags</a>() &amp; ios_base::<a href=
+    "ios.html#ios_base::basefield">basefield</a> == ios_base::<a href=
+    "ios.html#ios_base::oct">oct</a></code>, the conversion specification is <code>lo</code>.</li>
+
+    <li>If <code>flags() &amp; ios_base::basefield == ios_base::<a href=
+    "ios.html#ios_base::hex">hex</a></code>, the conversion specification is <code>lx</code>.</li>
+
+    <li>If <code>flags() &amp; ios_base::basefield == 0</code>, the conversion specification is
+    <code>li</code>.</li>
+
+    <li>Otherwise, the conversion specification is <code>ld</code> if <code>val</code> has a signed type,
+    <code>lu</code> if <code>val</code> has an unsigned type, or <code>p</code> if <code>val</code> has type
+    <code>void *</code>.</li>
+  </ul>
+
+  <p>If the converted value cannot be represented as the type of <code>val</code>, the function calls
+  <code><a href="ios.html#ios::setstate">setstate</a>(failbit)</code>. In any case, the function returns
+  <code>*this</code>.</p>
+
+  <p>The functions:</p>
+  <pre>
+istream&amp; <b>operator&gt;&gt;</b>(float&amp; val);
+istream&amp; <b>operator&gt;&gt;</b>(double&amp; val);
+istream&amp; <b>operator&gt;&gt;</b>(long double&amp; val);
+</pre>
+
+  <p>each extract a field and convert it to a numeric value. Each function endeavors to match a complete,
+  nonempty <b><a name="floating-point input field">integer input field</a></b>. A period (<code>.</code>)
+  separates the integer digits from the fraction digits. The equivalent scan conversion specifier is
+  <code>f</code> if <code>val</code> has type <i>float,</i> <code>lf</code> if <code>val</code> has type
+  <i>double,</i> or <code>Lf</code> if <code>val</code> has type <i>long double.</i></p>
+
+  <p>If the converted value cannot be represented as the type of <code>val</code>, the function calls
+  <code><a href="ios.html#ios::setstate">setstate</a>(failbit)</code>. In any case, it returns
+  <code>*this</code>.</p>
+
+  <h3><a name="istream::peek"><code>istream::peek</code></a></h3>
+  <pre>
+int_type <b>peek</b>();
+</pre>
+
+  <p>The <a href="#unformatted%20input%20functions">unformatted input function</a> extracts an element, if
+  possible, as if by returning <code>rdbuf()-&gt;<a href="streambu.html#streambuf::sgetc">sgetc</a>()</code>.
+  Otherwise, it returns <code>traits_type::<a href="string2.html#char_traits::eof">eof</a>()</code>.</p>
+
+  <h3><a name="istream::putback"><code>istream::putback</code></a></h3>
+  <pre>
+istream&amp; <b>putback</b>(char_type ch);
+</pre>
+
+  <p>The <a href="#unformatted%20input%20functions">unformatted input function</a> puts back <code>ch</code>,
+  if possible, as if by calling <code>rdbuf()-&gt;<a href=
+  "streambu.html#streambuf::sputbackc">sputbackc</a>()</code>. If <code><a href=
+  "ios.html#ios::rdbuf">rdbuf</a>()</code> is a null pointer, or if the call to <code>sputbackc</code>
+  returns <code>traits_type::<a href="string2.html#char_traits::eof">eof</a>()</code>, the function calls
+  <code><a href="ios.html#ios::setstate">setstate</a>(badbit)</code>. In any case, it returns
+  <code>*this</code>.</p>
+
+  <h3><a name="istream::read"><code>istream::read</code></a></h3>
+  <pre>
+istream&amp; <b>read</b>(char_type *str, streamsize count);
+</pre>
+
+  <p>The <a href="#unformatted%20input%20functions">unformatted input function</a> extracts up to
+  <code>count</code> elements and stores them in the array beginning at <code>str</code>. Extraction stops
+  early on end-of-file, in which case the function calls <code><a href=
+  "ios.html#ios::setstate">setstate</a>(failbit)</code>. In any case, it returns <code>*this</code>.</p>
+
+  <h3><a name="istream::readsome"><code>istream::readsome</code></a></h3>
+  <pre>
+streamsize <b>readsome</b>(char_type *str, streamsize count);
+</pre>
+
+  <p>The <a href="#unformatted%20input%20functions">unformatted input function</a> extracts up to
+  <code>count</code> elements and stores them in the array beginning at <code>str</code>. If <code><a href=
+  "ios.html#ios::good">good</a>()</code> is false, the function calls <code><a href=
+  "ios.html#ios::setstate">setstate</a>(failbit)</code>. Otherwise, it assigns the value of
+  <code>rdbuf()-&gt;<a href="streambu.html#streambuf::in_avail">in_avail</a>()</code> to <code>N</code>. If
+  <code>N &lt; 0</code>, the function calls <code><a href=
+  "ios.html#ios::setstate">setstate</a>(eofbit)</code>. Otherwise, it replaces the value stored in
+  <code>N</code> with the smaller of <code>count</code> and <code>N</code>, then calls <code><a href=
+  "#istream::read">read</a>(str, N)</code>. In any case, the function returns <code><a href=
+  "#istream::gcount">gcount</a>()</code>.</p>
+
+  <h3><a name="istream::seekg"><code>istream::seekg</code></a></h3>
+  <pre>
+istream&amp; <b>seekg</b>(pos_type pos);
+istream&amp; <b>seekg</b>(off_type off,
+    ios_base::seek_dir way);
+</pre>
+
+  <p>If <code><a href="ios.html#ios::fail">fail</a>()</code> is false, the first member function calls
+  <code>newpos = <a href="ios.html#ios::rdbuf">rdbuf</a>()-&gt; <a href=
+  "streambu.html#streambuf::pubseekpos">pubseekpos</a>(pos, <a href="ios.html#ios_base::in">in</a>)</code>,
+  for some <code>pos_type</code> temporary object <code>newpos</code>. If <code>fail()</code> is false, the
+  second function calls <code>newpos = rdbuf()-&gt; <a href=
+  "streambu.html#streambuf::pubseekoff">pubseekoff</a>(off, way, <a href=
+  "ios.html#ios_base::in">in</a>)</code>. In either case, if <code>(off_type)newpos == (off_type)(-1)</code>
+  (the positioning operation fails) the function calls <code>istr.<a href=
+  "ios.html#ios::setstate">setstate</a>(failbit)</code>. Both functions return <code>*this</code>.</p>
+
+  <h3><a name="istream::sentry"><code>istream::sentry</code></a></h3>
+  <pre>
+class <b>sentry</b> {
+public:
+    explicit <b>sentry</b>(istream&lt;Elem, Tr&gt;&amp; istr,
+        bool noskip = false);
+    explicit <b>operator bool</b>() const;
+    };
+</pre>
+
+  <p>The nested class describes an object whose declaration structures the <a href=
+  "#formatted%20input%20functions">formatted input functions</a> and the <a href=
+  "#unformatted%20input%20functions">unformatted input functions</a>. If <code>istr.<a href=
+  "ios.html#ios::good">good</a>()</code> is true, the constructor:</p>
+
+  <ul>
+    <li>calls <code>istr.<a href="ios.html#ios::tie">tie</a>-&gt; <a href=
+    "ostream.html#ostream::flush">flush</a>()</code> if <code>istr.tie()</code> is not a null pointer</li>
+
+    <li>effectively calls <code><a href="#ws">ws</a>(istr)</code> if <code>istr.<a href=
+    "ios.html#ios_base::flags">flags</a>() &amp; <a href="ios.html#ios_base::skipws">skipws</a></code> is
+    nonzero</li>
+  </ul>
+
+  <p>If, after any such preparation, <code>istr.good()</code> is false, the constructor calls
+  <code>istr.<a href="ios.html#ios::setstate">setstate</a>(failbit)</code>. In any case, the constructor
+  stores the value returned by <code>istr.good()</code> in <b>status</b>. A later call to <code>operator
+  bool()</code> delivers this stored value.</p>
+
+  <h3><a name="istream::sync"><code>istream::sync</code></a></h3>
+  <pre>
+int <b>sync</b>();
+</pre>
+
+  <p>If <code><a href="ios.html#ios::rdbuf">rdbuf</a>()</code> is a null pointer, the function returns -1.
+  Otherwise, it calls <code>rdbuf()-&gt;<a href="streambu.html#streambuf::pubsync">pubsync</a>()</code>. If
+  that returns -1, the function calls <code><a href="ios.html#ios::setstate">setstate</a>(badbit)</code> and
+  returns -1. Otherwise, the function returns zero.</p>
+
+  <h3><a name="istream::tellg"><code>istream::tellg</code></a></h3>
+  <pre>
+pos_type <b>tellg</b>();
+</pre>
+
+  <p>If <code><a href="ios.html#ios::fail">fail</a>()</code> is false, the member function returns
+  <code><a href="ios.html#ios::rdbuf">rdbuf</a>()-&gt; <a href=
+  "streambu.html#streambuf::pubseekoff">pubseekoff</a>(0, <a href="ios.html#ios_base::cur">cur</a>, <a href=
+  "ios.html#ios_base::in">in</a>)</code>. Otherwise, it returns <code>pos_type(-1)</code>.</p>
+
+  <h3><a name="istream::unget"><code>istream::unget</code></a></h3>
+  <pre>
+istream&amp; <b>unget</b>();
+</pre>
+
+  <p>The <a href="#unformatted%20input%20functions">unformatted input function</a> puts back the previous
+  element in the stream, if possible, as if by calling <code>rdbuf()-&gt;<a href=
+  "streambu.html#streambuf::sungetc">sungetc</a>()</code>. If <code><a href=
+  "ios.html#ios::rdbuf">rdbuf</a>()</code> is a null pointer, or if the call to <code>sungetc</code> returns
+  <code>traits_type::<a href="string2.html#char_traits::eof">eof</a>()</code>, the function calls
+  <code><a href="ios.html#ios::setstate">setstate</a>(badbit)</code>. In any case, it returns
+  <code>*this</code>.</p>
+
+  <h2><a name="operator&gt;&gt;"><code>operator&gt;&gt;</code></a></h2>
+  <pre>
+istream&amp;
+    <b>operator&gt;&gt;</b>(istream&amp; istr,
+        char *str);
+istream&amp;
+    <b>operator&gt;&gt;</b>(istream&amp; istr,
+        char&amp; ch);
+istream&amp;
+    <b>operator&gt;&gt;</b>(istream&amp; istr,
+        signed char *str);
+istream&amp;
+    <b>operator&gt;&gt;</b>(istream&amp; istr,
+        signed char&amp; ch);
+istream&amp;
+    <b>operator&gt;&gt;</b>(istream&amp; istr,
+        unsigned char *str);
+istream&amp;
+    <b>operator&gt;&gt;</b>(istream istr,
+        unsigned char&amp; ch);
+</pre>
+
+  <p>All of these functions are <a href="#formatted%20input%20functions">formatted input functions</a>. The
+  function:</p>
+  <pre>
+istream&amp;
+    <b>operator&gt;&gt;</b>(istream&amp; istr, char *str);
+</pre>
+
+  <p>extracts up to <code>N - 1</code> elements and stores them in the array beginning at <code>str</code>.
+  If <code>istr.<a href="ios.html#ios_base::width">width</a>()</code> is greater than zero, <code>N</code> is
+  <code>istr.width()</code>; otherwise it is the size of the largest array of <i>char</i> that can be
+  declared. The function always stores <code>char(0)</code> after any extracted elements it stores.
+  Extraction stops early on end-of-file, on a character with value <code>char(0)</code> (which is not
+  extracted), or on any element (which is not extracted) that would be discarded by <code><a href=
+  "#ws">ws</a></code>. If the function extracts no elements, it calls <code>istr.<a href=
+  "ios.html#ios::setstate">setstate</a>(failbit)</code>. In any case, it calls <code>istr.width(0)</code> and
+  returns <code>istr</code>.</p>
+
+  <p>The function:</p>
+  <pre>
+istream&amp;
+    <b>operator&gt;&gt;</b>(istream&amp; istr, char&amp; ch);
+</pre>
+
+  <p>extracts an element, if possible, and stores it in <code>ch</code>. Otherwise, it calls
+  <code>is.<a href="ios.html#ios::setstate">setstate</a>(failbit)</code>. In any case, it returns
+  <code>istr</code>.</p>
+
+  <p>The function:</p>
+  <pre>
+istream&amp;
+    <b>operator&gt;&gt;</b>(istream&amp; istr, signed char *str);
+</pre>
+
+  <p>returns <code>istr &gt;&gt; (char *)str</code>.</p>
+
+  <p>The function:</p>
+  <pre>
+istream&amp;
+    <b>operator&gt;&gt;</b>(istream&amp; istr, signed char&amp; ch);
+</pre>
+
+  <p>returns <code>istr &gt;&gt; (char&amp;)ch</code>.</p>
+
+  <p>The function:</p>
+  <pre>
+istream&amp;
+    <b>operator&gt;&gt;</b>(istream&amp; istr, unsigned char *str);
+</pre>
+
+  <p>returns <code>istr &gt;&gt; (char *)str</code>.</p>
+
+  <p>The function:</p>
+  <pre>
+istream&amp;
+    <b>operator&gt;&gt;</b>(istream&amp; istr, unsigned char&amp; ch);
+</pre>
+
+  <p>returns <code>istr &gt;&gt; (char&amp;)ch</code>.</p>
+
+  <h2><a name="ws"><code>ws</code></a></h2>
+  <pre>
+istream&amp; <b>ws</b>(istream&amp; istr);
+</pre>
+
+  <p>The manipulator extracts and discards any elements <code>ch</code> for which <code><a href=
+  "ctype.html#isspace">isspace</a>(ch)</code> is true.</p>
+
+  <p>The function calls <code><a href="ios.html#ios::setstate">setstate</a>(eofbit)</code> if it encounters
+  end-of-file while extracting elements. It returns <code>istr</code>.</p>
+  <hr>
+
+  <p>See also the <b><a href="index.html#Table%20of%20Contents">Table of Contents</a></b> and the <b><a href=
+  "_index.html">Index</a></b>.</p>
+
+  <p><i><a href="crit_pjp.html">Copyright</a> &copy; 1992-2010 by P.J. Plauger. All rights reserved.</i></p>
+  <!--V5.30:126I-->
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html>
+<head>
+  <meta name="generator" content=
+  "HTML Tidy for Mac OS X (vers 31 October 2006 - Apple Inc. build 15.15), see www.w3.org">
+
+  <title>C++ Interface</title>
+</head>
+
+<body>
+  <h1><a name="C++ Interface">C++ Interface</a></h1>
+  <hr>
+
+  <p>The C++ interface to the <b>Dinkum Threads Library</b> is very similar to the thread support interface
+  defined in the <b><a href="http://www.boost.org/libs/thread/doc/index.html">boost.threads</a></b> library
+  for C++. Some details of this <b><a name="implementation">implementation</a></b> differ from the
+  boost.threads implementation. For example, in this implementation classes and functions are enclosed in
+  <code>namespace Dinkum/threads</code> instead of <code>namespace boost</code>. Implementation differences
+  are marked as such, throughout this document, by a link to this paragraph.</p>
+
+  <p>The C++ interface consists of several headers:</p>
+
+  <ul>
+    <li><code><a href="condition.html">"Dinkum/threads/condition"</a></code> -- for defining a class that
+    implements condition variables</li>
+
+    <li><code><a href="exceptions.html">"Dinkum/threads/exceptions"</a></code> -- for defining several
+    classes useful for reporting exceptions</li>
+
+    <li><code><a href="mutex.html">"Dinkum/threads/mutex"</a></code> -- for defining classes that implement
+    mutual exclusion</li>
+
+    <li><code><a href="once.html">"Dinkum/threads/once"</a></code> -- for ensuring that initialization code
+    is executed only once, from the first thread that needs the initialization</li>
+
+    <li><code><a href="rmutex.html">"Dinkum/threads/recursive_mutex"</a></code> -- for defining classes that
+    implement mutual exclusion</li>
+
+    <li><code><a href="thread.html">"Dinkum/threads/thread"</a></code> -- for defining classes to manage
+    execution threads and groups of execution threads</li>
+
+    <li><code><a href="tss.html">"Dinkum/threads/tss"</a></code> -- for defining a template class that
+    supports thread-specific data</li>
+
+    <li><code><a href="xtime.html">"Dinkum/threads/xtime"</a></code> -- for defining a struct and functions
+    for high-resolution time operations</li>
+  </ul>
+
+  <p>Here is an <a href="cppsample.txt">example program</a> to illustrate the use of the C++ interface.</p>
+
+  <p>The C++ interface makes suitable use of templates and classes, but its functionality is otherwise quite
+  similar to that described for the <a href="cthrd_over.html">C interface</a>.</p>
+  <hr>
+
+  <p>See also the <b><a href="index.html">Table of Contents</a></b> and the <b><a href=
+  "_index.html">Index</a></b>.</p>
+
+  <p><i><a href="crit_pjp.html">Copyright</a> &copy; 1992-2010 by Dinkumware, Ltd. Portions derived from work
+  <a href="crit_wek.html">copyright</a> &copy; 2001 by William E. Kempf. All rights reserved.</i></p>
+  <!--V5.30:126I-->
+</body>
+</html>

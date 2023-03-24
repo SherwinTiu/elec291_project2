@@ -1,0 +1,93 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html>
+<head>
+  <meta name="generator" content=
+  "HTML Tidy for Mac OS X (vers 31 October 2006 - Apple Inc. build 15.15), see www.w3.org">
+
+  <title>&lt;errno.h&gt;</title>
+</head>
+
+<body>
+  <h1><a name="&lt;errno.h&gt;"><code>&lt;errno.h&gt;</code></a></h1>
+  <hr>
+
+  <p>Include the standard header <b><code>&lt;errno.h&gt;</code></b> to test the value stored in <a href=
+  "#errno"><code>errno</code></a> by certain library functions.</p>
+  <hr>
+
+  <p><b><code><a href="#EDOM">EDOM</a> &middot; <a href="#EILSEQ">EILSEQ</a> &middot; <a href=
+  "#ERANGE">ERANGE</a> &middot; <a href="#errno">errno</a></code></b></p>
+
+  <p><b><code><a href="#errno_t">errno_t</a></code></b></p>
+  <hr>
+
+  <h2><a name="Overview">Overview</a></h2>
+
+  <p>At program startup, the value stored in <a href="#errno"><code>errno</code></a> is zero. Library
+  functions store only values greater than zero. Any library function can alter the value stored, but only
+  those cases where a library function is explicitly required to store a value are documented here.</p>
+
+  <p>To test whether a library function stores a value in <a href="#errno"><code>errno</code></a>, the
+  program should store the value zero there immediately before it calls the library function.</p>
+  <pre>
+    /* MACROS */
+#define <a href="#EDOM"><b>EDOM</b></a> <i>&lt;#if expression&gt;</i>
+#define <a href="#EILSEQ"><b>EILSEQ</b></a> <i>&lt;#if expression&gt;</i> <b>[added with Amendment 1]</b>
+#define <a href="#ERANGE"><b>ERANGE</b></a> <i>&lt;#if expression&gt;</i>
+#define <a href="#errno"><b>errno</b></a> <i>&lt;int modifiable lvalue&gt;</i>
+
+    /* TYPES */
+#if __STDC_WANT_LIB_EXT1__ <b>[added with <a href="index_ext1.html#TR24731">TR24731</a>]</b>
+typedef int <a href="#errno_t"><b>errno_t</b></a>;
+#endif /* __STDC_WANT_LIB_EXT1__ */
+</pre>
+
+  <p>An implementation can define additional macros in this standard header that you can test for equality
+  with the value stored. All these additional macros have names that begin with <code>E</code>.</p>
+
+  <h2><a name="EDOM"><code>EDOM</code></a></h2>
+  <pre>
+#define <b>EDOM</b> <i>&lt;#if expression&gt;</i>
+</pre>
+
+  <p>The macro yields the value stored in <a href="#errno"><code>errno</code></a> on a domain error.</p>
+
+  <h2><a name="EILSEQ"><code>EILSEQ</code></a></h2>
+  <pre>
+#define <b>EILSEQ</b> <i>&lt;#if expression&gt;</i> <b>[added with Amendment 1]</b>
+</pre>
+
+  <p>The macro yields the value stored in <a href="#errno"><code>errno</code></a> on an invalid multibyte
+  sequence.</p>
+
+  <h2><a name="ERANGE"><code>ERANGE</code></a></h2>
+  <pre>
+#define <b>ERANGE</b> <i>&lt;#if expression&gt;</i>
+</pre>
+
+  <p>The macro yields the value stored in <a href="#errno"><code>errno</code></a> on a range error.</p>
+
+  <h2><a name="errno"><code>errno</code></a></h2>
+  <pre>
+#define <b>errno</b> <i>&lt;int modifiable lvalue&gt;</i>
+</pre>
+
+  <p>The macro designates an object that is assigned a value greater than zero on certain library errors.</p>
+
+  <h2><a name="errno_t"><code>errno_t</code></a></h2>
+  <pre>
+typedef int <b>errno_t</b>; <b>[added with TR24731]</b>
+</pre>
+
+  <p>The type is a synonym for <i>int,</i> used to represent a value that can be stored in <a href=
+  "#errno"><code>errno</code></a>.</p>
+  <hr>
+
+  <p>See also the <b><a href="index.html#Table%20of%20Contents">Table of Contents</a></b> and the <b><a href=
+  "_index.html">Index</a></b>.</p>
+
+  <p><i><a href="crit_pjp.html">Copyright</a> &copy; 1992-2010 by P.J. Plauger and Jim Brodie. All rights
+  reserved.</i></p><!--V5.30:126I-->
+</body>
+</html>

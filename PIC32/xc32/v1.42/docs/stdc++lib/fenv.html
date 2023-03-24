@@ -1,0 +1,465 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html>
+<head>
+  <meta name="generator" content=
+  "HTML Tidy for Mac OS X (vers 31 October 2006 - Apple Inc. build 15.15), see www.w3.org">
+
+  <title>&lt;fenv.h&gt;</title>
+</head>
+
+<body>
+  <h1><a name="&lt;fenv.h&gt;"><code>&lt;fenv.h&gt;</code></a></h1>
+
+  <p>[added with <a href="lib_over.html#C99">C99</a>]</p>
+  <hr>
+
+  <p><b><code><a href="#FE_ALL_EXCEPT">FE_ALL_EXCEPT</a> &middot; <a href="#FE_DFL_ENV">FE_DFL_ENV</a>
+  &middot; <a href="#FE_DIVBYZERO">FE_DIVBYZERO</a> &middot; <a href="#FE_DOWNWARD">FE_DOWNWARD</a> &middot;
+  <a href="#FE_INEXACT">FE_INEXACT</a> &middot; <a href="#FE_INVALID">FE_INVALID</a> &middot; <a href=
+  "#FE_OVERFLOW">FE_OVERFLOW</a> &middot; <a href="#FE_TONEAREST">FE_TONEAREST</a> &middot; <a href=
+  "#FE_TOWARDZERO">FE_TOWARDZERO</a> &middot; <a href="#FE_UNDERFLOW">FE_UNDERFLOW</a> &middot; <a href=
+  "#FE_UPWARD">FE_UPWARD</a></code></b></p>
+
+  <p><b><code><a href="#FENV_ACCESS">FENV_ACCESS</a></code></b></p>
+
+  <p><b><code><a href="#feclearexcept">feclearexcept</a> &middot; <a href="#fegetenv">fegetenv</a> &middot;
+  <a href="#fegetexceptflag">fegetexceptflag</a> &middot; <a href="#fegetround">fegetround</a> &middot;
+  <a href="#feholdexcept">feholdexcept</a> &middot; <a href="#fenv_t">fenv_t</a> &middot; <a href=
+  "#feraiseexcept">feraiseexcept</a> &middot; <a href="#fesetenv">fesetenv</a> &middot; <a href=
+  "#fesetexceptflag">fesetexceptflag</a> &middot; <a href="#fesetround">fesetround</a> &middot; <a href=
+  "#fetestexcept">fetestexcept</a> &middot; <a href="#feupdateenv">feupdateenv</a> &middot; <a href=
+  "#fexcept_t">fexcept_t</a></code></b></p>
+
+  <p><b><code><a href="#fegettrapenable">fegettrapenable</a> &middot; <a href=
+  "#fesettrapenable">fesettrapenable</a></code></b></p>
+  <hr>
+
+  <p>Include the standard header <b><code>&lt;fenv.h&gt;</code></b> to define two types, several macros, and
+  several functions that test and control floating-point status, if the implementation permits. The
+  functionality matches IEC 60559, but it can be applied to similar floating-point hardware. <b><a name=
+  "floating-point status">Floating-point status</a></b> can be represented in an object of type
+  <code><a href="#fexcept_t">fexcept_t</a></code>. It forms part of the <b><a name=
+  "floating-point control">floating-point control</a></b>, which determines the behavior of floating-point
+  arithmetic. A copy of the floating-point control can be represented in an object of type <code><a href=
+  "#fenv_t">fenv_t</a></code>.</p>
+
+  <p>Another part of the floating-point control is the <b><a name="rounding mode">rounding mode</a></b>,
+  representable as a value of type <i>int,</i> which determines how floating-point values convert to
+  integers. The rounding modes are:</p>
+
+  <ul>
+    <li><b>downward</b>, toward the nearest more negative integer</li>
+
+    <li><b>to nearest</b>, toward the nearest integer with the closer value, or toward the nearest even
+    integer if two integers are equally near</li>
+
+    <li><b>toward zero</b>, toward the nearest integer closer to zero (also called truncation)</li>
+
+    <li><b>upward</b>, toward the nearest more positive integer</li>
+  </ul>
+
+  <p>An implementation may define additional rounding modes.</p>
+
+  <p>By convention, a C function does not alter the floating-point control, nor assume other than the default
+  settings for the floating-point control, without explicitly documenting the fact. Any C function can change
+  the floating-point status by reporting one of several floating-point exceptions:</p>
+
+  <ul>
+    <li>An <b><a name="inexact floating-point">inexact floating-point</a></b> exception can occur when a
+    finite floating-point result cannot be exactly represented, as in <code>2.0 / 3.0</code>.</li>
+
+    <li>An <b><a name="invalid floating-point">invalid floating-point</a></b> exception can occur when a
+    floating-point operation involves an invalid combination of operators and operands, as in <code>0.0 /
+    0.0</code>.</li>
+
+    <li>An <b><a name="overflow floating-point">overflow floating-point</a></b> exception can occur when the
+    magnitude of a finite floating-point result is too large to represent, as in <code>DBL_MAX /
+    DBL_MIN</code>.</li>
+
+    <li>An <b><a name="underflow floating-point">underflow floating-point</a></b> exception can occur when
+    the magnitude of a finite floating-point result is too small to represent, as in <code>DBL_MIN /
+    DBL_MAX</code>.</li>
+
+    <li>A <b><a name="zero-divide floating-point">zero-divide floating-point</a></b> exception can occur when
+    a floating-point divide has a finite dividend and a zero divisor, as in <code>1.0 / 0.0</code>.</li>
+  </ul>
+
+  <p>An implementation may define additional floating-point exceptions.</p>
+
+  <p>Reporting an exception sets a corresponding indicator in the floating-point status. It can also
+  <b><a name="raise a floating-point exception">raise</a></b> a floating-point exception, which can result in
+  a hardware trap and/or the raising of a <a href="signal.html#signals">signal</a>.</p>
+
+  <p>The pragma:</p>
+  <pre>
+#pragma STD <b><a name="FENV_ACCESS">FENV_ACCESS</a></b> [ON|OFF|DEFAULT]
+</pre>
+
+  <p>informs the translator whether the program intends to control and test floating-point status. If the
+  parameter is <code>ON</code>, the program may use the functions declared in this header to control and test
+  floating-point status. If the parameter is <code>OFF</code>, the use of these functions is disallowed. The
+  parameter <code>DEFAULT</code> restores the original state, which is implementation defined. If the pragma
+  occurs outside an external declaration, it remains in effect until overridden by another such pragma. If
+  the pragma occurs inside an external declaration, it must precede all explicit declarations and statements
+  within a compound statement. It remains in effect until overridden by another such pragma or until the end
+  of the compound statement. On a transition from <code>OFF</code> to <code>ON</code>, floating-point status
+  flags are unspecified and the floating-point control is in its default state.</p>
+  <pre>
+    /* MACROS */
+#define <a href=
+"#FE_DIVBYZERO"><b>FE_DIVBYZERO</b></a> <i>&lt;integer constant expression&gt;</i> <b>[optional]</b>
+#define <a href=
+"#FE_INEXACT"><b>FE_INEXACT</b></a> <i>&lt;integer constant expression&gt;</i> <b>[optional]</b>
+#define <a href=
+"#FE_INVALID"><b>FE_INVALID</b></a> <i>&lt;integer constant expression&gt;</i> <b>[optional]</b>
+#define <a href=
+"#FE_OVERFLOW"><b>FE_OVERFLOW</b></a> <i>&lt;integer constant expression&gt;</i> <b>[optional]</b>
+#define <a href=
+"#FE_UNDERFLOW"><b>FE_UNDERFLOW</b></a> <i>&lt;integer constant expression&gt;</i> <b>[optional]</b>
+#define <a href=
+"#FE_ALL_EXCEPT"><b>FE_ALL_EXCEPT</b></a> <i>&lt;integer constant expression&gt;</i> <b>[optional]</b>
+
+#define <a href=
+"#FE_DOWNWARD"><b>FE_DOWNWARD</b></a> <i>&lt;integer constant expression&gt;</i> <b>[optional]</b>
+#define <a href=
+"#FE_TONEAREST"><b>FE_TONEAREST</b></a> <i>&lt;integer constant expression&gt;</i> <b>[optional]</b>
+#define <a href=
+"#FE_TOWARDZERO"><b>FE_TOWARDZERO</b></a> <i>&lt;integer constant expression&gt;</i> <b>[optional]</b>
+#define <a href=
+"#FE_UPWARD"><b>FE_UPWARD</b></a> <i>&lt;integer constant expression&gt;</i> <b>[optional]</b>
+
+#define <a href="#FE_DFL_ENV"><b>FE_DFL_ENV</b></a> <i>&lt;const *fenv_t rvalue&gt;</i>
+
+    /* TYPES */
+typedef <i>o-type</i> <a href="#fenv_t"><b>fenv_t</b></a>;
+typedef <i>i-type</i> <a href="#fexcept_t"><b>fexcept_t</b></a>;
+
+    /* FUNCTIONS */
+int <a href="#feclearexcept"><b>feclearexcept</b></a>(int except);
+int <a href="#fegetexceptflag"><b>fegetexceptflag</b></a>(fexcept_t *pflag, int except);
+int <a href="#feraiseexcept"><b>feraiseexcept</b></a>(int except);
+int <a href="#fesetexceptflag"><b>fesetexceptflag</b></a>(const fexcept_t *pflag, int except);
+int <a href="#fetestexcept"><b>fetestexcept</b></a>(int except);
+
+int <a href="#fegetround"><b>fegetround</b></a>(void);
+int <a href="#fesetround"><b>fesetround</b></a>(int mode);
+
+int <a href="#fegetenv"><b>fegetenv</b></a>(fenv_t *penv);
+int <a href="#feholdexcept"><b>feholdexcept</b></a>(fenv_t *penv);
+int <a href="#fesetenv"><b>fesetenv</b></a>(const fenv_t *penv);
+int <a href="#feupdateenv"><b>feupdateenv</b></a>(const fenv_t *penv);
+
+fexcept_t <a href="#fegettrapenable"><b>fegettrapenable</b></a>(void); <b>[non-standard]</b>
+int <a href="#fesettrapenable"><b>fesettrapenable</b></a>(fexcept_t enables); <b>[non-standard]</b>
+</pre>
+
+  <h2><a name="FE_ALL_EXCEPT"><code>FE_ALL_EXCEPT</code></a></h2>
+  <pre>
+#define <b>FE_ALL_EXCEPT</b> <i>&lt;integer constant expression&gt;</i> <b>[optional]</b>
+</pre>
+
+  <p>The macro expands to an integer value that, when ANDed with a value of type <code><a href=
+  "#fexcept_t">fexcept_t</a></code>, yields a nonzero value only if the indicator is set for one or more
+  floating-point exceptions. The macro is not defined if the functions declared in this header cannot control
+  floating-point exceptions.</p>
+
+  <h2><a name="FE_DFL_ENV"><code>FE_DFL_ENV</code></a></h2>
+  <pre>
+#define <b>FE_DFL_ENV</b> <i>&lt;const *fenv_t rvalue&gt;</i>
+</pre>
+
+  <p>The macro expands to a pointer to an object that describes the settings for the floating-point control
+  at <a href="lib_over.html#program%20startup">program startup</a>.</p>
+
+  <h2><a name="FE_DIVBYZERO"><code>FE_DIVBYZERO</code></a></h2>
+  <pre>
+#define <b>FE_DIVBYZERO</b> <i>&lt;integer constant expression&gt;</i> <b>[optional]</b>
+</pre>
+
+  <p>The macro expands to an integer value that, when ANDed with a value of type <code><a href=
+  "#fexcept_t">fexcept_t</a></code>, yields a nonzero value only if the indicator is set for a <a href=
+  "#zero-divide%20floating-point">zero-divide floating-point</a> exception. The macro is not defined if the
+  functions declared in this header cannot control floating-point exceptions.</p>
+
+  <h2><a name="FE_DOWNWARD"><code>FE_DOWNWARD</code></a></h2>
+  <pre>
+#define <b>FE_DOWNWARD</b> <i>&lt;integer constant expression&gt;</i> <b>[optional]</b>
+</pre>
+
+  <p>The macro expands to an integer value accepted as an argument to <code><a href=
+  "#fesetround">fesetround</a></code> and returned by <code><a href="#fegetround">fegetround</a></code> to
+  indicate the <b>downward</b> <a href="#rounding%20mode">rounding mode</a>. The macro is not defined if the
+  functions declared in this header cannot control the rounding mode.</p>
+
+  <h2><a name="FE_INEXACT"><code>FE_INEXACT</code></a></h2>
+  <pre>
+#define <b>FE_INEXACT</b> <i>&lt;integer constant expression&gt;</i> <b>[optional]</b>
+</pre>
+
+  <p>The macro expands to an integer value that, when ANDed with a value of type <code><a href=
+  "#fexcept_t">fexcept_t</a></code>, yields a nonzero value only if the indicator is set for an <a href=
+  "#inexact%20floating-point">inexact floating-point</a> exception. The macro is not defined if the functions
+  declared in this header cannot control floating-point exceptions.</p>
+
+  <h2><a name="FE_INVALID"><code>FE_INVALID</code></a></h2>
+  <pre>
+#define <b>FE_INVALID</b> <i>&lt;integer constant expression&gt;</i> <b>[optional]</b>
+</pre>
+
+  <p>The macro expands to an integer value that, when ANDed with a value of type <code><a href=
+  "#fexcept_t">fexcept_t</a></code>, yields a nonzero value only if the indicator is set for an <a href=
+  "#invalid%20floating-point">invalid floating-point</a> exception. The macro is not defined if the functions
+  declared in this header cannot control floating-point exceptions.</p>
+
+  <h2><a name="FE_TONEAREST"><code>FE_TONEAREST</code></a></h2>
+  <pre>
+#define <b>FE_TONEAREST</b> <i>&lt;integer constant expression&gt;</i> <b>[optional]</b>
+</pre>
+
+  <p>The macro expands to an integer value accepted as an argument to <code><a href=
+  "#fesetround">fesetround</a></code> and returned by <code><a href="#fegetround">fegetround</a></code> to
+  indicate the <b>to nearest</b> <a href="#rounding%20mode">rounding mode</a>. The macro is not defined if
+  the functions declared in this header cannot control the rounding mode.</p>
+
+  <h2><a name="FE_TOWARDZERO"><code>FE_TOWARDZERO</code></a></h2>
+  <pre>
+#define <b>FE_TOWARDZERO</b> <i>&lt;integer constant expression&gt;</i> <b>[optional]</b>
+</pre>
+
+  <p>The macro expands to an integer value accepted as an argument to <code><a href=
+  "#fesetround">fesetround</a></code> and returned by <code><a href="#fegetround">fegetround</a></code> to
+  indicate the <b>toward zero</b> <a href="#rounding%20mode">rounding mode</a>. The macro is not defined if
+  the functions declared in this header cannot control the rounding mode.</p>
+
+  <h2><a name="FE_OVERFLOW"><code>FE_OVERFLOW</code></a></h2>
+  <pre>
+#define <b>FE_OVERFLOW</b> <i>&lt;integer constant expression&gt;</i> <b>[optional]</b>
+</pre>
+
+  <p>The macro expands to an integer value that, when ANDed with a value of type <code><a href=
+  "#fexcept_t">fexcept_t</a></code>, yields a nonzero value only if the indicator is set for an <a href=
+  "#overflow%20floating-point">overflow floating-point</a> exception. The macro is not defined if the
+  functions declared in this header cannot control floating-point exceptions.</p>
+
+  <h2><a name="FE_UNDERFLOW"><code>FE_UNDERFLOW</code></a></h2>
+  <pre>
+#define <b>FE_UNDERFLOW</b> <i>&lt;integer constant expression&gt;</i> <b>[optional]</b>
+</pre>
+
+  <p>The macro expands to an integer value that, when ANDed with a value of type <code><a href=
+  "#fexcept_t">fexcept_t</a></code>, yields a nonzero value only if the indicator is set for an <a href=
+  "#underflow%20floating-point">underflow floating-point</a> exception. The macro is not defined if the
+  functions declared in this header cannot control floating-point exceptions.</p>
+
+  <h2><a name="FE_UPWARD"><code>FE_UPWARD</code></a></h2>
+  <pre>
+#define <b>FE_UPWARD</b> <i>&lt;integer constant expression&gt;</i> <b>[optional]</b>
+</pre>
+
+  <p>The macro expands to an integer value accepted as an argument to <code><a href=
+  "#fesetround">fesetround</a></code> and returned by <code><a href="#fegetround">fegetround</a></code> to
+  indicate the <b>upward</b> <a href="#rounding%20mode">rounding mode</a>. The macro is not defined if the
+  functions declared in this header cannot control the rounding mode.</p>
+
+  <h2><a name="fenv_t"><code>fenv_t</code></a></h2>
+  <pre>
+typedef <i>o-type</i> <b>fenv_t</b>;
+</pre>
+
+  <p>The type is an object type <code><i>o-type</i></code> that can represent the settings stored in the
+  <a href="#floating-point%20control">floating-point control</a>.</p>
+
+  <h2><a name="feclearexcept"><code>feclearexcept</code></a></h2>
+  <pre>
+int <b>feclearexcept</b>(int except);
+</pre>
+
+  <p>The function attempts to clear the exceptions selected by <code>except</code> in the <a href=
+  "#floating-point%20status">floating-point status</a> portion of the <a href=
+  "#floating-point%20control">floating-point control</a>. It returns zero only if <code>except</code> is zero
+  or all the exceptions selected by <code>except</code> are successfully cleared.</p>
+
+  <h2><a name="fegettrapenable"><code>fegettrapenable</code></a></h2>
+  <pre>
+fexcept_t <b>fegettrapenable</b>(void); <b>[non-standard]</b>
+</pre>
+
+  <p>The function returns the current <a name="floating-point enable mask">floating-point enable mask</a>
+  from the <a href="#floating-point%20control">floating-point control</a>, or <code>(fexcept_t)(-1)</code> if
+  it cannot be determined. For an exception selected by <code>except</code> (such as
+  <code>FE_OVERFLOW</code>), an operation that <a href="#raise%20a%20floating-point%20exception">raises</a>
+  the exception results in a hardware trap and/or the raising of a <a href="signal.html#signals">signal</a>
+  only if <code>fegettrapenable() &amp; except</code> is nonzero. At <a href=
+  "lib_over.html#program%20startup">program startup</a>, <code>fegettrapenable()</code> returns zero.</p>
+
+  <h2><a name="fegetenv"><code>fegetenv</code></a></h2>
+  <pre>
+int <b>fegetenv</b>(fenv_t *penv);
+</pre>
+
+  <p>The function attempts to store the settings in the <a href="#floating-point%20control">floating-point
+  control</a> at <code>*penv</code>. It returns zero only if the store succeeds.</p>
+
+  <h2><a name="fegetexceptflag"><code>fegetexceptflag</code></a></h2>
+  <pre>
+int <b>fegetexceptflag</b>(fexcept_t *pflag, int except);
+</pre>
+
+  <p>The function attempts to store in <code>*pflag</code> a representation of the exceptions selected by
+  <code>except</code> from the <a href="#floating-point%20status">floating-point status</a> portion of the
+  <a href="#floating-point%20control">floating-point control</a>. It returns zero only if <code>except</code>
+  is zero or all the exceptions selected by <code>except</code> are successfully stored.</p>
+
+  <h2><a name="fegetround"><code>fegetround</code></a></h2>
+  <pre>
+int <b>fegetround</b>(void);
+</pre>
+
+  <p>The function returns the current <a href="#rounding%20mode">rounding mode</a> from the <a href=
+  "#floating-point%20control">floating-point control</a>, or a negative value if it cannot be determined.</p>
+
+  <h2><a name="feholdexcept"><code>feholdexcept</code></a></h2>
+  <pre>
+int <b>feholdexcept</b>(fenv_t *penv);
+</pre>
+
+  <p>The function stores the settings in the <a href="#floating-point%20control">floating-point control</a>
+  at <code>*penv</code>. It also clears all exceptions in the <a href=
+  "#floating-point%20status">floating-point status</a> portion of the floating-point control and endeavors to
+  establish settings that will not <a href="#raise%20a%20floating-point%20exception">raise</a> any
+  exceptions. (The effect is equivalent to calling <code><a href="#fegetenv">fegetenv</a>(penv)</code>
+  followed by <code><a href="#feclearexcept">feclearexcept</a>(FE_ALL_EXCEPT)</code> and <code><a href=
+  "#fesettrapenable">fesettrapenable</a>(0)</code>.) The function returns zero only if it succeeds in
+  establishing such settings.</p>
+
+  <p>You can use this function in conjunction with <code><a href="#feupdateenv">feupdateenv</a></code> to
+  defer the raising of exceptions until spurious ones are cleared, as in:</p>
+  <pre>
+fenv_t env;
+feholdexcept(&amp;env);           // save environment
+&lt;evaluate expressions&gt;  // may accumulate exceptions
+feclearexcept(FE_INEXACT);    // clear unwanted exception
+feupdateenv(&amp;env);            // raise any remaining exceptions
+</pre>
+
+  <h2><a name="feraiseexcept"><code>feraiseexcept</code></a></h2>
+  <pre>
+int <b>feraiseexcept</b>(int except);
+</pre>
+
+  <p>The function attempts to <a href="#raise%20a%20floating-point%20exception">raise</a> the floating-point
+  exceptions specified by <code>except</code>. Whether it raises an <a href=
+  "#inexact%20floating-point">inexact floating-point</a> exception after an <a href=
+  "#overflow%20floating-point">overflow floating-point</a> exception or an <a href=
+  "#underflow%20floating-point">underflow floating-point</a> exception is implementation defined. It returns
+  zero only if <code>except</code> is zero or all the exceptions selected by <code>except</code> are
+  successfully raised.</p>
+
+  <h2><a name="fesetenv"><code>fesetenv</code></a></h2>
+  <pre>
+int <b>fesetenv</b>(const fenv_t *penv);
+</pre>
+
+  <p>The function attempts to restore the settings in the <a href="#floating-point%20control">floating-point
+  control</a> from <code>*penv</code>. It returns zero only if the settings are successfully restored.</p>
+
+  <p>The settings must be determined by <code><a href="#FE_DFL_ENV">FE_DFL_ENV</a></code> or by an earlier
+  call to <code><a href="#fegetenv">fegetenv</a></code> or <code><a href=
+  "#feholdexcept">feholdexcept</a></code>. Otherwise, if <code><a href="#fetestexcept">fetestexcept</a>(
+  <a href="#fegettrapenable">fegettrapenable</a>())</code> would be nonzero for the restored settings, it is
+  unspecified whether the function evaluation results in a hardware trap and/or the raising of a <a href=
+  "signal.html#signals">signal</a>.</p>
+
+  <h2><a name="fesetexceptflag"><code>fesetexceptflag</code></a></h2>
+  <pre>
+int <b>fesetexceptflag</b>(const fexcept_t *pflag, int except);
+</pre>
+
+  <p>The function attempts to set the exceptions selected by <code>except</code> in the <a href=
+  "#floating-point%20status">floating-point status</a> portion of the <a href=
+  "#floating-point%20control">floating-point control</a> to the values of the corresponding bits selected by
+  <code>except &amp; *pflag</code>. It returns zero only if <code>except</code> is zero or all the exceptions
+  selected by <code>except &amp; *pflag</code> are successfully set.</p>
+
+  <p>The value stored in <code>*pflag</code> must be determined by an earlier call to <code><a href=
+  "#fegetexceptflag">fegetexceptflag</a></code>, without an intervening call to <code><a href=
+  "#fesettrapenable">fesettrapenable</a></code>. Otherwise, if <code><a href=
+  "#fegettrapenable">fegettrapenable</a>() &amp; except &amp; *pflag</code> is nonzero, it is unspecified
+  whether the function evaluation results in a hardware trap and/or the raising of a <a href=
+  "signal.html#signals">signal</a>.</p>
+
+  <h2><a name="fesetround"><code>fesetround</code></a></h2>
+  <pre>
+int <b>fesetround</b>(int mode);
+</pre>
+
+  <p>The function sets the current <a href="#rounding%20mode">rounding mode</a> from <code>mode</code> in the
+  <a href="#floating-point%20control">floating-point control</a>. An invalid value of <code>mode</code>
+  leaves the rounding mode unchanged. The function returns zero only if the rounding mode is successfully set
+  to <code>mode</code>.</p>
+
+  <h2><a name="fesettrapenable"><code>fesettrapenable</code></a></h2>
+  <pre>
+int <b>fesettrapenable</b>(fexcept_t enables); <b>[non-standard]</b>
+</pre>
+
+  <p>The function sets the current <a href="#floating-point%20enable%20mask">floating-point enable mask</a>
+  from <code>enables</code>. An invalid value of <code>enables</code> leaves the floating-point enable mask
+  unchanged. The function returns zero only if the floating-point enable mask is successfully set to
+  <code>enables</code>.</p>
+
+  <p>If <code><a href="#fetestexcept">fetestexcept</a>(enables)</code> is nonzero, it is unspecified whether
+  <code>fesettrapenable(enables)</code> results in a hardware trap and/or the raising of a <a href=
+  "signal.html#signals">signal</a>.</p>
+
+  <h2><a name="fetestexcept"><code>fetestexcept</code></a></h2>
+  <pre>
+int <b>fetestexcept</b>(int except);
+</pre>
+
+  <p>The function returns a nonzero value only if one or more of the exceptions selected by
+  <code>except</code> are set in the <a href="#floating-point%20status">floating-point status</a> portion of
+  the <a href="#floating-point%20control">floating-point control</a>.</p>
+
+  <h2><a name="feupdateenv"><code>feupdateenv</code></a></h2>
+  <pre>
+void <b>feupdateenv</b>(const fenv_t *penv);
+</pre>
+
+  <p>The function effectively executes:</p>
+  <pre>
+int except = fetestexcept(FE_ALL_EXCEPT);
+
+fesetenv(penv);
+feraiseexcept(except);
+</pre>
+
+  <p>Thus, it restores the settings in the <a href="#floating-point%20control">floating-point control</a>
+  from <code>*penv</code>, after first saving the exceptions selected by the current <a href=
+  "#floating-point%20status">floating-point status</a> stored in the floating-point control. The function
+  then <a href="#raise%20a%20floating-point%20exception">raises</a> the saved exceptions. It returns zero
+  only if the settings are successfully restored.</p>
+
+  <p>The restored settings must be determined by <code><a href="#FE_DFL_ENV">FE_DFL_ENV</a></code> or by an
+  earlier call to <code><a href="#fegetenv">fegetenv</a></code> or <code><a href=
+  "#feholdexcept">feholdexcept</a></code>. Otherwise, it is unspecified whether the call
+  <code>fesetenv(penv)</code> results in a hardware trap and/or the raising of a <a href=
+  "signal.html#signals">signal</a>.</p>
+
+  <h2><a name="fexcept_t"><code>fexcept_t</code></a></h2>
+  <pre>
+typedef <i>i-type</i> <b>fexcept_t</b>;
+</pre>
+
+  <p>The type is an integer type <code><i>i-type</i></code> that can represent the <a href=
+  "#floating-point%20status">floating-point status</a>.</p>
+  <hr>
+
+  <p>See also the <b><a href="index.html#Table%20of%20Contents">Table of Contents</a></b> and the <b><a href=
+  "_index.html">Index</a></b>.</p>
+
+  <p><i><a href="crit_pjp.html">Copyright</a> &copy; 1992-2010 by P.J. Plauger. All rights reserved.</i></p>
+  <!--V5.30:126I-->
+</body>
+</html>

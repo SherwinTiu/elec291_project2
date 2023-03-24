@@ -1,0 +1,1555 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html>
+<head>
+  <meta name="generator" content=
+  "HTML Tidy for Mac OS X (vers 31 October 2006 - Apple Inc. build 15.15), see www.w3.org">
+
+  <title>Config-Bit Settings for PIC32MM0016GPL028</title>
+</head>
+
+<body bgcolor="#FFFFE0" style="font-family: sans-serif">
+  <p>[ <a href="../XC32MasterIndex.htm">Documentation Index</a> | <a href="../PIC32ConfigSet.html">Device
+  index</a> ]</p>
+
+  <h1>Configuration-Bit Settings for PIC32MM0016GPL028</h1>
+
+  <p>(Data Sheet # <a href=
+  "http://www.microchip.com/wwwproducts/Devices.aspx?Product=PIC32MM0016GPL028&amp;ds=1" target=
+  "Datasheet">DS-60001324</a>)</p>
+
+  <p>Usage:<br>
+  <strong>#pragma config</strong> <em>SETTING</em> = <em>VALUE</em><br></p>
+
+  <table frame="box" rules="cols" summary='Secondary Oscillator High Power Enable bit' style='margin:10px;'
+  cellpadding="3">
+    <tr style="border: 2px solid;">
+      <th>SOSCHP</th>
+
+      <th>Secondary Oscillator High Power Enable bit</th>
+    </tr>
+
+    <tr>
+      <td>SOSCHP = ON</td>
+
+      <td><font size="2">SOSC oprerates in high power mode</font></td>
+    </tr>
+
+    <tr>
+      <td>SOSCHP = OFF</td>
+
+      <td><font size="2">SOSC oprerates in normal power mode.</font></td>
+    </tr>
+  </table>
+
+  <table frame="box" rules="cols" summary='User ID bits' style='margin:10px;' cellpadding="3">
+    <tr style="border: 2px solid;">
+      <th>USERID</th>
+
+      <th>User ID bits</th>
+    </tr>
+
+    <tr>
+      <td>USERID = 00000000</td>
+
+      <td><font size="2">Range is from 0 to 0xffff</font></td>
+    </tr>
+  </table>
+
+  <table frame="box" rules="cols" summary='JTAG Enable bit' style='margin:10px;' cellpadding="3">
+    <tr style="border: 2px solid;">
+      <th>JTAGEN</th>
+
+      <th>JTAG Enable bit</th>
+    </tr>
+
+    <tr>
+      <td>JTAGEN = ON</td>
+
+      <td><font size="2">JTAG is enabled</font></td>
+    </tr>
+
+    <tr>
+      <td>JTAGEN = OFF</td>
+
+      <td><font size="2">JTAG is disabled</font></td>
+    </tr>
+  </table>
+
+  <table frame="box" rules="cols" summary='ICE/ICD Communication Channel Selection bits' style='margin:10px;'
+  cellpadding="3">
+    <tr style="border: 2px solid;">
+      <th>ICS</th>
+
+      <th>ICE/ICD Communication Channel Selection bits</th>
+    </tr>
+
+    <tr>
+      <td>ICS = PGx1</td>
+
+      <td><font size="2">Communicate on PGEC1/PGED1</font></td>
+    </tr>
+
+    <tr>
+      <td>ICS = PGx2</td>
+
+      <td><font size="2">Communicate on PGEC2/PGED2</font></td>
+    </tr>
+
+    <tr>
+      <td>ICS = PGx3</td>
+
+      <td><font size="2">Communicate on PGEC3/PGED3</font></td>
+    </tr>
+
+    <tr>
+      <td>ICS = NONE</td>
+
+      <td><font size="2">Not connected</font></td>
+    </tr>
+  </table>
+
+  <table frame="box" rules="cols" summary='Brown-out Reset Enable bits' style='margin:10px;' cellpadding="3">
+    <tr style="border: 2px solid;">
+      <th>BOREN</th>
+
+      <th>Brown-out Reset Enable bits</th>
+    </tr>
+
+    <tr>
+      <td>BOREN = BOR3</td>
+
+      <td><font size="2">Brown-out Reset enabled in hardware; SBOREN bit disabled</font></td>
+    </tr>
+
+    <tr>
+      <td>BOREN = BOR2</td>
+
+      <td><font size="2">Brown-out Reset enabled only while device active and disabled in Sleep; SBOREN bit
+      disabled</font></td>
+    </tr>
+
+    <tr>
+      <td>BOREN = BOR1</td>
+
+      <td><font size="2">Brown-out Reset controlled with the SBOREN bit setting</font></td>
+    </tr>
+
+    <tr>
+      <td>BOREN = BOR0</td>
+
+      <td><font size="2">Brown-out Reset disabled in hardware; SBOREN bit disabled</font></td>
+    </tr>
+  </table>
+
+  <table frame="box" rules="cols" summary='Retention Voltage Regulator Enable bit' style='margin:10px;'
+  cellpadding="3">
+    <tr style="border: 2px solid;">
+      <th>RETVR</th>
+
+      <th>Retention Voltage Regulator Enable bit</th>
+    </tr>
+
+    <tr>
+      <td>RETVR = ON</td>
+
+      <td><font size="2">Retention regulator is enabled and controlled by RETEN bit during sleep</font></td>
+    </tr>
+
+    <tr>
+      <td>RETVR = OFF</td>
+
+      <td><font size="2">Retention regulator is disabled</font></td>
+    </tr>
+  </table>
+
+  <table frame="box" rules="cols" summary='Low Power Brown-out Enable bit' style='margin:10px;' cellpadding=
+  "3">
+    <tr style="border: 2px solid;">
+      <th>LPBOREN</th>
+
+      <th>Low Power Brown-out Enable bit</th>
+    </tr>
+
+    <tr>
+      <td>LPBOREN = ON</td>
+
+      <td><font size="2">Low power BOR is enabled, when main BOR is disabled</font></td>
+    </tr>
+
+    <tr>
+      <td>LPBOREN = OFF</td>
+
+      <td><font size="2">Low power BOR is disabled</font></td>
+    </tr>
+  </table>
+
+  <table frame="box" rules="cols" summary='Sleep Mode Watchdog Timer Postscale Selection bits' style=
+  'margin:10px;' cellpadding="3">
+    <tr style="border: 2px solid;">
+      <th>SWDTPS</th>
+
+      <th>Sleep Mode Watchdog Timer Postscale Selection bits</th>
+    </tr>
+
+    <tr>
+      <td>SWDTPS = PS1</td>
+
+      <td><font size="2">1:1</font></td>
+    </tr>
+
+    <tr>
+      <td>SWDTPS = PS2</td>
+
+      <td><font size="2">1:2</font></td>
+    </tr>
+
+    <tr>
+      <td>SWDTPS = PS4</td>
+
+      <td><font size="2">1:4</font></td>
+    </tr>
+
+    <tr>
+      <td>SWDTPS = PS8</td>
+
+      <td><font size="2">1:8</font></td>
+    </tr>
+
+    <tr>
+      <td>SWDTPS = PS16</td>
+
+      <td><font size="2">1:16</font></td>
+    </tr>
+
+    <tr>
+      <td>SWDTPS = PS32</td>
+
+      <td><font size="2">1:32</font></td>
+    </tr>
+
+    <tr>
+      <td>SWDTPS = PS64</td>
+
+      <td><font size="2">1:64</font></td>
+    </tr>
+
+    <tr>
+      <td>SWDTPS = PS128</td>
+
+      <td><font size="2">1:128</font></td>
+    </tr>
+
+    <tr>
+      <td>SWDTPS = PS256</td>
+
+      <td><font size="2">1:256</font></td>
+    </tr>
+
+    <tr>
+      <td>SWDTPS = PS512</td>
+
+      <td><font size="2">1:512</font></td>
+    </tr>
+
+    <tr>
+      <td>SWDTPS = PS1024</td>
+
+      <td><font size="2">1:1024</font></td>
+    </tr>
+
+    <tr>
+      <td>SWDTPS = PS2048</td>
+
+      <td><font size="2">1:2048</font></td>
+    </tr>
+
+    <tr>
+      <td>SWDTPS = PS4096</td>
+
+      <td><font size="2">1:4096</font></td>
+    </tr>
+
+    <tr>
+      <td>SWDTPS = PS8192</td>
+
+      <td><font size="2">1:8192</font></td>
+    </tr>
+
+    <tr>
+      <td>SWDTPS = PS16384</td>
+
+      <td><font size="2">1:16384</font></td>
+    </tr>
+
+    <tr>
+      <td>SWDTPS = PS32768</td>
+
+      <td><font size="2">1:32768</font></td>
+    </tr>
+
+    <tr>
+      <td>SWDTPS = PS65536</td>
+
+      <td><font size="2">1:65536</font></td>
+    </tr>
+
+    <tr>
+      <td>SWDTPS = PS131072</td>
+
+      <td><font size="2">1:131072</font></td>
+    </tr>
+
+    <tr>
+      <td>SWDTPS = PS262144</td>
+
+      <td><font size="2">1:262144</font></td>
+    </tr>
+
+    <tr>
+      <td>SWDTPS = PS524288</td>
+
+      <td><font size="2">1:524288</font></td>
+    </tr>
+
+    <tr>
+      <td>SWDTPS = PS1048576</td>
+
+      <td><font size="2">1:1048576</font></td>
+    </tr>
+  </table>
+
+  <table frame="box" rules="cols" summary='Watchdog Timer Window Size bits' style='margin:10px;' cellpadding=
+  "3">
+    <tr style="border: 2px solid;">
+      <th>FWDTWINSZ</th>
+
+      <th>Watchdog Timer Window Size bits</th>
+    </tr>
+
+    <tr>
+      <td>FWDTWINSZ = PS75_0</td>
+
+      <td><font size="2">Watchdog timer window size is 75%</font></td>
+    </tr>
+
+    <tr>
+      <td>FWDTWINSZ = PS50_0</td>
+
+      <td><font size="2">Watchdog timer window size is 50%</font></td>
+    </tr>
+
+    <tr>
+      <td>FWDTWINSZ = PS37_5</td>
+
+      <td><font size="2">Watchdog timer window size is 37.5%</font></td>
+    </tr>
+
+    <tr>
+      <td>FWDTWINSZ = PS25_0</td>
+
+      <td><font size="2">Watchdog timer window size is 25%</font></td>
+    </tr>
+  </table>
+
+  <table frame="box" rules="cols" summary='Windowed Watchdog Timer Disable bit' style='margin:10px;'
+  cellpadding="3">
+    <tr style="border: 2px solid;">
+      <th>WINDIS</th>
+
+      <th>Windowed Watchdog Timer Disable bit</th>
+    </tr>
+
+    <tr>
+      <td>WINDIS = ON</td>
+
+      <td><font size="2">Watchdog timer is in window mode</font></td>
+    </tr>
+
+    <tr>
+      <td>WINDIS = OFF</td>
+
+      <td><font size="2">Watchdog timer is in non-window mode</font></td>
+    </tr>
+  </table>
+
+  <table frame="box" rules="cols" summary='Run Mode Watchdog Timer Postscale Selection bits' style=
+  'margin:10px;' cellpadding="3">
+    <tr style="border: 2px solid;">
+      <th>RWDTPS</th>
+
+      <th>Run Mode Watchdog Timer Postscale Selection bits</th>
+    </tr>
+
+    <tr>
+      <td>RWDTPS = PS1</td>
+
+      <td><font size="2">1:1</font></td>
+    </tr>
+
+    <tr>
+      <td>RWDTPS = PS2</td>
+
+      <td><font size="2">1:2</font></td>
+    </tr>
+
+    <tr>
+      <td>RWDTPS = PS4</td>
+
+      <td><font size="2">1:4</font></td>
+    </tr>
+
+    <tr>
+      <td>RWDTPS = PS8</td>
+
+      <td><font size="2">1:8</font></td>
+    </tr>
+
+    <tr>
+      <td>RWDTPS = PS16</td>
+
+      <td><font size="2">1:16</font></td>
+    </tr>
+
+    <tr>
+      <td>RWDTPS = PS32</td>
+
+      <td><font size="2">1:32</font></td>
+    </tr>
+
+    <tr>
+      <td>RWDTPS = PS64</td>
+
+      <td><font size="2">1:64</font></td>
+    </tr>
+
+    <tr>
+      <td>RWDTPS = PS128</td>
+
+      <td><font size="2">1:128</font></td>
+    </tr>
+
+    <tr>
+      <td>RWDTPS = PS256</td>
+
+      <td><font size="2">1:256</font></td>
+    </tr>
+
+    <tr>
+      <td>RWDTPS = PS512</td>
+
+      <td><font size="2">1:512</font></td>
+    </tr>
+
+    <tr>
+      <td>RWDTPS = PS1024</td>
+
+      <td><font size="2">1:1024</font></td>
+    </tr>
+
+    <tr>
+      <td>RWDTPS = PS2048</td>
+
+      <td><font size="2">1:2048</font></td>
+    </tr>
+
+    <tr>
+      <td>RWDTPS = PS4096</td>
+
+      <td><font size="2">1:4096</font></td>
+    </tr>
+
+    <tr>
+      <td>RWDTPS = PS8192</td>
+
+      <td><font size="2">1:8192</font></td>
+    </tr>
+
+    <tr>
+      <td>RWDTPS = PS16384</td>
+
+      <td><font size="2">1:16384</font></td>
+    </tr>
+
+    <tr>
+      <td>RWDTPS = PS32768</td>
+
+      <td><font size="2">1:32768</font></td>
+    </tr>
+
+    <tr>
+      <td>RWDTPS = PS65536</td>
+
+      <td><font size="2">1:65536</font></td>
+    </tr>
+
+    <tr>
+      <td>RWDTPS = PS131072</td>
+
+      <td><font size="2">1:131072</font></td>
+    </tr>
+
+    <tr>
+      <td>RWDTPS = PS262144</td>
+
+      <td><font size="2">1:262144</font></td>
+    </tr>
+
+    <tr>
+      <td>RWDTPS = PS524288</td>
+
+      <td><font size="2">1:524288</font></td>
+    </tr>
+
+    <tr>
+      <td>RWDTPS = PS1048576</td>
+
+      <td><font size="2">1:1048576</font></td>
+    </tr>
+  </table>
+
+  <table frame="box" rules="cols" summary='Run Mode Watchdog Timer Clock Source Selection bits' style=
+  'margin:10px;' cellpadding="3">
+    <tr style="border: 2px solid;">
+      <th>RCLKSEL</th>
+
+      <th>Run Mode Watchdog Timer Clock Source Selection bits</th>
+    </tr>
+
+    <tr>
+      <td>RCLKSEL = SYSCLK</td>
+
+      <td><font size="2">Clock source is system clock</font></td>
+    </tr>
+
+    <tr>
+      <td>RCLKSEL = FRC</td>
+
+      <td><font size="2">Clock source is FRC oscillator</font></td>
+    </tr>
+
+    <tr>
+      <td>RCLKSEL = LPRC</td>
+
+      <td><font size="2">Clock source is LPRC (same as for sleep mode)</font></td>
+    </tr>
+  </table>
+
+  <table frame="box" rules="cols" summary='Watchdog Timer Enable bit' style='margin:10px;' cellpadding="3">
+    <tr style="border: 2px solid;">
+      <th>FWDTEN</th>
+
+      <th>Watchdog Timer Enable bit</th>
+    </tr>
+
+    <tr>
+      <td>FWDTEN = ON</td>
+
+      <td><font size="2">WDT is enabled</font></td>
+    </tr>
+
+    <tr>
+      <td>FWDTEN = OFF</td>
+
+      <td><font size="2">WDT is disabled</font></td>
+    </tr>
+  </table>
+
+  <table frame="box" rules="cols" summary='Oscillator Selection bits' style='margin:10px;' cellpadding="3">
+    <tr style="border: 2px solid;">
+      <th>FNOSC</th>
+
+      <th>Oscillator Selection bits</th>
+    </tr>
+
+    <tr>
+      <td>FNOSC = FRCDIV</td>
+
+      <td><font size="2">Fast RC oscillator (FRC) with divide-by-N</font></td>
+    </tr>
+
+    <tr>
+      <td>FNOSC = PLL</td>
+
+      <td><font size="2">Primary or FRC oscillator with PLL</font></td>
+    </tr>
+
+    <tr>
+      <td>FNOSC = PRI</td>
+
+      <td><font size="2">Primary oscillator (XT, HS, EC)</font></td>
+    </tr>
+
+    <tr>
+      <td>FNOSC = SOSC</td>
+
+      <td><font size="2">Low power secondary oscillator (SOSC)</font></td>
+    </tr>
+
+    <tr>
+      <td>FNOSC = LPRC</td>
+
+      <td><font size="2">Low power RC oscillator (LPRC)</font></td>
+    </tr>
+  </table>
+
+  <table frame="box" rules="cols" summary='System PLL Input Clock Selection bit' style='margin:10px;'
+  cellpadding="3">
+    <tr style="border: 2px solid;">
+      <th>PLLSRC</th>
+
+      <th>System PLL Input Clock Selection bit</th>
+    </tr>
+
+    <tr>
+      <td>PLLSRC = PRI</td>
+
+      <td><font size="2">Primary oscillator is selected as PLL reference input on device reset</font></td>
+    </tr>
+
+    <tr>
+      <td>PLLSRC = FRC</td>
+
+      <td><font size="2">FRC oscillator is selected as PLL reference input on device reset</font></td>
+    </tr>
+  </table>
+
+  <table frame="box" rules="cols" summary='Secondary Oscillator Enable bit' style='margin:10px;' cellpadding=
+  "3">
+    <tr style="border: 2px solid;">
+      <th>SOSCEN</th>
+
+      <th>Secondary Oscillator Enable bit</th>
+    </tr>
+
+    <tr>
+      <td>SOSCEN = ON</td>
+
+      <td><font size="2">Secondary oscillator (SOSC) is enabled</font></td>
+    </tr>
+
+    <tr>
+      <td>SOSCEN = OFF</td>
+
+      <td><font size="2">Secondary oscillator (SOSC) is disabled</font></td>
+    </tr>
+  </table>
+
+  <table frame="box" rules="cols" summary='Two Speed Startup Enable bit' style='margin:10px;' cellpadding=
+  "3">
+    <tr style="border: 2px solid;">
+      <th>IESO</th>
+
+      <th>Two Speed Startup Enable bit</th>
+    </tr>
+
+    <tr>
+      <td>IESO = ON</td>
+
+      <td><font size="2">Two speed startup is enabled</font></td>
+    </tr>
+
+    <tr>
+      <td>IESO = OFF</td>
+
+      <td><font size="2">Two speed startup is disabled</font></td>
+    </tr>
+  </table>
+
+  <table frame="box" rules="cols" summary='Primary Oscillator Selection bit' style='margin:10px;'
+  cellpadding="3">
+    <tr style="border: 2px solid;">
+      <th>POSCMOD</th>
+
+      <th>Primary Oscillator Selection bit</th>
+    </tr>
+
+    <tr>
+      <td>POSCMOD = EC</td>
+
+      <td><font size="2">External clock mode is selected</font></td>
+    </tr>
+
+    <tr>
+      <td>POSCMOD = XT</td>
+
+      <td><font size="2">XT oscillator mode is selected</font></td>
+    </tr>
+
+    <tr>
+      <td>POSCMOD = HS</td>
+
+      <td><font size="2">HS oscillator mode is selected</font></td>
+    </tr>
+
+    <tr>
+      <td>POSCMOD = OFF</td>
+
+      <td><font size="2">Primary oscillator is disabled</font></td>
+    </tr>
+  </table>
+
+  <table frame="box" rules="cols" summary='System Clock on CLKO Pin Enable bit' style='margin:10px;'
+  cellpadding="3">
+    <tr style="border: 2px solid;">
+      <th>OSCIOFNC</th>
+
+      <th>System Clock on CLKO Pin Enable bit</th>
+    </tr>
+
+    <tr>
+      <td>OSCIOFNC = ON</td>
+
+      <td><font size="2">System clock is connected to CLKO/OSC2 pin</font></td>
+    </tr>
+
+    <tr>
+      <td>OSCIOFNC = OFF</td>
+
+      <td><font size="2">OSCO pin operates as a normal I/O</font></td>
+    </tr>
+  </table>
+
+  <table frame="box" rules="cols" summary='Secondary Oscillator External Clock Enable bit' style=
+  'margin:10px;' cellpadding="3">
+    <tr style="border: 2px solid;">
+      <th>SOSCSEL</th>
+
+      <th>Secondary Oscillator External Clock Enable bit</th>
+    </tr>
+
+    <tr>
+      <td>SOSCSEL = OFF</td>
+
+      <td><font size="2">Crystal is used (RA4 and RB4 are controlled by SOSC)</font></td>
+    </tr>
+
+    <tr>
+      <td>SOSCSEL = ON</td>
+
+      <td><font size="2">External clock is connected to SOSCO pin (RA4 and RB4 are controlled by I/O port
+      registers)</font></td>
+    </tr>
+  </table>
+
+  <table frame="box" rules="cols" summary='Clock Switching and Fail-Safe Clock Monitor Enable bits' style=
+  'margin:10px;' cellpadding="3">
+    <tr style="border: 2px solid;">
+      <th>FCKSM</th>
+
+      <th>Clock Switching and Fail-Safe Clock Monitor Enable bits</th>
+    </tr>
+
+    <tr>
+      <td>FCKSM = CSDCMD</td>
+
+      <td><font size="2">Clock switching is disabled; Fail-safe clock monitor is disabled</font></td>
+    </tr>
+
+    <tr>
+      <td>FCKSM = CSECMD</td>
+
+      <td><font size="2">Clock switching is enabled; Fail-safe clock monitor is disabled</font></td>
+    </tr>
+
+    <tr>
+      <td>FCKSM = CSDCME</td>
+
+      <td><font size="2">Clock switching is disabled; Fail-safe clock monitor is enabled</font></td>
+    </tr>
+
+    <tr>
+      <td>FCKSM = CSECME</td>
+
+      <td><font size="2">Clock switching is enabled; Fail-safe clock monitor is enabled</font></td>
+    </tr>
+  </table>
+
+  <table frame="box" rules="cols" summary='Code Protection Enable bit' style='margin:10px;' cellpadding="3">
+    <tr style="border: 2px solid;">
+      <th>CP</th>
+
+      <th>Code Protection Enable bit</th>
+    </tr>
+
+    <tr>
+      <td>CP = ON</td>
+
+      <td><font size="2">Code protection is enabled</font></td>
+    </tr>
+
+    <tr>
+      <td>CP = OFF</td>
+
+      <td><font size="2">Code protection is disabled</font></td>
+    </tr>
+  </table>
+
+  <table frame="box" rules="cols" summary='Secondary Oscillator High Power Enable bit' style='margin:10px;'
+  cellpadding="3">
+    <tr style="border: 2px solid;">
+      <th>SOSCHP</th>
+
+      <th>Secondary Oscillator High Power Enable bit</th>
+    </tr>
+
+    <tr>
+      <td>SOSCHP = ON</td>
+
+      <td><font size="2">SOSC oprerates in high power mode</font></td>
+    </tr>
+
+    <tr>
+      <td>SOSCHP = OFF</td>
+
+      <td><font size="2">SOSC oprerates in normal power mode.</font></td>
+    </tr>
+  </table>
+
+  <table frame="box" rules="cols" summary='User ID bits' style='margin:10px;' cellpadding="3">
+    <tr style="border: 2px solid;">
+      <th>USERID</th>
+
+      <th>User ID bits</th>
+    </tr>
+
+    <tr>
+      <td>USERID = 00000000</td>
+
+      <td><font size="2">Range is from 0 to 0xffff</font></td>
+    </tr>
+  </table>
+
+  <table frame="box" rules="cols" summary='JTAG Enable bit' style='margin:10px;' cellpadding="3">
+    <tr style="border: 2px solid;">
+      <th>JTAGEN</th>
+
+      <th>JTAG Enable bit</th>
+    </tr>
+
+    <tr>
+      <td>JTAGEN = ON</td>
+
+      <td><font size="2">JTAG is enabled</font></td>
+    </tr>
+
+    <tr>
+      <td>JTAGEN = OFF</td>
+
+      <td><font size="2">JTAG is disabled</font></td>
+    </tr>
+  </table>
+
+  <table frame="box" rules="cols" summary='ICE/ICD Communication Channel Selection bits' style='margin:10px;'
+  cellpadding="3">
+    <tr style="border: 2px solid;">
+      <th>ICS</th>
+
+      <th>ICE/ICD Communication Channel Selection bits</th>
+    </tr>
+
+    <tr>
+      <td>ICS = PGx1</td>
+
+      <td><font size="2">Communicate on PGEC1/PGED1</font></td>
+    </tr>
+
+    <tr>
+      <td>ICS = PGx2</td>
+
+      <td><font size="2">Communicate on PGEC2/PGED2</font></td>
+    </tr>
+
+    <tr>
+      <td>ICS = PGx3</td>
+
+      <td><font size="2">Communicate on PGEC3/PGED3</font></td>
+    </tr>
+
+    <tr>
+      <td>ICS = NONE</td>
+
+      <td><font size="2">Not connected</font></td>
+    </tr>
+  </table>
+
+  <table frame="box" rules="cols" summary='Brown-out Reset Enable bits' style='margin:10px;' cellpadding="3">
+    <tr style="border: 2px solid;">
+      <th>BOREN</th>
+
+      <th>Brown-out Reset Enable bits</th>
+    </tr>
+
+    <tr>
+      <td>BOREN = BOR3</td>
+
+      <td><font size="2">Brown-out Reset enabled in hardware; SBOREN bit disabled</font></td>
+    </tr>
+
+    <tr>
+      <td>BOREN = BOR2</td>
+
+      <td><font size="2">Brown-out Reset enabled only while device active and disabled in Sleep; SBOREN bit
+      disabled</font></td>
+    </tr>
+
+    <tr>
+      <td>BOREN = BOR1</td>
+
+      <td><font size="2">Brown-out Reset controlled with the SBOREN bit setting</font></td>
+    </tr>
+
+    <tr>
+      <td>BOREN = BOR0</td>
+
+      <td><font size="2">Brown-out Reset disabled in hardware; SBOREN bit disabled</font></td>
+    </tr>
+  </table>
+
+  <table frame="box" rules="cols" summary='Retention Voltage Regulator Enable bit' style='margin:10px;'
+  cellpadding="3">
+    <tr style="border: 2px solid;">
+      <th>RETVR</th>
+
+      <th>Retention Voltage Regulator Enable bit</th>
+    </tr>
+
+    <tr>
+      <td>RETVR = ON</td>
+
+      <td><font size="2">Retention regulator is enabled and controlled by RETEN bit during sleep</font></td>
+    </tr>
+
+    <tr>
+      <td>RETVR = OFF</td>
+
+      <td><font size="2">Retention regulator is disabled</font></td>
+    </tr>
+  </table>
+
+  <table frame="box" rules="cols" summary='Low Power Brown-out Enable bit' style='margin:10px;' cellpadding=
+  "3">
+    <tr style="border: 2px solid;">
+      <th>LPBOREN</th>
+
+      <th>Low Power Brown-out Enable bit</th>
+    </tr>
+
+    <tr>
+      <td>LPBOREN = ON</td>
+
+      <td><font size="2">Low power BOR is enabled, when main BOR is disabled</font></td>
+    </tr>
+
+    <tr>
+      <td>LPBOREN = OFF</td>
+
+      <td><font size="2">Low power BOR is disabled</font></td>
+    </tr>
+  </table>
+
+  <table frame="box" rules="cols" summary='Sleep Mode Watchdog Timer Postscale Selection bits' style=
+  'margin:10px;' cellpadding="3">
+    <tr style="border: 2px solid;">
+      <th>SWDTPS</th>
+
+      <th>Sleep Mode Watchdog Timer Postscale Selection bits</th>
+    </tr>
+
+    <tr>
+      <td>SWDTPS = PS1</td>
+
+      <td><font size="2">1:1</font></td>
+    </tr>
+
+    <tr>
+      <td>SWDTPS = PS2</td>
+
+      <td><font size="2">1:2</font></td>
+    </tr>
+
+    <tr>
+      <td>SWDTPS = PS4</td>
+
+      <td><font size="2">1:4</font></td>
+    </tr>
+
+    <tr>
+      <td>SWDTPS = PS8</td>
+
+      <td><font size="2">1:8</font></td>
+    </tr>
+
+    <tr>
+      <td>SWDTPS = PS16</td>
+
+      <td><font size="2">1:16</font></td>
+    </tr>
+
+    <tr>
+      <td>SWDTPS = PS32</td>
+
+      <td><font size="2">1:32</font></td>
+    </tr>
+
+    <tr>
+      <td>SWDTPS = PS64</td>
+
+      <td><font size="2">1:64</font></td>
+    </tr>
+
+    <tr>
+      <td>SWDTPS = PS128</td>
+
+      <td><font size="2">1:128</font></td>
+    </tr>
+
+    <tr>
+      <td>SWDTPS = PS256</td>
+
+      <td><font size="2">1:256</font></td>
+    </tr>
+
+    <tr>
+      <td>SWDTPS = PS512</td>
+
+      <td><font size="2">1:512</font></td>
+    </tr>
+
+    <tr>
+      <td>SWDTPS = PS1024</td>
+
+      <td><font size="2">1:1024</font></td>
+    </tr>
+
+    <tr>
+      <td>SWDTPS = PS2048</td>
+
+      <td><font size="2">1:2048</font></td>
+    </tr>
+
+    <tr>
+      <td>SWDTPS = PS4096</td>
+
+      <td><font size="2">1:4096</font></td>
+    </tr>
+
+    <tr>
+      <td>SWDTPS = PS8192</td>
+
+      <td><font size="2">1:8192</font></td>
+    </tr>
+
+    <tr>
+      <td>SWDTPS = PS16384</td>
+
+      <td><font size="2">1:16384</font></td>
+    </tr>
+
+    <tr>
+      <td>SWDTPS = PS32768</td>
+
+      <td><font size="2">1:32768</font></td>
+    </tr>
+
+    <tr>
+      <td>SWDTPS = PS65536</td>
+
+      <td><font size="2">1:65536</font></td>
+    </tr>
+
+    <tr>
+      <td>SWDTPS = PS131072</td>
+
+      <td><font size="2">1:131072</font></td>
+    </tr>
+
+    <tr>
+      <td>SWDTPS = PS262144</td>
+
+      <td><font size="2">1:262144</font></td>
+    </tr>
+
+    <tr>
+      <td>SWDTPS = PS524288</td>
+
+      <td><font size="2">1:524288</font></td>
+    </tr>
+
+    <tr>
+      <td>SWDTPS = PS1048576</td>
+
+      <td><font size="2">1:1048576</font></td>
+    </tr>
+  </table>
+
+  <table frame="box" rules="cols" summary='Watchdog Timer Window Size bits' style='margin:10px;' cellpadding=
+  "3">
+    <tr style="border: 2px solid;">
+      <th>FWDTWINSZ</th>
+
+      <th>Watchdog Timer Window Size bits</th>
+    </tr>
+
+    <tr>
+      <td>FWDTWINSZ = PS75_0</td>
+
+      <td><font size="2">Watchdog timer window size is 75%</font></td>
+    </tr>
+
+    <tr>
+      <td>FWDTWINSZ = PS50_0</td>
+
+      <td><font size="2">Watchdog timer window size is 50%</font></td>
+    </tr>
+
+    <tr>
+      <td>FWDTWINSZ = PS37_5</td>
+
+      <td><font size="2">Watchdog timer window size is 37.5%</font></td>
+    </tr>
+
+    <tr>
+      <td>FWDTWINSZ = PS25_0</td>
+
+      <td><font size="2">Watchdog timer window size is 25%</font></td>
+    </tr>
+  </table>
+
+  <table frame="box" rules="cols" summary='Windowed Watchdog Timer Disable bit' style='margin:10px;'
+  cellpadding="3">
+    <tr style="border: 2px solid;">
+      <th>WINDIS</th>
+
+      <th>Windowed Watchdog Timer Disable bit</th>
+    </tr>
+
+    <tr>
+      <td>WINDIS = ON</td>
+
+      <td><font size="2">Watchdog timer is in window mode</font></td>
+    </tr>
+
+    <tr>
+      <td>WINDIS = OFF</td>
+
+      <td><font size="2">Watchdog timer is in non-window mode</font></td>
+    </tr>
+  </table>
+
+  <table frame="box" rules="cols" summary='Run Mode Watchdog Timer Postscale Selection bits' style=
+  'margin:10px;' cellpadding="3">
+    <tr style="border: 2px solid;">
+      <th>RWDTPS</th>
+
+      <th>Run Mode Watchdog Timer Postscale Selection bits</th>
+    </tr>
+
+    <tr>
+      <td>RWDTPS = PS1</td>
+
+      <td><font size="2">1:1</font></td>
+    </tr>
+
+    <tr>
+      <td>RWDTPS = PS2</td>
+
+      <td><font size="2">1:2</font></td>
+    </tr>
+
+    <tr>
+      <td>RWDTPS = PS4</td>
+
+      <td><font size="2">1:4</font></td>
+    </tr>
+
+    <tr>
+      <td>RWDTPS = PS8</td>
+
+      <td><font size="2">1:8</font></td>
+    </tr>
+
+    <tr>
+      <td>RWDTPS = PS16</td>
+
+      <td><font size="2">1:16</font></td>
+    </tr>
+
+    <tr>
+      <td>RWDTPS = PS32</td>
+
+      <td><font size="2">1:32</font></td>
+    </tr>
+
+    <tr>
+      <td>RWDTPS = PS64</td>
+
+      <td><font size="2">1:64</font></td>
+    </tr>
+
+    <tr>
+      <td>RWDTPS = PS128</td>
+
+      <td><font size="2">1:128</font></td>
+    </tr>
+
+    <tr>
+      <td>RWDTPS = PS256</td>
+
+      <td><font size="2">1:256</font></td>
+    </tr>
+
+    <tr>
+      <td>RWDTPS = PS512</td>
+
+      <td><font size="2">1:512</font></td>
+    </tr>
+
+    <tr>
+      <td>RWDTPS = PS1024</td>
+
+      <td><font size="2">1:1024</font></td>
+    </tr>
+
+    <tr>
+      <td>RWDTPS = PS2048</td>
+
+      <td><font size="2">1:2048</font></td>
+    </tr>
+
+    <tr>
+      <td>RWDTPS = PS4096</td>
+
+      <td><font size="2">1:4096</font></td>
+    </tr>
+
+    <tr>
+      <td>RWDTPS = PS8192</td>
+
+      <td><font size="2">1:8192</font></td>
+    </tr>
+
+    <tr>
+      <td>RWDTPS = PS16384</td>
+
+      <td><font size="2">1:16384</font></td>
+    </tr>
+
+    <tr>
+      <td>RWDTPS = PS32768</td>
+
+      <td><font size="2">1:32768</font></td>
+    </tr>
+
+    <tr>
+      <td>RWDTPS = PS65536</td>
+
+      <td><font size="2">1:65536</font></td>
+    </tr>
+
+    <tr>
+      <td>RWDTPS = PS131072</td>
+
+      <td><font size="2">1:131072</font></td>
+    </tr>
+
+    <tr>
+      <td>RWDTPS = PS262144</td>
+
+      <td><font size="2">1:262144</font></td>
+    </tr>
+
+    <tr>
+      <td>RWDTPS = PS524288</td>
+
+      <td><font size="2">1:524288</font></td>
+    </tr>
+
+    <tr>
+      <td>RWDTPS = PS1048576</td>
+
+      <td><font size="2">1:1048576</font></td>
+    </tr>
+  </table>
+
+  <table frame="box" rules="cols" summary='Run Mode Watchdog Timer Clock Source Selection bits' style=
+  'margin:10px;' cellpadding="3">
+    <tr style="border: 2px solid;">
+      <th>RCLKSEL</th>
+
+      <th>Run Mode Watchdog Timer Clock Source Selection bits</th>
+    </tr>
+
+    <tr>
+      <td>RCLKSEL = SYSCLK</td>
+
+      <td><font size="2">Clock source is system clock</font></td>
+    </tr>
+
+    <tr>
+      <td>RCLKSEL = FRC</td>
+
+      <td><font size="2">Clock source is FRC oscillator</font></td>
+    </tr>
+
+    <tr>
+      <td>RCLKSEL = LPRC</td>
+
+      <td><font size="2">Clock source is LPRC (same as for sleep mode)</font></td>
+    </tr>
+  </table>
+
+  <table frame="box" rules="cols" summary='Watchdog Timer Enable bit' style='margin:10px;' cellpadding="3">
+    <tr style="border: 2px solid;">
+      <th>FWDTEN</th>
+
+      <th>Watchdog Timer Enable bit</th>
+    </tr>
+
+    <tr>
+      <td>FWDTEN = ON</td>
+
+      <td><font size="2">WDT is enabled</font></td>
+    </tr>
+
+    <tr>
+      <td>FWDTEN = OFF</td>
+
+      <td><font size="2">WDT is disabled</font></td>
+    </tr>
+  </table>
+
+  <table frame="box" rules="cols" summary='Oscillator Selection bits' style='margin:10px;' cellpadding="3">
+    <tr style="border: 2px solid;">
+      <th>FNOSC</th>
+
+      <th>Oscillator Selection bits</th>
+    </tr>
+
+    <tr>
+      <td>FNOSC = FRCDIV</td>
+
+      <td><font size="2">Fast RC oscillator (FRC) with divide-by-N</font></td>
+    </tr>
+
+    <tr>
+      <td>FNOSC = PLL</td>
+
+      <td><font size="2">Primary or FRC oscillator with PLL</font></td>
+    </tr>
+
+    <tr>
+      <td>FNOSC = PRI</td>
+
+      <td><font size="2">Primary oscillator (XT, HS, EC)</font></td>
+    </tr>
+
+    <tr>
+      <td>FNOSC = SOSC</td>
+
+      <td><font size="2">Low power secondary oscillator (SOSC)</font></td>
+    </tr>
+
+    <tr>
+      <td>FNOSC = LPRC</td>
+
+      <td><font size="2">Low power RC oscillator (LPRC)</font></td>
+    </tr>
+  </table>
+
+  <table frame="box" rules="cols" summary='System PLL Input Clock Selection bit' style='margin:10px;'
+  cellpadding="3">
+    <tr style="border: 2px solid;">
+      <th>PLLSRC</th>
+
+      <th>System PLL Input Clock Selection bit</th>
+    </tr>
+
+    <tr>
+      <td>PLLSRC = PRI</td>
+
+      <td><font size="2">Primary oscillator is selected as PLL reference input on device reset</font></td>
+    </tr>
+
+    <tr>
+      <td>PLLSRC = FRC</td>
+
+      <td><font size="2">FRC oscillator is selected as PLL reference input on device reset</font></td>
+    </tr>
+  </table>
+
+  <table frame="box" rules="cols" summary='Secondary Oscillator Enable bit' style='margin:10px;' cellpadding=
+  "3">
+    <tr style="border: 2px solid;">
+      <th>SOSCEN</th>
+
+      <th>Secondary Oscillator Enable bit</th>
+    </tr>
+
+    <tr>
+      <td>SOSCEN = ON</td>
+
+      <td><font size="2">Secondary oscillator (SOSC) is enabled</font></td>
+    </tr>
+
+    <tr>
+      <td>SOSCEN = OFF</td>
+
+      <td><font size="2">Secondary oscillator (SOSC) is disabled</font></td>
+    </tr>
+  </table>
+
+  <table frame="box" rules="cols" summary='Two Speed Startup Enable bit' style='margin:10px;' cellpadding=
+  "3">
+    <tr style="border: 2px solid;">
+      <th>IESO</th>
+
+      <th>Two Speed Startup Enable bit</th>
+    </tr>
+
+    <tr>
+      <td>IESO = ON</td>
+
+      <td><font size="2">Two speed startup is enabled</font></td>
+    </tr>
+
+    <tr>
+      <td>IESO = OFF</td>
+
+      <td><font size="2">Two speed startup is disabled</font></td>
+    </tr>
+  </table>
+
+  <table frame="box" rules="cols" summary='Primary Oscillator Selection bit' style='margin:10px;'
+  cellpadding="3">
+    <tr style="border: 2px solid;">
+      <th>POSCMOD</th>
+
+      <th>Primary Oscillator Selection bit</th>
+    </tr>
+
+    <tr>
+      <td>POSCMOD = EC</td>
+
+      <td><font size="2">External clock mode is selected</font></td>
+    </tr>
+
+    <tr>
+      <td>POSCMOD = XT</td>
+
+      <td><font size="2">XT oscillator mode is selected</font></td>
+    </tr>
+
+    <tr>
+      <td>POSCMOD = HS</td>
+
+      <td><font size="2">HS oscillator mode is selected</font></td>
+    </tr>
+
+    <tr>
+      <td>POSCMOD = OFF</td>
+
+      <td><font size="2">Primary oscillator is disabled</font></td>
+    </tr>
+  </table>
+
+  <table frame="box" rules="cols" summary='System Clock on CLKO Pin Enable bit' style='margin:10px;'
+  cellpadding="3">
+    <tr style="border: 2px solid;">
+      <th>OSCIOFNC</th>
+
+      <th>System Clock on CLKO Pin Enable bit</th>
+    </tr>
+
+    <tr>
+      <td>OSCIOFNC = ON</td>
+
+      <td><font size="2">System clock is connected to CLKO/OSC2 pin</font></td>
+    </tr>
+
+    <tr>
+      <td>OSCIOFNC = OFF</td>
+
+      <td><font size="2">OSCO pin operates as a normal I/O</font></td>
+    </tr>
+  </table>
+
+  <table frame="box" rules="cols" summary='Secondary Oscillator External Clock Enable bit' style=
+  'margin:10px;' cellpadding="3">
+    <tr style="border: 2px solid;">
+      <th>SOSCSEL</th>
+
+      <th>Secondary Oscillator External Clock Enable bit</th>
+    </tr>
+
+    <tr>
+      <td>SOSCSEL = OFF</td>
+
+      <td><font size="2">Crystal is used (RA4 and RB4 are controlled by SOSC)</font></td>
+    </tr>
+
+    <tr>
+      <td>SOSCSEL = ON</td>
+
+      <td><font size="2">External clock is connected to SOSCO pin (RA4 and RB4 are controlled by I/O port
+      registers)</font></td>
+    </tr>
+  </table>
+
+  <table frame="box" rules="cols" summary='Clock Switching and Fail-Safe Clock Monitor Enable bits' style=
+  'margin:10px;' cellpadding="3">
+    <tr style="border: 2px solid;">
+      <th>FCKSM</th>
+
+      <th>Clock Switching and Fail-Safe Clock Monitor Enable bits</th>
+    </tr>
+
+    <tr>
+      <td>FCKSM = CSDCMD</td>
+
+      <td><font size="2">Clock switching is disabled; Fail-safe clock monitor is disabled</font></td>
+    </tr>
+
+    <tr>
+      <td>FCKSM = CSECMD</td>
+
+      <td><font size="2">Clock switching is enabled; Fail-safe clock monitor is disabled</font></td>
+    </tr>
+
+    <tr>
+      <td>FCKSM = CSDCME</td>
+
+      <td><font size="2">Clock switching is disabled; Fail-safe clock monitor is enabled</font></td>
+    </tr>
+
+    <tr>
+      <td>FCKSM = CSECME</td>
+
+      <td><font size="2">Clock switching is enabled; Fail-safe clock monitor is enabled</font></td>
+    </tr>
+  </table>
+
+  <table frame="box" rules="cols" summary='Code Protection Enable bit' style='margin:10px;' cellpadding="3">
+    <tr style="border: 2px solid;">
+      <th>CP</th>
+
+      <th>Code Protection Enable bit</th>
+    </tr>
+
+    <tr>
+      <td>CP = ON</td>
+
+      <td><font size="2">Code protection is enabled</font></td>
+    </tr>
+
+    <tr>
+      <td>CP = OFF</td>
+
+      <td><font size="2">Code protection is disabled</font></td>
+    </tr>
+  </table>
+
+  <p>[ <a href="../XC32MasterIndex.htm">Documentation Index</a> | <a href="../PIC32ConfigSet.html">Device
+  index</a> ]</p>
+</body>
+</html>

@@ -1,0 +1,132 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html>
+<head>
+  <meta name="generator" content=
+  "HTML Tidy for Mac OS X (vers 31 October 2006 - Apple Inc. build 15.15), see www.w3.org">
+
+  <title>Functions</title>
+</head>
+
+<body>
+  <h1><a name="Functions">Functions</a></h1>
+  <hr>
+
+  <p>You write functions to specify all the actions that a program performs when it executes. The type of a
+  function tells you the type of result it returns (if any). It can also tell you the types of any arguments
+  that the function expects when you call it from within an expression.</p>
+
+  <p>This document describes briefly just those aspect of functions most relevant to the use of the Standard
+  C library:</p>
+
+  <p><b><a name="argument promotion">Argument promotion</a></b> occurs when the type of the function fails to
+  provide any information about an argument. Promotion occurs if the function declaration is not a function
+  prototype or if the argument is one of the unnamed arguments in a <a href=
+  "stdarg.html#varying%20number%20of%20arguments">varying number of arguments</a>. In this instance, the
+  argument must be an <a href="express.html#rvalue%20expression">rvalue expression</a>. Hence:</p>
+
+  <ul>
+    <li>An integer argument type is promoted.</li>
+
+    <li>An lvalue of type array of <code>Ty</code> becomes an rvalue of type pointer to <code>Ty</code>.</li>
+
+    <li>A function designator of type function returning <code>Ty</code> becomes an rvalue of type pointer to
+    function returning <code>Ty</code>.</li>
+
+    <li>An argument of type <i>float</i> is converted to <i>double.</i></li>
+  </ul>
+
+  <p>A <b><a name="Do Statement"><i>do</i> statement</a></b> executes a statement one or more times, while
+  its <a href="#test-context%20expression">test-context expression</a> has a nonzero value:</p>
+  <pre>
+    do
+        <i>statement</i>
+        while (<i>test</i>);
+</pre>
+
+  <p>An <b><a name="Expression Statement"><i>expression</i> statement</a></b> evaluates an expression in a
+  <a href="#side-effects%20context">side-effects context</a>:</p>
+  <pre>
+    printf("hello\n");            <b>call a function</b>
+    y = m * x + b;                <b>store a value</b>
+    ++count;                      <b>alter a stored value</b>
+</pre>
+
+  <p>A <b><a name="For Statement"><i>for</i> statement</a></b> executes a statement zero or more times, while
+  the optional <a href="#test-context%20expression">test-context expression</a> <code><i>test</i></code> has
+  a nonzero value. You can also write two expressions, <code><i>se-1</i></code> and <code><i>se-2</i></code>,
+  in a <i>for</i> statement that are each in a <a href="#side-effects%20context">side-effects
+  context</a>:</p>
+  <pre>
+    for (<i>se-1</i>; <i>test</i>; <i>se-2</i>)
+        <i>statement</i>
+</pre>
+
+  <p>An <b><a name="If Statement"><i>if</i> statement</a></b> executes a statement only if the <a href=
+  "#test-context%20expression">test-context expression</a> has a nonzero value:</p>
+  <pre>
+    if (<i>test</i>)
+        <i>statement</i>
+</pre>
+
+  <p>An <b><a name="If-Else Statement"><i>if-else</i> statement</a></b> executes one of two statements,
+  depending on whether the <a href="#test-context%20expression">test-context expression</a> has a nonzero
+  value:</p>
+  <pre>
+    if (<i>test</i>)
+        <i>statement-1</i>
+    else
+        <i>statement-2</i>
+</pre>
+
+  <p>A <b><a name="Return Statement"><i>return</i> statement</a></b> terminates execution of the function and
+  transfers control to the expression that called the function. If you write the optional <a href=
+  "express.html#rvalue%20expression">rvalue expression</a> within the <i>return</i> statement, the result
+  must be assignment-compatible with the type returned by the function. The program converts the value of the
+  expression to the type returned and returns it as the value of the function call:</p>
+  <pre>
+    return <i>expression</i>;
+</pre>
+
+  <p>An expression that occurs in a <b><a name="side-effects context">side-effects context</a></b> specifies
+  no value and designates no object or function. Hence, it can have type <i>void.</i> You typically evaluate
+  such an expression for its <b><a name="side effects">side effects</a></b> -- any change in the state of the
+  program that occurs when evaluating an expression. Side effects occur when the program stores a value in an
+  object, accesses a value from an object of <i>volatile</i> qualified type, or alters the state of a
+  file.</p>
+
+  <p>A <b><a name="Switch Statement"><i>switch</i> statement</a></b> jumps to a place within a controlled
+  statement, depending on the value of an integer expression:</p>
+  <pre>
+    switch (<i>expr</i>)
+        {
+    case <i>val-1</i>:
+        <i>stat-1</i>;
+        break;
+    case <i>val-2</i>:
+        <i>stat-2</i>;            <b>falls through to next</b>
+    default:
+        <i>stat-n</i>
+    }
+</pre>
+
+  <p>In a <b><a name="test-context expression">test-context expression</a></b> the value of an expression
+  causes control to flow one way within the statement if the computed value is nonzero or another way if the
+  computed value is zero. You can write only an expression that has a scalar rvalue result, because only
+  scalars can be compared with zero.</p>
+
+  <p>A <b><a name="While Statement"><i>while</i> statement</a></b> executes a statement zero or more times,
+  while the test-context expression has a nonzero value:</p>
+  <pre>
+    while (<i>test</i>)
+        <i>statement</i>
+</pre>
+  <hr>
+
+  <p>See also the <b><a href="index.html#Table%20of%20Contents">Table of Contents</a></b> and the <b><a href=
+  "_index.html">Index</a></b>.</p>
+
+  <p><i><a href="crit_pjp.html">Copyright</a> &copy; 1992-2010 by P.J. Plauger and Jim Brodie. All rights
+  reserved.</i></p><!--V5.30:126I-->
+</body>
+</html>

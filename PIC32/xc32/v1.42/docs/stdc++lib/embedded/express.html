@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html>
+<head>
+  <meta name="generator" content=
+  "HTML Tidy for Mac OS X (vers 31 October 2006 - Apple Inc. build 15.15), see www.w3.org">
+
+  <title>Expressions</title>
+</head>
+
+<body>
+  <h1><a name="Expressions">Expressions</a></h1>
+  <hr>
+
+  <p>You write expressions to determine values, to alter values stored in objects, and to call functions that
+  perform input and output. In fact, you express all computations in the program by writing expressions. The
+  translator must evaluate some of the expressions you write to determine properties of the program. The
+  translator or the target environment must evaluate other expressions prior to program startup to determine
+  the initial values stored in objects with static duration. The program evaluates the remaining expressions
+  when it executes.</p>
+
+  <p>This document describes briefly just those aspect of expressions most relevant to the use of the
+  Standard C library:</p>
+
+  <p>An <b><a name="address constant expression">address constant expression</a></b> specifies a value that
+  has a pointer type and that the translator or target environment can determine prior to program
+  startup.</p>
+
+  <p>A <b><a name="constant expression">constant expression</a></b> specifies a value that the translator or
+  target environment can determine prior to program startup.</p>
+
+  <p>An <b><a name="integer constant expression">integer constant expression</a></b> specifies a value that
+  has an integer type and that the translator can determine at the point in the program where you write the
+  expression. (You cannot write a function call, assigning operator, or <i>comma</i> operator except as part
+  of the operand of a <i><a href="#sizeof%20operator">sizeof</a></i> operator.) In addition, you must write
+  only subexpressions that have integer type. You can, however, write a floating-point constant expression as
+  the operand of an integer <i>type cast</i> operator.</p>
+
+  <p>A <b><a name="floating-point constant expression">floating-point constant expression</a></b> specifies a
+  value that has a floating-point type and that the translator can determine at the point in the program
+  where you write the expression. (You cannot write a function call, assigning operator, or <i>comma</i>
+  operator except as part of the operand of a <i><a href="#sizeof%20operator">sizeof</a></i> operator.) In
+  addition, you must write only subexpressions that have integer or floating-point type.</p>
+
+  <p>An <b><a name="lvalue expression">lvalue expression</a></b> An lvalue expression designates an object
+  that has an object type other than an array type. Hence, you can access the value stored in the object. A
+  <i>modifiable</i> lvalue expression designates an object that has an object type other than an array type
+  or a <i>const</i> type. Hence, you can alter the value stored in the object. You can also designate objects
+  with an lvalue expression that has an array type or an incomplete type, but you can only take the address
+  of such an expression.</p>
+
+  <p><b><a name="Promoting">Promoting</a></b> occurs for an expression whose integer type is not one of the
+  ``computational'' types. Except when it is the operand of the <i><a href=
+  "#sizeof%20operator">sizeof</a></i> operator, an integer <a href="#rvalue%20expression">rvalue
+  expression</a> has one of four types: <i>int, unsigned int, long,</i> or <i>unsigned long.</i> When you
+  write an expression in an rvalue context and the expression has an integer type that is not one of these
+  types, the translator <i>promotes</i> its type to one of these. If all of the values representable in the
+  original type are also representable as type <i>int,</i> then the promoted type is <i>int.</i> Otherwise,
+  the promoted type is <i>unsigned int.</i> Thus, for <i>signed char, short,</i> and any <i>signed
+  bitfield</i> type, the promoted type is <i>int.</i> For each of the remaining integer types (<i>char,
+  unsigned char, unsigned short,</i> any plain <i>bitfield</i> type, or any <i>unsigned bitfield</i> type),
+  the effect of these rules is to favor promoting to <i>int</i> wherever possible, but to promote to
+  <i>unsigned int</i> if necessary to preserve the original value in all possible cases.</p>
+
+  <p>An <b><a name="rvalue expression">rvalue expression</a></b> is an expression whose value can be
+  determined only when the program executes. The term also applies to expressions which <i>need not</i> be
+  determined until program execution.</p>
+
+  <p>You use the <b><a name="sizeof operator">sizeof</a></b> operator, as in the expression <code>sizeof
+  X</code> to determine the size in bytes of an object whose type is the type of <code>X</code>. The
+  translator uses the expression you write for <code>X</code> only to determine a type; it is not
+  evaluated.</p>
+
+  <p>A <b><a name="void expression">void expression</a></b> has type <i>void.</i></p>
+  <hr>
+
+  <p>See also the <b><a href="index.html#Table%20of%20Contents">Table of Contents</a></b> and the <b><a href=
+  "_index.html">Index</a></b>.</p>
+
+  <p><i><a href="crit_pjp.html">Copyright</a> &copy; 1992-2010 by P.J. Plauger and Jim Brodie. All rights
+  reserved.</i></p><!--V5.30:126I-->
+</body>
+</html>

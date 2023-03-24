@@ -1,0 +1,282 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html>
+<head>
+  <meta name="generator" content=
+  "HTML Tidy for Mac OS X (vers 31 October 2006 - Apple Inc. build 15.15), see www.w3.org">
+
+  <title>C Library Overview</title>
+</head>
+
+<body>
+  <h1><a name="C Library Overview">C Library Overview</a></h1>
+  <hr>
+
+  <p><b><a href="#Using%20Standard%20C%20Headers">Using Standard C Headers</a> &middot; <a href=
+  "#C%20Library%20Conventions">C Library Conventions</a> &middot; <a href=
+  "#C%20Program%20Startup%20and%20Termination">Program Startup and Termination</a></b></p>
+  <hr>
+
+  <p>All Standard C library entities are declared or defined in one or more <b><a name=
+  "standard headers">standard headers</a></b>. To make use of a library entity in a program, write an
+  <a href="preproc.html#include%20directive"><i>include</i> directive</a> that names the relevant <b><a name=
+  "standard header">standard header</a></b>. The full set of Standard C headers constitutes a <b><a name=
+  "hosted implementation">hosted implementation</a></b>: <code><a href=
+  "assert.html">&lt;assert.h&gt;</a></code>, <code><a href="ctype.html">&lt;ctype.h&gt;</a></code>,
+  <code><a href="errno.html">&lt;errno.h&gt;</a></code>, <code><a href=
+  "float.html">&lt;float.h&gt;</a></code>, <code><a href="limits.html">&lt;limits.h&gt;</a></code>,
+  <code><a href="locale.html">&lt;locale.h&gt;</a></code>, <code><a href=
+  "math.html">&lt;math.h&gt;</a></code>, <code><a href="setjmp.html">&lt;setjmp.h&gt;</a></code>,
+  <code><a href="signal.html">&lt;signal.h&gt;</a></code>, <code><a href=
+  "stdarg.html">&lt;stdarg.h&gt;</a></code>, <code><a href="stddef.html">&lt;stddef.h&gt;</a></code>,
+  <code><a href="stdio.html">&lt;stdio.h&gt;</a></code>, <code><a href=
+  "stdlib.html">&lt;stdlib.h&gt;</a></code>, <code><a href="string.html">&lt;string.h&gt;</a></code>, and
+  <code><a href="time.html">&lt;time.h&gt;</a></code></p>
+
+  <p>Still more headers (not described here), and changes to existing headers, are added with <b><a name=
+  "C99">C99</a></b>, a revision to the C Standard published in 1999.</p>
+
+  <p>A <b><a name="freestanding implementation">freestanding implementation</a></b> of Standard C provides
+  only a subset of these standard headers: <code><a href="float.html">&lt;float.h&gt;</a></code>,
+  <code><a href="limits.html">&lt;limits.h&gt;</a></code>, <code><a href=
+  "stdarg.html">&lt;stdarg.h&gt;</a></code>, and <code><a href="stddef.html">&lt;stddef.h&gt;</a></code>.
+  Each freestanding implementation defines:</p>
+
+  <ul>
+    <li>how it starts the program</li>
+
+    <li>what happens when the program terminates</li>
+
+    <li>what library functions (if any) it provides</li>
+  </ul>
+
+  <h2><a name="Using Standard C Headers">Using Standard C Headers</a></h2>
+
+  <p>You include the contents of a standard header by naming it in an <a href=
+  "preproc.html#include%20directive"><i>include</i> directive</a>, as in:</p>
+  <pre>
+#include &lt;stdio.h&gt;  /* include I/O facilities */
+</pre>
+
+  <p>You can include the standard headers in any order, a standard header more than once, or two or more
+  standard headers that define the same macro or the same type. Do not include a standard header within a
+  declaration. Do not define macros that have the same names as keywords before you include a standard
+  header.</p>
+
+  <p>A standard header never includes another standard header. A standard header declares or defines only the
+  entities described for it in this document.</p>
+
+  <p>Every function in the library is declared in a standard header. The standard header can also provide a
+  <b><a name="masking macro">masking macro</a></b>, with the same name as the function, that masks the
+  function declaration and achieves the same effect. The macro typically expands to an expression that
+  executes faster than a call to the function of the same name. The macro can, however, cause confusion when
+  you are tracing or debugging the program. So you can use a standard header in two ways to declare or define
+  a library function. To take advantage of any macro version, include the standard header so that each
+  apparent call to the function can be replaced by a macro expansion.</p>
+
+  <p>For example:</p>
+  <pre>
+#include &lt;ctype.h&gt;
+char *skip_space(char *p)
+    {
+    while (isspace(*p))        <b>can be a macro</b>
+        ++p;
+    return (p);
+    }
+</pre>
+
+  <p>To ensure that the program calls the actual library function, include the standard header and remove any
+  macro definition with an <a href="preproc.html#undef%20directive"><i>undef</i> directive</a>.</p>
+
+  <p>For example:</p>
+  <pre>
+#include &lt;ctype.h&gt;
+#undef isspace                 <b>remove any macro definition</b>
+int f(char *p) {
+    while (isspace(*p))        <b>must be a function</b>
+        ++p;
+</pre>
+
+  <p>You can use many functions in the library without including a standard header (although this practice is
+  no longer permitted in <a href="#C99">C99</a> and is generally not recommended). If you do not need defined
+  macros or types to declare and call the function, you can simply declare the function as it appears in this
+  chapter. Again, you have two choices. You can declare the function explicitly.</p>
+
+  <p>For example:</p>
+  <pre>
+    double sin(double x);      <b>declared in &lt;math.h&gt;</b>
+    y = rho * sin(theta);
+</pre>
+
+  <p>Or you can declare the function implicitly if it is a function returning <i>int</i> with a fixed number
+  of arguments, as in:</p>
+  <pre>
+    n = atoi(str);             <b>declared in &lt;stdlib.h&gt;</b>
+</pre>
+
+  <p>If the function has a <a href="stdarg.html#varying%20number%20of%20arguments">varying number of
+  arguments</a>, such as <a href="stdio.html#printf"><code>printf</code></a>, you must declare it explicitly:
+  Either include the standard header that declares it or write an explicit declaration.</p>
+
+  <p>Note also that you cannot define a macro or type definition without including its standard header
+  because each of these typically varies among implementations.</p>
+
+  <h2><a name="C Library Conventions">C Library Conventions</a></h2>
+
+  <p>A library macro that <a href="#masking%20macro">masks</a> a function declaration expands to an
+  expression that evaluates each of its arguments once (and only once). Arguments that have <a href=
+  "function.html#side-effects%20context">side effects</a> evaluate the same way whether the expression
+  executes the macro expansion or calls the function. Macros for the functions <a href=
+  "stdio.html#getc"><code>getc</code></a> and <a href="stdio.html#putc"><code>putc</code></a> are explicit
+  exceptions to this rule. Their <code>stream</code> arguments can be evaluated more than once. Avoid
+  argument expressions that have side effects with these macros.</p>
+
+  <p>A library function that alters a value stored in memory assumes that the function accesses no other
+  objects that overlap the object whose stored value it alters. You cannot depend on consistent behavior from
+  a library function that accesses and alters the same storage via different arguments. The function <a href=
+  "string.html#memmove"><code>memmove</code></a> is an explicit exception to this rule. Its arguments can
+  point at objects that overlap.</p>
+
+  <p>An implementation has a set of <b><a name="reserved names">reserved names</a></b> that it can use for
+  its own purposes. All the library names described in this document are, of course, reserved for the
+  library. Don't define macros with the same names. Don't try to supply your own definition of a library
+  function, unless this document explicitly says you can (only in C++). An unauthorized replacement may be
+  successful on some implementations and not on others. Names that begin with two underscores (or contain two
+  successive underscores, in C++), such as <code>__STDIO</code>, and names that begin with an underscore
+  followed by an upper case letter, such as <code>_Entry</code>, can be used as macro names, whether or not a
+  translation unit explicitly includes any standard headers. Names that begin with an underscore can be
+  defined with external linkage. Avoid writing such names in a program that you wish to keep maximally
+  portable.</p>
+
+  <p>Some library functions operate on <b><a name="C string">C strings</a></b>, or pointers to <a href=
+  "charset.html#null-terminated%20string">null-terminated strings</a>. You designate a C string that can be
+  altered by an argument expression that has type <i>pointer to char</i> (or type <i>array of char,</i> which
+  converts to <i>pointer to char</i> in an argument expression). You designate a C string that cannot be
+  altered by an argument expression that has type <i>pointer to const char</i> (or type <i>const array of
+  char</i>). In any case, the value of the expression is the address of the first byte in an array object.
+  The first successive element of the array that has a <a href="charset.html#null%20character">null
+  character</a> stored in it marks the end of the C string.</p>
+
+  <ul>
+    <li>A <b><a name="filename">filename</a></b> is a string whose contents meet the requirements of the
+    target environment for naming files.</li>
+
+    <li>A <b><a name="multibyte string">multibyte string</a></b> is composed of zero or more <a href=
+    "charset.html#Multibyte%20Characters">multibyte characters</a>, followed by a <a href=
+    "charset.html#null%20character">null character</a>.</li>
+
+    <li>A <b><a name="wide-character string">wide-character string</a></b> is composed of zero or more
+    <a href="charset.html#Wide-Character%20Encoding">wide characters</a> (stored in an array of <a href=
+    "stddef.html#wchar_t"><code>wchar_t</code></a>), followed by a <a href=
+    "charset.html#null%20wide%20character">null wide character</a>.</li>
+  </ul>
+
+  <p>If an argument to a library function has a pointer type, then the value of the argument expression must
+  be a valid address for an object of its type. This is true even if the library function has no need to
+  access an object by using the pointer argument. An explicit exception is when the description of the
+  library function spells out what happens when you use a null pointer.</p>
+
+  <p>Some examples are:</p>
+  <pre>
+    strcpy(s1, 0)              <b>is INVALID</b>
+    memcpy(s1, 0, 0)           <b>is UNSAFE</b>
+    realloc(0, 50)             <b>is the same as malloc(50)</b>
+</pre>
+
+  <h2><a name="C Program Startup and Termination">Program Startup and Termination</a></h2>
+
+  <p>The target environment controls the execution of the program (in contrast to the translator part of the
+  implementation, which prepares the parts of the program for execution). The target environment passes
+  control to the program at <b><a name="program startup">program startup</a></b> by calling the function
+  <b><a name="main"><code>main</code></a></b> that you define as part of the program. <b><a name=
+  "program arguments">Program arguments</a></b> are <a href="#C%20string">C strings</a> that the target
+  environment provides, such as text from the <b><a name="command line">command line</a></b> that you type to
+  invoke the program. If the program does not need to access program arguments, you can define
+  <code>main</code> as:</p>
+  <pre>
+extern int main(void)
+    { <i>&lt;body of main&gt;</i> }
+</pre>
+
+  <p>If the program uses program arguments, you define <code>main</code> as:</p>
+  <pre>
+extern int main(int argc, char **argv)
+    { <i>&lt;body of main&gt;</i> }
+</pre>
+
+  <p>You can omit either or both of <code>extern int</code>, since these are the default storage class and
+  type for a function definition. For program arguments:</p>
+
+  <ul>
+    <li><code>argc</code> is a value (always greater than zero) that specifies the number of program
+    arguments.</li>
+
+    <li><code>argv[0]</code> designates the first element of an array of <a href="#C%20string">C strings</a>.
+    <code>argv[argc]</code> designates the last element of the array, whose stored value is a null
+    pointer.</li>
+  </ul>
+
+  <p>For example, if you invoke a program by typing:</p>
+  <pre>
+echo hello
+</pre>
+
+  <p>a target environment can call <code>main</code> with:</p>
+
+  <ul>
+    <li>The value 2 for <code>argc</code>.</li>
+
+    <li>The address of an array object containing <code>"echo"</code> stored in <code>argv[0]</code>.</li>
+
+    <li>The address of an array object containing <code>"hello"</code> stored in <code>argv[1]</code>.</li>
+
+    <li>A null pointer stored in <code>argv[2]</code>.</li>
+  </ul>
+
+  <p><code>argv[0]</code> is the name used to invoke the program. The target environment can replace this
+  name with a <a name="null string">null string</a> (<code>""</code>). The program can alter the values
+  stored in <code>argc</code>, in <code>argv</code>, and in the array objects whose addresses are stored in
+  <code>argv</code>.</p>
+
+  <p>Before the target environment calls <code>main</code>, it stores the initial values you specify in all
+  objects that have static duration. It also opens three <b><a name="standard streams">standard
+  streams</a></b>, controlled by the text-stream objects designated by the macros:</p>
+
+  <ul>
+    <li><b><a href="stdio.html#stdin"><code>stdin</code></a></b> -- for <b><a name="standard input">standard
+    input</a></b></li>
+
+    <li><b><a href="stdio.html#stdout"><code>stdout</code></a></b> -- for <b><a name=
+    "standard output">standard output</a></b></li>
+
+    <li><b><a href="stdio.html#stderr"><code>stderr</code></a></b> -- for <b><a name=
+    "standard error">standard error</a></b> output</li>
+  </ul>
+
+  <p>If <code>main</code> returns to its caller, the target environment calls <a href=
+  "stdlib.html#exit"><code>exit</code></a> with the value returned from <code>main</code> as the status
+  argument to <a href="stdlib.html#exit"><code>exit</code></a>. If the <a href=
+  "function.html#Return%20Statement"><i>return</i> statement</a> that the program executes has no expression,
+  the status argument is undefined. This is the case if the program executes the implied <a href=
+  "function.html#Return%20Statement"><i>return</i> statement</a> at the end of the function definition.</p>
+
+  <p>You can also call <a href="stdlib.html#exit"><code>exit</code></a> directly from any expression within
+  the program. In both cases, <a href="stdlib.html#exit"><code>exit</code></a> calls all functions registered
+  with <a href="stdlib.html#atexit"><code>atexit</code></a> in reverse order of registry and then begins
+  <b><a name="program termination">program termination</a></b>. At program termination, the target
+  environment closes all open files, removes any temporary files that you created by calling <a href=
+  "stdio.html#tmpfile"><code>tmpfile</code></a>, and then returns control to the invoker, using the status
+  argument value to determine the termination status to report for the program.</p>
+
+  <p>The program can terminate abnormally by calling <a href="stdlib.html#abort"><code>abort</code></a>, for
+  example. Each implementation defines whether it closes files, whether it removes temporary files, and what
+  termination status it reports when a program terminates abnormally.</p>
+  <hr>
+
+  <p>See also the <b><a href="index.html#Table%20of%20Contents">Table of Contents</a></b> and the <b><a href=
+  "_index.html">Index</a></b>.</p>
+
+  <p><i><a href="crit_pjp.html">Copyright</a> &copy; 1992-2010 by P.J. Plauger and Jim Brodie. All rights
+  reserved.</i></p><!--V5.30:126I-->
+</body>
+</html>

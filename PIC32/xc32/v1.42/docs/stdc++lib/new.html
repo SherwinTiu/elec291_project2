@@ -1,0 +1,287 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html>
+<head>
+  <meta name="generator" content=
+  "HTML Tidy for Mac OS X (vers 31 October 2006 - Apple Inc. build 15.15), see www.w3.org">
+
+  <title>&lt;new&gt;</title>
+</head>
+
+<body>
+  <h1><a name="&lt;new&gt;"><code>&lt;new&gt;</code></a></h1>
+  <hr>
+
+  <p>Include the standard header <b><code>&lt;new&gt;</code></b> to define several types and functions that
+  control allocation and freeing of storage under program control.</p>
+
+  <p>Some of the functions declared in this header are <b><a name=
+  "replaceable functions">replaceable</a></b>. The implementation supplies a default version, whose behavior
+  is described in this document. A program can, however, define a function with the same signature to replace
+  the default version at link time. The replacement version must satisfy the requirements described in this
+  document.</p>
+  <pre>
+namespace std {
+typedef void (*<b><a href="#new_handler">new_handler</a></b>)();
+class <b><a href="#bad_alloc">bad_alloc</a></b>;
+class <b><a href="#bad_array_new_length">bad_array_new_length</a></b>;  <b>[added with C++0X]</b>
+class <b><a href="#nothrow_t">nothrow_t</a></b>;
+extern const nothrow_t <b><a href="#nothrow">nothrow</a></b>;
+
+        // FUNCTIONS
+new_handler <b><a href="#set_new_handler">set_new_handler</a></b>(new_handler pnew) throw();
+    };
+
+        // OPERATORS -- NOT IN NAMESPACE std
+void <b><a href="#operator%20delete">operator delete</a></b>(void *ptr) throw();  // REPLACEABLE
+void <b><a href="#operator%20delete">operator delete</a></b>(void *, void *) throw();
+void <b><a href="#operator%20delete">operator delete</a></b>(void *ptr,  // REPLACEABLE
+    const std::nothrow_t&amp;) throw();
+void <b><a href="#operator%20delete[]">operator delete[]</a></b>(void *ptr) throw();  // REPLACEABLE
+void <b><a href="#operator%20delete[]">operator delete[]</a></b>(void *, void *) throw();
+void <b><a href="#operator%20delete[]">operator delete[]</a></b>(void *ptr,  // REPLACEABLE
+    const std::nothrow_t&amp;) throw();
+void *<b><a href="#operator%20new">operator new</a></b>(std::size_t count)  // REPLACEABLE
+    throw(std::bad_alloc);
+void *<b><a href="#operator%20new">operator new</a></b>(std::size_t count,  // REPLACEABLE
+    const std::nothrow_t&amp;) throw();
+void *<b><a href="#operator%20new">operator new</a></b>(std::size_t count, void *ptr) throw();
+void *<b><a href="#operator%20new[]">operator new[]</a></b>(std::size_t count)  // REPLACEABLE
+    throw(std::bad_alloc);
+void *<b><a href="#operator%20new[]">operator new[]</a></b>(std::size_t count,  // REPLACEABLE
+    const std::nothrow_t&amp;) throw();
+void *<b><a href="#operator%20new[]">operator new[]</a></b>(std::size_t count, void *ptr) throw();
+</pre>
+
+  <h2><a name="bad_alloc"><code>bad_alloc</code></a></h2>
+  <pre>
+class <b>bad_alloc</b>
+    : public <a href="exceptio.html#exception">exception</a>
+    {  // reports a bad allocation
+    };
+</pre>
+
+  <p>The class describes an exception thrown to indicate that an allocation request did not succeed. The
+  value returned by <code><a href="exceptio.html#exception::what">what</a>()</code> is an
+  implementation-defined <a href="lib_over.html#C%20string">C string</a>. None of the member functions throw
+  any exceptions.</p>
+
+  <h2><a name="bad_array_new_length"><code>bad_array_new_length</code></a></h2>
+  <pre>
+class <b>bad_array_new_length</b>  <b>[added with C++0X]</b>
+    : public <a href="#bad_alloc">bad_alloc</a>
+    {  // reports a bad length on array new call
+    };
+</pre>
+
+  <p>The class describes an exception thrown to indicate that an allocation request did not succeed. The
+  value returned by <code><a href="exceptio.html#exception::what">what</a>()</code> is an
+  implementation-defined <a href="lib_over.html#C%20string">C string</a>. None of the member functions throw
+  any exceptions.</p>
+
+  <h2><a name="new_handler"><code>new_handler</code></a></h2>
+  <pre>
+typedef void (*<b>new_handler</b>)();
+</pre>
+
+  <p>The type describes a pointer object that designates a function suitable for use as a <a href=
+  "#new%20handler">new handler</a>.</p>
+
+  <h2><a name="nothrow"><code>nothrow</code></a></h2>
+  <pre>
+extern const nothrow_t <b>nothrow</b>;
+</pre>
+
+  <p>The object is used as a function argument to match the parameter type <code><a href=
+  "#nothrow_t">nothrow_t</a></code>.</p>
+
+  <h2><a name="nothrow_t"><code>nothrow_t</code></a></h2>
+  <pre>
+class <b>nothrow_t</b> {};
+</pre>
+
+  <p>The class is used as a function parameter to <code>operator new</code> to indicate that the function
+  should return a null pointer to report an allocation failure, rather than throw an exception.</p>
+
+  <h2><a name="operator delete"><code>operator delete</code></a></h2>
+  <pre>
+void <b>operator delete</b>(void *ptr) throw();  // REPLACEABLE
+void <b>operator delete</b>(void *, void *) throw();
+void <b>operator delete</b>(void *ptr,  // REPLACEABLE
+    const std::nothrow_t&amp;) throw();
+</pre>
+
+  <p>The first function is called by a <b><a name="delete expression"><code>delete</code> expression</a></b>
+  to render the value of <code>ptr</code> invalid. The program can define a function with this function
+  signature that <a href="#replaceable%20functions">replaces</a> the default version defined by the Standard
+  C++ library. The required behavior is to accept a value of <code>ptr</code> that is null or that was
+  returned by an earlier call to <code><a href="#operator%20new">operator new</a>(size_t)</code>.</p>
+
+  <p>The default behavior for a null value of <code>ptr</code> is to do nothing. Any other value of
+  <code>ptr</code> must be a value returned earlier by a call as described above. The default behavior for
+  such a non-null value of <code>ptr</code> is to reclaim storage allocated by the earlier call. It is
+  unspecified under what conditions part or all of such reclaimed storage is allocated by a subsequent call
+  to <code><a href="#operator%20new">operator new</a>(size_t)</code>, or to any of <code><a href=
+  "stdlib.html#calloc">calloc</a>(size_t)</code>, <code><a href=
+  "stdlib.html#malloc">malloc</a>(size_t)</code>, or <code><a href="stdlib.html#realloc">realloc</a>(void*,
+  size_t)</code>.</p>
+
+  <p>The second function is called by a <b><a name="placement delete expression">placement
+  <code>delete</code> expression</a></b> corresponding to a <a href="#new%20expression"><code>new</code>
+  expression</a> of the form <code>new(std::size_t)</code>. It does nothing.</p>
+
+  <p>The third function is called by a placement <code>delete</code> expression corresponding to a
+  <code>new</code> expression of the form <code>new(std::size_t, const std::nothrow_t&amp;)</code>. The
+  program can define a function with this function signature that <a href=
+  "#replaceable%20functions">replaces</a> the default version defined by the Standard C++ library. The
+  required behavior is to accept a value of <code>ptr</code> that is null or that was returned by an earlier
+  call to <code><a href="#operator%20new">operator new</a>(size_t)</code>. The default behavior is to
+  evaluate <code>delete(ptr)</code>.</p>
+
+  <h2><a name="operator delete[]"><code>operator delete[]</code></a></h2>
+  <pre>
+void <b>operator delete[]</b>(void *ptr) throw();  // REPLACEABLE
+void <b>operator delete[]</b>(void *, void *) throw();
+void <b>operator delete[]</b>(void *ptr,  // REPLACEABLE
+    const std::nothrow_t&amp;) throw();
+</pre>
+
+  <p>The first function is called by a <b><a name="delete[] expression"><code>delete[]</code>
+  expression</a></b> to render the value of <code>ptr</code> invalid. The program can define a function with
+  this function signature that <a href="#replaceable%20functions">replaces</a> the default version defined by
+  the Standard C++ library.</p>
+
+  <p>The required behavior is to accept a value of <code>ptr</code> that is null or that was returned by an
+  earlier call to <code><a href="#operator%20new[]">operator new[]</a>(size_t)</code>. The default behavior
+  is to evaluate <code>delete(ptr)</code>.</p>
+
+  <p>The second function is called by a <b><a name="placement delete[] expression">placement
+  <code>delete[]</code> expression</a></b> corresponding to a <a href=
+  "#new[]%20expression"><code>new[]</code> expression</a> of the form <code>new[](std::size_t)</code>. It
+  does nothing.</p>
+
+  <p>The third function is called by a placement <code>delete</code> expression corresponding to a
+  <code>new[]</code> expression of the form <code>new[](std::size_t, const std::nothrow_t&amp;)</code>. The
+  program can define a function with this function signature that <a href=
+  "#replaceable%20functions">replaces</a> the default version defined by the Standard C++ library. The
+  required behavior is to accept a value of <code>ptr</code> that is null or that was returned by an earlier
+  call to <code><a href="#operator%20new[]">operator new[]</a>(size_t)</code>. The default behavior is to
+  call <code>operator delete(ptr, std::nothrow)</code>.</p>
+
+  <h2><a name="operator new"><code>operator new</code></a></h2>
+  <pre>
+void *<b>operator new</b>(std::size_t count) throw(bad_alloc);  // REPLACEABLE
+void *<b>operator new</b>(std::size_t count,  // REPLACEABLE
+    const std::nothrow_t&amp;) throw();
+void *<b>operator new</b>(std::size_t count, void *ptr) throw();
+</pre>
+
+  <p>The first function is called by a <b><a name="new expression"><code>new</code> expression</a></b> to
+  allocate <code>count</code> bytes of storage suitably aligned to represent any object of that size. The
+  program can define a function with this function signature that <a href=
+  "#replaceable%20functions">replaces</a> the default version defined by the Standard C++ library.</p>
+
+  <p>The required behavior is to return a non-null pointer only if storage can be allocated as requested.
+  Each such allocation yields a pointer to storage disjoint from any other allocated storage. The order and
+  contiguity of storage allocated by successive calls is unspecified. The initial stored value is
+  unspecified. The returned pointer designates the start (lowest byte address) of the allocated storage. If
+  <code>count</code> is zero, the value returned does not compare equal to any other value returned by the
+  function.</p>
+
+  <p>The default behavior is to execute a loop. Within the loop, the function first attempts to allocate the
+  requested storage. Whether the attempt involves a call to <code><a href=
+  "stdlib.html#malloc">malloc</a>(size_t)</code> is unspecified. If the attempt is successful, the function
+  returns a pointer to the allocated storage. Otherwise, the function calls the designated <a href=
+  "#new%20handler">new handler</a>. If the called function returns, the loop repeats. The loop terminates
+  when an attempt to allocate the requested storage is successful or when a called function does not
+  return.</p>
+
+  <p>The required behavior of a <b><a name="new handler">new handler</a></b> is to perform one of the
+  following operations:</p>
+
+  <ul>
+    <li>make more storage available for allocation and then return</li>
+
+    <li>call either <code><a href="stdlib.html#abort">abort</a>()</code> or <code><a href=
+    "stdlib.html#exit">exit</a>(int)</code></li>
+
+    <li>throw an object of type <a href="#bad_alloc"><code>bad_alloc</code></a></li>
+  </ul>
+
+  <p>The default behavior of a <a href="#new%20handler">new handler</a> is to throw an object of type
+  <code>bad_alloc</code>. A null pointer designates the default new handler.</p>
+
+  <p>The order and contiguity of storage allocated by successive calls to <code>operator new(size_t)</code>
+  is unspecified, as are the initial values stored there.</p>
+
+  <p>The second function:</p>
+  <pre>
+void *<b>operator new</b>(std::size_t count,
+    const std::nothrow_t&amp;) throw();
+</pre>
+
+  <p>is called by a <a href="#placement%20new%20expression">placement <code>new</code> expression</a> to
+  allocate <code>count</code> bytes of storage suitably aligned to represent any object of that size. The
+  program can define a function with this function signature that <a href=
+  "#replaceable%20functions">replaces</a> the default version defined by the Standard C++ library.</p>
+
+  <p>The default behavior is to return <code>operator new(count)</code> if that function succeeds. Otherwise,
+  it returns a null pointer.</p>
+
+  <p>The third function:</p>
+  <pre>
+void *<b>operator new</b>(std::size_t count, void *ptr) throw();
+</pre>
+
+  <p>is called by a <b><a name="placement new expression">placement <code>new</code> expression</a></b>, of
+  the form <code>new (args) T</code>. Here, <code>args</code> consists of a single object pointer. The
+  function returns <code>ptr</code>.</p>
+
+  <h2><a name="operator new[]"><code>operator new[]</code></a></h2>
+  <pre>
+void *<b>operator new[]</b>(std::size_t count)  // REPLACEABLE
+    throw(std::bad_alloc);
+void *<b>operator new[]</b>(std::size_t count,  // REPLACEABLE
+    const std::nothrow_t&amp;) throw();
+void *<b>operator new[]</b>(std::size_t count, void *ptr) throw();
+</pre>
+
+  <p>The first function is called by a <b><a name="new[] expression"><code>new[]</code> expression</a></b> to
+  allocate <code>count</code> bytes of storage suitably aligned to represent any array object of that size or
+  smaller. The program can define a function with this function signature that <a href=
+  "#replaceable%20functions">replaces</a> the default version defined by the Standard C++ library.</p>
+
+  <p>The required behavior is the same as for <code><a href="#operator%20new">operator
+  new</a>(size_t)</code>. The default behavior is to return <code><a href="#operator%20new">operator
+  new</a>(count)</code>.</p>
+
+  <p>The second function is called by a <a href="#placement%20new[]%20expression">placement
+  <code>new[]</code> expression</a> to allocate <code>count</code> bytes of storage suitably aligned to
+  represent any array object of that size. The program can define a function with this function signature
+  that <a href="#replaceable%20functions">replaces</a> the default version defined by the Standard C++
+  library.</p>
+
+  <p>The default behavior is to return <code>operator new(count)</code> if that function succeeds. Otherwise,
+  it returns a null pointer.</p>
+
+  <p>The third function is called by a <b><a name="placement new[] expression">placement <code>new[]</code>
+  expression</a></b>, of the form <code>new (args) T[N]</code>. Here, <code>args</code> consists of a single
+  object pointer. The function returns <code>ptr</code>.</p>
+
+  <h2><a name="set_new_handler"><code>set_new_handler</code></a></h2>
+  <pre>
+new_handler <b>set_new_handler</b>(new_handler pnew) throw();
+</pre>
+
+  <p>The function stores <code>pnew</code> in a static <a href="#new%20handler">new handler</a> pointer that
+  it maintains, then returns the value previously stored in the pointer. The new handler is used by
+  <code><a href="#operator%20new">operator new</a>(size_t)</code>.</p>
+  <hr>
+
+  <p>See also the <b><a href="index.html#Table%20of%20Contents">Table of Contents</a></b> and the <b><a href=
+  "_index.html">Index</a></b>.</p>
+
+  <p><i><a href="crit_pjp.html">Copyright</a> &copy; 1992-2010 by P.J. Plauger. All rights reserved.</i></p>
+  <!--V5.30:126I-->
+</body>
+</html>

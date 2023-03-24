@@ -1,0 +1,82 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html>
+<head>
+  <meta name="generator" content=
+  "HTML Tidy for Mac OS X (vers 31 October 2006 - Apple Inc. build 15.15), see www.w3.org">
+
+  <title>&lt;setjmp.h&gt;</title>
+</head>
+
+<body>
+  <h1><a name="&lt;setjmp.h&gt;"><code>&lt;setjmp.h&gt;</code></a></h1>
+  <hr>
+
+  <p>Include the standard header <b><code>&lt;setjmp.h&gt;</code></b> to perform control transfers that
+  bypass the normal function call and return protocol.</p>
+  <pre>
+#define <a href="#setjmp"><b>setjmp</b></a>(jmp_buf env) <i>&lt;int rvalue&gt;</i>
+
+typedef <i>a-type</i> <a href="#jmp_buf"><b>jmp_buf</b></a>;
+void <a href="#longjmp"><b>longjmp</b></a>(jmp_buf env, int val);
+</pre>
+
+  <h2><a name="jmp_buf"><code>jmp_buf</code></a></h2>
+  <pre>
+typedef <i>a-type</i> <b>jmp_buf</b>;
+</pre>
+
+  <p>The type is the array type <code><i>a-type</i></code> of an object that you declare to hold the context
+  information stored by <a href="#setjmp"><code>setjmp</code></a> and accessed by <a href=
+  "#longjmp"><code>longjmp</code></a>.</p>
+
+  <h2><a name="longjmp"><code>longjmp</code></a></h2>
+  <pre>
+void <b>longjmp</b>(jmp_buf env, int val);
+</pre>
+
+  <p>The function causes a second return from the execution of <a href="#setjmp"><code>setjmp</code></a> that
+  stored the current context value in <code>env</code>. If <code>val</code> is nonzero, the return value is
+  <code>val</code>; otherwise, it is 1.</p>
+
+  <p>The function that was active when <a href="#setjmp"><code>setjmp</code></a> stored the current context
+  value must not have returned control to its caller. An object with dynamic duration that does not have a
+  <i>volatile</i> type and whose stored value has changed since the current context value was stored will
+  have a stored value that is indeterminate.</p>
+
+  <h2><a name="setjmp"><code>setjmp</code></a></h2>
+  <pre>
+#define <b>setjmp</b>(jmp_buf env) <i>&lt;int rvalue&gt;</i>
+</pre>
+
+  <p>The macro stores the current context value in the array designated by <code>env</code> and returns zero.
+  A later call to <a href="#longjmp"><code>longjmp</code></a> that accesses the same context value causes
+  <code>setjmp</code> to again return, this time with a nonzero value. You can use the macro
+  <code>setjmp</code> only in an expression that:</p>
+
+  <ul>
+    <li>has no operators</li>
+
+    <li>has only the unary operator <code>!</code></li>
+
+    <li>has one of the relational or equality operators (<code>==</code>, <code>!=</code>, <code>&lt;</code>,
+    <code>&lt;=</code>, <code>&gt;</code>, or <code>&gt;=</code>) with the other operand an integer constant
+    expression</li>
+  </ul>
+
+  <p>You can write such an expression only as the <i>expression</i> part of a <a href=
+  "function.html#Do%20Statement"><i>do</i></a>, <a href=
+  "function.html#Expression%20Statement"><i>expression</i></a>, <a href=
+  "function.html#For%20Statement"><i>for</i></a>, <a href="function.html#If%20Statement"><i>if</i></a>,
+  <a href="function.html#If-Else%20Statement"><i>if-else</i></a>, <a href=
+  "function.html#Switch%20Statement"><i>switch,</i></a>, or <a href=
+  "function.html#While%20Statement"><i>while</i></a> statement.</p>
+  <hr>
+
+  <p>See also the <b><a href="index.html#Table%20of%20Contents">Table of Contents</a></b> and the <b><a href=
+  "_index.html">Index</a></b>.</p>
+
+  <p><i><a href="crit_pjp.html">Copyright</a> &copy; 1992-2010 by P.J. Plauger and Jim Brodie. All rights
+  reserved.</i></p><!--V5.30:126I-->
+</body>
+</html>

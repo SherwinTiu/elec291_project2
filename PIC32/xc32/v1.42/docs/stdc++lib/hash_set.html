@@ -1,0 +1,1693 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html>
+<head>
+  <meta name="generator" content=
+  "HTML Tidy for Mac OS X (vers 31 October 2006 - Apple Inc. build 15.15), see www.w3.org">
+
+  <title>&lt;hash_set&gt;</title>
+</head>
+
+<body>
+  <h1><a name="&lt;hash_set&gt;"><code>&lt;hash_set&gt;</code></a></h1>
+  <hr>
+
+  <p>Include the <a href="index.html#STL">STL</a> standard header <b><code>&lt;hash_set&gt;</code></b> to
+  define the <a href="lib_cont.html#Containers">container</a> template classes <code>hash_set</code> and
+  <code>hash_multiset</code>, and their supporting templates.</p>
+  <pre>
+namespace std {
+template&lt;class Key, class Tr, class Alloc&gt;
+    class <b><a href="#hash_set">hash_set</a></b>;
+template&lt;class Key, class Tr, class Alloc&gt;
+    class <b><a href="#hash_multiset">hash_multiset</a></b>;
+
+        // TEMPLATE FUNCTIONS
+template&lt;class Key, class Tr, class Alloc&gt;
+    bool <b><a href="#operator==">operator==</a></b>(
+        const hash_set&lt;Key, Tr, Alloc&gt;&amp; left,
+        const hash_set&lt;Key, Tr, Alloc&gt;&amp; right);
+template&lt;class Key, class Tr, class Alloc&gt;
+    bool <b><a href="#operator==">operator==</a></b>(
+        const hash_multiset&lt;Key, Tr, Alloc&gt;&amp; left,
+        const hash_multiset&lt;Key, Tr, Alloc&gt;&amp; right);
+template&lt;class Key, class Tr, class Alloc&gt;
+    bool <b><a href="#operator!=">operator!=</a></b>(
+        const hash_set&lt;Key, Tr, Alloc&gt;&amp; left,
+        const hash_set&lt;Key, Tr, Alloc&gt;&amp; right);
+template&lt;class Key, class Tr, class Alloc&gt;
+    bool <b><a href="#operator!=">operator!=</a></b>(
+        const hash_multiset&lt;Key, Tr, Alloc&gt;&amp; left,
+        const hash_multiset&lt;Key, Tr, Alloc&gt;&amp; right);
+template&lt;class Key, class Tr, class Alloc&gt;
+    bool <b><a href="#operator%3C">operator&lt;</a></b>(
+        const hash_set&lt;Key, Tr, Alloc&gt;&amp; left,
+        const hash_set&lt;Key, Tr, Alloc&gt;&amp; right);
+template&lt;class Key, class Tr, class Alloc&gt;
+    bool <b><a href="#operator%3C">operator&lt;</a></b>(
+        const hash_multiset&lt;Key, Tr, Alloc&gt;&amp; left,
+        const hash_multiset&lt;Key, Tr, Alloc&gt;&amp; right);
+template&lt;class Key, class Tr, class Alloc&gt;
+    bool <b><a href="#operator%3E">operator&gt;</a></b>(
+        const hash_set&lt;Key, Tr, Alloc&gt;&amp; left,
+        const hash_set&lt;Key, Tr, Alloc&gt;&amp; right);
+template&lt;class Key, class Tr, class Alloc&gt;
+    bool <b><a href="#operator%3E">operator&gt;</a></b>(
+        const hash_multiset&lt;Key, Tr, Alloc&gt;&amp; left,
+        const hash_multiset&lt;Key, Tr, Alloc&gt;&amp; right);
+template&lt;class Key, class Tr, class Alloc&gt;
+    bool <b><a href="#operator%3C=">operator&lt;=</a></b>(
+        const hash_set&lt;Key, Tr, Alloc&gt;&amp; left,
+        const hash_set&lt;Key, Tr, Alloc&gt;&amp; right);
+template&lt;class Key, class Tr, class Alloc&gt;
+    bool <b><a href="#operator%3C=">operator&lt;=</a></b>(
+        const hash_multiset&lt;Key, Tr, Alloc&gt;&amp; left,
+        const hash_multiset&lt;Key, Tr, Alloc&gt;&amp; right);
+template&lt;class Key, class Tr, class Alloc&gt;
+    bool <b><a href="#operator%3E=">operator&gt;=</a></b>(
+        const hash_set&lt;Key, Tr, Alloc&gt;&amp; left,
+        const hash_set&lt;Key, Tr, Alloc&gt;&amp; right);
+template&lt;class Key, class Tr, class Alloc&gt;
+    bool <b><a href="#operator%3E=">operator&gt;=</a></b>(
+        const hash_multiset&lt;Key, Tr, Alloc&gt;&amp; left,
+        const hash_multiset&lt;Key, Tr, Alloc&gt;&amp; right);
+
+template&lt;class Key, class Tr, class Alloc&gt;
+    void <b><a href="#swap">swap</a></b>(
+        hash_set&lt;Key, Tr, Alloc&gt;&amp; left,
+        hash_set&lt;Key, Tr, Alloc&gt;&amp; right);
+template&lt;class Key, class Tr, class Alloc&gt;
+    void <b><a href="#swap">swap</a></b>(
+        hash_multiset&lt;Key, Tr, Alloc&gt;&amp; left,
+        hash_multiset&lt;Key, Tr, Alloc&gt;&amp; right);
+}  // namespace std
+</pre>
+
+  <h2><a name="hash_multiset"><code>hash_multiset</code></a></h2>
+  <hr>
+
+  <p><b><code><a href="#hash_multiset::allocator_type">allocator_type</a> &middot; <a href=
+  "#hash_multiset::begin">begin</a> &middot; <a href="#hash_multiset::bucket">bucket</a> &middot; <a href=
+  "#hash_multiset::bucket_count">bucket_count</a> &middot; <a href=
+  "#hash_multiset::bucket_size">bucket_size</a> &middot; <a href="#hash_multiset::cbegin">cbegin</a> &middot;
+  <a href="#hash_multiset::cend">cend</a> &middot; <a href="#hash_multiset::clear">clear</a> &middot;
+  <a href="#hash_multiset::const_iterator">const_iterator</a> &middot; <a href=
+  "#hash_multiset::const_local_iterator">const_local_iterator</a> &middot; <a href=
+  "#hash_multiset::const_pointer">const_pointer</a> &middot; <a href=
+  "#hash_multiset::const_reference">const_reference</a> &middot; <a href=
+  "#hash_multiset::const_reverse_iterator">const_reverse_iterator</a> &middot; <a href=
+  "#hash_multiset::count">count</a> &middot; <a href="#hash_multiset::crbegin">crbegin</a> &middot; <a href=
+  "#hash_multiset::crend">crend</a> &middot; <a href="#hash_multiset::difference_type">difference_type</a>
+  &middot; <a href="#hash_multiset::emplace">emplace</a> &middot; <a href=
+  "#hash_multiset::emplace_hint">emplace_hint</a> &middot; <a href="#hash_multiset::empty">empty</a> &middot;
+  <a href="#hash_multiset::end">end</a> &middot; <a href="#hash_multiset::equal_range">equal_range</a>
+  &middot; <a href="#hash_multiset::erase">erase</a> &middot; <a href="#hash_multiset::find">find</a>
+  &middot; <a href="#hash_multiset::get_allocator">get_allocator</a> &middot; <a href=
+  "#hash_multiset::hash_multiset">hash_multiset</a> &middot; <a href="#hash_multiset::insert">insert</a>
+  &middot; <a href="#hash_multiset::iterator">iterator</a> &middot; <a href=
+  "#hash_multiset::key_comp">key_comp</a> &middot; <a href="#hash_multiset::key_compare">key_compare</a>
+  &middot; <a href="#hash_multiset::key_type">key_type</a> &middot; <a href=
+  "#hash_multiset::load_factor">load_factor</a> &middot; <a href=
+  "#hash_multiset::local_iterator">local_iterator</a> &middot; <a href=
+  "#hash_multiset::lower_bound">lower_bound</a> &middot; <a href=
+  "#hash_multiset::max_bucket_count">max_bucket_count</a> &middot; <a href=
+  "#hash_multiset::max_load_factor">max_load_factor</a> &middot; <a href=
+  "#hash_multiset::max_size">max_size</a> &middot; <a href="#hash_multiset::operator=">operator=</a> &middot;
+  <a href="#hash_multiset::pointer">pointer</a> &middot; <a href="#hash_multiset::rbegin">rbegin</a> &middot;
+  <a href="#hash_multiset::reference">reference</a> &middot; <a href="#hash_multiset::rehash">rehash</a>
+  &middot; <a href="#hash_multiset::rend">rend</a> &middot; <a href=
+  "#hash_multiset::reverse_iterator">reverse_iterator</a> &middot; <a href="#hash_multiset::size">size</a>
+  &middot; <a href="#hash_multiset::size_type">size_type</a> &middot; <a href="#hash_multiset::swap">swap</a>
+  &middot; <a href="#hash_multiset::upper_bound">upper_bound</a> &middot; <a href=
+  "#hash_multiset::value_comp">value_comp</a> &middot; <a href=
+  "#hash_multiset::value_compare">value_compare</a> &middot; <a href=
+  "#hash_multiset::value_type">value_type</a></code></b></p>
+  <hr>
+  <pre>
+template&lt;class Key,
+    class Tr = hash_compare&lt;Key, less&lt;Key&gt; &gt;,
+    class Alloc = allocator&lt;Key&gt; &gt;
+    class <b>hash_multiset</b> {
+public:
+    typedef Key <b><a href="#hash_multiset::key_type">key_type</a></b>;
+    typedef Tr <b><a href="#hash_multiset::key_compare">key_compare</a></b>;
+    typedef Key <b><a href="#hash_multiset::value_type">value_type</a></b>;
+    typedef Tr <b><a href="#hash_multiset::value_compare">value_compare</a></b>;
+    typedef Alloc <b><a href="#hash_multiset::allocator_type">allocator_type</a></b>;
+
+    typedef typename Alloc::pointer <b><a href="#hash_multiset::pointer">pointer</a></b>;
+    typedef typename Alloc::const_pointer <b><a href="#hash_multiset::const_pointer">const_pointer</a></b>;
+    typedef typename Alloc::reference <b><a href="#hash_multiset::reference">reference</a></b>;
+    typedef typename Alloc::const_reference <b><a href=
+"#hash_multiset::const_reference">const_reference</a></b>;
+    typedef typename Alloc::size_type <b><a href="#hash_multiset::size_type">size_type</a></b>;
+    typedef typename Alloc::difference_type <b><a href=
+"#hash_multiset::difference_type">difference_type</a></b>;
+
+    typedef T0 <b><a href="#hash_multiset::iterator">iterator</a></b>;
+    typedef T1 <b><a href="#hash_multiset::const_iterator">const_iterator</a></b>;
+    typedef T2 <b><a href="#hash_multiset::local_iterator">local_iterator</a></b>;
+    typedef T3 <b><a href="#hash_multiset::const_local_iterator">const_local_iterator</a></b>;
+    typedef reverse_iterator&lt;const_iterator&gt;
+        <b><a href="#hash_multiset::const_reverse_iterator">const_reverse_iterator</a></b>;
+    typedef reverse_iterator&lt;iterator&gt; <b><a href=
+"#hash_multiset::reverse_iterator">reverse_iterator</a></b>;
+
+    <b><a href="#hash_multiset::hash_multiset">hash_multiset</a></b>();
+    explicit <b><a href="#hash_multiset::hash_multiset">hash_multiset</a></b>(const Tr&amp; traits);
+    <b><a href=
+"#hash_multiset::hash_multiset">hash_multiset</a></b>(const Tr&amp; traits, const Alloc&amp; al);
+    <b><a href="#hash_multiset::hash_multiset">hash_multiset</a></b>(const hash_multiset&amp; right);
+    template&lt;class InIt&gt;
+        <b><a href="#hash_multiset::hash_multiset">hash_multiset</a></b>(InIt first, InIt last);
+    template&lt;class InIt&gt;
+        <b><a href="#hash_multiset::hash_multiset">hash_multiset</a></b>(InIt first, InIt last,
+            const Tr&amp; traits);
+    template&lt;class InIt&gt;
+        <b><a href="#hash_multiset::hash_multiset">hash_multiset</a></b>(InIt first, InIt last,
+            const Tr&amp; traits, const Alloc&amp; al);
+
+    <b><a href=
+"#hash_multiset::hash_multiset">hash_multiset</a></b>(initializer_list&lt;Ty&gt; init) <b>[added with C++0X]</b>
+    <b><a href="#hash_multiset::hash_multiset">hash_multiset</a></b>(initializer_list&lt;Ty&gt; init,
+        const Pr&amp; pred); <b>[added with C++0X]</b>
+    <b><a href="#hash_multiset::hash_multiset">hash_multiset</a></b>(initializer_list&lt;Ty&gt; init,
+        const Pr&amp; pred, const Alloc&amp; al); <b>[added with C++0X]</b>
+    <b><a href=
+"#hash_multiset::hash_multiset">hash_multiset</a></b>(hash_multiset&amp;&amp; right); <b>[added with C++0X]</b>
+
+    hash_multiset&amp; <b><a href=
+"#hash_multiset::operator=">operator=</a></b>(const hash_multiset&amp; right);
+    hash_multiset&amp; <b><a href=
+"#hash_multiset::operator=">operator=</a></b>(initializer_list&lt;Ty&gt; init) <b>[added with C++0X]</b>
+    hash_multiset&amp; <b><a href=
+"#hash_multiset::operator=">operator=</a></b>(hash_multiset&amp;&amp; right); <b>[added with C++0X]</b>
+
+    iterator <b><a href="#hash_multiset::begin">begin</a></b>();
+    const_iterator <b><a href="#hash_multiset::begin">begin</a></b>() const;
+    local_iterator <b><a href="#hash_multiset::begin">begin</a></b>(size_type nbucket);
+    const_local_iterator <b><a href="#hash_multiset::begin">begin</a></b>(size_type nbucket) const;
+
+    iterator <b><a href="#hash_multiset::end">end</a></b>();
+    const_iterator <b><a href="#hash_multiset::end">end</a></b>() const;
+    local_iterator <b><a href="#hash_multiset::end">end</a></b>(size_type nbucket);
+    const_local_iterator <b><a href="#hash_multiset::end">end</a></b>(size_type nbucket) const;
+
+    const_iterator <b><a href="#hash_multiset::cbegin">cbegin</a></b>() const; <b>[added with C++0X]</b>
+    const_iterator <b><a href="#hash_multiset::cend">cend</a></b>() const; <b>[added with C++0X]</b>
+    const_reverse_iterator <b><a href=
+"#hash_multiset::crbegin">crbegin</a></b>() const; <b>[added with C++0X]</b>
+    const_reverse_iterator <b><a href=
+"#hash_multiset::crend">crend</a></b>() const; <b>[added with C++0X]</b>
+
+    reverse_iterator <b><a href="#hash_multiset::rbegin">rbegin</a></b>();
+    const_reverse_iterator <b><a href="#hash_multiset::rbegin">rbegin</a></b>() const;
+    reverse_iterator <b><a href="#hash_multiset::rend">rend</a></b>();
+    const_reverse_iterator <b><a href="#hash_multiset::rend">rend</a></b>() const;
+
+    size_type <b><a href="#hash_multiset::size">size</a></b>() const;
+    size_type <b><a href="#hash_multiset::max_size">max_size</a></b>() const;
+    bool <b><a href="#hash_multiset::empty">empty</a></b>() const;
+
+    size_type <b><a href="#hash_multiset::bucket_count">bucket_count</a></b>() const;
+    size_type <b><a href="#hash_multiset::max_bucket_count">max_bucket_count</a></b>() const;
+    size_type <b><a href="#hash_multiset::bucket">bucket</a></b>(const Key&amp; keyval) const;
+    size_type <b><a href="#hash_multiset::bucket_size">bucket_size</a></b>(size_type nbucket) const;
+
+    key_compare <b><a href="#hash_multiset::key_comp">key_comp</a></b>() const;
+    value_compare <b><a href="#hash_multiset::value_comp">value_comp</a></b>() const;
+    Alloc <b><a href="#hash_multiset::get_allocator">get_allocator</a></b>() const;
+
+    float <b><a href="#hash_multiset::load_factor">load_factor</a></b>() const;
+    float <b><a href="#hash_multiset::max_load_factor">max_load_factor</a></b>() const;
+    void <b><a href="#hash_multiset::max_load_factor">max_load_factor</a></b>(float factor);
+    void <b><a href="#hash_multiset::rehash">rehash</a></b>(size_type nbuckets);
+
+    pair&lt;iterator, bool&gt; <b><a href="#hash_multiset::insert">insert</a></b>(const value_type&amp; val);
+    iterator <b><a href=
+"#hash_multiset::insert">insert</a></b>(const_iterator where, const value_type&amp; val);
+    template&lt;class InIt&gt;
+        void <b><a href="#hash_multiset::insert">insert</a></b>(InIt first, InIt last);
+    void <b><a href=
+"#hash_multiset::insert">insert</a></b>(initializer_list&lt;Ty&gt; init) <b>[added with C++0X]</b>
+    template&lt;class Valty&gt;
+        pair&lt;iterator, bool&gt; <b><a href=
+"#hash_multiset::insert">insert</a></b>(Valty&amp;&amp; val); <b>[added with C++0X]</b>
+    template&lt;class Valty&gt;
+        iterator <b><a href=
+"#hash_multiset::insert">insert</a></b>(const_iterator where, Valty&amp;&amp; val); <b>[added with C++0X]</b>
+
+    template&lt;class... Valty&gt;
+        pair&lt;iterator, bool&gt; <b><a href=
+"#hash_multiset::emplace">emplace</a></b>(Valty&amp;&amp;... val); <b>[added with C++0X]</b>
+    template&lt;class... Valty&gt;
+        iterator <b><a href=
+"#hash_multiset::emplace_hint">emplace_hint</a></b>(const_iterator where, Valty&amp;&amp;... val); <b>[added with C++0X]</b>
+
+    iterator <b><a href="#hash_multiset::erase">erase</a></b>(const_iterator where);
+    iterator <b><a href="#hash_multiset::erase">erase</a></b>(const_iterator first, const_iterator last);
+    size_type <b><a href="#hash_multiset::erase">erase</a></b>(const Key&amp; keyval);
+    void <b><a href="#hash_multiset::clear">clear</a></b>();
+
+    void <b><a href="#hash_multiset::swap">swap</a></b>(hash_multiset&amp; right);
+
+    const_iterator <b><a href="#hash_multiset::find">find</a></b>(const Key&amp; keyval) const;
+    size_type <b><a href="#hash_multiset::count">count</a></b>(const Key&amp; keyval) const;
+    iterator <b><a href="#hash_multiset::lower_bound">lower_bound</a></b>(const Key&amp; keyval);
+    const_iterator <b><a href="#hash_multiset::lower_bound">lower_bound</a></b>(const Key&amp; keyval) const;
+    iterator <b><a href="#hash_multiset::upper_bound">upper_bound</a></b>(const Key&amp; keyval);
+    const_iterator <b><a href="#hash_multiset::upper_bound">upper_bound</a></b>(const Key&amp; keyval) const;
+    pair&lt;iterator, iterator&gt;
+        <b><a href="#hash_multiset::equal_range">equal_range</a></b>(const Key&amp; keyval);
+    pair&lt;const_iterator, const_iterator&gt;
+        <b><a href="#hash_multiset::equal_range">equal_range</a></b>(const Key&amp; keyval) const;
+    };
+</pre>
+
+  <p>The template class describes an object that controls a varying-length sequence of elements of type
+  <code>const Key</code>. The sequence is <a href="lib_stl.html#sequence%20ordering">ordered by</a> the
+  <a href="hash_map.html#hash%20traits">hash traits</a> object <code>Tr</code>, which includes two
+  functions:</p>
+
+  <ul>
+    <li>a one-operand <b><a href="hash_map.html#hash%20function">hash function</a></b>, which partitions the
+    sequence into an ordered set of subsequences called <b>buckets</b>.</li>
+
+    <li>a two-operand <b>comparison function</b> for imposing a <a href=
+    "lib_stl.html#strict%20weak%20ordering">strict weak ordering</a> within each bucket.</li>
+  </ul>
+
+  <p>Each element serves as both a <b>sort key</b> and a <b>value</b>. The sequence is represented in a way
+  that permits lookup, insertion, and removal of an arbitrary element with a number of operations that can be
+  independent of the number of elements in the sequence (constant time), at least when all buckets are of
+  roughly equal length. In the worst case, when all of the elements are in one bucket, the number of
+  operations is proportional to the number of elements in the sequence (linear time). Moreover, inserting an
+  element invalidates no iterators, and removing an element invalidates only those iterators which point at
+  the removed element.</p>
+
+  <p>The object orders the sequence it controls by calling a stored <a href=
+  "hash_map.html#hash%20traits">hash traits</a> object of type <code>Tr</code>. You access this stored object
+  by calling the member function <code><a href="#hash_multiset::key_comp">key_comp</a>()</code>. Such a
+  traits object must behave the same as an object of class <code><a href=
+  "hash_map.html#hash_compare">hash_compare</a>&lt;Key, Pr&gt;</code>. Specifically, for all values
+  <code>keyval</code> of type <code>Key</code>, the call <code>Tr(keyval)</code> yields a distribution of
+  values of type <code>size_t</code>. Moreover, class <code>Tr</code> imposes a strict weak ordering on sort
+  keys of type <code>Key</code>. For any element <code>X</code> that precedes <code>Y</code> in the sequence
+  and has the same hash value, <code>key_comp()(Y, X)</code> is false. (For the default function object
+  <code><a href="functio2.html#less">less</a>&lt;Key&gt;</code>, sort keys never decrease in value.) Unlike
+  template class <code><a href="#hash_set">hash_set</a></code>, an object of template class
+  <code>hash_multiset</code> does not ensure that <code>key_comp()(X, Y)</code> is true. (Keys need not be
+  unique.)</p>
+
+  <p>The object also stores a <b>maximum load factor</b>, which specifies the maximum desired average number
+  of elements per bucket. If inserting an element causes <code><a href=
+  "#hash_multiset::load_factor">load_factor</a>()</code> to exceed the maximum load factor, the container
+  increases the number of buckets and rebuilds the hash table as needed.</p>
+
+  <p>The actual order of elements in the controlled sequence depends on the hash function, the comparison
+  function, the order of insertion, the maximum load factor, and the current number of buckets. You cannot in
+  general predict the order of elements in the controlled sequence. You can always be assured, however, that
+  any subset of elements that have <a href="lib_stl.html#equivalent%20ordering">equivalent ordering</a> are
+  adjacent in the controlled sequence.</p>
+
+  <p>The object allocates and frees storage for the sequence it controls through a stored <a href=
+  "memory.html#allocator%20object">allocator object</a> of class <code>Alloc</code>. Such an allocator object
+  must have the same external interface as an object of template class <a href=
+  "memory.html#allocator"><code>allocator</code></a>. Note that the stored allocator object is <i>not</i>
+  copied when the container object is assigned.</p>
+
+  <p>Inserting and erasing elements, and rehashing, preserves the order of elements with equivalent
+  ordering.</p>
+
+  <h3><code><a name="hash_multiset::allocator_type">hash_multiset::allocator_type</a></code></h3>
+  <pre>
+typedef Alloc <b>allocator_type</b>;
+</pre>
+
+  <p>The type is a synonym for the template parameter <code>Alloc</code>.</p>
+
+  <h3><code><a name="hash_multiset::begin">hash_multiset::begin</a></code></h3>
+  <pre>
+iterator <b>begin</b>();
+    const_iterator <b>begin</b>() const;
+    local_iterator <b>begin</b>(size_type nbucket);
+    const_local_iterator <b>begin</b>(size_type nbucket) const;
+</pre>
+
+  <p>The first two member functions return a forward iterator that points at the first element of the
+  sequence (or just beyond the end of an empty sequence). The last two member functions return a forward
+  iterator that points at the first element of bucket <code>nbucket</code> (or just beyond the end of an
+  empty bucket).</p>
+
+  <h3><code><a name="hash_multiset::bucket">hash_multiset::bucket</a></code></h3>
+  <pre>
+size_type <b>bucket</b>(const Key&amp; keyval) const;
+</pre>
+
+  <p>The member function returns the bucket number currently corresponding to the key value
+  <code>keyval</code>.</p>
+
+  <h3><code><a name="hash_multiset::bucket_count">hash_multiset::bucket_count</a></code></h3>
+  <pre>
+size_type <b>bucket_count</b>() const;
+</pre>
+
+  <p>The member function returns the current number of buckets.</p>
+
+  <h3><code><a name="hash_multiset::bucket_size">hash_multiset::bucket_size</a></code></h3>
+  <pre>
+size_type <b>bucket_size</b>(size_type nbucket) const;
+</pre>
+
+  <p>The member functions returns the size of bucket number <code>nbucket</code>.</p>
+
+  <h3><code><a name="hash_multiset::cbegin">hash_multiset::cbegin</a></code></h3>
+  <pre>
+const_iterator <b>cbegin</b>() const; <b>[added with C++0X]</b>
+</pre>
+
+  <p>The member functions return a bidirectional iterator that points at the first element of the sequence
+  (or just beyond the end of an empty sequence).</p>
+
+  <h3><code><a name="hash_multiset::cend">hash_multiset::cend</a></code></h3>
+  <pre>
+const_reference <b>cend</b>() const; <b>[added with C++0X]</b>
+</pre>
+
+  <p>The member functions return a bidirectional iterator that points just beyond the end of the
+  sequence.</p>
+
+  <h3><code><a name="hash_multiset::clear">hash_multiset::clear</a></code></h3>
+  <pre>
+void <b>clear</b>();
+</pre>
+
+  <p>The member function calls <code><a href="#hash_multiset::erase">erase</a>( <a href=
+  "#hash_multiset::begin">begin</a>(), <a href="#hash_multiset::end">end</a>())</code>.</p>
+
+  <h3><code><a name="hash_multiset::const_iterator">hash_multiset::const_iterator</a></code></h3>
+  <pre>
+typedef T1 <b>const_iterator</b>;
+</pre>
+
+  <p>The type describes an object that can serve as a constant bidirectional iterator for the controlled
+  sequence. It is described here as a synonym for the implementation-defined type <code>T1</code>.</p>
+
+  <h3><code><a name="hash_multiset::const_local_iterator">hash_multiset::const_local_iterator</a></code></h3>
+  <pre>
+typedef T3 <b>const_local_iterator</b>;
+</pre>
+
+  <p>The type describes an object that can serve as a constant forward iterator for a bucket. It is described
+  here as a synonym for the implementation-defined type <code>T3</code>.</p>
+
+  <h3><code><a name="hash_multiset::const_pointer">hash_multiset::const_pointer</a></code></h3>
+  <pre>
+typedef typename Alloc::const_pointer <b>const_pointer</b>;
+</pre>
+
+  <p>The type describes an object that can serve as a constant pointer to an element of the controlled
+  sequence.</p>
+
+  <h3><code><a name="hash_multiset::const_reference">hash_multiset::const_reference</a></code></h3>
+  <pre>
+typedef typename Alloc::const_reference <b>const_reference</b>;
+</pre>
+
+  <p>The type describes an object that can serve as a constant reference to an element of the controlled
+  sequence.</p>
+
+  <h3><code><a name=
+  "hash_multiset::const_reverse_iterator">hash_multiset::const_reverse_iterator</a></code></h3>
+  <pre>
+typedef reverse_iterator&lt;const_iterator&gt;
+    <b>const_reverse_iterator</b>;
+</pre>
+
+  <p>The type describes an object that can serve as a constant reverse bidirectional iterator for the
+  controlled sequence.</p>
+
+  <h3><code><a name="hash_multiset::count">hash_multiset::count</a></code></h3>
+  <pre>
+size_type <b>count</b>(const Key&amp; keyval) const;
+</pre>
+
+  <p>The member function returns the number of elements in the range <code>[<a href=
+  "#hash_multiset::lower_bound">lower_bound</a>(keyval), <a href=
+  "#hash_multiset::upper_bound">upper_bound</a>(keyval)).</code></p>
+
+  <h3><code><a name="hash_multiset::crbegin">hash_multiset::crbegin</a></code></h3>
+  <pre>
+const_reverse_iterator <b>crbegin</b>() const; <b>[added with C++0X]</b>
+</pre>
+
+  <p>The member functions return a reverse iterator that points just beyond the end of the controlled
+  sequence. Hence, it designates the beginning of the reverse sequence.</p>
+
+  <h3><code><a name="hash_multiset::crend">hash_multiset::crend</a></code></h3>
+  <pre>
+const_reverse_iterator <b>crend</b>() const; <b>[added with C++0X]</b>
+</pre>
+
+  <p>The member functions return a reverse iterator that points at the first element of the sequence (or just
+  beyond the end of an empty sequence)). Hence, it designates the end of the reverse sequence.</p>
+
+  <h3><code><a name="hash_multiset::difference_type">hash_multiset::difference_type</a></code></h3>
+  <pre>
+typedef typename Alloc::difference_type <b>difference_type</b>;
+</pre>
+
+  <p>The signed integer type describes an object that can represent the difference between the addresses of
+  any two elements in the controlled sequence.</p>
+
+  <h3><code><a name="hash_multiset::emplace">hash_multiset::emplace</a></code></h3>
+  <pre>
+template&lt;class... Valty&gt;
+    pair&lt;iterator, bool&gt; <b>emplace</b>(Valty&amp;&amp;... val); <b>[added with C++0X]</b>
+</pre>
+
+  <p>The member function returns <code><a href="#hash_multiset::insert">insert</a>(forward&lt;pair&lt;key,
+  mapped_type&gt; &gt;( pair&lt;key, mapped_type&gt;(val...))</code>.</p>
+
+  <h3><code><a name="hash_multiset::emplace_hint">hash_multiset::emplace_hint</a></code></h3>
+  <pre>
+template&lt;class... Valty&gt;
+    iterator <b>emplace_hint</b>(const_iterator where, Valty&amp;&amp;... val); <b>[added with C++0X]</b>
+</pre>
+
+  <p>The member function returns <code>insert(where, forward&lt;pair&lt;key, mapped_type&gt; &gt;(
+  pair&lt;key, mapped_type&gt;(val...))</code>.</p>
+
+  <h3><code><a name="hash_multiset::empty">hash_multiset::empty</a></code></h3>
+  <pre>
+bool <b>empty</b>() const;
+</pre>
+
+  <p>The member function returns true for an empty controlled sequence.</p>
+
+  <h3><code><a name="hash_multiset::end">hash_multiset::end</a></code></h3>
+  <pre>
+iterator <b>end</b>();
+    const_iterator <b>end</b>() const;
+    local_iterator <b>end</b>(size_type nbucket);
+    const_local_iterator <b>end</b>(size_type nbucket) const;
+</pre>
+
+  <p>The first two member functions return a forward iterator that points just beyond the end of the
+  sequence. The last two member functions return a forward iterator that points just beyond the end of bucket
+  <code>nbucket</code>.</p>
+
+  <h3><code><a name="hash_multiset::equal_range">hash_multiset::equal_range</a></code></h3>
+  <pre>
+pair&lt;iterator, iterator&gt;
+    <b>equal_range</b>(const Key&amp; keyval);
+pair&lt;const_iterator, const_iterator&gt;
+    <b>equal_range</b>(const Key&amp; keyval) const;
+</pre>
+
+  <p>The member function returns a pair of iterators <code>X</code> such that <code>X.<a href=
+  "utility.html#pair::first">first</a> == <a href=
+  "#hash_multiset::lower_bound">lower_bound</a>(keyval)</code> and <code>X.<a href=
+  "utility.html#pair::second">second</a> == <a href=
+  "#hash_multiset::upper_bound">upper_bound</a>(keyval)</code>.</p>
+
+  <h3><code><a name="hash_multiset::erase">hash_multiset::erase</a></code></h3>
+  <pre>
+iterator <b>erase</b>(const_iterator where);
+iterator <b>erase</b>(const_iterator first, const_iterator last);
+size_type <b>erase</b>(const Key&amp; keyval);
+</pre>
+
+  <p>The first member function removes the element of the controlled sequence pointed to by
+  <code>where</code>. The second member function removes the elements in the range <code>[first,
+  last)</code>. Both return an iterator that designates the first element remaining beyond any elements
+  removed, or <code><a href="#hash_multiset::end">end</a>()</code> if no such element exists.</p>
+
+  <p>The third member removes the elements with sort keys in the range <code>[<a href=
+  "#hash_multiset::lower_bound">lower_bound</a>(keyval), <a href=
+  "#hash_multiset::upper_bound">upper_bound</a>(keyval)).</code> It returns the number of elements it
+  removes.</p>
+
+  <p>The member functions never throw an exception.</p>
+
+  <h3><code><a name="hash_multiset::find">hash_multiset::find</a></code></h3>
+  <pre>
+const_iterator <b>find</b>(const Key&amp; keyval) const;
+</pre>
+
+  <p>The member function returns <code><a href=
+  "#hash_multiset::lower_bound">lower_bound</a>(keyval)</code>.</p>
+
+  <h3><code><a name="hash_multiset::get_allocator">hash_multiset::get_allocator</a></code></h3>
+  <pre>
+Alloc <b>get_allocator</b>() const;
+</pre>
+
+  <p>The member function returns the stored <a href="memory.html#allocator%20object">allocator
+  object</a>.</p>
+
+  <h3><code><a name="hash_multiset::hash_multiset">hash_multiset::hash_multiset</a></code></h3>
+  <pre>
+<b>hash_multiset</b>();
+explicit <b>hash_multiset</b>(const Tr&amp; traits);
+<b>hash_multiset</b>(const Tr&amp; traits, const Alloc&amp; al);
+<b>hash_multiset</b>(const hash_multiset&amp; right);
+template&lt;class InIt&gt;
+    <b>hash_multiset</b>(InIt first, InIt last);
+template&lt;class InIt&gt;
+    <b>hash_multiset</b>(InIt first, InIt last,
+        const Tr&amp; traits);
+template&lt;class InIt&gt;
+    <b>hash_multiset</b>(InIt first, InIt last,
+        const Tr&amp; traits, const Alloc&amp; al);
+
+<b>hash_multiset</b>(initializer_list&lt;Ty&gt; init) <b>[added with C++0X]</b>
+<b>hash_multiset</b>(initializer_list&lt;Ty&gt; init,
+    const Pr&amp; pred); <b>[added with C++0X]</b>
+<b>hash_multiset</b>(initializer_list&lt;Ty&gt; init,
+    const Pr&amp; pred, const Alloc&amp; al); <b>[added with C++0X]</b>
+<b>hash_multiset</b>(hash_multiset&amp;&amp; right); <b>[added with C++0X]</b>
+</pre>
+
+  <p>All constructors store an <a href="memory.html#allocator%20object">allocator object</a> and initialize
+  the controlled sequence. The allocator object is the argument <code>al</code>, if present. For the copy
+  constructor, it is <code>right.<a href="#hash_multiset::get_allocator">get_allocator</a>()</code>.
+  Otherwise, it is <code>Alloc()</code>.</p>
+
+  <p>All constructors also store a <a href="hash_map.html#hash%20traits">hash traits</a> object that can
+  later be returned by calling <code><a href="#hash_multiset::key_comp">key_comp</a>()</code>. The hash
+  traits object is the argument <code>traits</code>, if present. For the copy constructor, it is
+  <code>right.<a href="#hash_multiset::key_comp">key_comp</a>()</code>). Otherwise, it is
+  <code>Tr()</code>.</p>
+
+  <p>The first three constructors specify an empty initial controlled sequence. The fourth constructor
+  specifies a copy of the sequence controlled by <code>right</code>. The next three constructors specify the
+  sequence of element values <code>[first, last)</code>.</p>
+
+  <p>The next three constructors specify the initial controlled sequence with an object of class
+  <code><b><a href="lib_cpp.html#initializer_list">initializer_list</a></b>&lt;Ty&gt;</code>.</p>
+
+  <p>The last constructor is the same as the fourth, but with an <a href=
+  "lib_cpp.html#rvalue%20references">rvalue reference</a>.</p>
+
+  <h3><code><a name="hash_multiset::insert">hash_multiset::insert</a></code></h3>
+  <pre>
+pair&lt;iterator, bool&gt; <b>insert</b>(const value_type&amp; val);
+iterator <b>insert</b>(const_iterator where, const value_type&amp; val);
+template&lt;class InIt&gt;
+    void <b>insert</b>(InIt first, InIt last);
+void <b>insert</b>(initializer_list&lt;Ty&gt; init) <b>[added with C++0X]</b>
+template&lt;class Valty&gt;
+    pair&lt;iterator, bool&gt; <b>insert</b>(Valty&amp;&amp; val); <b>[added with C++0X]</b>
+template&lt;class Valty&gt;
+    iterator <b>insert</b>(const_iterator where, Valty&amp;&amp; val); <b>[added with C++0X]</b>
+</pre>
+
+  <p>The first member function determines whether an element <code>X</code> exists in the sequence whose key
+  has <a href="lib_stl.html#equivalent%20ordering">equivalent ordering</a> to that of <code>val</code>. If
+  not, it creates such an element <code>X</code> and initializes it with <code>val</code>. The function then
+  determines the iterator <code>where</code> that designates <code>X</code>. If an insertion occurred, the
+  function returns <code><a href="utility.html#pair">pair</a>(where, true)</code>. Otherwise, it returns
+  <code>pair(where, false)</code>.</p>
+
+  <p>The second member function returns <code>insert(val).first</code>, using <code>where</code> as a
+  starting place within the controlled sequence to search for the insertion point. (Insertion can possibly
+  occur somewhat faster, if the insertion point immediately precedes or follows <code>where</code>.) The
+  third member function inserts the sequence of element values, for each <code>where</code> in the range
+  <code>[first, last)</code>, by calling <code>insert(*where)</code>.</p>
+
+  <p>The fourth member function inserts the sequence specified by an object of class <code><b><a href=
+  "lib_cpp.html#initializer_list">initializer_list</a></b>&lt;Ty&gt;</code>.</p>
+
+  <p>The last two member functions behave the same as the first two but with an <a href=
+  "lib_cpp.html#rvalue%20references">rvalue reference</a>.</p>
+
+  <p>If an exception is thrown during the insertion of a single element, the container is left unaltered and
+  the exception is rethrown. If an exception is thrown during the insertion of multiple elements, the
+  container is left in a stable but unspecified state and the exception is rethrown.</p>
+
+  <h3><code><a name="hash_multiset::iterator">hash_multiset::iterator</a></code></h3>
+  <pre>
+typedef T0 <b>iterator</b>;
+</pre>
+
+  <p>The type describes an object that can serve as a bidirectional iterator for the controlled sequence. It
+  is described here as a synonym for the implementation-defined type <code>T0</code>.</p>
+
+  <h3><code><a name="hash_multiset::key_comp">hash_multiset::key_comp</a></code></h3>
+  <pre>
+key_compare <b>key_comp</b>() const;
+</pre>
+
+  <p>The member function returns the stored <a href="hash_map.html#hash%20traits">hash traits</a> object that
+  determines the order of elements in the controlled sequence. In particular, the stored object defines the
+  member function:</p>
+  <pre>
+bool operator()(const Key&amp; left, const Key&amp; right);
+</pre>
+
+  <p>which returns true if <code>left</code> strictly precedes <code>right</code> in the sort order.</p>
+
+  <h3><code><a name="hash_multiset::key_compare">hash_multiset::key_compare</a></code></h3>
+  <pre>
+typedef Tr <b>key_compare</b>;
+</pre>
+
+  <p>The type describes a traits object that behaves much like an object of class <code><a href=
+  "hash_map.html#hash_compare">hash_compare</a>&lt;Key, Pr&gt;</code>. In particular, it can compare two sort
+  keys to determine the relative order of two elements in the controlled sequence.</p>
+
+  <h3><code><a name="hash_multiset::key_type">hash_multiset::key_type</a></code></h3>
+  <pre>
+typedef Key <b>key_type</b>;
+</pre>
+
+  <p>The type describes the sort key object which constitutes each element of the controlled sequence.</p>
+
+  <h3><code><a name="hash_multiset::load_factor">hash_multiset::load_factor</a></code></h3>
+  <pre>
+float <b>load_factor</b>() const;
+</pre>
+
+  <p>The member function returns <code>(float)<a href="#hash_multiset::size">size</a>() / (float)<a href=
+  "#hash_multiset::bucket_count">bucket_count</a>()</code>, the average number of elements per bucket.</p>
+
+  <h3><code><a name="hash_multiset::local_iterator">hash_multiset::local_iterator</a></code></h3>
+  <pre>
+typedef T2 <b>local_iterator</b>;
+</pre>
+
+  <p>The type describes an object that can serve as a forward iterator for a bucket. It is described here as
+  a synonym for the implementation-defined type <code>T2</code>.</p>
+
+  <h3><code><a name="hash_multiset::lower_bound">hash_multiset::lower_bound</a></code></h3>
+  <pre>
+iterator <b>lower_bound</b>(const Key&amp; keyval);
+const_iterator <b>lower_bound</b>(const Key&amp; keyval) const;
+</pre>
+
+  <p>The member function returns an iterator that designates the earliest element <code>X</code> in the
+  controlled sequence for which <code>X</code> has <a href="lib_stl.html#equivalent%20ordering">equivalent
+  ordering</a> to <code>keyval</code>, as well as the same hash value. (This is generally uninteresting,
+  except that the interval <code>[lower_bound(keyval), upper_bound(keyval))</code> does delimit all elements
+  with equivalent ordering to <code>keyval</code>.) If no such element exists, the function returns
+  <code><a href="#hash_multiset::end">end</a>()</code>.</p>
+
+  <h3><code><a name="hash_multiset::max_bucket_count">hash_multiset::max_bucket_count</a></code></h3>
+  <pre>
+size_type <b>max_bucket_count</b>() const;
+</pre>
+
+  <p>The member function returns the maximum number of buckets currently permitted.</p>
+
+  <h3><code><a name="hash_multiset::max_load_factor">hash_multiset::max_load_factor</a></code></h3>
+  <pre>
+float <b>max_load_factor</b>() const;
+void <b>max_load_factor</b>(float factor);
+</pre>
+
+  <p>The first member function returns the stored maximum load factor. The second member function replaces
+  the stored maximum load factor with <code>factor</code>.</p>
+
+  <h3><code><a name="hash_multiset::max_size">hash_multiset::max_size</a></code></h3>
+  <pre>
+size_type <b>max_size</b>() const;
+</pre>
+
+  <p>The member function returns the length of the longest sequence that the object can control.</p>
+
+  <h3><code><a name="hash_multiset::operator=">hash_multiset::operator=</a></code></h3>
+  <pre>
+hash_multiset&amp; <b>operator=</b>(const hash_multiset&amp; right);
+hash_multiset&amp; <b>operator=</b>(initializer_list&lt;Ty&gt; init) <b>[added with C++0X]</b>
+hash_multiset&amp; <b>operator=</b>(hash_multiset&amp;&amp; right); <b>[added with C++0X]</b>
+</pre>
+
+  <p>The first member operator replaces the controlled sequence with a copy of the sequence controlled by
+  <code>right</code>.</p>
+
+  <p>The second member operator replaces the controlled sequence from an object of class <code><b><a href=
+  "lib_cpp.html#initializer_list">initializer_list</a></b>&lt;Ty&gt;</code>.</p>
+
+  <p>The third member operator is the same as the first, but with an <a href=
+  "lib_cpp.html#rvalue%20references">rvalue reference</a>.</p>
+
+  <h3><code><a name="hash_multiset::pointer">hash_multiset::pointer</a></code></h3>
+  <pre>
+typedef typename Alloc::pointer <b>pointer</b>;
+</pre>
+
+  <p>The type describes an object that can serve as a pointer to an element of the controlled sequence.</p>
+
+  <h3><code><a name="hash_multiset::rbegin">hash_multiset::rbegin</a></code></h3>
+  <pre>
+reverse_iterator <b>rbegin</b>();
+const_reverse_iterator <b>rbegin</b>() const;
+</pre>
+
+  <p>The member functions return a reverse bidirectional iterator that points just beyond the end of the
+  controlled sequence. Hence, it designates the beginning of the reverse sequence.</p>
+
+  <h3><code><a name="hash_multiset::reference">hash_multiset::reference</a></code></h3>
+  <pre>
+typedef typename Alloc::reference <b>reference</b>;
+</pre>
+
+  <p>The type describes an object that can serve as a reference to an element of the controlled sequence.</p>
+
+  <h3><code><a name="hash_multiset::rehash">hash_multiset::rehash</a></code></h3>
+  <pre>
+void <b>rehash</b>(size_type nbuckets);
+</pre>
+
+  <p>The member function alters the number of buckets to be at least <code>nbuckets</code> and rebuilds the
+  hash table as needed.</p>
+
+  <h3><code><a name="hash_multiset::rend">hash_multiset::rend</a></code></h3>
+  <pre>
+reverse_iterator <b>rend</b>();
+const_reverse_iterator <b>rend</b>() const;
+</pre>
+
+  <p>The member functions return a reverse bidirectional iterator that points at the first element of the
+  sequence (or just beyond the end of an empty sequence). Hence, it designates the end of the reverse
+  sequence.</p>
+
+  <h3><code><a name="hash_multiset::reverse_iterator">hash_multiset::reverse_iterator</a></code></h3>
+  <pre>
+typedef reverse_iterator&lt;iterator&gt; <b>reverse_iterator</b>;
+</pre>
+
+  <p>The type describes an object that can serve as a reverse bidirectional iterator for the controlled
+  sequence.</p>
+
+  <h3><code><a name="hash_multiset::size">hash_multiset::size</a></code></h3>
+  <pre>
+size_type <b>size</b>() const;
+</pre>
+
+  <p>The member function returns the length of the controlled sequence.</p>
+
+  <h3><code><a name="hash_multiset::size_type">hash_multiset::size_type</a></code></h3>
+  <pre>
+typedef typename Alloc::size_type <b>size_type</b>;
+</pre>
+
+  <p>The unsigned integer type describes an object that can represent the length of any controlled
+  sequence.</p>
+
+  <h3><code><a name="hash_multiset::swap">hash_multiset::swap</a></code></h3>
+  <pre>
+void <b>swap</b>(hash_multiset&amp; right);
+</pre>
+
+  <p>The member function swaps the controlled sequences between <code>*this</code> and <code>right</code>. If
+  <code><a href="#hash_multiset::get_allocator">get_allocator</a>() == right.get_allocator()</code>, it does
+  so in constant time, it throws an exception only as a result of copying the stored traits object of type
+  <code>Tr</code>, and it invalidates no references, pointers, or iterators that designate elements in the
+  two controlled sequences. Otherwise, it performs a number of element assignments and constructor calls
+  proportional to the number of elements in the two controlled sequences.</p>
+
+  <h3><code><a name="hash_multiset::upper_bound">hash_multiset::upper_bound</a></code></h3>
+  <pre>
+iterator <b>upper_bound</b>(const Key&amp; keyval);
+const_iterator <b>upper_bound</b>(const Key&amp; keyval) const;
+</pre>
+
+  <p>The member function returns an iterator just beyond the iterator that designates the latest element
+  <code>X</code> in the controlled sequence for which <code>X</code> has <a href=
+  "lib_stl.html#equivalent%20ordering">equivalent ordering</a> to <code>keyval</code>. If no such element
+  exists, the function returns <code><a href="#hash_multiset::end">end</a>()</code>.</p>
+
+  <h3><code><a name="hash_multiset::value_comp">hash_multiset::value_comp</a></code></h3>
+  <pre>
+value_compare <b>value_comp</b>() const;
+</pre>
+
+  <p>The member function returns a function object that determines the order of elements in the controlled
+  sequence.</p>
+
+  <h3><code><a name="hash_multiset::value_compare">hash_multiset::value_compare</a></code></h3>
+  <pre>
+typedef Tr <b>value_compare</b>;
+</pre>
+
+  <p>The type describes a function object that can compare two elements as sort keys to determine their
+  relative order in the controlled sequence.</p>
+
+  <h3><code><a name="hash_multiset::value_type">hash_multiset::value_type</a></code></h3>
+  <pre>
+typedef Key <b>value_type</b>;
+</pre>
+
+  <p>The type describes an element of the controlled sequence.</p>
+
+  <h2><a name="hash_set"><code>hash_set</code></a></h2>
+  <hr>
+
+  <p><b><code><a href="#hash_set::allocator_type">allocator_type</a> &middot; <a href=
+  "#hash_set::begin">begin</a> &middot; <a href="#hash_set::bucket">bucket</a> &middot; <a href=
+  "#hash_set::bucket_count">bucket_count</a> &middot; <a href="#hash_set::bucket_size">bucket_size</a>
+  &middot; <a href="#hash_set::cbegin">cbegin</a> &middot; <a href="#hash_set::cend">cend</a> &middot;
+  <a href="#hash_set::clear">clear</a> &middot; <a href="#hash_set::const_iterator">const_iterator</a>
+  &middot; <a href="#hash_set::const_local_iterator">const_local_iterator</a> &middot; <a href=
+  "#hash_set::const_pointer">const_pointer</a> &middot; <a href=
+  "#hash_set::const_reference">const_reference</a> &middot; <a href=
+  "#hash_set::const_reverse_iterator">const_reverse_iterator</a> &middot; <a href=
+  "#hash_set::count">count</a> &middot; <a href="#hash_set::crbegin">crbegin</a> &middot; <a href=
+  "#hash_set::crend">crend</a> &middot; <a href="#hash_set::difference_type">difference_type</a> &middot;
+  <a href="#hash_set::emplace">emplace</a> &middot; <a href="#hash_set::emplace_hint">emplace_hint</a>
+  &middot; <a href="#hash_set::empty">empty</a> &middot; <a href="#hash_set::end">end</a> &middot; <a href=
+  "#hash_set::equal_range">equal_range</a> &middot; <a href="#hash_set::erase">erase</a> &middot; <a href=
+  "#hash_set::find">find</a> &middot; <a href="#hash_set::get_allocator">get_allocator</a> &middot; <a href=
+  "#hash_set::hash_set">hash_set</a> &middot; <a href="#hash_set::insert">insert</a> &middot; <a href=
+  "#hash_set::iterator">iterator</a> &middot; <a href="#hash_set::key_comp">key_comp</a> &middot; <a href=
+  "#hash_set::key_compare">key_compare</a> &middot; <a href="#hash_set::key_type">key_type</a> &middot;
+  <a href="#hash_set::load_factor">load_factor</a> &middot; <a href=
+  "#hash_set::local_iterator">local_iterator</a> &middot; <a href="#hash_set::lower_bound">lower_bound</a>
+  &middot; <a href="#hash_set::max_bucket_count">max_bucket_count</a> &middot; <a href=
+  "#hash_set::max_load_factor">max_load_factor</a> &middot; <a href="#hash_set::max_size">max_size</a>
+  &middot; <a href="#hash_set::operator=">operator=</a> &middot; <a href="#hash_set::pointer">pointer</a>
+  &middot; <a href="#hash_set::rbegin">rbegin</a> &middot; <a href="#hash_set::reference">reference</a>
+  &middot; <a href="#hash_set::rehash">rehash</a> &middot; <a href="#hash_set::rend">rend</a> &middot;
+  <a href="#hash_set::reverse_iterator">reverse_iterator</a> &middot; <a href="#hash_set::size">size</a>
+  &middot; <a href="#hash_set::size_type">size_type</a> &middot; <a href="#hash_set::swap">swap</a> &middot;
+  <a href="#hash_set::upper_bound">upper_bound</a> &middot; <a href="#hash_set::value_comp">value_comp</a>
+  &middot; <a href="#hash_set::value_compare">value_compare</a> &middot; <a href=
+  "#hash_set::value_type">value_type</a></code></b></p>
+  <hr>
+  <pre>
+template&lt;class Key,
+    class Tr = hash_compare&lt;Key, less&lt;Key&gt; &gt;,
+    class Alloc = allocator&lt;Key&gt; &gt;
+    class <b>hash_set</b> {
+public:
+    typedef Key <b><a href="#hash_set::key_type">key_type</a></b>;
+    typedef Tr <b><a href="#hash_set::key_compare">key_compare</a></b>;
+    typedef Key <b><a href="#hash_set::value_type">value_type</a></b>;
+    typedef Tr <b><a href="#hash_set::value_compare">value_compare</a></b>;
+    typedef Alloc <b><a href="#hash_set::allocator_type">allocator_type</a></b>;
+
+    typedef typename Alloc::pointer <b><a href="#hash_set::pointer">pointer</a></b>;
+    typedef typename Alloc::const_pointer <b><a href="#hash_set::const_pointer">const_pointer</a></b>;
+    typedef typename Alloc::reference <b><a href="#hash_set::reference">reference</a></b>;
+    typedef typename Alloc::const_reference <b><a href="#hash_set::const_reference">const_reference</a></b>;
+    typedef typename Alloc::size_type <b><a href="#hash_set::size_type">size_type</a></b>;
+    typedef typename Alloc::difference_type <b><a href="#hash_set::difference_type">difference_type</a></b>;
+
+    typedef T0 <b><a href="#hash_set::iterator">iterator</a></b>;
+    typedef T1 <b><a href="#hash_set::const_iterator">const_iterator</a></b>;
+    typedef T2 <b><a href="#hash_set::local_iterator">local_iterator</a></b>;
+    typedef T3 <b><a href="#hash_set::const_local_iterator">const_local_iterator</a></b>;
+    typedef reverse_iterator&lt;const_iterator&gt;
+        <b><a href="#hash_set::const_reverse_iterator">const_reverse_iterator</a></b>;
+    typedef reverse_iterator&lt;iterator&gt; <b><a href=
+"#hash_set::reverse_iterator">reverse_iterator</a></b>;
+
+    <b><a href="#hash_set::hash_set">hash_set</a></b>();
+    explicit <b><a href="#hash_set::hash_set">hash_set</a></b>(const Tr&amp; traits);
+    <b><a href="#hash_set::hash_set">hash_set</a></b>(const Tr&amp; traits, const Alloc&amp; al);
+    <b><a href="#hash_set::hash_set">hash_set</a></b>(const hash_set&amp; right);
+    template&lt;class InIt&gt;
+        <b><a href="#hash_set::hash_set">hash_set</a></b>(InIt first, InIt last);
+    template&lt;class InIt&gt;
+        <b><a href="#hash_set::hash_set">hash_set</a></b>(InIt first, InIt last,
+            const Tr&amp; traits);
+    template&lt;class InIt&gt;
+        <b><a href="#hash_set::hash_set">hash_set</a></b>(InIt first, InIt last,
+            const Tr&amp; traits, const Alloc&amp; al);
+
+    <b><a href=
+"#hash_set::hash_set">hash_set</a></b>(initializer_list&lt;Ty&gt; init) <b>[added with C++0X]</b>
+    <b><a href="#hash_set::hash_set">hash_set</a></b>(initializer_list&lt;Ty&gt; init,
+        const Pr&amp; pred); <b>[added with C++0X]</b>
+    <b><a href="#hash_set::hash_set">hash_set</a></b>(initializer_list&lt;Ty&gt; init,
+        const Pr&amp; pred, const Alloc&amp; al); <b>[added with C++0X]</b>
+    <b><a href="#hash_set::hash_set">hash_set</a></b>(hash_set&amp;&amp; right); <b>[added with C++0X]</b>
+
+    hash_set&amp; <b><a href="#hash_set::operator=">operator=</a></b>(const hash_set&amp; right);
+    hash_set&amp; <b><a href=
+"#hash_set::operator=">operator=</a></b>(initializer_list&lt;Ty&gt; init) <b>[added with C++0X]</b>
+    hash_set&amp; <b><a href=
+"#hash_set::operator=">operator=</a></b>(hash_set&amp;&amp; right); <b>[added with C++0X]</b>
+
+    iterator <b><a href="#hash_set::begin">begin</a></b>();
+    const_iterator <b><a href="#hash_set::begin">begin</a></b>() const;
+    local_iterator <b><a href="#hash_set::begin">begin</a></b>(size_type nbucket);
+    const_local_iterator <b><a href="#hash_set::begin">begin</a></b>(size_type nbucket) const;
+
+    const_iterator <b><a href="#hash_set::cbegin">cbegin</a></b>() const; <b>[added with C++0X]</b>
+    const_iterator <b><a href="#hash_set::cend">cend</a></b>() const; <b>[added with C++0X]</b>
+    const_reverse_iterator <b><a href="#hash_set::crbegin">crbegin</a></b>() const; <b>[added with C++0X]</b>
+    const_reverse_iterator <b><a href="#hash_set::crend">crend</a></b>() const; <b>[added with C++0X]</b>
+
+    iterator <b><a href="#hash_set::end">end</a></b>();
+    const_iterator <b><a href="#hash_set::end">end</a></b>() const;
+    local_iterator <b><a href="#hash_set::end">end</a></b>(size_type nbucket);
+    const_local_iterator <b><a href="#hash_set::end">end</a></b>(size_type nbucket) const;
+
+    reverse_iterator <b><a href="#hash_set::rbegin">rbegin</a></b>();
+    const_reverse_iterator <b><a href="#hash_set::rbegin">rbegin</a></b>() const;
+    reverse_iterator <b><a href="#hash_set::rend">rend</a></b>();
+    const_reverse_iterator <b><a href="#hash_set::rend">rend</a></b>() const;
+
+    size_type <b><a href="#hash_set::size">size</a></b>() const;
+    size_type <b><a href="#hash_set::max_size">max_size</a></b>() const;
+    bool <b><a href="#hash_set::empty">empty</a></b>() const;
+
+    size_type <b><a href="#hash_set::bucket_count">bucket_count</a></b>() const;
+    size_type <b><a href="#hash_set::max_bucket_count">max_bucket_count</a></b>() const;
+    size_type <b><a href="#hash_set::bucket">bucket</a></b>(const Key&amp; keyval) const;
+    size_type <b><a href="#hash_set::bucket_size">bucket_size</a></b>(size_type nbucket) const;
+
+    key_compare <b><a href="#hash_set::key_comp">key_comp</a></b>() const;
+    value_compare <b><a href="#hash_set::value_comp">value_comp</a></b>() const;
+    Alloc <b><a href="#hash_set::get_allocator">get_allocator</a></b>() const;
+
+    float <b><a href="#hash_set::load_factor">load_factor</a></b>() const;
+    float <b><a href="#hash_set::max_load_factor">max_load_factor</a></b>() const;
+    void <b><a href="#hash_set::max_load_factor">max_load_factor</a></b>(float factor);
+    void <b><a href="#hash_set::rehash">rehash</a></b>(size_type nbuckets);
+
+    iterator <b><a href="#hash_set::insert">insert</a></b>(const value_type&amp; val);
+    iterator <b><a href="#hash_set::insert">insert</a></b>(const_iterator where, const value_type&amp; val);
+    template&lt;class InIt&gt;
+        void <b><a href="#hash_set::insert">insert</a></b>(InIt first, InIt last);
+    void <b><a href=
+"#hash_set::insert">insert</a></b>(initializer_list&lt;Ty&gt; init) <b>[added with C++0X]</b>
+    template&lt;class Valty&gt;
+        pair&lt;iterator, bool&gt; <b><a href=
+"#hash_set::insert">insert</a></b>(Valty&amp;&amp; val); <b>[added with C++0X]</b>
+    template&lt;class Valty&gt;
+        iterator <b><a href=
+"#hash_set::insert">insert</a></b>(const_iterator where, Valty&amp;&amp; val); <b>[added with C++0X]</b>
+
+    template&lt;class... Valty&gt;
+        pair&lt;iterator, bool&gt; <b><a href=
+"#hash_set::emplace">emplace</a></b>(Valty&amp;&amp;... val); <b>[added with C++0X]</b>
+    template&lt;class... Valty&gt;
+        iterator <b><a href=
+"#hash_set::emplace_hint">emplace_hint</a></b>(const_iterator where, Valty&amp;&amp;... val); <b>[added with C++0X]</b>
+
+    iterator <b><a href="#hash_set::erase">erase</a></b>(const_iterator where);
+    iterator <b><a href="#hash_set::erase">erase</a></b>(const_iterator first, const_iterator last);
+    size_type <b><a href="#hash_set::erase">erase</a></b>(const Key&amp; keyval);
+    void <b><a href="#hash_set::clear">clear</a></b>();
+
+    void <b><a href="#hash_set::swap">swap</a></b>(hash_set&amp; right);
+
+    const_iterator <b><a href="#hash_set::find">find</a></b>(const Key&amp; keyval) const;
+    size_type <b><a href="#hash_set::count">count</a></b>(const Key&amp; keyval) const;
+    iterator <b><a href="#hash_set::lower_bound">lower_bound</a></b>(const Key&amp; keyval);
+    const_iterator <b><a href="#hash_set::lower_bound">lower_bound</a></b>(const Key&amp; keyval) const;
+    iterator <b><a href="#hash_set::upper_bound">upper_bound</a></b>(const Key&amp; keyval);
+    const_iterator <b><a href="#hash_set::upper_bound">upper_bound</a></b>(const Key&amp; keyval) const;
+    pair&lt;iterator, iterator&gt;
+        <b><a href="#hash_set::equal_range">equal_range</a></b>(const Key&amp; keyval);
+    pair&lt;const_iterator, const_iterator&gt;
+        <b><a href="#hash_set::equal_range">equal_range</a></b>(const Key&amp; keyval) const;
+    };
+</pre>
+
+  <p>The template class describes an object that controls a varying-length sequence of elements of type
+  <code>const Key</code>. The sequence is <a href="lib_stl.html#sequence%20ordering">ordered by</a> the
+  <a href="hash_map.html#hash%20traits">hash traits</a> object <code>Tr</code>, which includes two
+  functions:</p>
+
+  <ul>
+    <li>a one-operand <b><a href="hash_map.html#hash%20function">hash function</a></b>, which partitions the
+    sequence into an ordered set of subsequences called <b>buckets</b>.</li>
+
+    <li>a two-operand <b>comparison function</b> for imposing a <a href=
+    "lib_stl.html#strict%20weak%20ordering">strict weak ordering</a> within each bucket.</li>
+  </ul>
+
+  <p>Each element serves as both a <b>sort key</b> and a <b>value</b>. The sequence is represented in a way
+  that permits lookup, insertion, and removal of an arbitrary element with a number of operations that can be
+  independent of the number of elements in the sequence (constant time), at least when all buckets are of
+  roughly equal length. In the worst case, when all of the elements are in one bucket, the number of
+  operations is proportional to the number of elements in the sequence (linear time). Moreover, inserting an
+  element invalidates no iterators, and removing an element invalidates only those iterators which point at
+  the removed element.</p>
+
+  <p>The object orders the sequence it controls by calling a stored <a href=
+  "hash_map.html#hash%20traits">hash traits</a> object of type <code>Tr</code>. You access this stored object
+  by calling the member function <code><a href="#hash_set::key_comp">key_comp</a>()</code>. Such a traits
+  object must behave the same as an object of class <code><a href=
+  "hash_map.html#hash_compare">hash_compare</a>&lt;Key, Pr&gt;</code>. Specifically, for all values
+  <code>keyval</code> of type <code>Key</code>, the call <code>Tr(keyval)</code> yields a distribution of
+  values of type <code>size_t</code>. Moreover, class <code>Tr</code> imposes a strict weak ordering on sort
+  keys of type <code>Key</code>. For any element <code>X</code> that precedes <code>Y</code> in the sequence
+  and has the same hash value, <code>key_comp()(Y, X)</code> is false. (For the default function object
+  <code><a href="functio2.html#less">less</a>&lt;Key&gt;</code>, sort keys never decrease in value.) Unlike
+  template class <code><a href="#hash_multiset">hash_multiset</a></code>, an object of template class
+  <code>hash_set</code> ensures that <code>key_comp()(X, Y)</code> is true. (Each key is unique.)</p>
+
+  <p>The object also stores a <b>maximum load factor</b>, which specifies the maximum desired average number
+  of elements per bucket. If inserting an element causes <code><a href=
+  "#hash_set::load_factor">load_factor</a>()</code> to exceed the maximum load factor, the container
+  increases the number of buckets and rebuilds the hash table as needed.</p>
+
+  <p>The actual order of elements in the controlled sequence depends on the hash function, the comparison
+  function, the order of insertion, the maximum load factor, and the current number of buckets. You cannot in
+  general predict the order of elements in the controlled sequence. You can always be assured, however, that
+  any subset of elements that have <a href="lib_stl.html#equivalent%20ordering">equivalent ordering</a> are
+  adjacent in the controlled sequence.</p>
+
+  <p>The object allocates and frees storage for the sequence it controls through a stored <a href=
+  "memory.html#allocator%20object">allocator object</a> of class <code>Alloc</code>. Such an allocator object
+  must have the same external interface as an object of template class <a href=
+  "memory.html#allocator"><code>allocator</code></a>. Note that the stored allocator object is <i>not</i>
+  copied when the container object is assigned.</p>
+
+  <h3><code><a name="hash_set::allocator_type">hash_set::allocator_type</a></code></h3>
+  <pre>
+typedef Alloc <b>allocator_type</b>;
+</pre>
+
+  <p>The type is a synonym for the template parameter <code>Alloc</code>.</p>
+
+  <h3><code><a name="hash_set::begin">hash_set::begin</a></code></h3>
+  <pre>
+iterator <b>begin</b>();
+    const_iterator <b>begin</b>() const;
+    local_iterator <b>begin</b>(size_type nbucket);
+    const_local_iterator <b>begin</b>(size_type nbucket) const;
+</pre>
+
+  <p>The first two member functions return a forward iterator that points at the first element of the
+  sequence (or just beyond the end of an empty sequence). The last two member functions return a forward
+  iterator that points at the first element of bucket <code>nbucket</code> (or just beyond the end of an
+  empty bucket).</p>
+
+  <h3><code><a name="hash_set::bucket">hash_set::bucket</a></code></h3>
+  <pre>
+size_type <b>bucket</b>(const Key&amp; keyval) const;
+</pre>
+
+  <p>The member function returns the bucket number currently corresponding to the key value
+  <code>keyval</code>.</p>
+
+  <h3><code><a name="hash_set::bucket_count">hash_set::bucket_count</a></code></h3>
+  <pre>
+size_type <b>bucket_count</b>() const;
+</pre>
+
+  <p>The member function returns the current number of buckets.</p>
+
+  <h3><code><a name="hash_set::bucket_size">hash_set::bucket_size</a></code></h3>
+  <pre>
+size_type <b>bucket_size</b>(size_type nbucket) const;
+</pre>
+
+  <p>The member functions returns the size of bucket number <code>nbucket</code>.</p>
+
+  <h3><code><a name="hash_set::cbegin">hash_set::cbegin</a></code></h3>
+  <pre>
+const_iterator <b>cbegin</b>() const; <b>[added with C++0X]</b>
+</pre>
+
+  <p>The member functions return a bidirectional iterator that points at the first element of the sequence
+  (or just beyond the end of an empty sequence).</p>
+
+  <h3><code><a name="hash_set::cend">hash_set::cend</a></code></h3>
+  <pre>
+const_reference <b>cend</b>() const; <b>[added with C++0X]</b>
+</pre>
+
+  <p>The member functions return a bidirectional iterator that points just beyond the end of the
+  sequence.</p>
+
+  <h3><code><a name="hash_set::clear">hash_set::clear</a></code></h3>
+  <pre>
+void <b>clear</b>();
+</pre>
+
+  <p>The member function calls <code><a href="#hash_set::erase">erase</a>( <a href=
+  "#hash_set::begin">begin</a>(), <a href="#hash_set::end">end</a>())</code>.</p>
+
+  <h3><code><a name="hash_set::const_iterator">hash_set::const_iterator</a></code></h3>
+  <pre>
+typedef T1 <b>const_iterator</b>;
+</pre>
+
+  <p>The type describes an object that can serve as a constant bidirectional iterator for the controlled
+  sequence. It is described here as a synonym for the implementation-defined type <code>T1</code>.</p>
+
+  <h3><code><a name="hash_set::const_local_iterator">hash_set::const_local_iterator</a></code></h3>
+  <pre>
+typedef T3 <b>const_local_iterator</b>;
+</pre>
+
+  <p>The type describes an object that can serve as a constant forward iterator for a bucket. It is described
+  here as a synonym for the implementation-defined type <code>T3</code>.</p>
+
+  <h3><code><a name="hash_set::const_pointer">hash_set::const_pointer</a></code></h3>
+  <pre>
+typedef typename Alloc::const_pointer <b>const_pointer</b>;
+</pre>
+
+  <p>The type describes an object that can serve as a constant pointer to an element of the controlled
+  sequence.</p>
+
+  <h3><code><a name="hash_set::const_reference">hash_set::const_reference</a></code></h3>
+  <pre>
+typedef typename Alloc::const_reference <b>const_reference</b>;
+</pre>
+
+  <p>The type describes an object that can serve as a constant reference to an element of the controlled
+  sequence.</p>
+
+  <h3><code><a name="hash_set::const_reverse_iterator">hash_set::const_reverse_iterator</a></code></h3>
+  <pre>
+typedef reverse_iterator&lt;const_iterator&gt;
+    <b>const_reverse_iterator</b>;
+</pre>
+
+  <p>The type describes an object that can serve as a constant reverse bidirectional iterator for the
+  controlled sequence.</p>
+
+  <h3><code><a name="hash_set::count">hash_set::count</a></code></h3>
+  <pre>
+size_type <b>count</b>(const Key&amp; keyval) const;
+</pre>
+
+  <p>The member function returns the number of elements in the range <code>[<a href=
+  "#hash_set::lower_bound">lower_bound</a>(keyval), <a href=
+  "#hash_set::upper_bound">upper_bound</a>(keyval)).</code></p>
+
+  <h3><code><a name="hash_set::crbegin">hash_set::crbegin</a></code></h3>
+  <pre>
+const_reverse_iterator <b>crbegin</b>() const; <b>[added with C++0X]</b>
+</pre>
+
+  <p>The member functions return a reverse iterator that points just beyond the end of the controlled
+  sequence. Hence, it designates the beginning of the reverse sequence.</p>
+
+  <h3><code><a name="hash_set::crend">hash_set::crend</a></code></h3>
+  <pre>
+const_reverse_iterator <b>crend</b>() const; <b>[added with C++0X]</b>
+</pre>
+
+  <p>The member functions return a reverse iterator that points at the first element of the sequence (or just
+  beyond the end of an empty sequence)). Hence, it designates the end of the reverse sequence.</p>
+
+  <h3><code><a name="hash_set::difference_type">hash_set::difference_type</a></code></h3>
+  <pre>
+typedef typename Alloc::difference_type <b>difference_type</b>;
+</pre>
+
+  <p>The signed integer type describes an object that can represent the difference between the addresses of
+  any two elements in the controlled sequence.</p>
+
+  <h3><code><a name="hash_set::emplace">hash_set::emplace</a></code></h3>
+  <pre>
+template&lt;class... Valty&gt;
+    pair&lt;iterator, bool&gt; <b>emplace</b>(Valty&amp;&amp;... val); <b>[added with C++0X]</b>
+</pre>
+
+  <p>The member function returns <code><a href="#hash_set::insert">insert</a>(forward&lt;pair&lt;key,
+  mapped_type&gt; &gt;( pair&lt;key, mapped_type&gt;(val...))</code>.</p>
+
+  <h3><code><a name="hash_set::emplace_hint">hash_set::emplace_hint</a></code></h3>
+  <pre>
+template&lt;class... Valty&gt;
+    iterator <b>emplace_hint</b>(const_iterator where, Valty&amp;&amp;... val); <b>[added with C++0X]</b>
+</pre>
+
+  <p>The member function returns <code>insert(where, forward&lt;pair&lt;key, mapped_type&gt; &gt;(
+  pair&lt;key, mapped_type&gt;(val...))</code>.</p>
+
+  <h3><code><a name="hash_set::empty">hash_set::empty</a></code></h3>
+  <pre>
+bool <b>empty</b>() const;
+</pre>
+
+  <p>The member function returns true for an empty controlled sequence.</p>
+
+  <h3><code><a name="hash_set::end">hash_set::end</a></code></h3>
+  <pre>
+iterator <b>end</b>();
+    const_iterator <b>end</b>() const;
+    local_iterator <b>end</b>(size_type nbucket);
+    const_local_iterator <b>end</b>(size_type nbucket) const;
+</pre>
+
+  <p>The first two member functions return a forward iterator that points just beyond the end of the
+  sequence. The last two member functions return a forward iterator that points just beyond the end of bucket
+  <code>nbucket</code>.</p>
+
+  <h3><code><a name="hash_set::equal_range">hash_set::equal_range</a></code></h3>
+  <pre>
+pair&lt;iterator, iterator&gt;
+    <b>equal_range</b>(const Key&amp; keyval);
+pair&lt;const_iterator, const_iterator&gt;
+    <b>equal_range</b>(const Key&amp; keyval) const;
+</pre>
+
+  <p>The member function returns a pair of iterators <code>X</code> such that <code>X.<a href=
+  "utility.html#pair::first">first</a> == <a href="#hash_set::lower_bound">lower_bound</a>(keyval)</code> and
+  <code>X.<a href="utility.html#pair::second">second</a> == <a href=
+  "#hash_set::upper_bound">upper_bound</a>(keyval)</code>.</p>
+
+  <h3><code><a name="hash_set::erase">hash_set::erase</a></code></h3>
+  <pre>
+iterator <b>erase</b>(const_iterator where);
+iterator <b>erase</b>(const_iterator first, const_iterator last);
+size_type <b>erase</b>(const Key&amp; keyval);
+</pre>
+
+  <p>The first member function removes the element of the controlled sequence pointed to by
+  <code>where</code>. The second member function removes the elements in the range <code>[first,
+  last)</code>. Both return an iterator that designates the first element remaining beyond any elements
+  removed, or <code><a href="#hash_set::end">end</a>()</code> if no such element exists.</p>
+
+  <p>The third member removes the elements with sort keys in the range <code>[<a href=
+  "#hash_set::lower_bound">lower_bound</a>(keyval), <a href=
+  "#hash_set::upper_bound">upper_bound</a>(keyval)).</code> It returns the number of elements it removes.</p>
+
+  <p>The member functions never throw an exception.</p>
+
+  <h3><code><a name="hash_set::find">hash_set::find</a></code></h3>
+  <pre>
+const_iterator <b>find</b>(const Key&amp; keyval) const;
+</pre>
+
+  <p>The member function returns <code><a href="#hash_set::lower_bound">lower_bound</a>(keyval)</code>.</p>
+
+  <h3><code><a name="hash_set::get_allocator">hash_set::get_allocator</a></code></h3>
+  <pre>
+Alloc <b>get_allocator</b>() const;
+</pre>
+
+  <p>The member function returns the stored <a href="memory.html#allocator%20object">allocator
+  object</a>.</p>
+
+  <h3><code><a name="hash_set::hash_set">hash_set::hash_set</a></code></h3>
+  <pre>
+<b>hash_set</b>();
+explicit <b>hash_set</b>(const Tr&amp; traits);
+<b>hash_set</b>(const Tr&amp; traits, const Alloc&amp; al);
+<b>hash_set</b>(const hash_set&amp; right);
+template&lt;class InIt&gt;
+    <b>hash_set</b>(InIt first, InIt last);
+template&lt;class InIt&gt;
+    <b>hash_set</b>(InIt first, InIt last,
+        const Tr&amp; traits);
+template&lt;class InIt&gt;
+    <b>hash_set</b>(InIt first, InIt last,
+        const Tr&amp; traits, const Alloc&amp; al);
+
+<b>hash_set</b>(initializer_list&lt;Ty&gt; init) <b>[added with C++0X]</b>
+<b>hash_set</b>(initializer_list&lt;Ty&gt; init,
+    const Pr&amp; pred); <b>[added with C++0X]</b>
+<b>hash_set</b>(initializer_list&lt;Ty&gt; init,
+    const Pr&amp; pred, const Alloc&amp; al); <b>[added with C++0X]</b>
+<b>hash_set</b>(hash_set&amp;&amp; right); <b>[added with C++0X]</b>
+</pre>
+
+  <p>All constructors store an <a href="memory.html#allocator%20object">allocator object</a> and initialize
+  the controlled sequence. The allocator object is the argument <code>al</code>, if present. For the copy
+  constructor, it is <code>right.<a href="#hash_set::get_allocator">get_allocator</a>()</code>. Otherwise, it
+  is <code>Alloc()</code>.</p>
+
+  <p>All constructors also store a <a href="hash_map.html#hash%20traits">hash traits</a> object that can
+  later be returned by calling <code><a href="#hash_set::key_comp">key_comp</a>()</code>. The hash traits
+  object is the argument <code>traits</code>, if present. For the copy constructor, it is
+  <code>right.<a href="#hash_set::key_comp">key_comp</a>()</code>). Otherwise, it is <code>Tr()</code>.</p>
+
+  <p>The first three constructors specify an empty initial controlled sequence. The fourth constructor
+  specifies a copy of the sequence controlled by <code>right</code>. The next three constructors specify the
+  sequence of element values <code>[first, last)</code>.</p>
+
+  <p>The next three constructors specify the initial controlled sequence with an object of class
+  <code><b><a href="lib_cpp.html#initializer_list">initializer_list</a></b>&lt;Ty&gt;</code>.</p>
+
+  <p>The last constructor is the same as the fourth, but with an <a href=
+  "lib_cpp.html#rvalue%20references">rvalue reference</a>.</p>
+
+  <h3><code><a name="hash_set::insert">hash_set::insert</a></code></h3>
+  <pre>
+iterator <b>insert</b>(const value_type&amp; val);
+iterator <b>insert</b>(const_iterator where, const value_type&amp; val);
+template&lt;class InIt&gt;
+    void <b>insert</b>(InIt first, InIt last);
+void <b>insert</b>(initializer_list&lt;Ty&gt; init) <b>[added with C++0X]</b>
+template&lt;class Valty&gt;
+    pair&lt;iterator, bool&gt; <b>insert</b>(Valty&amp;&amp; val); <b>[added with C++0X]</b>
+template&lt;class Valty&gt;
+    iterator <b>insert</b>(const_iterator where, Valty&amp;&amp; val); <b>[added with C++0X]</b>
+</pre>
+
+  <p>The first member function inserts the element <code>val</code> in the controlled sequence, then returns
+  the iterator that designates the inserted element. The second member function returns
+  <code>insert(val)</code>, using <code>where</code> as a starting place within the controlled sequence to
+  search for the insertion point. (Insertion can possibly occur somewhat faster, if the insertion point
+  immediately precedes or follows <code>where</code>.) The third member function inserts the sequence of
+  element values, for each <code>where</code> in the range <code>[first, last)</code>, by calling
+  <code>insert(*where)</code>.</p>
+
+  <p>The fourth member function inserts the sequence specified by an object of class <code><b><a href=
+  "lib_cpp.html#initializer_list">initializer_list</a></b>&lt;Ty&gt;</code>.</p>
+
+  <p>The last two member functions behave the same as the first two but with an <a href=
+  "lib_cpp.html#rvalue%20references">rvalue reference</a>.</p>
+
+  <p>If an exception is thrown during the insertion of a single element, the container is left unaltered and
+  the exception is rethrown. If an exception is thrown during the insertion of multiple elements, the
+  container is left in a stable but unspecified state and the exception is rethrown.</p>
+
+  <h3><code><a name="hash_set::iterator">hash_set::iterator</a></code></h3>
+  <pre>
+typedef T0 <b>iterator</b>;
+</pre>
+
+  <p>The type describes an object that can serve as a bidirectional iterator for the controlled sequence. It
+  is described here as a synonym for the implementation-defined type <code>T0</code>.</p>
+
+  <h3><code><a name="hash_set::key_comp">hash_set::key_comp</a></code></h3>
+  <pre>
+key_compare <b>key_comp</b>() const;
+</pre>
+
+  <p>The member function returns the stored <a href="hash_map.html#hash%20traits">hash traits</a> object that
+  determines the order of elements in the controlled sequence. In particular, the stored object defines the
+  member function:</p>
+  <pre>
+bool operator()(const Key&amp; left, const Key&amp; right);
+</pre>
+
+  <p>which returns true if <code>left</code> strictly precedes <code>right</code> in the sort order.</p>
+
+  <h3><code><a name="hash_set::key_compare">hash_set::key_compare</a></code></h3>
+  <pre>
+typedef Tr <b>key_compare</b>;
+</pre>
+
+  <p>The type describes a traits object that behaves much like an object of class <code><a href=
+  "hash_map.html#hash_compare">hash_compare</a>&lt;Key, Pr&gt;</code>. In particular, it can compare two sort
+  keys to determine the relative order of two elements in the controlled sequence.</p>
+
+  <h3><code><a name="hash_set::key_type">hash_set::key_type</a></code></h3>
+  <pre>
+typedef Key <b>key_type</b>;
+</pre>
+
+  <p>The type describes the sort key object which constitutes each element of the controlled sequence.</p>
+
+  <h3><code><a name="hash_set::load_factor">hash_set::load_factor</a></code></h3>
+  <pre>
+float <b>load_factor</b>() const;
+</pre>
+
+  <p>The member function returns <code>(float)<a href="#hash_set::size">size</a>() / (float)<a href=
+  "#hash_set::bucket_count">bucket_count</a>()</code>, the average number of elements per bucket.</p>
+
+  <h3><code><a name="hash_set::local_iterator">hash_set::local_iterator</a></code></h3>
+  <pre>
+typedef T2 <b>local_iterator</b>;
+</pre>
+
+  <p>The type describes an object that can serve as a forward iterator for a bucket. It is described here as
+  a synonym for the implementation-defined type <code>T2</code>.</p>
+
+  <h3><code><a name="hash_set::lower_bound">hash_set::lower_bound</a></code></h3>
+  <pre>
+iterator <b>lower_bound</b>(const Key&amp; keyval);
+const_iterator <b>lower_bound</b>(const Key&amp; keyval) const;
+</pre>
+
+  <p>The member function returns an iterator that designates the earliest element <code>X</code> in the
+  controlled sequence for which <code>X</code> has <a href="lib_stl.html#equivalent%20ordering">equivalent
+  ordering</a> to <code>keyval</code>, as well as the same hash value. (This is generally uninteresting,
+  except that the interval <code>[lower_bound(keyval), upper_bound(keyval))</code> does delimit all elements
+  with equivalent ordering to <code>keyval</code>.) If no such element exists, the function returns
+  <code><a href="#hash_set::end">end</a>()</code>.</p>
+
+  <h3><code><a name="hash_set::max_bucket_count">hash_set::max_bucket_count</a></code></h3>
+  <pre>
+size_type <b>max_bucket_count</b>() const;
+</pre>
+
+  <p>The member function returns the maximum number of buckets currently permitted.</p>
+
+  <h3><code><a name="hash_set::max_load_factor">hash_set::max_load_factor</a></code></h3>
+  <pre>
+float <b>max_load_factor</b>() const;
+void <b>max_load_factor</b>(float factor);
+</pre>
+
+  <p>The first member function returns the stored maximum load factor. The second member function replaces
+  the stored maximum load factor with <code>factor</code>.</p>
+
+  <h3><code><a name="hash_set::max_size">hash_set::max_size</a></code></h3>
+  <pre>
+size_type <b>max_size</b>() const;
+</pre>
+
+  <p>The member function returns the length of the longest sequence that the object can control.</p>
+
+  <h3><code><a name="hash_set::operator=">hash_set::operator=</a></code></h3>
+  <pre>
+hash_set&amp; <b>operator=</b>(const hash_set&amp; right);
+hash_set&amp; <b>operator=</b>(initializer_list&lt;Ty&gt; init) <b>[added with C++0X]</b>
+hash_set&amp; <b>operator=</b>(hash_set&amp;&amp; right); <b>[added with C++0X]</b>
+</pre>
+
+  <p>The first member operator replaces the controlled sequence with a copy of the sequence controlled by
+  <code>right</code>.</p>
+
+  <p>The second member operator replaces the controlled sequence from an object of class <code><b><a href=
+  "lib_cpp.html#initializer_list">initializer_list</a></b>&lt;Ty&gt;</code>.</p>
+
+  <p>The third member operator is the same as the first, but with an <a href=
+  "lib_cpp.html#rvalue%20references">rvalue reference</a>.</p>
+
+  <h3><code><a name="hash_set::pointer">hash_set::pointer</a></code></h3>
+  <pre>
+typedef typename Alloc::pointer <b>pointer</b>;
+</pre>
+
+  <p>The type describes an object that can serve as a pointer to an element of the controlled sequence.</p>
+
+  <h3><code><a name="hash_set::rbegin">hash_set::rbegin</a></code></h3>
+  <pre>
+reverse_iterator <b>rbegin</b>();
+const_reverse_iterator <b>rbegin</b>() const;
+</pre>
+
+  <p>The member functions return a reverse bidirectional iterator that points just beyond the end of the
+  controlled sequence. Hence, it designates the beginning of the reverse sequence.</p>
+
+  <h3><code><a name="hash_set::reference">hash_set::reference</a></code></h3>
+  <pre>
+typedef typename Alloc::reference <b>reference</b>;
+</pre>
+
+  <p>The type describes an object that can serve as a reference to an element of the controlled sequence.</p>
+
+  <h3><code><a name="hash_set::rehash">hash_set::rehash</a></code></h3>
+  <pre>
+void <b>rehash</b>(size_type nbuckets);
+</pre>
+
+  <p>The member function alters the number of buckets to be at least <code>nbuckets</code> and rebuilds the
+  hash table as needed.</p>
+
+  <h3><code><a name="hash_set::rend">hash_set::rend</a></code></h3>
+  <pre>
+reverse_iterator <b>rend</b>();
+const_reverse_iterator <b>rend</b>() const;
+</pre>
+
+  <p>The member functions return a reverse bidirectional iterator that points at the first element of the
+  sequence (or just beyond the end of an empty sequence). Hence, it designates the end of the reverse
+  sequence.</p>
+
+  <h3><code><a name="hash_set::reverse_iterator">hash_set::reverse_iterator</a></code></h3>
+  <pre>
+typedef reverse_iterator&lt;iterator&gt; <b>reverse_iterator</b>;
+</pre>
+
+  <p>The type describes an object that can serve as a reverse bidirectional iterator for the controlled
+  sequence.</p>
+
+  <h3><code><a name="hash_set::size">hash_set::size</a></code></h3>
+  <pre>
+size_type <b>size</b>() const;
+</pre>
+
+  <p>The member function returns the length of the controlled sequence.</p>
+
+  <h3><code><a name="hash_set::size_type">hash_set::size_type</a></code></h3>
+  <pre>
+typedef typename Alloc::size_type <b>size_type</b>;
+</pre>
+
+  <p>The unsigned integer type describes an object that can represent the length of any controlled
+  sequence.</p>
+
+  <h3><code><a name="hash_set::swap">hash_set::swap</a></code></h3>
+  <pre>
+void <b>swap</b>(hash_set&amp; right);
+</pre>
+
+  <p>The member function swaps the controlled sequences between <code>*this</code> and <code>right</code>. If
+  <code><a href="#hash_set::get_allocator">get_allocator</a>() == right.get_allocator()</code>, it does so in
+  constant time, it throws an exception only as a result of copying the stored traits object of type
+  <code>Tr</code>, and it invalidates no references, pointers, or iterators that designate elements in the
+  two controlled sequences. Otherwise, it performs a number of element assignments and constructor calls
+  proportional to the number of elements in the two controlled sequences.</p>
+
+  <h3><code><a name="hash_set::upper_bound">hash_set::upper_bound</a></code></h3>
+  <pre>
+iterator <b>upper_bound</b>(const Key&amp; keyval);
+const_iterator <b>upper_bound</b>(const Key&amp; keyval) const;
+</pre>
+
+  <p>The member function returns an iterator just beyond the iterator that designates the latest element
+  <code>X</code> in the controlled sequence for which <code>X</code> has <a href=
+  "lib_stl.html#equivalent%20ordering">equivalent ordering</a> to <code>keyval</code>. If no such element
+  exists, the function returns <code><a href="#hash_set::end">end</a>()</code>.</p>
+
+  <h3><code><a name="hash_set::value_comp">hash_set::value_comp</a></code></h3>
+  <pre>
+value_compare <b>value_comp</b>() const;
+</pre>
+
+  <p>The member function returns a function object that determines the order of elements in the controlled
+  sequence.</p>
+
+  <h3><code><a name="hash_set::value_compare">hash_set::value_compare</a></code></h3>
+  <pre>
+typedef Tr <b>value_compare</b>;
+</pre>
+
+  <p>The type describes a function object that can compare two elements as sort keys to determine their
+  relative order in the controlled sequence.</p>
+
+  <h3><code><a name="hash_set::value_type">hash_set::value_type</a></code></h3>
+  <pre>
+typedef Key <b>value_type</b>;
+</pre>
+
+  <p>The type describes an element of the controlled sequence.</p>
+
+  <h2><a name="operator!="><code>operator!=</code></a></h2>
+  <pre>
+template&lt;class Key, class Tr, class Alloc&gt;
+    bool <b>operator!=</b>(
+        const hash_set &lt;Key, Tr, Alloc&gt;&amp; left,
+        const hash_set &lt;Key, Tr, Alloc&gt;&amp; right);
+template&lt;class Key, class Tr, class Alloc&gt;
+    bool <b>operator!=</b>(
+        const hash_multiset &lt;Key, Tr, Alloc&gt;&amp; left,
+        const hash_multiset &lt;Key, Tr, Alloc&gt;&amp; right);
+</pre>
+
+  <p>The template function returns <code>!(left == right)</code>.</p>
+
+  <h2><a name="operator=="><code>operator==</code></a></h2>
+  <pre>
+template&lt;class Key, class Tr, class Alloc&gt;
+    bool <b>operator==</b>(
+        const hash_set &lt;Key, Tr, Alloc&gt;&amp; left,
+        const hash_set &lt;Key, Tr, Alloc&gt;&amp; right);
+template&lt;class Key, class Tr, class Alloc&gt;
+    bool <b>operator==</b>(
+        const hash_multiset &lt;Key, Tr, Alloc&gt;&amp; left,
+        const hash_multiset &lt;Key, Tr, Alloc&gt;&amp; right);
+</pre>
+
+  <p>The first template function overloads <code>operator==</code> to compare two objects of template class
+  <a href="#hash_set"><code>hash_set</code></a>. The second template function overloads
+  <code>operator==</code> to compare two objects of template class <a href=
+  "#hash_multiset"><code>hash_multiset</code></a>. Both functions return <code>left.<a href=
+  "#hash_multiset::size">size</a>() == right.size() &amp;&amp; <a href="algorith.html#equal">equal</a>(left.
+  <a href="#hash_multiset::begin">begin</a>(), left. <a href="#hash_multiset::end">end</a>(),
+  right.begin())</code>.</p>
+
+  <h2><a name="operator&lt;"><code>operator&lt;</code></a></h2>
+  <pre>
+template&lt;class Key, class Tr, class Alloc&gt;
+    bool <b>operator&lt;</b>(
+        const hash_set &lt;Key, Tr, Alloc&gt;&amp; left,
+        const hash_set &lt;Key, Tr, Alloc&gt;&amp; right);
+template&lt;class Key, class Tr, class Alloc&gt;
+    bool <b>operator&lt;</b>(
+        const hash_multiset &lt;Key, Tr, Alloc&gt;&amp; left,
+        const hash_multiset &lt;Key, Tr, Alloc&gt;&amp; right);
+</pre>
+
+  <p>The first template function overloads <code>operator&lt;</code> to compare two objects of template class
+  <a href="#hash_set"><code>hash_set</code></a>. The second template function overloads
+  <code>operator&lt;</code> to compare two objects of template class <a href=
+  "#hash_multiset"><code>hash_multiset</code></a>. Both functions return <code><a href=
+  "algorith.html#lexicographical_compare">lexicographical_compare</a>(left. <a href=
+  "#hash_multiset::begin">begin</a>(), left. <a href="#hash_multiset::end">end</a>(), right.begin(),
+  right.end(), left.<a href="#hash_multiset::value_comp">value_comp</a>())</code>.</p>
+
+  <h2><a name="operator&lt;="><code>operator&lt;=</code></a></h2>
+  <pre>
+template&lt;class Key, class Tr, class Alloc&gt;
+    bool <b>operator&lt;=</b>(
+        const hash_set &lt;Key, Tr, Alloc&gt;&amp; left,
+        const hash_set &lt;Key, Tr, Alloc&gt;&amp; right);
+template&lt;class Key, class Tr, class Alloc&gt;
+    bool <b>operator&lt;=</b>(
+        const hash_multiset &lt;Key, Tr, Alloc&gt;&amp; left,
+        const hash_multiset &lt;Key, Tr, Alloc&gt;&amp; right);
+</pre>
+
+  <p>The template function returns <code>!(right &lt; left)</code>.</p>
+
+  <h2><a name="operator&gt;"><code>operator&gt;</code></a></h2>
+  <pre>
+template&lt;class Key, class Tr, class Alloc&gt;
+    bool <b>operator&gt;</b>(
+        const hash_set &lt;Key, Tr, Alloc&gt;&amp; left,
+        const hash_set &lt;Key, Tr, Alloc&gt;&amp; right);
+template&lt;class Key, class Tr, class Alloc&gt;
+    bool <b>operator&gt;</b>(
+        const hash_multiset &lt;Key, Tr, Alloc&gt;&amp; left,
+        const hash_multiset &lt;Key, Tr, Alloc&gt;&amp; right);
+</pre>
+
+  <p>The template function returns <code>right &lt; left</code>.</p>
+
+  <h2><a name="operator&gt;="><code>operator&gt;=</code></a></h2>
+  <pre>
+template&lt;class Key, class Tr, class Alloc&gt;
+    bool <b>operator&gt;=</b>(
+        const hash_set &lt;Key, Tr, Alloc&gt;&amp; left,
+        const hash_set &lt;Key, Tr, Alloc&gt;&amp; right);
+template&lt;class Key, class Tr, class Alloc&gt;
+    bool <b>operator&gt;=</b>(
+        const hash_multiset &lt;Key, Tr, Alloc&gt;&amp; left,
+        const hash_multiset &lt;Key, Tr, Alloc&gt;&amp; right);
+</pre>
+
+  <p>The template function returns <code>!(left &lt; right)</code>.</p>
+
+  <h2><a name="swap"><code>swap</code></a></h2>
+  <pre>
+template&lt;class Key, class Tr, class Alloc&gt;
+    void <b>swap</b>(
+        hash_multiset &lt;Key, Tr, Alloc&gt;&amp; left,
+        hash_multiset &lt;Key, Tr, Alloc&gt;&amp; right);
+template&lt;class Key, class Tr, class Alloc&gt;
+    void <b>swap</b>(
+        hash_set &lt;Key, Tr, Alloc&gt;&amp; left,
+        hash_set &lt;Key, Tr, Alloc&gt;&amp; right);
+</pre>
+
+  <p>The template function executes <code>left.swap(right)</code>.</p>
+  <hr>
+
+  <p>See also the <b><a href="index.html#Table%20of%20Contents">Table of Contents</a></b> and the <b><a href=
+  "_index.html">Index</a></b>.</p>
+
+  <p><i><a href="crit_pjp.html">Copyright</a> &copy; 1992-2010 by P.J. Plauger. All rights reserved.</i></p>
+  <!--V5.30:126I-->
+</body>
+</html>

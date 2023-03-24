@@ -1,0 +1,506 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html>
+<head>
+  <meta name="generator" content=
+  "HTML Tidy for Mac OS X (vers 31 October 2006 - Apple Inc. build 15.15), see www.w3.org">
+
+  <title>&lt;time.h&gt;</title>
+</head>
+
+<body>
+  <h1><a name="&lt;time.h&gt;"><code>&lt;time.h&gt;</code></a></h1>
+  <hr>
+
+  <p><b><code><a href="#CLOCKS_PER_SEC">CLOCKS_PER_SEC</a> &middot; <a href="#NULL">NULL</a></code></b></p>
+
+  <p><b><code><a href="#asctime">asctime</a> &middot; <a href="#clock">clock</a> &middot; <a href=
+  "#clock_t">clock_t</a> &middot; <a href="#ctime">ctime</a> &middot; <a href="#difftime">difftime</a>
+  &middot; <a href="#gmtime">gmtime</a> &middot; <a href="#localtime">localtime</a> &middot; <a href=
+  "#mktime">mktime</a> &middot; <a href="#size_t">size_t</a> &middot; <a href="#strftime">strftime</a>
+  &middot; <a href="#time">time</a> &middot; <a href="#time_t">time_t</a></code></b></p>
+
+  <p><b><code><a href="#asctime_s">asctime_s</a> &middot; <a href="#ctime_s">ctime_s</a> &middot; <a href=
+  "#errno_t">errno_t</a> &middot; <a href="#gmtime_s">gmtime_s</a> &middot; <a href=
+  "#localtime_s">localtime_s</a> &middot; <a href="#rsize_t">rsize_t</a></code></b></p>
+  <hr>
+
+  <p>Include the standard header <b><code>&lt;time.h&gt;</code></b> to declare several functions that help
+  you manipulate times. The diagram summarizes the functions and the object types that they convert
+  between.</p>
+
+  <p><img src="time.gif"></p>
+
+  <p>The functions share two static-duration objects that hold values computed by the functions:</p>
+
+  <ul>
+    <li>a <b><a name="time string">time string</a></b> of type array of <i>char</i></li>
+
+    <li>a <b><a name="time structure">time structure</a></b> of type <code>struct tm</code></li>
+  </ul>
+
+  <p>A call to one of these functions can alter the value that was stored earlier in a static-duration object
+  by another of these functions.</p>
+  <pre>
+    /* MACROS */
+#define <a href="#CLOCKS_PER_SEC"><b>CLOCKS_PER_SEC</b></a> <i>&lt;integer constant expression &gt; 0&gt;</i>
+#define <a href="#NULL"><b>NULL</b></a> <i>&lt;either 0, 0L, or (void *)0&gt;</i> <b>[0 in C++]</b>
+
+    /* TYPES */
+typedef <i>a-type</i> <a href="#clock_t"><b>clock_t</b></a>;
+typedef <i>ui-type</i> <a href="#size_t"><b>size_t</b></a>;
+typedef <i>a-type</i> <a href="#time_t"><b>time_t</b></a>;
+struct <a href="#tm"><b>tm</b></a>;
+
+    /* FUNCTIONS */
+char *<a href="#asctime"><b>asctime</b></a>(const struct tm *tptr);
+clock_t <a href="#clock"><b>clock</b></a>(void);
+char *<a href="#ctime"><b>ctime</b></a>(const time_t *tod);
+double <a href="#difftime"><b>difftime</b></a>(time_t t1, time_t t0);
+struct tm *<a href="#gmtime"><b>gmtime</b></a>(const time_t *tod);
+struct tm *<a href="#localtime"><b>localtime</b></a>(const time_t *tod);
+time_t <a href="#mktime"><b>mktime</b></a>(struct tm *tptr);
+size_t <a href="#strftime"><b>strftime</b></a>(char *restrict s, size_t n,
+    const char *restrict format, const struct tm *restrict tptr);
+time_t <a href="#time"><b>time</b></a>(time_t *tod);
+
+#if __STDC_WANT_LIB_EXT1__ <b>[added with <a href="index_ext1.html#TR24731">TR24731</a>]</b>
+typedef int <a href="#errno_t"><b>errno_t</b></a>;
+typedef size_t <a href="#rsize_t"><b>rsize_t</b></a>;
+
+errno_t <a href="#asctime_s"><b>asctime_s</b></a>(char *s, rsize_t maxsize,
+    const struct tm *tptr);
+errno_t <a href="#ctime_s"><b>ctime_s</b></a>(char *s, rsize_t maxsize,
+    const time_t *tod);
+struct tm *<a href="#gmtime_s"><b>gmtime_s</b></a>(const time_t *restrict tod,
+    struct tm *restrict tptr);
+struct tm *<a href="#localtime_s"><b>localtime_s</b></a>(const time_t *restrict tod,
+    struct tm *restrict tptr);
+#endif /* __STDC_WANT_LIB_EXT1__ */
+</pre>
+
+  <h2><a name="asctime"><code>asctime</code></a></h2>
+  <pre>
+char *<b>asctime</b>(const struct tm *tptr);
+</pre>
+
+  <p>The function stores in the static-duration time string a 26-character English-language representation of
+  the time encoded in <code>*tptr</code>. It returns the address of the static-duration <a href=
+  "#time%20string">time string</a>. The text representation takes the form:</p>
+  <pre>
+Sun Dec  2 06:55:15 1979\n\0
+</pre>
+
+  <p>The function is not necessarily thread safe.</p>
+
+  <h2><a name="asctime_s"><code>asctime_s</code></a></h2>
+  <pre>
+errno_t <b>asctime_s</b>(char *s, rsize_t maxsize,
+    const struct tm *tptr); <b>[added with TR24731]</b>
+</pre>
+
+  <p>A <a href="index_ext1.html#runtime%20constraint%20violation">runtime constraint violation</a> occurs
+  if:</p>
+
+  <ul>
+    <li><code>s</code> is a null pointer</li>
+
+    <li><code>maxsize</code> is less than 26 or greater than <code><a href=
+    "index_ext1.html#RSIZE_MAX">RSIZE_MAX</a></code></li>
+
+    <li><code>tptr</code> is a null pointer</li>
+
+    <li>any of the required values stored in <code>*tptr</code> lie outside their normal ranges (as if
+    generated by a call to <code><a href="#mktime">mktime</a></code></li>
+
+    <li>the calenday year represented by <code>*tptr</code> is less than zero or greater than 9999</li>
+  </ul>
+
+  <p>If such a violation occurs, other than the first two, the function stores a null character in
+  <code>s[0]</code>. It returns the error code it reported to the constraint handler.</p>
+
+  <p>Otherwise, the function stores in the array of <i>char</i> beginning at <code>s</code> a 26-character
+  English-language representation of the time encoded in <code>*tptr</code>. It returns zero. The text
+  representation takes the form:</p>
+  <pre>
+Sun Dec  2 06:55:15 1979\n\0
+</pre>
+
+  <h2><a name="clock"><code>clock</code></a></h2>
+  <pre>
+clock_t <b>clock</b>(void);
+</pre>
+
+  <p>The function returns the number of clock ticks of elapsed processor time, counting from a time related
+  to <a href="lib_over.html#program%20startup">program startup</a>, or it returns -1 if the target
+  environment cannot measure elapsed processor time.</p>
+
+  <h2><a name="CLOCKS_PER_SEC"><code>CLOCKS_PER_SEC</code></a></h2>
+  <pre>
+#define <b>CLOCKS_PER_SEC</b> <i>&lt;integer constant expression &gt; 0&gt;</i>
+</pre>
+
+  <p>The macro yields the number of clock ticks, returned by <code>clock</code>, in one second.</p>
+
+  <h2><a name="clock_t"><code>clock_t</code></a></h2>
+  <pre>
+typedef <i>a-type</i> <b>clock_t</b>;
+</pre>
+
+  <p>The type is the arithmetic type <code><i>a-type</i></code> of an object that you declare to hold the
+  value returned by <a href="#clock"><code>clock</code></a>, representing elapsed processor time.</p>
+
+  <h2><a name="ctime"><code>ctime</code></a></h2>
+  <pre>
+char *<b>ctime</b>(const time_t *tod);
+</pre>
+
+  <p>The function converts the calendar time in <code>*tod</code> to a text representation of the <b><a name=
+  "local time">local time</a></b>, as measured in the current local <a href="#timezone">timezone</a>, in the
+  static-duration <a href="#time%20string">time string</a>. It returns the address of that string. It is
+  equivalent to:</p>
+  <pre>
+    return (asctime(localtime(tod)));
+</pre>
+
+  <p>The function is not necessarily thread safe.</p>
+
+  <h2><a name="ctime_s"><code>ctime_s</code></a></h2>
+  <pre>
+errno_t <b>ctime_s</b>(char *s, rsize_t maxsize,
+    const time *tod); <b>[added with TR24731]</b>
+</pre>
+
+  <p>A <a href="index_ext1.html#runtime%20constraint%20violation">runtime constraint violation</a> occurs
+  if:</p>
+
+  <ul>
+    <li><code>s</code> is a null pointer</li>
+
+    <li><code>maxsize</code> is less than 26 or greater than <code><a href=
+    "index_ext1.html#RSIZE_MAX">RSIZE_MAX</a></code></li>
+
+    <li><code>tod</code> is a null pointer</li>
+
+    <li>the calenday year represented by <code>*tod</code> is less than zero or greater than 9999</li>
+  </ul>
+
+  <p>If such a violation occurs, other than the first two, the function stores a null character in
+  <code>s[0]</code>. It returns the error code it reported to the constraint handler.</p>
+
+  <p>Otherwise, the function stores in the array of <i>char</i> beginning at <code>s</code> a 26-character
+  English-language representation of the time encoded in <code>*tod</code>. It is equivalent to:</p>
+  <pre>
+    return (asctime_s(localtime_s(tod)));
+</pre>
+
+  <h2><a name="difftime"><code>difftime</code></a></h2>
+  <pre>
+double <b>difftime</b>(time_t t1, time_t t0);
+</pre>
+
+  <p>The function returns the difference <code>t1 - t0</code>, in seconds, between the calendar time
+  <code>t0</code> and the calendar time <code>t1</code>.</p>
+
+  <h2><a name="errno_t"><code>errno_t</code></a></h2>
+  <pre>
+typedef int <b>errno_t</b>; <b>[added with TR24731]</b>
+</pre>
+
+  <p>The type is a synonym for <i>int,</i> used to represent a value that can be stored in <a href=
+  "errno.html#errno"><code>errno</code></a>.</p>
+
+  <h2><a name="gmtime"><code>gmtime</code></a></h2>
+  <pre>
+struct tm *<b>gmtime</b>(const time_t *tod);
+</pre>
+
+  <p>The function stores in the static-duration <a href="#time%20structure">time structure</a> an encoding of
+  the calendar time in <code>*tod</code>, expressed as <b><a name="Coordinated Universal Time">Coordinated
+  Universal Time</a></b>, or UTC [sic]. (UTC was formerly Greenwich Mean Time, or GMT). It returns the
+  address of that structure, or [added with <a href="lib_over.html#C99">C99</a>] a null pointer if it cannot
+  generate the encoding.</p>
+
+  <p>The function is not necessarily thread safe.</p>
+
+  <h2><a name="gmtime_s"><code>gmtime_s</code></a></h2>
+  <pre>
+struct tm *<b>gmtime_s</b>(const time_t *restrict tod,
+    struct tm *restrict tptr); <b>[added with TR24731]</b>
+</pre>
+
+  <p>A <a href="index_ext1.html#runtime%20constraint%20violation">runtime constraint violation</a> occurs
+  if:</p>
+
+  <ul>
+    <li><code>tod</code> is a null pointer</li>
+
+    <li><code>tptr</code> is a null pointer</li>
+  </ul>
+
+  <p>If such a violation occurs, the function returns a null pointer.</p>
+
+  <p>Otherwise, the function stores in <code>*tptr</code> an encoding of the calendar time in
+  <code>*tod</code>, expressed as <a href="#Coordinated%20Universal%20Time">Coordinated Universal Time</a>.
+  It returns <code>tptr</code>, or a null pointer if it cannot generate the encoding.</p>
+
+  <h2><a name="localtime"><code>localtime</code></a></h2>
+  <pre>
+struct tm *<b>localtime</b>(const time_t *tod);
+</pre>
+
+  <p>The function stores in the static-duration <a href="#time%20structure">time structure</a> an encoding of
+  the calendar time in <code>*tod</code>, expressed as <a href="#local%20time">local time</a>. It returns the
+  address of that structure, or [added with <a href="lib_over.html#C99">C99</a>] a null pointer if it cannot
+  generate the encoding.</p>
+
+  <p>The function is not necessarily thread safe.</p>
+
+  <h2><a name="localtime_s"><code>localtime_s</code></a></h2>
+  <pre>
+struct tm *<b>localtime_s</b>(const time_t *restrict tod,
+    struct tm *restrict tptr); <b>[added with TR24731]</b>
+</pre>
+
+  <p>A <a href="index_ext1.html#runtime%20constraint%20violation">runtime constraint violation</a> occurs
+  if:</p>
+
+  <ul>
+    <li><code>tod</code> is a null pointer</li>
+
+    <li><code>tptr</code> is a null pointer</li>
+  </ul>
+
+  <p>If such a violation occurs, the function returns a null pointer.</p>
+
+  <p>Otherwise, the function stores in <code>*tptr</code> an encoding of the calendar time in
+  <code>*tod</code>, expressed as <a href="#local%20time">local time</a>. It returns <code>tptr</code>, or a
+  null pointer if it cannot generate the encoding.</p>
+
+  <h2><a name="mktime"><code>mktime</code></a></h2>
+  <pre>
+time_t <b>mktime</b>(struct tm *tptr);
+</pre>
+
+  <p>The function alters the values stored in <code>*tptr</code> to represent an equivalent encoded <a href=
+  "#local%20time">local time</a>, but with the values of all members within their normal ranges. It then
+  determines the values <code>tptr-&gt;wday</code> and <code>tptr-&gt;yday</code> from the values of the
+  other members. It returns the calendar time equivalent to the encoded time, or it returns a value of -1 if
+  the calendar time cannot be represented.</p>
+
+  <h2><a name="NULL"><code>NULL</code></a></h2>
+  <pre>
+#define <b>NULL</b> <i>&lt;either 0, 0L, or (void *)0&gt;</i> <b>[0 in C++]</b>
+</pre>
+
+  <p>The macro yields a null pointer constant that is usable as an <a href=
+  "express.html#address%20constant%20expression">address constant expression</a>.</p>
+
+  <h2><a name="rsize_t"><code>rsize_t</code></a></h2>
+  <pre>
+typedef size_t <b>rsize_t</b>; <b>[added with TR24731]</b>
+</pre>
+
+  <p>The type is a synonym for <code>size_t</code>, used to represent a function argument to be checked on
+  entry to a function. It is a <a href="index_ext1.html#runtime%20constraint%20violation">runtime constraint
+  violation</a> for an argument of type <code>rsize_t</code> to be greater than <code><a href=
+  "index_ext1.html#RSIZE_MAX">RSIZE_MAX</a></code>.</p>
+
+  <h2><a name="size_t"><code>size_t</code></a></h2>
+  <pre>
+typedef <i>ui-type</i> <b>size_t</b>;
+</pre>
+
+  <p>The type is the unsigned integer type <code><i>ui-type</i></code> of an object that you declare to store
+  the result of the <a href="express.html#sizeof%20operator"><i>sizeof</i></a> operator.</p>
+
+  <h2><a name="strftime"><code>strftime</code></a></h2>
+  <pre>
+size_t <b>strftime</b>(char *restrict s, size_t n,
+    const char *restrict format, const struct tm *restrict tptr);
+</pre>
+
+  <p>The function generates formatted text, under the control of the format <code>format</code> and the
+  values stored in the time structure <code>*tptr</code>. It stores each generated character in successive
+  locations of the array object of size <code>n</code> whose first element has the address <code>s</code>.
+  The function then stores a null character in the next location of the array. It returns <code>x</code>, the
+  number of characters generated, if <code>x &lt; n</code>; otherwise, it returns zero, and the values stored
+  in the array are indeterminate.</p>
+
+  <p>For each multibyte character other than <code>%</code> in the format, the function stores that multibyte
+  character in the array object. Each occurrence of <code>%</code> followed by an optional qualifier and
+  another character in the format is a <b><a name="conversion specifier">conversion specifier</a></b>. The
+  optional qualifiers [added with <a href="lib_over.html#C99">C99</a>] are:</p>
+
+  <ul>
+    <li><code>E</code>, to represent times in terms of a locale-specific <b><a name="era">era</a></b> (such
+    as <code>1 BC</code> instead of <code>0000</code>).</li>
+
+    <li><code>O</code>, to represent numeric values with a set of locale-specific <b><a name=
+    "alternate digits">alternate digits</a></b> (such as <code>first</code> instead of <code>1</code>).</li>
+  </ul>
+
+  <p>For each conversion specifier, the function stores a replacement character sequence.</p>
+
+  <p>The following table lists all conversion specifiers defined for <code>strftime</code>. The fields used
+  in <code>*tptr</code> follow. Example replacement character sequences in parentheses follow each
+  description. All examples are for the <a href="locale.html#C%20locale"><code>"C"</code></a> locale, which
+  ignores any optional qualifier, using the date and time Sunday, 2 December 1979 at 06:55:15 AM EST.</p>
+
+  <p>For a Sunday week of the year, week 1 begins with the first Sunday on or after 1 January. For a Monday
+  week of the year, week 1 begins with the first Monday on or after 1 January. An ISO 8601 week of the year
+  is the same as a Monday week of the year, with the following exceptions:</p>
+
+  <ul>
+    <li>If 1 January is a Tuesday, Wednesday, or Thursday, the week number is one greater. Moreover, days
+    back to and including the immediately preceding Monday in the preceding year are included in week 1 of
+    the current year.</li>
+
+    <li>If 1 January is a Friday, Saturday, or Sunday, days up to but not including the immediately following
+    Monday in the current year are included in the last week (52 or 53) of the preceding year.</li>
+  </ul>
+
+  <p>Conversion specifications marked with a <code>+</code> in the table below are all added with <a href=
+  "lib_over.html#C99">C99</a>:</p>
+  <pre>
+<b>SPECIFIER   FIELDS   DESCRIPTION (EXAMPLE)</b>
+    %a      tm_wday  <b>abbreviated weekday name (Sun)</b>
+    %A      tm_wday  <b>full weekday name (Sunday)</b>
+    %b      tm_mon   <b>abbreviated month name (Dec)</b>
+    %B      tm_mon   <b>full month name (December)</b>
+    %c       [all]   <b>date and time (Sun Dec  2 06:55:15 1979)</b>
+    %Ec      [all]   + <b>era-specific date and time</b>
+    %C      tm_year  + <b>year/100 (19)</b>
+    %EC     tm_mday  + <b>era specific era name</b>
+            tm_mon
+            tm_year
+    %d      tm_mday  <b>day of the month (02)</b>
+    %D      tm_mday  + <b>month/day/year from 01/01/00 (12/02/79)</b>
+            tm_mon
+            tm_year
+    %e      tm_mday  + <b>day of the month, leading space for zero ( 2)</b>
+    %F      tm_mday  + <b>year-month-day (1979-12-02)</b>
+            tm_mon
+            tm_year
+    %g      tm_wday  + <b>year for ISO 8601 week, from 00 (79)</b>
+            tm_yday
+            tm_year
+    %G      tm_wday  + <b>year for ISO 8601 week, from 0000 (1979)</b>
+            tm_yday
+            tm_year
+    %h      tm_mon   + <b>same as %b (Dec)</b>
+    %H      tm_hour  <b>hour of the 24-hour day, from 00 (06)</b>
+    %I      tm_hour  <b>hour of the 12-hour day, from 01 (06)</b>
+    %j      tm_yday  <b>day of the year, from 001 (336)</b>
+    %m      tm_mon   <b>month of the year, from 01 (12)</b>
+    %M      tm_min   <b>minutes after the hour (55)</b>
+    %n               + <b>newline character \n</b>
+    %p      tm_hour  <b>AM/PM indicator (AM)</b>
+    %r      tm_sec   + <b>12-hour time, from 01:00:00 AM (06:55:15 AM)</b>
+            tm_min
+            tm_hour
+    %Er     tm_sec   + <b>era-specific date and 12-hour time</b>
+            tm_min
+            tm_hour
+            tm_mday
+            tm_mon
+            tm_year
+    %R      tm_min   + <b>hour:minute, from 01:00 (06:55)</b>
+            tm_hour
+    %S      tm_sec   <b>seconds after the minute (15)</b>
+    %t               + <b>horizontal tab character \t</b>
+    %T      tm_sec   + <b>24-hour time, from 00:00:00 (06:55:15)</b>
+            tm_min
+            tm_hour
+    %u      tm_wday  + <b>ISO 8601 day of the week, to 7 for Sunday (7)</b>
+    %U      tm_wday  <b>Sunday week of the year, from 00 (48)</b>
+            tm_yday
+    %V      tm_wday  + <b>ISO 8601 week of the year, from 01 (48)</b>
+            tm_yday
+            tm_year
+    %w      tm_wday  <b>day of the week, from 0 for Sunday (0)</b>
+    %W      tm_wday  <b>Monday week of the year, from 00 (48)</b>
+            tm_yday
+    %x       [all]   <b>date (02/12/79)</b>
+    %Ex      [all]   + <b>era-specific date</b>
+    %X       [all]   <b>time, from 00:00:00 (06:55:15)</b>
+    %EX      [all]   + <b>era-specific time</b>
+    %y      tm_year  <b>year of the century, from 00 (79)</b>
+    %Ey     tm_mday  + <b>year of the era</b>
+            tm_mon
+            tm_year
+    %Y      tm_year  <b>year (1979)</b>
+    %EY     tm_mday  + <b>era-specific era name and year of the era</b>
+            tm_mon
+            tm_year
+    %z      tm_isdst + <b>time zone (hours east*100 + minutes), if any (-0500)</b>
+    %Z      tm_isdst <b>time zone name, if any (EST)</b>
+    %%               <b>percent character %</b>
+</pre>
+
+  <p>The current <a href="locale.html#locale%20category">locale category</a> <a href=
+  "locale.html#LC_TIME"><code>LC_TIME</code></a> can affect these replacement character sequences.</p>
+
+  <h2><a name="time"><code>time</code></a></h2>
+  <pre>
+time_t <b>time</b>(time_t *tod);
+</pre>
+
+  <p>If <code>tod</code> is not a null pointer, the function stores the current calendar time in
+  <code>*tod</code>. The function returns the current calendar time, if the target environment can determine
+  it; otherwise, it returns -1.</p>
+
+  <h2><a name="time_t"><code>time_t</code></a></h2>
+  <pre>
+typedef <i>a-type</i> <b>time_t</b>;
+</pre>
+
+  <p>The type is the arithmetic type <code><i>a-type</i></code> of an object that you declare to hold the
+  value returned by <code>time</code>. The value represents calendar time.</p>
+
+  <h2><a name="tm"><code>tm</code></a></h2>
+  <pre>
+struct <b>tm</b> {
+    int tm_sec;        <b>seconds after the minute (from 0)</b>
+    int tm_min;        <b>minutes after the hour (from 0)</b>
+    int tm_hour;       <b>hour of the day (from 0)</b>
+    int tm_mday;       <b>day of the month (from 1)</b>
+    int tm_mon;        <b>month of the year (from 0)</b>
+    int tm_year;       <b>years since 1900 (from 0)</b>
+    int tm_wday;       <b>days since Sunday (from 0)</b>
+    int tm_yday;       <b>day of the year (from 0)</b>
+    int tm_isdst;      <b>Daylight Saving Time flag</b>
+    };
+</pre>
+
+  <p><code>struct tm</code> contains members that describe various properties of the calendar time. The
+  members shown above can occur in any order, interspersed with additional members. The comment following
+  each member briefly describes its meaning.</p>
+
+  <p>The member <code>tm_isdst</code> contains:</p>
+
+  <ul>
+    <li>a positive value if <a href="#Daylight%20Saving%20Time">Daylight Saving Time</a> is in effect</li>
+
+    <li>zero if Daylight Saving Time is not in effect</li>
+
+    <li>a negative value if the status of Daylight Saving Time is not known (so the target environment should
+    attempt to determine its status)</li>
+  </ul>
+
+  <p>No standard mechanism exists for setting the current <b><a name="timezone">timezone</a></b>, or the
+  rules for when <b><a name="Daylight Saving Time">Daylight Saving Time</a></b> (DST) is in effect.</p>
+
+  <p>In this <a href="index.html#implementation">implementation</a>, as in others, you can specify both with
+  an <a href="stdlib.html#environment%20list">environment variable</a> such as <code>TZ</code> or
+  <code>TIMEZONE</code>. Formats vary, but you typically specify changes in DST as increasing dates
+  throughout the year, with the year beginning <i>not</i> in DST.</p>
+  <hr>
+
+  <p>See also the <b><a href="index.html#Table%20of%20Contents">Table of Contents</a></b> and the <b><a href=
+  "_index.html">Index</a></b>.</p>
+
+  <p><i><a href="crit_pjp.html">Copyright</a> &copy; 1992-2010 by P.J. Plauger and Jim Brodie. All rights
+  reserved.</i></p><!--V5.30:126I-->
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html>
+<head>
+  <meta name="generator" content=
+  "HTML Tidy for Mac OS X (vers 31 October 2006 - Apple Inc. build 15.15), see www.w3.org">
+
+  <title>"once"</title>
+</head>
+
+<body>
+  <h1><a name="&quot;once&quot;">"Dinkum/threads/once"</a></h1>
+  <hr>
+
+  <p><b><code><a href="#call_once">call_once</a> &middot; <a href="#once_flag">once_flag</a> &middot;
+  <a href="#once_init">once_init</a></code></b></p>
+  <hr>
+
+  <p>Include the header <b><code>"Dinkum/threads/once"</code></b> to use <a href=
+  "index_thr.html#Once%20Functions">once functions</a> in C++ code.</p>
+  <pre>
+namespace Dinkum {
+    namespace threads {
+    typedef <i>o-type</i> <b><a href="#once_flag">once_flag</a></b>;
+    const once_flag <b><a href="#once_init">once_init</a></b> = .....;
+    void <b><a href="#call_once">call_once</a></b>(void (*func)(void), once_flag&amp; flag);
+    }  // namespace threads
+} // namespace Dinkum
+</pre>
+
+  <h2><a name="call_once"><code>call_once</code></a></h2>
+  <pre>
+void <b>call_once</b>(void (*func)(void), once_flag&amp; flag);
+</pre>
+
+  <p>The function uses <code>flag</code> to ensure that <code>func</code> is called exactly once.</p>
+
+  <h2><a name="once_flag"><code>once_flag</code></a></h2>
+  <pre>
+typedef <i>o-type</i> <b>once_flag</b>;
+</pre>
+
+  <p>The type describes a data object for use as the first argument to <code>call_once</code>.</p>
+
+  <h2><a name="once_init"><code>once_init</code></a></h2>
+  <pre>
+const once_flag <b>once_init</b> = .....;
+</pre>
+
+  <p>The object provides an initial value for objects of type <code>once_flag</code>.</p>
+  <hr>
+
+  <p>See also the <b><a href="index.html">Table of Contents</a></b> and the <b><a href=
+  "_index.html">Index</a></b>.</p>
+
+  <p><i><a href="crit_pjp.html">Copyright</a> &copy; 1992-2010 by Dinkumware, Ltd. Portions derived from work
+  <a href="crit_wek.html">copyright</a> &copy; 2001 by William E. Kempf. All rights reserved.</i></p>
+  <!--V5.30:126I-->
+</body>
+</html>

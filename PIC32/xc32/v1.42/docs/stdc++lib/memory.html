@@ -1,0 +1,2011 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html>
+<head>
+  <meta name="generator" content=
+  "HTML Tidy for Mac OS X (vers 31 October 2006 - Apple Inc. build 15.15), see www.w3.org">
+
+  <title>&lt;memory&gt;</title>
+</head>
+
+<body>
+  <h1><a name="&lt;memory&gt;"><code>&lt;memory&gt;</code></a></h1>
+  <hr>
+
+  <p><b><code><a href="#allocator">allocator</a> &middot; <a href="#auto_ptr">auto_ptr</a> &middot; <a href=
+  "#auto_ptr_ref">auto_ptr_ref</a> &middot; <a href="#get_temporary_buffer">get_temporary_buffer</a> &middot;
+  <a href="#operator!=">operator!==</a> &middot; <a href="#operator==">operator==</a> &middot; <a href=
+  "#raw_storage_iterator">raw_storage_iterator</a> &middot; <a href=
+  "#uninitialized_copy">uninitialized_copy</a> &middot; <a href=
+  "#uninitialized_copy_n">uninitialized_copy_n</a> &middot; <a href=
+  "#uninitialized_fill">uninitialized_fill</a> &middot; <a href=
+  "#uninitialized_fill_n">uninitialized_fill_n</a></code></b></p>
+
+  <p><b><code><a href="#addressof">addressof</a> &middot; <a href="#allocate_shared">allocate_shared</a>
+  &middot; <a href="#bad_weak_ptr">bad_weak_ptr</a> &middot; <a href=
+  "#const_pointer_cast">const_pointer_cast</a> &middot; <a href="#default_delete">default_delete</a> &middot;
+  <a href="#default_delete_arr">default_delete&lt;Ty&gt;</a> &middot; <a href=
+  "#dynamic_pointer_cast">dynamic_pointer_cast</a> &middot; <a href=
+  "#enable_shared_from_this">enable_shared_from_this</a> &middot; <a href="#get_deleter">get_deleter</a>
+  &middot; <a href="#make_shared">make_shared</a> &middot; <a href="#operator%3C">operator&lt;</a> &middot;
+  <a href="#operator%3E">operator&gt;</a> &middot; <a href="#operator%3C=">operator&lt;=</a> &middot;
+  <a href="#operator%3E=">operator&gt;=</a> &middot; <a href="#operator%3C%3C">operator&lt;&lt;</a> &middot;
+  <a href="#owner_less">owner_less</a> &middot; <a href="#shared_ptr">shared_ptr</a> &middot; <a href=
+  "#static_pointer_cast">static_pointer_cast</a> &middot; <a href="#swap">swap</a> &middot; <a href=
+  "#unique_ptr">unique_ptr</a> &middot; <a href="#unique_ptr_arr">unique_ptr&lt;Ty, Del&gt;</a> &middot;
+  <a href="#weak_ptr">weak_ptr</a></code></b></p>
+
+  <p><b><code><a href="#declare_no_pointers">declare_no_pointers</a> &middot; <a href=
+  "#declare_reachable">declare_reachable</a> &middot; <a href="#get_pointer_safety">get_pointer_safety</a>
+  &middot; <a href="#pointer_safety">pointer_safety</a> &middot; <a href=
+  "#undeclare_no_pointers">undeclare_no_pointers</a> &middot; <a href=
+  "#undeclare_reachable">undeclare_reachable</a></code></b></p>
+  <hr>
+
+  <p>Include the <a href="index.html#STL">STL</a> standard header <b><code>&lt;memory&gt;</code></b> to
+  define a class, an operator, and several templates that help allocate and free objects.</p>
+  <pre>
+namespace std {
+        // TEMPLATE ALLOCATORS
+template&lt;class Ty&gt;
+    class <b><a href="#allocator">allocator</a></b>;
+template&lt;&gt;
+    class <b><a href="#allocator%3Cvoid%3E">allocator&lt;void&gt;</a></b>;
+template&lt;class FwdIt, class Ty&gt;
+    class <b><a href="#raw_storage_iterator">raw_storage_iterator</a></b>;
+template&lt;class Ty&gt;
+    class <b><a href="#auto_ptr">auto_ptr</a></b>;
+template&lt;class Ty&gt;
+    class <b><a href="#auto_ptr_ref">auto_ptr_ref</a></b>;
+
+template&lt;class Ty&gt;
+    bool <b><a href="#operator==">operator==</a></b>(const allocator&lt;Ty&gt;&amp; left,
+        const allocator&lt;Ty&gt;&amp; right);
+template&lt;class Ty&gt;
+    bool <b><a href="#operator!=">operator!=</a></b>(const allocator&lt;Ty&gt;&amp; left,
+        const allocator&lt;Ty&gt;&amp; right);
+
+        // TEMPLATE FUNCTIONS
+template&lt;class Ty&gt;
+    Ty *<b><a href="#addressof">addressof</a></b>(Ty&amp; val);
+
+template&lt;class Ty&gt;
+    pair&lt;Ty *, ptrdiff_t&gt;
+        <b><a href="#get_temporary_buffer">get_temporary_buffer</a></b>(ptrdiff_t count);
+template&lt;class Ty&gt;
+    void <b><a href="#return_temporary_buffer">return_temporary_buffer</a></b>(Ty *pbuf);
+template&lt;class InIt, class FwdIt&gt;
+
+    FwdIt <b><a href="#uninitialized_copy">uninitialized_copy</a></b>(InIt first, InIt last,
+        FwdIt dest);
+template&lt;class InIt, class Diff, class FwdIt&gt;
+    FwdIt <b><a href="#uninitialized_copy_n">uninitialized_copy_n</a></b>(InIt first, Diff count,
+        FwdIt dest); <b>[added with C++0X]</b>
+template&lt;class FwdIt, class Ty&gt;
+    void <b><a href="#uninitialized_fill">uninitialized_fill</a></b>(FwdIt first, FwdIt last,
+        const Ty&amp; val);
+template&lt;class FwdIt, class Size, class Ty&gt;
+    void <b><a href="#uninitialized_fill_n">uninitialized_fill_n</a></b>(FwdIt first, Size count,
+        const Ty&amp; val);
+
+        // TEMPLATE UNIQUE POINTERS
+template&lt;class Ty&gt; <b>[added with C++0X]</b>
+    struct <b><a href="#default_delete">default_delete</a></b>;
+template&lt;class Ty&gt; <b>[added with C++0X]</b>
+    struct <b><a href="#default_delete_arr">default_delete&lt;Ty[]&gt;</a></b>;
+
+template&lt;class Ty, class Del&gt; <b>[added with C++0X]</b>
+    class <b><a href="#unique_ptr">unique_ptr</a></b>;
+template&lt;class Ty, class Del&gt; <b>[added with C++0X]</b>
+    class <b><a href="#unique_ptr_arr">unique_ptr&lt;Ty[], Del&gt;</a></b>;
+
+template&lt;class Ty1, class Del1,
+    class Ty2, class Del2&gt; <b>[added with C++0X]</b>
+    bool <b><a href="#operator==">operator==</a></b>(const unique_ptr&lt;Ty1, Del1&gt;&amp; left,
+        const unique_ptr&lt;Ty2&amp;, Del2gt;&amp; right);
+template&lt;class Ty1, class Del1,
+    class Ty2, class Del2&gt; <b>[added with C++0X]</b>
+    bool <b><a href="#operator!=">operator!=</a></b>(const unique_ptr&lt;Ty1, Del1&gt;&amp; left,
+        const unique_ptr&lt;Ty2&amp;, Del2gt;&amp; right);
+template&lt;class Ty1, class Del1,
+    class Ty2, class Del2&gt; <b>[added with C++0X]</b>
+    bool <b><a href="#operator%3C">operator&lt;</a></b>(const unique_ptr&lt;Ty1, Del1&gt;&amp; left,
+        const unique_ptr&lt;Ty2&amp;, Del2gt;&amp; right);
+template&lt;class Ty1, class Del1,
+    class Ty2, class Del2&gt; <b>[added with C++0X]</b>
+    bool <b><a href="#operator%3E=">operator&gt;=</a></b>(const unique_ptr&lt;Ty1, Del1&gt;&amp; left,
+        const unique_ptr&lt;Ty2&amp;, Del2gt;&amp; right);
+template&lt;class Ty1, class Del1,
+    class Ty2, class Del2&gt; <b>[added with C++0X]</b>
+    bool <b><a href="#operator%3E">operator&gt;</a></b>(const unique_ptr&lt;Ty1, Del1&gt;&amp; left,
+        const unique_ptr&lt;Ty2&amp;, Del2gt;&amp; right);
+template&lt;class Ty1, class Del1,
+    class Ty2, class Del2&gt; <b>[added with C++0X]</b>
+    bool <b><a href="#operator%3C=">operator&lt;=</a></b>(const unique_ptr&lt;Ty1, Del1&gt;&amp; left,
+        const unique_ptr&lt;Ty2&amp;, Del2gt;&amp; right);
+
+template&lt;class Ty, class Del&gt; <b>[added with C++0X]</b>
+    void <b><a href="#swap">swap</a></b>(unique_ptr&lt;Ty, Del&gt;&amp; left,
+        unique_ptr&lt;Ty, Del&gt;&amp; right);
+
+    namespace tr1 {  <b>[added with TR1]</b>
+        // TEMPLATE SHARED POINTERS
+template&lt;class Ty&gt;
+    class <b><a href="#shared_ptr">shared_ptr</a></b>;
+
+template&lt;class Ty1, class Ty2&gt;
+    bool <b><a href="#operator==">operator==</a></b>(const shared_ptr&lt;Ty1&gt;&amp; left,
+        const shared_ptr&lt;Ty2&gt;&amp; right);
+template&lt;class Ty1, class Ty2&gt;
+    bool <b><a href="#operator!=">operator!=</a></b>(const shared_ptr&lt;Ty1&gt;&amp; left,
+        const shared_ptr&lt;Ty2&gt;&amp; right);
+template&lt;class Ty1, class Ty2&gt;
+    bool <b><a href="#operator%3C">operator&lt;</a></b>(const shared_ptr&lt;Ty1&gt;&amp; left,
+        const shared_ptr&lt;Ty2&gt;&amp; right);
+template&lt;class Ty1, class Ty2&gt; <b>[added with C++0X]</b>
+    bool <b><a href="#operator%3E=">operator&gt;=</a></b>(const shared_ptr&lt;Ty1&gt;&amp; left,
+        const shared_ptr&lt;Ty2&gt;&amp; right);
+template&lt;class Ty1, class Ty2&gt; <b>[added with C++0X]</b>
+    bool <b><a href="#operator%3E">operator&gt;</a></b>(const shared_ptr&lt;Ty1&gt;&amp; left,
+        const shared_ptr&lt;Ty2&gt;&amp; right);
+template&lt;class Ty1, class Ty2&gt; <b>[added with C++0X]</b>
+    bool <b><a href="#operator%3C=">operator&lt;=</a></b>(const shared_ptr&lt;Ty1&gt;&amp; left,
+        const shared_ptr&lt;Ty2&gt;&amp; right);
+
+template&lt;class Elem, class Tr, class Ty&gt;
+    std::basic_ostream&lt;Elem, Tr&gt;&amp; <b><a href="#operator%3C%3C">operator&lt;&lt;</a></b>(
+        std::basic_ostream&lt;Elem, Tr&gt;&amp; out,
+        const shared_ptr&lt;Ty&gt;&amp; sp);
+
+template&lt;class Ty&gt;
+    void <b><a href="#swap">swap</a></b>(shared_ptr&lt;Ty&gt;&amp; left,
+        shared_ptr&lt;Ty&gt;&amp; right);
+
+template&lt;class D, class Ty&gt;
+    D *<b><a href="#get_deleter">get_deleter</a></b>(const shared_ptr&lt;Ty&gt;&amp; sp);
+
+        // TEMPLATE WEAK POINTERS
+template&lt;class Ty&gt;
+    class <b><a href="#weak_ptr">weak_ptr</a></b>;
+
+//template&lt;class Ty1, class Ty2&gt; <b>[removed with C++0X]</b>
+//    bool <b>operator&lt;</b>(const weak_ptr&lt;Ty1&gt;&amp; left,
+//        const weak_ptr&lt;Ty2&gt;&amp; right);
+template&lt;class Ty&gt;
+    void <b><a href="#swap">swap</a></b>(weak_ptr&lt;Ty&gt;&amp; left,
+        weak_ptr&lt;Ty&gt;&amp; right);
+
+        // UTILITY TEMPLATE CLASSES
+template&lt;class Ty&gt;
+    class <b><a href="#enable_shared_from_this">enable_shared_from_this</a></b>;
+class <b><a href="#bad_weak_ptr">bad_weak_ptr</a></b>;
+
+        // TEMPLATE FUNCTIONS
+template&lt;class Ty, class Other&gt;
+    shared_ptr&lt;Ty&gt; <b><a href=
+"#const_pointer_cast">const_pointer_cast</a></b>(const shared_ptr&lt;Other&gt;&amp; sp);
+template&lt;class Ty, class Other&gt;
+    shared_ptr&lt;Ty&gt; <b><a href=
+"#dynamic_pointer_cast">dynamic_pointer_cast</a></b>(const shared_ptr&lt;Other&gt;&amp; sp);
+template&lt;class Ty, class Other&gt;
+    shared_ptr&lt;Ty&gt; <b><a href=
+"#static_pointer_cast">static_pointer_cast</a></b>(const shared_ptr&lt;Other&gt;&amp; sp);
+
+template&lt;class Ty, class... Types&gt;
+    shared_ptr&lt;Ty&gt; <b><a href=
+"#make_shared">make_shared</a></b>(Types&amp;&amp;... Args); <b>[added with C++0X]</b>
+template&lt;class Ty, class Alloc, class... Types&gt;
+    shared_ptr&lt;Ty&gt; <b><a href=
+"#allocate_shared">allocate_shared</a></b>(Alloc al, Types&amp;&amp;... Args); <b>[added with C++0X]</b>
+    } // namespace tr1
+using tr1::allocate_shared; using tr1::bad_weak_ptr; <b>[added with C++0X]</b>
+using tr1::const_pointer_cast; using tr1::dynamic_pointer_cast;
+using tr1::enable_shared_from_this; using tr1::get_deleter;
+using tr1::allocate_shared; using tr1::shared_ptr;
+using tr1::static_pointer_cast; using tr1::unique_ptr;
+using tr1::weak_ptr;
+
+        // FUNCTORS
+template&lt;class Ty&gt; <b>[added with C++0X]</b>
+    struct <b><a href="#owner_less">owner_less</a></b>; // not defined
+template&lt;class Ty&gt; <b>[added with C++0X]</b>
+    struct <b><a href="#owner_less">owner_less</a>&lt;shared_ptr&lt;Ty&gt; &gt;</b>;
+template&lt;class Ty&gt; <b>[added with C++0X]</b>
+    struct <b><a href="#owner_less">owner_less</a>&lt;weak_ptr&lt;Ty&gt; &gt;</b>;
+
+        // POINTER SAFETY
+enum <b><a href="#pointer_safety">pointer_safety</a></b> { <b>[added with C++0X]</b>
+    <b>relaxed</b>, <b>preferred</b>, <b>strict</b>
+    };
+
+void <b><a href="#declare_reachable">declare_reachable</a></b>(void *ptr); <b>[added with C++0X]</b>
+template&lt;class Ty&gt;
+    _Ty *<b><a href="#undeclare_reachable">undeclare_reachable</a></b>(void *ptr); <b>[added with C++0X]</b>
+void <b><a href=
+"#declare_no_pointers">declare_no_pointers</a></b>(char *ptr, size_t size); <b>[added with C++0X]</b>
+void <b><a href=
+"#undeclare_no_pointers">undeclare_no_pointers</a></b>(char *ptr, size_t size); <b>[added with C++0X]</b>
+pointer_safety <b><a href="#get_pointer_safety">get_pointer_safety</a></b>(); <b>[added with C++0X]</b>
+}  // namespace std
+</pre>
+
+  <h2><a name="addressof"><code>addressof</code></a></h2>
+  <pre>
+template&lt;class Ty&gt;
+    Ty *<b>addressof</b>(Ty&amp; val);
+</pre>
+
+  <p>The template function returns the address of <code>val</code>.</p>
+
+  <h2><a name="allocate_shared"><code>allocate_shared</code></a></h2>
+  <pre>
+template&lt;class Ty, class Alloc, class... Types&gt;
+    shared_ptr&lt;Ty&gt; <b>allocate_shared</b>(Alloc al, Types&amp;&amp;... Args); <b>[added with C++0X]</b>
+</pre>
+
+  <p>The function creates the object <code>shared_ptr&lt;Ty&gt;ptr</code>, where <code>ptr</code> is a
+  pointer to <code>Ty(Args...)</code> as allocated and constructed by <code>al</code>.</p>
+
+  <h2><a name="allocator"><code>allocator</code></a></h2>
+  <pre>
+template&lt;class Ty&gt;
+    class <b>allocator</b> {
+public:
+    typedef size_t <b><a href="#allocator::size_type">size_type</a></b>;
+    typedef ptrdiff_t <b><a href="#allocator::difference_type">difference_type</a></b>;
+    typedef Ty *<b><a href="#allocator::pointer">pointer</a></b>;
+    typedef const Ty *<b><a href="#allocator::const_pointer">const_pointer</a></b>;
+    typedef Ty&amp; <b><a href="#allocator::reference">reference</a></b>;
+    typedef const Ty&amp; <b><a href="#allocator::const_reference">const_reference</a></b>;
+    typedef Ty <b><a href="#allocator::value_type">value_type</a></b>;
+    pointer <b><a href="#allocator::address">address</a></b>(reference val) const;
+    const_pointer <b><a href="#allocator::address">address</a></b>(const_reference val) const;
+    template&lt;class Other&gt;
+        struct <b><a href="#allocator::rebind">rebind</a></b>;
+    <b><a href="#allocator::allocator">allocator</a></b>() throw();
+    template&lt;class Other&gt;
+        <b><a href=
+"#allocator::allocator">allocator</a></b>(const allocator&lt;Other&gt;&amp; right) throw();
+    template&lt;class Other&gt;
+        allocator&amp; <b><a href=
+"#allocator::operator=">operator=</a></b>(const allocator&lt;Other&gt;&amp; right);
+    pointer <b><a href="#allocator::allocate">allocate</a></b>(size_type count,
+        typename allocator&lt;void&gt;::const_pointer *hint = 0);
+    void <b><a href="#allocator::deallocate">deallocate</a></b>(pointer ptr, size_type count);
+
+    void <b><a href=
+"#allocator::construct">construct</a></b>(pointer ptr, const Ty&amp; val); <b>[replaced with C++0X]</b>
+    template&lt;class Types&gt;
+        void <b><a href=
+"#allocator::construct">construct</a></b>(pointer ptr, Types&amp;&amp;... val); <b>[added with C++0X]</b>
+    void <b><a href="#allocator::destroy">destroy</a></b>(pointer ptr);
+
+    size_type <b><a href="#allocator::max_size">max_size</a></b>() const throw();
+    };
+</pre>
+
+  <p>The template class describes an object that manages storage allocation and freeing for arrays of objects
+  of non-const, non-reference, object type <code>Ty</code>. An object of class <code>allocator</code> is the
+  default <b><a name="allocator object">allocator object</a></b> specified in the constructors for several
+  container template classes in the Standard C++ library.</p>
+
+  <p>Template class <code>allocator</code> supplies several type definitions that are rather pedestrian. They
+  hardly seem worth defining. But another class with the same members might choose more interesting
+  alternatives. Constructing a container with an allocator object of such a class gives individual control
+  over allocation and freeing of elements controlled by that container.</p>
+
+  <p>For example, an allocator object might allocate storage on a <b><a name="private heap">private
+  heap</a></b>. Or it might allocate storage on a <b><a name="far heap">far heap</a></b>, requiring
+  nonstandard pointers to access the allocated objects. Or it might specify, through the type definitions it
+  supplies, that elements be accessed through special <b><a name="accessor objects">accessor objects</a></b>
+  that manage <b><a name="shared memory">shared memory</a></b>, or use an automatic garbage collector. Hence,
+  a class that allocates storage using an allocator object should use these types religiously for declaring
+  pointer and reference objects (as do the containers in the Standard C++ library).</p>
+
+  <p>Thus, an allocator defines the types (among others):</p>
+
+  <ul>
+    <li><a href="#allocator::pointer"><code>pointer</code></a> -- behaves like a pointer to
+    <code>Ty</code></li>
+
+    <li><a href="#allocator::const_pointer"><code>const_pointer</code></a> -- behaves like a const pointer to
+    <code>Ty</code></li>
+
+    <li><a href="#allocator::reference"><code>reference</code></a> -- behaves like a reference to
+    <code>Ty</code></li>
+
+    <li><a href="#allocator::const_reference"><code>const_reference</code></a> -- behaves like a const
+    reference to <code>Ty</code></li>
+  </ul>
+
+  <p>These types specify the form that pointers and references must take for allocated elements.
+  (<code>allocator::pointer</code> is not necessarily the same as <code>Ty *</code> for all allocator
+  objects, even though it has this obvious definition for class <code>allocator</code>.)</p>
+
+  <h3><a name="allocator::address"><code>allocator::address</code></a></h3>
+  <pre>
+pointer <b><a href="#allocator::address">address</a></b>(reference val) const;
+const_pointer <b><a href="#allocator::address">address</a></b>(const_reference val) const;
+</pre>
+
+  <p>The member functions return the address of <code>val</code>, in the form that pointers must take for
+  allocated elements.</p>
+
+  <h3><a name="allocator::allocate"><code>allocator::allocate</code></a></h3>
+  <pre>
+pointer <b>allocate</b>(size_type count,
+    typename allocator&lt;void&gt;::const_pointer *hint = 0);
+</pre>
+
+  <p>The member function allocates storage for an array of <code>count</code> elements of type
+  <code>Ty</code>, by calling <code>operator new(count)</code>. It returns a pointer to the allocated object.
+  The <code>hint</code> argument helps some allocators in improving locality of reference -- a valid choice
+  is the address of an object earlier allocated by the same allocator object, and not yet deallocated. To
+  supply no hint, use a null pointer argument instead.</p>
+
+  <h3><a name="allocator::allocator"><code>allocator::allocator</code></a></h3>
+  <pre>
+<b>allocator</b>() throw();
+template&lt;class Other&gt;
+    <b>allocator</b>(const allocator&lt;Other&gt;&amp; right) throw();
+</pre>
+
+  <p>The constructor does nothing. In general, however, an allocator object constructed from another
+  allocator object should compare equal to it (and hence permit intermixing of object allocation and freeing
+  between the two allocator objects).</p>
+
+  <h3><a name="allocator::const_pointer"><code>allocator::const_pointer</code></a></h3>
+  <pre>
+typedef const Ty *<b>pointer</b>;
+</pre>
+
+  <p>The pointer type describes an object <code>ptr</code> that can designate, via the expression
+  <code>*ptr</code>, any const object that an object of template class <code>allocator</code> can
+  allocate.</p>
+
+  <h3><a name="allocator::const_reference"><code>allocator::const_reference</code></a></h3>
+  <pre>
+typedef const Ty&amp; <b>const_reference</b>;
+</pre>
+
+  <p>The reference type describes an object that can designate any const object that an object of template
+  class <code>allocator</code> can allocate.</p>
+
+  <h3><a name="allocator::construct"><code>allocator::construct</code></a></h3>
+  <pre>
+void <b>construct</b>(pointer ptr, const Ty&amp; val); <b>[replaced with C++0X]</b>
+template&lt;class Types&gt;
+    void <b>construct</b>(pointer ptr, Types&amp;&amp;... val); <b>[added with C++0X]</b>
+</pre>
+
+  <p>The first member function constructs an object of type <code>Ty</code> at <code>ptr</code> by evaluating
+  the placement <code>new</code> expression <code>new ((void *)ptr) Ty(val)</code>.</p>
+
+  <p>The second member function is the same as the first, but is a <a href=
+  "lib_cpp.html#variadic%20templates">variadic template</a> using <a href=
+  "lib_cpp.html#rvalue%20references">rvalue references</a>.</p>
+
+  <h3><a name="allocator::deallocate"><code>allocator::deallocate</code></a></h3>
+  <pre>
+void <b>deallocate</b>(pointer ptr, size_type count);
+</pre>
+
+  <p>The member function frees storage for the array of <code>count</code> objects of type <code>Ty</code>
+  beginning at <code>ptr</code>, by calling <code>operator delete(ptr)</code>. The pointer <code>ptr</code>
+  must have been earlier returned by a call to <code><a href="#allocator::allocate">allocate</a></code> for
+  an allocator object that compares equal to <code>*this</code>, allocating an array object of the same size
+  and type. <code>deallocate</code> never throws an exception.</p>
+
+  <h3><a name="allocator::destroy"><code>allocator::destroy</code></a></h3>
+  <pre>
+void <b>destroy</b>(pointer ptr);
+</pre>
+
+  <p>The member function destroys the object designated by <code>ptr</code>, by calling the destructor
+  <code>ptr-&gt;Ty::~Ty()</code>.</p>
+
+  <h3><a name="allocator::difference_type"><code>allocator::difference_type</code></a></h3>
+  <pre>
+typedef ptrdiff_t <b>difference_type</b>;
+</pre>
+
+  <p>The signed integer type describes an object that can represent the difference between the addresses of
+  any two elements in a sequence that an object of template class <code>allocator</code> can allocate.</p>
+
+  <h3><a name="allocator::max_size"><code>allocator::max_size</code></a></h3>
+  <pre>
+size_type <b>max_size</b>() const throw();
+</pre>
+
+  <p>The member function returns the length of the longest sequence of elements of type <code>Ty</code> that
+  an object of class <code>allocator</code> <i>might</i> be able to allocate.</p>
+
+  <h3><a name="allocator::operator="><code>allocator::operator=</code></a></h3>
+  <pre>
+template&lt;class Other&gt;
+    allocator&amp; <b>operator=</b>(const allocator&lt;Other&gt;&amp; right);
+</pre>
+
+  <p>The template assignment operator does nothing. In general, however, an allocator object assigned to
+  another allocator object should compare equal to it (and hence permit intermixing of object allocation and
+  freeing between the two allocator objects).</p>
+
+  <h3><a name="allocator::pointer"><code>allocator::pointer</code></a></h3>
+  <pre>
+typedef Ty *<b>pointer</b>;
+</pre>
+
+  <p>The pointer type describes an object <code>ptr</code> that can designate, via the expression
+  <code>*ptr</code>, any object that an object of template class <code>allocator</code> can allocate.</p>
+
+  <h3><a name="allocator::rebind"><code>allocator::rebind</code></a></h3>
+  <pre>
+template&lt;class Other&gt;
+    struct <b>rebind</b> {
+    typedef allocator&lt;Other&gt; <b>other</b>;
+    };
+</pre>
+
+  <p>The member template class defines the type <b><code><a name="allocator::other">other</a></code></b>. Its
+  sole purpose is to provide the type name <code>allocator&lt;Other&gt;</code> given the type name
+  <code>allocator&lt;Ty&gt;</code>.</p>
+
+  <p>For example, given an allocator object <code>al</code> of type <code>A</code>, you can allocate an
+  object of type <code>Other</code> with the expression:</p>
+  <pre>
+A::rebind&lt;Other&gt;::other(al).allocate(1, (Other *)0)
+</pre>
+
+  <p>Or, you can simply name its pointer type by writing the type:</p>
+  <pre>
+A::rebind&lt;Other&gt;::other::pointer
+</pre>
+
+  <h3><a name="allocator::reference"><code>allocator::reference</code></a></h3>
+  <pre>
+typedef Ty&amp; <b>reference</b>;
+</pre>
+
+  <p>The reference type describes an object that can designate any object that an object of template class
+  <code>allocator</code> can allocate.</p>
+
+  <h3><a name="allocator::size_type"><code>allocator::size_type</code></a></h3>
+  <pre>
+typedef size_t <b>size_type</b>;
+</pre>
+
+  <p>The unsigned integer type describes an object that can represent the length of any sequence that an
+  object of template class <code>allocator</code> can allocate.</p>
+
+  <h3><a name="allocator::value_type"><code>allocator::value_type</code></a></h3>
+  <pre>
+typedef Ty <b>value_type</b>;
+</pre>
+
+  <p>The type is a synonym for the template parameter <code>Ty</code>.</p>
+
+  <h2><a name="allocator&lt;void&gt;"><code>allocator&lt;void&gt;</code></a></h2>
+  <pre>
+template&lt;&gt;
+    class <b>allocator&lt;void&gt;</b> {
+    typedef void *<b>pointer</b>;
+    typedef const void *<b>const_pointer</b>;
+    typedef void <b>value_type</b>;
+    template&lt;class Other&gt;
+        struct <b>rebind</b>;
+    <b>allocator</b>() throw();
+    template&lt;class Other&gt;
+        <b>allocator</b>(const allocator&lt;Other&gt;) throw();
+    template&lt;class Other&gt;
+        allocator&lt;void&gt;&amp; <b>operator=</b>(const allocator&lt;Other&gt;);
+    };
+</pre>
+
+  <p>The class explicitly specializes template class <a href="#allocator">allocator</a> for type <i>void.</i>
+  Its constructors and assignment operator behave the same as for the template class, but it defines only the
+  types <a href="#allocator::const_pointer"><code>const_pointer</code></a>, <a href=
+  "#allocator::pointer"><code>pointer</code></a>, <a href=
+  "#allocator::value_type"><code>value_type</code></a>, and the nested template class <a href=
+  "#allocator::rebind"><code>rebind</code></a>.</p>
+
+  <h2><a name="auto_ptr"><code>auto_ptr</code></a></h2>
+  <pre>
+template&lt;class Ty&gt;
+    class <b>auto_ptr</b> { <b>[deprecated with C++0X]</b>
+public:
+    typedef Ty <b><a href="#auto_ptr::element_type">element_type</a></b>;
+    explicit <b><a href="#auto_ptr::auto_ptr">auto_ptr</a></b>(Ty *ptr = 0) throw();
+    <b><a href="#auto_ptr::auto_ptr">auto_ptr</a></b>(auto_ptr&lt;Ty&gt;&amp; right) throw();
+    template&lt;class Other&gt;
+        <b><a href="#auto_ptr::auto_ptr">auto_ptr</a></b>(auto_ptr&lt;Other&gt;&amp; right) throw();
+    <b><a href="#auto_ptr::auto_ptr">auto_ptr</a></b>(auto_ptr_ref&lt;Ty&gt; right) throw();
+    <b><a href="#auto_ptr::~auto_ptr">~auto_ptr</a></b>();
+    template&lt;class Other&gt;
+        <b><a href=
+"#auto_ptr::operator%20auto_ptr%3COther%3E">operator auto_ptr&lt;Other&gt;</a></b>() throw();
+    template&lt;class Other&gt;
+        <b><a href=
+"#auto_ptr::operator%20auto_ptr_ref%3COther%3E">operator auto_ptr_ref&lt;Other&gt;</a></b>() throw();
+    template&lt;class Other&gt;
+        auto_ptr&lt;Ty&gt;&amp; <b><a href=
+"#auto_ptr::operator=">operator=</a></b>(auto_ptr&lt;Other&gt;&amp; right) throw();
+    auto_ptr&lt;Ty&gt;&amp; <b><a href=
+"#auto_ptr::operator=">operator=</a></b>(auto_ptr&lt;Ty&gt;&amp; right) throw();
+    auto_ptr&lt;Ty&gt;&amp; <b><a href=
+"#auto_ptr::operator=">operator=</a></b>(auto_ptr_ref&lt;Ty&gt; right) throw();
+    Ty&amp; <b><a href="#auto_ptr::operator*">operator*</a></b>() const throw();
+    Ty *<b><a href="#auto_ptr::operator-%3E">operator-&gt;</a></b>() const throw();
+    Ty *<b><a href="#auto_ptr::get">get</a></b>() const throw();
+    Ty *<b><a href="#auto_ptr::release">release</a></b>() throw();
+    void <b><a href="#auto_ptr::reset">reset</a></b>(Ty *ptr = 0);
+    };
+</pre>
+
+  <p>The class describes an object that stores a pointer to an allocated object <b><code>myptr</code></b> of
+  type <code>Ty *</code>. The stored pointer must either be null or designate an object allocated by a
+  <code>new</code> expression. An object constructed with a non-null pointer owns the pointer. It transfers
+  ownership if its stored value is assigned to another object. (It replaces the stored value after a transfer
+  with a null pointer.) The destructor for <code>auto_ptr&lt;Ty&gt;</code> deletes the allocated object if it
+  owns it. Hence, an object of class <code>auto_ptr&lt;Ty&gt;</code> ensures that an allocated object is
+  automatically deleted when control leaves a block, even via a thrown excepiton. You should not construct
+  two <code>auto_ptr&lt;Ty&gt;</code> objects that own the same object.</p>
+
+  <p>You can pass an <code>auto_ptr&lt;Ty&gt;</code> object by value as an argument to a function call. You
+  can return such an object by value as well. (Both operations depend on the implicit construction of
+  intermediate objects of class <code>auto_ptr_ref&lt;Ty&gt;</code>, by various subtle conversion rules.) You
+  cannot, however, reliably manage a sequence of <code>auto_ptr&lt;Ty&gt;</code> objects with an STL <a href=
+  "lib_cont.html#Containers">container</a>.</p>
+
+  <h3><a name="auto_ptr::auto_ptr"><code>auto_ptr::auto_ptr</code></a></h3>
+  <pre>
+explicit <b>auto_ptr</b>(Ty *ptr = 0) throw();
+<b>auto_ptr</b>(auto_ptr&lt;Ty&gt;&amp; right) throw();
+<b>auto_ptr</b>(auto_ptr_ref&lt;Ty&gt; right) throw();
+template&lt;class Other&gt;
+    <b>auto_ptr</b>(auto_ptr&lt;Other&gt;&amp; right) throw();
+</pre>
+
+  <p>The first constructor stores <code>ptr</code> in <code>myptr</code>, the stored pointer to the allocated
+  object. The second constructor transfers ownership of the pointer stored in <code>right</code>, by storing
+  <code>right.<a href="#auto_ptr::release">release</a>()</code> in <code>myptr</code>. The third constructor
+  behaves the same as the second, except that it stores <code>right.ref.release()</code> in
+  <code>myptr</code>, where <code>ref</code> is the reference stored in <code>right</code>.</p>
+
+  <p>The template constructor behaves the same as the second constructor, provided that a pointer to
+  <code>Other</code> can be implicitly converted to a pointer to <code>Ty</code>.</p>
+
+  <h3><a name="auto_ptr::~auto_ptr"><code>auto_ptr::~auto_ptr</code></a></h3>
+  <pre>
+<b>~auto_ptr</b>();
+</pre>
+
+  <p>The destructor evaluates the expression <code>delete myptr</code> to delete the object designated by the
+  stored pointer.</p>
+
+  <h3><a name="auto_ptr::element_type"><code>auto_ptr::element_type</code></a></h3>
+  <pre>
+typedef Ty <b>element_type</b>;
+</pre>
+
+  <p>The type is a synonym for the template parameter <code>Ty</code>.</p>
+
+  <h3><a name="auto_ptr::get"><code>auto_ptr::get</code></a></h3>
+  <pre>
+Ty *<b>get</b>() const throw();
+</pre>
+
+  <p>The member function returns the stored pointer <code>myptr</code>.</p>
+
+  <h3><a name="auto_ptr::operator="><code>auto_ptr::operator=</code></a></h3>
+  <pre>
+template&lt;class Other&gt;
+    auto_ptr&lt;Ty&gt;&amp; <b>operator=</b>(auto_ptr&lt;Other&gt;&amp; right) throw();
+auto_ptr&lt;Ty&gt;&amp; <b>operator=</b>(auto_ptr&lt;&gt;&amp; right) throw();
+auto_ptr&lt;Ty&gt;&amp; <b>operator=</b>(auto_ptr_ref&lt;&gt;&amp; right) throw();
+</pre>
+
+  <p>The assignment evaluates the expression <code>delete myptr</code>, but only if the stored pointer
+  <code>myptr</code> changes as a result of the assignment. It then transfers ownership of the pointer
+  designated by <code>right</code>, by storing <code>right.<a href="#auto_ptr::release">release</a>()</code>
+  in <code>myptr</code>. (The last assignment behaves as if <code>right</code> designates the reference it
+  stores.) The function returns <code>*this</code>.</p>
+
+  <h3><a name="auto_ptr::operator*"><code>auto_ptr::operator*</code></a></h3>
+  <pre>
+Ty&amp; <b>operator*</b>() const throw();
+</pre>
+
+  <p>The indirection operator returns <code>*<a href="#auto_ptr::get">get</a>()</code>. Hence, the stored
+  pointer must not be null.</p>
+
+  <h3><a name="auto_ptr::operator-&gt;"><code>auto_ptr::operator-&gt;</code></a></h3>
+  <pre>
+Ty *<b>operator-&gt;</b>() const throw();
+</pre>
+
+  <p>The selection operator returns <code><a href="#auto_ptr::get">get</a>()</code>, so that the expression
+  <code>ap-&gt;member</code> behaves the same as <code>(ap.get())-&gt;member</code>, where <code>ap</code> is
+  an object of class <code>auto_ptr&lt;Ty&gt;</code>. Hence, the stored pointer must not be null, and
+  <code>Ty</code> must be a class, structure, or union type with a member <code>member</code>.</p>
+
+  <h3><a name="auto_ptr::operator auto_ptr&lt;Other&gt;"><code>auto_ptr::operator
+  auto_ptr&lt;Other&gt;</code></a></h3>
+  <pre>
+template&lt;class Other&gt;
+    <b>operator auto_ptr&lt;Other&gt;</b>() throw();
+</pre>
+
+  <p>The type cast operator returns <code>auto_ptr&lt;Other&gt;(*this)</code>.</p>
+
+  <h3><a name="auto_ptr::operator auto_ptr_ref&lt;Other&gt;"><code>auto_ptr::operator
+  auto_ptr_ref&lt;Other&gt;</code></a></h3>
+  <pre>
+template&lt;class Other&gt;
+    <b>operator auto_ptr_ref&lt;Other&gt;</b>() throw();
+</pre>
+
+  <p>The type cast operator returns <code><a href=
+  "#auto_ptr_ref">auto_ptr_ref</a>&lt;Other&gt;(*this)</code>.</p>
+
+  <h3><a name="auto_ptr::release"><code>auto_ptr::release</code></a></h3>
+  <pre>
+Ty *<b>release</b>() throw();
+</pre>
+
+  <p>The member replaces the stored pointer <code>myptr</code> with a null pointer and returns the previously
+  stored pointer.</p>
+
+  <h3><a name="auto_ptr::reset"><code>auto_ptr::reset</code></a></h3>
+  <pre>
+void <b>reset</b>(Ty *ptr = 0);
+</pre>
+
+  <p>The member function evaluates the expression <code>delete myptr</code>, but only if the stored pointer
+  value <code>myptr</code> changes as a result of function call. It then replaces the stored pointer with
+  <code>ptr</code>.</p>
+
+  <h2><a name="auto_ptr_ref"><code>auto_ptr_ref</code></a></h2>
+  <pre>
+template&lt;class Ty&gt;
+    struct <b>auto_ptr_ref</b> {
+    };
+</pre>
+
+  <p>The class describes an object that stores a reference to an object of class <code><a href=
+  "#auto_ptr">auto_ptr</a>&lt;Ty&gt;</code>. It is used as a helper class for
+  <code>auto_ptr&lt;Ty&gt;</code>. You should not have an occasion to construct an
+  <code>auto_ptr_ref&lt;Ty&gt;</code> object directly.</p>
+
+  <h2><code><a name="bad_weak_ptr">bad_weak_ptr</a></code></h2>
+  <pre>
+class <b>bad_weak_ptr</b>  <b>[added with TR1]</b>
+    : public std::exception {
+public:
+    <b>bad_weak_ptr</b>();
+    const char *<b>what</b>() throw();
+    };
+</pre>
+
+  <p>The class describes an exception that can be thrown from the <code><a href=
+  "#shared_ptr">shared_ptr</a></code> constructor that takes an argument of type <code><a href=
+  "#weak_ptr">weak_ptr</a></code>. The member function <code>what</code> returns
+  <code>"tr1::bad_weak_ptr"</code>.</p>
+
+  <h2><code><a name="const_pointer_cast">const_pointer_cast</a></code></h2>
+  <pre>
+template &lt;class Ty, class Other&gt;  <b>[added with TR1]</b>
+    shared_ptr&lt;Ty&gt; <b>const_pointer_cast</b>(const shared_ptr&lt;Other&gt;&amp; sp);
+</pre>
+
+  <p>The template function returns an <a href="#empty%20shared_ptr">empty shared_ptr</a> object if
+  <code>const_cast&lt;Ty*&gt;(sp.get())</code> returns a null pointer; otherwise it returns a <code><a href=
+  "#shared_ptr">shared_ptr</a>&lt;Ty&gt;</code> object that <a href="#owns">owns</a> the resource that is
+  owned by <code>sp</code>. The expression <code>const_cast&lt;Ty*&gt;(sp.get())</code> must be valid.</p>
+
+  <h2><a name="declare_no_pointers"><code>declare_no_pointers</code></a></h2>
+  <pre>
+void <b>declare_no_pointers</b>(char *ptr, size_t size); <b>[added with C++0X]</b>
+</pre>
+
+  <p>The function informs any <a href="#garbage%20collector">garbage collector</a> that the range of
+  addresses <code>[ptr, ptr + size)</code> no longer contain <b><a name="traceable pointers">traceable
+  pointers</a></b>. (Any pointers to allocated storage must not be dereferenced unless made <a href=
+  "#reachable%20pointers">reachable</a>.)</p>
+
+  <h2><a name="declare_reachable"><code>declare_reachable</code></a></h2>
+  <pre>
+void <b>declare_reachable</b>(void *ptr); <b>[added with C++0X]</b>
+</pre>
+
+  <p>If <code>ptr</code> is not null, the function informs any <b><a name="garbage collector">garbage
+  collector</a></b> that <code>ptr</code> is hereafter <b><a name="reachable pointers">reachable</a></b>
+  (points to valid allocated storage).</p>
+
+  <h2><code><a name="default_delete">default_delete</a></code></h2>
+  <pre>
+template&lt;class Ty&gt;
+    struct <b>default_delete</b> {  <b>[added with C++0X]</b>
+    <b><a href="#default_delete::default_delete">default_delete</a></b>();
+    template&lt;class Other&gt;
+        <b><a href=
+"#default_delete::default_delete">default_delete</a></b>(const default_delete&lt;Other&gt;&amp;);
+    void <b><a href="#default_delete::operator_call">operator()</a></b>(Ty *ptr) const;
+    };
+</pre>
+
+  <p>The template class describes a <a href="#deleter">deleter</a> that deletes scalar objects allocated with
+  <code>operator new</code>, suitable for use with template class <code><a href=
+  "#unique_ptr">unique_ptr</a></code>. It also has the explicit specialization <code><a href=
+  "#default_delete_arr">default_delete&lt;Ty[]&gt;</a></code>.</p>
+
+  <h3><a name="default_delete::default_delete"><code>default_delete::default_delete</code></a></h3>
+  <pre>
+<b>default_delete</b>();
+template&lt;class Other&gt;
+    <b>default_delete</b>(const default_delete&lt;Other&gt;&amp;);
+</pre>
+
+  <p>The constructors do nothing.</p>
+
+  <h3><a name="default_delete::operator_call"><code>default_delete::operator()</code></a></h3>
+  <pre>
+void <b>operator()</b>(Ty *ptr) const;
+</pre>
+
+  <p>The member operator executes <code>delete ptr</code>. <code>Ty</code> must not be an incomplete
+  type.</p>
+
+  <h2><code><a name="default_delete_arr">default_delete&lt;Ty[]&gt;</a></code></h2>
+  <pre>
+template&lt;class Ty&gt;
+    struct <b>default_delete&lt;Ty[]&gt;</b> { <b>[added with C++0X]</b>
+    template&lt;class Other&gt;
+        void <b><a href=
+"#default_delete_arr::operator_call">operator()</a></b>(Other *ptr) const;  // not defined
+    };
+</pre>
+
+  <p>The template class describes a <a href="#deleter">deleter</a> that deletes array objects allocated with
+  <code>operator new[]</code>, suitable for use with template class <code><a href=
+  "#unique_ptr_arr">unique_ptr</a>&lt;Ty[]&gt;</code>. It is an explicit specialization of the template class
+  <code><a href="#default_delete">default_delete</a></code>.</p>
+
+  <h3><a name=
+  "default_delete_arr::operator_call"><code>default_delete&lt;Ty[]&gt;::operator()</code></a></h3>
+  <pre>
+void <b>operator()</b>(Ty *ptr) const;
+template&lt;class Other&gt;
+    void <b>operator()</b>(Other *ptr) const;  // not defined
+</pre>
+
+  <p>The member operator executes <code>delete[] ptr</code>. <code>Ty</code> must not be an incomplete
+  type.</p>
+
+  <h2><code><a name="dynamic_pointer_cast">dynamic_pointer_cast</a></code></h2>
+  <pre>
+template &lt;class Ty, class Other&gt;  <b>[added with TR1]</b>
+    shared_ptr&lt;Ty&gt; <b>dynamic_pointer_cast</b>(const shared_ptr&lt;Other&gt;&amp; sp);
+</pre>
+
+  <p>The template function returns an <a href="#empty%20shared_ptr">empty shared_ptr</a> object if
+  <code>dynamic_cast&lt;Ty*&gt;(sp.get())</code> returns a null pointer; otherwise it returns a
+  <code><a href="#shared_ptr">shared_ptr</a>&lt;Ty&gt;</code> object that <a href="#owns">owns</a> the
+  resource that is owned by <code>sp</code>. The expression <code>dynamic_cast&lt;Ty*&gt;(sp.get())</code>
+  must be valid.</p>
+
+  <h2><code><a name="enable_shared_from_this">enable_shared_from_this</a></code></h2>
+  <pre>
+template&lt;class Ty&gt;  <b>[added with TR1]</b>
+    class <b>enable_shared_from_this</b> {
+public:
+    shared_ptr&lt;Ty&gt; <b><a href="#enable_shared_from_this::shared_from_this">shared_from_this</a></b>();
+    shared_ptr&lt;const Ty&gt; <b><a href=
+"#enable_shared_from_this::shared_from_this">shared_from_this</a></b>() const;
+
+protected:
+    <b>enable_shared_from_this</b>();
+    <b>enable_shared_from_this</b>(const enable_shared_from_this&amp;);
+    enable_shared_from_this&amp; <b>operator=</b>(const enable_shared_from_this&amp;);
+    <b>~enable_shared_from_this</b>();
+    };
+</pre>
+
+  <p>The template class can be used as a public base class to simplify creating <code><a href=
+  "#shared_ptr">shared_ptr</a></code> objects that own objects of the derived type:</p>
+  <pre>
+<code>class derived
+    : public enable_shared_from_this&lt;derived&gt;
+    {
+    };
+
+shared_ptr&lt;derived&gt; sp0 = new derived;
+shared_ptr&lt;derived&gt; sp1 = sp0-&gt;shared_from_this();</code>
+</pre>
+
+  <p>The constructors, destructor, and assigment operator are protected to help prevent accidental misuse.
+  The template argument type <code>Ty</code> must be the type of the derived class.</p>
+
+  <h3><code><a name=
+  "enable_shared_from_this::shared_from_this">enable_shared_from_this::shared_from_this</a></code></h3>
+  <pre>
+shared_ptr&lt;Ty&gt; <b>shared_from_this</b>();
+shared_ptr&lt;const Ty&gt; <b>shared_from_this</b>() const;
+</pre>
+
+  <p>The member functions each return a <code><a href="#shared_ptr">shared_ptr</a></code> object that
+  <a href="#owns">owns</a> <code>*(Ty*)this</code>.</p>
+
+  <h2><code><a name="get_deleter">get_deleter</a></code></h2>
+  <pre>
+template&lt;class D, class Ty&gt;  <b>[added with TR1]</b>
+    D *<b>get_deleter</b>(const shared_ptr&lt;Ty&gt;&amp; sp);
+</pre>
+
+  <p>The template function returns a pointer to the <a href="#deleter">deleter</a> of type <code>D</code>
+  that belongs to the <code><a href="#shared_ptr">shared_ptr</a></code> object <code>sp</code>. If
+  <code>sp</code> has no deleter or if its deleter is not of type <code>D</code> the function returns 0.</p>
+
+  <h2><a name="get_pointer_safety"><code>get_pointer_safety</code></a></h2>
+  <pre>
+pointer_safety <b>get_pointer_safety</b>(); <b>[added with C++0X]</b>
+</pre>
+
+  <p>The function returns the type of pointer safety assumed by any automatic <a href=
+  "#garbage%20collector">garbage collector</a>.</p>
+
+  <h2><a name="get_temporary_buffer"><code>get_temporary_buffer</code></a></h2>
+  <pre>
+template&lt;class Ty&gt;
+    pair&lt;Ty *, ptrdiff_t&gt;
+        <b>get_temporary_buffer</b>(ptrdiff_t count);
+</pre>
+
+  <p>The template function allocates storage for a sequence of at most <code>count</code> elements of type
+  <code>Ty</code>, from an unspecified source (which may well be the standard heap used by <code>operator
+  new</code>). It returns a value <code>pr</code>, of type <code><a href="utility.html#pair">pair</a>&lt;Ty
+  *, ptrdiff_t&gt;</code>. If the function allocates storage, <code>pr.<a href=
+  "utility.html#pair::first">first</a></code> designates the allocated storage and <code>pr.<a href=
+  "utility.html#pair::second">second</a></code> is the number of elements in the longest sequence the storage
+  can hold. Otherwise, <code>pr.first</code> is a null pointer.</p>
+
+  <h2><a name="make_shared"><code>make_shared</code></a></h2>
+  <pre>
+template&lt;class Ty, class... Types&gt;
+    shared_ptr&lt;Ty&gt; <b>make_shared</b>(Types&amp;&amp;... Args); <b>[added with C++0X]</b>
+</pre>
+
+  <p>The function creates the object <code>shared_ptr&lt;Ty&gt;</code>, where <code>ptr</code> is a pointer
+  to <code>Ty(Args...)</code> as allocated and constructed by the default allocator
+  <code>allocator()</code>.</p>
+
+  <h2><a name="operator!="><code>operator!=</code></a></h2>
+  <pre>
+template&lt;class Ty&gt;
+    bool <b>operator!=</b>(const allocator&lt;Ty&gt;&amp; left,
+        const allocator&lt;Ty&gt;&amp; right) throw();
+template&lt;class Ty1, class Ty2&gt;  <b>[added with TR1]</b>
+    bool <b>operator!=</b>(const shared_ptr&lt;Ty1&gt;&amp; left,
+        const shared_ptr&lt;Ty2&gt;&amp; right);
+template&lt;class Ty1, class Del1,
+    class Ty2, class Del2&gt; <b>[added with C++0X]</b>
+    bool <b>operator!=</b>(const unique_ptr&lt;Ty1, Del1&gt;&amp; left,
+        const unique_ptr&lt;Ty2&amp;, Del2gt;&amp; right);
+</pre>
+
+  <p>The first template operator returns false. (All default allocators are equal.) The second and third
+  template operators return <code>!(left == right)</code>.</p>
+
+  <h2><a name="operator=="><code>operator==</code></a></h2>
+  <pre>
+template&lt;class Ty&gt;
+    bool <b>operator==</b>(const allocator&lt;Ty&gt;&amp; left,
+        const allocator&lt;Ty&gt;&amp; right) throw();
+template&lt;class Ty1, class Ty2&gt;  <b>[added with TR1]</b>
+    bool <b>operator==</b>(const shared_ptr&lt;Ty1&gt;&amp; left;,
+        const shared_ptr&lt;Ty2&gt;&amp; right);
+template&lt;class Ty1, class Del1,
+    class Ty2, class Del2&gt; <b>[added with C++0X]</b>
+    bool <b>operator==</b>(const unique_ptr&lt;Ty1, Del1&gt;&amp; left,
+        const unique_ptr&lt;Ty2&amp;, Del2gt;&amp; right);
+</pre>
+
+  <p>The first template operator returns true. (All default allocators are equal.) The second and third
+  template operators return <code>left.get() == right.get()</code>.</p>
+
+  <h2><code><a name="operator&lt;">operator&lt;</a></code></h2>
+  <pre>
+template&lt;class Ty1, class Ty2&gt;  <b>[added with TR1]</b>
+    bool <b>operator&lt;</b>(const shared_ptr&lt;Ty1&gt;&amp; left,
+        const shared_ptr&lt;Ty2&gt;&amp; right);
+template&lt;class Ty1, class Del1,
+    class Ty2, class Del2&gt; <b>[added with C++0X]</b>
+    bool <b>operator&lt;</b>(const unique_ptr&lt;Ty1, Del1&gt;&amp; left,
+        const unique_ptr&lt;Ty2&amp;, Del2gt;&amp; right);
+</pre>
+
+  <p>The template operators return <code>left.get() &lt; right.get()</code>.</p>
+
+  <h2><code><a name="operator&lt;&lt;">operator&lt;&lt;</a></code></h2>
+  <pre>
+template&lt;class Elem, class Tr, class Ty&gt;  <b>[added with TR1]</b>
+    std::basic_ostream&lt;Elem, Tr&gt;&amp; <b>operator&lt;&lt;</b>(std::basic_ostream&lt;Elem, Tr&gt;&amp; out,
+    shared_ptr&lt;Ty&gt;&amp; sp);
+</pre>
+
+  <p>The template operator returns <code>out &lt;&lt; sp.get()</code>.</p>
+
+  <h2><code><a name="operator&lt;=">operator&lt;=</a></code></h2>
+  <pre>
+template&lt;class Ty1, class Ty2&gt;  <b>[added with C++0X]</b>
+    bool <b>operator&lt;=</b>(const shared_ptr&lt;Ty1&gt;&amp; left,
+        const shared_ptr&lt;Ty2&gt;&amp; right);
+template&lt;class Ty1, class Del1,
+    class Ty2, class Del2&gt; <b>[added with C++0X]</b>
+    bool <b>operator&lt;=</b>(const unique_ptr&lt;Ty1, Del1&gt;&amp; left,
+        const unique_ptr&lt;Ty2&amp;, Del2gt;&amp; right);
+</pre>
+
+  <p>The template operators return <code>left.get() &lt;= right.get()</code>.</p>
+
+  <h2><code><a name="operator&gt;">operator&gt;</a></code></h2>
+  <pre>
+template&lt;class Ty1, class Ty2&gt;  <b>[added with C++0X]</b>
+    bool <b>operator&gt;</b>(const shared_ptr&lt;Ty1&gt;&amp; left,
+        const shared_ptr&lt;Ty2&gt;&amp; right);
+template&lt;class Ty1, class Del1,
+    class Ty2, class Del2&gt; <b>[added with C++0X]</b>
+    bool <b>operator&gt;</b>(const unique_ptr&lt;Ty1, Del1&gt;&amp; left,
+        const unique_ptr&lt;Ty2&amp;, Del2gt;&amp; right);
+</pre>
+
+  <p>The template operators return <code>left.get() &gt; right.get()</code>.</p>
+
+  <h2><code><a name="operator&gt;=">operator&gt;=</a></code></h2>
+  <pre>
+template&lt;class Ty1, class Ty2&gt;  <b>[added with C++0X]</b>
+    bool <b>operator&gt;=</b>(const shared_ptr&lt;Ty1&gt;&amp; left,
+        const shared_ptr&lt;Ty2&gt;&amp; right);
+template&lt;class Ty1, class Del1,
+    class Ty2, class Del2&gt; <b>[added with C++0X]</b>
+    bool <b>operator&gt;=</b>(const unique_ptr&lt;Ty1, Del1&gt;&amp; left,
+        const unique_ptr&lt;Ty2&amp;, Del2gt;&amp; right);
+</pre>
+
+  <p>The template operators return <code>left.get() &gt;= right.get()</code>.</p>
+
+  <h2><a name="owner_less"><code>owner_less</code></a></h2>
+  <pre>
+template&lt;class Ty&gt; <b>[added with C++0X]</b>
+    struct <b>owner_less</b>; // not defined
+template&lt;class Ty&gt; <b>[added with C++0X]</b>
+    struct <b>owner_less&lt;shared_ptr&lt;Ty&gt; &gt;</b> {
+    bool <b>operator()</b>(const shared_ptr&lt;Ty&gt;&amp; left,
+        const shared_ptr&lt;Ty&gt;&amp; right);
+    bool <b>operator()</b>(const shared_ptr&lt;Ty&gt;&amp; left,
+        const weak_ptr&lt;Ty&gt;&amp; right);
+    bool <b>operator()</b>(const weak_ptr&lt;Ty&gt;&amp; left,
+        const shared_ptr&lt;Ty&gt;&amp; right);
+    };
+template&lt;class Ty&gt; <b>[added with C++0X]</b>
+    struct <b>owner_less&lt;weak_ptr&lt;Ty&gt; &gt;</b>
+    bool <b>operator()</b>(const weak_ptr&lt;Ty&gt;&amp; left,
+        const weak_ptr&lt;Ty&gt;&amp; right);
+    bool <b>operator()</b>(const weak_ptr&lt;Ty&gt;&amp; left,
+        const shared_ptr&lt;Ty&gt;&amp; right);
+    bool <b>operator()</b>(const shared_ptr&lt;Ty&gt;&amp; left,
+        const weak_ptr&lt;Ty&gt;&amp; right);
+    };
+</pre>
+
+  <p>The template classes define all their member operators as returning
+  <code>left.owner_before(right)</code>.</p>
+
+  <h2><a name="pointer_safety"><code>pointer_safety</code></a></h2>
+  <pre>
+enum <b>pointer_safety</b> { <b>[added with C++0X]</b>
+    <b>relaxed</b>, <b>preferred</b>, <b>strict</b>
+    };
+</pre>
+
+  <p>The scoped enum defines the values that can be returned by <code><a href=
+  "#get_pointer_safety">get_pointer_safety</a>()</code>:</p>
+
+  <ul>
+    <li><code>relaxed</code> -- pointers not <b><a name="safely derived pointers">safely derived</a></b>
+    (obviously pointers to declared or allocated objects) are treated the same as those safely derived.</li>
+
+    <li><code>preferred</code> -- as before, but pointers not safely derived should not be dereferenced.</li>
+
+    <li><code>strict</code> -- pointers not safely derived might be treated differently than those safely
+    derived.</li>
+  </ul>
+
+  <h2><a name="raw_storage_iterator"><code>raw_storage_iterator</code></a></h2>
+  <pre>
+template&lt;class FwdIt, class Ty&gt;
+    class <b>raw_storage_iterator</b>
+         : public iterator&lt;output_iterator_tag,
+             void, void, void, void&gt; {
+public:
+    explicit <b><a href=
+"#raw_storage_iterator::raw_storage_iterator">raw_storage_iterator</a></b>(FwdIt first);
+    raw_storage_iterator&lt;FwdIt, Ty&gt;&amp; <b><a href=
+"#raw_storage_iterator::operator*">operator*</a></b>();
+    raw_storage_iterator&lt;FwdIt, Ty&gt;&amp;
+        <b><a href="#raw_storage_iterator::operator=">operator=</a></b>(const Ty&amp; val);
+    raw_storage_iterator&lt;FwdIt, Ty&gt;&amp; <b><a href=
+"#raw_storage_iterator::operator++">operator++</a></b>();
+    raw_storage_iterator&lt;FwdIt, Ty&gt; <b><a href=
+"#raw_storage_iterator::operator++">operator++</a></b>(int);
+    };
+</pre>
+
+  <p>The class describes an output iterator that constructs objects of type <code>Ty</code> in the sequence
+  it generates. An object of class <code>raw_storage_iterator&lt;FwdIt, Ty&gt;</code> accesses storage
+  through a forward iterator object, of class <code>FwdIt</code>, that you specify when you construct the
+  object. For an object <code>first</code> of class <code>FwdIt</code>, the expression
+  <code>&amp;*first</code> must designate unconstructed storage for the next object (of type <code>Ty</code>)
+  in the generated sequence.</p>
+
+  <h3><a name="raw_storage_iterator::operator*"><code>raw_storage_iterator::operator*</code></a></h3>
+  <pre>
+raw_storage_iterator&lt;FwdIt, Ty&gt;&amp; <b>operator*</b>();
+</pre>
+
+  <p>The indirection operator returns <code>*this</code> (so that <code><a href=
+  "#raw_storage_iterator::operator=">operator=</a>(const Ty&amp;)</code> can perform the actual store in an
+  expression such as <code>*ptr = val</code>).</p>
+
+  <h3><a name="raw_storage_iterator::operator="><code>raw_storage_iterator::operator=</code></a></h3>
+  <pre>
+raw_storage_iterator&lt;FwdIt, Ty&gt;&amp; <b>operator=</b>(const Ty&amp; val);
+</pre>
+
+  <p>The assignment operator constructs the next object in the output sequence using the stored iterator
+  value <code>first</code>, by evaluating the placement <code>new</code> expression <code>new ((void
+  *)&amp;*first) Ty(val)</code>. The function returns <code>*this</code>.</p>
+
+  <h3><a name="raw_storage_iterator::operator++"><code>raw_storage_iterator::operator++</code></a></h3>
+  <pre>
+raw_storage_iterator&lt;FwdIt, Ty&gt;&amp; <b>operator++</b>();
+raw_storage_iterator&lt;FwdIt, Ty&gt; <b>operator++</b>(int);
+</pre>
+
+  <p>The first (preincrement) operator increments the stored output iterator object, then returns
+  <code>*this</code>.</p>
+
+  <p>The second (postincrement) operator makes a copy of <code>*this</code>, increments the stored output
+  iterator object, then returns the copy.</p>
+
+  <h3><a name=
+  "raw_storage_iterator::raw_storage_iterator"><code>raw_storage_iterator::raw_storage_iterator</code></a></h3>
+  <pre>
+explicit <b>raw_storage_iterator</b>(FwdIt first);
+</pre>
+
+  <p>The constructor stores <code>first</code> as the output iterator object.</p>
+
+  <h2><a name="return_temporary_buffer"><code>return_temporary_buffer</code></a></h2>
+  <pre>
+template&lt;class Ty&gt;
+    void <b>return_temporary_buffer</b>(Ty *pbuf);
+</pre>
+
+  <p>The template function frees the storage designated by <code>pbuf</code>, which must be earlier allocated
+  by a call to <code><a href="#get_temporary_buffer">get_temporary_buffer</a></code>.</p>
+
+  <h2><code><a name="shared_ptr">shared_ptr</a></code></h2>
+  <pre>
+template&lt;class Ty&gt;
+    class <b>shared_ptr</b> {  <b>[added with TR1]</b>
+public:
+    typedef Ty <b><a href="#shared_ptr::element_type">element_type</a></b>;
+
+    <b><a href="#shared_ptr::shared_ptr">shared_ptr</a></b>();
+    <b><a href="#shared_ptr::shared_ptr">shared_ptr</a></b>(nullptr_t); <b>[added with C++0X]</b>
+    <b><a href="#shared_ptr::shared_ptr">shared_ptr</a></b>(const shared_ptr&amp; sp);
+    <b><a href=
+"#shared_ptr::shared_ptr">shared_ptr</a></b>(shared_ptr&amp;&amp; sp); <b>[added with C++0X]</b>
+    template&lt;class Other&gt;
+        explicit <b><a href="#shared_ptr::shared_ptr">shared_ptr</a></b>(Other *ptr);
+    template&lt;class Other, class D&gt;
+        <b><a href="#shared_ptr::shared_ptr">shared_ptr</a></b>(Other *ptr, D dtor);
+    template&lt;class D&gt;
+        <b><a href=
+"#shared_ptr::shared_ptr">shared_ptr</a></b>(nullptr_t ptr, D dtor); <b>[added with C++0X]</b>
+    template&lt;class Other, class D, class A&gt;
+        <b><a href=
+"#shared_ptr::shared_ptr">shared_ptr</a></b>(Other *ptr, D dtor, A alloc); <b>[added with C++0X]</b>
+    template&lt;class D, class A&gt;
+        <b><a href=
+"#shared_ptr::shared_ptr">shared_ptr</a></b>(nullptr_t ptr, D dtor, A alloc); <b>[added with C++0X]</b>
+    template&lt;class Other&gt;
+        <b><a href="#shared_ptr::shared_ptr">shared_ptr</a></b>(const shared_ptr&lt;Other&gt;&amp; sp);
+    template&lt;class Other&gt;
+        <b><a href="#shared_ptr::shared_ptr">shared_ptr</a></b>(const weak_ptr&lt;Other&gt;&amp; wp);
+    template&lt;class &amp;&gt;
+        <b><a href="#shared_ptr::shared_ptr">shared_ptr</a></b>(std::auto_ptr&lt;Other&gt;&amp; ap);
+    template&lt;class Other, class D&gt;
+        <b><a href=
+"#shared_ptr::shared_ptr">shared_ptr</a></b>(unique_ptr&lt;Other, D&gt;&amp;&amp; up); <b>[added with C++0X]</b>
+    template&lt;class Other&gt;
+        <b><a href=
+"#shared_ptr::shared_ptr">shared_ptr</a></b>(const shared_ptr&lt;Other&gt;&amp; sp, Ty *ptr); <b>[added with C++0X]</b>
+
+    template&lt;class Other, class D&gt;
+        <b>shared_ptr</b>(const unique_ptr&lt;Other, D&gt;&amp; up) = delete; <b>[added with C++0X]</b>
+
+    <b><a href="#shared_ptr::~shared_ptr">~shared_ptr</a></b>();
+
+    shared_ptr&amp; <b><a href="#shared_ptr::operator=">operator=</a></b>(const shared_ptr&amp; sp);
+    shared_ptr&amp; <b><a href=
+"#shared_ptr::operator=">operator=</a></b>(shared_ptr&amp;&amp; sp); <b>[added with C++0X]</b>
+    template&lt;class Other&gt;
+        shared_ptr&amp; <b><a href=
+"#shared_ptr::operator=">operator=</a></b>(const shared_ptr&lt;Other&gt;&amp; sp);
+    template&lt;class Other&gt;
+        shared_ptr&amp; <b><a href="#shared_ptr::operator=">operator=</a></b>(auto_ptr&lt;Other&gt;&amp; ap);
+    template&lt;class Other, class D&gt;
+        shared_ptr&amp; <b><a href=
+"#shared_ptr::operator=">operator=</a></b>(shared_ptr&lt;Other, D&gt;&amp;&amp; ap); <b>[added with C++0X]</b>
+
+    template&lt;class Other, class D&gt;
+        shared_ptr&amp; <b>operator=</b>(const shared_ptr&lt;Other, D&gt;&amp; ap) = delete; <b>[added with C++0X]</b>
+
+    void <b><a href="#shared_ptr::swap">swap</a></b>(shared_ptr&amp; sp);
+    void <b><a href="#shared_ptr::reset">reset</a></b>();
+    template&lt;class Other&gt;
+        void <b><a href="#shared_ptr::reset">reset</a></b>(Other *ptr);
+    template&lt;class Other, class D&gt;
+        void <b><a href="#shared_ptr::reset">reset</a></b>(Other *ptr, D dtor);
+    template&lt;class Other, class D, class A&gt;
+        void <b><a href=
+"#shared_ptr::reset">reset</a></b>(Other *ptr, D dtor, A alloc); <b>[added with C++0X]</b>
+
+    Ty *<b><a href="#shared_ptr::get">get</a></b>() const;
+    Ty&amp; <b><a href="#shared_ptr::operator*">operator*</a></b>() const;
+    Ty *<b><a href="#shared_ptr::operator-%3E">operator-&gt;</a></b>() const;
+    long <b><a href="#shared_ptr::use_count">use_count</a></b>() const;
+    bool <b><a href="#shared_ptr::unique">unique</a></b>() const;
+    explicit <b><a href="#shared_ptr::operator%20bool">operator bool</a></b>() const;
+
+    template&lt;class Other&gt;
+        bool <b><a href=
+"#shared_ptr::owner_before">owner_before</a></b>(const shared_ptr&lt;Other&gt;&amp; ptr); <b>[added with C++0X]</b>
+    template&lt;class Other&gt;
+        bool <b><a href=
+"#shared_ptr::owner_before">owner_before</a></b>(const weak_ptr&lt;Other&gt;&amp; ptr); <b>[added with C++0X]</b>
+    };
+</pre>
+
+  <p>The template class describes an object that uses reference counting to manage resources. Each
+  <code>shared_ptr</code> object effectively stores a pointer to the resource that it owns or stores a null
+  pointer. A resource can be owned by more than one <code>shared_ptr</code> object; when the last
+  <code>shared_ptr</code> object that owns a particular resource is destroyed the resource is freed.</p>
+
+  <p>The template argument <code>Ty</code> may be an incomplete type except as noted for certain <a href=
+  "#operand%20sequence">operand sequences</a>.</p>
+
+  <p>When a <code>shared_ptr&lt;Ty&gt;</code> object is constructed from a resource pointer of type
+  <code>D*</code> or from a <code>shared_ptr&lt;D&gt;</code>, the pointer type <code>D*</code> must be
+  convertible to <code>Ty*</code>. If it is not, the code will not compile. For example:</p>
+  <pre>
+class B {};
+class D : public B {};
+
+shared_ptr&lt;D&gt; sp0(new D);   // okay, template parameter D and argument D*
+shared_ptr&lt;D&gt; sp1(sp0);     // okay, template parameter D and argument shared_ptr&lt;D&gt;
+shared_ptr&lt;B&gt; sp2(new D);   // okay, D* convertible to B*
+shared_ptr&lt;B&gt; sp3(sp0);     // okay, template parameter B and argument shared_ptr&lt;D&gt;
+shared_ptr&lt;B&gt; sp4(sp2);     // okay, template parameter B and argument shared_ptr&lt;B&gt;
+shared_ptr&lt;int&gt; sp4(new D); // error, D* not convertible to int*
+shared_ptr&lt;int&gt; sp5(sp2);   // error, template parameter int and argument shared_ptr&lt;B&gt;
+</pre>
+
+  <p>A <code>shared_ptr</code> object <b><a name="owns">owns</a></b> a resource:</p>
+
+  <ul>
+    <li>if it was constructed with a pointer to that resource,</li>
+
+    <li>if it was constructed from a <code>shared_ptr</code> object that owns that resource,</li>
+
+    <li>if it was constructed from a <code><a href="#weak_ptr">weak_ptr</a></code> object that <a href=
+    "#points%20to">points to</a> that resource, or</li>
+
+    <li>if ownership of that resource was assigned to it, either with <code><a href=
+    "#shared_ptr::operator=">operator=</a></code> or by calling the member function <code><a href=
+    "#shared_ptr::reset">reset</a></code>.</li>
+  </ul>
+
+  <p>All the <code>shared_ptr</code> objects that own a single resource share a control block which holds the
+  number of <code>shared_ptr</code> objects that own the resource, the number of <code>weak_ptr</code>
+  objects that point to the resource, and the <a href="#deleter">deleter</a> for that resource if it has one.
+  A <code>shared_ptr</code> object that was initialized with a null pointer has a control block; thus it is
+  not an <a href="#empty%20shared_ptr">empty shared_ptr</a>. After a <code>shared_ptr</code> object
+  <b><a name="release">releases</a></b> a resource it no longer owns that resource. After a
+  <code>weak_ptr</code> object releases a resource it no longer <a href="#points%20to">points to</a> that
+  resource. When the number of <code>shared_ptr</code> objects that own a resource becomes zero the resource
+  is freed, either by deleting it or by passing its address to a deleter, depending on how ownership of the
+  resource was originally created. When the number of <code>shared_ptr</code> objects that own a resource is
+  zero and the number of <code>weak_ptr</code> objects that point to that resource is zero the control block
+  is freed.</p>
+
+  <p>An <b><a name="empty shared_ptr">empty shared_ptr</a></b> object does not own any resources and has no
+  control block.</p>
+
+  <p>A <b><a name="deleter">deleter</a></b> is a function pointer or an object of a type with a member
+  function <code>operator()</code>. Its type must be copy constructible and its copy constructor and
+  destructor must not throw exceptions. A deleter is bound to a <code>shared_ptr</code> object with an
+  <a href="#operand%20sequence">operand sequence</a> of the form <code>ptr, dtor</code>.</p>
+
+  <p>Some functions take an <b><a name="operand sequence">operand sequence</a></b> that defines properties of
+  the resulting <code>shared_ptr&lt;Ty&gt;</code> or <code>weak_ptr&lt;Ty&gt;</code> object. You can specify
+  such an operand sequence several ways:</p>
+
+  <ul>
+    <li><i>no arguments</i> -- the resulting object is an <a href="#empty%20shared_ptr">empty shared_ptr</a>
+    object or an <a href="#empty%20weak_ptr">empty weak_ptr</a> object.</li>
+
+    <li><code>ptr</code> -- a pointer of type <code>Other*</code> to the resource to be managed.
+    <code>Ty</code> must be a complete type. If the function fails it evaluates the expression <code>delete
+    ptr</code>.</li>
+
+    <li><code>ptr, dtor</code> -- a pointer of type <code>Other*</code> to the resource to be managed and a
+    <a href="#deleter">deleter</a> for that resource. If the function fails it calls <code>dtor(ptr)</code>,
+    which must be well defined.</li>
+
+    <li><code>ptr, dtor, alloc</code> -- a pointer of type <code>Other*</code> to the resource to be managed,
+    a <a href="#deleter">deleter</a> for that resource, and an allocator to manage any storage that must be
+    allocated and freed. If the function fails it calls <code>dtor(ptr)</code>, which must be well
+    defined.</li>
+
+    <li><code>sp</code> -- a <code>shared_ptr&lt;Other&gt;</code> object that <a href="#owns">owns</a> the
+    resource to be managed.</li>
+
+    <li><code>wp</code> -- a <code>weak_ptr&lt;Other&gt;</code> object that <a href="#points%20to">points
+    to</a> the resource to be managed.</li>
+
+    <li><code>ap</code> -- an <code>auto_ptr&lt;Other&gt;</code> object that holds a pointer to the resource
+    to be managed. If the function succeeds it calls <code>ap.release()</code>; otherwise it leaves
+    <code>ap</code> unchanged.</li>
+  </ul>
+
+  <p>In all cases, the pointer type <code>Other *</code> must be convertible to <code>Ty *</code>.</p>
+
+  <h3><code><a name="shared_ptr::element_type">shared_ptr::element_type</a></code></h3>
+  <pre>
+typedef Ty <b>element_type</b>;
+</pre>
+
+  <p>The type is a synonym for the template parameter <code>Ty</code>.</p>
+
+  <h3><code><a name="shared_ptr::get">shared_ptr::get</a></code></h3>
+  <pre>
+Ty *<b>get</b>() const;
+</pre>
+
+  <p>The member function returns the address of the <a href="#owns">owned</a> resource. If the object does
+  not own a resource it returns 0.</p>
+
+  <h3><code><a name="shared_ptr::operator=">shared_ptr::operator=</a></code></h3>
+  <pre>
+shared_ptr&amp; <b>operator=</b>(const shared_ptr&amp; sp);
+shared_ptr&amp; <b>operator=</b>(shared_ptr&amp;&amp; sp);
+template&lt;class Other&gt;
+    shared_ptr&amp; <b>operator=</b>(const shared_ptr&lt;Other&gt;&amp; sp);
+template&lt;class Other&gt;
+    shared_ptr&amp; <b>operator=</b>(auto_ptr&lt;Other&gt;&amp; ap);
+template&lt;class Other, class D&gt;
+    shared_ptr&amp; <b>operator=</b>(unique_ptr&lt;Other, D&gt;&amp;&amp; ap); <b>[added with C++0X]</b>
+</pre>
+
+  <p>The operators all <a href="#release">release</a> the resource currently <a href="#owns">owned</a> by
+  <code>*this</code> and assign ownership of the resource named by the <a href="#operand%20sequence">operand
+  sequence</a> to <code>*this</code>. If an operator fails it leaves <code>*this</code> unchanged.</p>
+
+  <h3><code><a name="shared_ptr::operator*">shared_ptr::operator*</a></code></h3>
+  <pre>
+Ty&amp; <b>operator*</b>() const;
+</pre>
+
+  <p>The indirection operator returns <code>*get()</code>. Hence, the stored pointer must not be null.</p>
+
+  <h3><code><a name="shared_ptr::operator-&gt;">shared_ptr::operator-&gt;</a></code></h3>
+  <pre>
+Ty *<b>operator-&gt;</b>() const;
+</pre>
+
+  <p>The selection operator returns <code>get()</code>, so that the expression <code>sp-&gt;member</code>
+  behaves the same as <code>(sp.get())-&gt;member</code> where <code>sp</code> is an object of class
+  <code>shared_ptr&lt;Ty&gt;</code>. Hence, the stored pointer must not be null, and <code>Ty</code> must be
+  a class, structure, or union type with a member <code>member</code>.</p>
+
+  <h3><code><a name="shared_ptr::operator bool">shared_ptr::operator bool</a></code></h3>
+  <pre>
+explicit <b>operator bool</b>() const;
+</pre>
+
+  <p>The operator returns a value of a type that is convertible to <code>bool</code>. The result of the
+  conversion to <code>bool</code> is <code>true</code> when <code>get() != 0</code>, otherwise
+  <code>false</code>.</p>
+
+  <h3><code><a name="shared_ptr::owner_before">shared_ptr::owner_before</a></code></h3>
+  <pre>
+template&lt;class Other&gt;
+    bool <b>owner_before</b>(const shared_ptr&lt;Other&gt;&amp; ptr); <b>[added with C++0X]</b>
+template&lt;class Other&gt;
+    bool <b>owner_before</b>(const weak_ptr&lt;Other&gt;&amp; ptr); <b>[added with C++0X]</b>
+</pre>
+
+  <p>The template member function returns true if <code>*this</code> is <a href=
+  "lib_stl.html#strict%20weak%20ordering">ordered before</a> <code>ptr</code>.</p>
+
+  <h3><code><a name="shared_ptr::reset">shared_ptr::reset</a></code></h3>
+  <pre>
+void <b>reset</b>();
+template&lt;class Other&gt;
+    void <b>reset</b>(Other *ptr;);
+template&lt;class Other, class D&gt;
+    void <b>reset</b>(Other *ptr, D dtor);
+template&lt;class Other, class D, class A&gt;
+    void <b>reset</b>(Other *ptr, D dtor, A alloc); <b>[added with C++0X]</b>
+</pre>
+
+  <p>The member functions all <a href="#release">release</a> the resource currently <a href="#owns">owned</a>
+  by <code>*this</code> and assign ownership of the resource named by the <a href=
+  "#operand%20sequence">operand sequence</a> to <code>*this</code>. If a member function fails it leaves
+  <code>*this</code> unchanged.</p>
+
+  <h3><code><a name="shared_ptr::shared_ptr">shared_ptr::shared_ptr</a></code></h3>
+  <pre>
+<b>shared_ptr</b>();
+</pre>
+  <pre>
+<b>shared_ptr</b>();
+<b>shared_ptr</b>(nullptr_t); <b>[added with C++0X]</b>
+<b>shared_ptr</b>(const shared_ptr&amp; sp);
+<b>shared_ptr</b>(shared_ptr&amp;&amp; sp); <b>[added with C++0X]</b>
+template&lt;class Other&gt;
+    explicit <b>shared_ptr</b>(Other *ptr);
+template&lt;class Other, class D&gt;
+    <b>shared_ptr</b>(Other *ptr, D dtor);
+template&lt;class D&gt;
+    <b>shared_ptr</b>(nullptr_t ptr, D dtor); <b>[added with C++0X]</b>
+template&lt;class Other, class D, class A&gt;
+    <b>shared_ptr</b>(Other *ptr, D dtor, A alloc); <b>[added with C++0X]</b>
+template&lt;class D, class A&gt;
+    <b>shared_ptr</b>(nullptr_t ptr, D dtor, A alloc); <b>[added with C++0X]</b>
+template&lt;class Other&gt;
+    <b>shared_ptr</b>(const shared_ptr&lt;Other&gt;&amp; sp);
+template&lt;class Other&gt;
+    <b>shared_ptr</b>(const weak_ptr&lt;Other&gt;&amp; wp);
+template&lt;class Other&gt;
+    <b>shared_ptr</b>(std::auto_ptr&lt;Other&gt;&amp; ap);
+template&lt;class Other, class D&gt;
+    <b>shared_ptr</b>(std::unique_ptr&lt;Other, D&gt;&amp;&amp; ap); <b>[added with C++0X]</b>
+template&lt;class Other&gt;
+    <b>shared_ptr</b>(const shared_ptr&lt;Other&gt;&amp; sp, Ty *ptr); <b>[added with C++0X]</b>
+</pre>
+
+  <p>All but the last constructor each constructs an object that <a href="#owns">owns</a> the resource named
+  by the <a href="#operand%20sequence">operand sequence</a>. The last constructor defines <code>ptr</code> as
+  a <b><a name="shared pointer alias">shared pointer alias</a></b> for the object owned by <code>sp</code>,
+  and shares ownership with <code>sp</code>.</p>
+
+  <p>The constructor <code>shared_ptr(const weak_ptr&lt;Other&gt;&amp; wp)</code> throws an exception object
+  of type <a href="#bad_weak_ptr">bad_weak_ptr</a> if <code>wp.expired()</code>.</p>
+
+  <h3><code><a name="shared_ptr::~shared_ptr">shared_ptr::~shared_ptr</a></code></h3>
+  <pre>
+<b>~shared_ptr</b>();
+</pre>
+
+  <p>The destructor <a href="#release">releases</a> the resource <a href="#owns">owned</a> by
+  <code>*this</code>.</p>
+
+  <h3><code><a name="shared_ptr::swap">shared_ptr::swap</a></code></h3>
+  <pre>
+void <b>swap</b>(shared_ptr&amp; sp);
+</pre>
+
+  <p>The member function leaves the resource originally <a href="#owns">owned</a> by <code>*this</code>
+  subsequently owned by <code>sp</code>, and the resource originally owned by <code>sp</code> subsequently
+  owned by <code>*this</code>. The function does not change the reference counts for the two resources and it
+  does not throw any exceptions.</p>
+
+  <h3><code><a name="shared_ptr::unique">shared_ptr::unique</a></code></h3>
+  <pre>
+bool <b>unique</b>() const;
+</pre>
+
+  <p>The member function returns <code>true</code> if no other <code>shared_ptr</code> object <a href=
+  "#owns">owns</a> the resource that is owned by <code>*this</code>, otherwise <code>false</code>.</p>
+
+  <h3><code><a name="shared_ptr::use_count">shared_ptr::use_count</a></code></h3>
+  <pre>
+long <b>use_count</b>() const;
+</pre>
+
+  <p>The member function returns the number of <code>shared_ptr</code> objects that <a href="#owns">own</a>
+  the resource that is owned by <code>*this</code>.</p>
+
+  <h2><code><a name="static_pointer_cast">static_pointer_cast</a></code></h2>
+  <pre>
+template &lt;class Ty, class Other&gt;  <b>[added with TR1]</b>
+    shared_ptr&lt;Ty&gt; <b>static_pointer_cast</b>(const shared_ptr&lt;Other&gt;&amp; sp);
+</pre>
+
+  <p>The template function returns an <a href="#empty%20shared_ptr">empty shared_ptr</a> object if
+  <code>sp</code> is an empty <code>shared_ptr</code> object; otherwise it returns a <code><a href=
+  "#shared_ptr">shared_ptr</a>&lt;Ty&gt;</code> object that <a href="#owns">owns</a> the resource that is
+  owned by <code>sp</code>. The expression <code>static_cast&lt;Ty*&gt;(sp.get())</code> must be valid.</p>
+
+  <h2><code><a name="swap">swap</a></code></h2>
+  <pre>
+template&lt;class Ty&gt; <b>[added with TR1]</b>
+    void <b>swap</b>(shared_ptr&lt;Ty&gt;&amp; left,
+        shared_ptr&lt;Ty&gt;&amp; right);
+template&lt;class Ty, class Del&gt; <b>[added with C++0X]</b>
+    void <b>swap</b>(unique_ptr&lt;Ty, Del&gt;&amp; left,
+        unique_ptr&lt;Ty, Del&gt;&amp; right);
+template&lt;class Ty&gt; <b>[added with TR1]</b>
+    void <b>swap</b>(weak_ptr&lt;Ty&gt;&amp; left,
+        weak_ptr&lt;Other&gt;&amp; right);
+</pre>
+
+  <p>The template function calls <code>left.swap(right)</code>.</p>
+
+  <h2><a name="undeclare_no_pointers"><code>undeclare_no_pointers</code></a></h2>
+  <pre>
+void <b>undeclare_no_pointers</b>(char *ptr, size_t size); <b>[added with C++0X]</b>
+</pre>
+
+  <p>The function informs any <a href="#garbage%20collector">garbage collector</a> that the range of
+  addresses <code>[ptr, ptr + size)</code> may now contain <a href="#traceable%20pointers">traceable
+  pointers</a>.</p>
+
+  <h2><a name="undeclare_reachable"><code>undeclare_reachable</code></a></h2>
+  <pre>
+template&lt;class Ty&gt;
+    _Ty *<b>undeclare_reachable</b>(void *ptr); <b>[added with C++0X]</b>
+</pre>
+
+  <p>If <code>ptr</code> is not null, the function informs any <a href="#garbage%20collector">garbage
+  collector</a> that <code>ptr</code> is hereafter not <a href="#reachable%20pointers">reachable</a>. It
+  returns a <a href="#safely%20derived%20pointers">safely derived</a> pointer that compares equal to
+  <code>ptr</code>.</p>
+
+  <h2><a name="uninitialized_copy"><code>uninitialized_copy</code></a></h2>
+  <pre>
+template&lt;class InIt, class FwdIt&gt;
+    FwdIt <b>uninitialized_copy</b>(InIt first, InIt last,
+        FwdIt dest);
+</pre>
+
+  <p>The template function effectively executes:</p>
+  <pre>
+while (first != last)
+    new ((void *)&amp;*dest++)
+        iterator_traits&lt;InIt&gt;::<a href=
+"iterator.html#iterator_traits::value_type">value_type</a>(*first++);
+return dest;
+</pre>
+
+  <p>unless the code throws an exception. In that case, all constructed objects are destroyed and the
+  exception is rethrown.</p>
+
+  <h2><a name="uninitialized_copy_n"><code>uninitialized_copy_n</code></a></h2>
+  <pre>
+template&lt;class InIt, class Diff, class FwdIt&gt;
+    FwdIt <b>uninitialized_copy_n</b>(InIt first, Diff count,
+        FwdIt dest); <b>[added with C++0X]</b>
+</pre>
+
+  <p>The template function effectively executes:</p>
+  <pre>
+for (; 0 &lt; count; -- count)
+    new ((void *)&amp;*dest++)
+        iterator_traits&lt;InIt&gt;::<a href=
+"iterator.html#iterator_traits::value_type">value_type</a>(*first++);
+return dest;
+</pre>
+
+  <p>unless the code throws an exception. In that case, all constructed objects are destroyed and the
+  exception is rethrown.</p>
+
+  <h2><a name="uninitialized_fill"><code>uninitialized_fill</code></a></h2>
+  <pre>
+template&lt;class FwdIt, class Ty&gt;
+    void <b>uninitialized_fill</b>(FwdIt first, FwdIt last,
+        const Ty&amp; val);
+</pre>
+
+  <p>The template function effectively executes:</p>
+  <pre>
+while (first != last)
+    new ((void *)&amp;*first++)
+        iterator_traits&lt;FwdIt&gt;::<a href=
+"iterator.html#iterator_traits::value_type">value_type</a>(val);
+</pre>
+
+  <p>unless the code throws an exception. In that case, all constructed objects are destroyed and the
+  exception is rethrown.</p>
+
+  <h2><a name="uninitialized_fill_n"><code>uninitialized_fill_n</code></a></h2>
+  <pre>
+template&lt;class FwdIt, class Size, class Ty&gt;
+    void <b>uninitialized_fill_n</b>(FwdIt first, Size count,
+        const Ty&amp; val);
+</pre>
+
+  <p>The template function effectively executes:</p>
+  <pre>
+while (0 &lt; count--)
+    new ((void *)&amp;*first++)
+        iterator_traits&lt;FwdIt&gt;::<a href=
+"iterator.html#iterator_traits::value_type">value_type</a>(val);
+</pre>
+
+  <p>unless the code throws an exception. In that case, all constructed objects are destroyed and the
+  exception is rethrown.</p>
+
+  <h2><code><a name="unique_ptr">unique_ptr</a></code></h2>
+  <pre>
+template&lt;class Ty, class Del = default_delete&lt;Ty&gt; &gt;
+    struct <b>unique_ptr</b> { <b>[added with C++0X]</b>
+    typedef Ty <b><a href="#unique_ptr::element_type">element_type</a></b>;
+    typedef Del <b><a href="#unique_ptr::deleter_type">deleter_type</a></b>;
+    typedef T1 <b><a href="#unique_ptr::pointer">pointer</a></b>;
+
+    <b><a href="#unique_ptr::unique_ptr">unique_ptr</a></b>();
+    <b><a href="#unique_ptr::unique_ptr">unique_ptr</a></b>(nullptr_t);
+    explicit <b><a href="#unique_ptr::unique_ptr">unique_ptr</a></b>(pointer ptr);
+    <b><a href="#unique_ptr::unique_ptr">unique_ptr</a></b>(pointer ptr,
+        typename conditional&lt;is_reference&lt;Del&gt;::value, Del,
+            typename add_reference&lt;const Del&gt;::type&gt;::type deleter);
+    <b><a href="#unique_ptr::unique_ptr">unique_ptr</a></b>(pointer ptr,
+        typename remove_reference&lt;Del&gt;::type&amp;&amp; deleter);
+    <b><a href="#unique_ptr::unique_ptr">unique_ptr</a></b>(unique_ptr&amp;&amp; right);
+    template&lt;class Ty2, Class Del2&gt;
+        <b><a href=
+"#unique_ptr::unique_ptr">unique_ptr</a></b>(unique_ptr&lt;Ty2, Del2&amp;gt2;&amp;&amp; right);
+
+    <b><a href="#unique_ptr::~unique_ptr">~unique_ptr</a></b>();
+
+    unique_ptr&amp; <b><a href="#unique_ptr::operator=">operator=</a></b>(unique_ptr&amp;&amp; right);
+    template&lt;class Ty2, Class Del2&gt;
+        unique_ptr&amp; <b><a href=
+"#unique_ptr::operator=">operator=</a></b>(unique_ptr&lt;Ty, Del&gt;&amp;&amp; right);
+    unique_ptr&amp; <b><a href="#unique_ptr::operator=">operator=</a></b>(nullptr_t);
+
+    void <b><a href="#unique_ptr::swap">swap</a></b>(unique_ptr&amp; right);
+    pointer <b><a href="#unique_ptr::release">release</a></b>();
+    void <b><a href="#unique_ptr::reset">reset</a></b>(pointer ptr = pointer());
+    void <b><a href="#unique_ptr::reset">reset</a></b>(nullptr_t ptr);
+
+    pointer <b><a href="#unique_ptr::get">get</a></b>() const;
+    Ty&amp; <b><a href="#unique_ptr::operator*">operator*</a></b>() const;
+    pointer <b><a href="#unique_ptr::operator-%3E">operator-&gt;</a></b>() const;
+    Del&amp; <b><a href="#unique_ptr::get_deleter">get_deleter</a></b>();
+    const Del&amp; <b><a href="#unique_ptr::get_deleter">get_deleter</a></b>() const;
+    explicit <b><a href="#unique_ptr::operator%20bool">operator bool</a></b>() const;
+
+    <b>unique_ptr</b>(const unique_ptr&amp; right) = delete;
+    unique_ptr&amp; <b>operator=</b>(const unique_ptr&amp; right) = delete;
+
+private:
+    pointer stored_ptr;    <i>// exposition only</i>
+    Del stored_deleter;    <i>// exposition only</i>
+    };
+</pre>
+
+  <p>The template class describes an object that uniquely manages a resource. Each <code>unique_ptr</code>
+  object effectively stores a pointer to the object that it owns or stores a null pointer. A resouce can be
+  owned by no more than one <code>unique_ptr</code> object; when the <code>unique_ptr</code> object that owns
+  a particular resource is destroyed the resource is freed. A <code>unique_ptr</code> object may be moved,
+  but not copied.</p>
+
+  <p>The resource is freed by calling a stored <b><a name="deleter">deleter</a></b> object of type
+  <code>Del</code> that knows how resources are allocated for a particular <code>unique_ptr</code>. The
+  default deleter <code><a href="#default_delete">default_delete</a>&lt;Ty&gt;</code> assumes that the
+  resource pointed to by <code>ptr</code> is allocated with <code>operator new</code>, so it can be freed by
+  calling <code>Del()(ptr)</code>. (An explicit specialization <code><a href=
+  "#unique_ptr_arr">unique_ptr&lt;Ty[]&gt;</a></code> manages array objects allocated with <code>operator
+  new[]</code>, and has the default deleter <code><a href=
+  "#default_delete_arr">default_delete&lt;Ty[]&gt;</a></code>.)</p>
+
+  <p>The stored pointer to a managed resource <code>stored_ptr</code> has type <code><a href=
+  "#unique_ptr::pointer">pointer</a></code>. It is <code>Del::pointer</code> if defined, otherwise <code>Ty
+  *</code>. The stored deleter object <code>stored_deleter</code> should occupy no space in the object if the
+  deleter is stateless. Note that <code>Del</code> can be a reference type.</p>
+
+  <h3><code><a name="unique_ptr::deleter_type">unique_ptr::deleter_type</a></code></h3>
+  <pre>
+typedef Del <b>deleter_type</b>;
+</pre>
+
+  <p>The type is a synonym for the template parameter <code>Del</code>.</p>
+
+  <h3><code><a name="unique_ptr::element_type">unique_ptr::element_type</a></code></h3>
+  <pre>
+typedef Ty <b>element_type</b>;
+</pre>
+
+  <p>The type is a synonym for the template parameter <code>Ty</code>.</p>
+
+  <h3><code><a name="unique_ptr::get">unique_ptr::get</a></code></h3>
+  <pre>
+pointer <b>get</b>() const;
+</pre>
+
+  <p>The member function returns <code>stored_ptr</code>.</p>
+
+  <h3><code><a name="unique_ptr::get_deleter">unique_ptr::get_deleter</a></code></h3>
+  <pre>
+Del&amp; <b>get_deleter</b>();
+const Del&amp; <b>get_deleter</b>() const;
+</pre>
+
+  <p>The member function returns a reference to <code>stored_deleter</code>.</p>
+
+  <h3><code><a name="unique_ptr::operator=">unique_ptr::operator=</a></code></h3>
+  <pre>
+unique_ptr&amp; <b>operator=</b>(unique_ptr&amp;&amp; right);
+template&lt;class Ty2, Class Del2&gt;
+    unique_ptr&amp; <b>operator=</b>(unique_ptr&lt;Ty, Del&gt;&amp;&amp; right);
+unique_ptr&amp; <b>operator=</b>(nullptr_t);
+</pre>
+
+  <p>The member functions call <code>reset(right.release())</code> and move <code>right.stored_deleter</code>
+  to <code>stored_deleter</code>, then return <code>*this</code>.</p>
+
+  <h3><code><a name="unique_ptr::operator*">unique_ptr::operator*</a></code></h3>
+  <pre>
+Ty&amp; <b>operator*</b>() const;
+</pre>
+
+  <p>The member function returns <code>*stored_ptr</code>.</p>
+
+  <h3><code><a name="unique_ptr::operator-&gt;">unique_ptr::operator-&gt;</a></code></h3>
+  <pre>
+pointer <b>operator-&gt;</b>() const;
+</pre>
+
+  <p>The member function returns <code>stored_ptr</code>.</p>
+
+  <h3><code><a name="unique_ptr::operator bool">unique_ptr::operator bool</a></code></h3>
+  <pre>
+explicit <b>operator bool</b>() const;
+</pre>
+
+  <p>The operator returns a value of a type that is convertible to <code>bool</code>. The result of the
+  conversion to <code>bool</code> is <code>true</code> when <code>get() != pointer()</code>, otherwise
+  <code>false</code>.</p>
+
+  <h3><code><a name="unique_ptr::pointer">unique_ptr::pointer</a></code></h3>
+  <pre>
+typedef T1 <b>pointer</b>;
+</pre>
+
+  <p>The type is a synonym for <code>Del::pointer</code> if defined, otherwise <code>Ty *</code>.</p>
+
+  <h3><code><a name="unique_ptr::release">unique_ptr::release</a></code></h3>
+  <pre>
+pointer <b>release</b>();
+</pre>
+
+  <p>The member function stores <code>pointer()</code> in <code>stored_ptr</code> and returns its previous
+  contents.</p>
+
+  <h3><code><a name="unique_ptr::reset">unique_ptr::reset</a></code></h3>
+  <pre>
+void <b>reset</b>(pointer ptr = pointer());
+void <b>reset</b>(nullptr_t ptr);
+</pre>
+
+  <p>If <code>ptr == stored_ptr</code> the member function does nothing. Otherwise, if <code>ptr != 0</code>
+  it calls <code>get_deleter()(stored_ptr)</code> and stores <code>ptr</code> in <code>stored_ptr</code>.</p>
+
+  <h3><code><a name="unique_ptr::swap">unique_ptr::swap</a></code></h3>
+  <pre>
+void <b>swap</b>(unique_ptr&amp; right);
+</pre>
+
+  <p>The member function swaps <code>stored_ptr</code> with <code>right.stored_ptr</code> and
+  <code>stored_deleter</code> with <code>right.stored_deleter</code>.</p>
+
+  <h3><code><a name="unique_ptr::unique_ptr">unique_ptr::unique_ptr</a></code></h3>
+  <pre>
+<b>unique_ptr</b>();
+<b>unique_ptr</b>(nullptr_t);
+explicit <b>unique_ptr</b>(pointer ptr);
+<b>unique_ptr</b>(Ty *ptr,
+    typename conditional&lt;is_reference&lt;Del&gt;::value, Del,
+        typename add_reference&lt;const Del&gt;::type&gt;::type deleter);
+<b>unique_ptr</b>(pointer ptr,
+    typename remove_reference&lt;Del&gt;::type&amp;&amp; deleter);
+<b>unique_ptr</b>(unique_ptr&amp;&amp; right);
+template&lt;class Ty2, Class Del2&gt;
+    <b>unique_ptr</b>(unique_ptr&lt;Ty2, Del2&amp;gt2;&amp;&amp; right);
+</pre>
+
+  <p>The first two constructors construct an object that manages no resource. The third constructor stores
+  <code>ptr</code> in <code>stored_ptr</code>. The fourth constructor stores <code>ptr</code> in
+  <code>stored_ptr</code> and <code>deleter</code> in <code>stored_deleter</code>.</p>
+
+  <p>The fifth costructor stores <code>ptr</code> in <code>stored_ptr</code> and moves <code>deleter</code>
+  into <code>stored_deleter</code>. The sixth and seventh constructors store <code>right.reset()</code> in
+  <code>stored_ptr</code> and moves <code>right.get_deleter()</code> into <code>stored_deleter</code>.</p>
+
+  <h3><code><a name="unique_ptr::~unique_ptr">unique_ptr::~unique_ptr</a></code></h3>
+  <pre>
+<b>~unique_ptr</b>();
+</pre>
+
+  <p>The destructor calls <code>get_deleter()(stored_ptr)</code>.</p>
+
+  <h2><code><a name="unique_ptr_arr">unique_ptr&lt;Ty[], Del&gt;</a></code></h2>
+  <pre>
+template&lt;class Ty, class Del&gt;
+    struct <b>unique_ptr&lt;Ty[], Del&gt;</b> { <b>[added with C++0X]</b>
+    typedef Ty <b><a href="#unique_ptr::element_type">element_type</a></b>;
+    typedef Del <b><a href="#unique_ptr::deleter_type">deleter_type</a></b>;
+    typedef T1 <b><a href="#unique_ptr::pointer">pointer</a></b>;
+
+    <b><a href="#unique_ptr_arr::unique_ptr">unique_ptr</a></b>();
+    explicit <b><a href="#unique_ptr::unique_ptr">unique_ptr</a></b>(pointer ptr);
+    <b><a href="#unique_ptr_arr::unique_ptr">unique_ptr</a></b>(pointer ptr,
+        typename conditional&lt;is_reference&lt;Del&gt;::value, Del,
+            typename add_reference&lt;const Del&gt;::type&gt;::type deleter);
+    <b><a href="#unique_ptr_arr::unique_ptr">unique_ptr</a></b>(pointer ptr,
+        typename remove_reference&lt;Del&gt;::type&amp;&amp; deleter);
+    <b><a href="#unique_ptr_arr::unique_ptr">unique_ptr</a></b>(unique_ptr&amp;&amp; right);
+
+    <b><a href="#unique_ptr::~unique_ptr">~unique_ptr</a></b>();
+
+    unique_ptr&amp; <b><a href="#unique_ptr::operator=">operator=</a></b>(unique_ptr&amp;&amp; right);
+    unique_ptr&amp; <b><a href="#unique_ptr::operator=">operator=</a></b>(nullptr_t);
+
+    void <b><a href="#unique_ptr::swap">swap</a></b>(unique_ptr&amp; right);
+    pointer <b><a href="#unique_ptr::release">release</a></b>();
+    void <b><a href="#unique_ptr::reset">reset</a></b>(pointer ptr = pointer());
+    void <b><a href="#unique_ptr::reset">reset</a></b>(nullptr_t ptr);
+
+    pointer <b><a href="#unique_ptr::get">get</a></b>() const;
+    Ty&amp; <b><a href="#unique_ptr_arr::operator[]">operator[]</a></b>(size_t idx) const;
+    Del&amp; <b><a href="#unique_ptr::get_deleter">get_deleter</a></b>();
+    const Del&amp; <b><a href="#unique_ptr::get_deleter">get_deleter</a></b>() const;
+    explicit <b><a href="#unique_ptr::operator%20bool">operator bool</a></b>() const;
+
+    <b>unique_ptr</b>(const unique_ptr&amp; right) = delete;
+    template&lt;class Ty2, Class Del2&gt;
+        <b>unique_ptr</b>(const unique_ptr&lt;Ty2, Del2&amp;gt2;&amp; right) = delete;
+
+    unique_ptr&amp; <b>operator=</b>(const unique_ptr&amp; right) = delete;
+    template&lt;class Ty2, Class Del2&gt;
+        unique_ptr&amp; <b>operator=</b>(const unique_ptr&lt;Ty, Del&gt;&amp; right) = delete;
+
+    template&lt;class Ptr2&gt;
+        void <b>reset</b>(_Ptr2 ptr) = delete;
+
+private:
+    pointer stored_ptr;    <i>// exposition only</i>
+    Del stored_deleter;    <i>// exposition only</i>
+    };
+</pre>
+
+  <p>The template class describes an object that uniquely manages an array resource. Each
+  <code>unique_ptr</code> object effectively stores a pointer to the array object that it owns or stores a
+  null pointer. A resouce can be owned by no more than one <code>unique_ptr</code> object; when the
+  <code>unique_ptr</code> object that owns a particular resource is destroyed the resource is freed. A
+  <code>unique_ptr</code> object may be moved, but not copied.</p>
+
+  <p>The resource is freed by calling a stored <b><a name="deleter">deleter</a></b> object of type
+  <code>Del</code> that knows how resources are allocated for a particular <code>unique_ptr</code>. The
+  default deleter <code><a href="#default_delete">default_delete</a>&lt;Ty[]&gt;</code> assumes that the
+  resource pointed to by <code>ptr</code> is allocated with <code>operator new[]</code>, so it can be freed
+  by calling <code>Del()(ptr)</code>. (The general template <code><a href=
+  "#unique_ptr">unique_ptr&lt;Ty&gt;</a></code> manages non-array objects allocated with <code>operator
+  new</code>, and has the default deleter <code><a href=
+  "#default_delete">default_delete&lt;Ty&gt;</a></code>.)</p>
+
+  <p>The stored pointer to a managed resource <code>stored_ptr</code> has type <code><a href=
+  "#unique_ptr::pointer">pointer</a></code>. It is <code>Del::pointer</code> if defined, otherwise <code>Ty
+  *</code>. The stored deleter object <code>stored_deleter</code> should occupy no space in the object if the
+  deleter is stateless. Note that <code>Del</code> can be a reference type.</p>
+
+  <h3><code><a name="unique_ptr_arr::operator[]">unique_ptr::operator[]</a></code></h3>
+  <pre>
+Ty&amp; <b>operator[]</b>(size_t idx) const;
+</pre>
+
+  <p>The member function returns <code>stored_ptr[idx]</code>.</p>
+
+  <h3><code><a name="unique_ptr_arr::unique_ptr">unique_ptr::unique_ptr</a></code></h3>
+  <pre>
+<b>unique_ptr</b>();
+explicit <b>unique_ptr</b>(pointer ptr);
+<b>unique_ptr</b>(Ty *ptr,
+    typename conditional&lt;is_reference&lt;Del&gt;::value, Del,
+        typename add_reference&lt;const Del&gt;::type&gt;::type deleter);
+<b>unique_ptr</b>(pointer ptr,
+    typename remove_reference&lt;Del&gt;::type&amp;&amp; deleter);
+<b>unique_ptr</b>(unique_ptr&amp;&amp; right);
+</pre>
+
+  <p>The first (default) constructor constructs an object that manages no resource. The second constructor
+  stores <code>ptr</code> in <code>stored_ptr</code>. The third constructor stores <code>ptr</code> in
+  <code>stored_ptr</code> and <code>deleter</code> in <code>stored_deleter</code>.</p>
+
+  <p>The fourth costructor stores <code>ptr</code> in <code>stored_ptr</code> and moves <code>deleter</code>
+  into <code>stored_deleter</code>. The fifth constructor stores <code>right.reset()</code> in
+  <code>stored_ptr</code> and moves <code>right.get_deleter()</code> into <code>stored_deleter</code>.</p>
+
+  <h2><code><a name="weak_ptr">weak_ptr</a></code></h2>
+  <pre>
+template&lt;class Ty&gt; class <b>weak_ptr</b> {  <b>[added with TR1]</b>
+public:
+    typedef Ty <b><a href="#weak_ptr::element_type">element_type</a></b>;
+
+    <b><a href="#weak_ptr::weak_ptr">weak_ptr</a></b>();
+    <b><a href="#weak_ptr::weak_ptr">weak_ptr</a></b>(const weak_ptr&amp;);
+    template&lt;class Other&gt;
+        <b><a href="#weak_ptr::weak_ptr">weak_ptr</a></b>(const weak_ptr&lt;Other&gt;&amp;);
+    template&lt;class Other&gt;
+        <b><a href="#weak_ptr::weak_ptr">weak_ptr</a></b>(const shared_ptr&lt;Other&gt;&amp;);
+
+    weak_ptr&amp; <b><a href="#weak_ptr::operator=">operator=</a></b>(const weak_ptr&amp;);
+    template&lt;class Other&gt;
+        weak_ptr&amp; <b><a href="#weak_ptr::operator=">operator=</a></b>(const weak_ptr&lt;Other&gt;&amp;);
+    template&lt;class Other&gt;
+        weak_ptr&amp; <b><a href="#weak_ptr::operator=">operator=</a></b>(shared_ptr&lt;Other&gt;&amp;);
+
+    void <b><a href="#weak_ptr::swap">swap</a></b>(weak_ptr&amp; right);
+    void <b><a href="#weak_ptr::reset">reset</a></b>();
+
+    long <b><a href="#weak_ptr::use_count">use_count</a></b>() const;
+    bool <b><a href="#weak_ptr::expired">expired</a></b>() const;
+    shared_ptr&lt;Ty&gt; <b><a href="#weak_ptr::lock">lock</a></b>() const;
+
+    template&lt;class Other&gt;
+        bool <b><a href=
+"#weak_ptr::owner_before">owner_before</a></b>(const shared_ptr&lt;Other&gt;&amp; ptr); <b>[added with C++0X]</b>
+    template&lt;class Other&gt;
+        bool <b><a href=
+"#weak_ptr::owner_before">owner_before</a></b>(const weak_ptr&lt;Other&gt;&amp; ptr); <b>[added with C++0X]</b>
+    };
+</pre>
+
+  <p>The template class describes an object that <a href="#points%20to">points to</a> a resource that is
+  managed by one or more <code><a href="#shared_ptr">shared_ptr</a></code> objects. The <code>weak_ptr</code>
+  objects that point to a resource do not affect the resource's reference count. Thus, when the last
+  <code>shared_ptr</code> object that manages that resource is destroyed the resource will be freed, even if
+  there are <code>weak_ptr</code> objects pointing to that resource. This is essential for avoiding <a href=
+  "#cycle">cycles</a> in data structures.</p>
+
+  <p>A <code>weak_ptr</code> object <b><a name="points to">points to</a></b> a resource if it was constructed
+  from a <code>shared_ptr</code> object that <a href="#owns">owns</a> that resource, if it was constructed
+  from a <code>weak_ptr</code> object that points to that resource, or if that resource was assigned to it
+  with <code><a href="#weak_ptr::operator=">operator=</a></code>. A <code>weak_ptr</code> object does not
+  provide direct access to the resource that it points to. Code that needs to use the resource does so
+  through a <code>shared_ptr</code> object that owns that resource, created by calling the member function
+  <a href="#weak_ptr::lock">lock</a>. A <code>weak_ptr</code> object has <b><a name="expired">expired</a></b>
+  when the resource that it points to has been freed because all of the <code>shared_ptr</code> objects that
+  own the resource have been destroyed. Calling <code>lock</code> on a <code>weak_ptr</code> object that has
+  expired creates an <a href="#empty%20shared_ptr">empty shared_ptr</a> object.</p>
+
+  <p>An <b><a name="empty weak_ptr">empty weak_ptr</a></b> object does not point to any resources and has no
+  control block. Its member function <code>lock</code> returns an <a href="#empty%20shared_ptr">empty
+  shared_ptr</a> object.</p>
+
+  <p>A <b><a name="cycle">cycle</a></b> occurs when two or more resources controlled by
+  <code>shared_ptr</code> objects hold mutually referencing <code>shared_ptr</code> objects. For example, a
+  circular linked list with three elements has a head node <code>N0</code>; that node holds a
+  <code>shared_ptr</code> object that owns the next node, <code>N1</code>; that node holds a
+  <code>shared_ptr</code> object that owns the next node, <code>N2</code>; that node, in turn, holds a
+  <code>shared_ptr</code> object that owns the head node, <code>N0</code>, closing the cycle. In this
+  situation, none of the reference counts will every become zero, and the nodes in the cycle will not be
+  freed. To eliminate the cycle, the last node <code>N2</code> should hold a <code>weak_ptr</code> object
+  pointing to <code>N0</code> instead of a <code>smart_ptr</code> object. Since the <code>weak_ptr</code>
+  object does not own <code>N0</code> it doesn't affect <code>N0</code>'s reference count, and when the
+  program's last reference to the head node is destroyed the nodes in the list will also be destroyed.</p>
+
+  <h3><code><a name="weak_ptr::element_type">weak_ptr::element_type</a></code></h3>
+  <pre>
+typedef Ty <b>element_type</b>;
+</pre>
+
+  <p>The type is a synonym for the template parameter <code>Ty</code>.</p>
+
+  <h3><code><a name="weak_ptr::expired">weak_ptr::expired</a></code></h3>
+  <pre>
+bool <b>expired</b>() const;
+</pre>
+
+  <p>The member function returns <code>true</code> if <code>*this</code> has <a href="#expired">expired</a>,
+  otherwise <code>false</code>.</p>
+
+  <h3><code><a name="weak_ptr::lock">weak_ptr::lock</a></code></h3>
+  <pre>
+shared_ptr&lt;Ty&gt; <b>lock</b>() const;
+</pre>
+
+  <p>The member function returns an <a href="#empty%20shared_ptr">empty shared_ptr</a> object if
+  <code>*this</code> has <a href="#expired">expired</a>; otherwise it returns a <code><a href=
+  "#shared_ptr">shared_ptr</a>&lt;Ty&gt;</code> object that <a href="#owns">owns</a> the resource that
+  <code>*this</code> <a href="#points%20to">points to</a>.</p>
+
+  <h3><code><a name="weak_ptr::operator=">weak_ptr::operator=</a></code></h3>
+  <pre>
+weak_ptr&amp; <b>operator=</b>(const weak_ptr&amp; wp);
+template&lt;class Other&gt;
+    weak_ptr&amp; <b>operator=</b>(const weak_ptr&lt;Other&gt;&amp; wp);
+template&lt;class Other&gt;
+    weak_ptr&amp; <b>operator=</b>(const shared_ptr&lt;Other&gt;&amp; sp);
+</pre>
+
+  <p>The operators all <a href="#release">release</a> the resource currently <a href="#points%20to">pointed
+  to</a> by <code>*this</code> and assign ownership of the resource named by the <a href=
+  "#operand%20sequence">operand sequence</a> to <code>*this</code>. If an operator fails it leaves
+  <code>*this</code> unchanged.</p>
+
+  <h3><code><a name="weak_ptr::owner_before">weak_ptr::owner_before</a></code></h3>
+  <pre>
+template&lt;class Other&gt;
+    bool <b>owner_before</b>(const shared_ptr&lt;Other&gt;&amp; ptr); <b>[added with C++0X]</b>
+template&lt;class Other&gt;
+    bool <b>owner_before</b>(const weak_ptr&lt;Other&gt;&amp; ptr); <b>[added with C++0X]</b>
+</pre>
+
+  <p>The template member function returns true if <code>*this</code> is <a href=
+  "lib_stl.html#strict%20weak%20ordering">ordered before</a> <code>ptr</code>.</p>
+
+  <h3><code><a name="weak_ptr::reset">weak_ptr::reset</a></code></h3>
+  <pre>
+void <b>reset</b>();
+</pre>
+
+  <p>The member function <a href="#release">releases</a> the resource <a href="#points%20to">pointed to</a>
+  by <code>*this</code> and converts <code>*this</code> to an <a href="#empty%20weak_ptr">empty weak_ptr</a>
+  object.</p>
+
+  <h3><code><a name="weak_ptr::swap">weak_ptr::swap</a></code></h3>
+  <pre>
+void <b>swap</b>(weak_ptr&amp; right);
+</pre>
+
+  <p>The member function leaves the resource originally <a href="#points%20to">pointed to</a> by
+  <code>*this</code> subsequently pointed to by <code>wp</code>, and the resource originally pointed to by
+  <code>wp</code> subsequently pointed to by <code>*this</code>. The function does not change the reference
+  counts for the two resources and it does not throw any exceptions.</p>
+
+  <h3><code><a name="weak_ptr::use_count">weak_ptr::use_count</a></code></h3>
+  <pre>
+long <b>use_count</b>() const;
+</pre>
+
+  <p>The member function returns the number of <code>shared_ptr</code> objects that <a href="#owns">own</a>
+  the resource <a href="#points%20to">pointed to</a> by <code>*this</code>.</p>
+
+  <h3><code><a name="weak_ptr::weak_ptr">weak_ptr::weak_ptr</a></code></h3>
+  <pre>
+<b>weak_ptr</b>();
+<b>weak_ptr</b>(const weak_ptr&amp; wp);
+template&lt;class Other&gt;
+    <b>weak_ptr</b>(const weak_ptr&lt;Other&gt;&amp; wp);
+template&lt;class Other&gt;
+    <b>weak_ptr</b>(const shared_ptr&lt;Other&gt;&amp; sp);
+</pre>
+
+  <p>The constructors each construct an object that <a href="#points%20to">points to</a> the resource named
+  by the <a href="#operand%20sequence">operand sequence</a>.</p>
+  <hr>
+
+  <p>See also the <b><a href="index.html#Table%20of%20Contents">Table of Contents</a></b> and the <b><a href=
+  "_index.html">Index</a></b>.</p>
+
+  <p><i><a href="crit_pjp.html">Copyright</a> &copy; 1992-2010 by P.J. Plauger. Portions derived from work
+  <a href="crit_hp.html">copyright</a> &copy; 1994 by Hewlett-Packard Company. All rights reserved.</i></p>
+  <!--V5.30:126I-->
+</body>
+</html>

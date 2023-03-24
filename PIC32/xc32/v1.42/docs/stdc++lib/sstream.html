@@ -1,0 +1,669 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html>
+<head>
+  <meta name="generator" content=
+  "HTML Tidy for Mac OS X (vers 31 October 2006 - Apple Inc. build 15.15), see www.w3.org">
+
+  <title>&lt;sstream&gt;</title>
+</head>
+
+<body>
+  <h1><a name="&lt;sstream&gt;"><code>&lt;sstream&gt;</code></a></h1>
+  <hr>
+
+  <p><b><code><a href="#basic_istringstream">basic_istringstream</a> &middot; <a href=
+  "#basic_ostringstream">basic_ostringstream</a> &middot; <a href="#basic_stringbuf">basic_stringbuf</a>
+  &middot; <a href="#basic_stringstream">basic_stringstream</a> &middot; <a href=
+  "#istringstream">istringstream</a> &middot; <a href="#ostringstream">ostringstream</a> &middot; <a href=
+  "#stringbuf">stringbuf</a> &middot; <a href="#stringstream">stringstream</a> &middot; <a href=
+  "#wistringstream">wistringstream</a> &middot; <a href="#wostringstream">wostringstream</a> &middot;
+  <a href="#wstringbuf">wstringbuf</a> &middot; <a href="#wstringstream">wstringstream</a></code></b></p>
+  <hr>
+
+  <p>Include the <a href="lib_cpp.html#iostreams">iostreams</a> standard header
+  <b><code>&lt;sstream&gt;</code></b> to define several template classes that support iostreams operations on
+  sequences stored in an allocated array object. Such sequences are easily converted to and from objects of
+  template class <code><a href="string2.html#basic_string">basic_string</a></code>.</p>
+  <pre>
+namespace std {
+template&lt;class Elem,
+    class Tr = char_traits&lt;Elem&gt;,
+    class Alloc = allocator&lt;Elem&gt; &gt;
+    class <b><a href="#basic_stringbuf">basic_stringbuf</a></b>;
+typedef basic_stringbuf&lt;char&gt; <b><a href="#stringbuf">stringbuf</a></b>;
+typedef basic_stringbuf&lt;wchar_t&gt; <b><a href="#wstringbuf">wstringbuf</a></b>;
+
+template&lt;class Elem,
+    class Tr = char_traits&lt;Elem&gt;,
+    class Alloc = allocator&lt;Elem&gt; &gt;
+    class <b><a href="#basic_istringstream">basic_istringstream</a></b>;
+typedef basic_istringstream&lt;char&gt; <b><a href="#istringstream">istringstream</a></b>;
+typedef basic_istringstream&lt;wchar_t&gt; <b><a href="#wistringstream">wistringstream</a></b>;
+
+template&lt;class Elem,
+    class Tr = char_traits&lt;Elem&gt;,
+    class Alloc = allocator&lt;Elem&gt; &gt;
+    class <b><a href="#basic_ostringstream">basic_ostringstream</a></b>;
+typedef basic_ostringstream&lt;char&gt; <b><a href="#ostringstream">ostringstream</a></b>;
+typedef basic_ostringstream&lt;wchar_t&gt; <b><a href="#wostringstream">wostringstream</a></b>;
+
+template&lt;class Elem,
+    class Tr = char_traits&lt;Elem&gt;,
+    class Alloc = allocator&lt;Elem&gt; &gt;
+    class <b><a href="#basic_stringstream">basic_stringstream</a></b>;
+typedef basic_stringstream&lt;char&gt; <b><a href="#stringstream">stringstream</a></b>;
+typedef basic_stringstream&lt;wchar_t&gt; <b><a href="#wstringstream">wstringstream</a></b>;
+}  // namespace std
+</pre>
+
+  <h2><a name="basic_istringstream"><code>basic_istringstream</code></a></h2>
+  <pre>
+template &lt;class Elem,
+    class Tr = char_traits&lt;Elem&gt;,
+    class Alloc = allocator&lt;Elem&gt; &gt;
+    class <b>basic_istringstream</b>
+        : public basic_istream&lt;Elem, Tr&gt; {
+public:
+    typedef Alloc <b><a href="#basic_istringstream::allocator_type">allocator_type</a></b>;
+
+    explicit <b><a href="#basic_istringstream::basic_istringstream">basic_istringstream</a></b>(
+        ios_base::openmode mode = ios_base::in);
+    explicit <b><a href="#basic_istringstream::basic_istringstream">basic_istringstream</a></b>(
+        const basic_string&lt;Elem, Tr, Alloc&gt;&amp; str,
+        ios_base::openmode mode = ios_base::in);
+    <b><a href=
+"#basic_istringstream::basic_istringstream">basic_istringstream</a></b>(basic_istringstream&amp;&amp; right); <b>[added with C++0X]</b>
+
+    basic_stringbuf&lt;Elem, Tr, Alloc&gt; *<b><a href="#basic_istringstream::rdbuf">rdbuf</a></b>() const;
+    basic_string&lt;Elem, Tr, Alloc&gt; <b><a href="#basic_istringstream::str">str</a></b>();
+    void <b><a href=
+"#basic_istringstream::str">str</a></b>(const basic_string&lt;Elem, Tr, Alloc&gt;&amp; newstr);
+    };
+</pre>
+
+  <p>The template class describes an object that controls extraction of elements and encoded objects from a
+  <a href="streambu.html#stream%20buffer">stream buffer</a> of class <code><a href=
+  "#basic_stringbuf">basic_stringbuf</a>&lt;Elem, Tr, Alloc&gt;</code>, with elements of type
+  <code>Elem</code>, whose <a href="string2.html#character%20traits">character traits</a> are determined by
+  the class <code>Tr</code>, and whose elements are allocated by an allocator of class <code>Alloc</code>.
+  The object stores an object of class <code>basic_stringbuf&lt;Elem, Tr, Alloc&gt;</code>.</p>
+
+  <h3><a name="basic_istringstream::allocator_type"><code>basic_istringstream::allocator_type</code></a></h3>
+  <pre>
+typedef Alloc <b>allocator_type</b>;
+</pre>
+
+  <p>The type is a synonym for the template parameter <code>Alloc</code>.</p>
+
+  <h3><a name=
+  "basic_istringstream::basic_istringstream"><code>basic_istringstream::basic_istringstream</code></a></h3>
+  <pre>
+explicit <b>basic_istringstream</b>(
+    ios_base::openmode mode = ios_base::in);
+explicit <b>basic_istringstream</b>(
+    const basic_string&lt;Elem, Tr, Alloc&gt;&amp; str,
+    ios_base::openmode mode = ios_base::in);
+<b>basic_istringstream</b>(basic_istringstream&amp;&amp; right); <b>[added with C++0X]</b>
+</pre>
+
+  <p>The first constructor initializes the base class by calling <code><a href=
+  "istream.html#basic_istream::basic_istream">basic_istream</a>(sb)</code>, where <code>sb</code> is the
+  stored object of class <code><a href="#basic_stringbuf">basic_stringbuf</a>&lt;Elem, Tr, Alloc&gt;</code>.
+  It also initializes <code>sb</code> by calling <code><a href=
+  "#basic_stringbuf::basic_stringbuf">basic_stringbuf</a>&lt;Elem, Tr, Alloc&gt;(mode |
+  ios_base::in)</code>.</p>
+
+  <p>The second constructor initializes the base class by calling <code>basic_istream(sb)</code>. It also
+  initializes <code>sb</code> by calling <code><a href=
+  "#basic_stringbuf::basic_stringbuf">basic_stringbuf</a>&lt;Elem, Tr, Alloc&gt;(str, mode |
+  ios_base::in)</code>.</p>
+
+  <p>The third constructor initializes the object with the contents of <code>right</code>, treated as an
+  <a href="lib_cpp.html#rvalue%20references">rvalue reference</a>.</p>
+
+  <h3><a name="basic_istringstream::rdbuf"><code>basic_istringstream::rdbuf</code></a></h3>
+  <pre>
+basic_stringbuf&lt;Elem, Tr, Alloc&gt; *<b>rdbuf</b>() const
+</pre>
+
+  <p>The member function returns the address of the stored stream buffer, of type pointer to <code><a href=
+  "#basic_stringbuf">basic_stringbuf</a>&lt;Elem, Tr, Alloc&gt;</code>.</p>
+
+  <h3><a name="basic_istringstream::str"><code>basic_istringstream::str</code></a></h3>
+  <pre>
+basic_string&lt;Elem, Tr, Alloc&gt; <b>str</b>() const;
+void <b>str</b>(const basic_string&lt;Elem, Tr, Alloc&gt;&amp; newstr);
+</pre>
+
+  <p>The first member function returns <code><a href="#basic_istringstream::rdbuf">rdbuf</a>()-&gt; <a href=
+  "#basic_stringbuf::str">str</a>()</code>. The second member function calls <code>rdbuf()-&gt;
+  str(newstr)</code>.</p>
+
+  <h2><a name="basic_ostringstream"><code>basic_ostringstream</code></a></h2>
+  <pre>
+template &lt;class Elem,
+    class Tr = char_traits&lt;Elem&gt;,
+    class Alloc = allocator&lt;Elem&gt; &gt;
+    class <b>basic_ostringstream</b>
+        : public basic_ostream&lt;Elem, Tr&gt; {
+public:
+    typedef Alloc <b><a href="#basic_ostringstream::allocator_type">allocator_type</a></b>;
+
+    explicit <b><a href="#basic_ostringstream::basic_ostringstream">basic_ostringstream</a></b>(
+        ios_base::openmode mode = ios_base::out);
+    explicit <b><a href="#basic_ostringstream::basic_ostringstream">basic_ostringstream</a></b>(
+        const basic_string&lt;Elem, Tr, Alloc&gt;&amp; str,
+        ios_base::openmode mode = ios_base::out);
+    basic_stringbuf&lt;Elem, Tr, Alloc&gt; *<b><a href="#basic_ostringstream::rdbuf">rdbuf</a></b>() const;
+    basic_string&lt;Elem, Tr, Alloc&gt; <b><a href="#basic_ostringstream::str">str</a></b>();
+    void <b><a href=
+"#basic_ostringstream::str">str</a></b>(const basic_string&lt;Elem, Tr, Alloc&gt;&amp; newstr);
+    };
+</pre>
+
+  <p>The template class describes an object that controls insertion of elements and encoded objects into a
+  <a href="streambu.html#stream%20buffer">stream buffer</a> of class <code><a href=
+  "#basic_stringbuf">basic_stringbuf</a>&lt;Elem, Tr, Alloc&gt;</code>, with elements of type
+  <code>Elem</code>, whose <a href="string2.html#character%20traits">character traits</a> are determined by
+  the class <code>Tr</code>, and whose elements are allocated by an allocator of class <code>Alloc</code>.
+  The object stores an object of class <code>basic_stringbuf&lt;Elem, Tr, Alloc&gt;</code>.</p>
+
+  <h3><a name="basic_ostringstream::allocator_type"><code>basic_ostringstream::allocator_type</code></a></h3>
+  <pre>
+typedef Alloc <b>allocator_type</b>;
+</pre>
+
+  <p>The type is a synonym for the template parameter <code>Alloc</code>.</p>
+
+  <h3><a name=
+  "basic_ostringstream::basic_ostringstream"><code>basic_ostringstream::basic_ostringstream</code></a></h3>
+  <pre>
+explicit <b>basic_ostringstream</b>(
+    ios_base::openmode mode = ios_base::out);
+explicit <b>basic_ostringstream</b>(
+    const basic_string&lt;Elem, Tr, Alloc&gt;&amp; str,
+    ios_base::openmode mode = ios_base::out);
+</pre>
+
+  <p>The first constructor initializes the base class by calling <code><a href=
+  "ostream.html#basic_ostream::basic_ostream">basic_ostream</a>(sb)</code>, where <code>sb</code> is the
+  stored object of class <code><a href="#basic_stringbuf">basic_stringbuf</a>&lt;Elem, Tr, Alloc&gt;</code>.
+  It also initializes <code>sb</code> by calling <code><a href=
+  "#basic_stringbuf::basic_stringbuf">basic_stringbuf</a>&lt;Elem, Tr, Alloc&gt;(mode |
+  ios_base::out)</code>.</p>
+
+  <p>The second constructor initializes the base class by calling <code>basic_ostream(sb)</code>. It also
+  initializes <code>sb</code> by calling <code><a href=
+  "#basic_stringbuf::basic_stringbuf">basic_stringbuf</a>&lt;Elem, Tr, Alloc&gt;(str, mode |
+  ios_base::out)</code>.</p>
+
+  <h3><a name="basic_ostringstream::rdbuf"><code>basic_ostringstream::rdbuf</code></a></h3>
+  <pre>
+basic_stringbuf&lt;Elem, Tr, Alloc&gt; *<b>rdbuf</b>() const
+</pre>
+
+  <p>The member function returns the address of the stored stream buffer, of type pointer to <code><a href=
+  "#basic_stringbuf">basic_stringbuf</a>&lt;Elem, Tr, Alloc&gt;</code>.</p>
+
+  <h3><a name="basic_ostringstream::str"><code>basic_ostringstream::str</code></a></h3>
+  <pre>
+basic_string&lt;Elem, Tr, Alloc&gt; <b>str</b>() const;
+void <b>str</b>(const basic_string&lt;Elem, Tr, Alloc&gt;&amp; newstr);
+</pre>
+
+  <p>The first member function returns <code><a href="#basic_ostringstream::rdbuf">rdbuf</a>()-&gt; <a href=
+  "#basic_stringbuf::str">str</a>()</code>. The second member function calls <code>rdbuf()-&gt;
+  str(newstr)</code>.</p>
+
+  <h2><a name="basic_stringbuf"><code>basic_stringbuf</code></a></h2>
+  <pre>
+template &lt;class Elem,
+    class Tr = char_traits&lt;Elem&gt;,
+    class Alloc = allocator&lt;Elem&gt; &gt;
+    class <b>basic_stringbuf</b>
+        : public basic_streambuf&lt;Elem, Tr&gt; {
+public:
+    typedef typename basic_streambuf&lt;Elem, Tr&gt;::char_type
+        <b><a href="#basic_stringbuf::char_type">char_type</a></b>;
+    typedef typename basic_streambuf&lt;Elem, Tr&gt;::traits_type
+        <b><a href="#basic_stringbuf::traits_type">traits_type</a></b>;
+    typedef typename basic_streambuf&lt;Elem, Tr&gt;::int_type
+        <b><a href="#basic_stringbuf::int_type">int_type</a></b>;
+    typedef typename basic_streambuf&lt;Elem, Tr&gt;::pos_type
+        <b><a href="#basic_stringbuf::pos_type">pos_type</a></b>;
+    typedef typename basic_streambuf&lt;Elem, Tr&gt;::off_type
+        <b><a href="#basic_stringbuf::off_type">off_type</a></b>;
+    typedef Alloc <b><a href="#basic_stringbuf::allocator_type">allocator_type</a></b>;
+
+    <b><a href="#basic_stringbuf::basic_stringbuf">basic_stringbuf</a></b>(ios_base::openmode mode =
+        ios_base::in | ios_base::out);
+    <b><a href=
+"#basic_stringbuf::basic_stringbuf">basic_stringbuf</a></b>(const basic_string&lt;Elem, Tr, Alloc&gt;&amp; str,
+        ios_base::openmode mode =
+            ios_base::in | ios_base::out);
+    <b><a href=
+"#basic_stringbuf::basic_stringbuf">basic_stringbuf</a></b>(basic_stringbuf&amp;&amp; right); <b>[added with C++0X]</b>
+
+    basic_string&lt;Elem, Tr, Alloc&gt; <b><a href="#basic_stringbuf::str">str</a></b>() const;
+    void <b><a href=
+"#basic_stringbuf::str">str</a></b>(const basic_string&lt;Elem, Tr, Alloc&gt;&amp; newstr);
+
+protected:
+    virtual pos_type <b><a href="#basic_stringbuf::seekoff">seekoff</a></b>(off_type off,
+        ios_base::seekdir way,
+        ios_base::openmode mode =
+            ios_base::in | ios_base::out);
+    virtual pos_type <b><a href="#basic_stringbuf::seekpos">seekpos</a></b>(pos_type sp,
+        ios_base::openmode mode =
+            ios_base::in | ios_base::out);
+    virtual int_type <b><a href="#basic_stringbuf::underflow">underflow</a></b>();
+    virtual int_type <b><a href="#basic_stringbuf::pbackfail">pbackfail</a></b>(int_type meta =
+        traits_type::eof());
+    virtual int_type <b><a href="#basic_stringbuf::overflow">overflow</a></b>(int_type meta =
+        traits_type::eof());
+    };
+</pre>
+
+  <p>The template class describes a <b><a href="streambu.html#stream%20buffer">stream buffer</a></b> that
+  controls the transmission of elements of type <code>Elem</code>, whose <a href=
+  "string2.html#character%20traits">character traits</a> are determined by the class <code>Tr</code>, to and
+  from a sequence of elements stored in an array object. The object is allocated, extended, and freed as
+  necessary to accommodate changes in the sequence.</p>
+
+  <p>An object of class <code>basic_stringbuf&lt;Elem, Tr, Alloc&gt;</code> stores a copy of the
+  <code>ios_base::<a href="ios.html#ios_base::openmode">openmode</a></code> argument from its constructor as
+  its <b><a name="stringbuf mode">stringbuf mode</a></b> <code>mode</code>:</p>
+
+  <ul>
+    <li>If <code>mode &amp; ios_base::<a href="ios.html#ios_base::in">in</a></code> is nonzero, the <a href=
+    "streambu.html#input%20buffer">input buffer</a> is accessible.</li>
+
+    <li>If <code>mode &amp; ios_base::<a href="ios.html#ios_base::out">out</a></code> is nonzero, the
+    <a href="streambu.html#output%20buffer">output buffer</a> is accessible.</li>
+  </ul>
+
+  <h3><a name="basic_stringbuf::allocator_type"><code>basic_stringbuf::allocator_type</code></a></h3>
+  <pre>
+typedef Alloc <b>allocator_type</b>;
+</pre>
+
+  <p>The type is a synonym for the template parameter <code>Alloc</code>.</p>
+
+  <h3><a name="basic_stringbuf::basic_stringbuf"><code>basic_stringbuf::basic_stringbuf</code></a></h3>
+  <pre>
+<b>basic_stringbuf</b>(ios_base::openmode mode =
+    ios_base::in | ios_base::out);
+<b>basic_stringbuf</b>(const basic_string&lt;Elem, Tr, Alloc&gt;&amp; str,
+    ios_base::openmode mode =
+        ios_base::in | ios_base::out);
+<b>basic_stringbuf</b>(basic_stringbuf&amp;&amp; right); <b>[added with C++0X]</b>
+</pre>
+
+  <p>The first constructor stores a null pointer in all the pointers controlling the <a href=
+  "streambu.html#input%20buffer">input buffer</a> and the <a href="streambu.html#output%20buffer">output
+  buffer</a>. It also stores <code>mode</code> as the <a href="#stringbuf%20mode">stringbuf mode</a>.</p>
+
+  <p>The second constructor allocates a copy of the sequence controlled by the string object
+  <code>str</code>. If <code>mode &amp; ios_base::in</code> is nonzero, it sets the input buffer to begin
+  reading at the start of the sequence. If <code>mode &amp; ios_base::out</code> is nonzero, it sets the
+  output buffer to begin writing at the start of the sequence. It also stores <code>mode</code> as the
+  <a href="#stringbuf%20mode">stringbuf mode</a>.</p>
+
+  <p>The third constructor initializes the object with the contents of <code>right</code>, treated as an
+  <a href="lib_cpp.html#rvalue%20references">rvalue reference</a>.</p>
+
+  <h3><a name="basic_stringbuf::char_type"><code>basic_stringbuf::char_type</code></a></h3>
+  <pre>
+typedef Elem <b>char_type</b>;
+</pre>
+
+  <p>The type is a synonym for the template parameter <code>Elem</code>.</p>
+
+  <h3><a name="basic_stringbuf::int_type"><code>basic_stringbuf::int_type</code></a></h3>
+  <pre>
+typedef typename traits_type::int_type <b>int_type</b>;
+</pre>
+
+  <p>The type is a synonym for <code>traits_type::<a href=
+  "string2.html#char_traits::int_type">int_type</a></code>.</p>
+
+  <h3><a name="basic_stringbuf::off_type"><code>basic_stringbuf::off_type</code></a></h3>
+  <pre>
+typedef typename traits_type::off_type <b>off_type</b>;
+</pre>
+
+  <p>The type is a synonym for <code>traits_type::<a href=
+  "string2.html#char_traits::off_type">off_type</a></code>.</p>
+
+  <h3><a name="basic_stringbuf::overflow"><code>basic_stringbuf::overflow</code></a></h3>
+  <pre>
+virtual int_type <b>overflow</b>(int_type meta =
+    traits_type::eof());
+</pre>
+
+  <p>If <code>meta</code> does not compare equal to <code>traits_type::<a href=
+  "string2.html#char_traits::eof">eof</a>()</code>, the protected virtual member function endeavors to insert
+  the element <code>traits_type::<a href=
+  "string2.html#char_traits::to_char_type">to_char_type</a>(meta)</code> into the <a href=
+  "streambu.html#output%20buffer">output buffer</a>. It can do so in various ways:</p>
+
+  <ul>
+    <li>If a <a href="streambu.html#write%20position">write position</a> is available, it can store the
+    element into the write position and increment the next pointer for the output buffer.</li>
+
+    <li>It can make a write position available by allocating new or additional storage for the output buffer.
+    (Extending the output buffer this way also extends any associated <a href=
+    "streambu.html#input%20buffer">input buffer</a>.)</li>
+  </ul>
+
+  <p>If the function cannot succeed, it returns <code>traits_type::eof()</code>. Otherwise, it returns
+  <code>traits_type::<a href="string2.html#char_traits::not_eof">not_eof</a>(meta)</code>.</p>
+
+  <h3><a name="basic_stringbuf::pbackfail"><code>basic_stringbuf::pbackfail</code></a></h3>
+  <pre>
+virtual int_type <b>pbackfail</b>(int_type meta =
+    traits_type::eof());
+</pre>
+
+  <p>The protected virtual member function endeavors to put back an element into the <a href=
+  "streambu.html#input%20buffer">input buffer</a>, then make it the current element (pointed to by the next
+  pointer). If <code>meta</code> compares equal to <code>traits_type::<a href=
+  "string2.html#char_traits::eof">eof</a>()</code>, the element to push back is effectively the one already
+  in the stream before the current element. Otherwise, that element is replaced by <code>byte =
+  traits_type::<a href="string2.html#char_traits::to_char_type">to_char_type</a>(meta)</code>. The function
+  can put back an element in various ways:</p>
+
+  <ul>
+    <li>If a <a href="streambu.html#putback%20position">putback position</a> is available, and the element
+    stored there compares equal to <code>byte</code>, it can simply decrement the next pointer for the input
+    buffer.</li>
+
+    <li>If a putback position is available, and if the <a href="#stringbuf%20mode">stringbuf mode</a> permits
+    the sequence to be altered (<code>mode &amp; ios_base::<a href="ios.html#ios_base::out">out</a></code> is
+    nonzero), it can store <code>byte</code> into the putback position and decrement the next pointer for the
+    input buffer.</li>
+  </ul>
+
+  <p>If the function cannot succeed, it returns <code>traits_type::eof()</code>. Otherwise, it returns
+  <code>traits_type::<a href="string2.html#char_traits::not_eof">not_eof</a>(meta)</code>.</p>
+
+  <h3><a name="basic_stringbuf::pos_type"><code>basic_stringbuf::pos_type</code></a></h3>
+  <pre>
+typedef typename traits_type::pos_type <b>pos_type</b>;
+</pre>
+
+  <p>The type is a synonym for <code>traits_type::<a href=
+  "string2.html#char_traits::pos_type">pos_type</a></code>.</p>
+
+  <h3><a name="basic_stringbuf::seekoff"><code>basic_stringbuf::seekoff</code></a></h3>
+  <pre>
+virtual pos_type <b>seekoff</b>(off_type off,
+    ios_base::seekdir way,
+    ios_base::openmode mode =
+        ios_base::in | ios_base::out);
+</pre>
+
+  <p>The protected virtual member function endeavors to alter the current positions for the controlled
+  streams. For an object of class <code>basic_stringbuf&lt;Elem, Tr, Alloc&gt;</code>, a stream position
+  consists purely of a stream offset. Offset zero designates the first element of the controlled
+  sequence.</p>
+
+  <p>The new position is determined as follows:</p>
+
+  <ul>
+    <li>If <code>way == ios_base::<a href="ios.html#ios_base::beg">beg</a></code>, the new position is the
+    beginning of the stream plus <code>off</code>.</li>
+
+    <li>If <code>way == ios_base::<a href="ios.html#ios_base::cur">cur</a></code>, the new position is the
+    current stream position plus <code>off</code>.</li>
+
+    <li>If <code>way == ios_base::<a href="ios.html#ios_base::end">end</a></code>, the new position is the
+    end of the stream plus <code>off</code>.</li>
+  </ul>
+
+  <p>If <code>mode &amp; ios_base::in</code> is nonzero, the function alters the next position to read in the
+  <a href="streambu.html#input%20buffer">input buffer</a>. If <code>mode &amp; ios_base::out</code> is
+  nonzero, the function alters the next position to write in the <a href=
+  "streambu.html#output%20buffer">output buffer</a>. For a stream to be affected, its buffer must exist. For
+  a positioning operation to succeed, the resulting stream position must be zero or lie within the controlled
+  sequence. If the function affects both stream positions, <code>way</code> must be
+  <code>ios_base::beg</code> or <code>ios_base::end</code> and both streams are positioned at the same
+  element. Otherwise (or if neither position is affected) the positioning operation fails.</p>
+
+  <p>If the function succeeds in altering either or both of the stream positions, it returns the resultant
+  stream position. Otherwise, it fails and returns an invalid stream position.</p>
+
+  <h3><a name="basic_stringbuf::seekpos"><code>basic_stringbuf::seekpos</code></a></h3>
+  <pre>
+virtual pos_type <b>seekpos</b>(pos_type sp,
+    ios_base::openmode mode =
+        ios_base::in | ios_base::out);
+</pre>
+
+  <p>The protected virtual member function endeavors to alter the current positions for the controlled
+  streams. For an object of class <code>basic_stringbuf&lt;Elem, Tr, Alloc&gt;</code>, a stream position
+  consists purely of a stream offset. Offset zero designates the first element of the controlled sequence.
+  The new position is determined by <code>sp</code>.</p>
+
+  <p>If <code>mode &amp; ios_base::in</code> is nonzero, the function alters the next position to read in the
+  <a href="streambu.html#input%20buffer">input buffer</a>. If <code>mode &amp; ios_base::out</code> is
+  nonzero, the function alters the next position to write in the <a href=
+  "streambu.html#output%20buffer">output buffer</a>. For a stream to be affected, its buffer must exist. For
+  a positioning operation to succeed, the resulting stream position must lie within the controlled sequence.
+  Otherwise (or if neither position is affected) the positioning operation fails.</p>
+
+  <p>If the function succeeds in altering either or both of the stream positions, it returns the resultant
+  stream position. Otherwise, it fails and returns an invalid stream position.</p>
+
+  <h3><a name="basic_stringbuf::str"><code>basic_stringbuf::str</code></a></h3>
+  <pre>
+basic_string&lt;Elem, Tr, Alloc&gt; <b>str</b>() const;
+void <b>str</b>(const basic_string&lt;Elem, Tr, Alloc&gt;&amp; newstr);
+</pre>
+
+  <p>The first member function returns an object of class <code><a href=
+  "string2.html#basic_string">basic_string</a>&lt;Elem, Tr, Alloc&gt;</code>, whose controlled sequence is a
+  copy of the sequence controlled by <code>*this</code>. The sequence copied depends on the stored <a href=
+  "#stringbuf%20mode">stringbuf mode</a> <code>mode</code>:</p>
+
+  <ul>
+    <li>If <code>mode &amp; ios_base::<a href="ios.html#ios_base::out">out</a></code> is nonzero and an
+    <a href="streambu.html#output%20buffer">output buffer</a> exists, the sequence is the entire output
+    buffer (<code><a href="streambu.html#basic_streambuf::epptr">epptr</a>() - <a href=
+    "streambu.html#basic_streambuf::pbase">pbase</a>()</code> elements beginning with
+    <code>pbase()</code>).</li>
+
+    <li>Otherwise, if <code>mode &amp; ios_base::<a href="ios.html#ios_base::in">in</a></code> is nonzero and
+    an <a href="streambu.html#input%20buffer">input buffer</a> exists, the sequence is the entire input
+    buffer (<code><a href="streambu.html#basic_streambuf::egptr">egptr</a>() - <a href=
+    "streambu.html#basic_streambuf::eback">eback</a>()</code> elements beginning with
+    <code>eback()</code>).</li>
+
+    <li>Otherwise, the copied sequence is empty.</li>
+  </ul>
+
+  <p>The second member function deallocates any sequence currently controlled by <code>*this</code>. It then
+  allocates a copy of the sequence controlled by <code>newstr</code>. If <code>mode &amp; ios_base::in</code>
+  is nonzero, it sets the input buffer to begin reading at the beginning of the sequence. If <code>mode &amp;
+  ios_base::out</code> is nonzero, it sets the output buffer to begin writing at the beginning of the
+  sequence.</p>
+
+  <h3><a name="basic_stringbuf::traits_type"><code>basic_stringbuf::traits_type</code></a></h3>
+  <pre>
+typedef Tr <b>traits_type</b>;
+</pre>
+
+  <p>The type is a synonym for the template parameter <code>Tr</code>.</p>
+
+  <h3><a name="basic_stringbuf::underflow"><code>basic_stringbuf::underflow</code></a></h3>
+  <pre>
+virtual int_type <b>underflow</b>();
+</pre>
+
+  <p>The protected virtual member function endeavors to extract the current element <code>byte</code> from
+  the <a href="streambu.html#input%20buffer">input buffer</a>, then advance the current stream position, and
+  return the element as <code>traits_type::<a href=
+  "string2.html#char_traits::to_int_type">to_int_type</a>(byte)</code>. It can do so in only one way: If a
+  <a href="streambu.html#read%20position">read position</a> is available, it takes <code>byte</code> as the
+  element stored in the read position and advances the next pointer for the input buffer.</p>
+
+  <p>If the function cannot succeed, it returns <code>traits_type::<a href=
+  "string2.html#char_traits::eof">eof</a>()</code>. Otherwise, it returns the current element in the input
+  stream, converted as described above.</p>
+
+  <h2><a name="basic_stringstream"><code>basic_stringstream</code></a></h2>
+  <pre>
+template &lt;class Elem,
+    class Tr = char_traits&lt;Elem&gt;,
+    class Alloc = allocator&lt;Elem&gt; &gt;
+    class <b>basic_stringstream</b>
+        : public basic_iostream&lt;Elem, Tr&gt; {
+public:
+    typedef Alloc <b><a href="#basic_stringstream::allocator_type">allocator_type</a></b>;
+    explicit <b><a href="#basic_stringstream::basic_stringstream">basic_stringstream</a></b>(
+        ios_base::openmode mode =
+            ios_base::in | ios_base::out);
+    explicit <b><a href="#basic_stringstream::basic_stringstream">basic_stringstream</a></b>(
+        const basic_string&lt;Elem, Tr, Alloc&gt;&amp; str,
+        ios_base::openmode mode =
+            ios_base::in | ios_base::out);
+    basic_stringbuf&lt;Elem, Tr, Alloc&gt; *<b><a href="#basic_stringstream::rdbuf">rdbuf</a></b>() const;
+    basic_string&lt;Elem, Tr, Alloc&gt; <b><a href="#basic_stringstream::str">str</a></b>();
+    void <b><a href=
+"#basic_stringstream::str">str</a></b>(const basic_string&lt;Elem, Tr, Alloc&gt;&amp; newstr);
+    };
+</pre>
+
+  <p>The template class describes an object that controls insertion and extraction of elements and encoded
+  objects using a <a href="streambu.html#stream%20buffer">stream buffer</a> of class <code><a href=
+  "#basic_stringbuf">basic_stringbuf</a>&lt;Elem, Tr, Alloc&gt;</code>, with elements of type
+  <code>Elem</code>, whose <a href="string2.html#character%20traits">character traits</a> are determined by
+  the class <code>Tr</code>, and whose elements are allocated by an allocator of class <code>Alloc</code>.
+  The object stores an object of class <code>basic_stringbuf&lt;Elem, Tr, Alloc&gt;</code>.</p>
+
+  <h3><a name="basic_stringstream::allocator_type"><code>basic_stringstream::allocator_type</code></a></h3>
+  <pre>
+typedef Alloc <b>allocator_type</b>;
+</pre>
+
+  <p>The type is a synonym for the template parameter <code>Alloc</code>.</p>
+
+  <h3><a name=
+  "basic_stringstream::basic_stringstream"><code>basic_stringstream::basic_stringstream</code></a></h3>
+  <pre>
+explicit <b>basic_stringstream</b>(
+    ios_base::openmode mode =
+        ios_base::in | ios_base::out);
+explicit <b>basic_stringstream</b>(
+    const basic_string&lt;Elem, Tr, Alloc&gt;&amp; str,
+    ios_base::openmode mode =
+         ios_base::in | ios_base::out);
+</pre>
+
+  <p>The first constructor initializes the base class by calling <code><a href=
+  "istream.html#basic_iostream">basic_iostream</a>(sb)</code>, where <code>sb</code> is the stored object of
+  class <code><a href="#basic_stringbuf">basic_stringbuf</a>&lt;Elem, Tr, Alloc&gt;</code>. It also
+  initializes <code>sb</code> by calling <code><a href=
+  "#basic_stringbuf::basic_stringbuf">basic_stringbuf</a>&lt;Elem, Tr, Alloc&gt;(mode)</code>.</p>
+
+  <p>The second constructor initializes the base class by calling <code>basic_iostream(sb)</code>. It also
+  initializes <code>sb</code> by calling <code><a href=
+  "#basic_stringbuf::basic_stringbuf">basic_stringbuf</a>&lt;Elem, Tr, Alloc&gt;(str, mode)</code>.</p>
+
+  <h3><a name="basic_stringstream::rdbuf"><code>basic_stringstream::rdbuf</code></a></h3>
+  <pre>
+basic_stringbuf&lt;Elem, Tr, Alloc&gt; *<b>rdbuf</b>() const
+</pre>
+
+  <p>The member function returns the address of the stored stream buffer, of type pointer to <code><a href=
+  "#basic_stringbuf">basic_stringbuf</a>&lt;Elem, Tr, Alloc&gt;</code>.</p>
+
+  <h3><a name="basic_stringstream::str"><code>basic_stringstream::str</code></a></h3>
+  <pre>
+basic_string&lt;Elem, Tr, Alloc&gt; <b>str</b>() const;
+void <b>str</b>(const basic_string&lt;Elem, Tr, Alloc&gt;&amp; newstr);
+</pre>
+
+  <p>The first member function returns <code><a href="#basic_stringstream::rdbuf">rdbuf</a>()-&gt; <a href=
+  "#basic_stringbuf::str">str</a>()</code>. The second member function calls <code>rdbuf()-&gt;
+  str(newstr)</code>.</p>
+
+  <h2><a name="istringstream"><code>istringstream</code></a></h2>
+  <pre>
+typedef basic_istringstream&lt;char&gt; <b>istringstream</b>;
+</pre>
+
+  <p>The type is a synonym for template class <a href=
+  "#basic_istringstream"><code>basic_istringstream</code></a>, specialized for elements of type
+  <i>char.</i></p>
+
+  <h2><a name="ostringstream"><code>ostringstream</code></a></h2>
+  <pre>
+typedef basic_ostringstream&lt;char&gt; <b>ostringstream</b>;
+</pre>
+
+  <p>The type is a synonym for template class <a href=
+  "#basic_ostringstream"><code>basic_ostringstream</code></a>, specialized for elements of type
+  <i>char.</i></p>
+
+  <h2><a name="stringbuf"><code>stringbuf</code></a></h2>
+  <pre>
+typedef basic_stringbuf&lt;char&gt; <b>stringbuf</b>;
+</pre>
+
+  <p>The type is a synonym for template class <a href="#basic_stringbuf"><code>basic_stringbuf</code></a>,
+  specialized for elements of type <i>char.</i></p>
+
+  <h2><a name="stringstream"><code>stringstream</code></a></h2>
+  <pre>
+typedef basic_stringstream&lt;char&gt; <b>stringstream</b>;
+</pre>
+
+  <p>The type is a synonym for template class <a href=
+  "#basic_stringstream"><code>basic_stringstream</code></a>, specialized for elements of type
+  <i>char.</i></p>
+
+  <h2><a name="wistringstream"><code>wistringstream</code></a></h2>
+  <pre>
+typedef basic_istringstream&lt;wchar_t&gt; <b>wistringstream</b>;
+</pre>
+
+  <p>The type is a synonym for template class <a href=
+  "#basic_istringstream"><code>basic_istringstream</code></a>, specialized for elements of type
+  <code>wchar_t</code>.</p>
+
+  <h2><a name="wostringstream"><code>wostringstream</code></a></h2>
+  <pre>
+typedef basic_ostringstream&lt;wchar_t&gt; <b>wostringstream</b>;
+</pre>
+
+  <p>The type is a synonym for template class <a href=
+  "#basic_ostringstream"><code>basic_ostringstream</code></a>, specialized for elements of type
+  <code>wchar_t</code>.</p>
+
+  <h2><a name="wstringbuf"><code>wstringbuf</code></a></h2>
+  <pre>
+typedef basic_stringbuf&lt;wchar_t&gt; <b>wstringbuf</b>;
+</pre>
+
+  <p>The type is a synonym for template class <a href="#basic_stringbuf"><code>basic_stringbuf</code></a>,
+  specialized for elements of type <code>wchar_t</code>.</p>
+
+  <h2><a name="wstringstream"><code>wstringstream</code></a></h2>
+  <pre>
+typedef basic_stringstream&lt;wchar_t&gt; <b>wstringstream</b>;
+</pre>
+
+  <p>The type is a synonym for template class <a href=
+  "#basic_stringstream"><code>basic_stringstream</code></a>, specialized for elements of type
+  <code>wchar_t</code>.</p>
+  <hr>
+
+  <p>See also the <b><a href="index.html#Table%20of%20Contents">Table of Contents</a></b> and the <b><a href=
+  "_index.html">Index</a></b>.</p>
+
+  <p><i><a href="crit_pjp.html">Copyright</a> &copy; 1992-2010 by P.J. Plauger. All rights reserved.</i></p>
+  <!--V5.30:126I-->
+</body>
+</html>

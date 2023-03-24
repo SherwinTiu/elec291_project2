@@ -1,0 +1,389 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html>
+<head>
+  <meta name="generator" content=
+  "HTML Tidy for Mac OS X (vers 31 October 2006 - Apple Inc. build 15.15), see www.w3.org">
+
+  <title>&lt;wctype.h&gt;</title>
+</head>
+
+<body>
+  <h1><a name="&lt;wctype.h&gt;"><code>&lt;wctype.h&gt;</code></a></h1>
+
+  <p>[added with <a href="lib_over.html#Amendment%201">Amendment 1</a>]</p>
+  <hr>
+
+  <p><b><code><a href="#iswalnum">iswalnum</a> &middot; <a href="#iswalpha">iswalpha</a> &middot; <a href=
+  "#iswblank">iswblank</a> &middot; <a href="#iswcntrl">iswcntrl</a> &middot; <a href=
+  "#iswdigit">iswdigit</a> &middot; <a href="#iswgraph">iswgraph</a> &middot; <a href=
+  "#iswlower">iswlower</a> &middot; <a href="#iswprint">iswprint</a> &middot; <a href=
+  "#iswpunct">iswpunct</a> &middot; <a href="#iswspace">iswspace</a> &middot; <a href=
+  "#iswupper">iswupper</a> &middot; <a href="#iswxdigit">iswxdigit</a> &middot; <a href=
+  "#towlower">towlower</a> &middot; <a href="#towctrans">towctrans</a> &middot; <a href=
+  "#towupper">towupper</a> &middot; <a href="#wctrans">wctrans</a> &middot; <a href=
+  "#wctype">wctype</a></code></b></p>
+  <hr>
+
+  <p>Include the standard header <b><code>&lt;wctype.h&gt;</code></b> to declare several functions that are
+  useful for classifying and mapping codes from the target wide-character set.</p>
+
+  <p>Every function that has a parameter of type <a href="#wint_t"><code>wint_t</code></a> can accept the
+  value of the macro <a href="#WEOF"><code>WEOF</code></a> or any valid wide-character code (of type <a href=
+  "stddef.html#wchar_t"><code>wchar_t</code></a>). Thus, the argument can be the value returned by any of the
+  functions: <a href="wchar.html#btowc"><code>btowc</code></a>, <a href=
+  "wchar.html#fgetwc"><code>fgetwc</code></a>, <a href="wchar.html#fputwc"><code>fputwc</code></a>, <a href=
+  "wchar.html#getwc"><code>getwc</code></a>, <a href="wchar.html#getwchar"><code>getwchar</code></a>,
+  <a href="wchar.html#putwc"><code>putwc</code></a>, <a href="wchar.html#putwchar"><code>putwchar</code></a>,
+  <a href="#towctrans"><code>towctrans</code></a>, <a href="#towlower"><code>towlower</code></a>, <a href=
+  "#towupper"><code>towupper</code></a>, or <a href="wchar.html#ungetwc"><code>ungetwc</code></a>. You must
+  not call these functions with other wide-character argument values.</p>
+
+  <p>The <b><a name="wide-character classification">wide-character classification</a></b> functions are
+  strongly related to the (byte) <a href="ctype.html#character%20classification">character classification</a>
+  functions. Each function <code>is<i>XXX</i></code> has a corresponding wide-character classification
+  function <code>isw<i>XXX</i></code>. Moreover, the wide-character classification functions are interrelated
+  much the same way as their corresponding byte functions, with two added provisos:</p>
+
+  <ul>
+    <li>The function <a href="#iswprint"><code>iswprint</code></a>, unlike <a href=
+    "ctype.html#isprint"><code>isprint</code></a>, can return a nonzero value for additional space characters
+    besides the wide-character equivalent of <code><i>space</i></code> (<code>L' '</code>). Any such
+    additional characters return a nonzero value for <a href="#iswspace"><code>iswspace</code></a> and return
+    zero for <a href="#iswgraph"><code>iswgraph</code></a> or <a href=
+    "#iswpunct"><code>iswpunct</code></a>.</li>
+
+    <li>The characters in each wide-character class are a superset of the characters in the corresponding
+    byte class. If the call <code>is<i>XXX</i>(c)</code> returns a nonzero value, then the corresponding call
+    <code>isw<i>XXX</i>(btowc(c))</code> also returns a nonzero value.</li>
+  </ul>
+
+  <p>An implementation can define additional characters that return nonzero for some of these functions. Any
+  character set can contain additional characters that return nonzero for:</p>
+
+  <ul>
+    <li><a href="#iswcntrl"><code>iswcntrl</code></a> (provided the characters cause <a href=
+    "#iswprint"><code>iswprint</code></a> to return zero)</li>
+
+    <li><a href="#iswpunct"><code>iswpunct</code></a> (provided the characters cause <a href=
+    "#iswalnum"><code>iswalnum</code></a> to return zero)</li>
+  </ul>
+
+  <p>Moreover, a <a href="locale.html#locale">locale</a> other than the <a href=
+  "locale.html#C%20locale"><code>"C"</code></a> locale can define additional characters for:</p>
+
+  <ul>
+    <li><a href="#iswalpha"><code>iswalpha</code></a>, <a href="#iswupper"><code>iswupper</code></a>, and
+    <a href="#iswlower"><code>iswlower</code></a> (provided the characters cause <a href=
+    "#iswcntrl"><code>iswcntrl</code></a>, <a href="#iswdigit"><code>iswdigit</code></a>, <a href=
+    "#iswpunct"><code>iswpunct</code></a>, and <a href="#iswspace"><code>iswspace</code></a> to return
+    zero)</li>
+
+    <li><a href="#iswblank"><code>iswblank</code></a> (provided the characters cause <a href=
+    "#iswalnum"><code>iswalnum</code></a> to return zero)</li>
+
+    <li><a href="#iswspace"><code>iswspace</code></a> (provided the characters cause <a href=
+    "#iswpunct"><code>iswpunct</code></a> to return zero)</li>
+  </ul>
+
+  <p>Note that the last rule differs slightly from the corresponding rule for the function <a href=
+  "ctype.html#isspace"><code>isspace</code></a>, as indicated above. Note also that an implementation can
+  define a <a href="locale.html#locale">locale</a> other than the <a href=
+  "locale.html#C%20locale"><code>"C"</code></a> locale in which a character can cause <a href=
+  "#iswalpha"><code>iswalpha</code></a> (and hence <a href="#iswalnum"><code>iswalnum</code></a>) to return
+  nonzero, yet still cause <a href="#iswupper"><code>iswupper</code></a> and <a href=
+  "#iswlower"><code>iswlower</code></a> to return zero.</p>
+
+  <h2><a name="WEOF"><code>WEOF</code></a></h2>
+  <pre>
+#define <b>WEOF</b> <i>&lt;</i>wint_t <i>constant expression&gt;</i>
+</pre>
+
+  <p>The macro yields the return value, of type <a href="#wint_t"><code>wint_t</code></a>, used to signal the
+  end of a <a href="lib_file.html#wide%20stream">wide stream</a> or to report an error condition.</p>
+  <pre>
+    /* TYPES */
+typedef <i>s_type</i> <a href="#wctrans_t"><b>wctrans_t</b></a>;
+typedef <i>s_type</i> <a href="#wctype_t"><b>wctype_t</b></a>;
+typedef <i>i_type</i> <a href="#wint_t"><b>wint_t</b></a>;
+
+    /* FUNCTIONS */
+int <a href="#iswalnum"><b>iswalnum</b></a>(wint_t c);
+int <a href="#iswalpha"><b>iswalpha</b></a>(wint_t c);
+int <a href="#iswblank"><b>iswblank</b></a>(wint_t c); <b>[added with C99]</b>
+int <a href="#iswcntrl"><b>iswcntrl</b></a>(wint_t c);
+int <a href="#iswctype"><b>iswctype</b></a>(wint_t c, wctype_t category);
+int <a href="#iswdigit"><b>iswdigit</b></a>(wint_t c);
+int <a href="#iswgraph"><b>iswgraph</b></a>(wint_t c);
+int <a href="#iswlower"><b>iswlower</b></a>(wint_t c);
+int <a href="#iswprint"><b>iswprint</b></a>(wint_t c);
+int <a href="#iswpunct"><b>iswpunct</b></a>(wint_t c);
+int <a href="#iswspace"><b>iswspace</b></a>(wint_t c);
+int <a href="#iswupper"><b>iswupper</b></a>(wint_t c);
+int <a href="#iswxdigit"><b>iswxdigit</b></a>(wint_t c);
+
+wint_t <a href="#towctrans"><b>towctrans</b></a>(wint_t c, wctrans_t category);
+wint_t <a href="#towlower"><b>towlower</b></a>(wint_t c);
+wint_t <a href="#towupper"><b>towupper</b></a>(wint_t c);
+
+wctrans_t <a href="#wctrans"><b>wctrans</b></a>(const char *property);
+wctype_t <a href="#wctype"><b>wctype</b></a>(const char *property);
+</pre>
+
+  <h2><a name="iswalnum"><code>iswalnum</code></a></h2>
+  <pre>
+int <b>iswalnum</b>(wint_t c);
+</pre>
+
+  <p>The function returns nonzero if <code>c</code> is any of:</p>
+  <pre>
+a b c d e f g h i j k l m n o p q r s t u v w x y z
+A B C D E F G H I J K L M N O P Q R S T U V W X Y Z
+0 1 2 3 4 5 6 7 8 9
+</pre>
+
+  <p>or any other locale-specific alphabetic character.</p>
+
+  <h2><a name="iswalpha"><code>iswalpha</code></a></h2>
+  <pre>
+int <b>iswalpha</b>(wint_t c);
+</pre>
+
+  <p>The function returns nonzero if <code>c</code> is any of:</p>
+  <pre>
+a b c d e f g h i j k l m n o p q r s t u v w x y z
+A B C D E F G H I J K L M N O P Q R S T U V W X Y Z
+</pre>
+
+  <p>or any other locale-specific alphabetic character.</p>
+
+  <h2><a name="iswblank"><code>iswblank</code></a></h2>
+  <pre>
+int <b>iswblank</b>(wint_t c); <b>[added with C99]</b>
+</pre>
+
+  <p>The function returns nonzero if <code>c</code> is any of:</p>
+  <pre>
+<i>HT space</i>
+</pre>
+
+  <p>or any other locale-specific blank character.</p>
+
+  <h2><a name="iswcntrl"><code>iswcntrl</code></a></h2>
+  <pre>
+int <b>iswcntrl</b>(wint_t c);
+</pre>
+
+  <p>The function returns nonzero if <code>c</code> is any of:</p>
+  <pre>
+<i>BEL BS CR FF HT NL VT</i>
+</pre>
+
+  <p>or any other implementation-defined control character.</p>
+
+  <h2><a name="iswctype"><code>iswctype</code></a></h2>
+  <pre>
+int <b>iswctype</b>(wint_t c, wctype_t category);
+</pre>
+
+  <p>The function returns nonzero if <code>c</code> is any character in the category <code>category</code>.
+  The value of <code>category</code> must have been returned by an earlier successful call to <a href=
+  "#wctype"><code>wctype</code></a>.</p>
+
+  <h2><a name="iswdigit"><code>iswdigit</code></a></h2>
+  <pre>
+int <b>iswdigit</b>(wint_t c);
+</pre>
+
+  <p>The function returns nonzero if <code>c</code> is any of:</p>
+  <pre>
+0 1 2 3 4 5 6 7 8 9
+</pre>
+
+  <h2><a name="iswgraph"><code>iswgraph</code></a></h2>
+  <pre>
+int <b>iswgraph</b>(wint_t c);
+</pre>
+
+  <p>The function returns nonzero if <code>c</code> is any character for which either <a href=
+  "#iswalnum"><code>iswalnum</code></a> or <a href="#iswpunct"><code>iswpunct</code></a> returns nonzero.</p>
+
+  <h2><a name="iswlower"><code>iswlower</code></a></h2>
+  <pre>
+int <b>iswlower</b>(wint_t c);
+</pre>
+
+  <p>The function returns nonzero if <code>c</code> is any of:</p>
+  <pre>
+a b c d e f g h i j k l m n o p q r s t u v w x y z
+</pre>
+
+  <p>or any other locale-specific lowercase character.</p>
+
+  <h2><a name="iswprint"><code>iswprint</code></a></h2>
+  <pre>
+int <b>iswprint</b>(wint_t c);
+</pre>
+
+  <p>The function returns nonzero if <code>c</code> is <code><i>space</i></code>, a character for which
+  <a href="#iswgraph"><code>iswgraph</code></a> returns nonzero, or an implementation-defined subset of the
+  characters for which <a href="#iswspace"><code>iswspace</code></a> returns nonzero.</p>
+
+  <h2><a name="iswpunct"><code>iswpunct</code></a></h2>
+  <pre>
+int <b>iswpunct</b>(wint_t c);
+</pre>
+
+  <p>The function returns nonzero if <code>c</code> is any of:</p>
+  <pre>
+! " # % &amp; ' ( ) ; &lt;
+= &gt; ? [ \ ] * + , -
+. / : ^ _ { | } ~
+</pre>
+
+  <p>or any other implementation-defined punctuation character.</p>
+
+  <h2><a name="iswspace"><code>iswspace</code></a></h2>
+  <pre>
+int <b>iswspace</b>(wint_t c);
+</pre>
+
+  <p>The function returns nonzero if <code>c</code> is any of:</p>
+  <pre>
+<i>CR FF HT NL VT space</i>
+</pre>
+
+  <p>or any other locale-specific space character.</p>
+
+  <h2><a name="iswupper"><code>iswupper</code></a></h2>
+  <pre>
+int <b>iswupper</b>(wint_t c);
+</pre>
+
+  <p>The function returns nonzero if <code>c</code> is any of:</p>
+  <pre>
+A B C D E F G H I J K L M N O P Q R S T U V W X Y Z
+</pre>
+
+  <p>or any other locale-specific uppercase character.</p>
+
+  <h2><a name="iswxdigit"><code>iswxdigit</code></a></h2>
+  <pre>
+int <b>iswxdigit</b>(wint_t c);
+</pre>
+
+  <p>The function returns nonzero if <code>c</code> is any of</p>
+  <pre>
+0 1 2 3 4 5 6 7 8 9 a b c d e f A B C D E F
+</pre>
+
+  <h2><a name="towctrans"><code>towctrans</code></a></h2>
+  <pre>
+wint_t <b>towctrans</b>(wint_t c, wctrans_t category);
+</pre>
+
+  <p>The function returns the transformation of the character <code>c</code>, using the transform in the
+  category <code>category</code>. The value of <code>category</code> must have been returned by an earlier
+  successful call to <a href="#wctrans"><code>wctrans</code></a>.</p>
+
+  <h2><a name="towlower"><code>towlower</code></a></h2>
+  <pre>
+wint_t <b>towlower</b>(wint_t c);
+</pre>
+
+  <p>The function returns the corresponding lowercase letter if one exists and if <code><a href=
+  "#iswupper">iswupper</a>(c)</code>; otherwise, it returns <code>c</code>.</p>
+
+  <h2><a name="towupper"><code>towupper</code></a></h2>
+  <pre>
+wint_t <b>towupper</b>(wint_t c);
+</pre>
+
+  <p>The function returns the corresponding uppercase letter if one exists and if <code><a href=
+  "#iswlower">iswlower</a>(c)</code>; otherwise, it returns <code>c</code>.</p>
+
+  <h2><a name="wctrans"><code>wctrans</code></a></h2>
+  <pre>
+wctrans_t <b>wctrans</b>(const char *property);
+</pre>
+
+  <p>The function determines a mapping from one set of wide-character codes to another. If the <a href=
+  "locale.html#LC_CTYPE"><code>LC_CTYPE</code></a> category of the current <a href=
+  "locale.html#locale">locale</a> does not define a mapping whose name matches the property string
+  <code>property</code>, the function returns zero. Otherwise, it returns a nonzero value suitable for use as
+  the second argument to a subsequent call to <a href="#towctrans"><code>towctrans</code></a>.</p>
+
+  <p>The following pairs of calls have the same behavior in all <a href="locale.html#locale">locales</a> (but
+  an implementation can define additional mappings even in the <a href=
+  "locale.html#C%20locale"><code>"C"</code></a> locale):</p>
+  <pre>
+<a href="#towlower">towlower</a>(c) <b>same as</b> towctrans(c, wctrans("tolower"))
+<a href="#towupper">towupper</a>(c) <b>same as</b> towctrans(c, wctrans("toupper"))
+</pre>
+
+  <h2><a name="wctrans_t"><code>wctrans_t</code></a></h2>
+  <pre>
+typedef <i>s_type</i> <b>wctrans_t</b>;
+</pre>
+
+  <p>The type is the scalar type <code><i>s-type</i></code> that can represent locale-specific character
+  mappings, as specified by the return value of <a href="#wctrans"><code>wctrans</code></a>.</p>
+
+  <h2><a name="wctype"><code>wctype</code></a></h2>
+  <pre>
+wctype_t <b>wctype</b>(const char *property);
+</pre>
+  <pre>
+wctrans_t wctrans(const char *property);
+</pre>
+
+  <p>The function determines a classification rule for wide-character codes. If the <a href=
+  "locale.html#LC_CTYPE"><code>LC_CTYPE</code></a> category of the current <a href=
+  "locale.html#locale">locale</a> does not define a classification rule whose name matches the property
+  string <code>property</code>, the function returns zero. Otherwise, it returns a nonzero value suitable for
+  use as the second argument to a subsequent call to <a href="#towctrans"><code>towctrans</code></a>.</p>
+
+  <p>The following pairs of calls have the same behavior in all <a href="locale.html#locale">locales</a> (but
+  an implementation can define additional classification rules even in the <a href=
+  "locale.html#C%20locale"><code>"C"</code></a> locale):</p>
+  <pre>
+<a href="#iswalnum">iswalnum</a>(c)  <b>same as</b> iswctype(c, wctype("alnum"))
+<a href="#iswalpha">iswalpha</a>(c)  <b>same as</b> iswctype(c, wctype("alpha"))
+<a href="#iswblank">iswblank</a>(c)  <b>same as</b> iswctype(c, wctype("blank"))
+<a href="#iswcntrl">iswcntrl</a>(c)  <b>same as</b> iswctype(c, wctype("cntrl"))
+<a href="#iswdigit">iswdigit</a>(c)  <b>same as</b> iswctype(c, wctype("digit"))
+<a href="#iswgraph">iswgraph</a>(c)  <b>same as</b> iswctype(c, wctype("graph"))
+<a href="#iswlower">iswlower</a>(c)  <b>same as</b> iswctype(c, wctype("lower"))
+<a href="#iswprint">iswprint</a>(c)  <b>same as</b> iswctype(c, wctype("print"))
+<a href="#iswpunct">iswpunct</a>(c)  <b>same as</b> iswctype(c, wctype("punct"))
+<a href="#iswspace">iswspace</a>(c)  <b>same as</b> iswctype(c, wctype("space"))
+<a href="#iswupper">iswupper</a>(c)  <b>same as</b> iswctype(c, wctype("upper"))
+<a href="#iswxdigit">iswxdigit</a>(c) <b>same as</b> iswctype(c, wctype("xdigit"))
+</pre>
+
+  <h2><a name="wctype_t"><code>wctype_t</code></a></h2>
+  <pre>
+typedef <i>s_type</i> <b>wctype_t</b>;
+</pre>
+
+  <p>The type is the scalar type <code><i>s-type</i></code> that can represent locale-specific character
+  classifications, as specified by the return value of <a href="#wctype"><code>wctype</code></a>.</p>
+
+  <h2><a name="wint_t"><code>wint_t</code></a></h2>
+  <pre>
+typedef <i>i_type</i> <b>wint_t</b>;
+</pre>
+
+  <p>The type is the integer type <code><i>i_type</i></code> that can represent all values of type <a href=
+  "stddef.html#wchar_t"><code>wchar_t</code></a> as well as the value of the macro <a href=
+  "#WEOF"><code>WEOF</code></a>, and that doesn't change when <a href=
+  "express.html#Promoting">promoted</a>.</p>
+  <hr>
+
+  <p>See also the <b><a href="index.html#Table%20of%20Contents">Table of Contents</a></b> and the <b><a href=
+  "_index.html">Index</a></b>.</p>
+
+  <p><i><a href="crit_pjp.html">Copyright</a> &copy; 1992-2010 by P.J. Plauger and Jim Brodie. All rights
+  reserved.</i></p><!--V5.30:126I-->
+</body>
+</html>

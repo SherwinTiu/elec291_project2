@@ -1,0 +1,127 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html>
+<head>
+  <meta name="generator" content=
+  "HTML Tidy for Mac OS X (vers 31 October 2006 - Apple Inc. build 15.15), see www.w3.org">
+
+  <title>&lt;stdarg.h&gt;</title>
+</head>
+
+<body>
+  <h1><a name="&lt;stdarg.h&gt;"><code>&lt;stdarg.h&gt;</code></a></h1>
+  <hr>
+
+  <p>Include the standard header <b><code>&lt;stdarg.h&gt;</code></b> to access the unnamed additional
+  arguments (arguments with no corresponding parameter declarations) in a function that accepts a <b><a name=
+  "varying number of arguments">varying number of arguments</a></b>. To access the additional arguments:</p>
+
+  <ul>
+    <li>The program must first execute the macro <a href="#va_start"><code>va_start</code></a> within the
+    body of the function to initialize an object with context information.</li>
+
+    <li>Subsequent execution of the macro <a href="#va_arg"><code>va_arg</code></a>, designating the same
+    context information, yields the values of the additional arguments in order, beginning with the first
+    unnamed argument. You can execute the macro <a href="#va_arg"><code>va_arg</code></a> from any function
+    that can access the context information saved by the macro <a href=
+    "#va_start"><code>va_start</code></a>.</li>
+
+    <li>If you have executed the macro <a href="#va_start"><code>va_start</code></a> in a function, you must
+    execute the macro <a href="#va_end"><code>va_end</code></a> in the same function, designating the same
+    context information, before the function returns.</li>
+  </ul>
+
+  <p>You can repeat this sequence (as needed) to access the arguments as often as you want.</p>
+
+  <p>You declare an object of type <a href="#va_list"><code>va_list</code></a> to store context information.
+  <a href="#va_list"><code>va_list</code></a> can be either an array type or a non-array type. Whether or not
+  <code>va_list</code> is an array type affects how the program shares context information with functions
+  that it calls. The address of the first element of an array is passed, rather than the object itself. So an
+  array type is effectively passed by reference, while a non-array type is passed by value.</p>
+
+  <p>For example:</p>
+  <pre>
+#include &lt;stdarg.h&gt;
+void va_cat(char *s, ...)
+    {
+    char *t;
+    va_list ap;
+
+    va_start(ap, s);
+    while (t = va_arg(ap, char *)) <b>null pointer ends list</b>
+        {
+        s += strlen(s);            <b>skip to end</b>
+        strcpy(s, t);              <b>and copy a string</b>
+        }
+    va_end(ap);
+    }
+</pre>
+
+  <p>The function <code>va_cat</code> concatenates an arbitrary number of strings onto the end of an existing
+  string (assuming that the existing string is stored in an object large enough to hold the resulting
+  string).</p>
+  <pre>
+#define <a href="#va_arg"><b>va_arg</b></a>(va_list ap, <i>Ty</i>) <i>&lt;rvalue of type Ty&gt;</i>
+#define <a href="#va_end"><b>va_end</b></a>(va_list ap) <i>&lt;void expression&gt;</i>
+#define <a href="#va_start"><b>va_start</b></a>(va_list ap, <i>last-par</i>) <i>&lt;void expression&gt;</i>
+typedef <i>do-type</i> <a href="#va_list"><b>va_list</b></a>;
+</pre>
+
+  <h2><a name="va_arg"><code>va_arg</code></a></h2>
+  <pre>
+#define <b>va_arg</b>(va_list ap, <i>Ty</i>) <i>&lt;rvalue of type Ty&gt;</i>
+</pre>
+
+  <p>The macro yields the value of the next argument in order, specified by the context information
+  designated by <code>ap</code>. The additional argument must be of object type <code><i>Ty</i></code> after
+  applying the rules for <a href="function.html#argument%20promotion">promoting arguments</a> in the absence
+  of a function prototype.</p>
+
+  <h2><a name="va_end"><code>va_end</code></a></h2>
+  <pre>
+#define <b>va_end</b>(va_list ap) <i>&lt;void expression&gt;</i>
+</pre>
+
+  <p>The macro performs any cleanup necessary, after processing the context information designated by
+  <code>ap</code>, so that the function can return.</p>
+
+  <h2><a name="va_list"><code>va_list</code></a></h2>
+  <pre>
+typedef <i>do-type</i> <b>va_list</b>;
+</pre>
+
+  <p>The type is the object type <code><i>do-type</i></code> that you declare to hold the context information
+  initialized by <a href="#va_start"><code>va_start</code></a> and used by <a href=
+  "#va_arg"><code>va_arg</code></a> to access additional unnamed arguments.</p>
+
+  <h2><a name="va_start"><code>va_start</code></a></h2>
+  <pre>
+#define <b>va_start</b>(va_list ap, <i>last-par</i>) <i>&lt;void expression&gt;</i>
+</pre>
+
+  <p>The macro stores initial context information in the object designated by <code>ap</code>.
+  <code><i>last-par</i></code> is the name of the last parameter you declare. For example,
+  <code><i>last-par</i></code> is <code>b</code> for the function declared as <code>int f(int a, int b,
+  ...)</code>. The last parameter must not have <code>register</code> storage class, and it must have a type
+  that is not changed by the translator. It cannot have:</p>
+
+  <ul>
+    <li>an array type</li>
+
+    <li>a function type</li>
+
+    <li>type <i>float</i></li>
+
+    <li>any integer type that changes when promoted</li>
+
+    <li>a reference type <b>[C++ only]</b></li>
+  </ul>
+  <hr>
+
+  <p>See also the <b><a href="index.html#Table%20of%20Contents">Table of Contents</a></b> and the <b><a href=
+  "_index.html">Index</a></b>.</p>
+
+  <p><i><a href="crit_pjp.html">Copyright</a> &copy; 1992-2010 by P.J. Plauger and Jim Brodie. All rights
+  reserved.</i></p><!--V5.30:126I-->
+</body>
+</html>

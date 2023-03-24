@@ -1,0 +1,274 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html>
+<head>
+  <meta name="generator" content=
+  "HTML Tidy for Mac OS X (vers 31 October 2006 - Apple Inc. build 15.15), see www.w3.org">
+
+  <title>&lt;utility&gt;</title>
+</head>
+
+<body>
+  <h1><a name="&lt;utility&gt;"><code>&lt;utility&gt;</code></a></h1>
+  <hr>
+
+  <p><b><code><a href="#operator!=">operator!==</a> &middot; <a href="#operator==">operator==</a> &middot;
+  <a href="#operator%3C">operator&lt;</a> &middot; <a href="#operator%3C=">operator&lt;=</a> &middot;
+  <a href="#operator%3E">operator&gt;</a> &middot; <a href="#operator%3E=">operator&gt;=</a> &middot;
+  <a href="#pair">pair</a></code></b></p>
+
+  <p><b><code><a href="#get">get</a> &middot; <a href="#make_pair">make_pair</a> &middot; <a href=
+  "#tuple_element">tuple_element</a> &middot; <a href="#tuple_size">tuple_size</a></code></b></p>
+  <hr>
+
+  <p>Include the <a href="index.html#STL">STL</a> standard header <b><code>&lt;utility&gt;</code></b> to
+  define several templates of general use throughout the Standard Template Library.</p>
+
+  <p>Four template operators -- <code>operator!=</code>, <code>operator&lt;=</code>,
+  <code>operator&gt;</code>, and <code>operator&gt;=</code> -- define a <b><a name="total ordering">total
+  ordering</a></b> on pairs of operands of the same type, given definitions of <code>operator==</code> and
+  <code>operator&lt;</code>.</p>
+
+  <p>If an <a href="index.html#implementation">implementation</a> supports namespaces, these template
+  operators are defined in the <b><code><a name="rel_ops">rel_ops</a></code></b> namespace, nested within the
+  <code>std</code> namespace. If you wish to make use of these template operators, write the declaration:</p>
+  <pre>
+using namespace std::rel_ops;
+</pre>
+
+  <p>which promotes the template operators into the current namespace.</p>
+  <pre>
+namespace std {
+        // TEMPLATE CLASSES
+template&lt;class T, class Ty2&gt;
+    struct <b><a href="#pair">pair</a></b>;
+
+
+        // TEMPLATE FUNCTIONS
+template&lt;class Ty1, class Ty2&gt;
+    pair&lt;Ty, Ty2&gt; <b><a href=
+"#make_pair">make_pair</a></b>(Ty1 val1, Ty2 val2); <b>[removed with C++0X]</b>
+template&lt;class Ty1, class Ty2&gt;
+    pair&lt;Ty, Ty2&gt; <b><a href=
+"#make_pair">make_pair</a></b>(Ty1&amp;&amp; val1, Ty2&amp;&amp; val2); <b>[added with C++0X]</b>
+
+template&lt;class Ty1, class Ty2&gt;
+    bool <b><a href="#operator==">operator==</a></b>(const pair&lt;Ty, Ty2&gt;&amp; left,
+        const pair&lt;Ty1, Ty2&gt;&amp; right);
+template&lt;class Ty1, class Ty2&gt;
+    bool <b><a href="#operator!=">operator!=</a></b>(const pair&lt;Ty, Ty2&gt;&amp; left,
+        const pair&lt;Ty1, Ty2&gt;&amp; right);
+template&lt;class Ty1, class Ty2&gt;
+    bool <b><a href="#operator%3C">operator&lt;</a></b>(const pair&lt;Ty, Ty2&gt;&amp; left,
+        const pair&lt;Ty1, Ty2&gt;&amp; right);
+template&lt;class Ty1, class Ty2&gt;
+    bool <b><a href="#operator%3E">operator&gt;</a></b>(const pair&lt;Ty1, Ty2&gt;&amp; left,
+        const pair&lt;Ty1, Ty2&gt;&amp; right);
+template&lt;class Ty1, class Ty2&gt;
+    bool <b><a href="#operator%3C=">operator&lt;=</a></b>(const pair&lt;Ty1, Ty2&gt;&amp; left,
+        const pair&lt;Ty1, Ty2&gt;&amp; right);
+template&lt;class Ty1, class Ty2&gt;
+    bool <b><a href="#operator%3E=">operator&gt;=</a></b>(const pair&lt;Ty1, Ty2&gt;&amp; left,
+        const pair&lt;Ty1, Ty2&gt;&amp; right);
+
+    namespace tr1 {  <b>[added with TR1]</b>
+template&lt;int Idx, class T1, class T2&gt;
+    <i>RI</i>&amp; <b><a href="#get">get</a></b>(pair&lt;T1, T2&gt;&amp; pr);
+template&lt;int Idx, class T1, class T2&gt;
+    const <i>RI</i>&amp; <b><a href="#get">get</a></b>(const pair&lt;T1, T2&gt;&amp; pr);
+
+template&lt;class T1, class T2&gt;
+    class <b><a href="#tuple_element">tuple_element</a></b>&lt;0, pair&lt;T1, T2&gt; &gt;;
+template&lt;class T1, class T2&gt;
+    class <b><a href="#tuple_element">tuple_element</a></b>&lt;1, pair&lt;T1, T2&gt; &gt;;
+
+template&lt;class T1, class T2&gt;
+    class <b><a href="#tuple_size">tuple_size</a></b>&lt;pair&lt;T1, T2&gt; &gt;;
+    } // namespace tr1
+using tr1::get; using tr1::tuple_element; <b>[added with C++0X]</b>
+using tr1::tuple_size;
+
+    namespace rel_ops {
+    template&lt;class Ty&gt;
+        bool <b><a href="#operator!=">operator!=</a></b>(const Ty&amp; left, const Ty&amp; right);
+    template&lt;class Ty&gt;
+        bool <b><a href="#operator%3C=">operator&lt;=</a></b>(const Ty&amp; left, const Ty&amp; right);
+    template&lt;class Ty&gt;
+        bool <b><a href="#operator%3E">operator&gt;</a></b>(const Ty&amp; left, const Ty&amp; right);
+    template&lt;class Ty&gt;
+        bool <b><a href="#operator%3E=">operator&gt;=</a></b>(const Ty&amp; left, const Ty&amp; right);
+    }  // namespace rel_ops
+}  // namespace std
+</pre>
+
+  <h2><code><a name="get">get</a></code></h2>
+  <pre>
+template&lt;int Idx, class T1, class T2&gt;  <b>[added with TR1]</b>
+    <i>RI</i>&amp; <b>get</b>(pair&lt;T1, T2&gt;&amp; pr);
+template&lt;int Idx, class T1, class T2&gt;
+    const <i>RI</i>&amp; <b>get</b>(const pair&lt;T1, T2&gt;&amp; pr);
+</pre>
+
+  <p>The template functions each return a reference to an element of its <code>pair</code> argument. If the
+  value of <code>Idx</code> is 0 the functions return <code>pr.first</code> and if the value of
+  <code>Idx</code> is 1 the functions return <code>pr.second</code>. The type <code>RI</code> is the type of
+  the returned element.</p>
+
+  <h2><a name="make_pair"><code>make_pair</code></a></h2>
+  <pre>
+template&lt;class Ty1, class Ty2&gt;
+    pair&lt;Ty1x, Ty2x&gt; <b>make_pair</b>(Ty1 val1, Ty2 val2); <b>[removed with C++0X]</b>
+template&lt;class Ty1, class Ty2&gt;
+    pair&lt;Ty1x, Ty2x&gt; <b>make_pair</b>(Ty1&amp;&amp; val1, Ty2&amp;&amp; val2); <b>[added with C++0X]</b>
+</pre>
+
+  <p>The template function returns <code><a href="#pair">pair</a>&lt;Ty1x, Ty2x&gt;(val1, val2)</code>, where
+  <code>Ty1x</code> is determined from <code>Ty1</code> as follows:</p>
+
+  <ul>
+    <li>If <code>Ty1</code> is <code><a href=
+    "functio2.html#reference_wrapper">reference_wrapper</a>&lt;X&gt;</code>, <code>Ty1x</code> is
+    <code>X&amp;</code>.</li>
+
+    <li>Otherwise, beginning with <b>C++0X</b>, <code>Ty1x</code> is
+    <code>decay&lt;Ty1&gt;::type</code>.</li>
+
+    <li>Otherwise, <code>Ty1x</code> is <code>Ty1</code>.</li>
+  </ul>
+
+  <p><code>Ty2x</code> is similarly determined from <code>Ty2</code>.</p>
+
+  <h2><a name="operator!="><code>operator!=</code></a></h2>
+  <pre>
+template&lt;class Ty&gt;
+    bool <b>operator!=</b>(const Ty&amp; left, const Ty&amp; right);
+template&lt;class Ty1, class Ty2&gt;
+    bool <b>operator!=</b>(const pair&lt;Ty1, Ty2&gt;&amp; left,
+        const pair&lt;Ty1, Ty2&gt;&amp; right);
+</pre>
+
+  <p>The template function returns <code>!(left == right)</code>.</p>
+
+  <h2><a name="operator=="><code>operator==</code></a></h2>
+  <pre>
+template&lt;class Ty1, class Ty2&gt;
+    bool <b>operator==</b>(const pair&lt;Ty1, Ty2&gt;&amp; left,
+        const pair&lt;Ty1, Ty2&gt;&amp; right);
+</pre>
+
+  <p>The template function returns <code>left.<a href="#pair::first">first</a> == right.first &amp;&amp;
+  left.<a href="#pair::second">second</a> == right.second</code>.</p>
+
+  <h2><a name="operator&lt;"><code>operator&lt;</code></a></h2>
+  <pre>
+template&lt;class Ty1, class Ty2&gt;
+    bool <b>operator&lt;</b>(const pair&lt;Ty1, Ty2&gt;&amp; left,
+        const pair&lt;Ty1, Ty2&gt;&amp; right);
+</pre>
+
+  <p>The template function returns <code>left.<a href="#pair::first">first</a> &lt; right.first ||
+  !(right.first &lt; left.first) &amp;&amp; left.<a href="#pair::second">second</a> &lt;
+  right.second</code>.</p>
+
+  <h2><a name="operator&lt;="><code>operator&lt;=</code></a></h2>
+  <pre>
+template&lt;class Ty&gt;
+    bool <b>operator&lt;=</b>(const Ty&amp; left, const Ty&amp; right);
+template&lt;class Ty1, class Ty2&gt;
+    bool <b>operator&lt;=</b>(const pair&lt;Ty1, Ty2&gt;&amp; left,
+        const pair&lt;Ty1, Ty2&gt;&amp; right);
+</pre>
+
+  <p>The template function returns <code>!(right &lt; left)</code>.</p>
+
+  <h2><a name="operator&gt;"><code>operator&gt;</code></a></h2>
+  <pre>
+template&lt;class Ty&gt;
+    bool <b>operator&gt;</b>(const Ty&amp; left, const Ty&amp; right);
+template&lt;class Ty1, class Ty2&gt;
+    bool <b>operator&gt;</b>(const pair&lt;Ty1, Ty2&gt;&amp; left,
+        const pair&lt;Ty1, Ty2&gt;&amp; right);
+</pre>
+
+  <p>The template function returns <code>right &lt; left</code>.</p>
+
+  <h2><a name="operator&gt;="><code>operator&gt;=</code></a></h2>
+  <pre>
+template&lt;class Ty&gt;
+    bool <b>operator&gt;=</b>(const Ty&amp; left, const Ty&amp; right);
+template&lt;class Ty1, class Ty2&gt;
+    bool <b>operator&gt;=</b>(const pair&lt;Ty1, Ty2&gt;&amp; left,
+        const pair&lt;Ty1, Ty2&gt;&amp; right);
+</pre>
+
+  <p>The template function returns <code>!(left &lt; right)</code>.</p>
+
+  <h2><a name="pair"><code>pair</code></a></h2>
+  <pre>
+template&lt;class Ty1, class Ty2&gt;
+    struct <b>pair</b> {
+    typedef Ty1 <b>first_type</b>;
+    typedef Ty2 <b>second_type</b>
+    Ty1 <b>first</b>;
+    Ty2 <b>second</b>;
+
+    <b>pair</b>();
+    <b>pair</b>(const Ty1&amp; val1, const Ty2&amp; val2);
+    template&lt;class Other1, class Other2&gt;
+        <b>pair</b>(Other1&amp;&amp; val1, Other2&amp;&amp; val2); <b>[added with C++0X]</b>
+    template&lt;class Other1, class Other2&gt;
+        <b>pair</b>(const pair&lt;Other1, Other2&gt;&amp; right);
+    template&lt;class Other1, class Other2&gt;
+        <b>pair</b>(pair&lt;Other1, Other2&gt;&amp;&amp; right); <b>[added with C++0X]</b>
+    };
+</pre>
+
+  <p>The template class stores a pair of objects, <b><a name="pair::first"><code>first</code></a></b>, of
+  type <code>Ty1</code>, and <b><a name="pair::second"><code>second</code></a></b>, of type <code>Ty2</code>.
+  The type definition <b><a name="pair::first_type"><code>first_type</code></a></b>, is the same as the
+  template parameter <code>Ty1</code>, while <b><a name="pair::second_type"><code>second_type</code></a></b>,
+  is the same as the template parameter <code>Ty2</code>.</p>
+
+  <p>The first (default) constructor initializes <code>first</code> to <code>Ty1()</code> and
+  <code>second</code> to <code>Ty2()</code>. The second and third constructors initialize <code>first</code>
+  to <code>val1</code> and <code>second</code> to <code>val2</code>. The fourth and fifth constructors
+  initialize <code>first</code> to <code>right.first</code> and <code>second</code> to
+  <code>right.second</code>. <code>Ty1</code> and <code>Ty2</code> each need supply only a default
+  constructor, single-argument constructor, and a destructor.</p>
+
+  <h2><code><a name="tuple_element">tuple_element</a></code></h2>
+  <pre>
+template&lt;class T1, class T2&gt;  <b>[added with TR1]</b>
+    class <b>tuple_element</b>&lt;0, pair&lt;T1, T2&gt; &gt; {
+    typedef T1 type;
+    };
+template&lt;class T1, class T2&gt;
+    class <b>tuple_element</b>&lt;1, pair&lt;T1, T2&gt; &gt; {
+    typedef T2 type;
+    };
+</pre>
+
+  <p>The templates are specializations of the template class <a href=
+  "tuple.html#tuple_element">tuple_element</a>. Each has a nested typedef <code>type</code> that is a synonym
+  for the type of the corresponding <code>pair</code> element.</p>
+
+  <h2><code><a name="tuple_size">tuple_size</a></code></h2>
+  <pre>
+template&lt;class T1, class T2&gt;  <b>[added with TR1]</b>
+    class <b>tuple_size</b>&lt;pair&lt;T1, T2&gt; &gt; {
+    static const unsigned value = 2;
+    };
+</pre>
+
+  <p>The template is a specialization of the template class <a href="tuple.html#tuple_size">tuple_size</a>.
+  It has a member <code>value</code> that is an integral constant expression whose value is 2.</p>
+  <hr>
+
+  <p>See also the <b><a href="index.html#Table%20of%20Contents">Table of Contents</a></b> and the <b><a href=
+  "_index.html">Index</a></b>.</p>
+
+  <p><i><a href="crit_pjp.html">Copyright</a> &copy; 1992-2010 by P.J. Plauger. Portions derived from work
+  <a href="crit_hp.html">copyright</a> &copy; 1994 by Hewlett-Packard Company. All rights reserved.</i></p>
+  <!--V5.30:126I-->
+</body>
+</html>

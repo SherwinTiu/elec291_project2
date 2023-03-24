@@ -1,0 +1,891 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html>
+<head>
+  <meta name="generator" content=
+  "HTML Tidy for Mac OS X (vers 31 October 2006 - Apple Inc. build 15.15), see www.w3.org">
+
+  <title>&lt;vector&gt;</title>
+</head>
+
+<body>
+  <h1><a name="&lt;vector&gt;"><code>&lt;vector&gt;</code></a></h1>
+  <hr>
+
+  <p>Include the <a href="index.html#STL">STL</a> standard header <b><code>&lt;vector&gt;</code></b> to
+  define the <a href="lib_cont.html#Containers">container</a> template class <code>vector</code> and several
+  supporting templates.</p>
+  <pre>
+namespace std {
+template&lt;class Ty, class Alloc&gt;
+    class <b><a href="#vector">vector</a></b>;
+template&lt;class Alloc&gt;
+    class <b><a href="#vector%3Cbool%3E">vector&lt;bool&gt;</a></b>;
+
+        // TEMPLATE FUNCTIONS
+template&lt;class Ty, class Alloc&gt;
+    bool <b><a href="#operator==">operator==</a></b>(
+        const vector&lt;Ty, Alloc&gt;&amp; left,
+        const vector&lt;Ty, Alloc&gt;&amp; right);
+template&lt;class Ty, class Alloc&gt;
+    bool <b><a href="#operator!=">operator!=</a></b>(
+        const vector&lt;Ty, Alloc&gt;&amp; left,
+        const vector&lt;Ty, Alloc&gt;&amp; right);
+template&lt;class Ty, class Alloc&gt;
+    bool <b><a href="#operator%3C">operator&lt;</a></b>(
+        const vector&lt;Ty, Alloc&gt;&amp; left,
+        const vector&lt;Ty, Alloc&gt;&amp; right);
+template&lt;class Ty, class Alloc&gt;
+    bool <b><a href="#operator%3E">operator&gt;</a></b>(
+        const vector&lt;Ty, Alloc&gt;&amp; left,
+        const vector&lt;Ty, Alloc&gt;&amp; right);
+template&lt;class Ty, class Alloc&gt;
+    bool <b><a href="#operator%3C=">operator&lt;=</a></b>(
+        const vector&lt;Ty, Alloc&gt;&amp; left,
+        const vector&lt;Ty, Alloc&gt;&amp; right);
+template&lt;class Ty, class Alloc&gt;
+    bool <b><a href="#operator%3E=">operator&gt;=</a></b>(
+        const vector&lt;Ty, Alloc&gt;&amp; left,
+        const vector&lt;Ty, Alloc&gt;&amp; right);
+
+template&lt;class Ty, class Alloc&gt;
+    void <b><a href="#swap">swap</a></b>(
+        vector&lt;Ty, Alloc&gt;&amp; left,
+        vector&lt;Ty, Alloc&gt;&amp; right);
+}  // namespace std
+</pre>
+
+  <h2><a name="operator!="><code>operator!=</code></a></h2>
+  <pre>
+template&lt;class Ty, class Alloc&gt;
+    bool <b>operator!=</b>(
+        const vector &lt;Ty, Alloc&gt;&amp; left,
+        const vector &lt;Ty, Alloc&gt;&amp; right);
+</pre>
+
+  <p>The template function returns <code>!(left == right)</code>.</p>
+
+  <h2><a name="operator=="><code>operator==</code></a></h2>
+  <pre>
+template&lt;class Ty, class Alloc&gt;
+    bool <b>operator==</b>(
+        const vector &lt;Ty, Alloc&gt;&amp; left,
+        const vector &lt;Ty, Alloc&gt;&amp; right);
+</pre>
+
+  <p>The template function overloads <code>operator==</code> to compare two objects of template class
+  <a href="#vector"><code>vector</code></a>. The function returns <code>left.<a href=
+  "#vector::size">size</a>() == right.size() &amp;&amp; <a href="algorith.html#equal">equal</a>(left.
+  <a href="#vector::begin">begin</a>(), left. <a href="#vector::end">end</a>(), right.begin())</code>.</p>
+
+  <h2><a name="operator&lt;"><code>operator&lt;</code></a></h2>
+  <pre>
+template&lt;class Ty, class Alloc&gt;
+    bool <b>operator&lt;</b>(
+        const vector &lt;Ty, Alloc&gt;&amp; left,
+        const vector &lt;Ty, Alloc&gt;&amp; right);
+</pre>
+
+  <p>The template function overloads <code>operator&lt;</code> to compare two objects of template class
+  <a href="#vector"><code>vector</code></a>. The function returns <code><a href=
+  "algorith.html#lexicographical_compare">lexicographical_compare</a>(left. <a href=
+  "#vector::begin">begin</a>(), left. <a href="#vector::end">end</a>(), right.begin(),
+  right.end())</code>.</p>
+
+  <h2><a name="operator&lt;="><code>operator&lt;=</code></a></h2>
+  <pre>
+template&lt;class Ty, class Alloc&gt;
+    bool <b>operator&lt;=</b>(
+        const vector &lt;Ty, Alloc&gt;&amp; left,
+        const vector &lt;Ty, Alloc&gt;&amp; right);
+</pre>
+
+  <p>The template function returns <code>!(right &lt; left)</code>.</p>
+
+  <h2><a name="operator&gt;"><code>operator&gt;</code></a></h2>
+  <pre>
+template&lt;class Ty, class Alloc&gt;
+    bool <b>operator&gt;</b>(
+        const vector &lt;Ty, Alloc&gt;&amp; left,
+        const vector &lt;Ty, Alloc&gt;&amp; right);
+</pre>
+
+  <p>The template function returns <code>right &lt; left</code>.</p>
+
+  <h2><a name="operator&gt;="><code>operator&gt;=</code></a></h2>
+  <pre>
+template&lt;class Ty, class Alloc&gt;
+    bool <b>operator&gt;=</b>(
+        const vector &lt;Ty, Alloc&gt;&amp; left,
+        const vector &lt;Ty, Alloc&gt;&amp; right);
+</pre>
+
+  <p>The template function returns <code>!(left &lt; right)</code>.</p>
+
+  <h2><a name="swap"><code>swap</code></a></h2>
+  <pre>
+template&lt;class Ty, class Alloc&gt;
+    void <b>swap</b>(
+        vector &lt;Ty, Alloc&gt;&amp; left,
+        vector &lt;Ty, Alloc&gt;&amp; right);
+</pre>
+
+  <p>The template function executes <code>left.<a href="#vector::swap">swap</a>(right)</code>.</p>
+
+  <h2><a name="vector"><code>vector</code></a></h2>
+  <hr>
+
+  <p><b><code><a href="#vector::allocator_type">allocator_type</a> &middot; <a href=
+  "#vector::assign">assign</a> &middot; <a href="#vector::at">at</a> &middot; <a href=
+  "#vector::back">back</a> &middot; <a href="#vector::begin">begin</a> &middot; <a href=
+  "#vector::capacity">capacity</a> &middot; <a href="#vector::cbegin">cbegin</a> &middot; <a href=
+  "#vector::cend">cend</a> &middot; <a href="#vector::clear">clear</a> &middot; <a href=
+  "#vector::const_iterator">const_iterator</a> &middot; <a href="#vector::const_pointer">const_pointer</a>
+  &middot; <a href="#vector::const_reference">const_reference</a> &middot; <a href=
+  "#vector::const_reverse_iterator">const_reverse_iterator</a> &middot; <a href=
+  "#vector::crbegin">crbegin</a> &middot; <a href="#vector::crend">crend</a> &middot; <a href=
+  "#vector::data">data</a> &middot; <a href="#vector::difference_type">difference_type</a> &middot; <a href=
+  "#vector::emplace">emplace</a> &middot; <a href="#vector::emplace_back">emplace_back</a> &middot; <a href=
+  "#vector::empty">empty</a> &middot; <a href="#vector::end">end</a> &middot; <a href=
+  "#vector::erase">erase</a> &middot; <a href="#vector::front">front</a> &middot; <a href=
+  "#vector::get_allocator">get_allocator</a> &middot; <a href="#vector::insert">insert</a> &middot; <a href=
+  "#vector::iterator">iterator</a> &middot; <a href="#vector::max_size">max_size</a> &middot; <a href=
+  "#vector::operator=">operator=</a> &middot; <a href="#vector::operator[]">operator[]</a> &middot; <a href=
+  "#vector::pointer">pointer</a> &middot; <a href="#vector::pop_back">pop_back</a> &middot; <a href=
+  "#vector::push_back">push_back</a> &middot; <a href="#vector::rbegin">rbegin</a> &middot; <a href=
+  "#vector::reference">reference</a> &middot; <a href="#vector::rend">rend</a> &middot; <a href=
+  "#vector::reserve">reserve</a> &middot; <a href="#vector::resize">resize</a> &middot; <a href=
+  "#vector::reverse_iterator">reverse_iterator</a> &middot; <a href=
+  "#vector::shrink_to_fit">shrink_to_fit</a> &middot; <a href="#vector::size">size</a> &middot; <a href=
+  "#vector::size_type">size_type</a> &middot; <a href="#vector::swap">swap</a> &middot; <a href=
+  "#vector::value_type">value_type</a> &middot; <a href="#vector::vector">vector</a></code></b></p>
+  <hr>
+  <pre>
+template&lt;class Ty, class Alloc = allocator&lt;Ty&gt; &gt;
+    class <b>vector</b> {
+public:
+    typedef Alloc <b><a href="#vector::allocator_type">allocator_type</a></b>;
+    typedef typename Alloc::pointer <b><a href="#vector::pointer">pointer</a></b>;
+    typedef typename Alloc::const_pointer
+        <b><a href="#vector::const_pointer">const_pointer</a></b>;
+    typedef typename Alloc::reference <b><a href="#vector::reference">reference</a></b>;
+    typedef typename Alloc::const_reference
+        <b><a href="#vector::const_reference">const_reference</a></b>;
+    typedef typename Alloc::value_type <b><a href="#vector::value_type">value_type</a></b>;
+    typedef typename Alloc::size_type <b><a href="#vector::size_type">size_type</a></b>;
+    typedef typename Alloc::difference_type <b><a href="#vector::difference_type">difference_type</a></b>;
+
+    typedef T0 <b><a href="#vector::iterator">iterator</a></b>;
+    typedef T1 <b><a href="#vector::const_iterator">const_iterator</a></b>;
+    typedef reverse_iterator&lt;const_iterator&gt;
+        <b><a href="#vector::const_reverse_iterator">const_reverse_iterator</a></b>;
+    typedef reverse_iterator&lt;iterator&gt;
+        <b><a href="#vector::reverse_iterator">reverse_iterator</a></b>;
+
+    <b><a href="#vector::vector">vector</a></b>();
+    explicit <b><a href="#vector::vector">vector</a></b>(const Alloc&amp; al);
+    explicit <b><a href="#vector::vector">vector</a></b>(size_type count);
+    <b><a href="#vector::vector">vector</a></b>(size_type count, const Ty&amp; val);
+    <b><a href="#vector::vector">vector</a></b>(size_type count, const Ty&amp; val,
+        const Alloc&amp; al);
+    <b><a href="#vector::vector">vector</a></b>(const vector&amp; right);
+    template&lt;class InIt&gt;
+        <b><a href="#vector::vector">vector</a></b>(InIt first, InIt last);
+    template&lt;class InIt&gt;
+        <b><a href="#vector::vector">vector</a></b>(InIt first, InIt last,
+            const Alloc&amp; al);
+    <b><a href="#vector::vector">vector</a></b>(initializer_list&lt;Ty&gt; init) <b>[added with C++0X]</b>
+    <b><a href="#vector::vector">vector</a></b>(initializer_list&lt;Ty&gt; init,
+        const Alloc&amp; al); <b>[added with C++0X]</b>
+    <b><a href="#vector::vector">vector</a></b>(vector&amp;&amp; right); <b>[added with C++0X]</b>
+
+    vector&amp; <b><a href="#vector::operator=">operator=</a></b>(const vector&amp; right);
+    vector&amp; <b><a href=
+"#vector::operator=">operator=</a></b>(initializer_list&lt;Ty&gt; init) <b>[added with C++0X]</b>
+    vector&amp; <b><a href=
+"#vector::operator=">operator=</a></b>(vector&amp;&amp; right); <b>[added with C++0X]</b>
+
+    iterator <b><a href="#vector::begin">begin</a></b>();
+    const_iterator <b><a href="#vector::begin">begin</a></b>() const;
+    iterator <b><a href="#vector::end">end</a></b>();
+    const_iterator <b><a href="#vector::end">end</a></b>() const;
+    reverse_iterator <b><a href="#vector::rbegin">rbegin</a></b>();
+    const_reverse_iterator <b><a href="#vector::rbegin">rbegin</a></b>() const;
+    reverse_iterator <b><a href="#vector::rend">rend</a></b>();
+    const_reverse_iterator <b><a href="#vector::rend">rend</a></b>() const;
+
+    const_iterator <b><a href="#vector::cbegin">cbegin</a></b>() const; <b>[added with C++0X]</b>
+    const_iterator <b><a href="#vector::cend">cend</a></b>() const; <b>[added with C++0X]</b>
+    const_reverse_iterator <b><a href="#vector::crbegin">crbegin</a></b>() const; <b>[added with C++0X]</b>
+    const_reverse_iterator <b><a href="#vector::crend">crend</a></b>() const; <b>[added with C++0X]</b>
+
+    pointer <b><a href="#vector::data">data</a></b>(); <b>[added with C++0X]</b>
+    const_pointer <b><a href="#vector::data">data</a></b>() const; <b>[added with C++0X]</b>
+
+    void <b><a href="#vector::reserve">reserve</a></b>(size_type count);
+    size_type <b><a href="#vector::capacity">capacity</a></b>() const;
+
+    void <b><a href="#vector::shrink_to_fit">shrink_to_fit</a></b>(); <b>[added with C++0X]</b>
+    void <b><a href="#vector::resize">resize</a></b>(size_type newsize);
+    void <b><a href="#vector::resize">resize</a></b>(size_type newsize, const Ty&amp; val);
+    size_type <b><a href="#vector::size">size</a></b>() const;
+    size_type <b><a href="#vector::max_size">max_size</a></b>() const;
+    bool <b><a href="#vector::empty">empty</a></b>() const;
+
+    Alloc <b><a href="#vector::get_allocator">get_allocator</a></b>() const;
+
+    reference <b><a href="#vector::at">at</a></b>(size_type off);
+    const_reference <b><a href="#vector::at">at</a></b>(size_type off) const;
+    reference <b><a href="#vector::operator[]">operator[]</a></b>(size_type off);
+    const_reference <b><a href="#vector::operator[]">operator[]</a></b>(size_type off) const;
+    reference <b><a href="#vector::front">front</a></b>();
+    const_reference <b><a href="#vector::front">front</a></b>() const;
+    reference <b><a href="#vector::back">back</a></b>();
+    const_reference <b><a href="#vector::back">back</a></b>() const;
+
+    void <b><a href="#vector::push_back">push_back</a></b>(const Ty&amp; val);
+    void <b><a href="#vector::push_back">push_back</a></b>(Ty&amp;&amp; val); <b>[added with C++0X]</b>
+    template&lt;class... Valty&gt;
+        void <b><a href=
+"#vector::emplace_back">emplace_back</a></b>(Ty&amp;&amp;... val); <b>[added with C++0X]</b>
+    void <b><a href="#vector::pop_back">pop_back</a></b>();
+
+    template&lt;class InIt&gt;
+        void <b><a href="#vector::assign">assign</a></b>(InIt first, InIt last);
+    void <b><a href="#vector::assign">assign</a></b>(size_type count, const Ty&amp; val);
+    void <b><a href=
+"#vector::assign">assign</a></b>(initializer_list&lt;Ty&gt; init) <b>[added with C++0X]</b>
+
+    iterator <b><a href="#vector::insert">insert</a></b>(const_iterator where, const Ty&amp; val);
+    void <b><a href=
+"#vector::insert">insert</a></b>(const_iterator where, size_type count, const Ty&amp; val);
+    template&lt;class InIt&gt;
+        void <b><a href="#vector::insert">insert</a></b>(const_iterator where, InIt first, InIt last);
+    void <b><a href="#vector::insert">insert</a></b>(const iterator where,
+        initializer_list&lt;Ty&gt; init) <b>[added with C++0X]</b>
+    iterator <b><a href=
+"#vector::insert">insert</a></b>(const_iterator where, Ty&amp;&amp; val); <b>[added with C++0X]</b>
+
+    template&lt;class... Valty&gt;
+        iterator <b><a href=
+"#vector::emplace">emplace</a></b>(const_iterator where, Ty&amp;&amp;... val); <b>[added with C++0X]</b>
+
+    iterator <b><a href="#vector::erase">erase</a></b>(const_iterator where);
+    iterator <b><a href="#vector::erase">erase</a></b>(const_iterator first, const_iterator last);
+    void <b><a href="#vector::clear">clear</a></b>();
+
+    void <b><a href="#vector::swap">swap</a></b>(vector&amp; right);
+    };
+</pre>
+
+  <p>The template class describes an object that controls a varying-length sequence of elements of type
+  <code>Ty</code>. The sequence is stored as an array of <code>Ty</code>.</p>
+
+  <p>The object allocates and frees storage for the sequence it controls through a stored <a href=
+  "memory.html#allocator%20object">allocator object</a> of class <code>Alloc</code>. Such an allocator object
+  must have the same external interface as an object of template class <a href=
+  "memory.html#allocator"><code>allocator</code></a>. Note that the stored allocator object is <i>not</i>
+  copied when the container object is assigned.</p>
+
+  <p><b><a name="vector reallocation">Vector reallocation</a></b> occurs when a member function must grow the
+  controlled sequence beyond its current storage <a href="#vector::capacity">capacity</a>. Other insertions
+  and erasures may alter various storage addresses within the sequence. In all such cases, iterators or
+  references that point at altered portions of the controlled sequence become <b><a name=
+  "invalid vector iterators">invalid</a></b>.</p>
+
+  <h3><code><a name="vector::allocator_type">vector::allocator_type</a></code></h3>
+  <pre>
+typedef Alloc <b>allocator_type</b>;
+</pre>
+
+  <p>The type is a synonym for the template parameter <code>Alloc</code>.</p>
+
+  <h3><code><a name="vector::assign">vector::assign</a></code></h3>
+  <pre>
+template&lt;class InIt&gt;
+    void <b>assign</b>(InIt first, InIt last);
+void <b>assign</b>(size_type count, const Ty&amp; val);
+void <b>assign</b>(initializer_list&lt;Ty&gt; init) <b>[added with C++0X]</b>
+</pre>
+
+  <p>If <code>InIt</code> is an integer type, the first member function behaves the same as
+  <code>assign((size_type)first, (Ty)last)</code>. Otherwise, the first member function replaces the sequence
+  controlled by <code>*this</code> with the sequence <code>[first, last)</code>, which must <i>not</i>
+  overlap the initial controlled sequence. The second member function replaces the sequence controlled by
+  <code>*this</code> with a repetition of <code>count</code> elements of value <code>val</code>.</p>
+
+  <p>The third member function replaces the controlled sequence from an object of class <code><b><a href=
+  "lib_cpp.html#initializer_list">initializer_list</a></b>&lt;Ty&gt;</code>.</p>
+
+  <h3><code><a name="vector::at">vector::at</a></code></h3>
+  <pre>
+const_reference <b>at</b>(size_type off) const;
+reference <b>at</b>(size_type off);
+</pre>
+
+  <p>The member function returns a reference to the element of the controlled sequence at position
+  <code>off</code>. If that position is invalid, the function throws an object of class
+  <code>out_of_range</code>.</p>
+
+  <h3><code><a name="vector::back">vector::back</a></code></h3>
+  <pre>
+reference <b>back</b>();
+const_reference <b>back</b>() const;
+</pre>
+
+  <p>The member function returns a reference to the last element of the controlled sequence, which must be
+  non-empty.</p>
+
+  <h3><code><a name="vector::begin">vector::begin</a></code></h3>
+  <pre>
+const_iterator <b>begin</b>() const;
+iterator <b>begin</b>();
+</pre>
+
+  <p>The member function returns a random-access iterator that points at the first element of the sequence
+  (or just beyond the end of an empty sequence).</p>
+
+  <h3><code><a name="vector::capacity">vector::capacity</a></code></h3>
+  <pre>
+size_type <b>capacity</b>() const;
+</pre>
+
+  <p>The member function returns the storage currently allocated to hold the controlled sequence, a value at
+  least as large as <code><a href="#vector::size">size</a>()</code>.</p>
+
+  <h3><code><a name="vector::cbegin">vector::cbegin</a></code></h3>
+  <pre>
+const_iterator <b>cbegin</b>() const; <b>[added with C++0X]</b>
+</pre>
+
+  <p>The member functions return a random-access iterator that points at the first element of the sequence
+  (or just beyond the end of an empty sequence).</p>
+
+  <h3><code><a name="vector::cend">vector::cend</a></code></h3>
+  <pre>
+const_reference <b>cend</b>() const; <b>[added with C++0X]</b>
+</pre>
+
+  <p>The member functions return a random-access iterator that points just beyond the end of the
+  sequence.</p>
+
+  <h3><code><a name="vector::clear">vector::clear</a></code></h3>
+  <pre>
+void <b>clear</b>();
+</pre>
+
+  <p>The member function calls <code><a href="#vector::erase">erase</a>( <a href=
+  "#vector::begin">begin</a>(), <a href="#vector::end">end</a>())</code>.</p>
+
+  <h3><code><a name="vector::const_iterator">vector::const_iterator</a></code></h3>
+  <pre>
+typedef T1 <b>const_iterator</b>;
+</pre>
+
+  <p>The type describes an object that can serve as a constant random-access iterator for the controlled
+  sequence. It is described here as a synonym for the implementation-defined type <code>T1</code>.</p>
+
+  <h3><code><a name="vector::const_pointer">vector::const_pointer</a></code></h3>
+  <pre>
+typedef typename Alloc::const_pointer
+    <b>const_pointer</b>;
+</pre>
+
+  <p>The type describes an object that can serve as a constant pointer to an element of the controlled
+  sequence.</p>
+
+  <h3><code><a name="vector::const_reference">vector::const_reference</a></code></h3>
+  <pre>
+typedef typename Alloc::const_reference
+    <b>const_reference</b>;
+</pre>
+
+  <p>The type describes an object that can serve as a constant reference to an element of the controlled
+  sequence.</p>
+
+  <h3><code><a name="vector::const_reverse_iterator">vector::const_reverse_iterator</a></code></h3>
+  <pre>
+typedef reverse_iterator&lt;const_iterator&gt;
+    <b>const_reverse_iterator</b>;
+</pre>
+
+  <p>The type describes an object that can serve as a constant reverse iterator for the controlled
+  sequence.</p>
+
+  <h3><code><a name="vector::crbegin">vector::crbegin</a></code></h3>
+  <pre>
+const_reverse_iterator <b>crbegin</b>() const; <b>[added with C++0X]</b>
+</pre>
+
+  <p>The member functions return a reverse iterator that points just beyond the end of the controlled
+  sequence. Hence, it designates the beginning of the reverse sequence.</p>
+
+  <h3><code><a name="vector::crend">vector::crend</a></code></h3>
+  <pre>
+const_reverse_iterator <b>crend</b>() const; <b>[added with C++0X]</b>
+</pre>
+
+  <p>The member functions return a reverse iterator that points at the first element of the sequence (or just
+  beyond the end of an empty sequence)). Hence, it designates the end of the reverse sequence.</p>
+
+  <h3><code><a name="vector::data">vector::data</a></code></h3>
+  <pre>
+const_pointer <b>data</b>() const; <b>[added with C++0X]</b>
+pointer <b>data</b>(); <b>[added with C++0X]</b>
+</pre>
+
+  <p>The member function returns a pointer that points at the first element of the sequence, or a null
+  pointer if the sequence is empty.</p>
+
+  <h3><code><a name="vector::difference_type">vector::difference_type</a></code></h3>
+  <pre>
+typedef typename Alloc::difference_type <b>difference_type</b>;
+</pre>
+
+  <p>The signed integer type describes an object that can represent the difference between the addresses of
+  any two elements in the controlled sequence.</p>
+
+  <h3><code><a name="vector::emplace">deque::emplace</a></code></h3>
+  <pre>
+template&lt;class... Valty&gt;
+    iterator <b>emplace</b>(const_iterator where, Ty&amp;&amp;... val); <b>[added with C++0X]</b>
+</pre>
+
+  <p>The member function is a <a href="lib_cpp.html#variadic%20templates">variadic template</a> using
+  <a href="lib_cpp.html#rvalue%20references">rvalue references</a>. It inserts an element with the
+  constructor arguments <code>val...</code> before the element pointed to by <code>where</code> in the
+  controlled sequence. It returns an iterator that designates the newly inserted element. Its behavior is
+  otherwise the same as <code><a href="#vector::insert">insert</a></code>.</p>
+
+  <h3><code><a name="vector::emplace_back">vector::emplace_back</a></code></h3>
+  <pre>
+template&lt;class... Valty&gt;
+    iterator <b>emplace_back</b>(const_iterator where, Ty&amp;&amp;... val); <b>[added with C++0X]</b>
+</pre>
+
+  <p>The member function is a <a href="lib_cpp.html#variadic%20templates">variadic template</a> using
+  <a href="lib_cpp.html#rvalue%20references">rvalue references</a>. It inserts an element with the
+  constructor arguments <code>val...</code> at the end of the controlled sequence.</p>
+
+  <p>Inserting the element <a href="#invalid%20vector%20iterators">invalidates</a> all iterators and
+  references to existing elements.</p>
+
+  <p>If an exception is thrown, the container is left unaltered and the exception is rethrown.</p>
+
+  <h3><code><a name="vector::empty">vector::empty</a></code></h3>
+  <pre>
+bool <b>empty</b>() const;
+</pre>
+
+  <p>The member function returns true for an empty controlled sequence.</p>
+
+  <h3><code><a name="vector::end">vector::end</a></code></h3>
+  <pre>
+const_iterator <b>end</b>() const;
+iterator <b>end</b>();
+</pre>
+
+  <p>The member function returns a random-access iterator that points just beyond the end of the
+  sequence.</p>
+
+  <h3><code><a name="vector::erase">vector::erase</a></code></h3>
+  <pre>
+iterator <b>erase</b>(const_iterator where);
+iterator <b>erase</b>(const_iterator first, const_iterator last);
+</pre>
+
+  <p>The first member function removes the element of the controlled sequence pointed to by
+  <code>where</code>. The second member function removes the elements of the controlled sequence in the range
+  <code>[first, last)</code>. Both return an iterator that designates the first element remaining beyond any
+  elements removed, or <code><a href="#vector::end">end</a>()</code> if no such element exists.</p>
+
+  <p>Erasing <code>N</code> elements causes <code>N</code> destructor calls and an assignment for each of the
+  elements between the insertion point and the end of the sequence. No <a href=
+  "#vector%20reallocation">reallocation</a> occurs, so iterators and references become <a href=
+  "#invalid%20vector%20iterators">invalid</a> only from the first element erased through the end of the
+  sequence.</p>
+
+  <p>The member functions throw an exception only if a copy operation throws an exception.</p>
+
+  <h3><code><a name="vector::front">vector::front</a></code></h3>
+  <pre>
+reference <b>front</b>();
+const_reference <b>front</b>() const;
+</pre>
+
+  <p>The member function returns a reference to the first element of the controlled sequence, which must be
+  non-empty.</p>
+
+  <h3><code><a name="vector::get_allocator">vector::get_allocator</a></code></h3>
+  <pre>
+Alloc <b>get_allocator</b>() const;
+</pre>
+
+  <p>The member function returns the stored <a href="memory.html#allocator%20object">allocator
+  object</a>.</p>
+
+  <h3><code><a name="vector::insert">vector::insert</a></code></h3>
+  <pre>
+iterator <b>insert</b>(const_iterator where, const Ty&amp; val);
+void <b>insert</b>(const_iterator where, size_type count, const Ty&amp; val);
+template&lt;class InIt&gt;
+    void <b>insert</b>(const_iterator where, InIt first, InIt last);
+void <b>insert</b>(const iterator where,
+    initializer_list&lt;Ty&gt; init) <b>[added with C++0X]</b>
+iterator <b>insert</b>(const_iterator where, Ty&amp;&amp; val); <b>[added with C++0X]</b>
+</pre>
+
+  <p>Each of the member functions inserts, before the element pointed to by <code>where</code> in the
+  controlled sequence, a sequence specified by the remaining operands. The first member function inserts a
+  single element with value <code>val</code> and returns an iterator that designates the newly inserted
+  element. The second member function inserts a repetition of <code>count</code> elements of value
+  <code>val</code>.</p>
+
+  <p>If <code>InIt</code> is an integer type, the third member function behaves the same as
+  <code>insert(where, (size_type)first, (Ty)last)</code>. Otherwise, the third member function inserts the
+  sequence <code>[first, last)</code>, which must <i>not</i> overlap the initial controlled sequence.</p>
+
+  <p>The fourth member function inserts the sequence specified by an object of class <code><b><a href=
+  "lib_cpp.html#initializer_list">initializer_list</a></b>&lt;Ty&gt;</code>.</p>
+
+  <p>The last member function is the same as the first, but with an <a href=
+  "lib_cpp.html#rvalue%20references">rvalue reference</a>.</p>
+
+  <p>When inserting a single element, the number of element copies is linear in the number of elements
+  between the insertion point and the end of the sequence. When inserting a single element at the end of the
+  sequence, the amortized number of element copies is constant. When inserting <code>N</code> elements, the
+  number of element copies is linear in <code>N</code> plus the number of elements between the insertion
+  point and the end of the sequence -- except when the template member is specialized for <code>InIt</code>
+  an input iterator, which behaves like <code>N</code> single insertions.</p>
+
+  <p>If <a href="#vector%20reallocation">reallocation</a> occurs, the capacity increases by a fixed factor
+  (at least), and all iterators and references become <a href="#invalid%20vector%20iterators">invalid</a>. If
+  no reallocation occurs, iterators become invalid only from the point of insertion through the end of the
+  sequence.</p>
+
+  <p>If an exception is thrown during the insertion of one or more elements, and the exception is not thrown
+  while copying an element, the container is left unaltered and the exception is rethrown.</p>
+
+  <h3><code><a name="vector::iterator">vector::iterator</a></code></h3>
+  <pre>
+typedef T0 <b>iterator</b>;
+</pre>
+
+  <p>The type describes an object that can serve as a random-access iterator for the controlled sequence. It
+  is described here as a synonym for the implementation-defined type <code>T0</code>.</p>
+
+  <h3><code><a name="vector::max_size">vector::max_size</a></code></h3>
+  <pre>
+size_type <b>max_size</b>() const;
+</pre>
+
+  <p>The member function returns the length of the longest sequence that the object can control.</p>
+
+  <h3><code><a name="vector::operator=">vector::operator=</a></code></h3>
+  <pre>
+vector&amp; <b>operator=</b>(const vector&amp; right);
+vector&amp; <b>operator=</b>(initializer_list&lt;Ty&gt; init) <b>[added with C++0X]</b>
+vector&amp; <b>operator=</b>(vector&amp;&amp; right); <b>[added with C++0X]</b>
+</pre>
+
+  <p>The first member operator replaces the controlled sequence with a copy of the sequence controlled by
+  <code>right</code>.</p>
+
+  <p>The second member operator replaces the controlled sequence from an object of class <code><b><a href=
+  "lib_cpp.html#initializer_list">initializer_list</a></b>&lt;Ty&gt;</code>.</p>
+
+  <p>The third member operator is the same as the first, but with an <a href=
+  "lib_cpp.html#rvalue%20references">rvalue reference</a>.</p>
+
+  <h3><code><a name="vector::operator[]">vector::operator[]</a></code></h3>
+  <pre>
+const_reference <b>operator[]</b>(size_type off) const;
+reference <b>operator[]</b>(size_type off);
+</pre>
+
+  <p>The member function returns a reference to the element of the controlled sequence at position
+  <code>off</code>. If that position is invalid, the behavior is undefined.</p>
+
+  <h3><code><a name="vector::pointer">vector::pointer</a></code></h3>
+  <pre>
+typedef typename Alloc::pointer <b>pointer</b>;
+</pre>
+
+  <p>The type describes an object that can serve as a pointer to an element of the controlled sequence.</p>
+
+  <h3><code><a name="vector::pop_back">vector::pop_back</a></code></h3>
+  <pre>
+void <b>pop_back</b>();
+</pre>
+
+  <p>The member function removes the last element of the controlled sequence, which must be non-empty.</p>
+
+  <p>The member function never throws an exception.</p>
+
+  <h3><code><a name="vector::push_back">vector::push_back</a></code></h3>
+  <pre>
+void <b>push_back</b>(const Ty&amp; val);
+void <b>push_back</b>(Ty&amp;&amp; val); <b>[added with C++0X]</b>
+</pre>
+
+  <p>The member function inserts an element with value <code>val</code> at the end of the controlled
+  sequence.</p>
+
+  <p>Inserting the element <a href="#invalid%20vector%20iterators">invalidates</a> all iterators and
+  references to existing elements.</p>
+
+  <p>If an exception is thrown, the container is left unaltered and the exception is rethrown.</p>
+
+  <h3><code><a name="vector::rbegin">vector::rbegin</a></code></h3>
+  <pre>
+const_reverse_iterator <b>rbegin</b>() const;
+reverse_iterator <b>rbegin</b>();
+</pre>
+
+  <p>The member function returns a reverse iterator that points just beyond the end of the controlled
+  sequence. Hence, it designates the beginning of the reverse sequence.</p>
+
+  <h3><code><a name="vector::reference">vector::reference</a></code></h3>
+  <pre>
+typedef typename Alloc::reference <b>reference</b>;
+</pre>
+
+  <p>The type describes an object that can serve as a reference to an element of the controlled sequence.</p>
+
+  <h3><code><a name="vector::rend">vector::rend</a></code></h3>
+  <pre>
+const_reverse_iterator <b>rend</b>() const;
+reverse_iterator <b>rend</b>();
+</pre>
+
+  <p>The member function returns a reverse iterator that points at the first element of the sequence (or just
+  beyond the end of an empty sequence). Hence, it designates the end of the reverse sequence.</p>
+
+  <h3><code><a name="vector::reserve">vector::reserve</a></code></h3>
+  <pre>
+void <b>reserve</b>(size_type count);
+</pre>
+
+  <p>If <code>count</code> is greater than <code><a href="#vector::max_size">max_size</a>()</code>, the
+  member function reports a <b><a name="length error">length error</a></b> by throwing an object of class
+  <code>length_error</code>. Otherwise, it ensures that <code><a href=
+  "#vector::capacity">capacity</a>()</code> henceforth returns at least <code>count</code>.</p>
+
+  <h3><code><a name="vector::resize">vector::resize</a></code></h3>
+  <pre>
+void <b>resize</b>(size_type newsize);
+void <b>resize</b>(size_type newsize, const Ty&amp; val);
+</pre>
+
+  <p>The member functions both ensure that <code><a href="#vector::size">size</a>()</code> henceforth returns
+  <code>newsize</code>. If it must make the controlled sequence longer, the first member function appends
+  elements with value <code>Ty()</code>, while the second member function appends elements with value
+  <code>val</code>. To make the controlled sequence shorter, both member functions call <code><a href=
+  "#vector::erase">erase</a>(begin() + newsize, end())</code>.</p>
+
+  <h3><code><a name="vector::reverse_iterator">vector::reverse_iterator</a></code></h3>
+  <pre>
+typedef reverse_iterator&lt;iterator&gt;
+    <b>reverse_iterator</b>;
+</pre>
+
+  <p>The type describes an object that can serve as a reverse iterator for the controlled sequence.</p>
+
+  <h3><code><a name="vector::shrink_to_fit">vector::shrink_to_fit</a></code></h3>
+  <pre>
+void <b>shrink_to_fit</b>();
+</pre>
+
+  <p>The member function eliminates any unneeded storage in the container.</p>
+
+  <h3><code><a name="vector::size">vector::size</a></code></h3>
+  <pre>
+size_type <b>size</b>() const;
+</pre>
+
+  <p>The member function returns the length of the controlled sequence.</p>
+
+  <h3><code><a name="vector::size_type">vector::size_type</a></code></h3>
+  <pre>
+typedef typename Alloc::size_type <b>size_type</b>;
+</pre>
+
+  <p>The unsigned integer type describes an object that can represent the length of any controlled
+  sequence.</p>
+
+  <h3><code><a name="vector::swap">vector::swap</a></code></h3>
+  <pre>
+void <b>swap</b>(vector&amp; right);
+</pre>
+
+  <p>The member function swaps the controlled sequences between <code>*this</code> and <code>right</code>. If
+  <code><a href="#vector::get_allocator">get_allocator</a>() == right.get_allocator()</code>, it does so in
+  constant time, it throws no exceptions, and it invalidates no references, pointers, or iterators that
+  designate elements in the two controlled sequences. Otherwise, it performs a number of element assignments
+  and constructor calls proportional to the number of elements in the two controlled sequences.</p>
+
+  <h3><code><a name="vector::value_type">vector::value_type</a></code></h3>
+  <pre>
+typedef typename Alloc::value_type <b>value_type</b>;
+</pre>
+
+  <p>The type is a synonym for the template parameter <code>Ty</code>.</p>
+
+  <h3><code><a name="vector::vector">vector::vector</a></code></h3>
+  <pre>
+<b>vector</b>();
+explicit <b>vector</b>(const Alloc&amp; al);
+explicit <b>vector</b>(size_type count);
+<b>vector</b>(size_type count, const Ty&amp; val);
+<b>vector</b>(size_type count, const Ty&amp; val, const Alloc&amp; al);
+<b>vector</b>(const vector&amp; right);
+template&lt;class InIt&gt;
+    <b>vector</b>(InIt first, InIt last);
+template&lt;class InIt&gt;
+    <b>vector</b>(InIt first, InIt last, const Alloc&amp; al);
+
+<b>vector</b>(initializer_list&lt;Ty&gt; init) <b>[added with C++0X]</b>
+<b>vector</b>(initializer_list&lt;Ty&gt; init,
+    const Alloc&amp; al); <b>[added with C++0X]</b>
+<b>vector</b>(const vector&amp;&amp; right); <b>[added with C++0X]</b>
+</pre>
+
+  <p>All constructors store an <a href="memory.html#allocator%20object">allocator object</a> and initialize
+  the controlled sequence. The allocator object is the argument <code>al</code>, if present. For the copy
+  constructor, it is <code>right.<a href="#vector::get_allocator">get_allocator</a>()</code>. Otherwise, it
+  is <code>Alloc()</code>.</p>
+
+  <p>The first two constructors specify an empty initial controlled sequence. The third constructor specifies
+  a repetition of <code>count</code> elements of value <code>Ty()</code>. The fourth and fifth constructors
+  specify a repetition of <code>count</code> elements of value <code>val</code>. The sixth constructor
+  specifies a copy of the sequence controlled by <code>right</code>. If <code>InIt</code> is an integer type,
+  the next two constructors specify a repetition of <code>(size_type)first</code> elements of value
+  <code>(Ty)last</code>. Otherwise, these constructors specify the sequence <code>[first, last)</code>.</p>
+
+  <p>The next two constructors specify the initial controlled sequence with an object of class
+  <code><b><a href="lib_cpp.html#initializer_list">initializer_list</a></b>&lt;Ty&gt;</code>.</p>
+
+  <p>The last constructor is the same as the sixth, but with an <a href=
+  "lib_cpp.html#rvalue%20references">rvalue reference</a>.</p>
+
+  <h2><a name="vector&lt;bool&gt;"><code>vector&lt;bool, Alloc&gt;</code></a></h2>
+  <pre>
+template&lt;class Alloc&gt;
+    class vector&lt;bool, Alloc&gt; {
+public:
+    typedef T2 <b><a href="#vector%3Cbool%3E::pointer">pointer</a></b>;
+    typedef T3 <b><a href="#vector%3Cbool%3E::const_pointer">const_pointer</a></b>;
+    class <b><a href="#vector%3Cbool%3E::reference">reference</a></b>;
+    typedef bool <b><a href="#vector%3Cbool%3E::const_reference">const_reference</a></b>;
+
+    typedef T0 <b><a href="#vector%3Cbool%3E::iterator">iterator</a></b>;
+    typedef T1 <b><a href="#vector%3Cbool%3E::const_iterator">const_iterator</a></b>;
+
+    void <b><a href="#vector%3Cbool%3E::flip">flip</a></b>();
+    static void <b><a href="#vector%3Cbool%3E::swap">swap</a></b>(reference left, reference right);
+// rest same as template class vector
+    };
+</pre>
+
+  <p>The class is a partial specialization of template class <code><a href="#vector">vector</a></code> for
+  elements of type <code>bool</code>. It alters the definition of four member types (to optimize the packing
+  and unpacking of elements) and adds two member functions. Its behavior is otherwise the same as for
+  template class <code>vector</code>.</p>
+
+  <h3><code><a name="vector&lt;bool&gt;::const_iterator">vector&lt;bool,
+  Alloc&gt;::const_iterator</a></code></h3>
+  <pre>
+typedef T1 <b>const_iterator</b>;
+</pre>
+
+  <p>The type describes an object that can serve as a constant random-access iterator for the controlled
+  sequence. It is described here as a synonym for the unspecified type <code>T1</code>.</p>
+
+  <h3><code><a name="vector&lt;bool&gt;::const_pointer">vector&lt;bool,
+  Alloc&gt;::const_pointer</a></code></h3>
+  <pre>
+typedef T3 <b>const_pointer</b>;
+</pre>
+
+  <p>The type describes an object that can serve as a pointer to a constant element of the controlled
+  sequence. It is described here as a synonym for the unspecified type <code>T3</code>.</p>
+
+  <h3><code><a name="vector&lt;bool&gt;::const_reference">vector&lt;bool,
+  Alloc&gt;::const_reference</a></code></h3>
+  <pre>
+typedef bool <b>const_reference</b>;
+</pre>
+
+  <p>The type describes an object that can serve as a constant reference to an element of the controlled
+  sequence, in this case <code>bool</code>.</p>
+
+  <h3><code><a name="vector&lt;bool&gt;::flip">vector&lt;bool, Alloc&gt;::flip</a></code></h3>
+  <pre>
+void <b>flip</b>();
+</pre>
+
+  <p>The member function inverts the values of all the members of the controlled sequence.</p>
+
+  <h3><code><a name="vector&lt;bool&gt;::iterator">vector&lt;bool, Alloc&gt;::iterator</a></code></h3>
+  <pre>
+typedef T0 <b>iterator</b>;
+</pre>
+
+  <p>The type describes an object that can serve as a random-access iterator for the controlled sequence. It
+  is described here as a synonym for the unspecified type <code>T0</code>.</p>
+
+  <h3><code><a name="vector&lt;bool&gt;::pointer">vector&lt;bool, Alloc&gt;::pointer</a></code></h3>
+  <pre>
+typedef T2 <b>pointer</b>;
+</pre>
+
+  <p>The type describes an object that can serve as a pointer to an element of the controlled sequence. It is
+  described here as a synonym for the unspecified type <code>T2</code>.</p>
+
+  <h3><code><a name="vector&lt;bool&gt;::reference">vector&lt;bool, Alloc&gt;::reference</a></code></h3>
+  <pre>
+class reference {
+public:
+    reference&amp; <b>operator=</b>(const reference&amp; right);
+    reference&amp; <b>operator=</b>(bool val);
+    void <b>flip</b>();
+    bool <b>operator~</b>() const;
+    <b>operator bool</b>() const;
+    };
+</pre>
+
+  <p>The type describes an object that can serve as a reference to an element of the controlled sequence.
+  Specifically, for two objects <code>ref</code> and <code>ref2</code> of class <code>reference</code>:</p>
+
+  <ul>
+    <li><b><code>bool(ref)</code></b> yields the value of the element designated by <code>ref</code></li>
+
+    <li><b><code>~ref</code></b> yields the inverted value of the element designated by <code>ref</code></li>
+
+    <li><b><code>ref.flip()</code></b> inverts the value designated by <code>ref</code></li>
+
+    <li><b><code>ref2 = bool(ref)</code></b> and <b><code>ref2 = ref</code></b> both assign the value of the
+    element designated by <code>ref</code> to the element designated by <code>ref2</code></li>
+  </ul>
+
+  <p>It is unspecified how member functions of class <code>vector&lt;bool&gt;</code> construct objects of
+  class <code>reference</code> that designate elements of a controlled sequence. The default constructor for
+  class <code>reference</code> generates an object that refers to no such element.</p>
+
+  <h3><code><a name="vector&lt;bool&gt;::swap">vector&lt;bool, Alloc&gt;::swap</a></code></h3>
+  <pre>
+void <b>swap</b>(reference left, reference right);
+</pre>
+
+  <p>The static member function swaps the members of the controlled sequences designated by <code>left</code>
+  and <code>right</code>.</p>
+  <hr>
+
+  <p>See also the <b><a href="index.html#Table%20of%20Contents">Table of Contents</a></b> and the <b><a href=
+  "_index.html">Index</a></b>.</p>
+
+  <p><i><a href="crit_pjp.html">Copyright</a> &copy; 1992-2010 by P.J. Plauger. Portions derived from work
+  <a href="crit_hp.html">copyright</a> &copy; 1994 by Hewlett-Packard Company. All rights reserved.</i></p>
+  <!--V5.30:126I-->
+</body>
+</html>

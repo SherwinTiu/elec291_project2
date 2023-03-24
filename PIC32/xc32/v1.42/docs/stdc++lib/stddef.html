@@ -1,0 +1,103 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html>
+<head>
+  <meta name="generator" content=
+  "HTML Tidy for Mac OS X (vers 31 October 2006 - Apple Inc. build 15.15), see www.w3.org">
+
+  <title>&lt;stddef.h&gt;</title>
+</head>
+
+<body>
+  <h1><a name="&lt;stddef.h&gt;"><code>&lt;stddef.h&gt;</code></a></h1>
+  <hr>
+
+  <p>Include the standard header <b><code>&lt;stddef.h&gt;</code></b> to define several types and macros that
+  are of general use throughout the program. The standard header <code>&lt;stddef.h&gt;</code> is available
+  even in a <a href="lib_over.html#freestanding%20implementation">freestanding implementation</a>.</p>
+  <hr>
+
+  <p><b><code><a href="#NULL">NULL</a> &middot; <a href="#offsetof">offsetof</a> &middot; <a href=
+  "#ptrdiff_t">ptrdiff_t</a> &middot; <a href="#size_t">size_t</a> &middot; <a href=
+  "#wchar_t">wchar_t</a></code></b></p>
+
+  <p><b><code><a href="#rsize_t">rsize_t</a></code></b></p>
+  <hr>
+  <pre>
+    /* MACROS */
+#define <a href="#NULL"><b>NULL</b></a> <i>&lt;either 0, 0L, or (void *)0&gt;</i> <b>[0 in C++]</b>
+#define <a href=
+"#offsetof"><b>offsetof</b></a>(<i>s-type</i>, mbr) <i>&lt;</i>size_t <i>constant expression&gt;</i>
+
+    /* TYPES */
+typedef <i>si-type</i> <a href="#ptrdiff_t"><b>ptrdiff_t</b></a>;
+typedef <i>ui-type</i> <a href="#size_t"><b>size_t</b></a>;
+typedef <i>i-type</i> <a href="#wchar_t"><b>wchar_t</b></a>; <b>[keyword in C++]</b>
+
+#if __STDC_WANT_LIB_EXT1__ <b>[added with <a href="index_ext1.html#TR24731">TR24731</a>]</b>
+typedef size_t <a href="#rsize_t"><b>rsize_t</b></a>;
+#endif /* __STDC_WANT_LIB_EXT1__ */
+</pre>
+
+  <h2><a name="NULL"><code>NULL</code></a></h2>
+  <pre>
+#define <b>NULL</b> <i>&lt;either 0, 0L, or (void *)0&gt;</i> <b>[0 in C++]</b>
+</pre>
+
+  <p>The macro yields a null pointer constant that is usable as an <a href=
+  "express.html#address%20constant%20expression">address constant expression</a>.</p>
+
+  <h2><a name="offsetof"><code>offsetof</code></a></h2>
+  <pre>
+#define <b>offsetof</b>(<i>s-type</i>, mbr) <i>&lt;</i>size_t <i>constant expression&gt;</i>
+</pre>
+
+  <p>The macro yields the offset in bytes, of type <a href="#size_t"><code>size_t</code></a>, of member
+  <code>mbr</code> from the beginning of structure type <code><i>s-type</i></code>, where for <code>X</code>
+  of type <code><i>s-type</i></code>, <code>&amp;X.mbr</code> is an <a href=
+  "express.html#address%20constant%20expression">address constant expression</a>.</p>
+
+  <h2><a name="ptrdiff_t"><code>ptrdiff_t</code></a></h2>
+  <pre>
+typedef <i>si-type</i> <b>ptrdiff_t</b>;
+</pre>
+
+  <p>The type is the signed integer type <code><i>si-type</i></code> of an object that you declare to store
+  the result of subtracting two pointers.</p>
+
+  <h2><a name="rsize_t"><code>rsize_t</code></a></h2>
+  <pre>
+typedef size_t <b>rsize_t</b>; <b>[added with TR24731]</b>
+</pre>
+
+  <p>The type is a synonym for <code>size_t</code>, used to represent a function argument to be checked on
+  entry to a function. It is a <a href="index_ext1.html#runtime%20constraint%20violation">runtime constraint
+  violation</a> for an argument of type <code>rsize_t</code> to be greater than <code><a href=
+  "index_ext1.html#RSIZE_MAX">RSIZE_MAX</a></code>.</p>
+
+  <h2><a name="size_t"><code>size_t</code></a></h2>
+  <pre>
+typedef <i>ui-type</i> <b>size_t</b>;
+</pre>
+
+  <p>The type is the unsigned integer type <code><i>ui-type</i></code> of an object that you declare to store
+  the result of the <a href="express.html#sizeof%20operator"><i>sizeof</i></a> operator.</p>
+
+  <h2><a name="wchar_t"><code>wchar_t</code></a></h2>
+  <pre>
+typedef <i>i-type</i> <b>wchar_t</b>; <b>[keyword in C++]</b>
+</pre>
+
+  <p>The type is the integer type <code><i>i-type</i></code> of a <a href=
+  "charset.html#wide-character%20constant">wide-character constant</a>, such as <code>L'X'</code>. You
+  declare an object of type <code>wchar_t</code> to hold a <a href=
+  "charset.html#Wide-Character%20Encoding">wide character</a>.</p>
+  <hr>
+
+  <p>See also the <b><a href="index.html#Table%20of%20Contents">Table of Contents</a></b> and the <b><a href=
+  "_index.html">Index</a></b>.</p>
+
+  <p><i><a href="crit_pjp.html">Copyright</a> &copy; 1992-2010 by P.J. Plauger and Jim Brodie. All rights
+  reserved.</i></p><!--V5.30:126I-->
+</body>
+</html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html>
+<head>
+  <meta name="generator" content=
+  "HTML Tidy for Mac OS X (vers 31 October 2006 - Apple Inc. build 15.15), see www.w3.org">
+
+  <title>&lt;iomanip&gt;</title>
+</head>
+
+<body>
+  <h1><a name="&lt;iomanip&gt;"><code>&lt;iomanip&gt;</code></a></h1>
+  <hr>
+
+  <p><b><code><a href="#resetiosflags">resetiosflags</a> &middot; <a href="#setbase">setbase</a> &middot;
+  <a href="#setfill">setfill</a> &middot; <a href="#setiosflags">setiosflags</a> &middot; <a href=
+  "#setprecision">setprecision</a> &middot; <a href="#setw">setw</a></code></b></p>
+  <hr>
+
+  <p>Include the <a href="lib_cpp.html#iostreams">iostreams</a> standard header
+  <b><code>&lt;iomanip&gt;</code></b> to define several <a href="ios.html#manipulators">manipulators</a> that
+  each take a single argument. Each of these manipulators returns an unspecified type, called <code>T1</code>
+  through <code>T6</code> here, that overloads both <code>istream::<a href=
+  "istream.html#istream::operator%3E%3E">operator&gt;&gt;</a></code> and <code>ostream::<a href=
+  "ostream.html#ostream::operator%3C%3C">operator&lt;&lt;</a></code>. Thus, you can write extractors and
+  inserters such as:</p>
+  <pre>
+cin &gt;&gt; setbase(8);
+cout &lt;&lt; setbase(8);
+</pre>
+  <pre>
+        // DECLARATIONS
+T1 <b><a href="#resetiosflags">resetiosflags</a></b>(ios_base::fmtflags mask);
+T2 <b><a href="#setiosflags">setiosflags</a></b>(ios_base::fmtflags mask);
+T3 <b><a href="#setbase">setbase</a></b>(int base);
+T4 <b><a href="#setfill">setfill</a></b>(char ch);
+T5 <b><a href="#setprecision">setprecision</a></b>(streamsize prec);
+T6 <b><a href="#setw">setw</a></b>(streamsize wide);
+        // END OF DECLARATIONS
+</pre>
+
+  <h2><a name="resetiosflags"><code>resetiosflags</code></a></h2>
+  <pre>
+T1 <b>resetiosflags</b>(ios_base::fmtflags mask);
+</pre>
+
+  <p>The manipulator returns an object that, when extracted from or inserted into the stream
+  <code>str</code>, calls <code>str.<a href="ios.html#ios_base::setf">setf</a>(ios_base:: <a href=
+  "ios.html#ios_base::fmtflags">fmtflags</a>(), mask)</code>, then returns <code>str</code>.</p>
+
+  <h2><a name="setbase"><code>setbase</code></a></h2>
+  <pre>
+T3 <b>setbase</b>(int base);
+</pre>
+
+  <p>The manipulator returns an object that, when extracted from or inserted into the stream
+  <code>str</code>, calls <code>str.<a href="ios.html#ios_base::setf">setf</a>(mask, ios_base::<a href=
+  "ios.html#ios_base::basefield">basefield</a>)</code>, then returns <code>str</code>. Here,
+  <code>mask</code> is determined as follows:</p>
+
+  <ul>
+    <li>If <code>base</code> is 8, then <code>mask</code> is <code>ios_base::<a href=
+    "ios.html#ios_base::oct">oct</a></code></li>
+
+    <li>If <code>base</code> is 10, then <code>mask</code> is <code>ios_base::<a href=
+    "ios.html#ios_base::dec">dec</a></code></li>
+
+    <li>If <code>base</code> is 16, then <code>mask</code> is <code>ios_base::<a href=
+    "ios.html#ios_base::hex">hex</a></code></li>
+
+    <li>If <code>base</code> is any other value, then <code>mask</code> is <code>ios_base::<a href=
+    "ios.html#ios_base::fmtflags">fmtflags</a>(0)</code></li>
+  </ul>
+
+  <h2><a name="setfill"><code>setfill</code></a></h2>
+  <pre>
+T4 <b>setfill</b>(char ch);
+</pre>
+
+  <p>The manipulator returns an object that, when extracted from or inserted into the stream
+  <code>str</code>, calls <code>str.<a href="ios.html#ios::fill">fill</a>(ch)</code>, then returns
+  <code>str</code>.</p>
+
+  <h2><a name="setiosflags"><code>setiosflags</code></a></h2>
+  <pre>
+T2 <b>setiosflags</b>(ios_base::fmtflags mask);
+</pre>
+
+  <p>The manipulator returns an object that, when extracted from or inserted into the stream
+  <code>str</code>, calls <code>str.<a href="ios.html#ios_base::setf">setf</a>(mask)</code>, then returns
+  <code>str</code>.</p>
+
+  <h2><a name="setprecision"><code>setprecision</code></a></h2>
+  <pre>
+T5 <b>setprecision</b>(streamsize prec);
+</pre>
+
+  <p>The manipulator returns an object that, when extracted from or inserted into the stream
+  <code>str</code>, calls <code>str.<a href="ios.html#ios_base::precision">precision</a>(prec)</code>, then
+  returns <code>str</code>.</p>
+
+  <h2><a name="setw"><code>setw</code></a></h2>
+  <pre>
+T6 <b>setw</b>(streamsize wide);
+</pre>
+
+  <p>The manipulator returns an object that, when extracted from or inserted into the stream
+  <code>str</code>, calls <code>str.<a href="ios.html#ios_base::width">width</a>(wide)</code>, then returns
+  <code>str</code>.</p>
+  <hr>
+
+  <p>See also the <b><a href="index.html#Table%20of%20Contents">Table of Contents</a></b> and the <b><a href=
+  "_index.html">Index</a></b>.</p>
+
+  <p><i><a href="crit_pjp.html">Copyright</a> &copy; 1992-2010 by P.J. Plauger. All rights reserved.</i></p>
+  <!--V5.30:126I-->
+</body>
+</html>

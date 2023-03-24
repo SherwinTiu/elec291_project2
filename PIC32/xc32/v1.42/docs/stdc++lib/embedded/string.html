@@ -1,0 +1,720 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html>
+<head>
+  <meta name="generator" content=
+  "HTML Tidy for Mac OS X (vers 31 October 2006 - Apple Inc. build 15.15), see www.w3.org">
+
+  <title>&lt;string.h&gt;</title>
+</head>
+
+<body>
+  <h1><a name="&lt;string.h&gt;"><code>&lt;string.h&gt;</code></a></h1>
+  <hr>
+
+  <p><b><code><a href="#memchr">memchr</a> &middot; <a href="#memcmp">memcmp</a> &middot; <a href=
+  "#memcpy">memcpy</a> &middot; <a href="#memmove">memmove</a> &middot; <a href="#memset">memset</a> &middot;
+  <a href="#NULL">NULL</a> &middot; <a href="#size_t">size_t</a> &middot; <a href="#strcat">strcat</a>
+  &middot; <a href="#strchr">strchr</a> &middot; <a href="#strcmp">strcmp</a> &middot; <a href=
+  "#strcoll">strcoll</a> &middot; <a href="#strcpy">strcpy</a> &middot; <a href="#strcspn">strcspn</a>
+  &middot; <a href="#strerror">strerror</a> &middot; <a href="#strlen">strlen</a> &middot; <a href=
+  "#strncat">strncat</a> &middot; <a href="#strncmp">strncmp</a> &middot; <a href="#strncpy">strncpy</a>
+  &middot; <a href="#strpbrk">strpbrk</a> &middot; <a href="#strrchr">strrchr</a> &middot; <a href=
+  "#strspn">strspn</a> &middot; <a href="#strstr">strstr</a> &middot; <a href="#strtok">strtok</a> &middot;
+  <a href="#strxfrm">strxfrm</a></code></b></p>
+
+  <p><b><code><a href="#errno_t">errno_t</a> &middot; <a href="#memcpy_s">memcpy_s</a> &middot; <a href=
+  "#memmove_s">memmove_s</a> &middot; <a href="#rsize_t">rsize_t</a> &middot; <a href=
+  "#strcat_s">strcat_s</a> &middot; <a href="#strcpy_s">strcpy_s</a> &middot; <a href=
+  "#strerror_s">strerror_s</a> &middot; <a href="#strerrorlen_s">strerrorlen_s</a> &middot; <a href=
+  "#strncat_s">strncat_s</a> &middot; <a href="#strncpy_s">strncpy_s</a> &middot; <a href=
+  "#strnlen_s">strnlen_s</a> &middot; <a href="#strtok_s">strtok_s</a></code></b></p>
+  <hr>
+
+  <p>Include the standard header <b><code>&lt;string.h&gt;</code></b> to declare a number of functions that
+  help you manipulate <a href="lib_over.html#C%20string">C strings</a> and other arrays of characters.</p>
+  <pre>
+    /* MACROS */
+#define <a href="#NULL"><b>NULL</b></a> <i>&lt;either 0, 0L, or (void *)0&gt;</i> <b>[0 in C++]</b>
+
+    /* TYPES */
+typedef <i>ui-type</i> <a href="#size_t"><b>size_t</b></a>;
+
+    /* FUNCTIONS */
+int <a href="#memcmp"><b>memcmp</b></a>(const void *s1, const void *s2, size_t n);
+void *<a href="#memcpy"><b>memcpy</b></a>(void *s1, const void *s2, size_t n);
+void *<a href="#memmove"><b>memmove</b></a>(void *s1, const void *s2, size_t n);
+void *<a href="#memset"><b>memset</b></a>(void *s, int c, size_t n);
+char *<a href="#strcat"><b>strcat</b></a>(char *s1, const char *s2);
+int <a href="#strcmp"><b>strcmp</b></a>(const char *s1, const char *s2);
+int <a href="#strcoll"><b>strcoll</b></a>(const char *s1, const char *s2);
+char *<a href="#strcpy"><b>strcpy</b></a>(char *s1, const char *s2);
+size_t <a href="#strcspn"><b>strcspn</b></a>(const char *s1, const char *s2);
+char *<a href="#strerror"><b>strerror</b></a>(int errcode);
+size_t <a href="#strlen"><b>strlen</b></a>(const char *s);
+char *<a href="#strncat"><b>strncat</b></a>(char *s1, const char *s2, size_t n);
+int <a href="#strncmp"><b>strncmp</b></a>(const char *s1, const char *s2, size_t n);
+char *<a href="#strncpy"><b>strncpy</b></a>(char *s1, const char *s2, size_t n);
+size_t <a href="#strspn"><b>strspn</b></a>(const char *s1, const char *s2);
+char *<a href="#strtok"><b>strtok</b></a>(char *s1, const char *s2);
+size_t <a href="#strxfrm"><b>strxfrm</b></a>(char *s1, const char *s2, size_t n);
+
+void *<a href="#memchr"><b>memchr</b></a>(const void *s, int c,
+    size_t n); <b>[not in C++]</b>
+const void *<a href="#memchr"><b>memchr</b></a>(const void *s, int c,
+    size_t n); <b>[C++ only]</b>
+void *<a href="#memchr"><b>memchr</b></a>(void *s, int c, size_t n); <b>[C++ only]</b>
+
+char *<a href="#strchr"><b>strchr</b></a>(const char *s, int c); <b>[not in C++]</b>
+const char *<a href="#strchr"><b>strchr</b></a>(const char *s, int c); <b>[C++ only]</b>
+char *<a href="#strchr"><b>strchr</b></a>(char *s, int c); <b>[C++ only]</b>
+
+char *<a href="#strpbrk"><b>strpbrk</b></a>(const char *s1,
+    const char *s2); <b>[not in C++]</b>
+const char *<a href="#strpbrk"><b>strpbrk</b></a>(const char *s1,
+    const char *s2); <b>[C++ only]</b>
+char *<a href="#strpbrk"><b>strpbrk</b></a>(char *s1, const char *s2); <b>[C++ only]</b>
+
+char *<a href="#strrchr"><b>strrchr</b></a>(const char *s, int c); <b>[not in C++]</b>
+const char *<a href="#strrchr"><b>strrchr</b></a>(const char *s, int c); <b>[C++ only]</b>
+char *<a href="#strrchr"><b>strrchr</b></a>(char *s, int c); <b>[C++ only]</b>
+
+char *<a href="#strstr"><b>strstr</b></a>(const char *s1,
+    const char *s2); <b>[not in C++]</b>
+const char *<a href="#strstr"><b>strstr</b></a>(const char *s1,
+    const char *s2); <b>[C++ only]</b>
+char *<a href="#strstr"><b>strstr</b></a>(char *s1, const char *s2); <b>[C++ only]</b>
+
+#if __STDC_WANT_LIB_EXT1__ <b>[added with <a href="index_ext1.html#TR24731">TR24731</a>]</b>
+typedef int <a href="#errno_t"><b>errno_t</b></a>;
+typedef size_t <a href="#rsize_t"><b>rsize_t</b></a>;
+
+errno_t <a href="#memcpy_s"><b>memcpy_s</b></a>(void *s1, rsize_t maxsize,
+    const void *s2, rsize_t n);
+errno_t <a href="#memmove_s"><b>memmove_s</b></a>(void *s1, rsize_t maxsize,
+    const void *s2, rsize_t n);
+
+errno_t <a href="#strcpy_s"><b>strcpy_s</b></a>(char *s1, rsize_t maxsize,
+    const char *s2);
+errno_t <a href="#strncpy_s"><b>strncpy_s</b></a>(char *s1, rsize_t maxsize,
+    const char *s2, rsize_t n);
+errno_t <a href="#strcat_s"><b>strcat_s</b></a>(char *s1, rsize_t maxsize,
+    const char *s2);
+errno_t <a href="#strncat_s"><b>strncat_s</b></a>(char *s1, rsize_t maxsize,
+    const char *s2, rsize_t n);
+char *<a href="#strtok_s"><b>strtok_s</b></a>(char *s1, rsize_t *psize1,
+    const char *s2, char **pbuf1);
+
+errno_t <a href="#strerror_s"><b>strerror_s</b></a>(char *s, rsize_t maxsize,
+    errno_t errcode);
+size_t <a href="#strerrorlen_s"><b>strerrorlen_s</b></a>(errno_t errcode);
+
+size_t <a href="#strnlen_s"><b>strnlen_s</b></a>(const char *s, size_t maxsize);
+#endif /* __STDC_WANT_LIB_EXT1__ */
+</pre>
+
+  <h2><a name="errno_t"><code>errno_t</code></a></h2>
+  <pre>
+typedef int <b>errno_t</b>; <b>[added with TR24731]</b>
+</pre>
+
+  <p>The type is a synonym for <i>int,</i> used to represent a value that can be stored in <a href=
+  "errno.html#errno"><code>errno</code></a>.</p>
+
+  <h2><a name="memchr"><code>memchr</code></a></h2>
+  <pre>
+void *<b>memchr</b>(const void *s, int c,
+    size_t n); <b>[not in C++]</b>
+const void *<b>memchr</b>(const void *s, int c,
+    size_t n); <b>[C++ only]</b>
+void *<b>memchr</b>(void *s, int c, size_t n); <b>[C++ only]</b>
+</pre>
+
+  <p>The function searches for the first element of an array of <i>unsigned char,</i> beginning at the
+  address <code>s</code> with size <code>n</code>, that equals <code>(unsigned char)c</code>. If successful,
+  it returns the address of the matching element; otherwise, it returns a null pointer.</p>
+
+  <h2><a name="memcmp"><code>memcmp</code></a></h2>
+  <pre>
+int <b>memcmp</b>(const void *s1, const void *s2, size_t n);
+</pre>
+
+  <p>The function compares successive elements from two arrays of <i>unsigned char,</i> beginning at the
+  addresses <code>s1</code> and <code>s2</code> (both of size <code>n</code>), until it finds elements that
+  are not equal:</p>
+
+  <ul>
+    <li>If all elements are equal, the function returns zero.</li>
+
+    <li>If the differing element from <code>s1</code> is greater than the element from <code>s2</code>, the
+    function returns a positive number.</li>
+
+    <li>Otherwise, the function returns a negative number.</li>
+  </ul>
+
+  <h2><a name="memcpy"><code>memcpy</code></a></h2>
+  <pre>
+void *<b>memcpy</b>(void *s1, const void *s2, size_t n);
+</pre>
+
+  <p>The function copies the array of <i>char</i> beginning at the address <code>s2</code> to the array of
+  <i>char</i> beginning at the address <code>s1</code> (both of size <code>n</code>). It returns
+  <code>s1</code>. The elements of the arrays can be accessed and stored in any order.</p>
+
+  <h2><a name="memcpy_s"><code>memcpy_s</code></a></h2>
+  <pre>
+errno_t <b>memcpy_s</b>(void *s1, rsize_t maxsize,
+    const void *s2, size_t n); <b>[added with TR24731]</b>
+</pre>
+
+  <p>A <a href="index_ext1.html#runtime%20constraint%20violation">runtime constraint violation</a> occurs
+  if:</p>
+
+  <ul>
+    <li><code>s1</code> is a null pointer</li>
+
+    <li><code>maxsize</code> is greater than <code><a href=
+    "index_ext1.html#RSIZE_MAX">RSIZE_MAX</a></code></li>
+
+    <li><code>s2</code> is a null pointer</li>
+
+    <li><code>n</code> is greater than <code>maxsize</code></li>
+
+    <li>the array of <code>n</code> <i>char</i> beginning at the address <code>s1</code> overlaps the array
+    of <code>n</code> <i>char</i> beginning at the address <code>s2</code></li>
+  </ul>
+
+  <p>If such a violation occurs, other than the first two, the function stores null characters in the first
+  <code>maxsize</code> elements of the array of <i>char</i> beginning at the address <code>s1</code>. It
+  returns the error code it reported to the constraint handler.</p>
+
+  <p>Otherwise, the function copies the array of <i>char</i> beginning at the address <code>s2</code> to the
+  array of <i>char</i> beginning at the address <code>s1</code> (both of size <code>n</code>). It returns
+  zero.</p>
+
+  <h2><a name="memmove"><code>memmove</code></a></h2>
+  <pre>
+void *<b>memmove</b>(void *s1, const void *s2, size_t n);
+</pre>
+
+  <p>The function copies the array of <i>char</i> beginning at <code>s2</code> to the array of <i>char</i>
+  beginning at <code>s1</code> (both of size <code>n</code>). It returns <code>s1</code>. If the arrays
+  overlap, the function accesses each of the element values from <code>s2</code> before it stores a new value
+  in that element, so the copy is not corrupted.</p>
+
+  <h2><a name="memmove_s"><code>memmove_s</code></a></h2>
+  <pre>
+errno_t <b>memmove_s</b>(void *s1, rsize_t maxsize,
+    const void *s2, size_t n); <b>[added with TR24731]</b>
+</pre>
+
+  <p>A <a href="index_ext1.html#runtime%20constraint%20violation">runtime constraint violation</a> occurs
+  if:</p>
+
+  <ul>
+    <li><code>s1</code> is a null pointer</li>
+
+    <li><code>maxsize</code> is greater than <code><a href=
+    "index_ext1.html#RSIZE_MAX">RSIZE_MAX</a></code></li>
+
+    <li><code>s2</code> is a null pointer</li>
+
+    <li><code>n</code> is greater than <code>maxsize</code></li>
+  </ul>
+
+  <p>If such a violation occurs, other than the first two, the function stores null characters in the first
+  <code>maxsize</code> elements of the array of <i>char</i> beginning at the address <code>s1</code>. It
+  returns the error code it reported to the constraint handler.</p>
+
+  <p>Otherwise, the function copies the array of <i>char</i> beginning at <code>s2</code> to the array of
+  <i>char</i> beginning at <code>s1</code> (both of size <code>n</code>). It returns zero. If the arrays
+  overlap, the function accesses each of the element values from <code>s2</code> before it stores a new value
+  in that element, so the copy is not corrupted.</p>
+
+  <h2><a name="memset"><code>memset</code></a></h2>
+  <pre>
+void *<b>memset</b>(void *s, int c, size_t n);
+</pre>
+
+  <p>The function stores <code>(unsigned char)c</code> in each of the elements of the array of <i>unsigned
+  char</i> beginning at <code>s</code>, with size <code>n</code>. It returns <code>s</code>.</p>
+
+  <h2><a name="NULL"><code>NULL</code></a></h2>
+  <pre>
+#define <b>NULL</b> <i>&lt;either 0, 0L, or (void *)0&gt;</i> <b>[0 in C++]</b>
+</pre>
+
+  <p>The macro yields a null pointer constant that is usable as an <a href=
+  "express.html#address%20constant%20expression">address constant expression</a>.</p>
+
+  <h2><a name="rsize_t"><code>rsize_t</code></a></h2>
+  <pre>
+typedef size_t <b>rsize_t</b>; <b>[added with TR24731]</b>
+</pre>
+
+  <p>The type is a synonym for <code>size_t</code>, used to represent a function argument to be checked on
+  entry to a function. It is a <a href="index_ext1.html#runtime%20constraint%20violation">runtime constraint
+  violation</a> for an argument of type <code>rsize_t</code> to be greater than <code><a href=
+  "index_ext1.html#RSIZE_MAX">RSIZE_MAX</a></code>.</p>
+
+  <h2><a name="size_t"><code>size_t</code></a></h2>
+  <pre>
+typedef <i>ui-type</i> <b>size_t</b>;
+</pre>
+
+  <p>The type is the unsigned integer type <code><i>ui-type</i></code> of an object that you declare to store
+  the result of the <a href="express.html#sizeof%20operator"><i>sizeof</i></a> operator.</p>
+
+  <h2><a name="strcat"><code>strcat</code></a></h2>
+  <pre>
+char *<b>strcat</b>(char *s1, const char *s2);
+</pre>
+
+  <p>The function copies the string <code>s2</code>, including its terminating null character, to successive
+  elements of the array of <i>char</i> that stores the string <code>s1</code>, beginning with the element
+  that stores the terminating null character of <code>s1</code>. It returns <code>s1</code>.</p>
+
+  <h2><a name="strcat_s"><code>strcat_s</code></a></h2>
+  <pre>
+errno_t <b>strcat_s</b>(char *s1, rsize_t maxsize,
+    const char *s2); <b>[added with TR24731]</b>
+</pre>
+
+  <p>A <a href="index_ext1.html#runtime%20constraint%20violation">runtime constraint violation</a> occurs
+  if:</p>
+
+  <ul>
+    <li><code>s1</code> is a null pointer</li>
+
+    <li><code>maxsize</code> is zero or greater than <code><a href=
+    "index_ext1.html#RSIZE_MAX">RSIZE_MAX</a></code></li>
+
+    <li><code>s2</code> is a null pointer</li>
+
+    <li>the value <code>M</code>, given by <code>maxsize - <a href="#strnlen_s">strnlen_s</a>(s1,
+    maxsize)</code>, is not greater than <code>N</code>, given by <code>strnlen_s(s2, M)</code></li>
+
+    <li>the array of <code>N + 1</code> <i>char</i> beginning at the address <code>s1</code> overlaps the
+    array of <code>N + 1</code> <i>char</i> beginning at the address <code>s2 + M</code></li>
+  </ul>
+
+  <p>If such a violation occurs, other than the first two, the function stores a null character in
+  <code>s1[0]</code>. It returns the error code it reported to the constraint handler.</p>
+
+  <p>Otherwise, the function copies the string <code>s2</code>, including its terminating null character, to
+  successive elements of the array of <i>char</i> that stores the string <code>s1</code>, beginning with the
+  element that stores the terminating null character of <code>s1</code>. It returns zero.</p>
+
+  <h2><a name="strchr"><code>strchr</code></a></h2>
+  <pre>
+char *<b>strchr</b>(const char *s, int c); <b>[not in C++]</b>
+const char *<b>strchr</b>(const char *s, int c); <b>[C++ only]</b>
+char *<b>strchr</b>(char *s, int c); <b>[C++ only]</b>
+</pre>
+
+  <p>The function searches for the first element of the string <code>s</code> that equals
+  <code>(char)c</code>. It considers the terminating null character as part of the string. If successful, the
+  function returns the address of the matching element; otherwise, it returns a null pointer.</p>
+
+  <h2><a name="strcmp"><code>strcmp</code></a></h2>
+  <pre>
+int <b>strcmp</b>(const char *s1, const char *s2);
+</pre>
+
+  <p>The function compares successive elements from two strings, <code>s1</code> and <code>s2</code>, until
+  it finds elements that are not equal.</p>
+
+  <ul>
+    <li>If all elements are equal, the function returns zero.</li>
+
+    <li>If the differing element from <code>s1</code> is greater than the element from <code>s2</code> (both
+    taken as <i>unsigned char</i>), the function returns a positive number.</li>
+
+    <li>Otherwise, the function returns a negative number.</li>
+  </ul>
+
+  <h2><a name="strcoll"><code>strcoll</code></a></h2>
+  <pre>
+int <b>strcoll</b>(const char *s1, const char *s2);
+</pre>
+
+  <p>The function compares two strings, <code>s1</code> and <code>s2</code>, using a comparison rule that
+  depends on the current <a href="locale.html#locale">locale</a>. If <code>s1</code> compares greater than
+  <code>s2</code> by this rule, the function returns a positive number. If the two strings compare equal, it
+  returns zero. Otherwise, it returns a negative number.</p>
+
+  <h2><a name="strcpy"><code>strcpy</code></a></h2>
+  <pre>
+char *<b>strcpy</b>(char *s1, const char *s2);
+</pre>
+
+  <p>The function copies the string <code>s2</code>, including its terminating null character, to successive
+  elements of the array of <i>char</i> whose first element has the address <code>s1</code>. It returns
+  <code>s1</code>.</p>
+
+  <h2><a name="strcpy_s"><code>strcpy_s</code></a></h2>
+  <pre>
+errno_t <b>strcpy_s</b>(char *s1, rsize_t maxsize,
+    const char *s2); <b>[added with TR24731]</b>
+</pre>
+
+  <p>A <a href="index_ext1.html#runtime%20constraint%20violation">runtime constraint violation</a> occurs
+  if:</p>
+
+  <ul>
+    <li><code>s1</code> is a null pointer</li>
+
+    <li><code>maxsize</code> is zero or greater than <code><a href=
+    "index_ext1.html#RSIZE_MAX">RSIZE_MAX</a></code></li>
+
+    <li><code>s2</code> is a null pointer</li>
+
+    <li><code>maxsize</code> is not greater than <code>N</code>, given by <code><a href=
+    "#strnlen_s">strnlen_s</a>(s2, maxsize)</code></li>
+
+    <li>the array of <code>N + 1</code> <i>char</i> beginning at the address <code>s1</code> overlaps the
+    array of <code>N + 1</code> <i>char</i> beginning at the address <code>s2</code></li>
+  </ul>
+
+  <p>If such a violation occurs, other than the first two, the function stores a null character in
+  <code>s1[0]</code>. It returns the error code it reported to the constraint handler.</p>
+
+  <p>Otherwise, the function copies the string <code>s2</code>, including its terminating null character, to
+  successive elements of the array of <i>char</i> whose first element has the address <code>s1</code>. It
+  returns zero.</p>
+
+  <h2><a name="strcspn"><code>strcspn</code></a></h2>
+  <pre>
+size_t <b>strcspn</b>(const char *s1, const char *s2);
+</pre>
+
+  <p>The function searches for the first element <code>s1[i]</code> in the string <code>s1</code> that equals
+  <i>any one</i> of the elements of the string <code>s2</code> and returns <code>i</code>. Each terminating
+  null character is considered part of its string.</p>
+
+  <h2><a name="strerror"><code>strerror</code></a></h2>
+  <pre>
+char *<b>strerror</b>(int errcode);
+</pre>
+
+  <p>The function returns a pointer to an internal static-duration object containing the <a name=
+  "error message string"><b>error message string</b></a> corresponding to the error code
+  <code>errcode</code>. The program must not alter any of the values stored in this object. A later call to
+  <code>strerror</code> can alter the value stored in this object.</p>
+
+  <p>The function is not necessarily thread safe.</p>
+
+  <h2><a name="strerror_s"><code>strerror_s</code></a></h2>
+  <pre>
+errno_t <b>strerror_s</b>(char *s, rsize_t maxsize,
+    errno_t errcode); <b>[added with TR24731]</b>
+</pre>
+
+  <p>A <a href="index_ext1.html#runtime%20constraint%20violation">runtime constraint violation</a> occurs
+  if:</p>
+
+  <ul>
+    <li><code>s</code> is a null pointer</li>
+
+    <li><code>maxsize</code> is zero or greater than <code><a href=
+    "index_ext1.html#RSIZE_MAX">RSIZE_MAX</a></code></li>
+  </ul>
+
+  <p>If such a violation occurs, the function returns the error code it reported to the constraint
+  handler.</p>
+
+  <p>Otherwise, the function copies into <code>s</code> at most <code>maxsize - 1</code> characters from the
+  <a href="#error%20message%20string">error message string</a> corresponding to the error code
+  <code>errcode</code> and appends a null character. If not all of the message string is copied, and if
+  <code>3 &lt; maxsize</code>, then the string <code>"..."</code> overwrites the last three characters of the
+  copied string.</p>
+
+  <p>The function returns zero.</p>
+
+  <h2><a name="strerrorlen_s"><code>strerrorlen_s</code></a></h2>
+  <pre>
+size_t <b>strerrorlen_s</b>(errno_t errcode); <b>[added with TR24731]</b>
+</pre>
+
+  <p>The function returns the length of the <a href="#error%20message%20string">error message string</a>
+  corresponding to the error code <code>errcode</code>.</p>
+
+  <h2><a name="strlen"><code>strlen</code></a></h2>
+  <pre>
+size_t <b>strlen</b>(const char *s);
+</pre>
+
+  <p>The function returns the number of characters in the string <code>s</code>, <i>not</i> including its
+  terminating null character.</p>
+
+  <h2><a name="strncat"><code>strncat</code></a></h2>
+  <pre>
+char *<b>strncat</b>(char *s1, const char *s2, size_t n);
+</pre>
+
+  <p>The function copies the string <code>s2</code>, <i>not</i> including its terminating null character, to
+  successive elements of the array of <i>char</i> that stores the string <code>s1</code>, beginning with the
+  element that stores the terminating null character of <code>s1</code>. The function copies no more than
+  <code>n</code> characters from <code>s2</code>. It then stores a null character, in the next element to be
+  altered in <code>s1</code>, and returns <code>s1</code>.</p>
+
+  <h2><a name="strncat_s"><code>strncat_s</code></a></h2>
+  <pre>
+errno_t <b>strncat_s</b>(char *s1, rsize_t maxsize,
+    const char *s2, rsize_t n); <b>[added with TR24731]</b>
+</pre>
+
+  <p>A <a href="index_ext1.html#runtime%20constraint%20violation">runtime constraint violation</a> occurs
+  if:</p>
+
+  <ul>
+    <li><code>s1</code> is a null pointer</li>
+
+    <li><code>maxsize</code> is zero or greater than <code><a href=
+    "index_ext1.html#RSIZE_MAX">RSIZE_MAX</a></code></li>
+
+    <li><code>s2</code> is a null pointer</li>
+
+    <li><code>n</code> is greater than <code><a href="index_ext1.html#RSIZE_MAX">RSIZE_MAX</a></code></li>
+
+    <li>the value <code>M</code>, given by <code>maxsize - <a href="#strnlen_s">strnlen_s</a>(s1,
+    maxsize)</code>, is not greater than <code>N</code>, given by <code>strnlen_s(s2, n)</code></li>
+
+    <li>the array of <code>N + 1</code> <i>char</i> beginning at the address <code>s1</code> overlaps the
+    array of <code>N + 1</code> <i>char</i> beginning at the address <code>s2 + M</code></li>
+  </ul>
+
+  <p>If such a violation occurs, other than the first two, the function stores a null character in
+  <code>s1[0]</code>. It returns the error code it reported to the constraint handler.</p>
+
+  <p>Otherwise, the function copies the string <code>s2</code>, <i>not</i> including its terminating null
+  character, to successive elements of the array of <i>char</i> that stores the string <code>s1</code>,
+  beginning with the element that stores the terminating null character of <code>s1</code>. The function
+  copies no more than <code>n</code> characters from <code>s2</code>. It then stores a null character, in the
+  next element to be altered in <code>s1</code>, and returns zero.</p>
+
+  <h2><a name="strncmp"><code>strncmp</code></a></h2>
+  <pre>
+int <b>strncmp</b>(const char *s1, const char *s2, size_t n);
+</pre>
+
+  <p>The function compares successive elements from two strings, <code>s1</code> and <code>s2</code>, until
+  it finds elements that are not equal or until it has compared the first <code>n</code> elements of the two
+  strings.</p>
+
+  <ul>
+    <li>If all elements are equal, the function returns zero.</li>
+
+    <li>If the differing element from <code>s1</code> is greater than the element from <code>s2</code> (both
+    taken as <i>unsigned char</i>), the function returns a positive number.</li>
+
+    <li>Otherwise, it returns a negative number.</li>
+  </ul>
+
+  <h2><a name="strncpy"><code>strncpy</code></a></h2>
+  <pre>
+char *<b>strncpy</b>(char *s1, const char *s2, size_t n);
+</pre>
+
+  <p>The function copies the string <code>s2</code>, <i>not</i> including its terminating null character, to
+  successive elements of the array of <i>char</i> whose first element has the address <code>s1</code>. It
+  copies no more than <code>n</code> characters from <code>s2</code>. The function then stores zero or more
+  null characters in the next elements to be altered in <code>s1</code> until it stores a total of
+  <code>n</code> characters. It returns <code>s1</code>.</p>
+
+  <h2><a name="strncpy_s"><code>strncpy_s</code></a></h2>
+  <pre>
+errno_t <b>strncpy_s</b>(char *s1, rsize_t maxsize,
+    const char *s2, rsize_t n); <b>[added with TR24731]</b>
+</pre>
+
+  <p>A <a href="index_ext1.html#runtime%20constraint%20violation">runtime constraint violation</a> occurs
+  if:</p>
+
+  <ul>
+    <li><code>s1</code> is a null pointer</li>
+
+    <li><code>maxsize</code> is zero or greater than <code><a href=
+    "index_ext1.html#RSIZE_MAX">RSIZE_MAX</a></code></li>
+
+    <li><code>s2</code> is a null pointer</li>
+
+    <li><code>maxsize</code> is not greater than <code>N</code>, given by <code><a href=
+    "#strnlen_s">strnlen_s</a>(s2, n)</code></li>
+
+    <li>the array of <code>N</code> <i>char</i> beginning at the address <code>s1</code> overlaps the array
+    of <code>N</code> <i>char</i> beginning at the address <code>s2</code></li>
+  </ul>
+
+  <p>If such a violation occurs, other than the first two, the function stores a null character in
+  <code>s1[0]</code>. It returns the error code it reported to the constraint handler.</p>
+
+  <p>Otherwise, the function copies the string <code>s2</code>, <i>not</i> including its terminating null
+  character, to successive elements of the array of <i>char</i> whose first element has the address
+  <code>s1</code>. It copies no more than <code>n</code> characters from <code>s2</code>. The function then
+  stores a null character in the next elements to be altered in <code>s1</code>. It returns zero.</p>
+
+  <h2><a name="strnlen_s"><code>strnlen_s</code></a></h2>
+  <pre>
+size_t <b>strnlen_s</b>(const char *s, size_t maxsize); <b>[added with TR24731]</b>
+</pre>
+
+  <p>If <code>s</code> is a null pointer, the function returns zero. Otherwise, if a null character occurs in
+  the first <code>maxsize</code> elements of the array beginning at <code>s</code>, the function returns the
+  number of characters before the first null character. Otherwise, the function returns
+  <code>maxsize</code>.</p>
+
+  <h2><a name="strpbrk"><code>strpbrk</code></a></h2>
+  <pre>
+char *<b>strpbrk</b>(const char *s1,
+    const char *s2); <b>[not in C++]</b>
+const char *<b>strpbrk</b>(const char *s1,
+    const char *s2); <b>[C++ only]</b>
+char *<b>strpbrk</b>(char *s1,
+    const char *s2); <b>[C++ only]</b>
+</pre>
+
+  <p>The function searches for the first element <code>s1[i]</code> in the string <code>s1</code> that equals
+  <i>any one</i> of the elements of the string <code>s2</code>. It considers each terminating null character
+  as part of its string. If <code>s1[i]</code> is not the terminating null character, the function returns
+  <code>&amp;s1[i]</code>; otherwise, it returns a null pointer.</p>
+
+  <h2><a name="strrchr"><code>strrchr</code></a></h2>
+  <pre>
+char *<b>strrchr</b>(const char *s, int c); <b>[not in C++]</b>
+const char *<b>strrchr</b>(const char *s, int c); <b>[C++ only]</b>
+char *<b>strrchr</b>(char *s, int c); <b>[C++ only]</b>
+</pre>
+
+  <p>The function searches for the last element of the string <code>s</code> that equals
+  <code>(char)c</code>. It considers the terminating null character as part of the string. If successful, the
+  function returns the address of the matching element; otherwise, it returns a null pointer.</p>
+
+  <h2><a name="strspn"><code>strspn</code></a></h2>
+  <pre>
+size_t <b>strspn</b>(const char *s1, const char *s2);
+</pre>
+
+  <p>The function searches for the first element <code>s1[i]</code> in the string <code>s1</code> that equals
+  <i>none</i> of the elements of the string <code>s2</code> and returns <code>i</code>. It considers the
+  terminating null character as part of the string <code>s1</code> only.</p>
+
+  <h2><a name="strstr"><code>strstr</code></a></h2>
+  <pre>
+char *<b>strstr</b>(const char *s1,
+    const char *s2); <b>[not in C++]</b>
+const char *<b>strstr</b>(const char *s1,
+    const char *s2); <b>[C++ only]</b>
+char *<b>strstr</b>(char *s1, const char *s2); <b>[C++ only]</b>
+</pre>
+
+  <p>The function searches for the first sequence of elements in the string <code>s1</code> that matches the
+  sequence of elements in the string <code>s2</code>, <i>not</i> including its terminating null character. If
+  successful, the function returns the address of the matching first element; otherwise, it returns a null
+  pointer.</p>
+
+  <h2><a name="strtok"><code>strtok</code></a></h2>
+  <pre>
+char *<b>strtok</b>(char *s1, const char *s2);
+</pre>
+
+  <p>If <code>s1</code> is not a null pointer, the function begins a search of the string <code>s1</code>. If
+  <code>s1</code> is a null pointer, it begins a search of the string whose address was last stored in an
+  internal static-duration object on an earlier call to the function, as described below. The search proceeds
+  as follows:</p>
+
+  <ol>
+    <li>The function searches the string for <code>begin</code>, the address of the first element that equals
+    <i>none</i> of the elements of the string <code>s2</code> (a set of token separators). It considers the
+    terminating null character as part of the search string only.</li>
+
+    <li>If the search does not find an element, the function stores the address of the terminating null
+    character in the internal static-duration object (so that a subsequent search beginning with that address
+    will fail) and returns a null pointer. Otherwise, the function searches from <code>begin</code> for
+    <code>end</code>, the address of the first element that equals <i>any one</i> of the elements of the
+    string <code>s2</code>. It again considers the terminating null character as part of the search string
+    only.</li>
+
+    <li>If the search does not find an element, the function stores the address of the terminating null
+    character in the internal static-duration object. Otherwise, it stores a null character in the element
+    whose address is <code>end</code>. Then it stores the address of the next element after <code>end</code>
+    in the internal static-duration object (so that a subsequent search beginning with that address will
+    continue with the remaining elements of the string) and returns <code>begin</code>.</li>
+  </ol>
+
+  <p>The function is not necessarily thread safe.</p>
+
+  <h2><a name="strtok_s"><code>strtok_s</code></a></h2>
+  <pre>
+char 8<b>strtok_s</b>(char *s1, rsize_t *psize1,
+    const char *s2, char **pbuf1); <b>[added with TR24731]</b>
+</pre>
+
+  <p>A <a href="index_ext1.html#runtime%20constraint%20violation">runtime constraint violation</a> occurs
+  if:</p>
+
+  <ul>
+    <li><code>psize1</code> is a null pointer</li>
+
+    <li><code>*psize1</code> is greater than <code><a href=
+    "index_ext1.html#RSIZE_MAX">RSIZE_MAX</a></code></li>
+
+    <li><code>s2</code> is a null pointer</li>
+
+    <li><code>pbuf1</code> is a null pointer</li>
+
+    <li>the function fails to find the locations <code>begin</code> or <code>end</code>, or a null character,
+    in the first <code>*psize1</code> elements of the array to be searched as described below</li>
+  </ul>
+
+  <p>If such a violation occurs, the function stores nothing and returns a null pointer.</p>
+
+  <p>Otherwise, if <code>s1</code> is not a null pointer, the function begins a search of the string
+  <code>s1</code>. If <code>s1</code> is a null pointer, it begins a search of the string whose address was
+  last stored in an internal static-duration object on an earlier call to the function, as described below.
+  The search proceeds as follows:</p>
+
+  <ol>
+    <li>The function searches the string for <code>begin</code>, the address of the first element that equals
+    <i>none</i> of the elements of the string <code>s2</code> (a set of token separators). It considers the
+    terminating null character as part of the search string only.</li>
+
+    <li>If the search does not find an element, the function stores the address of the terminating null
+    character in the internal static-duration object (so that a subsequent search beginning with that address
+    will fail) and returns a null pointer. Otherwise, the function searches from <code>begin</code> for
+    <code>end</code>, the address of the first element that equals <i>any one</i> of the elements of the
+    string <code>s2</code>. It again considers the terminating null character as part of the search string
+    only.</li>
+
+    <li>If the search does not find an element, the function stores the address of the terminating null
+    character in the internal static-duration object. Otherwise, it stores a null character in the element
+    whose address is <code>end</code>. Then it stores the address of the next element after <code>end</code>
+    in the internal static-duration object (so that a subsequent search beginning with that address will
+    continue with the remaining elements of the string) and returns <code>begin</code>.</li>
+  </ol>
+
+  <h2><a name="strxfrm"><code>strxfrm</code></a></h2>
+  <pre>
+size_t <b>strxfrm</b>(char *s1, const char *s2, size_t n);
+</pre>
+
+  <p>The function stores a string in the array of <i>char</i> whose first element has the address
+  <code>s1</code>. It stores no more than <code>n</code> characters, <i>including</i> the terminating null
+  character, and returns the number of characters needed to represent the entire string, <i>not</i> including
+  the terminating null character. If the value returned is <code>n</code> or greater, the values stored in
+  the array are indeterminate. (If <code>n</code> is zero, <code>s1</code> can be a null pointer.)</p>
+
+  <p><code>strxfrm</code> generates the string it stores from the string <code>s2</code> by using a
+  transformation rule that depends on the current <a href="locale.html#locale">locale</a>. For example, if
+  <code>x</code> is a transformation of <code>s1</code> and <code>y</code> is a transformation of
+  <code>s2</code>, then <code><a href="#strcmp">strcmp</a>(x, y)</code> returns the same value as
+  <code><a href="#strcoll">strcoll</a>(s1, s2)</code>.</p>
+  <hr>
+
+  <p>See also the <b><a href="index.html#Table%20of%20Contents">Table of Contents</a></b> and the <b><a href=
+  "_index.html">Index</a></b>.</p>
+
+  <p><i><a href="crit_pjp.html">Copyright</a> &copy; 1992-2010 by P.J. Plauger and Jim Brodie. All rights
+  reserved.</i></p><!--V5.30:126I-->
+</body>
+</html>

@@ -1,0 +1,530 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html>
+<head>
+  <meta name="generator" content=
+  "HTML Tidy for Mac OS X (vers 31 October 2006 - Apple Inc. build 15.15), see www.w3.org">
+
+  <title>&lt;strstream&gt;</title>
+</head>
+
+<body>
+  <h1><a name="&lt;strstream&gt;"><code>&lt;strstream&gt;</code></a></h1>
+  <hr>
+
+  <p>Include the <a href="lib_cpp.html#iostreams">iostreams</a> standard header
+  <b><code>&lt;strstream&gt;</code></b> to define several classes that support iostreams operations on
+  sequences stored in an allocated array of <i>char</i> object. Such sequences are easily converted to and
+  from <a href="lib_over.html#C%20string">C strings</a>.</p>
+  <pre>
+namespace std {
+class <b><a href="#strstreambuf">strstreambuf</a></b>;
+class <b><a href="#istrstream">istrstream</a></b>;
+class <b><a href="#ostrstream">ostrstream</a></b>;
+class <b><a href="#strstream">strstream</a></b>;
+}  // namespace std
+</pre>
+
+  <h2><a name="strstreambuf"><code>strstreambuf</code></a></h2>
+  <pre>
+class <b>strstreambuf</b> : public streambuf {
+public:
+    explicit <b><a href="#strstreambuf::strstreambuf">strstreambuf</a></b>(streamsize count = 0);
+    <b><a href="#strstreambuf::strstreambuf">strstreambuf</a></b>(void (*allocfunc)(size_t),
+        void (*freefunc)(void *));
+    <b><a href="#strstreambuf::strstreambuf">strstreambuf</a></b>(char *getptr, streamsize count,
+        char *putptr = 0);
+    <b><a href="#strstreambuf::strstreambuf">strstreambuf</a></b>(signed char *getptr, streamsize count,
+        signed char *putptr = 0);
+    <b><a href="#strstreambuf::strstreambuf">strstreambuf</a></b>(unsigned char *getptr, streamsize count,
+        unsigned char *putptr = 0);
+    <b><a href="#strstreambuf::strstreambuf">strstreambuf</a></b>(const char *getptr, streamsize count);
+    <b><a href=
+"#strstreambuf::strstreambuf">strstreambuf</a></b>(const signed char *getptr, streamsize count);
+    <b><a href=
+"#strstreambuf::strstreambuf">strstreambuf</a></b>(const unsigned char *getptr, streamsize count);
+
+    void <b><a href="#strstreambuf::freeze">freeze</a></b>(bool freezeit = true);
+    char *<b><a href="#strstreambuf::str">str</a></b>();
+    streamsize <b><a href="#strstreambuf::pcount">pcount</a></b>();
+
+protected:
+    virtual streampos <b><a href="#strstreambuf::seekoff">seekoff</a></b>(streamoff off,
+        ios_base::seekdir way,
+        ios_base::openmode which =
+            ios_base::in | ios_base::out);
+    virtual streampos <b><a href="#strstreambuf::seekpos">seekpos</a></b>(streampos sp,
+        ios_base::openmode which =
+            ios_base::in | ios_base::out);
+    virtual int <b><a href="#strstreambuf::underflow">underflow</a></b>();
+    virtual int <b><a href="#strstreambuf::pbackfail">pbackfail</a></b>(int meta = EOF);
+    virtual int <b><a href="#strstreambuf::overflow">overflow</a></b>(int meta = EOF);
+    };
+</pre>
+
+  <p>The class describes a <b><a href="streambu.html#stream%20buffer">stream buffer</a></b> that controls the
+  transmission of elements to and from a sequence of elements stored in a <i>char</i> array object. Depending
+  on how it is constructed, the object can be allocated, extended, and freed as necessary to accommodate
+  changes in the sequence.</p>
+
+  <p>An object of class <code>strstreambuf</code> stores several bits of mode information as its <b><a name=
+  "strstreambuf mode">strstreambuf mode</a></b>. These bits indicate whether the controlled sequence:</p>
+
+  <ul>
+    <li>has been <b>allocated</b>, and hence needs to be freed eventually</li>
+
+    <li>is <b>modifiable</b></li>
+
+    <li>is <b>extendable</b> by reallocating storage</li>
+
+    <li>has been <b>frozen</b> and hence needs to be unfrozen before the object is destroyed, or freed (if
+    allocated) by an agency other than the object</li>
+  </ul>
+
+  <p>A controlled sequence that is frozen cannot be modified or extended, regardless of the state of these
+  separate mode bits.</p>
+
+  <p>The object also stores pointers to two functions that control <b><a name=
+  "strstreambuf allocation">strstreambuf allocation</a></b>. If these are null pointers, the object devises
+  its own method of allocating and freeing storage for the controlled sequence.</p>
+
+  <h3><a name="strstreambuf::freeze"><code>strstreambuf::freeze</code></a></h3>
+  <pre>
+void <b><a href="#strstreambuf::freeze">freeze</a></b>(bool freezeit = true);
+</pre>
+
+  <p>If <code>freezeit</code> is true, the function alters the stored <a href=
+  "#strstreambuf%20mode">strstreambuf mode</a> to make the controlled sequence frozen. Otherwise, it makes
+  the controlled sequence not frozen.</p>
+
+  <h3><a name="strstreambuf::pcount"><code>strstreambuf::pcount</code></a></h3>
+  <pre>
+streamsize <b>pcount</b>();
+</pre>
+
+  <p>The member function returns a count of the number of elements written to the controlled sequence.
+  Specifically, if <code><a href="streambu.html#basic_streambuf::pptr">pptr</a>()</code> is a null pointer,
+  the function returns zero. Otherwise, it returns <code>pptr() - <a href=
+  "streambu.html#basic_streambuf::pbase">pbase</a>()</code>.</p>
+
+  <h3><a name="strstreambuf::overflow"><code>strstreambuf::overflow</code></a></h3>
+  <pre>
+virtual int <b>overflow</b>(int meta = EOF);
+</pre>
+
+  <p>If <code>meta != <a href="stdio.html#EOF">EOF</a></code>, the protected virtual member function
+  endeavors to insert the element <code>(char)meta</code> into the <a href=
+  "streambu.html#output%20buffer">output buffer</a>. It can do so in various ways:</p>
+
+  <ul>
+    <li>If a <a href="streambu.html#write%20position">write position</a> is available, it can store the
+    element into the write position and increment the next pointer for the output buffer.</li>
+
+    <li>If the stored <a href="#strstreambuf%20mode">strstreambuf mode</a> says the controlled sequence is
+    modifiable, extendable, and not frozen, the function can make a write position available by allocating
+    new for the output buffer. (Extending the output buffer this way also extends any associated <a href=
+    "streambu.html#input%20buffer">input buffer</a>.)</li>
+  </ul>
+
+  <p>If the function cannot succeed, it returns <code>EOF</code>. Otherwise, if <code>meta == EOF</code> it
+  returns some value other than <code>EOF</code>. Otherwise, it returns <code>meta</code>.</p>
+
+  <h3><a name="strstreambuf::pbackfail"><code>strstreambuf::pbackfail</code></a></h3>
+  <pre>
+virtual int <b>pbackfail</b>(int meta = EOF);
+</pre>
+
+  <p>The protected virtual member function endeavors to put back an element into the <a href=
+  "streambu.html#input%20buffer">input buffer</a>, then make it the current element (pointed to by the next
+  pointer).</p>
+
+  <p>If <code>meta == <a href="stdio.html#EOF">EOF</a></code>, the element to push back is effectively the
+  one already in the stream before the current element. Otherwise, that element is replaced by <code>ch =
+  (char)meta</code>. The function can put back an element in various ways:</p>
+
+  <ul>
+    <li>If a <a href="streambu.html#putback%20position">putback position</a> is available, and the element
+    stored there compares equal to <code>ch</code>, it can simply decrement the next pointer for the input
+    buffer.</li>
+
+    <li>If a putback position is available, and if the <a href="#strstreambuf%20mode">strstreambuf mode</a>
+    says the controlled sequence is modifiable, the function can store <code>ch</code> into the putback
+    position and decrement the next pointer for the input buffer.</li>
+  </ul>
+
+  <p>If the function cannot succeed, it returns <code>EOF</code>. Otherwise, if <code>meta == EOF</code> it
+  returns some value other than <code>EOF</code>. Otherwise, it returns <code>meta</code>.</p>
+
+  <h3><a name="strstreambuf::seekoff"><code>strstreambuf::seekoff</code></a></h3>
+  <pre>
+virtual streampos <b>seekoff</b>(streamoff off,
+    ios_base::seekdir way,
+    ios_base::openmode which =
+        ios_base::in | ios_base::out);
+</pre>
+
+  <p>The protected virtual member function endeavors to alter the current positions for the controlled
+  streams. For an object of class <code>strstreambuf</code>, a stream position consists purely of a stream
+  offset. Offset zero designates the first element of the controlled sequence.</p>
+
+  <p>The new position is determined as follows:</p>
+
+  <ul>
+    <li>If <code>way == ios_base::<a href="ios.html#ios_base::beg">beg</a></code>, the new position is the
+    beginning of the stream plus <code>off</code>.</li>
+
+    <li>If <code>way == ios_base::<a href="ios.html#ios_base::cur">cur</a></code>, the new position is the
+    current stream position plus <code>off</code>.</li>
+
+    <li>If <code>way == ios_base::<a href="ios.html#ios_base::end">end</a></code>, the new position is the
+    end of the stream plus <code>off</code>.</li>
+  </ul>
+
+  <p>If <code>which &amp; ios_base::in</code> is nonzero and the input buffer exist, the function alters the
+  next position to read in the <a href="streambu.html#input%20buffer">input buffer</a>. If <code>which &amp;
+  ios_base::out</code> is also nonzero, <code>way != ios_base::cur</code>, and the output buffer exists, the
+  function also sets the next position to write to match the next position to read.</p>
+
+  <p>Otherwise, if <code>which &amp; ios_base::out</code> is nonzero and the output buffer exists, the
+  function alters the next position to write in the <a href="streambu.html#output%20buffer">output
+  buffer</a>. Otherwise, the positioning operation fails. For a positioning operation to succeed, the
+  resulting stream position must lie within the controlled sequence.</p>
+
+  <p>If the function succeeds in altering either or both stream positions, it returns the resultant stream
+  position. Otherwise, it fails and returns an invalid stream position.</p>
+
+  <h3><a name="strstreambuf::seekpos"><code>strstreambuf::seekpos</code></a></h3>
+  <pre>
+virtual streampos <b>seekpos</b>(streampos sp,
+    ios_base::openmode which =
+        ios_base::in | ios_base::out);
+</pre>
+
+  <p>The protected virtual member function endeavors to alter the current positions for the controlled
+  streams. For an object of class <code>strstreambuf</code>, a stream position consists purely of a stream
+  offset. Offset zero designates the first element of the controlled sequence. The new position is determined
+  by <code>sp</code>.</p>
+
+  <p>If <code>which &amp; ios_base::in</code> is nonzero and the input buffer exists, the function alters the
+  next position to read in the <a href="streambu.html#input%20buffer">input buffer</a>. (If <code>which &amp;
+  ios_base::out</code> is nonzero and the output buffer exists, the function also sets the next position to
+  write to match the next position to read.) Otherwise, if <code>which &amp; ios_base::out</code> is nonzero
+  and the output buffer exists, the function alters the next position to write in the <a href=
+  "streambu.html#output%20buffer">output buffer</a>. Otherwise, the positioning operation fails. For a
+  positioning operation to succeed, the resulting stream position must lie within the controlled
+  sequence.</p>
+
+  <p>If the function succeeds in altering either or both stream positions, it returns the resultant stream
+  position. Otherwise, it fails and returns an invalid stream position.</p>
+
+  <h3><a name="strstreambuf::str"><code>strstreambuf::str</code></a></h3>
+  <pre>
+char *<b>str</b>();
+</pre>
+
+  <p>The member function calls <code><a href="#strstreambuf::freeze">freeze</a>()</code>, then returns a
+  pointer to the beginning of the controlled sequence. (Note that no terminating null element exists, unless
+  you insert one explicitly.)</p>
+
+  <h3><a name="strstreambuf::strstreambuf"><code>strstreambuf::strstreambuf</code></a></h3>
+  <pre>
+explicit <b>strstreambuf</b>(streamsize count = 0);
+<b>strstreambuf</b>(void (*allocfunc)(size_t),
+    void (*freefunc)(void *));
+<b>strstreambuf</b>(char *getptr, streamsize count,
+    char *putptr = 0);
+<b>strstreambuf</b>(signed char *getptr, streamsize count,
+    signed char *putptr = 0);
+<b>strstreambuf</b>(unsigned char *getptr, streamsize count,
+    unsigned char *putptr = 0);
+<b>strstreambuf</b>(const char *getptr, streamsize count);
+<b>strstreambuf</b>(const signed char *getptr, streamsize count);
+<b>strstreambuf</b>(const unsigned char *getptr, streamsize count);
+</pre>
+
+  <p>The first constructor stores a null pointer in all the pointers controlling the <a href=
+  "streambu.html#input%20buffer">input buffer</a>, the <a href="streambu.html#output%20buffer">output
+  buffer</a>, and <a href="#strstreambuf%20allocation">strstreambuf allocation</a>. It sets the stored
+  <a href="#strstreambuf%20mode">strstreambuf mode</a> to make the controlled sequence modifiable and
+  extendable. And it accepts <code>count</code> as a suggested initial allocation size.</p>
+
+  <p>The second constructor behaves much as the first, except that it stores <code>allocfunc</code> as the
+  pointer to the function to call to allocate storage, and <code>freefunc</code> as the pointer to the
+  function to call to free that storage.</p>
+
+  <p>The three constructors:</p>
+  <pre>
+<b>strstreambuf</b>(char *getptr, streamsize count,
+    char *putptr = 0);
+<b>strstreambuf</b>(signed char *getptr, streamsize count,
+    signed char *putptr = 0);
+<b>strstreambuf</b>(unsigned char *getptr, streamsize count,
+    unsigned char *putptr = 0);
+</pre>
+
+  <p>also behave much as the first, except that <code>getptr</code> designates the array object used to hold
+  the controlled sequence. (Hence, it must not be a null pointer.) The number of elements <code>N</code> in
+  the array is determined as follows:</p>
+
+  <ul>
+    <li>If <code>(count &gt; 0)</code>, then <code>N</code> is <code>count</code>.</li>
+
+    <li>If <code>(count == 0)</code>, then <code>N</code> is <code><a href=
+    "string.html#strlen">strlen</a>((const char *)getptr)</code>.</li>
+
+    <li>If <code>(count &lt; 0)</code>, then <code>N</code> is <code><a href=
+    "limits.html#INT_MAX">INT_MAX</a></code>.</li>
+  </ul>
+
+  <p>If <code>putptr</code> is a null pointer, the function establishes just an input buffer, by
+  executing:</p>
+  <pre>
+<a href="streambu.html#basic_streambuf::setg">setg</a>(getptr, getptr, getptr + N);
+</pre>
+
+  <p>Otherwise, it establishes both input and output buffers, by executing:</p>
+  <pre>
+setg(getptr, getptr, putptr);
+<a href="streambu.html#basic_streambuf::setp">setp</a>(putptr, getptr + N);
+</pre>
+
+  <p>In this case, <code>putptr</code> must be in the interval <code>[getptr, getptr + N]</code>.</p>
+
+  <p>Finally, the three constructors:</p>
+  <pre>
+<b>strstreambuf</b>(const char *getptr, streamsize count);
+<b>strstreambuf</b>(const signed char *getptr, streamsize count);
+<b>strstreambuf</b>(const unsigned char *getptr, streamsize count);
+</pre>
+
+  <p>all behave the same as:</p>
+  <pre>
+streambuf((char *)getptr, count);
+</pre>
+
+  <p>except that the stored mode makes the controlled sequence neither modifiable not extendable.</p>
+
+  <h3><a name="strstreambuf::underflow"><code>strstreambuf::underflow</code></a></h3>
+  <pre>
+virtual int <b>underflow</b>();
+</pre>
+
+  <p>The protected virtual member function endeavors to extract the current element <code>ch</code> from the
+  <a href="streambu.html#input%20buffer">input buffer</a>, then advance the current stream position, and
+  return the element as <code>(int)(unsigned char)ch</code>. It can do so in only one way: If a <a href=
+  "streambu.html#read%20position">read position</a> is available, it takes <code>ch</code> as the element
+  stored in the read position and advances the next pointer for the input buffer.</p>
+
+  <p>If the function cannot succeed, it returns <code><a href="stdio.html#EOF">EOF</a></code>. Otherwise, it
+  returns the current element in the input stream, converted as described above.</p>
+
+  <h2><a name="istrstream"><code>istrstream</code></a></h2>
+  <pre>
+class <b>istrstream</b> : public istream {
+public:
+    explicit <b><a href="#istrstream::istrstream">istrstream</a></b>(const char *ptr);
+    explicit <b><a href="#istrstream::istrstream">istrstream</a></b>(char *ptr);
+    <b><a href="#istrstream::istrstream">istrstream</a></b>(const char *ptr, streamsize count);
+    <b><a href="#istrstream::istrstream">istrstream</a></b>(char *ptr, streamsize count);
+    strstreambuf *<b><a href="#istrstream::rdbuf">rdbuf</a></b>() const;
+    char *<b><a href="#istrstream::str">str</a></b>();
+    };
+</pre>
+
+  <p>The class describes an object that controls extraction of elements and encoded objects from a <a href=
+  "streambu.html#stream%20buffer">stream buffer</a> of class <code><a href=
+  "#strstreambuf">strstreambuf</a></code>. The object stores an ojbect of class
+  <code>strstreambuf</code>.</p>
+
+  <h3><a name="istrstream::istrstream"><code>istrstream::istrstream</code></a></h3>
+  <pre>
+explicit <b>istrstream</b>(const char *ptr);
+explicit <b>istrstream</b>(char *ptr);
+<b>istrstream</b>(const char *ptr, streamsize count);
+<b>istrstream</b>(char *ptr, streamsize count);
+</pre>
+
+  <p>All the constructors initialize the base class by calling <code><a href=
+  "istream.html#basic_istream::basic_istream">istream</a>(sb)</code>, where <code>sb</code> is the stored
+  object of class <code><a href="#strstreambuf">strstreambuf</a></code>. The first two constructors also
+  initialize <code>sb</code> by calling <code><a href="#strstreambuf::strstreambuf">strstreambuf</a>((const
+  char *)ptr, 0)</code>. The remaining two constructors instead call <code>strstreambuf((const char *)ptr,
+  count)</code>.</p>
+
+  <h3><a name="istrstream::rdbuf"><code>istrstream::rdbuf</code></a></h3>
+  <pre>
+strstreambuf *<b>rdbuf</b>() const
+</pre>
+
+  <p>The member function returns the address of the stored stream buffer, of type pointer to <code><a href=
+  "#strstreambuf">strstreambuf</a></code>.</p>
+
+  <h3><a name="istrstream::str"><code>istrstream::str</code></a></h3>
+  <pre>
+char *<b>str</b>();
+</pre>
+
+  <p>The member function returns <code><a href="#istrstream::rdbuf">rdbuf</a>()-&gt; <a href=
+  "#strstreambuf::str">str</a>()</code>.</p>
+
+  <h2><a name="ostrstream"><code>ostrstream</code></a></h2>
+  <pre>
+class <b>ostrstream</b> : public ostream {
+public:
+    <b><a href="#ostrstream::ostrstream">ostrstream</a></b>();
+    <b><a href="#ostrstream::ostrstream">ostrstream</a></b>(char *ptr, streamsize count,
+        ios_base::openmode mode = ios_base::out);
+    strstreambuf *<b><a href="#ostrstream::rdbuf">rdbuf</a></b>() const;
+    void <b><a href="#ostrstream::freeze">freeze</a></b>(bool freezeit = true);
+    char *<b><a href="#ostrstream::str">str</a></b>();
+    streamsize <b><a href="#ostrstream::pcount">pcount</a></b>() const;
+    };
+</pre>
+
+  <p>The class describes an object that controls insertion of elements and encoded objects into a <a href=
+  "streambu.html#stream%20buffer">stream buffer</a> of class <code><a href=
+  "#strstreambuf">strstreambuf</a></code>. The object stores an ojbect of class
+  <code>strstreambuf</code>.</p>
+
+  <h3><a name="ostrstream::freeze"><code>ostrstream::freeze</code></a></h3>
+  <pre>
+void <b>freeze</b>(bool freezeit = true)
+</pre>
+
+  <p>The member function calls <code><a href="#ostrstream::rdbuf">rdbuf</a>()-&gt; <a href=
+  "#strstreambuf::freeze">freeze</a>(freezeit)</code>.</p>
+
+  <h3><a name="ostrstream::ostrstream"><code>ostrstream::ostrstream</code></a></h3>
+  <pre>
+<b>ostrstream</b>();
+<b>ostrstream</b>(char *ptr, streamsize count,
+    ios_base::openmode mode = ios_base::out);
+</pre>
+
+  <p>Both constructors initialize the base class by calling <code><a href=
+  "ostream.html#basic_ostream::basic_ostream">ostream</a>(sb)</code>, where <code>sb</code> is the stored
+  object of class <code><a href="#strstreambuf">strstreambuf</a></code>. The first constructor also
+  initializes <code>sb</code> by calling <code><a href=
+  "#strstreambuf::strstreambuf">strstreambuf</a>()</code>. The second constructor initializes the base class
+  one of two ways:</p>
+
+  <ul>
+    <li>If <code>mode &amp; ios_base::<a href="ios.html#ios_base::app">app</a> == 0</code>, then
+    <code>ptr</code> must designate the first element of an array of <code>count</code> elements, and the
+    constructor calls <code>strstreambuf(ptr, count, ptr)</code>.</li>
+
+    <li>Otherwise, <code>ptr</code> must designate the first element of an array of <code>count</code>
+    elements that contains a <a href="lib_over.html#C%20string">C string</a> whose first element is
+    designated by <code>ptr</code>, and the constructor calls <code>strstreambuf(ptr, count, ptr + <a href=
+    "string.html#strlen">strlen</a>(ptr)</code>.</li>
+  </ul>
+
+  <h3><a name="ostrstream::pcount"><code>ostrstream::pcount</code></a></h3>
+  <pre>
+streamsize <b>pcount</b>() const;
+</pre>
+
+  <p>The member function returns <code><a href="#ostrstream::rdbuf">rdbuf</a>()-&gt; <a href=
+  "#strstreambuf::pcount">pcount</a>()</code>.</p>
+
+  <h3><a name="ostrstream::rdbuf"><code>ostrstream::rdbuf</code></a></h3>
+  <pre>
+strstreambuf *<b>rdbuf</b>() const
+</pre>
+
+  <p>The member function returns the address of the stored stream buffer, of type pointer to <code><a href=
+  "#strstreambuf">strstreambuf</a></code>.</p>
+
+  <h3><a name="ostrstream::str"><code>ostrstream::str</code></a></h3>
+  <pre>
+char *<b>str</b>();
+</pre>
+
+  <p>The member function returns <code><a href="#ostrstream::rdbuf">rdbuf</a>()-&gt; <a href=
+  "#strstreambuf::str">str</a>()</code>.</p>
+
+  <h2><a name="strstream"><code>strstream</code></a></h2>
+  <pre>
+class <b>strstream</b> : public iostream {
+public:
+    <b><a href="#strstream::strstream">strstream</a></b>();
+    <b><a href="#strstream::strstream">strstream</a></b>(char *ptr, streamsize count,
+        ios_base::openmode mode =
+            ios_base::in | ios_base::out);
+    strstreambuf *<b><a href="#strstream::rdbuf">rdbuf</a></b>() const;
+    void <b><a href="#strstream::freeze">freeze</a></b>(bool freezeit = true);
+    char *<b><a href="#strstream::str">str</a></b>();
+    streamsize <b><a href="#strstream::pcount">pcount</a></b>() const;
+    };
+</pre>
+
+  <p>The class describes an object that controls insertion and extraction of elements and encoded objects
+  using a <a href="streambu.html#stream%20buffer">stream buffer</a> of class <code><a href=
+  "#strstreambuf">strstreambuf</a></code>. The object stores an ojbect of class
+  <code>strstreambuf</code>.</p>
+
+  <h3><a name="strstream::freeze"><code>strstream::freeze</code></a></h3>
+  <pre>
+void <b>freeze</b>(bool freezeit = true)
+</pre>
+
+  <p>The member function calls <code><a href="#strstream::rdbuf">rdbuf</a>()-&gt; <a href=
+  "#strstreambuf::freeze">freeze</a>(freezeit)</code>.</p>
+
+  <h3><a name="strstream::pcount"><code>strstream::pcount</code></a></h3>
+  <pre>
+streamsize <b>pcount</b>() const;
+</pre>
+
+  <p>The member function returns <code><a href="#strstream::rdbuf">rdbuf</a>()-&gt; <a href=
+  "#strstreambuf::pcount">pcount</a>()</code>.</p>
+
+  <h3><a name="strstream::strstream"><code>strstream::strstream</code></a></h3>
+  <pre>
+<b>strstream</b>();
+<b>strstream</b>(char *ptr, streamsize count,
+    ios_base::openmode mode =
+        ios_base::in | ios_base::out);
+</pre>
+
+  <p>Both constructors initialize the base class by calling <code><a href=
+  "streambu.html#streambuf">streambuf</a>(sb)</code>, where <code>sb</code> is the stored object of class
+  <code><a href="#strstreambuf">strstreambuf</a></code>. The first constructor also initializes
+  <code>sb</code> by calling <code><a href="#strstreambuf::strstreambuf">strstreambuf</a>()</code>. The
+  second constructor initializes the base class one of two ways:</p>
+
+  <ul>
+    <li>If <code>mode &amp; ios_base::<a href="ios.html#ios_base::app">app</a> == 0</code>, then
+    <code>ptr</code> must designate the first element of an array of <code>count</code> elements, and the
+    constructor calls <code>strstreambuf(ptr, count, ptr)</code>.</li>
+
+    <li>Otherwise, <code>ptr</code> must designate the first element of an array of <code>count</code>
+    elements that contains a <a href="lib_over.html#C%20string">C string</a> whose first element is
+    designated by <code>ptr</code>, and the constructor calls <code>strstreambuf(ptr, count, ptr + <a href=
+    "string.html#strlen">strlen</a>(ptr)</code>.</li>
+  </ul>
+
+  <h3><a name="strstream::rdbuf"><code>strstream::rdbuf</code></a></h3>
+  <pre>
+strstreambuf *<b>rdbuf</b>() const
+</pre>
+
+  <p>The member function returns the address of the stored stream buffer, of type pointer to <code><a href=
+  "#strstreambuf">strstreambuf</a></code>.</p>
+
+  <h3><a name="strstream::str"><code>strstream::str</code></a></h3>
+  <pre>
+char *<b>str</b>();
+</pre>
+
+  <p>The member function returns <code><a href="#strstream::rdbuf">rdbuf</a>()-&gt; <a href=
+  "#strstreambuf::str">str</a>()</code>.</p>
+  <hr>
+
+  <p>See also the <b><a href="index.html#Table%20of%20Contents">Table of Contents</a></b> and the <b><a href=
+  "_index.html">Index</a></b>.</p>
+
+  <p><i><a href="crit_pjp.html">Copyright</a> &copy; 1992-2010 by P.J. Plauger. All rights reserved.</i></p>
+  <!--V5.30:126I-->
+</body>
+</html>

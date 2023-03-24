@@ -1,0 +1,279 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html>
+<head>
+  <meta name="generator" content=
+  "HTML Tidy for Mac OS X (vers 31 October 2006 - Apple Inc. build 15.15), see www.w3.org">
+
+  <title>Formatted Input</title>
+</head>
+
+<body>
+  <h1><a name="Formatted Input">Formatted Input</a></h1>
+  <hr>
+
+  <p><b><a href="#Scan%20Formats">Scan Formats</a> &middot; <a href="#Scan%20Functions">Scan Functions</a>
+  &middot; <a href="#Scan%20Conversion%20Specifiers">Scan Conversion Specifiers</a></b></p>
+  <hr>
+
+  <p>Several library functions help you convert data values from text sequences that are generally readable
+  by people to encoded internal representations. You provide a <a href="lib_prin.html#format%20string">format
+  string</a> as the value of the <code>format</code> argument to each of these functions, hence the term
+  <b>formatted input</b>. The functions (declared in <a href=
+  "stdio.html#%3Cstdio.h%3E"><code>&lt;stdio.h&gt;</code></a>) convert sequences of type <i>char</i> to
+  internal representations, and help you scan such sequences that you read: <a href=
+  "stdio.html#fscanf">fscanf</a>, <a href="stdio.html#scanf">scanf</a>, and <a href=
+  "stdio.html#sscanf">sscanf</a>. For these function, a format string is a <a href=
+  "lib_over.html#multibyte%20string">multibyte string</a> that begins and ends in the <a href=
+  "charset.html#initial%20shift%20state">initial shift state</a>.</p>
+
+  <h2><a name="Scan Formats">Scan Formats</a></h2>
+
+  <p>A format string has the same general <a href="lib_prin.html#format%20string">syntax</a> for the scan
+  functions as for the <a href="lib_prin.html#Formatted%20Output">print functions</a>: zero or more <a href=
+  "lib_prin.html#conversion%20specification">conversion specifications</a>, interspersed with literal text
+  and <a href="lib_prin.html#white%20space">white space</a>. For the scan functions, however, a conversion
+  specification is one of the <a href="#scan%20conversion%20specification">scan conversion specifications</a>
+  described below.</p>
+
+  <p>A scan function scans the format string once from beginning to end to determine what conversions to
+  perform. Every scan function accepts a <a href="stdarg.html#varying%20number%20of%20arguments">varying
+  number of arguments</a>, either directly or under control of an argument of type <a href=
+  "stdarg.html#va_list"><code>va_list</code></a>. Some scan conversion specifications in the format string
+  use the next argument in the list. A scan function uses each successive argument no more than once.
+  Trailing arguments can be left unused.</p>
+
+  <p>In the description that follows, the <a href="lib_prin.html#integer%20conversions">integer
+  conversions</a> and <a href="lib_prin.html#floating-point%20conversions">floating-point conversions</a> are
+  the same as for the <a href="lib_prin.html#Formatted%20Output">print functions</a>.</p>
+
+  <h2><a name="Scan Functions">Scan Functions</a></h2>
+
+  <p>For the scan functions, literal text in a format string must match the next characters to scan in the
+  input text. <a href="lib_prin.html#white%20space">White space</a> in a format string must match the longest
+  possible sequence of the next zero or more white-space characters in the input. Except for the <a href=
+  "#Scan%20Conversion%20Specifiers">scan conversion specifier</a> <a href="#%n"><code>%n</code></a> (which
+  consumes no input), each <b><a name="scan conversion specification">scan conversion specification</a></b>
+  determines a pattern that one or more of the next characters in the input must match. And except for the
+  <a href="#Scan%20Conversion%20Specifiers">scan conversion specifiers</a> <a href="#%c"><code>c</code></a>,
+  <a href="#%n"><code>n</code></a>, and <a href="#%["><code>[</code></a>, every match begins by skipping any
+  <a href="lib_prin.html#%n">white space</a> characters in the input.</p>
+
+  <p>A scan function returns when:</p>
+
+  <ul>
+    <li>it reaches the terminating null in the format string</li>
+
+    <li>it cannot obtain additional input characters to scan (<b><a name="input failure">input
+    failure</a></b>)</li>
+
+    <li>a conversion fails (<b><a name="matching failure">matching failure</a></b>)</li>
+  </ul>
+
+  <p>A scan function returns <a href="stdio.html#EOF"><code>EOF</code></a> if an input failure occurs before
+  any conversion. Otherwise it returns the number of converted values stored. If one or more characters form
+  a valid prefix but the conversion fails, the valid prefix is consumed before the scan function returns.
+  Thus:</p>
+  <pre>
+    scanf("%i", &amp;i)       <b>consumes 0X from field 0XZ</b>
+    scanf("%f", &amp;f)       <b>consumes 3.2E from field 3.2EZ</b>
+</pre>
+
+  <p>A scan conversion specification typically converts the matched input characters to a corresponding
+  encoded value. The next argument value must be the address of an object. The conversion converts the
+  encoded representation (as necessary) and stores its value in the object. A scan conversion specification
+  has the format shown in the diagram.</p>
+
+  <p><img src="scan.gif"></p>
+
+  <p><b><i>Boldface Italic</i></b> indicates a feature added after <a href="lib_over.html#C99">C99</a>.
+  Support for fixed-point conversions is added with the C Technical Report TR18037. These closely match the
+  extensions for the Freescale Signal Processing Engine Auxiliary Processing Unit. This <a href=
+  "index.html#implementation">implementation</a> also includes, as a conforming extension, conversions for
+  the vectors supported by the Freescale <b><a name="AltiVec">AltiVec</a></b> architecture.</p>
+
+  <p>Following the percent character (<b><code>%</code></b>) in the format string, you can write an asterisk
+  (<b><code>*</code></b>) to indicate that the conversion should not store the converted value in an
+  object.</p>
+
+  <p>For <a href="#AltiVec">AltiVec</a> vector conversions, you can either precede or follow an asterisk with
+  an optional <b><a name="separator">separator</a></b>, the characters comma, semicolon, equal sign, or
+  underscore. The conversion occurs for each of the elements of the vector, and matches a separator sequence
+  between each pair of elements. If you specify a separator, the separator sequence is optional <a href=
+  "lib_prin.html#white%20space">white space</a> ending with the separator. If you specify no separator, the
+  default separator sequence is:</p>
+
+  <ul>
+    <li>for the <code>c</code> conversion specifier, nothing.</li>
+
+    <li>for all other conversion specifications, optional white space ending with a space.</li>
+  </ul>
+
+  <p>Following any <code>*</code> and/or separator, you can write a nonzero <b><a name=
+  "scan field width">field width</a></b> that specifies the maximum number of input characters to match for
+  the conversion (not counting any <a href="lib_prin.html#white%20space">white space</a> that the pattern can
+  first skip).</p>
+
+  <h2><a name="Scan Conversion Specifiers">Scan Conversion Specifiers</a></h2>
+
+  <p>Following any <a href="#scan%20field%20width">field width</a>, you must write a one-character <b>scan
+  conversion specifier</b>, either a one-character code or a <a href="#scan%20set">scan set</a>, possibly
+  preceded by a one- or two-character qualifier. Each combination determines the type required of the next
+  argument (if any) and how the scan functions interpret the text sequence and converts it to an encoded
+  value. The <a href="lib_prin.html#integer%20conversions">integer</a> and <a href=
+  "lib_prin.html#floating-point%20conversions">floating-point conversions</a> also determine what base to
+  assume for the text representation. (The base is the <code>base</code> argument to the functions <a href=
+  "stdlib.html#strtol"><code>strtol</code></a> and <a href="stdlib.html#strtoul"><code>strtoul</code></a>.)
+  The following table lists all defined combinations and their properties.</p>
+  <pre>
+<b>Conversion</b>  <b>Argument</b>              <b>Conversion</b>
+ <b>Specifier</b>    <b>Type</b>                 <b>Function</b>   <b>Base</b>
+
+   %c       char x[]
+
+   %d       int *x                  strtol     10
+  %hd       short *x                strtol     10
+  %ld       long *x                 strtol     10
+
+   %e       float *x                strtod     10
+  %le       double *x               strtod     10
+  %Le       long double *x          strtod     10
+
+   %E       float *x                strtod     10
+  %lE       double *x               strtod     10
+  %LE       long double *x          strtod     10
+
+   %f       float *x                strtod     10
+  %lf       double *x               strtod     10
+  %Lf       long double *x          strtod     10
+
+   %g       float *x                strtod     10
+  %lg       double *x               strtod     10
+  %Lg       long double *x          strtod     10
+
+   %G       float *x                strtod     10
+  %lG       double *x               strtod     10
+  %LG       long double *x          strtod     10
+
+   %i       int *x                  strtol      0
+  %hi       short *x                strtol      0
+  %li       long *x                 strtol      0
+
+   %n       int *x
+  %hn       short *x
+  %ln       long *x
+
+   %o       unsigned int *x         strtoul     8
+  %ho       unsigned short *x       strtoul     8
+  %lo       unsigned long *x        strtoul     8
+
+   %p       void **x
+
+   %s       char x[]
+
+   %u       unsigned int *x         strtoul    10
+  %hu       unsigned short *x       strtoul    10
+  %lu       unsigned long *x        strtoul    10
+
+   %x       unsigned int *x         strtoul    16
+  %hx       unsigned short *x       strtoul    16
+  %lx       unsigned long *x        strtoul    16
+
+   %X       unsigned int *x         strtoul    16
+  %hX       unsigned short *x       strtoul    16
+  %lX       unsigned long *x        strtoul    16
+
+ %[...]     char x[]
+
+   %%       <b>none</b>
+</pre>
+
+  <p>The scan conversion specifier (or <a href="#scan%20set">scan set</a>) determines any behavior not
+  summarized in this table. In the following descriptions, examples follow each of the scan conversion
+  specifiers. In each example, the function <a href="stdio.html#sscanf"><code>sscanf</code></a> matches the
+  <b><code>bold</code></b> characters.</p>
+
+  <p>You write <b><a name="%c"><code>%c</code></a></b> to store the matched input characters in an array
+  object. If you specify no field width <i>w,</i> then <i>w</i> has the value one. The match does not skip
+  leading <a href="lib_prin.html#white%20space">white space</a>. Any sequence of <i>w</i> characters matches
+  the conversion pattern.</p>
+  <pre>
+sscanf("<b>1</b>29E-2", "%c", &amp;c)             <b>stores '1'</b>
+sscanf("<b>12</b>9E-2", "%2c", &amp;c[0])         <b>stores '1', '2'</b>
+</pre>
+
+  <p>You write <b><a name="%d"><code>%d</code></a></b>, <b><a name="%i"><code>%i</code></a></b>, <b><a name=
+  "%o"><code>%o</code></a></b>, <b><a name="%u"><code>%u</code></a></b>, <b><a name=
+  "%x"><code>%x</code></a></b>, or <b><a name="%X"><code>%X</code></a></b> to convert the matched input
+  characters as a signed integer and store the result in an integer object.</p>
+  <pre>
+sscanf("<b>129E</b>-2", "%o%d%x", &amp;i, &amp;j, &amp;k) <b>stores 10, 9, 14</b>
+</pre>
+
+  <p>You write <b><a name="%e"><code>%e</code></a></b>, <b><a name="%E"><code>%E</code></a></b>, <b><a name=
+  "%f"><code>%f</code></a></b>, <b><a name="%g"><code>%g</code></a></b>, or <b><a name=
+  "%G"><code>%G</code></a></b> to convert the matched input characters as a signed fraction, with an optional
+  exponent, and store the result in a floating-point object.</p>
+  <pre>
+sscanf("<b>129E-2</b>", "%e", &amp;f)             <b>stores 1.29</b>
+</pre>
+
+  <p>You write <b><a name="%n"><code>%n</code></a></b> to store the number of characters matched (up to this
+  point in the format) in an integer object. The match does not skip leading <a href=
+  "lib_prin.html#white%20space">white space</a> and does not match any input characters.</p>
+  <pre>
+sscanf("<b>12</b>9E-2", "12%n", &amp;i)           <b>stores 2</b>
+</pre>
+
+  <p>You write <b><a name="%p"><code>%p</code></a></b> to convert the matched input characters as an external
+  representation of a <i>pointer to void</i> and store the result in an object of type <i>pointer to
+  void.</i> The input characters must match the form generated by the <a href=
+  "lib_prin.html#%p"><code>%p</code></a> <a href="lib_prin.html#print%20conversion%20specification">print
+  conversion specification</a>.</p>
+  <pre>
+sscanf("<b>129E</b>-2", "%p", &amp;p)             <b>stores, e.g. 0x129E</b>
+</pre>
+
+  <p>You write <b><a name="%s"><code>%s</code></a></b> to store the matched input characters in an array
+  object, followed by a terminating null character. If you do not specify a field width <i>w,</i> then
+  <i>w</i> has a large value. Any sequence of up to <i>w</i> non white-space characters matches the
+  conversion pattern.</p>
+  <pre>
+sscanf("<b>129E-2</b>", "%s", &amp;s[0])          <b>stores "129E-2"</b>
+</pre>
+
+  <p>You write <b><a name="%["><code>%[</code></a></b> to store the matched input characters in an array
+  object, followed by a terminating null character. If you do not specify a field width <i>w,</i> then
+  <i>w</i> has a large value. The match does not skip leading <a href="lib_prin.html#white%20space">white
+  space</a>. A sequence of up to <i>w</i> characters matches the conversion pattern in the <b><a name=
+  "scan set">scan set</a></b> that follows. To complete the scan set, you follow the left bracket
+  (<code>[</code>) in the conversion specification with a sequence of zero or more <b>match</b> characters,
+  terminated by a right bracket (<b><code>]</code></b>).</p>
+
+  <p>If you do not write a caret (<b><code>^</code></b>) immediately after the <code>[</code>, then each
+  input character must match <i>one</i> of the match characters. Otherwise, each input character must not
+  match <i>any</i> of the match characters, which begin with the character following the <code>^</code>. If
+  you write a <b><code>]</code></b> immediately after the <code>[</code> or <code>[^</code>, then the
+  <code>]</code> is the first match character, not the terminating <code>]</code>. If you write a minus
+  (<b><code>-</code></b>) as other than the first or last match character, an implementation can give it
+  special meaning. It usually indicates a range of characters, in conjunction with the characters immediately
+  preceding or following, as in <code>0-9</code> for all the digits.) You cannot specify a null match
+  character.</p>
+  <pre>
+sscanf("<b>12</b>9E-2", "%[54321]", &amp;s[0])     <b>stores "12"</b>
+</pre>
+
+  <p>You write <b><a name="%%"><code>%%</code></a></b> to match the percent character (<code>%</code>). The
+  function does not store a value.</p>
+  <pre>
+sscanf("<b>%  0XA</b>", "%% %i", &amp;i)          <b>stores 10</b>
+</pre>
+  <hr>
+
+  <p>See also the <b><a href="index.html#Table%20of%20Contents">Table of Contents</a></b> and the <b><a href=
+  "_index.html">Index</a></b>.</p>
+
+  <p><i><a href="crit_pjp.html">Copyright</a> &copy; 1992-2010 by P.J. Plauger and Jim Brodie. All rights
+  reserved.</i></p><!--V5.30:126I-->
+</body>
+</html>

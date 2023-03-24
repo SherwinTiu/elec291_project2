@@ -1,0 +1,811 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html>
+<head>
+  <meta name="generator" content=
+  "HTML Tidy for Mac OS X (vers 31 October 2006 - Apple Inc. build 15.15), see www.w3.org">
+
+  <title>&lt;fstream&gt;</title>
+</head>
+
+<body>
+  <h1><a name="&lt;fstream&gt;"><code>&lt;fstream&gt;</code></a></h1>
+  <hr>
+
+  <p><b><code>&middot; <a href="#basic_filebuf">basic_filebuf</a> &middot; <a href=
+  "#basic_fstream">basic_fstream</a> &middot; <a href="#basic_ifstream">basic_ifstream</a> &middot; <a href=
+  "#basic_ofstream">basic_ofstream</a> &middot; <a href="#filebuf">filebuf</a> &middot; <a href=
+  "#fstream">fstream</a> &middot; <a href="#ifstream">ifstream</a> &middot; <a href="#ofstream">ofstream</a>
+  &middot; <a href="#wfilebuf">wfilebuf</a> &middot; <a href="#wfstream">wfstream</a> &middot; <a href=
+  "#wifstream">wifstream</a> &middot; <a href="#wofstream">wofstream</a></code></b></p>
+  <hr>
+
+  <p>Include the <a href="lib_cpp.html#iostreams">iostreams</a> standard header
+  <b><code>&lt;fstream&gt;</code></b> to define several classes that support iostreams operations on
+  sequences stored in external <a href="lib_file.html#files">files</a>.</p>
+  <pre>
+namespace std {
+template&lt;class Elem, class Tr = char_traits&lt;Elem&gt; &gt;
+    class <b><a href="#basic_filebuf">basic_filebuf</a></b>;
+typedef basic_filebuf&lt;char&gt; <b><a href="#filebuf">filebuf</a></b>;
+typedef basic_filebuf&lt;wchar_t&gt; <b><a href="#wfilebuf">wfilebuf</a></b>;
+
+template&lt;class Elem, class Tr = char_traits&lt;Elem&gt; &gt;
+    class <b><a href="#basic_ifstream">basic_ifstream</a></b>;
+typedef basic_ifstream&lt;char&gt; <b><a href="#ifstream">ifstream</a></b>;
+typedef basic_ifstream&lt;wchar_t&gt; <b><a href="#wifstream">wifstream</a></b>;
+
+template&lt;class Elem, class Tr = char_traits&lt;Elem&gt; &gt;
+    class <b><a href="#basic_ofstream">basic_ofstream</a></b>;
+typedef basic_ofstream&lt;char&gt; <b><a href="#ofstream">ofstream</a></b>;
+typedef basic_ofstream&lt;wchar_t&gt; <b><a href="#wofstream">wofstream</a></b>;
+
+template&lt;class Elem, class Tr = char_traits&lt;Elem&gt; &gt;
+    class <b><a href="#basic_fstream">basic_fstream</a></b>;
+typedef basic_fstream&lt;char&gt; <b><a href="#fstream">fstream</a></b>;
+typedef basic_fstream&lt;wchar_t&gt; <b><a href="#wfstream">wfstream</a></b>;
+}  // namespace std
+</pre>
+
+  <h2><a name="basic_filebuf"><code>basic_filebuf</code></a></h2>
+  <pre>
+template &lt;class Elem, class Tr = char_traits&lt;Elem&gt; &gt;
+    class <b>basic_filebuf</b> : public basic_streambuf&lt;Elem, Tr&gt; {
+public:
+    typedef typename basic_streambuf&lt;Elem, Tr&gt;::char_type
+        <b><a href="#basic_filebuf::char_type">char_type</a></b>;
+    typedef typename basic_streambuf&lt;Elem, Tr&gt;::traits_type
+        <b><a href="#basic_filebuf::traits_type">traits_type</a></b>;
+    typedef typename basic_streambuf&lt;Elem, Tr&gt;::int_type
+        <b><a href="#basic_filebuf::int_type">int_type</a></b>;
+    typedef typename basic_streambuf&lt;Elem, Tr&gt;::pos_type
+        <b><a href="#basic_filebuf::pos_type">pos_type</a></b>;
+    typedef typename basic_streambuf&lt;Elem, Tr&gt;::off_type
+        <b><a href="#basic_filebuf::off_type">off_type</a></b>;
+
+    <b><a href="#basic_filebuf::basic_filebuf">basic_filebuf</a></b>();
+    <b><a href=
+"#basic_filebuf::basic_filebuf">basic_filebuf</a></b>(basic_filebuf&amp;&amp; right); <b>[added with C++0X]</b>
+
+
+    bool <b><a href="#basic_filebuf::is_open">is_open</a></b>() const;
+    basic_filebuf *<b><a href="#basic_filebuf::open">open</a></b>(const char *filename,
+        ios_base::openmode mode);
+    basic_filebuf *<b><a href="#basic_filebuf::open">open</a></b>(const string&amp; filename,
+        ios_base::openmode mode); <b>[added with C++0X]</b>
+    basic_filebuf *<b><a href="#basic_filebuf::close">close</a></b>();
+
+protected:
+    virtual pos_type <b><a href="#basic_filebuf::seekoff">seekoff</a></b>(off_type off,
+        ios_base::seekdir way,
+        ios_base::openmode which =
+            ios_base::in | ios_base::out);
+    virtual pos_type <b><a href="#basic_filebuf::seekpos">seekpos</a></b>(pos_type pos,
+        ios_base::openmode which =
+            ios_base::in | ios_base::out);
+    virtual int_type <b><a href="#basic_filebuf::underflow">underflow</a></b>();
+    virtual int_type <b><a href="#basic_filebuf::pbackfail">pbackfail</a></b>(int_type meta =
+        traits_type::eof());
+    virtual int_type <b><a href="#basic_filebuf::overflow">overflow</a></b>(int_type meta =
+        traits_type::eof());
+    virtual int <b><a href="#basic_filebuf::sync">sync</a></b>();
+    virtual basic_streambuf&lt;Elem, Tr&gt;
+        *<b><a href="#basic_filebuf::setbuf">setbuf</a></b>(Elem *buffer, streamsize count);
+    };
+</pre>
+
+  <p>The template class describes a <b><a href="streambu.html#stream%20buffer">stream buffer</a></b> that
+  controls the transmission of elements of type <code>Elem</code>, whose <a href=
+  "string2.html#character%20traits">character traits</a> are determined by the class <code>Tr</code>, to and
+  from a sequence of elements stored in an external <a href="lib_file.html#files">file</a>.</p>
+
+  <p>An object of class <code>basic_filebuf&lt;Elem, Tr&gt;</code> stores a <b><a name="file pointer">file
+  pointer</a></b>, which designates the <code><a href="stdio.html#FILE">FILE</a></code> object that controls
+  the <b><a href="lib_file.html#stream">stream</a></b> associated with an <a href=
+  "lib_file.html#file%20open">open</a> file. It also stores pointers to two <b><a href=
+  "#file%20conversion%20facet">file conversion facets</a></b> for use by the protected member functions
+  <code><a href="#basic_filebuf::overflow">overflow</a></code> and <code><a href=
+  "#basic_filebuf::underflow">underflow</a></code>.</p>
+
+  <h3><a name="basic_filebuf::basic_filebuf"><code>basic_filebuf::basic_filebuf</code></a></h3>
+  <pre>
+<b>basic_filebuf</b>();
+<b>basic_filebuf</b>(basic_filebuf&amp;&amp; right); <b>[added with C++0X]</b>
+</pre>
+
+  <p>The first constructor stores a null pointer in all the pointers controlling the <a href=
+  "streambu.html#input%20buffer">input buffer</a> and the <a href="streambu.html#output%20buffer">output
+  buffer</a>. It also stores a null pointer in the <a href="#file%20pointer">file pointer</a>.</p>
+
+  <p>The second constructor initializes the object with the contents of <code>right</code>, treated as an
+  <a href="lib_cpp.html#rvalue%20references">rvalue reference</a>.</p>
+
+  <h3><a name="basic_filebuf::char_type"><code>basic_filebuf::char_type</code></a></h3>
+  <pre>
+typedef Elem <b>char_type</b>;
+</pre>
+
+  <p>The type is a synonym for the template parameter <code>Elem</code>.</p>
+
+  <h3><a name="basic_filebuf::close"><code>basic_filebuf::close</code></a></h3>
+  <pre>
+basic_filebuf *<b>close</b>();
+</pre>
+
+  <p>The member function returns a null pointer if the <a href="#file%20pointer">file pointer</a>
+  <code>fp</code> is a null pointer. Otherwise, it calls <code><a href=
+  "stdio.html#fclose">fclose</a>(fp)</code>. If that function returns a nonzero value, the function returns a
+  null pointer. Otherwise, it returns <code>this</code> to indicate that the file was successfully <a href=
+  "lib_file.html#file%20close">closed</a>.</p>
+
+  <p>For a wide stream, if any insertions have occured since the stream was opened, or since the last call to
+  <code>streampos</code>, the function calls <code><a href="#basic_filebuf::overflow">overflow</a>()</code>.
+  It also inserts any sequence needed to restore the <a href=
+  "charset.html#initial%20conversion%20state">initial conversion state</a>, by using the <a href=
+  "#file%20conversion%20facet">file conversion facet</a> <code>fac</code> to call <code>fac.<a href=
+  "locale2.html#codecvt::unshift">unshift</a></code> as needed. Each element <code>byte</code> of type
+  <i>char</i> thus produced is written to the associated stream designated by the file pointer
+  <code>fp</code> as if by successive calls of the form <code><a href="stdio.html#fputc">fputc</a>(byte,
+  fp)</code>. If the call to <code>fac.unshift</code> or any write fails, the function does not succeed.</p>
+
+  <h3><a name="basic_filebuf::int_type"><code>basic_filebuf::int_type</code></a></h3>
+  <pre>
+typedef typename traits_type::int_type <b>int_type</b>;
+</pre>
+
+  <p>The type is a synonym for <code>traits_type::<a href=
+  "string2.html#char_traits::int_type">int_type</a></code>.</p>
+
+  <h3><a name="basic_filebuf::is_open"><code>basic_filebuf::is_open</code></a></h3>
+  <pre>
+bool <b>is_open</b>();
+</pre>
+
+  <p>The member function returns true if the <a href="#file%20pointer">file pointer</a> is not a null
+  pointer.</p>
+
+  <h3><a name="basic_filebuf::off_type"><code>basic_filebuf::off_type</code></a></h3>
+  <pre>
+typedef typename traits_type::off_type <b>off_type</b>;
+</pre>
+
+  <p>The type is a synonym for <code>traits_type::<a href=
+  "string2.html#char_traits::off_type">off_type</a></code>.</p>
+
+  <h3><a name="basic_filebuf::open"><code>basic_filebuf::open</code></a></h3>
+  <pre>
+basic_filebuf *<b>open</b>(const char *filename,
+    ios_base::openmode mode);
+basic_filebuf *<b>open</b>(const string&amp; filename,
+    ios_base::openmode mode); <b>[added with C++0X]</b>
+</pre>
+
+  <p>The first member function endeavors to open the file with <a href="lib_over.html#filename">filename</a>
+  <code>filename</code>, by calling <code><a href="stdio.html#fopen">fopen</a>(filename, strmode)</code>. The
+  second member function endeavors to open the file with filename <code>filename</code>, by calling
+  <code><a href="stdio.html#fopen">fopen</a>(filename.c_str(), strmode)</code>. Here <code>strmode</code> is
+  determined from <code>mode &amp; ~(<a href="ios.html#ios_base::ate">ate</a> | <a href=
+  "ios.html#ios_base::binary">binary</a>)</code>:</p>
+
+  <ul>
+    <li><code>ios_base::<a href="ios.html#ios_base::in">in</a></code> becomes <code>"r"</code> (open existing
+    file for reading).</li>
+
+    <li><code>ios_base::<a href="ios.html#ios_base::out">out</a></code> or <code>ios_base::out |
+    ios_base::<a href="ios.html#ios_base::trunc">trunc</a></code> becomes <code>"w"</code> (truncate existing
+    file or create for writing).</li>
+
+    <li><code>ios_base::out | ios_base::<a href="ios.html#ios_base::app">app</a></code> becomes
+    <code>"a"</code> (open existing file for appending all writes).</li>
+
+    <li><code>ios_base::in | ios_base::out</code> becomes <code>"r+"</code> (open existing file for reading
+    and writing).</li>
+
+    <li><code>ios_base::in | ios_base::out | ios_base::trunc</code> becomes <code>"w+"</code> (truncate
+    existing file or create for reading and writing).</li>
+
+    <li><code>ios_base::in | ios_base::out | ios_base::app</code> becomes <code>"a+"</code> (open existing
+    file for reading and for appending all writes).</li>
+  </ul>
+
+  <p>If <code>mode &amp; ios_base::binary</code> is nonzero, the function appends <code>b</code> to
+  <code>strmode</code> to open a <a href="lib_file.html#binary%20stream">binary stream</a> instead of a
+  <a href="lib_file.html#text%20stream">text stream</a>. It then stores the value returned by
+  <code>fopen</code> in the <a href="#file%20pointer">file pointer</a> <code>fp</code>. If <code>mode &amp;
+  ios_base::ate</code> is nonzero and the file pointer is not a null pointer, the function calls
+  <code><a href="stdio.html#fseek">fseek</a>(fp, 0, <a href="stdio.html#SEEK_END">SEEK_END</a>)</code> to
+  position the stream at end-of-file. If that positioning operation fails, the function calls <code><a href=
+  "#basic_filebuf::close">close</a>(fp)</code> and stores a null pointer in the file pointer.</p>
+
+  <p>If the file pointer is not a null pointer, the function determines the <b><a name=
+  "file conversion facet">file conversion facet</a></b>: <code><a href=
+  "locale2.html#use_facet">use_facet</a>&lt; <a href="locale2.html#codecvt">codecvt</a>&lt;Elem, char,
+  traits_type:: <a href="string2.html#char_traits::state_type">state_type</a>&gt; &gt;(<a href=
+  "streambu.html#basic_streambuf::getloc">getloc</a>())</code>, for use by <code><a href=
+  "#basic_filebuf::underflow">underflow</a></code> and <code><a href=
+  "#basic_filebuf::overflow">overflow</a></code>.</p>
+
+  <p>If the file pointer is a null pointer, the function returns a null pointer. Otherwise, it returns
+  <code>this</code>.</p>
+
+  <h3><a name="basic_filebuf::overflow"><code>basic_filebuf::overflow</code></a></h3>
+  <pre>
+virtual int_type <b>overflow</b>(int_type meta =
+    traits_type::eof());
+</pre>
+
+  <p>If <code>meta != traits_type::<a href="string2.html#char_traits::eof">eof</a>()</code>, the protected
+  virtual member function endeavors to insert the element <code>ch = traits_type::<a href=
+  "string2.html#char_traits::to_char_type">to_char_type</a>(meta)</code> into the <a href=
+  "streambu.html#output%20buffer">output buffer</a>. It can do so in various ways:</p>
+
+  <ul>
+    <li>If a <a href="streambu.html#write%20position">write position</a> is available, it can store the
+    element into the write position and increment the next pointer for the output buffer.</li>
+
+    <li>It can make a write position available by allocating new or additional storage for the output
+    buffer.</li>
+
+    <li>It can convert any pending output in the output buffer, followed by <code>ch</code>, by using the
+    <a href="#file%20conversion%20facet">file conversion facet</a> <code>fac</code> to call
+    <code>fac.<a href="locale2.html#codecvt::out">out</a></code> as needed. Each element <code>ch</code> of
+    type <i>char</i> thus produced is written to the associated stream designated by the <a href=
+    "#file%20pointer">file pointer</a> <code>fp</code> as if by successive calls of the form <code><a href=
+    "stdio.html#fputc">fputc</a>(ch, fp)</code>. If any conversion or write fails, the function does not
+    succeed.</li>
+  </ul>
+
+  <p>If the function cannot succeed, it returns <code>traits_type::eof()</code>. Otherwise, it returns
+  <code>traits_type::<a href="string2.html#char_traits::not_eof">not_eof</a>(meta)</code>.</p>
+
+  <h3><a name="basic_filebuf::pbackfail"><code>basic_filebuf::pbackfail</code></a></h3>
+  <pre>
+virtual int_type <b>pbackfail</b>(int_type meta =
+    traits_type::eof());
+</pre>
+
+  <p>The protected virtual member function endeavors to put back an element into the <a href=
+  "streambu.html#input%20buffer">input buffer</a>, then make it the current element (pointed to by the next
+  pointer). If <code>meta == traits_type::<a href="string2.html#char_traits::eof">eof</a>()</code>, the
+  element to push back is effectively the one already in the stream before the current element. Otherwise,
+  that element is replaced by <code>ch = traits_type::<a href=
+  "string2.html#char_traits::to_char_type">to_char_type</a>(meta)</code>. The function can put back an
+  element in various ways:</p>
+
+  <ul>
+    <li>If a <a href="streambu.html#putback%20position">putback position</a> is available, and the element
+    stored there compares equal to <code>ch</code>, it can simply decrement the next pointer for the input
+    buffer.</li>
+
+    <li>If the function can make a putback position available, it can do so, set the next pointer to point at
+    that position, and store <code>ch</code> in that position.</li>
+
+    <li>If the function can push back an element onto the input stream, it can do so, such as by calling
+    <code><a href="stdio.html#ungetc">ungetc</a></code> for an element of type <i>char.</i></li>
+  </ul>
+
+  <p>If the function cannot succeed, it returns <code>traits_type::eof()</code>. Otherwise, it returns
+  <code>traits_type::<a href="string2.html#char_traits::not_eof">not_eof</a>(meta)</code>.</p>
+
+  <h3><a name="basic_filebuf::pos_type"><code>basic_filebuf::pos_type</code></a></h3>
+  <pre>
+typedef typename traits_type::pos_type <b>pos_type</b>;
+</pre>
+
+  <p>The type is a synonym for <code>traits_type::<a href=
+  "string2.html#char_traits::pos_type">pos_type</a></code>.</p>
+
+  <h3><a name="basic_filebuf::seekoff"><code>basic_filebuf::seekoff</code></a></h3>
+  <pre>
+virtual pos_type <b>seekoff</b>(off_type off,
+    ios_base::seekdir way,
+    ios_base::openmode which =
+        ios_base::in | ios_base::out);
+</pre>
+
+  <p>The protected virtual member function endeavors to alter the current positions for the controlled
+  streams. For an object of class <code>basic_filebuf&lt;Elem, Tr&gt;</code>, a stream position can be
+  represented by an object of type <code><a href="stdio.html#fpos_t">fpos_t</a></code>, which stores an
+  offset and any state information needed to parse a <a href="lib_file.html#wide%20stream">wide stream</a>.
+  Offset zero designates the first element of the stream. (An object of type <code><a href=
+  "streambu.html#basic_streambuf::pos_type">pos_type</a></code> stores at least an <code>fpos_t</code>
+  object.)</p>
+
+  <p>For a file opened for both reading and writing, both the input and output streams are positioned in
+  tandem. To <a href="lib_file.html#Stream%20States">switch</a> between inserting and extracting, you must
+  call either <code><a href="streambu.html#basic_streambuf::pubseekoff">pubseekoff</a></code> or
+  <code><a href="streambu.html#basic_streambuf::pubseekpos">pubseekpos</a></code>. Calls to
+  <code>pubseekoff</code> (and hence to <code>seekoff</code>) have various limitations for <a href=
+  "lib_file.html#text%20stream">text streams</a>, <a href="lib_file.html#binary%20stream">binary streams</a>,
+  and <a href="lib_file.html#wide%20stream">wide streams</a>.</p>
+
+  <p>If the <a href="#file%20pointer">file pointer</a> <code>fp</code> is a null pointer, the function fails.
+  Otherwise, it endeavors to alter the stream position by calling <code><a href=
+  "stdio.html#fseek">fseek</a>(fp, off, way)</code>. If that function succeeds and the resultant position
+  <code>fposn</code> can be determined by calling <code><a href="stdio.html#fgetpos">fgetpos</a>(fp,
+  &amp;fposn)</code>, the function succeeds. If the function succeeds, it returns a value of type
+  <code>pos_type</code> containing <code>fposn</code>. Otherwise, it returns an invalid stream position.</p>
+
+  <h3><a name="basic_filebuf::seekpos"><code>basic_filebuf::seekpos</code></a></h3>
+  <pre>
+virtual pos_type <b>seekpos</b>(pos_type pos,
+    ios_base::openmode which =
+        ios_base::in | ios_base::out);
+</pre>
+
+  <p>The protected virtual member function endeavors to alter the current positions for the controlled
+  streams. For an object of class <code>basic_filebuf&lt;Elem, Tr&gt;</code>, a stream position can be
+  represented by an object of type <code><a href="stdio.html#fpos_t">fpos_t</a></code>, which stores an
+  offset and any state information needed to parse a <a href="lib_file.html#wide%20stream">wide stream</a>.
+  Offset zero designates the first element of the stream. (An object of type <code><a href=
+  "streambu.html#basic_streambuf::pos_type">pos_type</a></code> stores at least an <code>fpos_t</code>
+  object.)</p>
+
+  <p>For a file opened for both reading and writing, both the input and output streams are positioned in
+  tandem. To <a href="lib_file.html#Stream%20States">switch</a> between inserting and extracting, you must
+  call either <code><a href="streambu.html#basic_streambuf::pubseekoff">pubseekoff</a></code> or
+  <code><a href="streambu.html#basic_streambuf::pubseekpos">pubseekpos</a></code>. Calls to
+  <code>pubseekoff</code> (and hence to <code>seekoff</code>) have various limitations for <a href=
+  "lib_file.html#text%20stream">text streams</a>, <a href="lib_file.html#binary%20stream">binary streams</a>,
+  and <a href="lib_file.html#wide%20stream">wide streams</a>.</p>
+
+  <p>For a wide stream, if any insertions have occured since the stream was opened, or since the last call to
+  <code>streampos</code>, the function calls <code><a href="#basic_filebuf::overflow">overflow</a>()</code>.
+  It also inserts any sequence needed to restore the <a href=
+  "charset.html#initial%20conversion%20state">initial conversion state</a>, by using the <a href=
+  "#file%20conversion%20facet">file conversion facet</a> <code>fac</code> to call <code>fac.<a href=
+  "locale2.html#codecvt::unshift">unshift</a></code> as needed. Each element <code>byte</code> of type
+  <i>char</i> thus produced is written to the associated stream designated by the file pointer
+  <code>fp</code> as if by successive calls of the form <code><a href="stdio.html#fputc">fputc</a>(byte,
+  fp)</code>. If the call to <code>fac.unshift</code> or any write fails, the function does not succeed.</p>
+
+  <p>If the <a href="#file%20pointer">file pointer</a> <code>fp</code> is a null pointer, the function fails.
+  Otherwise, it endeavors to alter the stream position by calling <code><a href=
+  "stdio.html#fsetpos">fsetpos</a>(fp, &amp;fposn)</code>, where <code>fposn</code> is the
+  <code>fpos_t</code> object stored in <code>pos</code>. If that function succeeds, the function returns
+  <code>pos</code>. Otherwise, it returns an invalid stream position.</p>
+
+  <h3><a name="basic_filebuf::setbuf"><code>basic_filebuf::setbuf</code></a></h3>
+  <pre>
+virtual basic_streambuf&lt;Elem, Tr&gt;
+    *<b>setbuf</b>(Elem *buffer, streamsize count);
+</pre>
+
+  <p>The protected member function returns zero if the <a href="#file%20pointer">file pointer</a>
+  <code>fp</code> is a null pointer. Otherwise, it calls <code><a href="stdio.html#setvbuf">setvbuf</a>(fp,
+  (char *)buffer, <a href="stdio.html#_IOFBF">_IOFBF</a>, count * sizeof (Elem))</code> to offer the array of
+  <code>count</code> elements beginning at <code>buffer</code> as a buffer for the stream. If that function
+  returns a nonzero value, the function returns a null pointer. Otherwise, it returns <code>this</code> to
+  signal success.</p>
+
+  <h3><a name="basic_filebuf::sync"><code>basic_filebuf::sync</code></a></h3>
+  <pre>
+int <b>sync</b>();
+</pre>
+
+  <p>The protected member function returns zero if the <a href="#file%20pointer">file pointer</a>
+  <code>fp</code> is a null pointer. Otherwise, it returns zero only if calls to both <code><a href=
+  "#basic_filebuf::overflow">overflow</a>()</code> and <code><a href=
+  "stdio.html#fflush">fflush</a>(fp)</code> succeed in flushing any pending output to the stream.</p>
+
+  <h3><a name="basic_filebuf::traits_type"><code>basic_filebuf::traits_type</code></a></h3>
+  <pre>
+typedef Tr <b>traits_type</b>;
+</pre>
+
+  <p>The type is a synonym for the template parameter <code>Tr</code>.</p>
+
+  <h3><a name="basic_filebuf::underflow"><code>basic_filebuf::underflow</code></a></h3>
+  <pre>
+virtual int_type <b>underflow</b>();
+</pre>
+
+  <p>The protected virtual member function endeavors to extract the current element <code>ch</code> from the
+  input stream, and return the element as <code>traits_type::<a href=
+  "string2.html#char_traits::to_int_type">to_int_type</a>(ch)</code>. It can do so in various ways:</p>
+
+  <ul>
+    <li>If a <a href="streambu.html#read%20position">read position</a> is available, it takes <code>ch</code>
+    as the element stored in the read position and advances the next pointer for the <a href=
+    "streambu.html#input%20buffer">input buffer</a>.</li>
+
+    <li>It can read one or more elements of type <i>char,</i> as if by successive calls of the form
+    <code><a href="stdio.html#fgetc">fgetc</a>(fp)</code>, and convert them to an element <code>ch</code> of
+    type <code>Elem</code> by using the <a href="#file%20conversion%20facet">file conversion facet</a>
+    <code>fac</code> to call <code>fac.<a href="locale2.html#codecvt::in">in</a></code> as needed. If any
+    read or conversion fails, the function does not succeed.</li>
+  </ul>
+
+  <p>If the function cannot succeed, it returns <code>traits_type::<a href=
+  "string2.html#char_traits::eof">eof</a>()</code>. Otherwise, it returns <code>ch</code>, converted as
+  described above.</p>
+
+  <h2><a name="basic_fstream"><code>basic_fstream</code></a></h2>
+  <pre>
+template &lt;class Elem, class Tr = char_traits&lt;Elem&gt; &gt;
+    class <b>basic_fstream</b> : public basic_iostream&lt;Elem, Tr&gt; {
+public:
+    <b><a href="#basic_fstream::basic_fstream">basic_fstream</a></b>();
+    explicit <b><a href="#basic_fstream::basic_fstream">basic_fstream</a></b>(const char *filename,
+        ios_base::openmode mode =
+            ios_base::in | ios_base::out);
+    explicit <b><a href="#basic_fstream::basic_fstream">basic_fstream</a></b>(const string&amp; filename,
+        ios_base::openmode mode =
+            ios_base::in | ios_base::out); <b>[added with C++0X]</b>
+    <b><a href=
+"#basic_fstream::basic_fstream">basic_fstream</a></b>(basic_fstream&amp;&amp; right); <b>[added with C++0X]</b>
+
+    basic_fstream&amp; <b><a href=
+"#basic_fstream::operator=">operator=</a></b>(basic_fstream&amp;&amp; right); <b>[added with C++0X]</b>
+    void <b><a href="#basic_fstream::swap">swap</a></b>(basic_fstream&amp; right); <b>[added with C++0X]</b>
+
+    basic_filebuf&lt;Elem, Tr&gt; *<b><a href="#basic_fstream::rdbuf">rdbuf</a></b>() const;
+    bool <b><a href="#basic_fstream::is_open">is_open</a></b>() const;
+    void <b><a href="#basic_fstream::open">open</a></b>(const char *filename,
+        ios_base::openmode mode =
+            ios_base::in | ios_base::out);
+    void <b><a href="#basic_fstream::open">open</a></b>(const string&amp; filename,
+        ios_base::openmode mode =
+            ios_base::in | ios_base::out); <b>[added with C++0X]</b>
+    void <b><a href="#basic_fstream::close">close</a></b>();
+    };
+</pre>
+
+  <p>The template class describes an object that controls insertion and extraction of elements and encoded
+  objects using a <a href="streambu.html#stream%20buffer">stream buffer</a> of class <code><a href=
+  "#basic_filebuf">basic_filebuf</a>&lt;Elem, Tr&gt;</code>, with elements of type <code>Elem</code>, whose
+  <a href="string2.html#character%20traits">character traits</a> are determined by the class <code>Tr</code>.
+  The object stores an object of class <code>basic_filebuf&lt;Elem, Tr&gt;</code>.</p>
+
+  <h3><a name="basic_fstream::basic_fstream"><code>basic_fstream::basic_fstream</code></a></h3>
+  <pre>
+<b>basic_fstream</b>();
+explicit <b>basic_fstream</b>(const char *filename,
+    ios_base::openmode mode =
+        ios_base::in | ios_base::out);
+explicit <b>basic_fstream</b>(const string&amp; filename,
+    ios_base::openmode mode =
+        ios_base::in | ios_base::out); <b>[added with C++0X]</b>
+<b>basic_fstream</b>(basic_fstream&amp;&amp; right); <b>[added with C++0X]</b>
+</pre>
+
+  <p>The first constructor initializes the base class by calling <code><a href=
+  "istream.html#basic_iostream">basic_iostream</a>(sb)</code>, where <code>sb</code> is the stored object of
+  class <code><a href="#basic_filebuf">basic_filebuf</a>&lt;Elem, Tr&gt;</code>. It also initializes
+  <code>sb</code> by calling <code><a href="#basic_filebuf::basic_filebuf">basic_filebuf</a>&lt;Elem,
+  Tr&gt;()</code>.</p>
+
+  <p>The second and third constructors initialize the base class by calling <code>basic_iostream(sb)</code>.
+  They also initializes <code>sb</code> by calling <code><a href=
+  "#basic_filebuf::basic_filebuf">basic_filebuf</a>&lt;Elem, Tr&gt;()</code>, then <code>sb.<a href=
+  "#basic_filebuf::open">open</a>(filename, mode)</code>. If the latter function returns a null pointer, the
+  constructor calls <code><a href="ios.html#basic_ios::setstate">setstate</a>(failbit)</code>.</p>
+
+  <p>The fourth constructor initializes the object with the contents of <code>right</code>, treated as an
+  <a href="lib_cpp.html#rvalue%20references">rvalue reference</a>.</p>
+
+  <h3><a name="basic_fstream::close"><code>basic_fstream::close</code></a></h3>
+  <pre>
+ void<b>close</b>();
+</pre>
+
+  <p>The member function calls <code><a href="#basic_fstream::rdbuf">rdbuf</a>()-&gt; <a href=
+  "#basic_filebuf::close">close</a>()</code>.</p>
+
+  <h3><a name="basic_fstream::is_open"><code>basic_fstream::is_open</code></a></h3>
+  <pre>
+bool <b>is_open</b>();
+</pre>
+
+  <p>The member function returns <code><a href="#basic_fstream::rdbuf">rdbuf</a>()-&gt; <a href=
+  "#basic_filebuf::is_open">is_open</a>()</code>.</p>
+
+  <h3><a name="basic_fstream::open"><code>basic_fstream::open</code></a></h3>
+  <pre>
+void <b>open</b>(const char *filename,
+    ios_base::openmode mode =
+        ios_base::in | ios_base::out);
+void <b>open</b>(const string&amp; filename,
+    ios_base::openmode mode =
+        ios_base::in | ios_base::out); <b>[added with C++0X]</b>
+</pre>
+
+  <p>The member function calls <code><a href="#basic_fstream::rdbuf">rdbuf</a>()-&gt; <a href=
+  "#basic_filebuf::open">open</a>(filename, mode)</code>. If that function returns a null pointer, the
+  function calls <code><a href="ios.html#basic_ios::setstate">setstate</a>(failbit)</code>; otherwise,
+  beginning with <b>C++0X</b>, it calls <code><a href="ios.html#basic_ios::clear">clear</a>()</code>.</p>
+
+  <h3><a name="basic_fstream::operator="><code>basic_fstream::operator=</code></a></h3>
+  <pre>
+basic_fstream&amp; <b>operator=</b>(basic_fstream&amp;&amp; right); <b>[added with C++0X]</b>
+</pre>
+
+  <p>The member operator replaces the contents of the object with the contents of <code>right</code>, treated
+  as an <a href="lib_cpp.html#rvalue%20references">rvalue reference</a>.</p>
+
+  <h3><a name="basic_fstream::rdbuf"><code>basic_fstream::rdbuf</code></a></h3>
+  <pre>
+basic_filebuf&lt;Elem, Tr&gt; *<b>rdbuf</b>() const
+</pre>
+
+  <p>The member function returns the address of the stored stream buffer, of type pointer to <code><a href=
+  "#basic_filebuf">basic_filebuf</a>&lt;Elem, Tr&gt;</code>.</p>
+
+  <h3><a name="basic_fstream::swap"><code>basic_fstream::swap</code></a></h3>
+  <pre>
+void <b>swap</b>(basic_fstream&amp; right); <b>[added with C++0X]</b>
+</pre>
+
+  <p>The member function exchanges the contents of the object with the contents of <code>right</code>.</p>
+
+  <h2><a name="basic_ifstream"><code>basic_ifstream</code></a></h2>
+  <pre>
+template &lt;class Elem, class Tr = char_traits&lt;Elem&gt; &gt;
+    class <b>basic_ifstream</b> : public basic_istream&lt;Elem, Tr&gt; {
+public:
+    basic_filebuf&lt;Elem, Tr&gt; *<b><a href="#basic_ifstream::rdbuf">rdbuf</a></b>() const;
+    <b><a href="#basic_ifstream::basic_ifstream">basic_ifstream</a></b>();
+    explicit <b><a href="#basic_ifstream::basic_ifstream">basic_ifstream</a></b>(const char *filename,
+        ios_base::openmode mode = ios_base::in);
+    explicit <b><a href="#basic_ifstream::basic_ifstream">basic_ifstream</a></b>(const string&amp; filename,
+        ios_base::openmode mode = ios_base::in); <b>[added with C++0X]</b>
+    <b><a href=
+"#basic_ifstream::basic_ifstream">basic_ifstream</a></b>(basic_ifstream&amp;&amp; right); <b>[added with C++0X]</b>
+
+
+    bool <b><a href="#basic_ifstream::is_open">is_open</a></b>() const;
+    void <b><a href="#basic_ifstream::open">open</a></b>(const char *filename,
+        ios_base::openmode mode = ios_base::in);
+    void <b><a href="#basic_ifstream::open">open</a></b>(const string&amp; filename,
+        ios_base::openmode mode = ios_base::in); <b>[added with C++0X]</b>
+    void <b><a href="#basic_ifstream::close">close</a></b>();
+    };
+</pre>
+
+  <p>The template class describes an object that controls extraction of elements and encoded objects from a
+  <a href="streambu.html#stream%20buffer">stream buffer</a> of class <code><a href=
+  "#basic_filebuf">basic_filebuf</a>&lt;Elem, Tr&gt;</code>, with elements of type <code>Elem</code>, whose
+  <a href="string2.html#character%20traits">character traits</a> are determined by the class <code>Tr</code>.
+  The object stores an object of class <code>basic_filebuf&lt;Elem, Tr&gt;</code>.</p>
+
+  <h3><a name="basic_ifstream::basic_ifstream"><code>basic_ifstream::basic_ifstream</code></a></h3>
+  <pre>
+<b>basic_ifstream</b>();
+explicit <b>basic_ifstream</b>(const char *filename,
+    ios_base::openmode mode = ios_base::in);
+explicit <b>basic_ifstream</b>(const string&amp; filename,
+    ios_base::openmode mode = ios_base::in); <b>[added with C++0X]</b>
+<b>basic_ifstream</b>(basic_ifstream&amp;&amp; right); <b>[added with C++0X]</b>
+</pre>
+
+  <p>The first constructor initializes the base class by calling <code><a href=
+  "istream.html#basic_istream::basic_istream">basic_istream</a>(sb)</code>, where <code>sb</code> is the
+  stored object of class <code><a href="#basic_filebuf">basic_filebuf</a>&lt;Elem, Tr&gt;</code>. It also
+  initializes <code>sb</code> by calling <code><a href=
+  "#basic_filebuf::basic_filebuf">basic_filebuf</a>&lt;Elem, Tr&gt;()</code>.</p>
+
+  <p>The second and third constructors initialize the base class by calling <code>basic_istream(sb)</code>.
+  They also initialize <code>sb</code> by calling <code><a href=
+  "#basic_filebuf::basic_filebuf">basic_filebuf</a>&lt;Elem, Tr&gt;()</code>, then <code>sb.<a href=
+  "#basic_filebuf::open">open</a>(filename, mode | ios_base::in)</code>. If the latter function returns a
+  null pointer, the constructor calls <code><a href=
+  "ios.html#basic_ios::setstate">setstate</a>(failbit)</code>.</p>
+
+  <p>The fourth constructor initializes the object with the contents of <code>right</code>, treated as an
+  <a href="lib_cpp.html#rvalue%20references">rvalue reference</a>.</p>
+
+  <h3><a name="basic_ifstream::close"><code>basic_ifstream::close</code></a></h3>
+  <pre>
+void <b>close</b>();
+</pre>
+
+  <p>The member function calls <code><a href="#basic_ifstream::rdbuf">rdbuf</a>()-&gt; <a href=
+  "#basic_filebuf::close">close</a>()</code>.</p>
+
+  <h3><a name="basic_ifstream::is_open"><code>basic_ifstream::is_open</code></a></h3>
+  <pre>
+bool <b>is_open</b>();
+</pre>
+
+  <p>The member function returns <code><a href="#basic_ifstream::rdbuf">rdbuf</a>()-&gt; <a href=
+  "#basic_filebuf::is_open">is_open</a>()</code>.</p>
+
+  <h3><a name="basic_ifstream::open"><code>basic_ifstream::open</code></a></h3>
+  <pre>
+void <b>open</b>(const char *filename,
+    ios_base::openmode mode = ios_base::in);
+void <b>open</b>(const string&amp; filename,
+    ios_base::openmode mode = ios_base::in); <b>[added with C++0X]</b>
+</pre>
+
+  <p>The member function calls <code><a href="#basic_ifstream::rdbuf">rdbuf</a>()-&gt; <a href=
+  "#basic_filebuf::open">open</a>(filename, mode | ios_base::in)</code>. If that function returns a null
+  pointer, the function calls <code><a href="ios.html#basic_ios::setstate">setstate</a>(failbit)</code>;
+  otherwise, beginning with <b>C++0X</b>, it calls <code><a href=
+  "ios.html#basic_ios::clear">clear</a>()</code>.</p>
+
+  <h3><a name="basic_ifstream::rdbuf"><code>basic_ifstream::rdbuf</code></a></h3>
+  <pre>
+basic_filebuf&lt;Elem, Tr&gt; *<b>rdbuf</b>() const
+</pre>
+
+  <p>The member function returns the address of the stored stream buffer.</p>
+
+  <h2><a name="basic_ofstream"><code>basic_ofstream</code></a></h2>
+  <pre>
+template &lt;class Elem, class Tr = char_traits&lt;Elem&gt; &gt;
+    class <b>basic_ofstream</b> : public basic_ostream&lt;Elem, Tr&gt; {
+public:
+    basic_filebuf&lt;Elem, Tr&gt; *<b><a href="#basic_ofstream::rdbuf">rdbuf</a></b>() const;
+    <b><a href="#basic_ofstream::basic_ofstream">basic_ofstream</a></b>();
+    explicit <b><a href="#basic_ofstream::basic_ofstream">basic_ofstream</a></b>(const char *filename,
+        ios_base::openmode mode = ios_base::out);
+    explicit <b><a href="#basic_ofstream::basic_ofstream">basic_ofstream</a></b>(const string&amp; filename,
+        ios_base::openmode mode = ios_base::out); <b>[added with C++0X]</b>
+    <b><a href=
+"#basic_ofstream::basic_ofstream">basic_ofstream</a></b>(basic_ofstream&amp;&amp; right); <b>[added with C++0X]</b>
+
+
+    bool <b><a href="#basic_ofstream::is_open">is_open</a></b>() const;
+    void <b><a href="#basic_ofstream::open">open</a></b>(const char *filename,
+        ios_base::openmode mode = ios_base::out);
+    void <b><a href="#basic_ofstream::open">open</a></b>(const string&amp; filename,
+        ios_base::openmode mode = ios_base::out); <b>[added with C++0X]</b>
+    void <b><a href="#basic_ofstream::close">close</a></b>();
+    };
+</pre>
+
+  <p>The template class describes an object that controls insertion of elements and encoded objects into a
+  <a href="streambu.html#stream%20buffer">stream buffer</a> of class <code><a href=
+  "#basic_filebuf">basic_filebuf</a>&lt;Elem, Tr&gt;</code>, with elements of type <code>Ele</code>, whose
+  <a href="string2.html#character%20traits">character traits</a> are determined by the class <code>Tr</code>.
+  The object stores an object of class <code>basic_filebuf&lt;Elem, Tr&gt;</code>.</p>
+
+  <h3><a name="basic_ofstream::basic_ofstream"><code>basic_ofstream::basic_ofstream</code></a></h3>
+  <pre>
+<b>basic_ofstream</b>();
+explicit <b>basic_ofstream</b>(const char *filename,
+    ios_base::openmode which = ios_base::out);
+explicit <b>basic_ofstream</b>(const string&amp; filename,
+    ios_base::openmode which = ios_base::out); <b>[added with C++0X]</b>
+<b>basic_ofstream</b>(basic_ofstream&amp;&amp; right); <b>[added with C++0X]</b>
+</pre>
+
+  <p>The first constructor initializes the base class by calling <code><a href=
+  "ostream.html#basic_ostream::basic_ostream">basic_ostream</a>(sb)</code>, where <code>sb</code> is the
+  stored object of class <code><a href="#basic_filebuf">basic_filebuf</a>&lt;Elem, Tr&gt;</code>. It also
+  initializes <code>sb</code> by calling <code><a href=
+  "#basic_filebuf::basic_filebuf">basic_filebuf</a>&lt;Elem, Tr&gt;()</code>.</p>
+
+  <p>The second and third constructors initialize the base class by calling <code>basic_ostream(sb)</code>.
+  They also initialize <code>sb</code> by calling <code><a href=
+  "#basic_filebuf::basic_filebuf">basic_filebuf</a>&lt;Elem, Tr&gt;()</code>, then <code>sb.<a href=
+  "#basic_filebuf::open">open</a>(filename, mode | ios_base::out)</code>. If the latter function returns a
+  null pointer, the constructor calls <code><a href=
+  "ios.html#basic_ios::setstate">setstate</a>(failbit)</code>.</p>
+
+  <p>The fourth constructor initializes the object with the contents of <code>right</code>, treated as an
+  <a href="lib_cpp.html#rvalue%20references">rvalue reference</a>.</p>
+
+  <h3><a name="basic_ofstream::close"><code>basic_ofstream::close</code></a></h3>
+  <pre>
+void <b>close</b>();
+</pre>
+
+  <p>The member function calls <code><a href="#basic_ofstream::rdbuf">rdbuf</a>()-&gt; <a href=
+  "#basic_filebuf::close">close</a>()</code>.</p>
+
+  <h3><a name="basic_ofstream::is_open"><code>basic_ofstream::is_open</code></a></h3>
+  <pre>
+bool <b>is_open</b>();
+</pre>
+
+  <p>The member function returns <code><a href="#basic_ofstream::rdbuf">rdbuf</a>()-&gt; <a href=
+  "#basic_filebuf::is_open">is_open</a>()</code>.</p>
+
+  <h3><a name="basic_ofstream::open"><code>basic_ofstream::open</code></a></h3>
+  <pre>
+void <b>open</b>(const char *filename,
+    ios_base::openmode mode = ios_base::out);
+void <b>open</b>(const string&amp; filename,
+    ios_base::openmode mode = ios_base::out); <b>[added with C++0X]</b>
+</pre>
+
+  <p>The member function calls <code><a href="#basic_ofstream::rdbuf">rdbuf</a>()-&gt; <a href=
+  "#basic_filebuf::open">open</a>(filename, mode | ios_base::out)</code>. If that function returns a null
+  pointer, the function calls <code><a href="ios.html#basic_ios::setstate">setstate</a>(failbit)</code>;
+  otherwise, beginning with <b>C++0X</b>, it calls <code><a href=
+  "ios.html#basic_ios::clear">clear</a>()</code>.</p>
+
+  <h3><a name="basic_ofstream::rdbuf"><code>basic_ofstream::rdbuf</code></a></h3>
+  <pre>
+basic_filebuf&lt;Elem, Tr&gt; *<b>rdbuf</b>() const
+</pre>
+
+  <p>The member function returns the address of the stored stream buffer.</p>
+
+  <h2><a name="filebuf"><code>filebuf</code></a></h2>
+  <pre>
+typedef basic_filebuf&lt;char, char_traits&lt;char&gt; &gt; <b>filebuf</b>;
+</pre>
+
+  <p>The type is a synonym for template class <a href="#basic_filebuf"><code>basic_filebuf</code></a>,
+  specialized for elements of type <i>char</i> with default <a href=
+  "string2.html#character%20traits">character traits</a>.</p>
+
+  <h2><a name="fstream"><code>fstream</code></a></h2>
+  <pre>
+typedef basic_fstream&lt;char, char_traits&lt;char&gt; &gt; <b>fstream</b>;
+</pre>
+
+  <p>The type is a synonym for template class <a href="#basic_fstream"><code>basic_fstream</code></a>,
+  specialized for elements of type <i>char</i> with default <a href=
+  "string2.html#character%20traits">character traits</a>.</p>
+
+  <h2><a name="ifstream"><code>ifstream</code></a></h2>
+  <pre>
+typedef basic_ifstream&lt;char, char_traits&lt;char&gt; &gt; <b>ifstream</b>;
+</pre>
+
+  <p>The type is a synonym for template class <a href="#basic_ifstream"><code>basic_ifstream</code></a>,
+  specialized for elements of type <i>char</i> with default <a href=
+  "string2.html#character%20traits">character traits</a>.</p>
+
+  <h2><a name="ofstream"><code>ofstream</code></a></h2>
+  <pre>
+typedef basic_ofstream&lt;char, char_traits&lt;char&gt; &gt;
+    <b>ofstream</b>;
+</pre>
+
+  <p>The type is a synonym for template class <a href="#basic_ofstream"><code>basic_ofstream</code></a>,
+  specialized for elements of type <i>char</i> with default <a href=
+  "string2.html#character%20traits">character traits</a>.</p>
+
+  <h2><a name="wfstream"><code>wfstream</code></a></h2>
+  <pre>
+typedef basic_fstream&lt;wchar_t, char_traits&lt;wchar_t&gt; &gt;
+    <b>wfstream</b>;
+</pre>
+
+  <p>The type is a synonym for template class <a href="#basic_fstream"><code>basic_fstream</code></a>,
+  specialized for elements of type <code>wchar_t</code> with default <a href=
+  "string2.html#character%20traits">character traits</a>.</p>
+
+  <h2><a name="wifstream"><code>wifstream</code></a></h2>
+  <pre>
+typedef basic_ifstream&lt;wchar_t, char_traits&lt;wchar_t&gt; &gt;
+    <b>wifstream</b>;
+</pre>
+
+  <p>The type is a synonym for template class <a href="#basic_ifstream"><code>basic_ifstream</code></a>,
+  specialized for elements of type <code>wchar_t</code> with default <a href=
+  "string2.html#character%20traits">character traits</a>.</p>
+
+  <h2><a name="wofstream"><code>wofstream</code></a></h2>
+  <pre>
+typedef basic_ofstream&lt;wchar_t, char_traits&lt;wchar_t&gt; &gt;
+    <b>wofstream</b>;
+</pre>
+
+  <p>The type is a synonym for template class <a href="#basic_ofstream"><code>basic_ofstream</code></a>,
+  specialized for elements of type <code>wchar_t</code> with default <a href=
+  "string2.html#character%20traits">character traits</a>.</p>
+
+  <h2><a name="wfilebuf"><code>wfilebuf</code></a></h2>
+  <pre>
+typedef basic_filebuf&lt;wchar_t, char_traits&lt;wchar_t&gt; &gt;
+    <b>wfilebuf</b>;
+</pre>
+
+  <p>The type is a synonym for template class <a href="#basic_filebuf"><code>basic_filebuf</code></a>,
+  specialized for elements of type <code>wchar_t</code> with default <a href=
+  "string2.html#character%20traits">character traits</a>.</p>
+  <hr>
+
+  <p>See also the <b><a href="index.html#Table%20of%20Contents">Table of Contents</a></b> and the <b><a href=
+  "_index.html">Index</a></b>.</p>
+
+  <p><i><a href="crit_pjp.html">Copyright</a> &copy; 1992-2010 by P.J. Plauger. All rights reserved.</i></p>
+  <!--V5.30:126I-->
+</body>
+</html>

@@ -1,0 +1,826 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html>
+<head>
+  <meta name="generator" content=
+  "HTML Tidy for Mac OS X (vers 31 October 2006 - Apple Inc. build 15.15), see www.w3.org">
+
+  <title>&lt;stdfix.h&gt;</title>
+</head>
+
+<body>
+  <h1><a name="&lt;stdfix.h&gt;"><code>&lt;stdfix.h&gt;</code></a></h1>
+
+  <p>[added with <a name="TR18037">TR18037</a>]</p>
+  <hr>
+
+  <p><b><code><a href="#accum">accum</a> &middot; <a href="#fract">fract</a> &middot; <a href="#sat">sat</a>
+  &middot; <a href="#ACCUM_EPSILON">ACCUM_EPSILON</a> &middot; <a href="#ACCUM_FBIT">ACCUM_FBIT</a> &middot;
+  <a href="#ACCUM_IBIT">ACCUM_IBIT</a> &middot; <a href="#ACCUM_MAX">ACCUM_MAX</a> &middot; <a href=
+  "#ACCUM_MIN">ACCUM_MIN</a> &middot; <a href="#FRACT_EPSILON">FRACT_EPSILON</a> &middot; <a href=
+  "#FRACT_FBIT">FRACT_FBIT</a> &middot; <a href="#FRACT_MAX">FRACT_MAX</a> &middot; <a href=
+  "#FRACT_MIN">FRACT_MIN</a> &middot; <a href="#LACCUM_EPSILON">LACCUM_EPSILON</a> &middot; <a href=
+  "#LACCUM_FBIT">LACCUM_FBIT</a> &middot; <a href="#LACCUM_IBIT">LACCUM_IBIT</a> &middot; <a href=
+  "#LACCUM_MAX">LACCUM_MAX</a> &middot; <a href="#LACCUM_MIN">LACCUM_MIN</a> &middot; <a href=
+  "#LFRACT_EPSILON">LFRACT_EPSILON</a> &middot; <a href="#LFRACT_FBIT">LFRACT_FBIT</a> &middot; <a href=
+  "#LFRACT_MAX">LFRACT_MAX</a> &middot; <a href="#LFRACT_MIN">LFRACT_MIN</a> &middot; <a href=
+  "#SACCUM_EPSILON">SACCUM_EPSILON</a> &middot; <a href="#SACCUM_FBIT">SACCUM_FBIT</a> &middot; <a href=
+  "#SACCUM_IBIT">SACCUM_IBIT</a> &middot; <a href="#SACCUM_MAX">SACCUM_MAX</a> &middot; <a href=
+  "#SACCUM_MIN">SACCUM_MIN</a> &middot; <a href="#SFRACT_EPSILON">SFRACT_EPSILON</a> &middot; <a href=
+  "#SFRACT_FBIT">SFRACT_FBIT</a> &middot; <a href="#SFRACT_MAX">SFRACT_MAX</a> &middot; <a href=
+  "#SFRACT_MIN">SFRACT_MIN</a> &middot; <a href="#UACCUM_EPSILON">UACCUM_EPSILON</a> &middot; <a href=
+  "#UACCUM_FBIT">UACCUM_FBIT</a> &middot; <a href="#UACCUM_IBIT">UACCUM_IBIT</a> &middot; <a href=
+  "#UACCUM_MAX">UACCUM_MAX</a> &middot; <a href="#UFRACT_EPSILON">UFRACT_EPSILON</a> &middot; <a href=
+  "#UFRACT_FBIT">UFRACT_FBIT</a> &middot; <a href="#UFRACT_MAX">UFRACT_MAX</a> &middot; <a href=
+  "#ULACCUM_EPSILON">ULACCUM_EPSILON</a> &middot; <a href="#ULACCUM_FBIT">ULACCUM_FBIT</a> &middot; <a href=
+  "#ULACCUM_IBIT">ULACCUM_IBIT</a> &middot; <a href="#ULACCUM_MAX">ULACCUM_MAX</a> &middot; <a href=
+  "#ULFRACT_EPSILON">ULFRACT_EPSILON</a> &middot; <a href="#ULFRACT_FBIT">ULFRACT_FBIT</a> &middot; <a href=
+  "#ULFRACT_MAX">ULFRACT_MAX</a> &middot; <a href="#USACCUM_EPSILON">USACCUM_EPSILON</a> &middot; <a href=
+  "#USACCUM_FBIT">USACCUM_FBIT</a> &middot; <a href="#USACCUM_IBIT">USACCUM_IBIT</a> &middot; <a href=
+  "#USACCUM_MAX">USACCUM_MAX</a> &middot; <a href="#USFRACT_EPSILON">USFRACT_EPSILON</a> &middot; <a href=
+  "#USFRACT_FBIT">USFRACT_FBIT</a> &middot; <a href="#USFRACT_MAX">USFRACT_MAX</a></code></b></p>
+
+  <p><b><code><a href="#int_hk_t">int_hk_t</a> &middot; <a href="#int_hr_t">int_hr_t</a> &middot; <a href=
+  "#int_k_t">int_k_t</a> &middot; <a href="#int_lk_t">int_lk_t</a> &middot; <a href="#int_lr_t">int_lr_t</a>
+  &middot; <a href="#int_r_t">int_r_t</a> &middot; <a href="#uint_uhk_t">uint_uhk_t</a> &middot; <a href=
+  "#uint_uhr_t">uint_uhr_t</a> &middot; <a href="#uint_uk_t">uint_uk_t</a> &middot; <a href=
+  "#uint_ulk_t">uint_ulk_t</a> &middot; <a href="#uint_ulr_t">uint_ulr_t</a> &middot; <a href=
+  "#uint_ur_t">uint_ur_t</a></code></b></p>
+
+  <p><b><code><a href="#abshk">abshk</a> &middot; <a href="#abshr">abshr</a> &middot; <a href=
+  "#absk">absk</a> &middot; <a href="#abslk">abslk</a> &middot; <a href="#abslr">abslr</a> &middot; <a href=
+  "#absr">absr</a> &middot; <a href="#bitshk">bitshk</a> &middot; <a href="#bitshr">bitshr</a> &middot;
+  <a href="#bitsk">bitsk</a> &middot; <a href="#bitslk">bitslk</a> &middot; <a href="#bitslr">bitslr</a>
+  &middot; <a href="#bitsr">bitsr</a> &middot; <a href="#bitsuhk">bitsuhk</a> &middot; <a href=
+  "#bitsuhr">bitsuhr</a> &middot; <a href="#bitsuk">bitsuk</a> &middot; <a href="#bitsulk">bitsulk</a>
+  &middot; <a href="#bitsulr">bitsulr</a> &middot; <a href="#bitsur">bitsur</a> &middot; <a href=
+  "#countlshk">countlshk</a> &middot; <a href="#countlshr">countlshr</a> &middot; <a href=
+  "#countlsk">countlsk</a> &middot; <a href="#countlslk">countlslk</a> &middot; <a href=
+  "#countlslr">countlslr</a> &middot; <a href="#countlsr">countlsr</a> &middot; <a href=
+  "#countlsuhk">countlsuhk</a> &middot; <a href="#countlsuhr">countlsuhr</a> &middot; <a href=
+  "#countlsuk">countlsuk</a> &middot; <a href="#countlsulk">countlsulk</a> &middot; <a href=
+  "#countlsulr">countlsulr</a> &middot; <a href="#countlsur">countlsur</a> &middot; <a href=
+  "#divik">divik</a> &middot; <a href="#divilk">divilk</a> &middot; <a href="#divilr">divilr</a> &middot;
+  <a href="#divir">divir</a> &middot; <a href="#diviuk">diviuk</a> &middot; <a href="#diviulk">diviulk</a>
+  &middot; <a href="#diviulr">diviulr</a> &middot; <a href="#diviur">diviur</a> &middot; <a href=
+  "#hkbits">hkbits</a> &middot; <a href="#hrbits">hrbits</a> &middot; <a href="#idivk">idivk</a> &middot;
+  <a href="#idivlk">idivlk</a> &middot; <a href="#idivlr">idivlr</a> &middot; <a href="#idivr">idivr</a>
+  &middot; <a href="#idivuk">idivuk</a> &middot; <a href="#idivulk">idivulk</a> &middot; <a href=
+  "#idivulr">idivulr</a> &middot; <a href="#idivur">idivur</a> &middot; <a href="#kbits">kbits</a> &middot;
+  <a href="#kdivi">kdivi</a> &middot; <a href="#lkbits">lkbits</a> &middot; <a href="#lkdivi">lkdivi</a>
+  &middot; <a href="#lrbits">lrbits</a> &middot; <a href="#lrdivi">lrdivi</a> &middot; <a href=
+  "#mulik">mulik</a> &middot; <a href="#mulilk">mulilk</a> &middot; <a href="#mulilr">mulilr</a> &middot;
+  <a href="#mulir">mulir</a> &middot; <a href="#muliuk">muliuk</a> &middot; <a href="#muliulk">muliulk</a>
+  &middot; <a href="#muliulr">muliulr</a> &middot; <a href="#muliur">muliur</a> &middot; <a href=
+  "#rbits">rbits</a> &middot; <a href="#rdivi">rdivi</a> &middot; <a href="#roundhk">roundhk</a> &middot;
+  <a href="#roundhr">roundhr</a> &middot; <a href="#roundk">roundk</a> &middot; <a href=
+  "#roundlk">roundlk</a> &middot; <a href="#roundlr">roundlr</a> &middot; <a href="#roundr">roundr</a>
+  &middot; <a href="#rounduhk">rounduhk</a> &middot; <a href="#rounduhr">rounduhr</a> &middot; <a href=
+  "#rounduk">rounduk</a> &middot; <a href="#roundulk">roundulk</a> &middot; <a href="#roundulr">roundulr</a>
+  &middot; <a href="#roundur">roundur</a> &middot; <a href="#strtofxhk">strtofxhk</a> &middot; <a href=
+  "#strtofxhr">strtofxhr</a> &middot; <a href="#strtofxk">strtofxk</a> &middot; <a href=
+  "#strtofxlk">strtofxlk</a> &middot; <a href="#strtofxlr">strtofxlr</a> &middot; <a href=
+  "#strtofxr">strtofxr</a> &middot; <a href="#strtofxuhk">strtofxuhk</a> &middot; <a href=
+  "#strtofxuhr">strtofxuhr</a> &middot; <a href="#strtofxuk">strtofxuk</a> &middot; <a href=
+  "#strtofxulk">strtofxulk</a> &middot; <a href="#strtofxulr">strtofxulr</a> &middot; <a href=
+  "#strtofxur">strtofxur</a> &middot; <a href="#uhkbits">uhkbits</a> &middot; <a href="#uhrbits">uhrbits</a>
+  &middot; <a href="#ukbits">ukbits</a> &middot; <a href="#ukdivi">ukdivi</a> &middot; <a href=
+  "#ulkbits">ulkbits</a> &middot; <a href="#ulkdivi">ulkdivi</a> &middot; <a href="#ulrbits">ulrbits</a>
+  &middot; <a href="#ulrdivi">ulrdivi</a> &middot; <a href="#urbits">urbits</a> &middot; <a href=
+  "#urdivi">urdivi</a></code></b></p>
+
+  <p><b><code><a href="#absfx">absfx</a> &middot; <a href="#countlsfx">countlsfx</a> &middot; <a href=
+  "#roundfx">roundfx</a></code></b></p>
+  <hr>
+
+  <p>Include the added header <b><code>&lt;stdfix.h&gt;</code></b> to define numerous functions that operate
+  on the fixed-point types.</p>
+
+  <p>Note that the use of this header does <b>not</b> require the additions to the C language mandated by
+  TR18037, which include twelve additional scalar types and corresponding literals. For a software
+  implementation of the fixed-point operations, suitable for supplementing the inline code generated by a
+  compiler, see the header <code><a href="fixed.html">"fixed.h"</a></code> also supplied with this <a href=
+  "index.html#implementation">implementation</a>.</p>
+
+  <p>You can use a handy subset of these functions through extra macros and types defined in this header. All
+  use a set of twelve suffixes that denote the twelve fixed-point types:</p>
+  <pre>
+SUFFIX  TYPE
+  hr    signed short _Fract
+   r    signed _Fract
+  lr    signed long _Fract
+ uhr    unsigned short _Fract
+  ur    unsigned _Fract
+ ulr    unsigned long _Fract
+
+  hk    signed short _Accum
+   k    signed _Accum
+  lk    signed long _Accum
+ uhk    unsigned short _Accum
+  uk    unsigned _Accum
+ ulk    unsigned long _Accum
+</pre>
+
+  <p>Thus, the type <code>_Fixed_hk</code> is one of twelve types defined in this header (whether or not
+  language support is present). These are structure types that you can declare, assign, convert to text with
+  the <a href="lib_prin.html">Formatted Output</a> functions such as <code><a href=
+  "stdio.html#printf">printf</a></code>, convert from text with the <a href="lib_scan.html">Formatted
+  Input</a> functions such as <code><a href="stdio.html#scanf">scanf</a></code>, and use with all the
+  functions declared in this header. The accompanying macros are:</p>
+
+  <ul>
+    <li><code><a name="FIXED_SET">FIXED_SET</a>(suffix, double_val)</code> converts the <code>double</code>
+    value <code>double_val</code> to the fixed-point type determined by <code>suffix</code>. Thus, you can
+    write the runtime expression <code>FIXED_SET(ulk, 3.5)</code> as a substitute for the fixed-point literal
+    <code>3.5ulk</code>.</li>
+
+    <li><code><a name="FIXED_GET">FIXED_GET</a>(suffix, fixed_val)</code> converts the fixed-point value
+    <code>fixed_val</code> to <code>double</code>.</li>
+
+    <li><code><a name="FIXED_ADD">FIXED_ADD</a>(suffix, fixed_val1, fixed_val2)</code> yields the fixed-point
+    value <code>fixed_val1 + fixed_val2</code>.</li>
+
+    <li><code><a name="FIXED_SUB">FIXED_SUB</a>(suffix, fixed_val1, fixed_val2)</code> yields the fixed-point
+    value <code>fixed_val1 - fixed_val2</code>.</li>
+
+    <li><code><a name="FIXED_MUL">FIXED_MUL</a>(suffix, fixed_val1, fixed_val2)</code> yields the fixed-point
+    value <code>fixed_val1 * fixed_val2</code>.</li>
+
+    <li><code><a name="FIXED_DIV">FIXED_DIV</a>(suffix, fixed_val1, fixed_val2)</code> yields the fixed-point
+    value <code>fixed_val1 / fixed_val2</code>.</li>
+
+    <li><code><a name="FIXED_LSH">FIXED_LSH</a>(suffix, fixed_val, int_va)</code> yields the fixed-point
+    value <code>fixed_val &lt;&lt; int_val</code>.</li>
+
+    <li><code><a name="FIXED_RSH">FIXED_RSH</a>(suffix, fixed_val, int_va)</code> yields the fixed-point
+    value <code>fixed_val &gt;&gt; int_val</code>.</li>
+
+    <li><code><a name="FIXED_NEGATE">FIXED_NEGATE</a>(suffix, fixed_val</code> yields the fixed-point value
+    <code>-fixed_val</code>.</li>
+
+    <li><code><a name="FIXED_EQ">FIXED_EQ</a>(suffix, fixed_val1, fixed_val2)</code> yields the integer value
+    <code>fixed_val1 == fixed_val2</code>.</li>
+
+    <li><code><a name="FIXED_LT">FIXED_LT</a>(suffix, fixed_val1, fixed_val2)</code> yields the integer value
+    <code>fixed_val1 &lt; fixed_val2</code>.</li>
+  </ul>
+  <hr>
+  <pre>
+    /* MACROS */
+#define <a href="#accum"><b>accum</b></a>  _Accum
+#define <a href="#fract"><b>fract</b></a>  _Fract
+#define <a href="#sat"><b>sat</b></a>    _Sat
+
+  /* fractional bits macros */
+#define <a href="#SFRACT_FBIT"><b>SFRACT_FBIT</b></a>   <i>&lt;#if expression&gt;</i> (7)
+#define <a href="#FRACT_FBIT"><b>FRACT_FBIT</b></a>    <i>&lt;#if expression&gt;</i> (15)
+#define <a href="#LFRACT_FBIT"><b>LFRACT_FBIT</b></a>   <i>&lt;#if expression&gt;</i> (31)
+
+#define <a href="#USFRACT_FBIT"><b>USFRACT_FBIT</b></a>  <i>&lt;#if expression&gt;</i> (8)
+#define <a href="#UFRACT_FBIT"><b>UFRACT_FBIT</b></a>   <i>&lt;#if expression&gt;</i> (16)
+#define <a href="#ULFRACT_FBIT"><b>ULFRACT_FBIT</b></a>  <i>&lt;#if expression&gt;</i> (32)
+
+#define <a href="#SACCUM_FBIT"><b>SACCUM_FBIT</b></a>   <i>&lt;#if expression&gt;</i> (7)
+#define <a href="#ACCUM_FBIT"><b>ACCUM_FBIT</b></a>    <i>&lt;#if expression&gt;</i> (15)
+#define <a href="#LACCUM_FBIT"><b>LACCUM_FBIT</b></a>   <i>&lt;#if expression&gt;</i> (31)
+
+#define <a href="#USACCUM_FBIT"><b>USACCUM_FBIT</b></a>  <i>&lt;#if expression&gt;</i> (8)
+#define <a href="#UACCUM_FBIT"><b>UACCUM_FBIT</b></a>   <i>&lt;#if expression&gt;</i> (16)
+#define <a href="#ULACCUM_FBIT"><b>ULACCUM_FBIT</b></a>  <i>&lt;#if expression&gt;</i> (32)
+
+  /* integer bits macros */
+#define <a href="#SACCUM_IBIT"><b>SACCUM_IBIT</b></a>   <i>&lt;#if expression&gt;</i> (8)
+#define <a href="#ACCUM_IBIT"><b>ACCUM_IBIT</b></a>    <i>&lt;#if expression&gt;</i> (16)
+#define <a href="#LACCUM_IBIT"><b>LACCUM_IBIT</b></a>   <i>&lt;#if expression&gt;</i> (32)
+
+#define <a href="#USACCUM_IBIT"><b>USACCUM_IBIT</b></a>  <i>&lt;#if expression&gt;</i> (8)
+#define <a href="#UACCUM_IBIT"><b>UACCUM_IBIT</b></a>   <i>&lt;#if expression&gt;</i> (16)
+#define <a href="#ULACCUM_IBIT"><b>ULACCUM_IBIT</b></a>  <i>&lt;#if expression&gt;</i> (32)
+
+  /* minimum value macros */
+#define <a href="#SFRACT_MIN"><b>SFRACT_MIN</b></a>    <i>&lt;signed short _Fract expression&gt;</i>
+#define <a href="#FRACT_MIN"><b>FRACT_MIN</b></a>     <i>&lt;signed _Fract expression&gt;</i>
+#define <a href="#LFRACT_MIN"><b>LFRACT_MIN</b></a>    <i>&lt;signed long _Fract expression&gt;</i>
+
+#define <a href="#SACCUM_MIN"><b>SACCUM_MIN</b></a>    <i>&lt;signed short _Accum expression&gt;</i>
+#define <a href="#ACCUM_MIN"><b>ACCUM_MIN</b></a>     <i>&lt;signed _Accum expression&gt;</i>
+#define <a href="#LACCUM_MIN"><b>LACCUM_MIN</b></a>    <i>&lt;signed long _Accum expression&gt;</i>
+
+  /* maximum value macros */
+#define <a href="#SFRACT_MAX"><b>SFRACT_MAX</b></a>    <i>&lt;signed short _Fract expression&gt;</i>
+#define <a href="#FRACT_MAX"><b>FRACT_MAX</b></a>     <i>&lt;signed _Fract expression&gt;</i>
+#define <a href="#LFRACT_MAX"><b>LFRACT_MAX</b></a>    <i>&lt;signed long _Fract expression&gt;</i>
+
+#define <a href="#USFRACT_MAX"><b>USFRACT_MAX</b></a>   <i>&lt;unsigned short _Fract expression&gt;</i>
+#define <a href="#UFRACT_MAX"><b>UFRACT_MAX</b></a>    <i>&lt;unsigned _Fract expression&gt;</i>
+#define <a href="#ULFRACT_MAX"><b>ULFRACT_MAX</b></a>   <i>&lt;unsigned long _Fract expression&gt;</i>
+
+#define <a href="#SACCUM_MAX"><b>SACCUM_MAX</b></a>    <i>&lt;signed short _Accum expression&gt;</i>
+#define <a href="#ACCUM_MAX"><b>ACCUM_MAX</b></a>     <i>&lt;signed _Accum expression&gt;</i>
+#define <a href="#LACCUM_MAX"><b>LACCUM_MAX</b></a>    <i>&lt;signed long _Accum expression&gt;</i>
+
+#define <a href="#USACCUM_MAX"><b>USACCUM_MAX</b></a>   <i>&lt;unsigned short _Accum expression&gt;</i>
+#define <a href="#UACCUM_MAX"><b>UACCUM_MAX</b></a>    <i>&lt;unsigned _Accum expression&gt;</i>
+#define <a href="#ULACCUM_MAX"><b>ULACCUM_MAX</b></a>   <i>&lt;unsigned long _Accum expression&gt;</i>
+
+  /* epsilon macros */
+#define <a href="#SFRACT_EPSILON"><b>SFRACT_EPSILON</b></a>    <i>&lt;signed short _Fract expression&gt;</i>
+#define <a href="#FRACT_EPSILON"><b>FRACT_EPSILON</b></a>     <i>&lt;signed _Fract expression&gt;</i>
+#define <a href="#LFRACT_EPSILON"><b>LFRACT_EPSILON</b></a>    <i>&lt;signed long _Fract expression&gt;</i>
+
+#define <a href=
+"#USFRACT_EPSILON"><b>USFRACT_EPSILON</b></a>   <i>&lt;unsigned short _Fract expression&gt;</i>
+#define <a href="#UFRACT_EPSILON"><b>UFRACT_EPSILON</b></a>    <i>&lt;unsigned _Fract expression&gt;</i>
+#define <a href=
+"#ULFRACT_EPSILON"><b>ULFRACT_EPSILON</b></a>   <i>&lt;unsigned long _Fract expression&gt;</i>
+
+#define <a href="#SACCUM_EPSILON"><b>SACCUM_EPSILON</b></a>    <i>&lt;signed short _Accum expression&gt;</i>
+#define <a href="#ACCUM_EPSILON"><b>ACCUM_EPSILON</b></a>     <i>&lt;signed _Accum expression&gt;</i>
+#define <a href="#LACCUM_EPSILON"><b>LACCUM_EPSILON</b></a>    <i>&lt;signed long _Accum expression&gt;</i>
+
+#define <a href=
+"#USACCUM_EPSILON"><b>USACCUM_EPSILON</b></a>   <i>&lt;unsigned short _Accum expression&gt;</i>
+#define <a href="#UACCUM_EPSILON"><b>UACCUM_EPSILON</b></a>    <i>&lt;unsigned _Accum expression&gt;</i>
+#define <a href=
+"#ULACCUM_EPSILON"><b>ULACCUM_EPSILON</b></a>   <i>&lt;unsigned long _Accum expression&gt;</i>
+
+    /* TYPES */
+typedef <i>i-type</i> <a href="#int_hr_t"><b>int_hr_t</b></a>;
+typedef <i>i-type</i> <a href="#int_r_t"><b>int_r_t</b></a>;
+typedef <i>i-type</i> <a href="#int_lr_t"><b>int_lr_t</b></a>;
+
+typedef <i>ui-type</i> <a href="#uint_uhr_t"><b>uint_uhr_t</b></a>;
+typedef <i>ui-type</i> <a href="#uint_ur_t"><b>uint_ur_t</b></a>;
+typedef <i>ui-type</i> <a href="#uint_ulr_t"><b>uint_ulr_t</b></a>;
+
+typedef <i>i-type</i> <a href="#int_hk_t"><b>int_hk_t</b></a>;
+typedef <i>i-type</i> <a href="#int_k_t"><b>int_k_t</b></a>;
+typedef <i>i-type</i> <a href="#int_lk_t"><b>int_lk_t</b></a>;
+
+typedef <i>ui-type</i> <a href="#uint_uhk_t"><b>uint_uhk_t</b></a>;
+typedef <i>ui-type</i> <a href="#uint_uk_t"><b>uint_uk_t</b></a>;
+typedef <i>ui-type</i> <a href="#uint_ulk_t"><b>uint_ulk_t</b></a>;
+
+    /* FUNCTIONS */
+signed int <a href="#mulir"><b>mulir</b></a>(signed int x, signed _Fract y);
+signed long <a href="#mulilr"><b>mulilr</b></a>(signed long x, signed long _Fract y);
+signed int <a href="#mulik"><b>mulik</b></a>(signed int x, signed _Accum y);
+signed long <a href="#mulilk"><b>mulilk</b></a>(signed long x, signed long _Accum y);
+
+unsigned int <a href="#muliur"><b>muliur</b></a>(unsigned int x, unsigned _Fract y);
+unsigned long <a href="#muliulr"><b>muliulr</b></a>(unsigned long x, unsigned long _Fract y);
+unsigned int <a href="#muliuk"><b>muliuk</b></a>(unsigned int x, unsigned _Accum y);
+unsigned long <a href="#muliulk"><b>muliulk</b></a>(unsigned long x, unsigned long _Accum y);
+
+signed int <a href="#divir"><b>divir</b></a>(signed int x, signed _Fract y);
+signed long <a href="#divilr"><b>divilr</b></a>(signed long x, signed long _Fract y);
+signed int <a href="#divik"><b>divik</b></a>(signed int x, signed _Accum y);
+signed long <a href="#divilk"><b>divilk</b></a>(signed long x, signed long _Accum y);
+
+unsigned int <a href="#diviur"><b>diviur</b></a>(unsigned int x, unsigned _Fract y);
+unsigned long <a href="#diviulr"><b>diviulr</b></a>(unsigned long x, unsigned long _Fract y);
+unsigned int <a href="#diviuk"><b>diviuk</b></a>(unsigned int x, unsigned _Accum y);
+unsigned long <a href="#diviulk"><b>diviulk</b></a>(unsigned long x, unsigned long _Accum y);
+
+signed int <a href="#idivr"><b>idivr</b></a>(signed _Fract x, signed _Fract y);
+signed long <a href="#idivlr"><b>idivlr</b></a>(signed long _Fract x, signed long _Fract y);
+signed int <a href="#idivk"><b>idivk</b></a>(signed _Accum x, signed _Accum y);
+signed long <a href="#idivlk"><b>idivlk</b></a>(signed long _Accum x, signed long _Accum y);
+
+unsigned int <a href="#idivur"><b>idivur</b></a>(unsigned _Fract x, unsigned _Fract y);
+unsigned long <a href="#idivulr"><b>idivulr</b></a>(unsigned long _Fract x, unsigned long _Fract y);
+unsigned int <a href="#idivuk"><b>idivuk</b></a>(unsigned _Accum x, unsigned _Accum y);
+unsigned long <a href="#idivulk"><b>idivulk</b></a>(unsigned long _Accum x, unsigned long _Accum y);
+
+signed _Fract <a href="#rdivi"><b>rdivi</b></a>(signed int x, signed int y);
+signed long _Fract <a href="#lrdivi"><b>lrdivi</b></a>(signed long x, signed long y);
+signed _Accum <a href="#kdivi"><b>kdivi</b></a>(signed int x, signed int y);
+signed long _Accum <a href="#lkdivi"><b>lkdivi</b></a>(signed long x, signed long y);
+
+unsigned _Fract <a href="#urdivi"><b>urdivi</b></a>(unsigned int x, unsigned int y);
+unsigned long _Fract <a href="#ulrdivi"><b>ulrdivi</b></a>(unsigned long x, unsigned long y);
+unsigned _Accum <a href="#ukdivi"><b>ukdivi</b></a>(unsigned int x, unsigned int y);
+unsigned long _Accum <a href="#ulkdivi"><b>ulkdivi</b></a>(unsigned long x, unsigned long y);
+
+signed short _Fract <a href="#abshr"><b>abshr</b></a>(signed short _Fract x);
+signed _Fract <a href="#absr"><b>absr</b></a>(signed _Fract x);
+signed long _Fract <a href="#abslr"><b>abslr</b></a>(signed long _Fract x);
+signed short _Accum <a href="#abshk"><b>abshk</b></a>(signed short _Accum x);
+signed _Accum <a href="#absk"><b>absk</b></a>(signed _Accum x);
+signed long _Accum <a href="#abslk"><b>abslk</b></a>(signed long _Accum x);
+
+signed short _Fract <a href="#roundhr"><b>roundhr</b></a>(signed short _Fract x, int y);
+signed _Fract <a href="#roundr"><b>roundr</b></a>(signed _Fract x, int y);
+signed long _Fract <a href="#roundlr"><b>roundlr</b></a>(signed long _Fract x, int y);
+signed short _Accum <a href="#roundhk"><b>roundhk</b></a>(signed short _Accum x, int y);
+signed _Accum <a href="#roundk"><b>roundk</b></a>(signed _Accum x, int y);
+signed long _Accum <a href="#roundlk"><b>roundlk</b></a>(signed long _Accum x, int y);
+
+unsigned short _Fract <a href="#rounduhr"><b>rounduhr</b></a>(unsigned short _Fract x, int y);
+unsigned _Fract <a href="#roundur"><b>roundur</b></a>(unsigned _Fract x, int y);
+unsigned long _Fract <a href="#roundulr"><b>roundulr</b></a>(unsigned long _Fract x, int y);
+unsigned short _Accum <a href="#rounduhk"><b>rounduhk</b></a>(unsigned short _Accum x, int y);
+unsigned _Accum <a href="#rounduk"><b>rounduk</b></a>(unsigned _Accum x, int y);
+unsigned long _Accum <a href="#roundulk"><b>roundulk</b></a>(unsigned long _Accum x, int y);
+
+int <a href="#countlshr"><b>countlshr</b></a>(signed short _Fract x);
+int <a href="#countlsr"><b>countlsr</b></a>(signed _Fract x);
+int <a href="#countlslr"><b>countlslr</b></a>(signed long _Fract x);
+int <a href="#countlshk"><b>countlshk</b></a>(signed short _Accum x);
+int <a href="#countlsk"><b>countlsk</b></a>(signed _Accum x);
+int <a href="#countlslk"><b>countlslk</b></a>(signed long _Accum x);
+
+int <a href="#countlsuhr"><b>countlsuhr</b></a>(unsigned short _Fract x);
+int <a href="#countlsur"><b>countlsur</b></a>(unsigned _Fract x);
+int <a href="#countlsulr"><b>countlsulr</b></a>(unsigned long _Fract x);
+int <a href="#countlsuhk"><b>countlsuhk</b></a>(unsigned short _Accum x);
+int <a href="#countlsuk"><b>countlsuk</b></a>(unsigned _Accum x);
+int <a href="#countlsulk"><b>countlsulk</b></a>(unsigned long _Accum x);
+
+int_hr_t <a href="#bitshr"><b>bitshr</b></a>(signed short _Fract x);
+int_r_t <a href="#bitsr"><b>bitsr</b></a>(signed _Fract x);
+int_lr_t <a href="#bitslr"><b>bitslr</b></a>(signed long _Fract x);
+int_hk_t <a href="#bitshk"><b>bitshk</b></a>(signed short _Accum x);
+int_k_t <a href="#bitsk"><b>bitsk</b></a>(signed _Accum x);
+int_lk_t <a href="#bitslk"><b>bitslk</b></a>(signed long _Accum x);
+
+uint_uhr_t <a href="#bitsuhr"><b>bitsuhr</b></a>(unsigned short _Fract x);
+uint_ur_t <a href="#bitsur"><b>bitsur</b></a>(unsigned _Fract x);
+uint_ulr_t <a href="#bitsulr"><b>bitsulr</b></a>(unsigned long _Fract x);
+uint_uhk_t <a href="#bitsuhk"><b>bitsuhk</b></a>(unsigned short _Accum x);
+uint_uk_t <a href="#bitsuk"><b>bitsuk</b></a>(unsigned _Accum x);
+uint_ulk_t <a href="#bitsulk"><b>bitsulk</b></a>(unsigned long _Accum x);
+
+signed short _Fract <a href="#hrbits"><b>hrbits</b></a>(int x);
+signed _Fract <a href="#rbits"><b>rbits</b></a>(int x);
+signed long _Fract <a href="#lrbits"><b>lrbits</b></a>(int x);
+signed short _Accum <a href="#hkbits"><b>hkbits</b></a>(int x);
+signed _Accum <a href="#kbits"><b>kbits</b></a>(int x);
+signed long _Accum <a href="#lkbits"><b>lkbits</b></a>(int x);
+
+unsigned short _Fract <a href="#uhrbits"><b>uhrbits</b></a>(unsigned int x);
+unsigned _Fract <a href="#urbits"><b>urbits</b></a>(unsigned int x);
+unsigned long _Fract <a href="#ulrbits"><b>ulrbits</b></a>(unsigned int x);
+unsigned short _Accum <a href="#uhkbits"><b>uhkbits</b></a>(unsigned int x);
+unsigned _Accum <a href="#ukbits"><b>ukbits</b></a>(unsigned int x);
+unsigned long _Accum <a href="#ulkbits"><b>ulkbits</b></a>(unsigned int x);
+
+signed short _Fract <a href=
+"#strtofxhr"><b>strtofxhr</b></a>(const char *restrict s, char **restrict endptr);
+signed _Fract <a href="#strtofxr"><b>strtofxr</b></a>(const char *restrict x, char **restrict endptr);
+signed long _Fract <a href="#strtofxlr"><b>strtofxlr</b></a>(const char *restrict s, char **restrict endptr);
+signed short _Accum <a href=
+"#strtofxhk"><b>strtofxhk</b></a>(const char *restrict s, char **restrict endptr);
+signed _Accum <a href="#strtofxk"><b>strtofxk</b></a>(const char *restrict s, char **restrict endptr);
+signed long _Accum <a href="#strtofxlk"><b>strtofxlk</b></a>(const char *restrict s, char **restrict endptr);
+
+unsigned short _Fract <a href=
+"#strtofxuhr"><b>strtofxuhr</b></a>(const char *restrict s, char **restrict endptr);
+unsigned _Fract <a href="#strtofxur"><b>strtofxur</b></a>(const char *restrict s, char **restrict endptr);
+unsigned long _Fract <a href=
+"#strtofxulr"><b>strtofxulr</b></a>(const char *restrict s, char **restrict endptr);
+unsigned short _Accum <a href=
+"#strtofxuhk"><b>strtofxuhk</b></a>(const char *restrict s, char **restrict endptr);
+unsigned _Accum <a href="#strtofxuk"><b>strtofxuk</b></a>(const char *restrict s, char **restrict endptr);
+unsigned long _Accum <a href=
+"#strtofxulk"><b>strtofxulk</b></a>(const char *restrict s, char **restrict endptr);
+
+    /* GENERICS */
+<i>fx-type</i> <a href="#absfx"><b>absfx</b></a>(<i>fx-type</i> x);
+int <a href="#countlsfx"><b>countlsfx</b></a>(<i>fx-type</i> x);
+<i>fx-type</i> <a href="#roundfx"><b>roundfx</b></a>(<i>fx-type</i> x, int y);
+</pre>
+
+  <p>All functions in this header manipulate <b>fixed-point</b> values, all of which are integer values
+  scaled to represent a fixed number of fraction bits. The twelve fixed-point types have three
+  attributes:</p>
+
+  <ul>
+    <li>They are either <code>signed</code> (two's complement) values, or <code>unsigned</code> (nonnegative)
+    values.</li>
+
+    <li>The can optionally have a <code>short</code> representation (fewer bits) or a <code>long</code>
+    representation (more bits).</li>
+
+    <li>They can be either a <code>_Fract</code> (fraction with no integer bits) or an <code>_Accum</code>
+    (accumulator with both integer and fraction bits).</li>
+  </ul>
+
+  <p>A macro name reflects its <b><a name="related fixed-point type">related fixed-point type</a></b> in its
+  <b>macro prefix</b>, while a type or function name reflects its related fixed-point type in its prefix or
+  suffix <b>type tag</b>. The corresponding data <b>format</b> consists of an optional sign bit, zero or more
+  integer bits, and one or more fraction bits. The following table shows these attributes for the fixed-point
+  types:</p>
+  <pre>
+<b>Macro     Type
+Prefix    Tag     Format  Type</b>
+
+SFRACT    hr      S0.7    signed short _Fract
+FRACT     r       S0.15   signed _Fract
+LFRACT    lr      S0.31   signed long _Fract
+
+USFRACT   uhr     0.8     unsigned short _Fract
+UFRACT    ur      0.16    unsigned _Fract
+ULFRACT   ulr     0.32    unsigned long _Fract
+
+SACCUM    hk      S7.8    signed short _Accum
+ACCUM     k       S15.16  signed _Accum
+LACCUM    lk      S31.32  signed long _Accum
+
+USACCUM   uhk     8.8     unsigned short _Accum
+UACCUM    uk      16.16   unsigned _Accum
+LACCUM    ulk     32.32   unsigned long _Accum
+</pre>
+
+  <p>The number of integer bits is determined by the six macros with names <code>*ACCUM_IBIT</code>, while
+  the number of fraction bits is determined by the twelve macros with names <code>*_FBIT</code>. Note that
+  the values shown here are for this <a href="index.html#implementation">implementation</a>; they need not be
+  the same for other implementations. (Within broad limits, you can change the supported formats simply by
+  changing the values of these 18 macros and recompiling the library.)</p>
+
+  <h2><a name="absfx"><code>absfx</code></a>, <a name="absk"><code>absk</code></a>, <a name=
+  "abshk"><code>abshk</code></a>, <a name="abslk"><code>abslk</code></a>, <a name=
+  "absr"><code>absr</code></a>, <a name="abshr"><code>abshr</code></a>, <a name=
+  "abslr"><code>abslr</code></a></h2>
+  <pre>
+signed short _Fract <b>abshr</b>(signed short _Fract x);
+signed _Fract <b>absr</b>(signed _Fract x);
+signed long _Fract <b>abslr</b>(signed long _Fract x);
+signed short _Accum <b>abshk</b>(signed short _Accum x);
+signed _Accum <b>absk</b>(signed _Accum x);
+signed long _Accum <b>abslk</b>(signed long _Accum x);
+
+<i>fx-type</i> <b>absfx</b>(<i>fx-type</i> x);  /* generic version */
+</pre>
+
+  <p>The function returns the absolute value of <code>x</code>.</p>
+
+  <h2><a name="accum"><code>accum</code></a>, <a name="fract"><code>fract</code></a>, <a name=
+  "sat"><code>sat</code></a></h2>
+  <pre>
+#define <b>accum</b>  _Accum
+#define <b>fract</b>  _Fract
+#define <b>sat</b>    _Sat
+</pre>
+
+  <p>The macros provide more readable forms of the keywords introduced with TR18037.</p>
+
+  <h2><a name="ACCUM_EPSILON"><code>ACCUM_EPSILON</code></a>, <a name=
+  "SACCUM_EPSILON"><code>SACCUM_EPSILON</code></a>, <a name="LACCUM_EPSILON"><code>LACCUM_EPSILON</code></a>,
+  <a name="UACCUM_EPSILON"><code>UACCUM_EPSILON</code></a>, <a name=
+  "USACCUM_EPSILON"><code>USACCUM_EPSILON</code></a>, <a name=
+  "ULACCUM_EPSILON"><code>ULACCUM_EPSILON</code></a>, <a name="FRACT_EPSILON"><code>FRACT_EPSILON</code></a>,
+  <a name="SFRACT_EPSILON"><code>SFRACT_EPSILON</code></a>, <a name=
+  "LFRACT_EPSILON"><code>LFRACT_EPSILON</code></a>, <a name="UFRACT_EPSILON"><code>UFRACT_EPSILON</code></a>,
+  <a name="USFRACT_EPSILON"><code>USFRACT_EPSILON</code></a>, <a name=
+  "ULFRACT_EPSILON"><code>ULFRACT_EPSILON</code></a></h2>
+  <pre>
+#define <b>SFRACT_EPSILON</b>    <i>&lt;signed short _Fract expression&gt;</i>
+#define <b>FRACT_EPSILON</b>     <i>&lt;signed _Fract expression&gt;</i>
+#define <b>LFRACT_EPSILON</b>    <i>&lt;signed long _Fract expression&gt;</i>
+
+#define <b>USFRACT_EPSILON</b>   <i>&lt;unsigned short _Fract expression&gt;</i>
+#define <b>UFRACT_EPSILON</b>    <i>&lt;unsigned _Fract expression&gt;</i>
+#define <b>ULFRACT_EPSILON</b>   <i>&lt;unsigned long _Fract expression&gt;</i>
+
+#define <b>SACCUM_EPSILON</b>    <i>&lt;signed short _Accum expression&gt;</i>
+#define <b>ACCUM_EPSILON</b>     <i>&lt;signed _Accum expression&gt;</i>
+#define <b>LACCUM_EPSILON</b>    <i>&lt;signed long _Accum expression&gt;</i>
+
+#define <b>USACCUM_EPSILON</b>   <i>&lt;unsigned short _Accum expression&gt;</i>
+#define <b>UACCUM_EPSILON</b>    <i>&lt;unsigned _Accum expression&gt;</i>
+#define <b>ULACCUM_EPSILON</b>   <i>&lt;unsigned long _Accum expression&gt;</i>
+</pre>
+
+  <p>The macros define the smallest positive nonzero values for each of the fixed-point types.</p>
+
+  <h2><a name="ACCUM_FBIT"><code>ACCUM_FBIT</code></a>, <a name="SACCUM_FBIT"><code>SACCUM_FBIT</code></a>,
+  <a name="LACCUM_FBIT"><code>LACCUM_FBIT</code></a>, <a name="UACCUM_FBIT"><code>UACCUM_FBIT</code></a>,
+  <a name="USACCUM_FBIT"><code>USACCUM_FBIT</code></a>, <a name="ULACCUM_FBIT"><code>ULACCUM_FBIT</code></a>,
+  <a name="FRACT_FBIT"><code>FRACT_FBIT</code></a>, <a name="SFRACT_FBIT"><code>SFRACT_FBIT</code></a>,
+  <a name="LFRACT_FBIT"><code>LFRACT_FBIT</code></a>, <a name="UFRACT_FBIT"><code>UFRACT_FBIT</code></a>,
+  <a name="USFRACT_FBIT"><code>USFRACT_FBIT</code></a>, <a name=
+  "ULFRACT_FBIT"><code>ULFRACT_FBIT</code></a></h2>
+  <pre>
+#define <b>SFRACT_FBIT</b>   <i>&lt;#if expression&gt;</i> (7)
+#define <b>FRACT_FBIT</b>    <i>&lt;#if expression&gt;</i> (15)
+#define <b>LFRACT_FBIT</b>   <i>&lt;#if expression&gt;</i> (31)
+
+#define <b>USFRACT_FBIT</b>  <i>&lt;#if expression&gt;</i> (8)
+#define <b>UFRACT_FBIT</b>   <i>&lt;#if expression&gt;</i> (16)
+#define <b>ULFRACT_FBIT</b>  <i>&lt;#if expression&gt;</i> (32)
+
+#define <b>SACCUM_FBIT</b>   <i>&lt;#if expression&gt;</i> (7)
+#define <b>FRACT_FBIT</b>    <i>&lt;#if expression&gt;</i> (15)
+#define <b>LACCUM_FBIT</b>   <i>&lt;#if expression&gt;</i> (31)
+
+#define <b>USACCUM_FBIT</b>  <i>&lt;#if expression&gt;</i> (8)
+#define <b>UACCUM_FBIT</b>   <i>&lt;#if expression&gt;</i> (16)
+#define <b>ULACCUM_FBIT</b>  <i>&lt;#if expression&gt;</i> (32)
+</pre>
+
+  <p>The macros define the number of fraction bits in each of the fixed-point types. The values in
+  parentheses are those for this <a href="index.html#implementation">implementation</a>.</p>
+
+  <h2><a name="ACCUM_IBIT"><code>ACCUM_IBIT</code></a>, <a name="SACCUM_IBIT"><code>SACCUM_IBIT</code></a>,
+  <a name="LACCUM_IBIT"><code>LACCUM_IBIT</code></a>, <a name="UACCUM_IBIT"><code>UACCUM_IBIT</code></a>,
+  <a name="USACCUM_IBIT"><code>USACCUM_IBIT</code></a>, <a name=
+  "ULACCUM_IBIT"><code>ULACCUM_IBIT</code></a></h2>
+  <pre>
+#define <b>SACCUM_IBIT</b>   <i>&lt;#if expression&gt;</i> (8)
+#define <b>FRACT_IBIT</b>    <i>&lt;#if expression&gt;</i> (16)
+#define <b>LACCUM_IBIT</b>   <i>&lt;#if expression&gt;</i> (33)
+
+#define <b>USACCUM_IBIT</b>  <i>&lt;#if expression&gt;</i> (8)
+#define <b>UACCUM_IBIT</b>   <i>&lt;#if expression&gt;</i> (16)
+#define <b>ULACCUM_IBIT</b>  <i>&lt;#if expression&gt;</i> (32)
+</pre>
+
+  <p>The macros define the number of integer bits in each of the fixed-point accumulator types. The values in
+  parentheses are those for this <a href="index.html#implementation">implementation</a>.</p>
+
+  <h2><a name="ACCUM_MAX"><code>ACCUM_MAX</code></a>, <a name="SACCUM_MAX"><code>SACCUM_MAX</code></a>,
+  <a name="LACCUM_MAX"><code>LACCUM_MAX</code></a>, <a name="UACCUM_MAX"><code>UACCUM_MAX</code></a>,
+  <a name="USACCUM_MAX"><code>USACCUM_MAX</code></a>, <a name="ULACCUM_MAX"><code>ULACCUM_MAX</code></a>,
+  <a name="FRACT_MAX"><code>FRACT_MAX</code></a>, <a name="SFRACT_MAX"><code>SFRACT_MAX</code></a>, <a name=
+  "LFRACT_MAX"><code>LFRACT_MAX</code></a>, <a name="UFRACT_MAX"><code>UFRACT_MAX</code></a>, <a name=
+  "USFRACT_MAX"><code>USFRACT_MAX</code></a>, <a name="ULFRACT_MAX"><code>ULFRACT_MAX</code></a></h2>
+  <pre>
+#define <b>SFRACT_MAX</b>    <i>&lt;signed short _Fract expression&gt;</i>
+#define <b>FRACT_MAX</b>     <i>&lt;signed _Fract expression&gt;</i>
+#define <b>LFRACT_MAX</b>    <i>&lt;signed long _Fract expression&gt;</i>
+
+#define <b>USFRACT_MAX</b>   <i>&lt;unsigned short _Fract expression&gt;</i>
+#define <b>UFRACT_MAX</b>    <i>&lt;unsigned _Fract expression&gt;</i>
+#define <b>ULFRACT_MAX</b>   <i>&lt;unsigned long _Fract expression&gt;</i>
+
+#define <b>SACCUM_MAX</b>    <i>&lt;signed short _Accum expression&gt;</i>
+#define <b>ACCUM_MAX</b>     <i>&lt;signed _Accum expression&gt;</i>
+#define <b>LACCUM_MAX</b>    <i>&lt;signed long _Accum expression&gt;</i>
+
+#define <b>USACCUM_MAX</b>   <i>&lt;unsigned short _Accum expression&gt;</i>
+#define <b>UACCUM_MAX</b>    <i>&lt;unsigned _Accum expression&gt;</i>
+#define <b>ULACCUM_MAX</b>   <i>&lt;unsigned long _Accum expression&gt;</i>
+</pre>
+
+  <p>The macros define the maximum (most-positive) values for each of the fixed-point types.</p>
+
+  <h2><a name="ACCUM_MIN"><code>ACCUM_MIN</code></a>, <a name="SACCUM_MIN"><code>SACCUM_MIN</code></a>,
+  <a name="LACCUM_MIN"><code>LACCUM_MIN</code></a>, <a name="FRACT_MIN"><code>FRACT_MIN</code></a>, <a name=
+  "SFRACT_MIN"><code>SFRACT_MIN</code></a>, <a name="LFRACT_MIN"><code>LFRACT_MIN</code></a></h2>
+  <pre>
+#define <b>SFRACT_MIN</b>    <i>&lt;signed short _Fract expression&gt;</i>
+#define <b>FRACT_MIN</b>     <i>&lt;signed _Fract expression&gt;</i>
+#define <b>LFRACT_MIN</b>    <i>&lt;signed long _Fract expression&gt;</i>
+
+#define <b>SACCUM_MIN</b>    <i>&lt;signed short _Accum expression&gt;</i>
+#define <b>ACCUM_MIN</b>     <i>&lt;signed _Accum expression&gt;</i>
+#define <b>LACCUM_MIN</b>    <i>&lt;signed long _Accum expression&gt;</i>
+</pre>
+
+  <p>The macros define the minimum (most-negative) values for each of the signed fixed-point types.</p>
+
+  <h2><a name="bitsk"><code>bitsk</code></a>, <a name="bitshk"><code>bitshk</code></a>, <a name=
+  "bitslk"><code>bitslk</code></a>, <a name="bitsuk"><code>bitsuk</code></a>, <a name=
+  "bitsuhk"><code>bitsuhk</code></a>, <a name="bitsulk"><code>bitsulk</code></a>, <a name=
+  "bitsr"><code>bitsr</code></a>, <a name="bitshr"><code>bitshr</code></a>, <a name=
+  "bitslr"><code>bitslr</code></a>, <a name="bitsur"><code>bitsur</code></a>, <a name=
+  "bitsuhr"><code>bitsuhr</code></a>, <a name="bitsulr"><code>bitsulr</code></a></h2>
+  <pre>
+int_hr_t <b>bitshr</b>(signed short _Fract x);
+int_r_t <b>bitsr</b>(signed _Fract x);
+int_lr_t <b>bitslr</b>(signed long _Fract x);
+int_hk_t <b>bitshk</b>(signed short _Accum x);
+int_k_t <b>bitsk</b>(signed _Accum x);
+int_lk_t <b>bitslk</b>(signed long _Accum x);
+
+uint_uhr_t <b>bitsuhr</b>(unsigned short _Fract x);
+uint_ur_t <b>bitsur</b>(unsigned _Fract x);
+uint_ulr_t <b>bitsulr</b>(unsigned long _Fract x);
+uint_uhk_t <b>bitsuhk</b>(unsigned short _Accum x);
+uint_uk_t <b>bitsuk</b>(unsigned _Accum x);
+uint_ulk_t <b>bitsulk</b>(unsigned long _Accum x);
+</pre>
+
+  <p>The function returns <code>x &lt;&lt; fbits</code>, where <code>fbits</code> is the number of fraction
+  bits in the <a href="#related%20fixed-point%20type">related fixed-point type</a>. (It returns the bit
+  pattern as an integer value.)</p>
+
+  <h2><a name="countlsfx"><code>countlsfx</code></a>, <a name="countlsk"><code>countlsk</code></a>, <a name=
+  "countlshk"><code>countlshk</code></a>, <a name="countlslk"><code>countlslk</code></a>, <a name=
+  "countlsuk"><code>countlsuk</code></a>, <a name="countlsuhk"><code>countlsuhk</code></a>, <a name=
+  "countlsulk"><code>countlsulk</code></a>, <a name="countlsr"><code>countlsr</code></a>, <a name=
+  "countlshr"><code>countlshr</code></a>, <a name="countlslr"><code>countlslr</code></a>, <a name=
+  "countlsur"><code>countlsur</code></a>, <a name="countlsuhr"><code>countlsuhr</code></a>, <a name=
+  "countlsulr"><code>countlsulr</code></a></h2>
+  <pre>
+int <b>countlshr</b>(signed short _Fract x);
+int <b>countlsr</b>(signed _Fract x);
+int <b>countlslr</b>(signed long _Fract x);
+int <b>countlshk</b>(signed short _Accum x);
+int <b>countlsk</b>(signed _Accum x);
+int <b>countlslk</b>(signed long _Accum x);
+
+int <b>countlsuhr</b>(unsigned short _Fract x);
+int <b>countlsur</b>(unsigned _Fract x);
+int <b>countlsulr</b>(unsigned long _Fract x);
+int <b>countlsuhk</b>(unsigned short _Accum x);
+int <b>countlsuk</b>(unsigned _Accum x);
+int <b>countlsulk</b>(unsigned long _Accum x);
+
+int <b>countlsfx</b>(<i>fx-type</i> x);  /* generic version */
+</pre>
+
+  <p>The function returns the number of bits in the <a href="#related%20fixed-point%20type">related
+  fixed-point type</a> if <code>x</code> is zero; otherwise it returns the largest value <code>k</code> for
+  which <code>x &lt;&lt; k</code> does not overflow. (It counts the leading zero bits.)</p>
+
+  <h2><a name="divik"><code>divik</code></a>, <a name="divilk"><code>divilk</code></a>, <a name=
+  "divir"><code>divir</code></a>, <a name="divilr"><code>divilr</code></a>, <a name=
+  "diviuk"><code>diviuk</code></a>, <a name="diviulk"><code>diviulk</code></a>, <a name=
+  "diviur"><code>diviur</code></a>, <a name="diviulr"><code>diviulr</code></a></h2>
+  <pre>
+signed int <b>divir</b>(signed int x, signed _Fract y);
+signed long <b>divilr</b>(signed long x, signed long _Fract y);
+signed int <b>divik</b>(signed int x, signed _Accum y);
+signed long <b>divilk</b>(signed long x, signed long _Accum y);
+
+unsigned int <b>diviur</b>(unsigned int x, unsigned _Fract y);
+unsigned long <b>diviulr</b>(unsigned long x, unsigned long _Fract y);
+unsigned int <b>diviuk</b>(unsigned int x, unsigned _Accum y);
+unsigned long <b>diviulk</b>(unsigned long x, unsigned long _Accum y);
+</pre>
+
+  <p>The function returns the quotient <code>x / y</code> rounded to the nearest integer.</p>
+
+  <h2><a name="idivk"><code>idivk</code></a>, <a name="idivlk"><code>idivlk</code></a>, <a name=
+  "idivr"><code>idivr</code></a>, <a name="idivlr"><code>idivlr</code></a>, <a name=
+  "idivuk"><code>idivuk</code></a>, <a name="idivulk"><code>idivulk</code></a>, <a name=
+  "idivur"><code>idivur</code></a>, <a name="idivulr"><code>idivulr</code></a></h2>
+  <pre>
+signed int <b>idivr</b>(signed _Fract x, signed _Fract y);
+signed long <b>idivlr</b>(signed long _Fract x, signed long _Fract y);
+signed int <b>idivk</b>(signed _Accum x, signed _Accum y);
+signed long <b>idivlk</b>(signed long _Accum x, signed long _Accum y);
+
+unsigned int <b>idivur</b>(unsigned _Fract x, unsigned _Fract y);
+unsigned long <b>idivulr</b>(unsigned long _Fract x, unsigned long _Fract y);
+unsigned int <b>idivuk</b>(unsigned _Accum x, unsigned _Accum y);
+unsigned long <b>idivulk</b>(unsigned long _Accum x, unsigned long _Accum y);
+</pre>
+
+  <p>The function returns the quotient <code>x / y</code> rounded to the nearest integer.</p>
+
+  <h2><a name="int_k_t"><code>int_k_t</code></a>, <a name="int_hk_t"><code>int_hk_t</code></a>, <a name=
+  "int_lk_t"><code>int_lk_t</code></a>, <a name="uint_uk_t"><code>uint_uk_t</code></a>, <a name=
+  "uint_uhk_t"><code>uint_uhk_t</code></a>, <a name="uint_ulk_t"><code>uint_ulk_t</code></a>, <a name=
+  "int_r_t"><code>int_r_t</code></a>, <a name="int_hr_t"><code>int_hr_t</code></a>, <a name=
+  "int_lr_t"><code>int_lr_t</code></a>, <a name="uint_ur_t"><code>uint_ur_t</code></a>, <a name=
+  "uint_uhr_t"><code>uint_uhr_t</code></a>, <a name="uint_ulr_t"><code>uint_ulr_t</code></a></h2>
+  <pre>
+typedef <i>i-type</i> <b>int_hr_t</b>;
+typedef <i>i-type</i> <b>int_r_t</b>;
+typedef <i>i-type</i> <b>int_lr_t</b>;
+
+typedef <i>ui-type</i> <b>uint_uhr_t</b>;
+typedef <i>ui-type</i> <b>uint_ur_t</b>;
+typedef <i>ui-type</i> <b>uint_ulr_t</b>;
+
+typedef <i>i-type</i> <b>int_hk_t</b>;
+typedef <i>i-type</i> <b>int_k_t</b>;
+typedef <i>i-type</i> <b>int_lk_t</b>;
+
+typedef <i>ui-type</i> <b>uint_uhk_t</b>;
+typedef <i>ui-type</i> <b>uint_uk_t</b>;
+typedef <i>ui-type</i> <b>uint_ulk_t</b>;
+</pre>
+
+  <p>The type is a signed (<code><i>i-type</i></code>) or unsigned (<code><i>ui-type</i></code>) integer type
+  with the same number of bits as the <a href="#related%20fixed-point%20type">related fixed-point
+  type</a>.</p>
+
+  <h2><a name="kbits"><code>kbits</code></a>, <a name="hkbits"><code>hkbits</code></a>, <a name=
+  "lkbits"><code>lkbits</code></a>, <a name="ukbits"><code>ukbits</code></a>, <a name=
+  "uhkbits"><code>uhkbits</code></a>, <a name="ulkbits"><code>ulkbits</code></a>, <a name=
+  "rbits"><code>rbits</code></a>, <a name="hrbits"><code>hrbits</code></a>, <a name=
+  "lrbits"><code>lrbits</code></a>, <a name="urbits"><code>urbits</code></a>, <a name=
+  "uhrbits"><code>uhrbits</code></a>, <a name="ulrbits"><code>ulrbits</code></a></h2>
+  <pre>
+signed short _Fract <b>hrbits</b>(int x);
+signed _Fract <b>rbits</b>(int x);
+signed long _Fract <b>lrbits</b>(int x);
+signed short _Accum <b>hkbits</b>(int x);
+signed _Accum <b>kbits</b>(int x);
+signed long _Accum <b>lkbits</b>(int x);
+
+unsigned short _Fract <b>uhrbits</b>(unsigned int x);
+unsigned _Fract <b>urbits</b>(unsigned int x);
+unsigned long _Fract <b>ulrbits</b>(unsigned int x);
+unsigned short _Accum <b>uhkbits</b>(unsigned int x);
+unsigned _Accum <b>ukbits</b>(unsigned int x);
+unsigned long _Accum <b>ulkbits</b>(unsigned int x);
+</pre>
+
+  <p>The function returns <code>x &gt;&gt; fbits</code>, where <code>fbits</code> is the number of fraction
+  bits in the <a href="#related%20fixed-point%20type">related fixed-point type</a>. (It returns the bit
+  pattern as a fixed-point value.)</p>
+
+  <h2><a name="kdivi"><code>kdivi</code></a>, <a name="lkdivi"><code>lkdivi</code></a>, <a name=
+  "rdivi"><code>rdivi</code></a>, <a name="lrdivi"><code>lrdivi</code></a>, <a name=
+  "ukdivi"><code>ukdivi</code></a>, <a name="ulkdivi"><code>ulkdivi</code></a>, <a name=
+  "urdivi"><code>urdivi</code></a>, <a name="ulrdivi"><code>ulrdivi</code></a></h2>
+  <pre>
+signed _Fract <b>rdivi</b>(signed int x, signed int y);
+signed long _Fract <b>lrdivi</b>(signed long x, signed long y);
+signed _Accum <b>kdivi</b>(signed int x, signed int y);
+signed long _Accum <b>lkdivi</b>(signed long x, signed long y);
+
+unsigned _Fract <b>urdivi</b>(unsigned int x, unsigned int y);
+unsigned long _Fract <b>ulrdivi</b>(unsigned long x, unsigned long y);
+unsigned _Accum <b>ukdivi</b>(unsigned int x, unsigned int y);
+unsigned long _Accum <b>ulkdivi</b>(unsigned long x, unsigned long y);
+</pre>
+
+  <p>The function returns the quotient <code>x / y</code> rounded to the <a href=
+  "#related%20fixed-point%20type">related fixed-point type</a>.</p>
+
+  <h2><a name="mulik"><code>mulik</code></a>, <a name="mulilk"><code>mulilk</code></a>, <a name=
+  "mulir"><code>mulir</code></a>, <a name="mulilr"><code>mulilr</code></a>, <a name=
+  "muliuk"><code>muliuk</code></a>, <a name="muliulk"><code>muliulk</code></a>, <a name=
+  "muliur"><code>muliur</code></a>, <a name="muliulr"><code>muliulr</code></a></h2>
+  <pre>
+signed int <b>mulir</b>(signed int x, signed _Fract y);
+signed long <b>mulilr</b>(signed long x, signed long _Fract y);
+signed int <b>mulik</b>(signed int x, signed _Accum y);
+signed long <b>mulilk</b>(signed long x, signed long _Accum y);
+
+unsigned int <b>muliur</b>(unsigned int x, unsigned _Fract y);
+unsigned long <b>muliulr</b>(unsigned long x, unsigned long _Fract y);
+unsigned int <b>muliuk</b>(unsigned int x, unsigned _Accum y);
+unsigned long <b>muliulk</b>(unsigned long x, unsigned long _Accum y);
+</pre>
+
+  <p>The function returns the product <code>x * y</code> rounded to the nearest integer.</p>
+
+  <h2><a name="roundfx"><code>roundfx</code></a>, <a name="roundk"><code>roundk</code></a>, <a name=
+  "roundhk"><code>roundhk</code></a>, <a name="roundlk"><code>roundlk</code></a>, <a name=
+  "rounduk"><code>rounduk</code></a>, <a name="rounduhk"><code>rounduhk</code></a>, <a name=
+  "roundulk"><code>roundulk</code></a>, <a name="roundr"><code>roundr</code></a>, <a name=
+  "roundhr"><code>roundhr</code></a>, <a name="roundlr"><code>roundlr</code></a>, <a name=
+  "roundur"><code>roundur</code></a>, <a name="rounduhr"><code>rounduhr</code></a>, <a name=
+  "roundulr"><code>roundulr</code></a></h2>
+  <pre>
+signed short _Fract <b>roundhr</b>(signed short _Fract x, int y);
+signed _Fract <b>roundr</b>(signed _Fract x, int y);
+signed long _Fract <b>roundlr</b>(signed long _Fract x, int y);
+signed short _Accum <b>roundhk</b>(signed short _Accum x, int y);
+signed _Accum <b>roundk</b>(signed _Accum x, int y);
+signed long _Accum <b>roundlk</b>(signed long _Accum x, int y);
+
+unsigned short _Fract <b>rounduhr</b>(unsigned short _Fract x, int y);
+unsigned _Fract <b>roundur</b>(unsigned _Fract x, int y);
+unsigned long _Fract <b>roundulr</b>(unsigned long _Fract x, int y);
+unsigned short _Accum <b>rounduhk</b>(unsigned short _Accum x, int y);
+unsigned _Accum <b>rounduk</b>(unsigned _Accum x, int y);
+unsigned long _Accum <b>roundulk</b>(unsigned long _Accum x, int y);
+
+<i>fx-type</i> <b>roundfx</b>(<i>fx-type</i> x, int y);  /* generic version */
+</pre>
+
+  <p>The function returns the representable value nearest to <code>x</code> with all fraction bits zero after
+  the <code>y</code> most significant bits. (It rounds to <code>y</code> bits.)</p>
+
+  <h2><a name="strtofxk"><code>strtofxk</code></a>, <a name="strtofxhk"><code>strtofxhk</code></a>, <a name=
+  "strtofxlk"><code>strtofxlk</code></a>, <a name="strtofxuk"><code>strtofxuk</code></a>, <a name=
+  "strtofxuhk"><code>strtofxuhk</code></a>, <a name="strtofxulk"><code>strtofxulk</code></a>, <a name=
+  "strtofxr"><code>strtofxr</code></a>, <a name="strtofxhr"><code>strtofxhr</code></a>, <a name=
+  "strtofxlr"><code>strtofxlr</code></a>, <a name="strtofxur"><code>strtofxur</code></a>, <a name=
+  "strtofxuhr"><code>strtofxuhr</code></a>, <a name="strtofxulr"><code>strtofxulr</code></a></h2>
+  <pre>
+signed short _Fract <b>strtofxhr</b>(const char *restrict s, char **restrict endptr);
+signed _Fract <b>strtofxr</b>(const char *restrict x, char **restrict endptr);
+signed long _Fract <b>strtofxlr</b>(const char *restrict s, char **restrict endptr);
+signed short _Accum <b>strtofxhk</b>(const char *restrict s, char **restrict endptr);
+signed _Accum <b>strtofxk</b>(const char *restrict s, char **restrict endptr);
+signed long _Accum <b>strtofxlk</b>(const char *restrict s, char **restrict endptr);
+
+unsigned short _Fract <b>strtofxuhr</b>(const char *restrict s, char **restrict endptr);
+unsigned _Fract <b>strtofxur</b>(const char *restrict s, char **restrict endptr);
+unsigned long _Fract <b>strtofxulr</b>(const char *restrict s, char **restrict endptr);
+unsigned short _Accum <b>strtofxuhk</b>(const char *restrict s, char **restrict endptr);
+unsigned _Accum <b>strtofxuk</b>(const char *restrict s, char **restrict endptr);
+unsigned long _Accum <b>strtofxulk</b>(const char *restrict s, char **restrict endptr);
+</pre>
+
+  <p>The function effectively returns <code><a href="stdlib.html#strtod">strtod</a>(s, endptr)</code>. (It
+  converts the string at <code>s</code> to a fixed-point value, storing in <code>*endptr</code> a pointer to
+  the first unconverted character.)</p>
+  <hr>
+
+  <p>See also the <b><a href="index.html#Table%20of%20Contents">Table of Contents</a></b> and the <b><a href=
+  "_index.html">Index</a></b>.</p>
+
+  <p><i><a href="crit_pjp.html">Copyright</a> &copy; 1992-2010 by P.J. Plauger. All rights reserved.</i></p>
+  <!--V5.30:126I-->
+</body>
+</html>

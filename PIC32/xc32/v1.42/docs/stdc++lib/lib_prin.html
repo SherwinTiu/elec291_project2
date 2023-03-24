@@ -1,0 +1,499 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html>
+<head>
+  <meta name="generator" content=
+  "HTML Tidy for Mac OS X (vers 31 October 2006 - Apple Inc. build 15.15), see www.w3.org">
+
+  <title>Formatted Output</title>
+</head>
+
+<body>
+  <h1><a name="Formatted Output">Formatted Output</a></h1>
+  <hr>
+
+  <p><b><a href="#Print%20Formats">Print Formats</a> &middot; <a href="#Print%20Functions">Print
+  Functions</a> &middot; <a href="#Print%20Conversion%20Specifiers">Print Conversion Specifiers</a></b></p>
+  <hr>
+
+  <p>Several library functions help you convert data values from encoded internal representations to text
+  sequences that are generally readable by people. You provide a <a href="#format%20string">format string</a>
+  as the value of the <code>format</code> argument to each of these functions, hence the term <b>formatted
+  output</b>. The functions fall into two categories.</p>
+
+  <p>The <b><a name="byte print functions">byte print functions</a></b> (declared in <a href=
+  "stdio.html#%3Cstdio.h%3E"><code>&lt;stdio.h&gt;</code></a>) convert internal representations to sequences
+  of type <i>char,</i> and help you compose such sequences for display: <a href=
+  "stdio.html#fprintf">fprintf</a>, <a href="stdio.html#printf">printf</a>, <a href=
+  "stdio.html#sprintf">sprintf</a>, <a href="stdio.html#vfprintf">vfprintf</a>, <a href=
+  "stdio.html#vprintf">vprintf</a>, and <a href="stdio.html#vsprintf">vsprintf</a>. For these function, a
+  format string is a <a href="lib_over.html#multibyte%20string">multibyte string</a> that begins and ends in
+  the <a href="charset.html#initial%20shift%20state">initial shift state</a>.</p>
+
+  <p>The <b><a name="wide print functions">wide print functions</a></b> (declared in <a href=
+  "wchar.html#%3Cwchar.h%3E"><code>&lt;wchar.h&gt;</code></a> and hence added with <b><a href=
+  "lib_over.html#Amendment%201">Amendment 1</a></b>) convert internal representations to sequences of type
+  <a href="stddef.html#wchar_t"><code>wchar_t</code></a>, and help you compose such sequences for display:
+  <a href="wchar.html#fwprintf">fwprintf</a>, <a href="wchar.html#swprintf">swprintf</a>, <a href=
+  "wchar.html#wprintf">wprintf</a>, <a href="wchar.html#vfwprintf">vfwprintf</a>, <a href=
+  "wchar.html#vswprintf">vswprintf</a>, and <a href="wchar.html#vwprintf">vwprintf</a>. For these functions,
+  a format string is a <a href="lib_over.html#wide-character%20string">wide-character string</a>. In the
+  descriptions that follow, a wide character <code>wc</code> from a format string or a stream is compared to
+  a specific (byte) character <code>c</code> as if by evaluating the expression <code><a href=
+  "wchar.html#wctob">wctob</a>(wc) == c</code>.</p>
+
+  <h2><a name="Print Formats">Print Formats</a></h2>
+
+  <p>A <b><a name="format string">format string</a></b> has the same syntax for both the print functions and
+  the <a href="lib_scan.html#Formatted%20Input">scan functions</a>, as shown in the diagram.</p>
+
+  <p><img src="format.gif"></p>
+
+  <p>A format string consists of zero or more <b><a name="conversion specification">conversion
+  specifications</a></b> interspersed with literal text and <b><a name="white space">white space</a></b>.
+  White space is a sequence of one or more characters <code>c</code> for which the call <code><a href=
+  "ctype.html#isspace">isspace</a>(c)</code> returns nonzero. (The characters defined as white space can
+  change when you change the <a href="locale.html#LC_CTYPE"><code>LC_CTYPE</code></a> <a href=
+  "locale.html#locale%20category">locale category</a>.) For the print functions, a conversion specification
+  is one of the <a href="#print%20conversion%20specification">print conversion specifications</a> described
+  below.</p>
+
+  <p>A print function scans the format string once from beginning to end to determine what conversions to
+  perform. Every print function accepts a <a href="stdarg.html#varying%20number%20of%20arguments">varying
+  number of arguments</a>, either directly or under control of an argument of type <a href=
+  "stdarg.html#va_list"><code>va_list</code></a>. Some print conversion specifications in the format string
+  use the next argument in the list. A print function uses each successive argument no more than once.
+  Trailing arguments can be left unused.</p>
+
+  <p>In the description that follows:</p>
+
+  <ul>
+    <li><b><a name="integer conversions">integer conversions</a></b> are the <b><a name=
+    "conversion specifiers">conversion specifiers</a></b> that end in <code>d</code>, <code>i</code>,
+    <code>o</code>, <code>u</code>, <code>x</code>, or <code>X</code></li>
+
+    <li><b><a name="floating-point conversions">floating-point conversions</a></b> are the conversion
+    specifiers that end in <code>e</code>, <code>E</code>, <code>f</code>, <code>F</code>, <code>g</code>, or
+    <code>G</code></li>
+  </ul>
+
+  <h2><a name="Print Functions">Print Functions</a></h2>
+
+  <p>For the print functions, literal text or <a href="#white%20space">white space</a> in a format string
+  generates characters that match the characters in the format string. A <b><a name=
+  "print conversion specification">print conversion specification</a></b> typically generates characters by
+  converting the next argument value to a corresponding text sequence. A print conversion specification has
+  the format:</p>
+
+  <p><img src="print.gif"></p>
+
+  <p><b><i>Boldface Italic</i></b> indicates a feature added after <a href="lib_over.html#C99">C99</a>.
+  Support for fixed-point conversions is added with the C Technical Report TR18037. These closely match the
+  extensions for the Freescale Signal Processing Engine Auxiliary Processing Unit. This <a href=
+  "index.html#implementation">implementation</a> also includes, as a conforming extension, conversions for
+  the vectors supported by the Freescale <b><a name="AltiVec">AltiVec</a></b> architecture.</p>
+
+  <p>Following the percent character (<b><code>%</code></b>) in the format string, you can write an optional
+  <b><a name="argument position">position</a></b>, which consists of a nonzero decimal integer followed by a
+  dollar sign (<b><code>$</code></b>). If present, an argument position with value <code>N</code> indicates
+  that at least <code>N</code> arguments to the print function follow, all having the type required for the
+  conversion specifier. Argument number <code>N</code>, counting from 1, is the one converted; no arguments
+  are skipped over. If no argument position is present, the next argument to the print function has the type
+  required for the conversion specifier. It is converted and then skipped over. (This implementation supports
+  argument positions as a conforming extension.)</p>
+
+  <p>Following any argument position, you can write zero or more <b><a name="format flag">format
+  flags</a></b>:</p>
+
+  <ul>
+    <li><b><code>-</code></b> -- to left-justify a conversion</li>
+
+    <li><b><code>+</code></b> -- to generate a plus sign for signed values that are positive</li>
+
+    <li><b><code><i>space</i></code></b> -- to generate a <code><i>space</i></code> for signed values that
+    have neither a plus nor a minus sign</li>
+
+    <li><b><code>#</code></b> -- to prefix <code>0</code> on an <code>o</code> conversion, to prefix
+    <code>0x</code> on an <code>x</code> conversion, to prefix <code>0X</code> on an <code>X</code>
+    conversion, or to generate a decimal point and fraction digits that are otherwise suppressed on a
+    floating-point conversion</li>
+
+    <li><b><code>0</code></b> -- to pad a conversion with leading zeros after any sign or prefix, in the
+    absence of a minus (<code>-</code>) format flag or a specified precision</li>
+  </ul>
+
+  <p>For <a href="#AltiVec">AltiVec</a> vector conversions, you can intersperse format flags with an optional
+  <b><a name="separator">separator</a></b>, the characters comma, semicolon, equal sign, or underscore. The
+  conversion occurs for each of the elements of the vector, and generates a separator between each pair of
+  elements. If you specify no separator, the default is:</p>
+
+  <ul>
+    <li>for the <code>c</code> conversion specifier, no character.</li>
+
+    <li>for all other conversion specifications, a space character.</li>
+  </ul>
+
+  <p>Following any format flags, you can write a <b><a name="print field width">field width</a></b> that
+  specifies the minimum number of characters to generate for the conversion. Unless altered by a format flag,
+  the default behavior is to pad a short conversion on the left with <code><i>space</i></code> characters. If
+  you write an asterisk (<b><code>*</code></b>) instead of a decimal number for a field width, then a print
+  function takes the value of the next argument (which must be of type <i>int</i>) as the field width. If the
+  argument value is negative, it supplies a <code>-</code> format flag and its magnitude is the field
+  width.</p>
+
+  <p>Following any field width, you can write a dot (<b><code>.</code></b>) followed by a <b><a name=
+  "precision">precision</a></b> that specifies one of the following: the minimum number of digits to generate
+  on an integer conversion; the number of fraction digits to generate on an <code>e</code>, <code>E</code>,
+  or <code>f</code> conversion; the maximum number of significant digits to generate on a <code>g</code> or
+  <code>G</code> conversion; or the maximum number of characters to generate from a <a href=
+  "lib_over.html#C%20string">C string</a> on an <code>s</code> conversion.</p>
+
+  <p>If you write an <b><code>*</code></b> instead of a decimal number for a precision, a print function
+  takes the value of the next argument (which must be of type <i>int</i>) as the precision. If the argument
+  value is negative, the default precision applies. If you do not write either an <code>*</code> or a decimal
+  number following the dot, the precision is zero.</p>
+
+  <h2><a name="Print Conversion Specifiers">Print Conversion Specifiers</a></h2>
+
+  <p>Following any <a href="#precision">precision</a>, you must write a one-character <b>print conversion
+  specifier</b>, possibly preceded by a one- or two-character qualifier. Each combination determines the type
+  required of the next argument (if any) and how the library functions alter the argument value before
+  converting it to a text sequence. The <a href="#integer%20conversions">integer</a> and <a href=
+  "#floating-point%20conversions">floating-point conversions</a> also determine what base to use for the text
+  representation. If a conversion specifier requires a precision <i>p</i> and you do not provide one in the
+  format, then the conversion specifier chooses a default value for the precision.</p>
+
+  <p>In the descriptions that follow, array declarations for arguments are not to be taken literally. A
+  declaration of the form:</p>
+  <pre>
+    short x[8]
+</pre>
+
+  <p>is shorthand for:</p>
+  <pre>
+    struct {short x[8]; }
+</pre>
+
+  <p>And a cast of the form:</p>
+  <pre>
+    (short x[8])x
+</pre>
+
+  <p>is shorthand for:</p>
+  <pre>
+    *(struct {short x[8]; } *)&amp;x
+</pre>
+
+  <p>The following table lists all defined combinations and their properties:</p>
+  <pre>
+<b>Conversion</b>  <b>Argument</b>                 <b>Converted</b>            <b>Default  Pre-</b>
+ <b>Specifier</b>    <b>Type</b>                     <b>Value</b>                <b>Base</b>  <b>cision</b>
+
+   %a       double x                (double)x                10    <b>big</b>  <b>added with C99</b>
+  %La       long double x           (long double)x           10    <b>big</b>  <b>added with C99</b>
+   %A       double x                (double)x                10    <b>big</b>  <b>added with C99</b>
+  %LA       long double x           (long double)x           10    <b>big</b>  <b>added with C99</b>
+
+   %c       int x                   (unsigned char)x
+  %lc       wint_t x                (wchar_t)x
+  %vc       char x[16]              (char [16])x                         <b>AltiVec</b>
+
+   %d       int x                   (int)x                   10     1
+  %hd       int x                   (short)x                 10     1
+  %ld       long x                  (long)x                  10     1
+  %hhd      int x                   (signed char)x           10     1  <b>added with C99</b>
+  %jd       intmax_t x              (intmax_t)x              10     1  <b>added with C99</b>
+  %lld      long long x             (long long)x             10     1  <b>added with C99</b>
+  %td       ptrdiff_t x             (ptrdiff_t)x             10     1  <b>added with C99</b>
+  %zd       size_t x                (ptrdiff_t)x             10     1  <b>added with C99</b>
+  %vd       char x[16]              (signed char [16])x                  <b>AltiVec</b>
+  %hvd      short x[8]              (short [8])x                         <b>AltiVec</b>
+  %vhd      short x[8]              (short [8])x                         <b>AltiVec</b>
+  %lvd      int x[4]                (int [4])x                           <b>AltiVec</b>
+  %vld      int x[4]                (int [4])x                           <b>AltiVec</b>
+
+   %e       double x                (double)x                10     6
+  %Le       long double x           (long double)x           10     6
+  %ve       float x[4]              (float [4])x             10     6    <b>AltiVec</b>
+   %E       double x                (double)x                10     6
+  %LE       long double x           (long double)x           10     6
+  %vE       float x[4]              (float [4])x             10     6    <b>AltiVec</b>
+
+   %f       double x                (double)x                10     6
+  %Lf       long double x           (long double)x           10     6
+  %vf       float x[4]              (float [4])x             10     6    <b>AltiVec</b>
+   %F       double x                (double)x                10     6  <b>added with C99</b>
+  %LF       long double x           (long double)x           10     6  <b>added with C99</b>
+  %vF       float x[4]              (float [4])x             10     6    <b>AltiVec</b>
+
+   %g       double x                (double)x                10     6
+  %Lg       long double x           (long double)x           10     6
+  %vg       float x[4]              (float [4])x             10     6    <b>AltiVec</b>
+   %G       double x                (double)x                10     6
+  %LG       long double x           (long double)x           10     6
+  %vG       float x[4]              (float [4])x             10     6    <b>AltiVec</b>
+
+   %i       int x                   (int)x                   10     1
+  %hi       int x                   (short)x                 10     1
+  %li       long x                  (long)x                  10     1
+  %hhi      int x                   (signed char)x           10     1  <b>added with C99</b>
+  %ji       intmax_t x              (intmax_t)x              10     1  <b>added with C99</b>
+  %lli      long long x             (long long)x             10     1  <b>added with C99</b>
+  %ti       ptrdiff_t x             (ptrdiff_t)x             10     1  <b>added with C99</b>
+  %zi       size_t x                (ptrdiff_t)x             10     1  <b>added with C99</b>
+  %vi       char x[16]              (signed char [16])x                  <b>AltiVec</b>
+  %hvi      short x[8]              (short [8])x                         <b>AltiVec</b>
+  %vhi      short x[8]              (short [8])x                         <b>AltiVec</b>
+  %lvi      int x[4]                (int [4])x                           <b>AltiVec</b>
+  %vli      int x[4]                (int [4])x                           <b>AltiVec</b>
+
+   %k       accum x                 (accum)x                 10     6  <b>added with TR18037</b>
+  %hk       short accum x           (short accum)x           10     6  <b>added with TR18037</b>
+  %lk       long accum x            (long accum)x            10     6  <b>added with TR18037</b>
+   %K       unsigned accum x        (unsigned accum)x        10     6  <b>added with TR18037</b>
+  %hK       unsigned short accum x  (unsigned short accum)x  10     6  <b>added with TR18037</b>
+  %lK       unsigned long accum x   (unsigned long accum)x   10     6  <b>added with TR18037</b>
+
+   %n       int *x
+  %hn       short *x
+  %ln       long *x
+  %hhn      int *x                                                     <b>added with C99</b>
+  %jn       intmax_t *x                                                <b>added with C99</b>
+  %lln      long long *x                                               <b>added with C99</b>
+  %tn       ptrdiff_t *x                                               <b>added with C99</b>
+  %zn       size_t *x                                                  <b>added with C99</b>
+
+   %o       int x                   (unsigned int)x           8     1
+  %ho       int x                   (unsigned short)x         8     1
+  %lo       long x                  (unsigned long)x          8     1
+  %hho      int x                   (unsigned char)x          8     1  <b>added with C99</b>
+  %jo       intmax_t x              (uintmax_t)x              8     1  <b>added with C99</b>
+  %llo      long long x             (unsigned long long)x     8     1  <b>added with C99</b>
+  %to       ptrdiff_t x             (size_t)x                 8     1  <b>added with C99</b>
+  %zo       size_t x                (size_t)x                 8     1  <b>added with C99</b>
+  %vo       char x[16]              (unsigned char [16])x                  <b>AltiVec</b>
+  %hvo      short x[8]              (unsigned short [8])x                  <b>AltiVec</b>
+  %vho      short x[8]              (unsigned short [8])x                  <b>AltiVec</b>
+  %lvo      int x[4]                (unsigned int [4])x                    <b>AltiVec</b>
+  %vlo      int x[4]                (unsigned int [4])x                    <b>AltiVec</b>
+
+   %p       void *x                 (void *)x
+
+   %r       fract x                 (fract)x                 10     6  <b>added with TR18037</b>
+  %hr       short fract x           (short fract)x           10     6  <b>added with TR18037</b>
+  %lr       long fract x            (long fract)x            10     6  <b>added with TR18037</b>
+   %R       unsigned fract x        (unsigned fract)x        10     6  <b>added with TR18037</b>
+  %hR       unsigned short fract x  (unsigned short fract)x  10     6  <b>added with TR18037</b>
+  %lR       unsigned long fract x   (unsigned long fract)x   10     6  <b>added with TR18037</b>
+
+   %s       const char *x           (const char *)x                <b>big</b>
+  %ls       const wchar_t *x        (const wchar_t *)x             <b>big</b>
+
+   %u       int x                   (unsigned int)x          10     1
+  %hu       int x                   (unsigned short)x        10     1
+  %lu       long x                  (unsigned long)x         10     1
+  %hhu      int x                   (unsigned char)x         10     1  <b>added with C99</b>
+  %ju       intmax_t x              (uintmax_t)x             10     1  <b>added with C99</b>
+  %llu      long long x             (unsigned long long)x    10     1  <b>added with C99</b>
+  %tu       ptrdiff_t x             (size_t)x                10     1  <b>added with C99</b>
+  %zu       size_t x                (size_t)x                10     1  <b>added with C99</b>
+  %vu       char x[16]              (unsigned char [16])x                  <b>AltiVec</b>
+  %hvu      short x[8]              (unsigned short [8])x                  <b>AltiVec</b>
+  %vhu      short x[8]              (unsigned short [8])x                  <b>AltiVec</b>
+  %lvu      int x[4]                (unsigned int [4])x                    <b>AltiVec</b>
+  %vlu      int x[4]                (unsigned int [4])x                    <b>AltiVec</b>
+
+   %x       int x                   (unsigned int)x          16     1
+  %hx       int x                   (unsigned short)x        16     1
+  %lx       long x                  (unsigned long)x         16     1
+  %hhx      int x                   (unsigned char)x         16     1  <b>added with C99</b>
+  %jx       intmax_t x              (uintmax_t)x             16     1  <b>added with C99</b>
+  %llx      long long x             (unsigned long long)x    16     1  <b>added with C99</b>
+  %tx       ptrdiff_t x             (size_t)x                16     1  <b>added with C99</b>
+  %zx       size_t x                (size_t)x                16     1  <b>added with C99</b>
+  %vx       char x[16]              (unsigned char [16])x                  <b>AltiVec</b>
+  %hvx      short x[8]              (unsigned short [8])x                  <b>AltiVec</b>
+  %vhx      short x[8]              (unsigned short [8])x                  <b>AltiVec</b>
+  %lvx      int x[4]                (unsigned int [4])x                    <b>AltiVec</b>
+  %vlx      int x[4]                (unsigned int [4])x                    <b>AltiVec</b>
+
+   %X       int x                   (unsigned int)x          16     1
+  %hX       int x                   (unsigned short)x        16     1
+  %lX       long x                  (unsigned long)x         16     1
+  %hhX      int x                   (unsigned char)x         16     1  <b>added with C99</b>
+  %jX       intmax_t x              (uintmax_t)x             16     1  <b>added with C99</b>
+  %llX      long long x             (unsigned long long)x    16     1  <b>added with C99</b>
+  %tX       ptrdiff_t x             (size_t)x                16     1  <b>added with C99</b>
+  %zX       size_t x                (size_t)x                16     1  <b>added with C99</b>
+  %vX       char x[16]              (unsigned char [16])x                  <b>AltiVec</b>
+  %hvX      short x[8]              (unsigned short [8])x                  <b>AltiVec</b>
+  %vhX      short x[8]              (unsigned short [8])x                  <b>AltiVec</b>
+  %lvX      int x[4]                (unsigned int [4])x                    <b>AltiVec</b>
+  %vlX      int x[4]                (unsigned int [4])x                    <b>AltiVec</b>
+
+   %%       <b>none</b>                    (char)'%'
+</pre>
+
+  <p>The print conversion specifier determines any behavior not summarized in this table. For all
+  floating-point conversions:</p>
+
+  <ul>
+    <li>Positive infinity prints as <code>inf</code> or <code>INF</code>.</li>
+
+    <li>Negative infinity prints as <code>-inf</code> or <code>-INF</code>.</li>
+
+    <li>Not-a-number (NaN) prints as <code>nan</code> or <code>NAN</code>.</li>
+  </ul>
+
+  <p>The upper-case version prints only for an upper-case conversion specifier, such as <code>%E</code> but
+  not <code>%Lg</code>.</p>
+
+  <p>In the following descriptions, <i>p</i> is the precision. Examples follow each of the print conversion
+  specifiers. A single conversion can generate up to 509 characters.</p>
+
+  <p>You write <b><a name="%a"><code>%a</code></a></b> or <b><a name="%A"><code>%A</code></a></b> to generate
+  a signed hexadecimal fractional representation with a decimal power-of-two exponent. The generated text
+  takes the form <i>&plusmn;0Xh.hhhP&plusmn;dd,</i> where <i>&plusmn;</i> is either a plus or minus sign,
+  <i>X</i> is either <code>x</code> (for <code>%a</code> conversion) or <code>X</code> (for <code>%A</code>
+  conversion), <i>h</i> is a hexadecimal digit, <i>d</i> is a decimal digit, the hexadecimal point (<i>.</i>)
+  is the decimal point for the current <a href="locale.html#locale">locale</a>, and <i>P</i> is either
+  <code>p</code> (for <code>%a</code> conversion) or <code>P</code> (for <code>%A</code> conversion). The
+  generated text has one integer digit which is zero only for the value zero, a hexadecimal point if any
+  fraction digits are present or if you specify the <code>#</code> format flag, at most <i>p</i> fraction
+  digits with no trailing zeros, and at least one exponent digit with no leading zeros. The result is
+  rounded. The value zero has a zero exponent.</p>
+  <pre>
+    printf("%a", 30.0)              <b>generates, e.g. 0xfp+1</b>
+    printf("%.2A", 30.0)            <b>generates, e.g. 0XF.00P+1</b>
+</pre>
+
+  <p>You write <b><a name="%c"><code>%c</code></a></b> to generate a single character from the converted
+  value.</p>
+  <pre>
+    printf("%c", 'a')               <b>generates a</b>
+    printf("&lt;%3c|%-3c&gt;", 'a', 'b')  <b>generates &lt;  a|b  &gt;</b>
+</pre>
+
+  <p>For a <a href="lib_file.html#wide%20stream">wide stream</a>, conversion of the character <code>x</code>
+  occurs as if by calling <code><a href="wchar.html#btowc">btowc</a>(x)</code>.</p>
+  <pre>
+    wprintf(L"%c", 'a')             <b>generates wide a</b>
+</pre>
+
+  <p>You write <b><a name="%lc"><code>%lc</code></a></b> to generate a single character from the converted
+  value. Conversion of the character <code>x</code> occurs as if it is followed by a null character in an
+  array of two elements of type <a href="stddef.html#wchar_t"><code>wchar_t</code></a> converted by the
+  conversion specification <a href="#%ls"><code>ls</code></a>.</p>
+  <pre>
+    printf("%lc", L'a')             <b>generates a</b>
+    wprintf(L"lc", L'a')            <b>generates wide a</b>
+</pre>
+
+  <p>You write <b><a name="%d"><code>%d</code></a></b>, <b><a name="%i"><code>%i</code></a></b>, <b><a name=
+  "%o"><code>%o</code></a></b>, <b><a name="%u"><code>%u</code></a></b>, <b><a name=
+  "%x"><code>%x</code></a></b>, or <b><a name="%X"><code>%X</code></a></b> to generate a possibly signed
+  integer representation. <code>%d</code> or <code>%i</code> specifies signed decimal representation,
+  <code>%o</code> unsigned octal, <code>%u</code> unsigned decimal, <code>%x</code> unsigned hexadecimal
+  using the digits <code>0-9</code> and <code>a-f</code>, and <code>%X</code> unsigned hexadecimal using the
+  digits <code>0-9</code> and <code>A-F</code>. The conversion generates at least <i>p</i> digits to
+  represent the converted value. If <i>p</i> is zero, a converted value of zero generates no digits.</p>
+  <pre>
+    printf("%d %o %x", 31, 31, 31)  <b>generates 31 37 1f</b>
+    printf("%hu", 0xffff)           <b>generates 65535</b>
+    printf("%#X %+d", 31, 31)       <b>generates 0X1F +31</b>
+</pre>
+
+  <p>You write <b><a name="%e"><code>%e</code></a></b> or <b><a name="%E"><code>%E</code></a></b> to generate
+  a signed decimal fractional representation with a decimal power-of-ten exponent. The generated text takes
+  the form <i>&plusmn;d.dddE&plusmn;dd,</i> where <i>&plusmn;</i> is either a plus or minus sign, <i>d</i> is
+  a decimal digit, the decimal point (<i>.</i>) is the decimal point for the current <a href=
+  "locale.html#locale">locale</a>, and <i>E</i> is either <code>e</code> (for <code>%e</code> conversion) or
+  <code>E</code> (for <code>%E</code> conversion). The generated text has one integer digit, a decimal point
+  if <i>p</i> is nonzero or if you specify the <code>#</code> format flag, <i>p</i> fraction digits, and at
+  least two exponent digits. The result is rounded. The value zero has a zero exponent.</p>
+  <pre>
+    printf("%e", 31.4)              <b>generates 3.140000e+01</b>
+    printf("%.2E", 31.4)            <b>generates 3.14E+01</b>
+</pre>
+
+  <p>You write <b><a name="%f"><code>%f</code></a></b> <b><a name="%F"><code>%F</code></a></b>, <b><a name=
+  "%k"><code>%k</code></a></b>, <b><a name="%K"><code>%K</code></a></b>, <b><a name=
+  "%r"><code>%r</code></a></b>, or <b><a name="%R"><code>%R</code></a></b> to generate a signed decimal
+  fractional representation with no exponent. The generated text takes the form <i>&plusmn;d.ddd,</i> where
+  <i>&plusmn;</i> is either a plus or minus sign, <i>d</i> is a decimal digit, and the decimal point
+  (<i>.</i>) is the decimal point for the current <a href="locale.html#locale">locale</a>. The generated text
+  has at least one integer digit, a decimal point if <i>p</i> is nonzero or if you specify the <code>#</code>
+  format flag, and <i>p</i> fraction digits. The result is rounded.</p>
+  <pre>
+    printf("%f", 31.4)              <b>generates 31.400000</b>
+    printf("%.0f %#.0f", 31.0, 31.0)<b>generates 31 31.</b>
+</pre>
+
+  <p>You write <b><a name="%g"><code>%g</code></a></b> or <b><a name="%G"><code>%G</code></a></b> to generate
+  a signed decimal fractional representation with or without a decimal power-of-ten exponent, as appropriate.
+  For <code>%g</code> conversion, the generated text takes the same form as either <code>%e</code> or
+  <code>%f</code> conversion. For <code>%G</code> conversion, it takes the same form as either
+  <code>%E</code> or <code>%F</code> conversion. The precision <i>p</i> specifies the number of significant
+  digits generated. (If <i>p</i> is zero, it is changed to 1.) If <code>%e</code> conversion would yield an
+  exponent in the range [-4, <i>p</i>), then <code>%f</code> conversion occurs instead. The generated text
+  has no trailing zeros in any fraction and has a decimal point only if there are nonzero fraction digits,
+  unless you specify the <code>#</code> format flag.</p>
+  <pre>
+    printf("%.6g", 31.4)            <b>generates 31.4</b>
+    printf("%.1g", 31.4)            <b>generates 3.14e+01</b>
+</pre>
+
+  <p>You write <b><a name="%n"><code>%n</code></a></b> to store the number of characters generated (up to
+  this point in the format) in an integer object whose address is the value of the next successive
+  argument.</p>
+  <pre>
+    printf("abc%n", &amp;x)                   <b>stores 3</b>
+</pre>
+
+  <p>You write <b><a name="%p"><code>%p</code></a></b> to generate an external representation of a <i>pointer
+  to void.</i> The conversion is implementation defined.</p>
+  <pre>
+    printf("%p", (void *)&amp;x)        <b>generates, e.g. F4C0</b>
+</pre>
+
+  <p>You write <b><a name="%s"><code>%s</code></a></b> to generate a sequence of characters from the values
+  stored in the argument <a href="lib_over.html#C%20string">C string</a>.</p>
+  <pre>
+    printf("%s", "hello")           <b>generates hello</b>
+    printf("%.2s", "hello")         <b>generates he</b>
+</pre>
+
+  <p>For a <a href="lib_file.html#wide%20stream">wide stream</a>, conversion occurs as if by repeatedly
+  calling <a href="wchar.html#mbrtowc"><code>mbrtowc</code></a>, beginning in the <a href=
+  "charset.html#initial%20conversion%20state">initial conversion state</a>. The conversion generates no more
+  than <i>p</i> characters, up to but not including the terminating null character.</p>
+  <pre>
+    wprintf(L"%s", "hello")         <b>generates wide hello</b>
+</pre>
+
+  <p>You write <b><a name="%ls"><code>%ls</code></a></b> to generate a sequence of characters from the values
+  stored in the argument <a href="lib_over.html#wide-character%20string">wide-character string</a>. For a
+  <a href="lib_file.html#byte%20stream">byte stream</a>, conversion occurs as if by repeatedly calling
+  <a href="wchar.html#wcrtomb"><code>wcrtomb</code></a>, beginning in the <a href=
+  "charset.html#initial%20conversion%20state">initial conversion state</a>, so long as complete multibyte
+  characters can be generated. The conversion generates no more than <i>p</i> characters, up to but not
+  including the terminating null character.</p>
+  <pre>
+    printf("%ls", L"hello")         <b>generates hello</b>
+    wprintf(L"%.2s", L"hello")      <b>generates wide he</b>
+</pre>
+
+  <p>You write <b><a name="%%"><code>%%</code></a></b> to generate the percent character
+  (<code>%</code>).</p>
+  <pre>
+    printf("%%")                    <b>generates %</b>
+</pre>
+  <hr>
+
+  <p>See also the <b><a href="index.html#Table%20of%20Contents">Table of Contents</a></b> and the <b><a href=
+  "_index.html">Index</a></b>.</p>
+
+  <p><i><a href="crit_pjp.html">Copyright</a> &copy; 1992-2010 by P.J. Plauger and Jim Brodie. All rights
+  reserved.</i></p><!--V5.30:126I-->
+</body>
+</html>

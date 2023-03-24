@@ -1,0 +1,2068 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html>
+<head>
+  <meta name="generator" content=
+  "HTML Tidy for Mac OS X (vers 31 October 2006 - Apple Inc. build 15.15), see www.w3.org">
+
+  <title>&lt;algorithm&gt;</title>
+</head>
+
+<body>
+  <h1><a name="&lt;algorithm&gt;"><code>&lt;algorithm&gt;</code></a></h1>
+  <hr>
+
+  <p><b><code><a href="#adjacent_find">adjacent_find</a> &middot; <a href="#all_of">all_of</a> &middot;
+  <a href="#any_of">any_of</a> &middot; <a href="#binary_search">binary_search</a> &middot; <a href=
+  "#copy">copy</a> &middot; <a href="#copy_backward">copy_backward</a> &middot; <a href=
+  "#copy_if">copy_if</a> &middot; <a href="#copy_n">copy_n</a> &middot; <a href="#count">count</a> &middot;
+  <a href="#count_if">count_if</a> &middot; <a href="#equal">equal</a> &middot; <a href=
+  "#equal_range">equal_range</a> &middot; <a href="#fill">fill</a> &middot; <a href="#fill_n">fill_n</a>
+  &middot; <a href="#find">find</a> &middot; <a href="#find_end">find_end</a> &middot; <a href=
+  "#find_first_of">find_first_of</a> &middot; <a href="#find_if">find_if</a> &middot; <a href=
+  "#find_if_not">find_if_not</a> &middot; <a href="#for_each">for_each</a> &middot; <a href=
+  "#generate">generate</a> &middot; <a href="#generate_n">generate_n</a> &middot; <a href=
+  "#includes">includes</a> &middot; <a href="#inplace_merge">inplace_merge</a> &middot; <a href=
+  "#is_heap">is_heap</a> &middot; <a href="#is_heap_until">is_heap_until</a> &middot; <a href=
+  "#is_partitioned">is_partitioned</a> &middot; <a href="#is_sorted">is_sorted</a> &middot; <a href=
+  "#is_sorted_until">is_sorted_until</a> &middot; <a href="#iter_swap">iter_swap</a> &middot; <a href=
+  "#lexicographical_compare">lexicographical_compare</a> &middot; <a href="#lower_bound">lower_bound</a>
+  &middot; <a href="#make_heap">make_heap</a> &middot; <a href="#max">max</a> &middot; <a href=
+  "#max_element">max_element</a> &middot; <a href="#merge">merge</a> &middot; <a href="#min">min</a> &middot;
+  <a href="#minmax">minmax</a> &middot; <a href="#min_element">min_element</a> &middot; <a href=
+  "#minmax_element">minmax_element</a> &middot; <a href="#mismatch">mismatch</a> &middot; <a href=
+  "#move">move</a> &middot; <a href="#move_backward">move_backward</a> &middot; <a href=
+  "#next_permutation">next_permutation</a> &middot; <a href="#none_of">none_of</a> &middot; <a href=
+  "#nth_element">nth_element</a> &middot; <a href="#partial_sort">partial_sort</a> &middot; <a href=
+  "#partial_sort_copy">partial_sort_copy</a> &middot; <a href="#partition">partition</a> &middot; <a href=
+  "#partition_copy">partition_copy</a> &middot; <a href="#partition_point">partition_point</a> &middot;
+  <a href="#pop_heap">pop_heap</a> &middot; <a href="#prev_permutation">prev_permutation</a> &middot;
+  <a href="#push_heap">push_heap</a> &middot; <a href="#random_shuffle">random_shuffle</a> &middot; <a href=
+  "#remove">remove</a> &middot; <a href="#remove_copy">remove_copy</a> &middot; <a href=
+  "#remove_copy_if">remove_copy_if</a> &middot; <a href="#remove_if">remove_if</a> &middot; <a href=
+  "#replace">replace</a> &middot; <a href="#replace_copy">replace_copy</a> &middot; <a href=
+  "#replace_copy_if">replace_copy_if</a> &middot; <a href="#replace_if">replace_if</a> &middot; <a href=
+  "#reverse">reverse</a> &middot; <a href="#reverse_copy">reverse_copy</a> &middot; <a href=
+  "#rotate">rotate</a> &middot; <a href="#rotate_copy">rotate_copy</a> &middot; <a href="#search">search</a>
+  &middot; <a href="#search_n">search_n</a> &middot; <a href="#set_difference">set_difference</a> &middot;
+  <a href="#set_intersection">set_intersection</a> &middot; <a href=
+  "#set_symmetric_difference">set_symmetric_difference</a> &middot; <a href="#set_union">set_union</a>
+  &middot; <a href="#sort">sort</a> &middot; <a href="#sort_heap">sort_heap</a> &middot; <a href=
+  "#stable_partition">stable_partition</a> &middot; <a href="#stable_sort">stable_sort</a> &middot; <a href=
+  "#swap">swap</a> &middot; <a href="#swap_ranges">swap_ranges</a> &middot; <a href=
+  "#transform">transform</a> &middot; <a href="#unique">unique</a> &middot; <a href=
+  "#unique_copy">unique_copy</a> &middot; <a href="#upper_bound">upper_bound</a></code></b></p>
+  <hr>
+
+  <p>Include the <a href="index.html#STL">STL</a> standard header <b><code>&lt;algorithm&gt;</code></b> to
+  define numerous template functions that perform useful algorithms. The descriptions that follow make
+  extensive use of common template parameter names (or prefixes) to indicate the least powerful category of
+  iterator permitted as an actual argument type:</p>
+
+  <ul>
+    <li><b><code><a href="lib_stl.html#OutIt">OutIt</a></code></b> -- to indicate an output iterator</li>
+
+    <li><b><code><a href="lib_stl.html#InIt">InIt</a></code></b> -- to indicate an input iterator</li>
+
+    <li><b><code><a href="lib_stl.html#FwdIt">FwdIt</a></code></b> -- to indicate a forward iterator</li>
+
+    <li><b><code><a href="lib_stl.html#BidIt">BidIt</a></code></b> -- to indicate a bidirectional
+    iterator</li>
+
+    <li><b><code><a href="lib_stl.html#RanIt">RanIt</a></code></b> -- to indicate a random-access
+    iterator</li>
+  </ul>
+
+  <p>The descriptions of these templates employ a number of <a href=
+  "lib_stl.html#Algorithm%20Conventions">conventions</a> common to all algorithms.</p>
+  <pre>
+namespace std {
+template&lt;class InIt, class Fn1&gt;
+    Fn1 <b><a href="#for_each">for_each</a></b>(InIt first, InIt last, Fn1 func);
+template&lt;class InIt, class Ty&gt;
+    InIt <b><a href="#find">find</a></b>(InIt first, InIt last, const Ty&amp; val);
+template&lt;class InIt, class Pr&gt;
+    InIt <b><a href="#find_if">find_if</a></b>(InIt first, InIt last, Pr pred);
+template&lt;class FwdIt1, class FwdIt2&gt;
+    FwdIt1 <b><a href="#find_end">find_end</a></b>(FwdIt1 first1, FwdIt1 last1,
+        FwdIt2 first2, FwdIt2 last2);
+template&lt;class FwdIt1, class FwdIt2, class Pr&gt;
+    FwdIt1 <b><a href="#find_end">find_end</a></b>(FwdIt1 first1, FwdIt1 last1,
+        FwdIt2 first2, FwdIt2 last2, Pr pred);
+template&lt;class InIt1, class InIt2&gt;
+    InIt1 <b><a href="#find_first_of">find_first_of</a></b>(InIt1 first1, InIt1 last1,
+        InIt2 first2, InIt2 last2);
+template&lt;class InIt1, class InIt2, class Pr&gt;
+    InIt1 <b><a href="#find_first_of">find_first_of</a></b>(InIt1 first1, InIt1 last1,
+        InIt2 first2, InIt2 last2, Pr pred);
+template&lt;class FwdIt&gt;
+    FwdIt <b><a href="#adjacent_find">adjacent_find</a></b>(FwdIt first, FwdIt last);
+template&lt;class FwdIt, class Pr&gt;
+    FwdIt <b><a href="#adjacent_find">adjacent_find</a></b>(FwdIt first, FwdIt last, Pr pred);
+template&lt;class InIt, class Ty, class Dist&gt;
+    typename iterator_traits&lt;InIt&gt;::difference_type
+        <b><a href="#count">count</a></b>(InIt first, InIt last,
+            const Ty&amp; val);
+template&lt;class InIt, class Pr, class Dist&gt;
+    typename iterator_traits&lt;InIt&gt;::difference_type
+        <b><a href="#count_if">count_if</a></b>(InIt first, InIt last,
+            Pr pred);
+
+template&lt;class InIt, class Pr&gt;
+    bool <b><a href="#all_of">all_of</a></b>(InIt first, InIt last,
+        Pr pred); <b>[added with C++0X]</b>
+template&lt;class InIt, class Pr&gt;
+    bool <b><a href="#any_of">any_of</a></b>(InIt first, InIt last,
+        Pr pred); <b>[added with C++0X]</b>
+template&lt;class InIt, class Pr&gt;
+    bool <b><a href="#none_of">none_of</a></b>(InIt first, InIt last,
+        Pr pred); <b>[added with C++0X]</b>
+template&lt;class InIt, class Pr&gt;
+    InIt <b><a href="#find_if_not">find_if_not</a></b>(InIt first, InIt last,
+        Pr pred); <b>[added with C++0X]</b>
+
+template&lt;class InIt1, class InIt2&gt;
+    pair&lt;InIt1, InIt2&gt; <b><a href="#mismatch">mismatch</a></b>(InIt1 first1, InIt1 last1,
+        InIt2 first2);
+template&lt;class InIt1, class InIt2, class Pr&gt;
+    pair&lt;InIt1, InIt2&gt; <b><a href="#mismatch">mismatch</a></b>(InIt1 first1, InIt1 last1,
+        InIt2 first2, Pr pred);
+template&lt;class InIt1, class InIt2&gt;
+    bool <b><a href="#equal">equal</a></b>(InIt1 first1, InIt1 last1, InIt2 first2);
+template&lt;class InIt1, class InIt2, class Pr&gt;
+    bool <b><a href="#equal">equal</a></b>(InIt1 first1, InIt1 last1, InIt2 first2, Pr pred);
+template&lt;class FwdIt1, class FwdIt2&gt;
+    FwdIt1 <b><a href="#search">search</a></b>(FwdIt1 first1, FwdIt1 last1,
+        FwdIt2 first2, FwdIt2 last2);
+template&lt;class FwdIt1, class FwdIt2, class Pr&gt;
+    FwdIt1 <b><a href="#search">search</a></b>(FwdIt1 first1, FwdIt1 last1,
+        FwdIt2 first2, FwdIt2 last2, Pr pred);
+template&lt;class FwdIt, class Diff, class Ty&gt;
+    FwdIt <b><a href="#search_n">search_n</a></b>(FwdIt first, FwdIt last,
+        Diff count, const Ty&amp; val);
+template&lt;class FwdIt, class Diff, class Ty, class Pr&gt;
+    FwdIt <b><a href="#search_n">search_n</a></b>(FwdIt first, FwdIt last,
+        Diff count, const Ty&amp; val, Pr pred);
+</pre>
+  <pre>
+template&lt;class InIt, class OutIt&gt;
+    OutIt <b><a href="#copy">copy</a></b>(InIt first, InIt last,
+        OutIt dest);
+template&lt;class BidIt1, class BidIt2&gt;
+    BidIt2 <b><a href="#copy_backward">copy_backward</a></b>(BidIt1 first, BidIt1 last,
+        BidIt2 dest);
+template&lt;class InIt, class OutIt, class Pr&gt;
+    OutIt <b><a href="#copy_if">copy_if</a></b>(InIt first, InIt last,
+        Pr pred); <b>[added with C++0X]</b>
+template&lt;class InIt, class Diff, class OutIt&gt;
+    OutIt <b><a href="#copy_n">copy_n</a></b>(InIt first, Diff count,
+        OutIt dest); <b>[added with C++0X]</b>
+
+template&lt;class InIt, class OutIt&gt;
+    OutIt <b><a href="#move">move</a></b>(InIt first, InIt last,
+        OutIt dest); <b>[added with C++0X]</b>
+template&lt;class BidIt1, class BidIt2&gt;
+    BidIt2 <b><a href="#move_backward">move_backward</a></b>(BidIt1 first, BidIt1 last,
+        BidIt2 dest); <b>[added with C++0X]</b>
+template&lt;class Ty&gt;
+    void <b><a href="#swap">swap</a></b>(Ty&amp; left, Ty&amp; right);
+template&lt;class Ty, size_t N&gt;
+    void <b><a href="#swap">swap</a></b>(Ty (&amp;left)[N], Ty (&amp;right)[N]); <b>[added with C++0X]</b>
+template&lt;class FwdIt1, class FwdIt2&gt;
+    FwdIt2 <b><a href="#swap_ranges">swap_ranges</a></b>(FwdIt1 first1, FwdIt1 last1,
+        FwdIt2 first2);
+template&lt;class FwdIt1, class FwdIt2&gt;
+    void <b><a href="#iter_swap">iter_swap</a></b>(FwdIt1 left, FwdIt2 right);
+template&lt;class InIt, class OutIt, class Fn1&gt;
+    OutIt <b><a href="#transform">transform</a></b>(InIt first, InIt last, OutIt dest,
+        Fn1 func);
+template&lt;class InIt1, class InIt2, class OutIt,
+    class Fn2&gt;
+    OutIt <b><a href="#transform">transform</a></b>(InIt1 first1, InIt1 last1,
+        InIt2 first2, OutIt dest, Fn2 func);
+</pre>
+  <pre>
+template&lt;class FwdIt, class Ty&gt;
+    void <b><a href="#replace">replace</a></b>(FwdIt first, FwdIt last,
+        const Ty&amp; oldval, const Ty&amp; newval);
+template&lt;class FwdIt, class Pr, class Ty&gt;
+    void <b><a href="#replace_if">replace_if</a></b>(FwdIt first, FwdIt last,
+        Pr pred, const Ty&amp; val);
+template&lt;class InIt, class OutIt, class Ty&gt;
+    OutIt <b><a href="#replace_copy">replace_copy</a></b>(InIt first, InIt last, OutIt dest,
+        const Ty&amp; oldval, const Ty&amp; newval);
+template&lt;class InIt, class OutIt, class Pr, class Ty&gt;
+    OutIt <b><a href="#replace_copy_if">replace_copy_if</a></b>(InIt first, InIt last, OutIt dest,
+        Pr pred, const Ty&amp; val);
+template&lt;class FwdIt, class Ty&gt;
+    void <b><a href="#fill">fill</a></b>(FwdIt first, FwdIt last, const Ty&amp; val);
+template&lt;class OutIt, class Diff, class Ty&gt;
+    void <b><a href="#fill_n">fill_n</a></b>(OutIt first, Diff count, const Ty&amp; val);
+template&lt;class FwdIt, class Fn0&gt;
+    void <b><a href="#generate">generate</a></b>(FwdIt first, FwdIt last, Fn0 func);
+template&lt;class OutIt, class Diff, class Fn0&gt;
+    void <b><a href="#generate_n">generate_n</a></b>(OutIt first, Diff count, Fn0 func);
+template&lt;class FwdIt, class Ty&gt;
+    FwdIt <b><a href="#remove">remove</a></b>(FwdIt first, FwdIt last, const Ty&amp; val);
+template&lt;class FwdIt, class Pr&gt;
+    FwdIt <b><a href="#remove_if">remove_if</a></b>(FwdIt first, FwdIt last, Pr pred);
+template&lt;class InIt, class OutIt, class Ty&gt;
+    OutIt <b><a href="#remove_copy">remove_copy</a></b>(InIt first, InIt last, OutIt dest,
+        const Ty&amp; val);
+template&lt;class InIt, class OutIt, class Pr&gt;
+    OutIt <b><a href="#remove_copy_if">remove_copy_if</a></b>(InIt first, InIt last, OutIt dest,
+        Pr pred);
+template&lt;class FwdIt&gt;
+    FwdIt <b><a href="#unique">unique</a></b>(FwdIt first, FwdIt last);
+template&lt;class FwdIt, class Pr&gt;
+    FwdIt <b><a href="#unique">unique</a></b>(FwdIt first, FwdIt last, Pr pred);
+template&lt;class InIt, class OutIt&gt;
+    OutIt <b><a href="#unique_copy">unique_copy</a></b>(InIt first, InIt last, OutIt dest);
+template&lt;class InIt, class OutIt, class Pr&gt;
+    OutIt <b><a href="#unique_copy">unique_copy</a></b>(InIt first, InIt last, OutIt dest,
+        Pr pred);
+template&lt;class BidIt&gt;
+    void <b><a href="#reverse">reverse</a></b>(BidIt first, BidIt last);
+template&lt;class BidIt, class OutIt&gt;
+    OutIt <b><a href="#reverse_copy">reverse_copy</a></b>(BidIt first, BidIt last, OutIt dest);
+template&lt;class FwdIt&gt;
+    FwdIt <b><a href="#rotate">rotate</a></b>(FwdIt first, FwdIt mid, FwdIt last);
+template&lt;class FwdIt, class OutIt&gt;
+    OutIt <b><a href="#rotate_copy">rotate_copy</a></b>(FwdIt first, FwdIt mid,
+        FwdIt last, OutIt dest);
+template&lt;class RanIt&gt;
+    void <b><a href="#random_shuffle">random_shuffle</a></b>(RanIt first, RanIt last);
+template&lt;class RanIt, class Fn1&gt;
+    void <b><a href="#random_shuffle">random_shuffle</a></b>(RanIt first, RanIt last, Fn1&amp;&amp; func);
+
+template&lt;class BidIt, class Pr&gt;
+    BidIt <b><a href="#partition">partition</a></b>(BidIt first, BidIt last, Pr pred);
+template&lt;class InIt, class Pr&gt;
+    bool <b><a href="#is_partitioned">is_partitioned</a></b>(InIt first, InIt last,
+        Pr pred); <b>[added with C++0X]</b>
+template&lt;class FwdIt, class Pr&gt;
+    FwdIt <b><a href="#partition_point">partition_point</a></b>(FwdIt first, FwdIt last,
+        Pr pred); <b>[added with C++0X]</b>
+template&lt;class InIt, class OutIt1, class OutIt2, class Pr&gt;
+    pair&lt;OutIt1, OutIt2&gt;
+        <b><a href="#partition_copy">partition_copy</a></b>(InIt first, InIt last,
+            OutIt1 dest1, OutIt2 dest2, Pr pred); <b>[added with C++0X]</b>
+
+template&lt;class BidIt, class Pr&gt;
+    BidIt <b><a href="#stable_partition">stable_partition</a></b>(BidIt first, BidIt last,
+        Pr pred);
+template&lt;class RanIt&gt;
+    void <b><a href="#sort">sort</a></b>(RanIt first, RanIt last);
+template&lt;class RanIt, class Pr&gt;
+    void <b><a href="#sort">sort</a></b>(RanIt first, RanIt last, Pr pred);
+template&lt;class BidIt&gt;
+    void <b><a href="#stable_sort">stable_sort</a></b>(BidIt first, BidIt last);
+template&lt;class BidIt, class Pr&gt;
+    void <b><a href="#stable_sort">stable_sort</a></b>(BidIt first, BidIt last, Pr pred);
+template&lt;class RanIt&gt;
+    void <b><a href="#partial_sort">partial_sort</a></b>(RanIt first, RanIt mid,
+        RanIt last);
+template&lt;class RanIt, class Pr&gt;
+    void <b><a href="#partial_sort">partial_sort</a></b>(RanIt first, RanIt mid,
+        RanIt last, Pr pred);
+template&lt;class InIt, class RanIt&gt;
+    RanIt <b><a href="#partial_sort_copy">partial_sort_copy</a></b>(InIt first1, InIt last1,
+        RanIt first2, RanIt last2);
+template&lt;class InIt, class RanIt, class Pr&gt;
+    RanIt <b><a href="#partial_sort_copy">partial_sort_copy</a></b>(InIt first1, InIt last1,
+        RanIt first2, RanIt last2, Pr pred);
+</pre>
+  <pre>
+template&lt;class RanIt&gt;
+    void <b><a href="#nth_element">nth_element</a></b>(RanIt first, RanIt nth, RanIt last);
+template&lt;class RanIt, class Pr&gt;
+    void <b><a href="#nth_element">nth_element</a></b>(RanIt first, RanIt nth, RanIt last,
+        Pr pred);
+template&lt;class FwdIt, class Ty&gt;
+    FwdIt <b><a href="#lower_bound">lower_bound</a></b>(FwdIt first, FwdIt last,
+        const Ty&amp; val);
+template&lt;class FwdIt, class Ty, class Pr&gt;
+    FwdIt <b><a href="#lower_bound">lower_bound</a></b>(FwdIt first, FwdIt last,
+        const Ty&amp; val, Pr pred);
+template&lt;class FwdIt, class Ty&gt;
+    FwdIt <b><a href="#upper_bound">upper_bound</a></b>(FwdIt first, FwdIt last,
+        const Ty&amp; val);
+template&lt;class FwdIt, class Ty, class Pr&gt;
+    FwdIt <b><a href="#upper_bound">upper_bound</a></b>(FwdIt first, FwdIt last,
+        const Ty&amp; val, Pr pred);
+template&lt;class FwdIt, class Ty&gt;
+    pair&lt;FwdIt, FwdIt&gt; <b><a href="#equal_range">equal_range</a></b>(FwdIt first,
+        FwdIt last, const Ty&amp; val);
+template&lt;class FwdIt, class Ty, class Pr&gt;
+    pair&lt;FwdIt, FwdIt&gt; <b><a href="#equal_range">equal_range</a></b>(FwdIt first,
+        FwdIt last, const Ty&amp; val, Pr pred);
+template&lt;class FwdIt, class Ty&gt;
+    bool <b><a href="#binary_search">binary_search</a></b>(FwdIt first, FwdIt last,
+        const Ty&amp; val);
+template&lt;class FwdIt, class Ty, class Pr&gt;
+    bool <b><a href="#binary_search">binary_search</a></b>(FwdIt first, FwdIt last,
+        const Ty&amp; val, Pr pred);
+template&lt;class InIt1, class InIt2, class OutIt&gt;
+    OutIt <b><a href="#merge">merge</a></b>(InIt1 first1, InIt1 last1,
+        InIt2 first2, InIt2 last2, OutIt dest);
+template&lt;class InIt1, class InIt2, class OutIt,
+    class Pr&gt;
+    OutIt <b><a href="#merge">merge</a></b>(InIt1 first1, InIt1 last1,
+        InIt2 first2, InIt2 last2, OutIt dest, Pr pred);
+template&lt;class BidIt&gt;
+    void <b><a href="#inplace_merge">inplace_merge</a></b>(BidIt first, BidIt mid,
+        BidIt last);
+template&lt;class BidIt, class Pr&gt;
+    void <b><a href="#inplace_merge">inplace_merge</a></b>(BidIt first, BidIt mid,
+        BidIt last, Pr pred);
+template&lt;class InIt1, class InIt2&gt;
+    bool <b><a href="#includes">includes</a></b>(InIt1 first1, InIt1 last1,
+        InIt2 first2, InIt2 last2);
+template&lt;class InIt1, class InIt2, class Pr&gt;
+    bool <b><a href="#includes">includes</a></b>(InIt1 first1, InIt1 last1,
+        InIt2 first2, InIt2 last2, Pr pred);
+template&lt;class InIt1, class InIt2, class OutIt&gt;
+    OutIt <b><a href="#set_union">set_union</a></b>(InIt1 first1, InIt1 last1,
+        InIt2 first2, InIt2 last2, OutIt dest);
+template&lt;class InIt1, class InIt2, class OutIt,
+    class Pr&gt;
+    OutIt <b><a href="#set_union">set_union</a></b>(InIt1 first1, InIt1 last1,
+        InIt2 first2, InIt2 last2, OutIt dest, Pr pred);
+template&lt;class InIt1, class InIt2, class OutIt&gt;
+    OutIt <b><a href="#set_intersection">set_intersection</a></b>(InIt1 first1, InIt1 last1,
+        InIt2 first2, InIt2 last2, OutIt dest);
+template&lt;class InIt1, class InIt2, class OutIt,
+    class Pr&gt;
+    OutIt <b><a href="#set_intersection">set_intersection</a></b>(InIt1 first1, InIt1 last1,
+        InIt2 first2, InIt2 last2, OutIt dest, Pr pred);
+template&lt;class InIt1, class InIt2, class OutIt&gt;
+    OutIt <b><a href="#set_difference">set_difference</a></b>(InIt1 first1, InIt1 last1,
+        InIt2 first2, InIt2 last2, OutIt dest);
+template&lt;class InIt1, class InIt2, class OutIt,
+    class Pr&gt;
+    OutIt <b><a href="#set_difference">set_difference</a></b>(InIt1 first1, InIt1 last1,
+        InIt2 first2, InIt2 last2, OutIt dest, Pr pred);
+template&lt;class InIt1, class InIt2, class OutIt&gt;
+    OutIt <b><a href="#set_symmetric_difference">set_symmetric_difference</a></b>(InIt1 first1,
+        InIt1 last1, InIt2 first2, InIt2 last2, OutIt dest);
+template&lt;class InIt1, class InIt2, class OutIt,
+    class Pr&gt;
+    OutIt <b><a href="#set_symmetric_difference">set_symmetric_difference</a></b>(InIt1 first1,
+        InIt1 last1, InIt2 first2, InIt2 last2, OutIt dest,
+            Pr pred);
+</pre>
+  <pre>
+template&lt;class RanIt&gt;
+    void <b><a href="#push_heap">push_heap</a></b>(RanIt first, RanIt last);
+template&lt;class RanIt, class Pr&gt;
+    void <b><a href="#push_heap">push_heap</a></b>(RanIt first, RanIt last, Pr pred);
+template&lt;class RanIt&gt;
+    void <b><a href="#pop_heap">pop_heap</a></b>(RanIt first, RanIt last);
+template&lt;class RanIt, class Pr&gt;
+    void <b><a href="#pop_heap">pop_heap</a></b>(RanIt first, RanIt last, Pr pred);
+template&lt;class RanIt&gt;
+    void <b><a href="#make_heap">make_heap</a></b>(RanIt first, RanIt last);
+template&lt;class RanIt, class Pr&gt;
+    void <b><a href="#make_heap">make_heap</a></b>(RanIt first, RanIt last, Pr pred);
+template&lt;class RanIt&gt;
+    void <b><a href="#sort_heap">sort_heap</a></b>(RanIt first, RanIt last);
+template&lt;class RanIt, class Pr&gt;
+    void <b><a href="#sort_heap">sort_heap</a></b>(RanIt first, RanIt last, Pr pred);
+
+template&lt;class Ty&gt;
+    const Ty&amp; <b><a href="#max">max</a></b>(const Ty&amp; left, const Ty&amp; right);
+template&lt;class Ty&gt;
+    const Ty&amp; <b><a href="#max">max</a></b>(initializer_list&lt;Ty&gt; init); <b>[added with C++0X]</b>
+template&lt;class Ty, class Pr&gt;
+    const Ty&amp; <b><a href="#max">max</a></b>(const Ty&amp; left, const Ty&amp; right, Pr pred);
+template&lt;class Ty, class Pr&gt;
+    const Ty&amp; <b><a href=
+"#max">max</a></b>(initializer_list&lt;Ty&gt; init, Pr pred); <b>[added with C++0X]</b>
+
+template&lt;class Ty&gt;
+    const Ty&amp; <b><a href="#min">min</a></b>(const Ty&amp; left, const Ty&amp; right);
+template&lt;class Ty&gt;
+    const Ty&amp; <b><a href="#min">min</a></b>(initializer_list&lt;Ty&gt; init); <b>[added with C++0X]</b>
+template&lt;class Ty, class Pr&gt;
+    const Ty&amp; <b><a href="#min">min</a></b>(const Ty&amp; left, const Ty&amp; right, Pr pred);
+template&lt;class Ty, class Pr&gt;
+    const Ty&amp; <b><a href=
+"#min">min</a></b>(initializer_list&lt;Ty&gt; init, Pr pred); <b>[added with C++0X]</b>
+
+template&lt;class Ty&gt;
+    pair&lt;const Ty&amp;, const Ty&amp;&gt;
+        <b><a href=
+"#minmax">minmax</a></b>(const Ty&amp; left, const Ty&amp; right); <b>[added with C++0X]</b>
+template&lt;class Ty&gt;
+    pair&lt;const Ty&amp;, const Ty&amp;&gt;
+        <b><a href="#minmax">minmax</a></b>(initializer_list&lt;Ty&gt; init); <b>[added with C++0X]</b>
+template&lt;class Ty, class Pr&gt;
+    pair&lt;const Ty&amp;, const Ty&amp;&gt;
+        <b><a href=
+"#minmax">minmax</a></b>(const Ty&amp; left, const Ty&amp; right, Pr pred); <b>[added with C++0X]</b>
+template&lt;class Ty, class Pr&gt;
+    pair&lt;const Ty&amp;, const Ty&amp;&gt;
+        <b><a href=
+"#minmax">minmax</a></b>(initializer_list&lt;Ty&gt; init, Pr pred); <b>[added with C++0X]</b>
+
+template&lt;class FwdIt&gt;
+    FwdIt <b><a href="#max_element">max_element</a></b>(FwdIt first, FwdIt last);
+template&lt;class FwdIt, class Pr&gt;
+    FwdIt <b><a href="#max_element">max_element</a></b>(FwdIt first, FwdIt last, Pr pred);
+template&lt;class FwdIt&gt;
+    FwdIt <b><a href="#min_element">min_element</a></b>(FwdIt first, FwdIt last);
+template&lt;class FwdIt, class Pr&gt;
+    FwdIt <b><a href="#min_element">min_element</a></b>(FwdIt first, FwdIt last, Pr pred);
+template&lt;class FwdIt&gt;
+    pair&lt;FwdIt, FwdIt&gt;
+        <b><a href=
+"#minmax_element">minmax_element</a></b>(FwdIt first, FwdIt last); <b>[added with C++0X]</b>
+template&lt;class FwdIt, class Pr&gt;
+    pair&lt;FwdIt, FwdIt&gt;
+        <b><a href=
+"#minmax_element">minmax_element</a></b>(FwdIt first, FwdIt last, Pr pred); <b>[added with C++0X]</b>
+
+template&lt;class InIt1, class InIt2&gt;
+    bool <b><a href="#lexicographical_compare">lexicographical_compare</a></b>(InIt1 first1,
+        InIt1 last1, InIt2 first2, InIt2 last2);
+template&lt;class InIt1, class InIt2, class Pr&gt;
+    bool <b><a href="#lexicographical_compare">lexicographical_compare</a></b>(InIt1 first1,
+        InIt1 last1, InIt2 first2, InIt2 last2, Pr pred);
+template&lt;class BidIt&gt;
+    bool <b><a href="#next_permutation">next_permutation</a></b>(BidIt first, BidIt last);
+template&lt;class BidIt, class Pr&gt;
+    bool <b><a href="#next_permutation">next_permutation</a></b>(BidIt first, BidIt last,
+        Pr pred);
+template&lt;class BidIt&gt;
+    bool <b><a href="#prev_permutation">prev_permutation</a></b>(BidIt first, BidIt last);
+template&lt;class BidIt, class Pr&gt;
+    bool <b><a href="#prev_permutation">prev_permutation</a></b>(BidIt first, BidIt last,
+        Pr pred);
+
+template&lt;class RanIt&gt;
+    RanIt <b><a href=
+"#is_heap_until">is_heap_until</a></b>(RanIt first, RanIt last); <b>[added with C++0X]</b>
+template&lt;class RanIt, class Pr&gt;
+    RanIt <b><a href=
+"#is_heap_until">is_heap_until</a></b>(RanIt first, RanIt last, Pr pred); <b>[added with C++0X]</b>
+template&lt;class RanIt&gt;
+    bool <b><a href="#is_heap">is_heap</a></b>(RanIt first, RanIt last); <b>[added with C++0X]</b>
+template&lt;class RanIt, class Pr&gt;
+    bool <b><a href="#is_heap">is_heap</a></b>(RanIt first, RanIt last, Pr pred); <b>[added with C++0X]</b>
+
+template&lt;class FwdIt&gt;
+    FwdIt <b><a href=
+"#is_sorted_until">is_sorted_until</a></b>(RanIt first, RanIt last); <b>[added with C++0X]</b>
+template&lt;class FwdIt, class Pr&gt;
+    FwdIt <b><a href=
+"#is_sorted_until">is_sorted_until</a></b>(RanIt first, RanIt last, Pr pred); <b>[added with C++0X]</b>
+template&lt;class FwdIt&gt;
+    bool <b><a href="#is_sorted">is_sorted</a></b>(RanIt first, RanIt last); <b>[added with C++0X]</b>
+template&lt;class FwdIt, class Pr&gt;
+    bool <b><a href=
+"#is_sorted">is_sorted</a></b>(RanIt first, RanIt last, Pr pred); <b>[added with C++0X]</b>
+}  // namespace std
+</pre>
+
+  <h2><a name="adjacent_find"><code>adjacent_find</code></a></h2>
+  <pre>
+template&lt;class FwdIt&gt;
+    FwdIt <b>adjacent_find</b>(FwdIt first, FwdIt last);
+template&lt;class FwdIt, class Pr&gt;
+    FwdIt <b>adjacent_find</b>(FwdIt first, FwdIt last, Pr pred);
+</pre>
+
+  <p>The first template function determines the lowest <code>N</code> in the range <code>[0, last -
+  first)</code> for which <code>N + 1 &lt; last - first</code> and the predicate <code>*(first + N) ==
+  *(first + N + 1)</code> is true. Here, <code>operator==</code> must perform a <a href=
+  "lib_stl.html#pairwise%20comparison">pairwise comparison</a> between its operands. It then returns
+  <code>first + N</code>. If no such value exists, the function returns <code>last</code>. If the sequence
+  contains fewer than two elements, the function never evaluates the predicate. Otherwise, if it returns
+  <code>last</code>, it evaluates the predicate exactly <code>last - first - 1</code> times. Otherwise, it
+  evaluates the predicate exactly <code>N + 1</code> times.</p>
+
+  <p>The second template function behaves the same, except that the predicate is <code>pred(*(first + N),
+  *(first + N + 1))</code>.</p>
+
+  <h2><a name="all_of"><code>all_of</code></a></h2>
+  <pre>
+template&lt;class InIt, class Pr&gt;
+    bool <b>all_of</b>(InIt first, InIt last,
+        Pr pred); <b>[added with C++0X]</b>
+</pre>
+
+  <p>The template function returns true only if, for each <code>N</code> in the range <code>[0, last -
+  first)</code>, the predicate <code>pred(*(first + N))</code> is true.</p>
+
+  <h2><a name="any_of"><code>any_of</code></a></h2>
+  <pre>
+template&lt;class InIt, class Pr&gt;
+    bool <b>any_of</b>(InIt first, InIt last,
+        Pr pred); <b>[added with C++0X]</b>
+</pre>
+
+  <p>The template function returns true only if, for some <code>N</code> in the range <code>[0, last -
+  first)</code>, the predicate <code>pred(*(first + N))</code> is true.</p>
+
+  <h2><a name="binary_search"><code>binary_search</code></a></h2>
+  <pre>
+template&lt;class FwdIt, class Ty&gt;
+    bool <b>binary_search</b>(FwdIt first, FwdIt last,
+        const Ty&amp; val);
+template&lt;class FwdIt, class Ty, class Pr&gt;
+    bool <b>binary_search</b>(FwdIt first, FwdIt last,
+        const Ty&amp; val, Pr pred);
+</pre>
+
+  <p>The first template function determines whether a value of <code>N</code> exists in the range <code>[0,
+  last - first)</code> for which <code>*(first + N)</code> has <a href=
+  "lib_stl.html#equivalent%20ordering">equivalent ordering</a> to <code>val</code>, where the elements
+  designated by iterators in the range <code>[first, last)</code> form a sequence <a href=
+  "lib_stl.html#sequence%20partitioning">partitioned by</a> <code>operator&lt;</code>. If so, the function
+  returns true. If no such value exists, it returns false.</p>
+
+  <p>The function evaluates the ordering predicate <code>X &lt; Y</code> at most <code>ceil(log(last -
+  first)) + O(1)</code> times.</p>
+
+  <p>The second template function behaves the same, except that it replaces <code>operator&lt;(X, Y)</code>
+  with <code>pred(X, Y)</code>.</p>
+
+  <h2><a name="copy"><code>copy</code></a></h2>
+  <pre>
+template&lt;class InIt, class OutIt&gt;
+    OutIt <b>copy</b>(InIt first, InIt last,
+        OutIt dest);
+</pre>
+
+  <p>The template function evaluates <code>*(dest + N) = *(first + N))</code> once for each <code>N</code> in
+  the range <code>[0, last - first)</code>, for strictly increasing values of <code>N</code> beginning with
+  the lowest value. It then returns <code>dest + N</code>. If <code>dest</code> and <code>first</code>
+  designate regions of storage, <code>dest</code> must not be in the range <code>[first, last)</code>.</p>
+
+  <h2><a name="copy_backward"><code>copy_backward</code></a></h2>
+  <pre>
+template&lt;class BidIt1, class BidIt2&gt;
+    BidIt2 <b>copy_backward</b>(BidIt1 first, BidIt1 last,
+        BidIt2 dest);
+</pre>
+
+  <p>The template function evaluates <code>*(dest - N - 1) = *(last - N - 1))</code> once for each
+  <code>N</code> in the range <code>[0, last - first)</code>, for strictly increasing values of
+  <code>N</code> beginning with the lowest value. It then returns <code>dest - (last - first)</code>. If
+  <code>dest</code> and <code>first</code> designate regions of storage, <code>dest</code> must not be in the
+  range <code>[first, last)</code>.</p>
+
+  <h2><a name="copy_if"><code>copy_if</code></a></h2>
+  <pre>
+template&lt;class InIt, class OutIt, class Pr&gt;
+    OutIt <b>copy_if</b>(InIt first, InIt last,
+        Pr pred); <b>[added with C++0X]</b>
+</pre>
+
+  <p>The template function evaluates:</p>
+  <pre>
+if (pred(*dest))
+    *dest++ = *(first + N))
+</pre>
+
+  <p>once for each <code>N</code> in the range <code>[0, last - first)</code>, for strictly increasing values
+  of <code>N</code> beginning with the lowest value. It then returns <code>dest</code>. If <code>dest</code>
+  and <code>first</code> designate regions of storage, <code>dest</code> must not be in the range
+  <code>[first, last)</code>.</p>
+
+  <h2><a name="copy_n"><code>copy_n</code></a></h2>
+  <pre>
+template&lt;class InIt, class Diff, class OutIt&gt;
+    OutIt <b>copy_n</b>(InIt first, Diff count,
+        OutIt dest); <b>[added with C++0X]</b>
+</pre>
+
+  <p>The template function evaluates <code>*(dest + N) = *(first + N))</code> once for each <code>N</code> in
+  the range <code>[0, count)</code>, for strictly increasing values of <code>N</code> beginning with the
+  lowest value. It then returns <code>dest + N</code>. If <code>dest</code> and <code>first</code> designate
+  regions of storage, <code>dest</code> must not be in the range <code>[first, last)</code>.</p>
+
+  <h2><a name="count"><code>count</code></a></h2>
+  <pre>
+template&lt;class InIt, class Ty&gt;
+    typename iterator_traits&lt;InIt&gt;::difference_type
+        <b>count</b>(InIt first, InIt last, const Ty&amp; val);
+</pre>
+
+  <p>The template function sets a count <code>count</code> to zero. It then executes <code>++count</code> for
+  each <code>N</code> in the range <code>[0, last - first)</code> for which the predicate <code>*(first + N)
+  == val</code> is true. Here, <code>operator==</code> must perform a <a href=
+  "lib_stl.html#pairwise%20comparison">pairwise comparison</a> between its operands. The function returns
+  <code>count</code>. It evaluates the predicate exactly <code>last - first</code> times.</p>
+
+  <h2><a name="count_if"><code>count_if</code></a></h2>
+  <pre>
+template&lt;class InIt, class Pr, class Dist&gt;
+    typename iterator_traits&lt;InIt&gt;::difference_type
+        <b>count_if</b>(InIt first, InIt last,
+            Pr pred);
+</pre>
+
+  <p>The template function sets a count <code>count</code> to zero. It then executes <code>++count</code> for
+  each <code>N</code> in the range <code>[0, last - first)</code> for which the predicate <code>pred(*(first
+  + N))</code> is true. The function returns <code>count</code>. It evaluates the predicate exactly
+  <code>last - first</code> times.</p>
+
+  <h2><a name="equal"><code>equal</code></a></h2>
+  <pre>
+template&lt;class InIt1, class InIt2&gt;
+    bool <b>equal</b>(InIt1 first1, InIt1 last1, InIt2 first2);
+template&lt;class InIt1, class InIt2, class Pr&gt;
+    bool <b>equal</b>(InIt1 first1, InIt1 last1, InIt2 first2, Pr pred);
+</pre>
+
+  <p>The first template function returns true only if, for each <code>N</code> in the range <code>[0, last1 -
+  first1)</code>, the predicate <code>*(first1 + N) == *(first2 + N)</code> is true. Here,
+  <code>operator==</code> must perform a <a href="lib_stl.html#pairwise%20comparison">pairwise comparison</a>
+  between its operands. The function evaluates the predicate at most once for each <code>N</code>.</p>
+
+  <p>The second template function behaves the same, except that the predicate is <code>pred(*(first1 + N),
+  *(first2 + N))</code>.</p>
+
+  <h2><a name="equal_range"><code>equal_range</code></a></h2>
+  <pre>
+template&lt;class FwdIt, class Ty&gt;
+    pair&lt;FwdIt, FwdIt&gt; <b>equal_range</b>(FwdIt first,
+        FwdIt last, const Ty&amp; val);
+template&lt;class FwdIt, class Ty, class Pr&gt;
+    pair&lt;FwdIt, FwdIt&gt; <b>equal_range</b>(FwdIt first,
+        FwdIt last, const Ty&amp; val, Pr pred);
+</pre>
+
+  <p>The first template function effectively returns <code><a href="utility.html#pair">pair</a>( <a href=
+  "#lower_bound">lower_bound</a>(first, last, val), <a href="#upper_bound">upper_bound</a>(first, last,
+  val))</code>, where the elements designated by iterators in the range <code>[first, last)</code> form a
+  sequence <a href="lib_stl.html#sequence%20partitioning">partitioned by</a> <code>operator&lt;</code>. Thus,
+  the function determines the largest range of positions over which <code>val</code> can be inserted in the
+  sequence and still preserve its ordering.</p>
+
+  <p>The function evaluates the ordering predicate <code>X &lt; Y</code> at most <code>ceil(2 * log(last -
+  first)) + 2</code>.</p>
+
+  <p>The second template function behaves the same, except that it replaces <code>operator&lt;(X, Y)</code>
+  with <code>pred(X, Y)</code>.</p>
+
+  <h2><a name="fill"><code>fill</code></a></h2>
+  <pre>
+template&lt;class FwdIt, class Ty&gt;
+    void <b>fill</b>(FwdIt first, FwdIt last, const Ty&amp; val);
+</pre>
+
+  <p>The template function evaluates <code>*(first + N) = val</code> once for each <code>N</code> in the
+  range <code>[0, last - first)</code>.</p>
+
+  <h2><a name="fill_n"><code>fill_n</code></a></h2>
+  <pre>
+template&lt;class OutIt, class Diff, class Ty&gt;
+    void <b>fill_n</b>(OutIt first, Diff count, const Ty&amp; val);
+</pre>
+
+  <p>The template function evaluates <code>*(first + N) = val</code> once for each <code>N</code> in the
+  range <code>[0, count)</code>.</p>
+
+  <h2><a name="find"><code>find</code></a></h2>
+  <pre>
+template&lt;class InIt, class Ty&gt;
+    InIt <b>find</b>(InIt first, InIt last, const Ty&amp; val);
+</pre>
+
+  <p>The template function determines the lowest value of <code>N</code> in the range <code>[0, last -
+  first)</code> for which the predicate <code>*(first + N) == val</code> is true. Here,
+  <code>operator==</code> must perform a <a href="lib_stl.html#pairwise%20comparison">pairwise comparison</a>
+  between its operands. It then returns <code>first + N</code>. If no such value exists, the function returns
+  <code>last</code>. It evaluates the predicate at most once for each <code>N</code>.</p>
+
+  <h2><a name="find_end"><code>find_end</code></a></h2>
+  <pre>
+template&lt;class FwdIt1, class FwdIt2&gt;
+    FwdIt1 <b>find_end</b>(FwdIt1 first1, FwdIt1 last1,
+        FwdIt2 first2, FwdIt2 last2);
+template&lt;class FwdIt1, class FwdIt2, class Pr&gt;
+    FwdIt1 <b>find_end</b>(FwdIt1 first1, FwdIt1 last1,
+        FwdIt2 first2, FwdIt2 last2, Pr pred);
+</pre>
+
+  <p>The first template function determines the highest value of <code>N</code> in the range <code>[0, last1
+  - first1 - (last2 - first2))</code> such that for each <code>M</code> in the range <code>[0, last2 -
+  first2)</code>, the predicate <code>*(first1 + N + M) == *(first2 + N + M)</code> is true. Here,
+  <code>operator==</code> must perform a <a href="lib_stl.html#pairwise%20comparison">pairwise comparison</a>
+  between its operands. It then returns <code>first1 + N</code>. If no such value exists, the function
+  returns <code>last1</code>. It evaluates the predicate at most <code>(last2 - first2) * (last1 - first1 -
+  (last2 - first2) + 1)</code> times.</p>
+
+  <p>The second template function behaves the same, except that the predicate is <code>pred(*(first1 + N +
+  M), *(first2 + N + M))</code>.</p>
+
+  <h2><a name="find_first_of"><code>find_first_of</code></a></h2>
+  <pre>
+template&lt;class InIt1, class InIt2&gt;
+    InIt1 <b>find_first_of</b>(InIt1 first1, InIt1 last1,
+        InIt2 first2, InIt2 last2);
+template&lt;class InIt1, class InIt2, class Pr&gt;
+    InIt1 <b>find_first_of</b>(InIt1 first1, InIt1 last1,
+        InIt2 first2, InIt2 last2, Pr pred);
+</pre>
+
+  <p>The first template function determines the lowest value of <code>N</code> in the range <code>[0, last1 -
+  first1)</code> such that for some <code>M</code> in the range <code>[0, last2 - first2)</code>, the
+  predicate <code>*(first1 + N) == *(first2 + M)</code> is true. Here, <code>operator==</code> must perform a
+  <a href="lib_stl.html#pairwise%20comparison">pairwise comparison</a> between its operands. It then returns
+  <code>first1 + N</code>. If no such value exists, the function returns <code>last1</code>. It evaluates the
+  predicate at most <code>(last1 - first1) * (last2 - first2)</code> times.</p>
+
+  <p>The second template function behaves the same, except that the predicate is <code>pred(*(first1 + N),
+  *(first2 + M))</code>.</p>
+
+  <h2><a name="find_if"><code>find_if</code></a></h2>
+  <pre>
+template&lt;class InIt, class Pr&gt;
+    InIt <b>find_if</b>(InIt first, InIt last, Pr pred);
+</pre>
+
+  <p>The template function determines the lowest value of <code>N</code> in the range <code>[0, last -
+  first)</code> for which the predicate <code>pred(*(first + N))</code> is true. It then returns <code>first
+  + N</code>. If no such value exists, the function returns <code>last</code>. It evaluates the predicate at
+  most once for each <code>N</code>.</p>
+
+  <h2><a name="find_if_not"><code>find_if_not</code></a></h2>
+  <pre>
+template&lt;class InIt, class Pr&gt;
+    InIt <b>find_if_not</b>(InIt first, InIt last,
+        Pr pred); <b>[added with C++0X]</b>
+</pre>
+
+  <p>The template function determines the lowest value of <code>N</code> in the range <code>[0, last -
+  first)</code> for which the predicate <code>pred(*(first + N))</code> is false. It then returns <code>first
+  + N</code>. If no such value exists, the function returns <code>last</code>. It evaluates the predicate at
+  most once for each <code>N</code>.</p>
+
+  <h2><a name="for_each"><code>for_each</code></a></h2>
+  <pre>
+template&lt;class InIt, class Fn1&gt;
+    Fn1 <b>for_each</b>(InIt first, InIt last, Fn1 func);
+</pre>
+
+  <p>The template function evaluates <code>func(*(first + N))</code> once for each <code>N</code> in the
+  range <code>[0, last - first)</code>. It then returns <code>func</code>.</p>
+
+  <h2><a name="generate"><code>generate</code></a></h2>
+  <pre>
+template&lt;class FwdIt, class Fn0&gt;
+    void <b>generate</b>(FwdIt first, FwdIt last, Fn0 func);
+</pre>
+
+  <p>The template function evaluates <code>*(first + N) = func()</code> once for each <code>N</code> in the
+  range <code>[0, last - first)</code>.</p>
+
+  <h2><a name="generate_n"><code>generate_n</code></a></h2>
+  <pre>
+template&lt;class OutIt, class Diff, class Fn0&gt;
+    void <b>generate_n</b>(OutIt first, Diff count, Fn0 func);
+</pre>
+
+  <p>The template function evaluates <code>*(first + N) = func()</code> once for each <code>N</code> in the
+  range <code>[0, count)</code>.</p>
+
+  <h2><a name="includes"><code>includes</code></a></h2>
+  <pre>
+template&lt;class InIt1, class InIt2&gt;
+    bool <b>includes</b>(InIt1 first1, InIt1 last1,
+        InIt2 first2, InIt2 last2);
+template&lt;class InIt1, class InIt2, class Pr&gt;
+    bool <b>includes</b>(InIt1 first1, InIt1 last1,
+        InIt2 first2, InIt2 last2, Pr pred);
+</pre>
+
+  <p>The first template function determines whether a value of <code>N</code> exists in the range <code>[0,
+  last2 - first2)</code> such that, for each <code>M</code> in the range <code>[0, last1 - first1)</code>,
+  <code>*(first1 + M)</code> and <code>*(first2 + N)</code> do not have <a href=
+  "lib_stl.html#equivalent%20ordering">equivalent ordering</a>, where the elements designated by iterators in
+  the ranges <code>[first1, last1)</code> and <code>[first2, last2)</code> each form a sequence <a href=
+  "lib_stl.html#sequence%20ordering">ordered by</a> <code>operator&lt;</code>. If so, the function returns
+  false. If no such value exists, it returns true. Thus, the function determines whether the ordered sequence
+  designated by iterators in the range <code>[first2, last2)</code> all have equivalent ordering with some
+  element designated by iterators in the range <code>[first1, last1)</code>.</p>
+
+  <p>The function evaluates the predicate at most <code>2 * ((last1 - first1) + (last2 - first2)) - 1</code>
+  times.</p>
+
+  <p>The second template function behaves the same, except that it replaces <code>operator&lt;(X, Y)</code>
+  with <code>pred(X, Y)</code>.</p>
+
+  <h2><a name="inplace_merge"><code>inplace_merge</code></a></h2>
+  <pre>
+template&lt;class BidIt&gt;
+    void <b>inplace_merge</b>(BidIt first, BidIt mid,
+        BidIt last);
+template&lt;class BidIt, class Pr&gt;
+    void <b>inplace_merge</b>(BidIt first, BidIt mid,
+        BidIt last, Pr pred);
+</pre>
+
+  <p>The first template function reorders the sequences designated by iterators in the ranges <code>[first,
+  mid)</code> and <code>[mid, last)</code>, each <a href="lib_stl.html#sequence%20ordering">ordered by</a>
+  <code>operator&lt;</code>, to form a merged sequence of length <code>last - first</code> beginning at
+  <code>first</code> also ordered by <code>operator&lt;</code>. The merge occurs without altering the
+  relative order of elements within either original sequence. Moreover, for any two elements from different
+  original sequences that have <a href="lib_stl.html#equivalent%20ordering">equivalent ordering</a>, the
+  element from the ordered range <code>[first, mid)</code> precedes the other.</p>
+
+  <p>The function evaluates the ordering predicate <code>X &lt; Y</code> at most <code>ceil((last - first) *
+  log(last - first))</code> times. (Given enough temporary storage, it can evaluate the predicate at most
+  <code>(last - first) - 1</code> times.)</p>
+
+  <p>The second template function behaves the same, except that it replaces <code>operator&lt;(X, Y)</code>
+  with <code>pred(X, Y)</code>.</p>
+
+  <p>Beginning with <b>C++0X</b>, the affected objects need only be <a href=
+  "lib_cpp.html#movable">movable</a>, not copyable.</p>
+
+  <h2><a name="is_heap"><code>is_heap</code></a></h2>
+  <pre>
+template&lt;class RanIt&gt;
+    bool <b>is_heap</b>(RanIt first, RanIt last); <b>[added with C++0X]</b>
+template&lt;class RanIt, class Pr&gt;
+    bool <b>is_heap</b>(RanIt first, RanIt last, Pr pred); <b>[added with C++0X]</b>
+</pre>
+
+  <p>The first template function returns <code><a href="#is_heap_until">is_heap_until</a>(first, last) ==
+  last</code>.</p>
+
+  <p>The second template function returns <code><a href="#is_heap_until">is_heap_until</a>(first, last, pred)
+  == last</code>.</p>
+
+  <h2><a name="is_heap_until"><code>is_heap_until</code></a></h2>
+  <pre>
+template&lt;class RanIt&gt;
+    bool <b>is_heap_until</b>(RanIt first, RanIt last); <b>[added with C++0X]</b>
+template&lt;class RanIt, class Pr&gt;
+    bool <b>is_heap_until</b>(RanIt first, RanIt last, Pr pred); <b>[added with C++0X]</b>
+</pre>
+
+  <p>The first template function returns the last iterator <code>next</code> in <code>[first, last)</code>
+  such that <code>[first, next)</code> is a heap <a href="lib_stl.html#heap%20ordering">ordered by</a>
+  <code>operator&lt;</code> or by <code>pred</code>. If <code>last - next &lt; 2</code> the function returns
+  <code>last</code>.</p>
+
+  <p>The second template function behaves the same, except that it replaces <code>operator&lt;(X, Y)</code>
+  with <code>pred(X, Y)</code>.</p>
+
+  <h2><a name="is_partitioned"><code>is_partitioned</code></a></h2>
+  <pre>
+template&lt;class InIt, class Pr&gt;
+    bool <b>is_partitioned</b>(InIt first, InIt last,
+        Pr pred); <b>[added with C++0X]</b>
+</pre>
+
+  <p>The template function returns true only if all elements in <code>[first, last)</code> are <a href=
+  "lib_stl.html#sequence%20partitioning">partitioned by</a> <code>pred</code>; that is, all elements
+  <code>X</code> in <code>[first, last)</code> for which <code>pred(X)</code> is true occur before all
+  elements <code>Y</code> for which <code>pred(Y)</code> is false.</p>
+
+  <h2><a name="is_sorted"><code>is_sorted</code></a></h2>
+  <pre>
+template&lt;class FwdIt&gt;
+    bool <b>is_sorted</b>(FwdIt first, FwdIt last); <b>[added with C++0X]</b>
+template&lt;class FwdIt, class Pr&gt;
+    bool <b>is_sorted</b>(FwdIt first, FwdIt last, Pr pred); <b>[added with C++0X]</b>
+</pre>
+
+  <p>The first template function returns <code><a href="#is_sorted_until">is_sorted_until</a>(first, last) ==
+  last</code>.</p>
+
+  <p>The second template function returns <code><a href="#is_sorted_until">is_sorted_until</a>(first, last,
+  pred) == last</code>.</p>
+
+  <h2><a name="is_sorted_until"><code>is_sorted_until</code></a></h2>
+  <pre>
+template&lt;class FwdIt&gt;
+    bool <b>is_sorted_until</b>(FwdIt first, FwdIt last); <b>[added with C++0X]</b>
+template&lt;class FwdIt, class Pr&gt;
+    bool <b>is_sorted_until</b>(FwdIt first, FwdIt last, Pr pred); <b>[added with C++0X]</b>
+</pre>
+
+  <p>The first template function returns the last iterator <code>next</code> in <code>[first, last)</code>
+  such that <code>[first, next)</code> is a sorted <a href="lib_stl.html#sequence%20ordering">ordered by</a>
+  <code>operator&lt;</code> or <code>pred</code>. If <code>last - next &lt; 2</code> the function returns
+  <code>last</code>.</p>
+
+  <p>The second template function behaves the same, except that it replaces <code>operator&lt;(X, Y)</code>
+  with <code>pred(X, Y)</code>.</p>
+
+  <h2><a name="iter_swap"><code>iter_swap</code></a></h2>
+  <pre>
+template&lt;class FwdIt1, class FwdIt2&gt;
+    void <b>iter_swap</b>(FwdIt1 left, FwdIt2 right);
+</pre>
+
+  <p>The template function leaves the value originally stored in <code>*right</code> subsequently stored in
+  <code>*left</code>, and the value originally stored in <code>*left</code> subsequently stored in
+  <code>*right</code>.</p>
+
+  <h2><a name="lexicographical_compare"><code>lexicographical_compare</code></a></h2>
+  <pre>
+template&lt;class InIt1, class InIt2&gt;
+    bool <b>lexicographical_compare</b>(InIt1 first1,
+        InIt1 last1, InIt2 first2, InIt2 last2);
+template&lt;class InIt1, class InIt2, class Pr&gt;
+    bool <b>lexicographical_compare</b>(InIt1 first1,
+        InIt1 last1, InIt2 first2, InIt2 last2, Pr pred);
+</pre>
+
+  <p>The first template function determines <code>K</code>, the number of elements to compare as the smaller
+  of <code>last1 - first1</code> and <code>last2 - first2</code>. It then determines the lowest value of
+  <code>N</code> in the range <code>[0, K)</code> for which <code>*(first1 + N)</code> and <code>*(first2 +
+  N)</code> do not have <a href="lib_stl.html#equivalent%20ordering">equivalent ordering</a>. If no such
+  value exists, the function returns true only if <code>K &lt; (last2 - first2)</code>. Otherwise, it returns
+  true only if <code>*(first1 + N) &lt; *(first2 + N)</code>. Thus, the function returns true only if the
+  sequence designated by iterators in the range <code>[first1, last1)</code> is lexicographically less than
+  the other sequence.</p>
+
+  <p>The function evaluates the ordering predicate <code>X &lt; Y</code> at most <code>2 * K</code>
+  times.</p>
+
+  <p>The second template function behaves the same, except that it replaces <code>operator&lt;(X, Y)</code>
+  with <code>pred(X, Y)</code>.</p>
+
+  <h2><a name="lower_bound"><code>lower_bound</code></a></h2>
+  <pre>
+template&lt;class FwdIt, class Ty&gt;
+    FwdIt <b>lower_bound</b>(FwdIt first, FwdIt last,
+        const Ty&amp; val);
+template&lt;class FwdIt, class Ty, class Pr&gt;
+    FwdIt <b>lower_bound</b>(FwdIt first, FwdIt last,
+        const Ty&amp; val, Pr pred);
+</pre>
+
+  <p>The first template function determines the highest value of <code>N</code> in the range <code>(0, last -
+  first]</code> such that, for each <code>M</code> in the range <code>[0, N)</code> the predicate
+  <code>*(first + M) &lt; val</code> is true, where the elements designated by iterators in the range
+  <code>[first, last)</code> form a sequence <a href="lib_stl.html#sequence%20partitioning">partitioned
+  by</a> <code>operator&lt;</code>. It then returns <code>first + N</code>. Thus, the function determines the
+  lowest position before which <code>val</code> can be inserted in the sequence and still preserve its
+  ordering.</p>
+
+  <p>The function evaluates the ordering predicate <code>X &lt; Y</code> at most <code>ceil(log(last -
+  first)) + 1</code> times.</p>
+
+  <p>The second template function behaves the same, except that it replaces <code>operator&lt;(X, Y)</code>
+  with <code>pred(X, Y)</code>.</p>
+
+  <h2><a name="make_heap"><code>make_heap</code></a></h2>
+  <pre>
+template&lt;class RanIt&gt;
+    void <b>make_heap</b>(RanIt first, RanIt last);
+template&lt;class RanIt, class Pr&gt;
+    void <b>make_heap</b>(RanIt first, RanIt last, Pr pred);
+</pre>
+
+  <p>The first template function reorders the sequence designated by iterators in the range <code>[first,
+  last)</code> to form a heap <a href="lib_stl.html#heap%20ordering">ordered by</a>
+  <code>operator&lt;</code>.</p>
+
+  <p>The function evaluates the ordering predicate <code>X &lt; Y</code> at most <code>3 * (last -
+  first)</code> times.</p>
+
+  <p>The second template function behaves the same, except that it replaces <code>operator&lt;(X, Y)</code>
+  with <code>pred(X, Y)</code>.</p>
+
+  <p>Beginning with <b>C++0X</b>, the affected objects need only be <a href=
+  "lib_cpp.html#movable">movable</a>, not copyable.</p>
+
+  <h2><a name="max"><code>max</code></a></h2>
+  <pre>
+template&lt;class Ty&gt;
+    const Ty&amp; <b>max</b>(const Ty&amp; left, const Ty&amp; right);
+template&lt;class Ty&gt;
+    Ty <b>max</b>(initializer_list&lt;Ty&gt; init); <b>[added with C++0X]</b>
+template&lt;class Ty, class Pr&gt;
+    const Ty&amp; <b>max</b>(const Ty&amp; left, const Ty&amp; right, Pr pred);
+template&lt;class Ty, class Pr&gt;
+    Ty <b>max</b>(initializer_list&lt;Ty&gt; init, Pr pred); <b>[added with C++0X]</b>
+</pre>
+
+  <p>The first template function returns <code>right</code> if <code>left &lt; right</code>. Otherwise it
+  returns <code>left</code>. <code>Ty</code> need supply only a single-argument constructor and a
+  destructor.</p>
+
+  <p>The second member function returns the leftmost element of <code>init</code> that compares no smaller
+  than any other element.</p>
+
+  <p>The remaining template functions behaves the same, except that they replace <code>operator&lt;(X,
+  Y)</code> with <code>pred(X, Y)</code>.</p>
+
+  <h2><a name="max_element"><code>max_element</code></a></h2>
+  <pre>
+template&lt;class FwdIt&gt;
+    FwdIt <b>max_element</b>(FwdIt first, FwdIt last);
+template&lt;class FwdIt, class Pr&gt;
+    FwdIt <b>max_element</b>(FwdIt first, FwdIt last, Pr pred);
+</pre>
+
+  <p>The first template function determines the lowest value of <code>N</code> in the range <code>[0, last -
+  first)</code> such that, for each <code>M</code> in the range <code>[0, last - first)</code> the predicate
+  <code>*(first + N) &lt; *(first + M)</code> is false. It then returns <code>first + N</code>. Thus, the
+  function determines the lowest position that contains the largest value in the sequence.</p>
+
+  <p>The function evaluates the ordering predicate <code>X &lt; Y</code> exactly <code>max((last - first) -
+  1, 0)</code> times.</p>
+
+  <p>The second template function behaves the same, except that it replaces <code>operator&lt;(X, Y)</code>
+  with <code>pred(X, Y)</code>.</p>
+
+  <h2><a name="merge"><code>merge</code></a></h2>
+  <pre>
+template&lt;class InIt1, class InIt2, class OutIt&gt;
+    OutIt <b>merge</b>(InIt1 first1, InIt1 last1,
+        InIt2 first2, InIt2 last2, OutIt dest);
+template&lt;class InIt1, class InIt2, class OutIt,
+    class Pr&gt;
+    OutIt <b>merge</b>(InIt1 first1, InIt1 last1,
+        InIt2 first2, InIt2 last2, OutIt dest, Pr pred);
+</pre>
+
+  <p>The first template function determines <code>K</code>, the number of elements to copy as <code>(last1 -
+  first1) + (last2 - first2)</code>. It then alternately copies two sequences, designated by iterators in the
+  ranges <code>[first1, last1)</code> and <code>[first2, last2)</code> and each <a href=
+  "lib_stl.html#sequence%20ordering">ordered by</a> <code>operator&lt;</code>, to form a merged sequence of
+  length <code>K</code> beginning at <code>dest</code>, also ordered by <code>operator&lt;</code>. The
+  function then returns <code>dest + K</code>.</p>
+
+  <p>The merge occurs without altering the relative order of elements within either sequence. Moreover, for
+  any two elements from different sequences that have <a href="lib_stl.html#equivalent%20ordering">equivalent
+  ordering</a>, the element from the ordered range <code>[first1, last1)</code> precedes the other. Thus, the
+  function merges two ordered sequences to form another ordered sequence.</p>
+
+  <p>If <code>dest</code> and <code>first1</code> designate regions of storage, the range <code>[dest, dest +
+  K)</code> must not overlap the range <code>[first1, last1)</code>. If <code>dest</code> and
+  <code>first2</code> designate regions of storage, the range <code>[dest, dest + K)</code> must not overlap
+  the range <code>[first2, last2)</code>. The function evaluates the ordering predicate <code>X &lt; Y</code>
+  at most <code>K - 1</code> times.</p>
+
+  <p>The second template function behaves the same, except that it replaces <code>operator&lt;(X, Y)</code>
+  with <code>pred(X, Y)</code>.</p>
+
+  <h2><a name="min"><code>min</code></a></h2>
+  <pre>
+template&lt;class Ty&gt;
+    const Ty&amp; <b>min</b>(const Ty&amp; left, const Ty&amp; right);
+template&lt;class Ty&gt;
+    Ty <b>min</b>(initializer_list&lt;Ty&gt; init); <b>[added with C++0X]</b>
+template&lt;class Ty, class Pr&gt;
+    const Ty&amp; <b>min</b>(const Ty&amp; left, const Ty&amp; right, Pr pred);
+template&lt;class Ty, class Pr&gt;
+    Ty <b>min</b>(initializer_list&lt;Ty&gt; init, Pr pred); <b>[added with C++0X]</b>
+</pre>
+
+  <p>The first template function returns <code>right</code> if <code>right &lt; left</code>. Otherwise it
+  returns <code>left</code>. <code>Ty</code> need supply only a single-argument constructor and a
+  destructor.</p>
+
+  <p>The second member function returns the leftmost element of <code>init</code> that compares no larger
+  than any other element.</p>
+
+  <p>The remaining template functions behaves the same, except that they replace <code>operator&lt;(X,
+  Y)</code> with <code>pred(X, Y)</code>.</p>
+
+  <h2><a name="minmax"><code>minmax</code></a></h2>
+  <pre>
+template&lt;class Ty&gt;
+    pair&lt;const Ty&amp;, const Ty&amp;&gt;
+        <b>minmax</b>(const Ty&amp; left, const Ty&amp; right); <b>[added with C++0X]</b>
+template&lt;class Ty&gt;
+    pair&lt;Ty, Ty&gt;
+        <b>minmax</b>(initializer_list&lt;Ty&gt; init); <b>[added with C++0X]</b>
+template&lt;class Ty, class Pr&gt;
+    pair&lt;const Ty&amp;, const Ty&amp;&gt;
+        <b>minmax</b>(const Ty&amp; left, const Ty&amp; right, Pr pred); <b>[added with C++0X]</b>
+template&lt;class Ty, class... Types, class Pr&gt;
+    pair&lt;Ty, Ty&gt;
+        <b>minmax</b>(initializer_list&lt;Ty&gt; init, Pr pred); <b>[added with C++0X]</b>
+</pre>
+
+  <p>The first template function returns <code>pair&lt;const Ty&amp;, const Ty&amp;&gt;(right, left)</code>
+  if <code>right &lt; left</code>. Otherwise it returns <code>pair&lt;const Ty&amp;, const Ty&amp;&gt;(left,
+  right)</code>.</p>
+
+  <p>The second member function returns a pair whose first element is the leftmost element of
+  <code>init</code> that compares no larger than any other element, and whose second element is the rightmost
+  element of <code>init</code> that compares no smaller than any other element.</p>
+
+  <p>The remaining template functions behaves the same, except that they replace <code>operator&lt;(X,
+  Y)</code> with <code>pred(X, Y)</code>.</p>
+
+  <p>The function performs exactly one comparison.</p>
+
+  <h2><a name="min_element"><code>min_element</code></a></h2>
+  <pre>
+template&lt;class FwdIt&gt;
+    FwdIt <b>min_element</b>(FwdIt first, FwdIt last);
+template&lt;class FwdIt, class Pr&gt;
+    FwdIt <b>min_element</b>(FwdIt first, FwdIt last, Pr pred);
+</pre>
+
+  <p>The first template function determines the lowest value of <code>N</code> in the range <code>[0, last -
+  first)</code> such that, for each <code>M</code> in the range <code>[0, last - first)</code> the predicate
+  <code>*(first + M) &lt; *(first + N)</code> is false. It then returns <code>first + N</code>. Thus, the
+  function determines the lowest position that contains the smallest value in the sequence.</p>
+
+  <p>The function evaluates the ordering predicate <code>X &lt; Y</code> exactly <code>max((last - first) -
+  1, 0)</code> times.</p>
+
+  <p>The second template function behaves the same, except that it replaces <code>operator&lt;(X, Y)</code>
+  with <code>pred(X, Y)</code>.</p>
+
+  <h2><a name="minmax_element"><code>minmax_element</code></a></h2>
+  <pre>
+template&lt;class FwdIt&gt;
+    pair&lt;FwdIt, FwdIt&gt;
+        <b>minmax_element</b>(FwdIt first, FwdIt last); <b>[added with C++0X]</b>
+template&lt;class FwdIt, class Pr&gt;
+    pair&lt;FwdIt, FwdIt&gt;
+        <b>minmax_element</b>(FwdIt first, FwdIt last, Pr pred); <b>[added with C++0X]</b>
+</pre>
+
+  <p>The first template function returns <code>pair&lt;FwdIt, FwdIt&gt;(<a href=
+  "#min_element">min_element(first, last)</a></code>, <a href="#max_element">max_element(first,
+  last)</a>).</p>
+
+  <p>The second template function behaves the same, except that it replaces <code>operator&lt;(X, Y)</code>
+  with <code>pred(X, Y)</code>.</p>
+
+  <p>If the sequence is non-empty, the function performs at most <code>3 * (last - first - 1) / 2</code>
+  comparisons.</p>
+
+  <h2><a name="mismatch"><code>mismatch</code></a></h2>
+  <pre>
+template&lt;class InIt1, class InIt2&gt;
+    pair&lt;InIt1, InIt2&gt; <b>mismatch</b>(InIt1 first1, InIt1 last1,
+        InIt2 first2);
+template&lt;class InIt1, class InIt2, class Pr&gt;
+    pair&lt;InIt1, InIt2&gt; <b>mismatch</b>(InIt1 first1, InIt1 last1,
+        InIt2 first2, Pr pred);
+</pre>
+
+  <p>The first template function determines the lowest value of <code>N</code> in the range <code>[0, last1 -
+  first1)</code> for which the predicate <code>!(*(first1 + N) == *(first2 + N))</code> is true. Here,
+  <code>operator==</code> must perform a <a href="lib_stl.html#pairwise%20comparison">pairwise comparison</a>
+  between its operands. It then returns <code><a href="utility.html#pair">pair</a>(first1 + N, first2 +
+  N)</code>. If no such value exists, N has the value <code>last1 - first1</code>. The function evaluates the
+  predicate at most once for each <code>N</code>.</p>
+
+  <p>The second template function behaves the same, except that the predicate is <code>pred(*(first1 + N),
+  *(first2 + N))</code>.</p>
+
+  <h2><a name="move"><code>move</code></a></h2>
+  <pre>
+template&lt;class InIt, class OutIt&gt;
+    OutIt <b>move</b>(InIt first, InIt last,
+        OutIt dest); <b>[added with C++0X]</b>
+</pre>
+
+  <p>The template function evaluates <code>*(dest + N) = std::move(*(first + N)))</code> once for each
+  <code>N</code> in the range <code>[0, last - first)</code>, for strictly increasing values of
+  <code>N</code> beginning with the lowest value. It then returns <code>dest + N</code>. If <code>dest</code>
+  and <code>first</code> designate regions of storage, <code>dest</code> must not be in the range
+  <code>[first, last)</code>.</p>
+
+  <h2><a name="move_backward"><code>move_backward</code></a></h2>
+  <pre>
+template&lt;class BidIt1, class BidIt2&gt;
+    BidIt2 <b>move_backward</b>(BidIt1 first, BidIt1 last,
+        BidIt2 dest); <b>[added with C++0X]</b>
+</pre>
+
+  <p>The template function evaluates <code>*(dest - N - 1) = std::move(*(last - N - 1)))</code> once for each
+  <code>N</code> in the range <code>[0, last - first)</code>, for strictly increasing values of
+  <code>N</code> beginning with the lowest value. It then returns <code>dest - (last - first)</code>. If
+  <code>dest</code> and <code>first</code> designate regions of storage, <code>dest</code> must not be in the
+  range <code>[first, last)</code>.</p>
+
+  <h2><a name="next_permutation"><code>next_permutation</code></a></h2>
+  <pre>
+template&lt;class BidIt&gt;
+    bool <b>next_permutation</b>(BidIt first, BidIt last);
+template&lt;class BidIt, class Pr&gt;
+    bool <b>next_permutation</b>(BidIt first, BidIt last,
+        Pr pred);
+</pre>
+
+  <p>The first template function determines a repeating sequence of permutations, whose initial permutation
+  occurs when the sequence designated by iterators in the range <code>[first, last)</code> is <a href=
+  "lib_stl.html#sequence%20ordering">ordered by</a> <code>operator&lt;</code>. (The elements are sorted in
+  <i>ascending</i> order.) It then reorders the elements in the sequence, by evaluating <code><a href=
+  "#swap">swap</a>(X, Y)</code> for the elements <code>X</code> and <code>Y</code> zero or more times, to
+  form the next permutation. The function returns true only if the resulting sequence is not the initial
+  permutation. Otherwise, the resultant sequence is the one next larger lexicographically than the original
+  sequence.</p>
+
+  <p>The function evaluates <code>swap(X, Y)</code> at most <code>(last - first) / 2</code>.</p>
+
+  <p>The second template function behaves the same, except that it replaces <code>operator&lt;(X, Y)</code>
+  with <code>pred(X, Y)</code>.</p>
+
+  <h2><a name="none_of"><code>none_of</code></a></h2>
+  <pre>
+template&lt;class InIt, class Pr&gt;
+    bool <b>none_of</b>(InIt first, InIt last,
+        Pr pred); <b>[added with C++0X]</b>
+</pre>
+
+  <p>The template function returns true only if, for each <code>N</code> in the range <code>[0, last -
+  first)</code>, the predicate <code>pred(*(first + N))</code> is false.</p>
+
+  <h2><a name="nth_element"><code>nth_element</code></a></h2>
+  <pre>
+template&lt;class RanIt&gt;
+    void <b>nth_element</b>(RanIt first, RanIt nth, RanIt last);
+template&lt;class RanIt, class Pr&gt;
+    void <b>nth_element</b>(RanIt first, RanIt nth, RanIt last,
+        Pr pred);
+</pre>
+
+  <p>The first template function reorders the sequence designated by iterators in the range <code>[first,
+  last)</code> such that for each <code>N</code> in the range <code>[0, nth - first)</code> and for each
+  <code>M</code> in the range <code>[nth - first, last - first)</code> the predicate <code>!(*(first + M)
+  &lt; *(first + N))</code> is true. Moreover, for <code>N</code> equal to <code>nth - first</code> and for
+  each <code>M</code> in the range <code>(nth - first, last - first)</code> the predicate <code>!(*(first +
+  M) &lt; *(first + N))</code> is true. Thus, if <code>nth != last</code> the element <code>*nth</code> is in
+  its proper position if elements of the entire sequence were sorted in <i>ascending</i> order, <a href=
+  "lib_stl.html#sequence%20ordering">ordered by</a> <code>operator&lt;</code>. Any elements before this one
+  belong before it in the sort sequence, and any elements after it belong after it.</p>
+
+  <p>The function evaluates the ordering predicate <code>X &lt; Y</code> a number of times proportional to
+  <code>last - first</code>, on average.</p>
+
+  <p>The second template function behaves the same, except that it replaces <code>operator&lt;(X, Y)</code>
+  with <code>pred(X, Y)</code>.</p>
+
+  <p>Beginning with <b>C++0X</b>, the affected objects need only be <a href=
+  "lib_cpp.html#movable">movable</a>, not copyable.</p>
+
+  <h2><a name="partial_sort"><code>partial_sort</code></a></h2>
+  <pre>
+template&lt;class RanIt&gt;
+    void <b>partial_sort</b>(RanIt first, RanIt mid,
+        RanIt last);
+template&lt;class RanIt, class Pr&gt;
+    void <b>partial_sort</b>(RanIt first, RanIt mid,
+        RanIt last, Pr pred);
+</pre>
+
+  <p>The first template function reorders the sequence designated by iterators in the range <code>[first,
+  last)</code> such that for each <code>N</code> in the range <code>[0, mid - first)</code> and for each
+  <code>M</code> in the range <code>(N, last - first)</code> the predicate <code>!(*(first + M) &lt; *(first
+  + N))</code> is true. Thus, the smallest <code>mid - first</code> elements of the entire sequence are
+  sorted in <i>ascending</i> order, <a href="lib_stl.html#sequence%20ordering">ordered by</a>
+  <code>operator&lt;</code>. The order of the remaining elements is otherwise unspecified.</p>
+
+  <p>The function evaluates the ordering predicate <code>X &lt; Y</code> a number of times proportional to at
+  most <code>ceil((last - first) * log(mid - first))</code>.</p>
+
+  <p>The second template function behaves the same, except that it replaces <code>operator&lt;(X, Y)</code>
+  with <code>pred(X, Y)</code>.</p>
+
+  <p>Beginning with <b>C++0X</b>, the affected objects need only be <a href=
+  "lib_cpp.html#movable">movable</a>, not copyable.</p>
+
+  <h2><a name="partial_sort_copy"><code>partial_sort_copy</code></a></h2>
+  <pre>
+template&lt;class InIt, class RanIt&gt;
+    RanIt <b>partial_sort_copy</b>(InIt first1, InIt last1,
+        RanIt first2, RanIt last2);
+template&lt;class InIt, class RanIt, class Pr&gt;
+    RanIt <b>partial_sort_copy</b>(InIt first1, InIt last1,
+        RanIt first2, RanIt last2, Pr pred);
+</pre>
+
+  <p>The first template function determines <code>K</code>, the number of elements to copy as the smaller of
+  <code>last1 - first1</code> and <code>last2 - first2</code>. It then copies and reorders <code>K</code>
+  elements of the sequence designated by iterators in the range <code>[first1, last1)</code> such that the
+  <code>K</code> elements copied to <code>first2</code> are <a href=
+  "lib_stl.html#sequence%20ordering">ordered by</a> <code>operator&lt;</code>. Moreover, for each
+  <code>N</code> in the range <code>[0, K)</code> and for each <code>M</code> in the range <code>(0, last1 -
+  first1)</code> corresponding to an uncopied element, the predicate <code>!(*(first2 + M) &lt; *(first1 +
+  N))</code> is true. Thus, the smallest <code>K</code> elements of the entire sequence designated by
+  iterators in the range <code>[first1, last1)</code> are copied and sorted in <i>ascending</i> order to the
+  range <code>[first2, first2 + K)</code>.</p>
+
+  <p>The function evaluates the ordering predicate <code>X &lt; Y</code> a number of times proportional to at
+  most <code>ceil((last - first) * log(K))</code>.</p>
+
+  <p>The second template function behaves the same, except that it replaces <code>operator&lt;(X, Y)</code>
+  with <code>pred(X, Y)</code>.</p>
+
+  <h2><a name="partition"><code>partition</code></a></h2>
+  <pre>
+template&lt;class BidIt, class Pr&gt;
+    BidIt <b>partition</b>(BidIt first, BidIt last, Pr pred);
+</pre>
+
+  <p>The template function reorders the sequence designated by iterators in the range <code>[first,
+  last)</code> and determines the value <code>K</code> such that for each <code>N</code> in the range
+  <code>[0, K)</code> the predicate <code>pred(*(first + N))</code> is true, and for each <code>N</code> in
+  the range <code>[K, last - first)</code> the predicate <code>pred(*(first + N))</code> is false. The
+  function then returns <code>first + K</code>. (The resulting sequence is <a href=
+  "lib_stl.html#sequence%20partitioning">partitioned by</a> <code>pred</code>.)</p>
+
+  <p>The predicate must not alter its operand. The function evaluates <code>pred(*(first + N))</code> exactly
+  <code>last - first</code> times, and swaps at most <code>(last - first) / 2</code> pairs of elements.</p>
+
+  <h2><a name="partition_copy"><code>partition_copy</code></a></h2>
+  <pre>
+template&lt;class InIt, class OutIt1, class OutIt2, class Pr&gt;
+    pair&lt;OutIt1, OutIt2&gt;
+        <b>partition_copy</b>(InIt first, InIt last,
+            OutIt1 dest1, OutIt2 dest2, Pr pred); <b>[added with C++0X]</b>
+</pre>
+
+  <p>The template function copies each element <code>X</code> in <code>[first, last)</code> to
+  <code>*dest1++</code> if <code>pred(X)</code> is true, otherwise to <code>*dest2++</code>. It returns
+  <code>pair&lt;OutIt1, OutIt2&gt;(dest1, dest2)</code>.</p>
+
+  <h2><a name="partition_point"><code>partition_point</code></a></h2>
+  <pre>
+template&lt;class FwdIt, class Pr&gt;
+    FwdIt <b>partition_point</b>(FwdIt first, FwdIt last,
+        Pr pred); <b>[added with C++0X]</b>
+</pre>
+
+  <p>The template function finds the first iterator <code>it</code> in <code>[first, last)</code> for which
+  <code>pred(*it)</code> is false. The sequence must be <a href="lib_stl.html#sequence%20ordering">ordered
+  by</a> <code>pred</code>.</p>
+
+  <h2><a name="pop_heap"><code>pop_heap</code></a></h2>
+  <pre>
+template&lt;class RanIt&gt;
+    void <b>pop_heap</b>(RanIt first, RanIt last);
+template&lt;class RanIt, class Pr&gt;
+    void <b>pop_heap</b>(RanIt first, RanIt last, Pr pred);
+</pre>
+
+  <p>The first template function reorders the sequence designated by iterators in the range <code>[first,
+  last)</code> to form a new heap, <a href="lib_stl.html#heap%20ordering">ordered by</a>
+  <code>operator&lt;</code> and designated by iterators in the range <code>[first, last - 1)</code>, leaving
+  the original element at <code>*first</code> subsequently at <code>*(last - 1)</code>. The original sequence
+  must designate an existing heap, also ordered by <code>operator&lt;</code>. Thus, <code>first !=
+  last</code> must be true and <code>*(last - 1)</code> is the element to remove from (pop off) the heap.</p>
+
+  <p>The function evaluates the ordering predicate <code>X &lt; Y</code> at most <code>ceil(2 * log(last -
+  first))</code> times.</p>
+
+  <p>The second template function behaves the same, except that it replaces <code>operator&lt;(X, Y)</code>
+  with <code>pred(X, Y)</code>.</p>
+
+  <p>Beginning with <b>C++0X</b>, the affected objects need only be <a href=
+  "lib_cpp.html#movable">movable</a>, not copyable.</p>
+
+  <h2><a name="prev_permutation"><code>prev_permutation</code></a></h2>
+  <pre>
+template&lt;class BidIt&gt;
+    bool <b>prev_permutation</b>(BidIt first, BidIt last);
+template&lt;class BidIt, class Pr&gt;
+    bool <b>prev_permutation</b>(BidIt first, BidIt last,
+        Pr pred);
+</pre>
+
+  <p>The first template function determines a repeating sequence of permutations, whose initial permutation
+  occurs when the sequence designated by iterators in the range <code>[first, last)</code> is the
+  <i>reverse</i> of one <a href="lib_stl.html#sequence%20ordering">ordered by</a> <code>operator&lt;</code>.
+  (The elements are sorted in <i>descending</i> order.) It then reorders the elements in the sequence, by
+  evaluating <code><a href="#swap">swap</a>(X, Y)</code> for the elements <code>X</code> and <code>Y</code>
+  zero or more times, to form the previous permutation. The function returns true only if the resulting
+  sequence is not the initial permutation. Otherwise, the resultant sequence is the one next smaller
+  lexicographically than the original sequence.</p>
+
+  <p>The function evaluates <code>swap(X, Y)</code> at most <code>(last - first) / 2</code>.</p>
+
+  <p>The second template function behaves the same, except that it replaces <code>operator&lt;(X, Y)</code>
+  with <code>pred(X, Y)</code>.</p>
+
+  <h2><a name="push_heap"><code>push_heap</code></a></h2>
+  <pre>
+template&lt;class RanIt&gt;
+    void <b>push_heap</b>(RanIt first, RanIt last);
+template&lt;class RanIt, class Pr&gt;
+    void <b>push_heap</b>(RanIt first, RanIt last, Pr pred);
+</pre>
+
+  <p>The first template function reorders the sequence designated by iterators in the range <code>[first,
+  last)</code> to form a new heap <a href="lib_stl.html#heap%20ordering">ordered by</a>
+  <code>operator&lt;</code>. Iterators in the range <code>[first, last - 1)</code> must designate an existing
+  heap, also ordered by <code>operator&lt;</code>. Thus, <code>first != last</code> must be true and
+  <code>*(last - 1)</code> is the element to add to (push on) the heap.</p>
+
+  <p>The function evaluates the ordering predicate <code>X &lt; Y</code> at most <code>ceil(log(last -
+  first))</code> times.</p>
+
+  <p>The second template function behaves the same, except that it replaces <code>operator&lt;(X, Y)</code>
+  with <code>pred(X, Y)</code>.</p>
+
+  <p>Beginning with <b>C++0X</b>, the affected objects need only be <a href=
+  "lib_cpp.html#movable">movable</a>, not copyable.</p>
+
+  <h2><a name="random_shuffle"><code>random_shuffle</code></a></h2>
+  <pre>
+template&lt;class RanIt&gt;
+    void <b>random_shuffle</b>(RanIt first, RanIt last);
+template&lt;class RanIt, class Fn1&gt;
+    void <b>random_shuffle</b>(RanIt first, RanIt last, Fn1&amp;&amp; func);
+</pre>
+
+  <p>The first template function evaluates <code><a href="#swap">swap</a>(*(first + N), *(first + M))</code>
+  once for each <code>N</code> in the range <code>[1, last - first)</code>, where <code>M</code> is a value
+  from some uniform random distribution over the range <code>[0, N]</code>. Thus, the function randomly
+  shuffles the order of elements in the sequence.</p>
+
+  <p>The function evaluates <code>M</code> and calls <code>swap</code> exactly <code>last - first - 1</code>
+  times.</p>
+
+  <p>The second template function behaves the same, except that <code>M</code> is
+  <code>(Diff)func((Diff)N)</code>, where <code>Diff</code> is the type <code><a href=
+  "iterator.html#iterator_traits">iterator_traits</a>&lt;RanIt&gt;:: <a href=
+  "iterator.html#iterator_traits::difference_type">difference_type</a></code>.</p>
+
+  <h2><a name="remove"><code>remove</code></a></h2>
+  <pre>
+template&lt;class FwdIt, class Ty&gt;
+    FwdIt <b>remove</b>(FwdIt first, FwdIt last, const Ty&amp; val);
+</pre>
+
+  <p>The template function effectively assigns <code>first</code> to <code>X</code>, then executes the
+  statement:</p>
+  <pre>
+if (!(*(first + N) == val))
+    *X++ = *(first + N);
+</pre>
+
+  <p>once for each <code>N</code> in the range <code>[0, last - first)</code>. Here, <code>operator==</code>
+  must perform a <a href="lib_stl.html#pairwise%20comparison">pairwise comparison</a> between its operands.
+  It then returns <code>X</code>. Thus, the function removes from the resulting sequence all elements for
+  which the predicate <code>*(first + N) == val</code> is true, without altering the relative order of
+  remaining elements, and returns the iterator value that designates the end of the resulting sequence.</p>
+
+  <p>Beginning with <b>C++0X</b>, the affected objects need only be <a href=
+  "lib_cpp.html#movable">movable</a>, not copyable.</p>
+
+  <h2><a name="remove_copy"><code>remove_copy</code></a></h2>
+  <pre>
+template&lt;class InIt, class OutIt, class Ty&gt;
+    OutIt <b>remove_copy</b>(InIt first, InIt last, OutIt dest,
+        const Ty&amp; val);
+</pre>
+
+  <p>The template function effectively executes the statement:</p>
+  <pre>
+if (!(*(first + N) == val))
+    *dest++ = *(first + N);
+</pre>
+
+  <p>once for each <code>N</code> in the range <code>[0, last - first)</code>. Here, <code>operator==</code>
+  must perform a <a href="lib_stl.html#pairwise%20comparison">pairwise comparison</a> between its operands.
+  It then returns <code>dest</code>. Thus, the function removes from the resulting sequence all elements for
+  which the predicate <code>*(first + N) == val</code> is true, without altering the relative order of
+  remaining elements, and returns the iterator value that designates the end of the resulting sequence.</p>
+
+  <p>If <code>dest</code> and <code>first</code> designate regions of storage, the range <code>[dest, dest +
+  (last - first))</code> must not overlap the range <code>[first, last)</code>.</p>
+
+  <h2><a name="remove_copy_if"><code>remove_copy_if</code></a></h2>
+  <pre>
+template&lt;class InIt, class OutIt, class Pr&gt;
+    OutIt <b>remove_copy_if</b>(InIt first, InIt last, OutIt dest,
+        Pr pred);
+</pre>
+
+  <p>The template function effectively executes the statement:</p>
+  <pre>
+if (!pred(*(first + N)))
+    *dest++ = *(first + N);
+</pre>
+
+  <p>once for each <code>N</code> in the range <code>[0, last - first)</code>. It then returns
+  <code>dest</code>. Thus, the function removes from the resulting sequence all elements for which the
+  predicate <code>pred(*(first + N))</code> is true, without altering the relative order of remaining
+  elements, and returns the iterator value that designates the end of the resulting sequence.</p>
+
+  <p>If <code>dest</code> and <code>first</code> designate regions of storage, the range <code>[dest, dest +
+  (last - first))</code> must not overlap the range <code>[first, last)</code>.</p>
+
+  <h2><a name="remove_if"><code>remove_if</code></a></h2>
+  <pre>
+template&lt;class FwdIt, class Pr&gt;
+    FwdIt <b>remove_if</b>(FwdIt first, FwdIt last, Pr pred);
+</pre>
+
+  <p>The template function effectively assigns <code>first</code> to <code>X</code>, then executes the
+  statement:</p>
+  <pre>
+if (!pred(*(first + N)))
+    *X++ = *(first + N);
+</pre>
+
+  <p>once for each <code>N</code> in the range <code>[0, last - first)</code>. It then returns
+  <code>X</code>. Thus, the function removes from the resulting sequence all elements for which the predicate
+  <code>pred(*(first + N))</code> is true, without altering the relative order of remaining elements, and
+  returns the iterator value that designates the end of the resulting sequence.</p>
+
+  <p>Beginning with <b>C++0X</b>, the affected objects need only be <a href=
+  "lib_cpp.html#movable">movable</a>, not copyable.</p>
+
+  <h2><a name="replace"><code>replace</code></a></h2>
+  <pre>
+template&lt;class FwdIt, class Ty&gt;
+    void <b>replace</b>(FwdIt first, FwdIt last,
+        const Ty&amp; oldval, const Ty&amp; newval);
+</pre>
+
+  <p>The template function executes the statement:</p>
+  <pre>
+if (*(first + N) == oldval)
+    *(first + N) = newval;
+</pre>
+
+  <p>once for each <code>N</code> in the range <code>[0, last - first)</code>. Here, <code>operator==</code>
+  must perform a <a href="lib_stl.html#pairwise%20comparison">pairwise comparison</a> between its
+  operands.</p>
+
+  <h2><a name="replace_copy"><code>replace_copy</code></a></h2>
+  <pre>
+template&lt;class InIt, class OutIt, class Ty&gt;
+    OutIt <b>replace_copy</b>(InIt first, InIt last, OutIt dest,
+        const Ty&amp; oldval, const Ty&amp; newval);
+</pre>
+
+  <p>The template function executes the statement:</p>
+  <pre>
+if (*(first + N) == oldval)
+    *(dest + N) = newval;
+else
+    *(dest + N) = *(first + N)
+</pre>
+
+  <p>once for each <code>N</code> in the range <code>[0, last - first)</code>. Here, <code>operator==</code>
+  must perform a <a href="lib_stl.html#pairwise%20comparison">pairwise comparison</a> between its operands.
+  The function returns the iterator value that designates the end of the resulting sequence.</p>
+
+  <p>If <code>dest</code> and <code>first</code> designate regions of storage, the range <code>[dest, dest +
+  (last - first))</code> must not overlap the range <code>[first, last)</code>.</p>
+
+  <h2><a name="replace_copy_if"><code>replace_copy_if</code></a></h2>
+  <pre>
+template&lt;class InIt, class OutIt, class Pr, class Ty&gt;
+    OutIt <b>replace_copy_if</b>(InIt first, InIt last, OutIt dest,
+        Pr pred, const Ty&amp; val);
+</pre>
+
+  <p>The template function executes the statement:</p>
+  <pre>
+if (pred(*(first + N)))
+    *(dest + N) = val;
+else
+    *(dest + N) = *(first + N)
+</pre>
+
+  <p>once for each <code>N</code> in the range <code>[0, last - first)</code>.</p>
+
+  <p>If <code>dest</code> and <code>first</code> designate regions of storage, the range <code>[dest, dest +
+  (last - first))</code> must not overlap the range <code>[first, last)</code>. The function returns the
+  iterator value that designates the end of the resulting sequence.</p>
+
+  <h2><a name="replace_if"><code>replace_if</code></a></h2>
+  <pre>
+template&lt;class FwdIt, class Pr, class Ty&gt;
+    void <b>replace_if</b>(FwdIt first, FwdIt last,
+        Pr pred, const Ty&amp; val);
+</pre>
+
+  <p>The template function executes the statement:</p>
+  <pre>
+if (pred(*(first + N)))
+    *(first + N) = val;
+</pre>
+
+  <p>once for each <code>N</code> in the range <code>[0, last - first)</code>.</p>
+
+  <h2><a name="reverse"><code>reverse</code></a></h2>
+  <pre>
+template&lt;class BidIt&gt;
+    void <b>reverse</b>(BidIt first, BidIt last);
+</pre>
+
+  <p>The template function evaluates <code><a href="#swap">swap</a>(*(first + N), *(last - 1 - N)</code> once
+  for each <code>N</code> in the range <code>[0, (last - first) / 2)</code>. Thus, the function reverses the
+  order of elements in the sequence.</p>
+
+  <p>Beginning with <b>C++0X</b>, the affected objects need only be <a href=
+  "lib_cpp.html#swappable">swappable</a>, not copyable.</p>
+
+  <h2><a name="reverse_copy"><code>reverse_copy</code></a></h2>
+  <pre>
+template&lt;class BidIt, class OutIt&gt;
+    OutIt <b>reverse_copy</b>(BidIt first, BidIt last, OutIt dest);
+</pre>
+
+  <p>The template function evaluates <code>*(dest + N) = *(last - 1 - N)</code> once for each <code>N</code>
+  in the range <code>[0, last - first)</code>. It then returns <code>dest + (last - first)</code>. Thus, the
+  function reverses the order of elements in the sequence that it copies.</p>
+
+  <p>If <code>dest</code> and <code>first</code> designate regions of storage, the range <code>[dest, dest +
+  (last - first))</code> must not overlap the range <code>[first, last)</code>.</p>
+
+  <h2><a name="rotate"><code>rotate</code></a></h2>
+  <pre>
+template&lt;class FwdIt&gt;
+    FwdIt <b>rotate</b>(FwdIt first, FwdIt mid, FwdIt last);
+</pre>
+
+  <p>The template function leaves the value originally stored in <code>*(first + (N + (mid - first)) % (last
+  - first))</code> subsequently stored in <code>*(first + N)</code> for each <code>N</code> in the range
+  <code>[0, last - first)</code>. Thus, if a ``left'' shift by one element leaves the element originally
+  stored in <code>*(first + (N + 1) % (last - first))</code> subsequently stored in <code>*(first +
+  N)</code>, then the function can be said to rotate the sequence either left by <code>mid - first</code>
+  elements or right by <code>last - mid</code> elements. Both <code>[first, mid)</code> and <code>[mid,
+  last)</code> must be valid ranges. The function swaps at most <code>last - first</code> pairs of
+  elements.</p>
+
+  <p>Beginning with <b>C++0X</b>, the affected objects need only be <a href=
+  "lib_cpp.html#swappable">swappable</a>, not copyable. Also, the function return is no longer
+  <code>void</code>; the function returns <code>first + (last - mid)</code>.</p>
+
+  <h2><a name="rotate_copy"><code>rotate_copy</code></a></h2>
+  <pre>
+template&lt;class FwdIt, class OutIt&gt;
+    OutIt <b>rotate_copy</b>(FwdIt first, FwdIt mid,
+        FwdIt last, OutIt dest);
+</pre>
+
+  <p>The template function evaluates <code>*(dest + N) = *(first + (N + (mid - first)) % (last -
+  first))</code> once for each <code>N</code> in the range <code>[0, last - first)</code>. Thus, if a
+  ``left'' shift by one element leaves the element originally stored in <code>*(first + (N + 1) % (last -
+  first))</code> subsequently stored in <code>*(first + N)</code>, then the function can be said to rotate
+  the sequence either left by <code>mid - first</code> elements or right by <code>last - mid</code> elements
+  as it copies. Both <code>[first, mid)</code> and <code>[mid, last)</code> must be valid ranges. The
+  function returns the iterator value that designates the end of the resulting sequence.</p>
+
+  <p>If <code>dest</code> and <code>first</code> designate regions of storage, the range <code>[dest, dest +
+  (last - first))</code> must not overlap the range <code>[first, last)</code>.</p>
+
+  <h2><a name="search"><code>search</code></a></h2>
+  <pre>
+template&lt;class FwdIt1, class FwdIt2&gt;
+    FwdIt1 <b>search</b>(FwdIt1 first1, FwdIt1 last1,
+        FwdIt2 first2, FwdIt2 last2);
+template&lt;class FwdIt1, class FwdIt2, class Pr&gt;
+    FwdIt1 <b>search</b>(FwdIt1 first1, FwdIt1 last1,
+        FwdIt2 first2, FwdIt2 last2, Pr pred);
+</pre>
+
+  <p>The first template function determines the lowest value of <code>N</code> in the range <code>[0, (last1
+  - first1) - (last2 - first2))</code> such that for each <code>M</code> in the range <code>[0, last2 -
+  first2)</code>, the predicate <code>*(first1 + N + M) == *(first2 + M)</code> is true. Here,
+  <code>operator==</code> must perform a <a href="lib_stl.html#pairwise%20comparison">pairwise comparison</a>
+  between its operands. It then returns <code>first1 + N</code>. If no such value exists, the function
+  returns <code>last1</code>. It evaluates the predicate at most <code>(last2 - first2) * (last1 -
+  first1)</code> times.</p>
+
+  <p>The second template function behaves the same, except that the predicate is <code>pred(*(first1 + N +
+  M), *(first2 + M))</code>.</p>
+
+  <h2><a name="search_n"><code>search_n</code></a></h2>
+  <pre>
+template&lt;class FwdIt, class Diff, class Ty&gt;
+    FwdIt <b>search_n</b>(FwdIt first, FwdIt last,
+        Diff count, const Ty&amp; val);
+template&lt;class FwdIt, class Diff, class Ty, class Pr&gt;
+    FwdIt <b>search_n</b>(FwdIt first, FwdIt last,
+        Diff count, const Ty&amp; val, Pr pred);
+</pre>
+
+  <p>The first template function determines the lowest value of <code>N</code> in the range <code>[0, (last -
+  first) - count)</code> such that for each <code>M</code> in the range <code>[0, count)</code>, the
+  predicate <code>*(first + N + M) == val</code> is true. Here, <code>operator==</code> must perform a
+  <a href="lib_stl.html#pairwise%20comparison">pairwise comparison</a> between its operands. It then returns
+  <code>first + N</code>. If no such value exists, the function returns <code>last</code>. It evaluates the
+  predicate at most <code>last - first</code> times.</p>
+
+  <p>The second template function behaves the same, except that the predicate is <code>pred(*(first + N + M),
+  val)</code>.</p>
+
+  <h2><a name="set_difference"><code>set_difference</code></a></h2>
+  <pre>
+template&lt;class InIt1, class InIt2, class OutIt&gt;
+    OutIt <b>set_difference</b>(InIt1 first1, InIt1 last1,
+        InIt2 first2, InIt2 last2, OutIt dest);
+template&lt;class InIt1, class InIt2, class OutIt,
+    class Pr&gt;
+    OutIt <b>set_difference</b>(InIt1 first1, InIt1 last1,
+        InIt2 first2, InIt2 last2, OutIt dest, Pr pred);
+</pre>
+
+  <p>The first template function alternately copies values from two sequences designated by iterators in the
+  ranges <code>[first1, last1)</code> and <code>[first2, last2)</code>, both <a href=
+  "lib_stl.html#sequence%20ordering">ordered by</a> <code>operator&lt;</code>, to form a merged sequence of
+  length <code>K</code> beginning at <code>dest</code>, also ordered by <code>operator&lt;</code>. The
+  function then returns <code>dest + K</code>.</p>
+
+  <p>The merge occurs without altering the relative order of elements within either sequence. Moreover, for
+  two elements from different sequences that have <a href="lib_stl.html#equivalent%20ordering">equivalent
+  ordering</a> that would otherwise be copied to adjacent elements, the function copies only the element from
+  the ordered range <code>[first1, last1)</code> and skips the other. An element from one sequence that has
+  equivalent ordering with no element from the other sequence is copied from the ordered range <code>[first1,
+  last1)</code> and skipped from the other. Thus, the function merges two ordered sequences to form another
+  ordered sequence that is effectively the difference of two sets.</p>
+
+  <p>If <code>dest</code> and <code>first1</code> designate regions of storage, the range <code>[dest, dest +
+  K)</code> must not overlap the range <code>[first1, last1)</code>. If <code>dest</code> and
+  <code>first2</code> designate regions of storage, the range <code>[dest, dest + K)</code> must not overlap
+  the range <code>[first2, last2)</code>. The function evaluates the ordering predicate <code>X &lt; Y</code>
+  at most <code>2 * ((last1 - first1) + (last2 - first2)) - 1</code> times.</p>
+
+  <p>The second template function behaves the same, except that it replaces <code>operator&lt;(X, Y)</code>
+  with <code>pred(X, Y)</code>.</p>
+
+  <h2><a name="set_intersection"><code>set_intersection</code></a></h2>
+  <pre>
+template&lt;class InIt1, class InIt2, class OutIt&gt;
+    OutIt <b>set_intersection</b>(InIt1 first1, InIt1 last1,
+        InIt2 first2, InIt2 last2, OutIt dest);
+template&lt;class InIt1, class InIt2, class OutIt,
+    class Pr&gt;
+    OutIt <b>set_intersection</b>(InIt1 first1, InIt1 last1,
+        InIt2 first2, InIt2 last2, OutIt dest, Pr pred);
+</pre>
+
+  <p>The first template function alternately copies values from two sequences designated by iterators in the
+  ranges <code>[first1, last1)</code> and <code>[first2, last2)</code>, both <a href=
+  "lib_stl.html#sequence%20ordering">ordered by</a> <code>operator&lt;</code>, to form a merged sequence of
+  length <code>K</code> beginning at <code>dest</code>, also ordered by <code>operator&lt;</code>. The
+  function then returns <code>dest + K</code>.</p>
+
+  <p>The merge occurs without altering the relative order of elements within either sequence. Moreover, for
+  two elements from different sequences that have <a href="lib_stl.html#equivalent%20ordering">equivalent
+  ordering</a> that would otherwise be copied to adjacent elements, the function copies only the element from
+  the ordered range <code>[first1, last1)</code> and skips the other. An element from one sequence that has
+  equivalent ordering with no element from the other sequence is also skipped. Thus, the function merges two
+  ordered sequences to form another ordered sequence that is effectively the intersection of two sets.</p>
+
+  <p>If <code>dest</code> and <code>first1</code> designate regions of storage, the range <code>[dest, dest +
+  K)</code> must not overlap the range <code>[first1, last1)</code>. If <code>dest</code> and
+  <code>first2</code> designate regions of storage, the range <code>[dest, dest + K)</code> must not overlap
+  the range <code>[first2, last2)</code>. The function evaluates the ordering predicate <code>X &lt; Y</code>
+  at most <code>2 * ((last1 - first1) + (last2 - first2)) - 1</code> times.</p>
+
+  <p>The second template function behaves the same, except that it replaces <code>operator&lt;(X, Y)</code>
+  with <code>pred(X, Y)</code>.</p>
+
+  <h2><a name="set_symmetric_difference"><code>set_symmetric_difference</code></a></h2>
+  <pre>
+template&lt;class InIt1, class InIt2, class OutIt&gt;
+    OutIt <b>set_symmetric_difference</b>(InIt1 first1,
+        InIt1 last1, InIt2 first2, InIt2 last2, OutIt dest);
+template&lt;class InIt1, class InIt2, class OutIt,
+    class Pr&gt;
+    OutIt <b>set_symmetric_difference</b>(InIt1 first1,
+        InIt1 last1, InIt2 first2, InIt2 last2, OutIt dest,
+            Pr pred);
+</pre>
+
+  <p>The first template function alternately copies values from two sequences designated by iterators in the
+  ranges <code>[first1, last1)</code> and <code>[first2, last2)</code>, both <a href=
+  "lib_stl.html#sequence%20ordering">ordered by</a> <code>operator&lt;</code>, to form a merged sequence of
+  length <code>K</code> beginning at <code>dest</code>, also ordered by <code>operator&lt;</code>. The
+  function then returns <code>dest + K</code>.</p>
+
+  <p>The merge occurs without altering the relative order of elements within either sequence. Moreover, for
+  two elements from different sequences that have <a href="lib_stl.html#equivalent%20ordering">equivalent
+  ordering</a> that would otherwise be copied to adjacent elements, the function copies neither element. An
+  element from one sequence that has equivalent ordering with no element from the other sequence is copied.
+  Thus, the function merges two ordered sequences to form another ordered sequence that is effectively the
+  symmetric difference of two sets.</p>
+
+  <p>If <code>dest</code> and <code>first1</code> designate regions of storage, the range <code>[dest, dest +
+  K)</code> must not overlap the range <code>[first1, last1)</code>. If <code>dest</code> and
+  <code>first2</code> designate regions of storage, the range <code>[dest, dest + K)</code> must not overlap
+  the range <code>[first2, last2)</code>. The function evaluates the ordering predicate <code>X &lt; Y</code>
+  at most <code>2 * ((last1 - first1) + (last2 - first2)) - 1</code> times.</p>
+
+  <p>The second template function behaves the same, except that it replaces <code>operator&lt;(X, Y)</code>
+  with <code>pred(X, Y)</code>.</p>
+
+  <h2><a name="set_union"><code>set_union</code></a></h2>
+  <pre>
+template&lt;class InIt1, class InIt2, class OutIt&gt;
+    OutIt <b>set_union</b>(InIt1 first1, InIt1 last1,
+        InIt2 first2, InIt2 last2, OutIt dest);
+template&lt;class InIt1, class InIt2, class OutIt,
+    class Pr&gt;
+    OutIt <b>set_union</b>(InIt1 first1, InIt1 last1,
+        InIt2 first2, InIt2 last2, OutIt dest, Pr pred);
+</pre>
+
+  <p>The first template function alternately copies values from two sequences designated by iterators in the
+  ranges <code>[first1, last1)</code> and <code>[first2, last2)</code>, both <a href=
+  "lib_stl.html#sequence%20ordering">ordered by</a> <code>operator&lt;</code>, to form a merged sequence of
+  length <code>K</code> beginning at <code>dest</code>, also ordered by <code>operator&lt;</code>. The
+  function then returns <code>dest + K</code>.</p>
+
+  <p>The merge occurs without altering the relative order of elements within either sequence. Moreover, for
+  two elements from different sequences that have <a href="lib_stl.html#equivalent%20ordering">equivalent
+  ordering</a> that would otherwise be copied to adjacent elements, the function copies only the element from
+  the ordered range <code>[first1, last1)</code> and skips the other. Thus, the function merges two ordered
+  sequences to form another ordered sequence that is effectively the union of two sets.</p>
+
+  <p>If <code>dest</code> and <code>first1</code> designate regions of storage, the range <code>[dest, dest +
+  K)</code> must not overlap the range <code>[first1, last1)</code>. If <code>dest</code> and
+  <code>first2</code> designate regions of storage, the range <code>[dest, dest + K)</code> must not overlap
+  the range <code>[first2, last2)</code>. The function evaluates the ordering predicate <code>X &lt; Y</code>
+  at most <code>2 * ((last1 - first1) + (last2 - first2)) - 1</code> times.</p>
+
+  <p>The second template function behaves the same, except that it replaces <code>operator&lt;(X, Y)</code>
+  with <code>pred(X, Y)</code>.</p>
+
+  <h2><a name="sort"><code>sort</code></a></h2>
+  <pre>
+template&lt;class RanIt&gt;
+    void <b>sort</b>(RanIt first, RanIt last);
+template&lt;class RanIt, class Pr&gt;
+    void <b>sort</b>(RanIt first, RanIt last, Pr pred);
+</pre>
+
+  <p>The first template function reorders the sequence designated by iterators in the range <code>[first,
+  last)</code> to form a sequence <a href="lib_stl.html#sequence%20ordering">ordered by</a>
+  <code>operator&lt;</code>. Thus, the elements are sorted in <i>ascending</i> order.</p>
+
+  <p>The function evaluates the ordering predicate <code>X &lt; Y</code> a number of times proportional to at
+  most <code>(last - first) * log(last - first)</code>.</p>
+
+  <p>The second template function behaves the same, except that it replaces <code>operator&lt;(X, Y)</code>
+  with <code>pred(X, Y)</code>.</p>
+
+  <p>Beginning with <b>C++0X</b>, the affected objects need only be <a href=
+  "lib_cpp.html#movable">movable</a>, not copyable.</p>
+
+  <h2><a name="sort_heap"><code>sort_heap</code></a></h2>
+  <pre>
+template&lt;class RanIt&gt;
+    void <b>sort_heap</b>(RanIt first, RanIt last);
+template&lt;class RanIt, class Pr&gt;
+    void <b>sort_heap</b>(RanIt first, RanIt last, Pr pred);
+</pre>
+
+  <p>The first template function reorders the sequence designated by iterators in the range <code>[first,
+  last)</code> to form a sequence that is <a href="lib_stl.html#sequence%20ordering">ordered by</a>
+  <code>operator&lt;</code>. The original sequence must designate a heap, also <a href=
+  "lib_stl.html#heap%20ordering">ordered by</a> <code>operator&lt;</code>. Thus, the elements are sorted in
+  <i>ascending</i> order.</p>
+
+  <p>The function evaluates the ordering predicate <code>X &lt; Y</code> at most <code>ceil((last - first) *
+  log(last - first))</code> times.</p>
+
+  <p>The second template function behaves the same, except that it replaces <code>operator&lt;(X, Y)</code>
+  with <code>pred(X, Y)</code>.</p>
+
+  <p>Beginning with <b>C++0X</b>, the affected objects need only be <a href=
+  "lib_cpp.html#movable">movable</a>, not copyable.</p>
+
+  <h2><a name="stable_partition"><code>stable_partition</code></a></h2>
+  <pre>
+template&lt;class BidIt, class Pr&gt;
+    BidIt <b>stable_partition</b>(BidIt first, BidIt last,
+        Pr pred);
+</pre>
+
+  <p>The template function reorders the sequence designated by iterators in the range <code>[first,
+  last)</code> and determines the value <code>K</code> such that for each <code>N</code> in the range
+  <code>[0, K)</code> the predicate <code>pred(*(first + N))</code> is true, and for each <code>N</code> in
+  the range <code>[K, last - first)</code> the predicate <code>pred(*(first + N))</code> is false. It does so
+  without altering the relative order of either the elements designated by indexes in the range <code>[0,
+  K)</code> or the elements designated by indexes in the range <code>[K, last - first)</code>. The function
+  then returns <code>first + K</code>.</p>
+
+  <p>The predicate must not alter its operand. The function evaluates <code>pred(*(first + N))</code> exactly
+  <code>last - first</code> times, and swaps at most <code>ceil((last - first) * log(last - first))</code>
+  pairs of elements. (Given enough temporary storage, it can replace the swaps with at most <code>2 * (last -
+  first)</code> assignments.)</p>
+
+  <p>Beginning with <b>C++0X</b>, the affected objects need only be <a href=
+  "lib_cpp.html#movable">movable</a>, not copyable.</p>
+
+  <h2><a name="stable_sort"><code>stable_sort</code></a></h2>
+  <pre>
+template&lt;class BidIt&gt;
+    void <b>stable_sort</b>(BidIt first, BidIt last);
+template&lt;class BidIt, class Pr&gt;
+    void <b>stable_sort</b>(BidIt first, BidIt last, Pr pred);
+</pre>
+
+  <p>The first template function reorders the sequence designated by iterators in the range <code>[first,
+  last)</code> to form a sequence <a href="lib_stl.html#sequence%20ordering">ordered by</a>
+  <code>operator&lt;</code>. It does so without altering the relative order of elements that have <a href=
+  "lib_stl.html#equivalent%20ordering">equivalent ordering</a>. Thus, the elements are sorted in
+  <i>ascending</i> order.</p>
+
+  <p>The function evaluates the ordering predicate <code>X &lt; Y</code> a number of times proportional to at
+  most <code>ceil((last - first) * (log(last - first))^2)</code>. (Given enough temporary storage, it can
+  evaluate the predicate a number of times proportional to at most <code>ceil((last - first) * log(last -
+  first))</code>.</p>
+
+  <p>The second template function behaves the same, except that it replaces <code>operator&lt;(X, Y)</code>
+  with <code>pred(X, Y)</code>.</p>
+
+  <p>Beginning with <b>C++0X</b>, the affected objects need only be <a href=
+  "lib_cpp.html#movable">movable</a>, not copyable.</p>
+
+  <h2><a name="swap"><code>swap</code></a></h2>
+  <pre>
+template&lt;class Ty&gt;
+    void <b>swap</b>(Ty&amp; left, Ty&amp; right);
+template&lt;class Ty, size_t N&gt;
+    void <b>swap</b>(Ty (&amp;left)[N], Ty (&amp;right)[N]); <b>[added with C++0X]</b>
+</pre>
+
+  <p>The template function leaves the value originally stored in <code>right</code> subsequently stored in
+  <code>left</code>, and the value originally stored in <code>left</code> subsequently stored in
+  <code>right</code>.</p>
+
+  <h2><a name="swap_ranges"><code>swap_ranges</code></a></h2>
+  <pre>
+template&lt;class FwdIt1, class FwdIt2&gt;
+    FwdIt2 <b>swap_ranges</b>(FwdIt1 first1, FwdIt1 last1,
+        FwdIt2 first2);
+</pre>
+
+  <p>The template function evaluates <code><a href="#swap">swap</a>(*(first1 + N), *(first2 + N))</code> once
+  for each <code>N</code> in the range <code>[0, last1 - first1)</code>. It then returns <code>first2 +
+  (last1 - first1)</code>. If <code>first2</code> and <code>first1</code> designate regions of storage, the
+  range <code>[first2, first2 + (last1 - first1))</code> must not overlap the range <code>[first1,
+  last1)</code>.</p>
+
+  <h2><a name="transform"><code>transform</code></a></h2>
+  <pre>
+template&lt;class InIt, class OutIt, class Fn1&gt;
+    OutIt <b>transform</b>(InIt first, InIt last, OutIt dest,
+        Fn1 func);
+template&lt;class InIt1, class InIt2, class OutIt,
+    class Fn2&gt;
+    OutIt <b>transform</b>(InIt1 first1, InIt1 last1,
+        InIt2 first2, OutIt dest, Fn2 func);
+</pre>
+
+  <p>The first template function evaluates <code>*(dest + N) = func(*(first + N))</code> once for each
+  <code>N</code> in the range <code>[0, last - first)</code>. It then returns <code>dest + (last -
+  first)</code>. The call <code>func(*(first + N))</code> must not alter <code>*(first + N)</code>.</p>
+
+  <p>The second template function evaluates <code>*(dest + N) = func(*(first1 + N), *(first2 + N))</code>
+  once for each <code>N</code> in the range <code>[0, last1 - first1)</code>. It then returns <code>dest +
+  (last1 - first1)</code>. The call <code>func(*(first1 + N), *(first2 + N))</code> must not alter either
+  <code>*(first1 + N)</code> or <code>*(first2 + N)</code>.</p>
+
+  <h2><a name="unique"><code>unique</code></a></h2>
+  <pre>
+template&lt;class FwdIt&gt;
+    FwdIt <b>unique</b>(FwdIt first, FwdIt last);
+template&lt;class FwdIt, class Pr&gt;
+    FwdIt <b>unique</b>(FwdIt first, FwdIt last, Pr pred);
+</pre>
+
+  <p>The first template function effectively assigns <code>first</code> to <code>X</code>, then executes the
+  statement:</p>
+  <pre>
+if (!(*X == *(first + N + 1)))
+    *++X = *(first + N + 1);
+</pre>
+
+  <p>once for each <code>N</code> in the range <code>[1, last - first)</code>. It then returns
+  <code>X</code>. Thus, the function repeatedly removes from the resulting sequence the second of a pair of
+  elements for which the predicate <code>*(first + N) == *(first + N + 1)</code> is true, until only the
+  first of a sequence of elements survives that satisfies the comparison. Here, <code>operator==</code> must
+  perform a <a href="lib_stl.html#pairwise%20comparison">pairwise comparison</a> between its operands. It
+  does so without altering the relative order of remaining elements, and returns the iterator value that
+  designates the end of the resulting sequence. For a non-empty sequence, the function evaluates the
+  predicate <code>last - first - 1</code> times.</p>
+
+  <p>The second template function behaves the same, except that it executes the statement:</p>
+  <pre>
+if (!pred(*(first + N), *(first + N + 1)))
+    *++X = *(first + N + 1);
+</pre>
+
+  <p>Note that for a sequence designated by the range <code>[first, last)</code> and <a href=
+  "lib_stl.html#sequence%20ordering">ordered by</a> <code>pred</code>, you can remove all but the first of a
+  sequence of elements that have <a href="lib_stl.html#equivalent%20ordering">equivalent ordering</a> by
+  calling <code>unique(first, last, <a href="functio2.html#not2">not2</a>(pred))</code>.</p>
+
+  <p>Beginning with <b>C++0X</b>, the affected objects need only be <a href=
+  "lib_cpp.html#movable">movable</a>, not copyable.</p>
+
+  <h2><a name="unique_copy"><code>unique_copy</code></a></h2>
+  <pre>
+template&lt;class InIt, class OutIt&gt;
+    OutIt <b>unique_copy</b>(InIt first, InIt last, OutIt dest);
+template&lt;class InIt, class OutIt, class Pr&gt;
+    OutIt <b>unique_copy</b>(InIt first, InIt last, OutIt dest,
+        Pr pred);
+</pre>
+
+  <p>The first template function effectively executes the statement:</p>
+  <pre>
+if (N == 0 || !(*(first + N - 1) == *(first + N)))
+    *dest++ = *(first + N);
+</pre>
+
+  <p>once for each <code>N</code> in the range <code>[0, last - first)</code>. It then returns
+  <code>dest</code>. Thus, the function repeatedly removes from the resulting sequence the second of a pair
+  of elements for which the predicate <code>*(first + N) == *(first + N - 1)</code> is true, until only the
+  first of a sequence of equal elements survives. Here, <code>operator==</code> must perform a <a href=
+  "lib_stl.html#pairwise%20comparison">pairwise comparison</a> between its operands. It does so without
+  altering the relative order of remaining elements, and returns the iterator value that designates the end
+  of the copied sequence. For a non-empty sequence, the function evaluates the predicate <code>last - first -
+  1</code> times.</p>
+
+  <p>If <code>dest</code> and <code>first</code> designate regions of storage, the range <code>[dest, dest +
+  (last - first))</code> must not overlap the range <code>[first, last)</code>.</p>
+
+  <p>The second template function behaves the same, except that it executes the statement:</p>
+  <pre>
+if (N == 0 || !pred(*(first + N - 1), *(first + N)))
+    *dest++ = *(first + N);
+</pre>
+
+  <h2><a name="upper_bound"><code>upper_bound</code></a></h2>
+  <pre>
+template&lt;class FwdIt, class Ty&gt;
+    FwdIt <b>upper_bound</b>(FwdIt first, FwdIt last,
+        const Ty&amp; val);
+template&lt;class FwdIt, class Ty, class Pr&gt;
+    FwdIt <b>upper_bound</b>(FwdIt first, FwdIt last,
+        const Ty&amp; val, Pr pred);
+</pre>
+
+  <p>The first template function determines the highest value of <code>N</code> in the range <code>(0, last -
+  first]</code> such that, for each <code>M</code> in the range <code>[0, N)</code> the predicate <code>!(val
+  &lt; *(first + M))</code> is true, where the elements designated by iterators in the range <code>[first,
+  last)</code> form a sequence <a href="lib_stl.html#sequence%20partitioning">partitioned by</a>
+  <code>operator&lt;</code>. It then returns <code>first + N</code>. Thus, the function determines the
+  highest position before which <code>val</code> can be inserted in the sequence and still preserve its
+  ordering.</p>
+
+  <p>The function evaluates the ordering predicate <code>X &lt; Y</code> at most <code>ceil(log(last -
+  first)) + 1</code> times.</p>
+
+  <p>The second template function behaves the same, except that it replaces <code>operator&lt;(X, Y)</code>
+  with <code>pred(X, Y)</code>.</p>
+  <hr>
+
+  <p>See also the <b><a href="index.html#Table%20of%20Contents">Table of Contents</a></b> and the <b><a href=
+  "_index.html">Index</a></b>.</p>
+
+  <p><i><a href="crit_pjp.html">Copyright</a> &copy; 1992-2010 by P.J. Plauger. Portions derived from work
+  <a href="crit_hp.html">copyright</a> &copy; 1994 by Hewlett-Packard Company. All rights reserved.</i></p>
+  <!--V5.30:126I-->
+</body>
+</html>

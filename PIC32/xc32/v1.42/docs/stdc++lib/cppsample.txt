@@ -1,0 +1,114 @@
+#include <iostream>
+#include <stdlib.h>
+
+#include "Dinkum/threads/condition"
+#include "Dinkum/threads/mutex"
+#include "Dinkum/threads/once"
+#include "Dinkum/threads/thread"
+#include "Dinkum/threads/tss"
+#include "Dinkum/threads/xtime"
+
+static const int data_size = 20;
+static int data[data_size];
+static int begin;
+static int end;
+static const int data_limit = 100;
+
+class flag
+	{	// predicate class
+public:
+	void set() {flg = true; }
+	void clear() {flg = false; }
+	bool operator ()() {return flg; }
+
+private:
+	static bool flg;
+	};
+
+bool flag::flg;
+static flag array_not_full;
+
+static Dinkum::threads::once_flag init_full_flag = Dinkum::threads::once_init;
+static void init_full()
+	{	// initialize array_not_full object from first calling thread
+	array_not_full.set();
+	}
+
+//	synchronization objects
+static Dinkum::threads::mutex data_mtx;
+static Dinkum::threads::condition array_full_c;
+static Dinkum::threads::condition array_empty_c;
+
+// thread-specfic storage
+static Dinkum::threads::thread_specific_ptr<int> val;
+
+static void setup()
+	{	// initialize thread data
+	Dinkum::threads::call_once(init_full, init_full_flag);
+	val.reset(new int);
+	*val = 0;
+	}
+
+static void delay()
+	{	// delay randomly from 0 to 200 milliseconds
+	xtime xt;
+	xtime_get(&xt, TIME_UTC);
+	xt.nsec += (rand() * 200) / (RAND_MAX + 1) * 1000000;
+	Dinkum::threads::thread::sleep(xt);
+	}
+
+static void producer()
+	{	// insert sequential values from 0 to data_limit into queue
+	setup();
+	while (*val < data_limit)
+		{	// insert *val into queue
+		delay();
+		Dinkum::threads::mutex::scoped_lock lock(data_mtx);
+		array_full_c.wait(lock, array_not_full);
+		data[end++] = (*val)++;
+		if (end == data_size)
+			end = 0;
+		if (end + 1 == begin
+			|| end + 1 == data_size && begin == 0)
+			array_not_full.clear();
+		array_empty_c.notify_one();
+		}
+	}
+
+static bool finished = false;
+
+static void consumer()
+	{	// remove data values from queue and display values
+	setup();
+	while (!finished || begin != end)
+		{	// remove and display data values
+		delay();
+		Dinkum::threads::mutex::scoped_lock lock(data_mtx);
+		while (!finished && begin == end)
+			array_empty_c.wait(lock);
+		if (begin != end)
+			{	// remove and display a data value
+			*val = -data[begin++];
+			std::cout << *val << '\n';
+			if (begin == data_size)
+				begin = 0;
+			array_not_full.set();
+			array_full_c.notify_one();
+			}
+		}
+	}
+
+int main()
+	{	// create a consumer thread and two producer threads
+	Dinkum::threads::thread thr0(consumer);
+	Dinkum::threads::thread_group group;
+	group.create_thread(producer);
+	group.create_thread(producer);
+	group.join_all();
+		{	// lock mutex while setting finished
+		Dinkum::threads::mutex::scoped_lock lock(data_mtx);
+		finished = true;
+		}
+	thr0.join();
+	return 0;
+	}

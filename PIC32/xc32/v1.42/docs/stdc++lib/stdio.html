@@ -1,0 +1,1663 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html>
+<head>
+  <meta name="generator" content=
+  "HTML Tidy for Mac OS X (vers 31 October 2006 - Apple Inc. build 15.15), see www.w3.org">
+
+  <title>&lt;stdio.h&gt;</title>
+</head>
+
+<body>
+  <h1><a name="&lt;stdio.h&gt;"><code>&lt;stdio.h&gt;</code></a></h1>
+  <hr>
+
+  <p><b><code><a href="#_IOFBF">_IOFBF</a> &middot; <a href="#_IOLBF">_IOLBF</a> &middot; <a href=
+  "#_IONBF">_IONBF</a> &middot; <a href="#BUFSIZ">BUFSIZ</a> &middot; <a href="#EOF">EOF</a> &middot;
+  <a href="#FILE">FILE</a> &middot; <a href="#FILENAME_MAX">FILENAME_MAX</a> &middot; <a href=
+  "#FOPEN_MAX">FOPEN_MAX</a> &middot; <a href="#L_tmpnam">L_tmpnam</a> &middot; <a href="#NULL">NULL</a>
+  &middot; <a href="#SEEK_CUR">SEEK_CUR</a> &middot; <a href="#SEEK_END">SEEK_END</a> &middot; <a href=
+  "#SEEK_SET">SEEK_SET</a> &middot; <a href="#TMP_MAX">TMP_MAX</a></code></b></p>
+
+  <p><b><code><a href="#clearerr">clearerr</a> &middot; <a href="#fclose">fclose</a> &middot; <a href=
+  "#feof">feof</a> &middot; <a href="#ferror">ferror</a> &middot; <a href="#fflush">fflush</a> &middot;
+  <a href="#fgetc">fgetc</a> &middot; <a href="#fgetpos">fgetpos</a> &middot; <a href="#fgets">fgets</a>
+  &middot; <a href="#fopen">fopen</a> &middot; <a href="#fpos_t">fpos_t</a> &middot; <a href=
+  "#fprintf">fprintf</a> &middot; <a href="#fputc">fputc</a> &middot; <a href="#fputs">fputs</a> &middot;
+  <a href="#fread">fread</a> &middot; <a href="#freopen">freopen</a> &middot; <a href="#fscanf">fscanf</a>
+  &middot; <a href="#fseek">fseek</a> &middot; <a href="#fsetpos">fsetpos</a> &middot; <a href=
+  "#ftell">ftell</a> &middot; <a href="#fwrite">fwrite</a> &middot; <a href="#getc">getc</a> &middot;
+  <a href="#getchar">getchar</a> &middot; <a href="#gets">gets</a> &middot; <a href="#perror">perror</a>
+  &middot; <a href="#printf">printf</a> &middot; <a href="#putc">putc</a> &middot; <a href=
+  "#putchar">putchar</a> &middot; <a href="#puts">puts</a> &middot; <a href="#remove">remove</a> &middot;
+  <a href="#rename">rename</a> &middot; <a href="#rewind">rewind</a> &middot; <a href="#scanf">scanf</a>
+  &middot; <a href="#setbuf">setbuf</a> &middot; <a href="#setvbuf">setvbuf</a> &middot; <a href=
+  "#size_t">size_t</a> &middot; <a href="#snprintf">snprintf</a> &middot; <a href="#sprintf">sprintf</a>
+  &middot; <a href="#sscanf">sscanf</a> &middot; <a href="#stderr">stderr</a> &middot; <a href=
+  "#stdin">stdin</a> &middot; <a href="#stdout">stdout</a> &middot; <a href="#tmpfile">tmpfile</a> &middot;
+  <a href="#tmpnam">tmpnam</a> &middot; <a href="#ungetc">ungetc</a> &middot; <a href=
+  "#vfprintf">vfprintf</a> &middot; <a href="#vfscanf">vfscanf</a> &middot; <a href="#vprintf">vprintf</a>
+  &middot; <a href="#vscanf">vscanf</a> &middot; <a href="#vsnprintf">vsnprintf</a> &middot; <a href=
+  "#vsprintf">vsprintf</a> &middot; <a href="#vsscanf">vsscanf</a></code></b></p>
+
+  <p><b><code><a href="#L_tmpnam_s">L_tmpnam_s</a> &middot; <a href="#TMP_MAX_S">TMP_MAX_S</a></code></b></p>
+
+  <p><b><code><a href="#errno_t">errno_t</a> &middot; <a href="#fopen_s">fopen_s</a> &middot; <a href=
+  "#fprintf_s">fprintf_s</a> &middot; <a href="#freopen_s">freopen_s</a> &middot; <a href=
+  "#gets_s">gets_s</a> &middot; <a href="#fscanf_s">fscanf_s</a> &middot; <a href="#printf_s">printf_s</a>
+  &middot; <a href="#rsize_t">rsize_t</a> &middot; <a href="#scanf_s">scanf_s</a> &middot; <a href=
+  "#snprintf_s">snprintf_s</a> &middot; <a href="#sprintf_s">sprintf_s</a> &middot; <a href=
+  "#sscanf_s">sscanf_s</a> &middot; <a href="#tmpfile_s">tmpfile_s</a> &middot; <a href=
+  "#tmpnam_s">tmpnam_s</a> &middot; <a href="#vfprintf_s">vfprintf_s</a> &middot; <a href=
+  "#vfscanf_s">vfscanf_s</a> &middot; <a href="#vprintf_s">vprintf_s</a> &middot; <a href=
+  "#vscanf_s">vscanf_s</a> &middot; <a href="#vsnprintf_s">vsnprintf_s</a> &middot; <a href=
+  "#vsprintf_s">vsprintf_s</a> &middot; <a href="#vsscanf_s">vsscanf_s</a></code></b></p>
+  <hr>
+
+  <p>Include the standard header <b><code>&lt;stdio.h&gt;</code></b> so that you can perform input and output
+  operations on streams and files.</p>
+  <pre>
+    /* MACROS */
+#define <a href="#_IOFBF"><b>_IOFBF</b></a> <i>&lt;integer constant expression&gt;</i>
+#define <a href="#_IOLBF"><b>_IOLBF</b></a> <i>&lt;integer constant expression&gt;</i>
+#define <a href="#_IONBF"><b>_IONBF</b></a> <i>&lt;integer constant expression&gt;</i>
+#define <a href="#BUFSIZ"><b>BUFSIZ</b></a> <i>&lt;integer constant expression &gt;= 256&gt;</i>
+#define <a href="#EOF"><b>EOF</b></a> <i>&lt;integer constant expression &lt; 0&gt;</i>
+#define <a href="#FILENAME_MAX"><b>FILENAME_MAX</b></a> <i>&lt;integer constant expression &gt; 0&gt;</i>
+#define <a href="#FOPEN_MAX"><b>FOPEN_MAX</b></a> <i>&lt;integer constant expression &gt;= 8&gt;</i>
+#define <a href="#L_tmpnam"><b>L_tmpnam</b></a> <i>&lt;integer constant expression &gt; 0&gt;</i>
+#define <a href="#NULL"><b>NULL</b></a> <i>&lt;either 0, 0L, or (void *)0&gt;</i> <b>[0 in C++]</b>
+#define <a href="#SEEK_CUR"><b>SEEK_CUR</b></a> <i>&lt;integer constant expression&gt;</i>
+#define <a href="#SEEK_END"><b>SEEK_END</b></a> <i>&lt;integer constant expression&gt;</i>
+#define <a href="#SEEK_SET"><b>SEEK_SET</b></a> <i>&lt;integer constant expression&gt;</i>
+#define <a href="#TMP_MAX"><b>TMP_MAX</b></a> <i>&lt;integer constant expression &gt;= 25&gt;</i>
+
+#define <a href="#stderr"><b>stderr</b></a> <i>&lt;pointer to FILE rvalue&gt;</i>
+#define <a href="#stdin"><b>stdin</b></a> <i>&lt;pointer to FILE rvalue&gt;</i>
+#define <a href="#stdout"><b>stdout</b></a> <i>&lt;pointer to FILE rvalue&gt;</i>
+
+    /* TYPES */
+typedef <i>o-type</i> <a href="#FILE"><b>FILE</b></a>;
+typedef <i>o-type</i> <a href="#fpos_t"><b>fpos_t</b></a>;
+typedef <i>ui-type</i> <a href="#size_t"><b>size_t</b></a>;
+
+    /* FUNCTIONS */
+void <a href="#clearerr"><b>clearerr</b></a>(FILE *stream);
+int <a href="#fclose"><b>fclose</b></a>(FILE *stream);
+int <a href="#feof"><b>feof</b></a>(FILE *stream);
+int <a href="#ferror"><b>ferror</b></a>(FILE *stream);
+int <a href="#fflush"><b>fflush</b></a>(FILE *stream);
+FILE *<a href="#fopen"><b>fopen</b></a>(const char *restrict filename, const char *restrict mode);
+FILE *<a href="#freopen"><b>freopen</b></a>(const char *restrict filename, const char *restrict mode,
+    FILE *stream);
+int <a href="#remove"><b>remove</b></a>(const char *filename);
+int <a href="#rename"><b>rename</b></a>(const char *old, const char *new);
+void <a href="#rewind"><b>rewind</b></a>(FILE *stream);
+void <a href="#setbuf"><b>setbuf</b></a>(FILE *restrict stream, char *restrict buf);
+int <a href="#setvbuf"><b>setvbuf</b></a>(FILE *restrict stream, char *restrict buf, int mode,
+    size_t size);
+FILE *<a href="#tmpfile"><b>tmpfile</b></a>(void)
+char *<a href="#tmpnam"><b>tmpnam</b></a>(char *s);
+
+int <a href="#fseek"><b>fseek</b></a>(FILE *stream, long offset, int mode);
+int <a href="#fsetpos"><b>fsetpos</b></a>(FILE *stream, const fpos_t *pos);
+int <a href="#fgetpos"><b>fgetpos</b></a>(FILE *restrict stream, fpos_t *restrict pos);
+long <a href="#ftell"><b>ftell</b></a>(FILE *stream);
+
+int <a href="#fgetc"><b>fgetc</b></a>(FILE *stream);
+char *<a href="#fgets"><b>fgets</b></a>(char *restrict s, int n, FILE *restrict stream);
+size_t <a href="#fread"><b>fread</b></a>(void *restrict ptr,
+    size_t size, size_t nelem, FILE *restrict stream);
+int <a href="#getc"><b>getc</b></a>(FILE *stream);
+int <a href="#getchar"><b>getchar</b></a>(void);
+char *<a href="#gets"><b>gets</b></a>(char *s);
+int <a href="#ungetc"><b>ungetc</b></a>(int c, FILE *stream);
+
+int <a href="#fputc"><b>fputc</b></a>(int c, FILE *stream);
+int <a href="#fputs"><b>fputs</b></a>(const char *restrict s, FILE *restrict stream);
+size_t <a href="#fwrite"><b>fwrite</b></a>(const void *restrict ptr,
+    size_t size, size_t nelem, FILE *restrict stream);
+void <a href="#perror"><b>perror</b></a>(const char *s);
+int <a href="#putc"><b>putc</b></a>(int c, FILE *stream);
+int <a href="#putchar"><b>putchar</b></a>(int c);
+int <a href="#puts"><b>puts</b></a>(const char *s);
+
+int <a href="#fscanf"><b>fscanf</b></a>(FILE *restrict stream, const char *restrict format, ...);
+int <a href="#scanf"><b>scanf</b></a>(const char *restrict format, ...);
+int <a href="#sscanf"><b>sscanf</b></a>(const char *restrict s, const char *restrict format, ...);
+int <a href="#vfscanf"><b>vfscanf</b></a>(FILE *restrict stream, const char *restrict format,
+    va_list ap); <b>[added with <a href="lib_over.html#C99">C99</a>]</b>
+int <a href="#vscanf"><b>vscanf</b></a>(const char *restrict format,
+    va_list ap); <b>[added with <a href="lib_over.html#C99">C99</a>]</b>
+int <a href="#vsscanf"><b>vsscanf</b></a>(const char *restrict s, const char *restrict format,
+    va_list ap); <b>[added with <a href="lib_over.html#C99">C99</a>]</b>
+
+int <a href="#fprintf"><b>fprintf</b></a>(FILE *restrict stream, const char *restrict format, ...);
+int <a href="#printf"><b>printf</b></a>(const char *restrict format, ...);
+int <a href="#snprintf"><b>snprintf</b></a>(char *restrict s, size_t n,
+    const char *restrict format, ...); <b>[added with <a href="lib_over.html#C99">C99</a>]</b>
+int <a href="#sprintf"><b>sprintf</b></a>(char *restrict s, const char *restrict format, ...);
+int <a href="#vfprintf"><b>vfprintf</b></a>(FILE *restrict stream, const char *restrict format,
+    va_list ap);
+int <a href="#vprintf"><b>vprintf</b></a>(const char *restrict format,
+    va_list ap);
+int <a href="#vsnprintf"><b>vsnprintf</b></a>(char *restrict s, size_t n, const char *restrict format,
+    va_list ap); <b>[added with <a href="lib_over.html#C99">C99</a>]</b>
+int <a href="#vsprintf"><b>vsprintf</b></a>(char *restrict s, const char *restrict format,
+    va_list ap);
+
+#if __STDC_WANT_LIB_EXT1__ <b>[added with <a href="index_ext1.html#TR24731">TR24731</a>]</b>
+#define <a href="#L_tmpnam_s"><b>L_tmpnam_s</b></a> <i>&lt;integer constant expression &gt; 0&gt;</i>
+#define <a href="#TMP_MAX_S"><b>TMP_MAX_S</b></a> <i>&lt;integer constant expression &gt;= 25&gt;</i>
+
+typedef int <a href="#errno_t"><b>errno_t</b></a>;
+typedef size_t <a href="#rsize_t"><b>rsize_t</b></a>;
+
+errno_t <a href="#tmpfile_s"><b>tmpfile_s</b></a>(FILE *restrict *restrict pstream);
+errno_t <a href="#tmpnam_s"><b>tmpnam_s</b></a>(char *s, rsize_t n);
+
+errno_t <a href="#fopen_s"><b>fopen_s</b></a>(FILE *restrict *restrict pstream,
+    const char *restrict filename, const char *restrict mode);
+errno_t <a href="#freopen_s"><b>freopen_s</b></a>(FILE *restrict *restrict pstream,
+    const char *restrict filename, const char *restrict mode,
+    FILE *restrict stream);
+
+int <a href="#fprintf_s"><b>fprintf_s</b></a>(FILE *restrict stream,
+    const char *restrict format, ...);
+int <a href="#fscanf_s"><b>fscanf_s</b></a>(FILE *restrict stream,
+    const char *restrict format, ...);
+int <a href="#printf_s"><b>printf_s</b></a>(const char *restrict format, ...);
+int <a href="#scanf_s"><b>scanf_s</b></a>(const char *restrict format, ...);
+int <a href="#snprintf_s"><b>snprintf_s</b></a>(char *restrict s, rsize_t n,
+    const char *restrict format, ...);
+int <a href="#sscanf_s"><b>sscanf_s</b></a>(const char *restrict s,
+    const char *restrict format, ...);
+int <a href="#sprintf_s"><b>sprintf_s</b></a>(char *restrict s, rsize_t n,
+    const char *restrict format, ...);
+int <a href="#vfprintf_s"><b>vfprintf_s</b></a>(FILE *restrict stream,
+    const char *restrict format,
+    va_list ap);
+int <a href="#vfscanf_s"><b>vfscanf_s</b></a>(FILE *restrict stream,
+    const char *restrict format,
+    va_list ap);
+int <a href="#vprintf_s"><b>vprintf_s</b></a>(const char *restrict format,
+    va_list ap);
+int <a href="#vscanf_s"><b>vscanf_s</b></a>(const char *restrict format,
+    va_list ap);
+int <a href="#vsnprintf_s"><b>vsnprintf_s</b></a>(char *restrict s, rsize_t n,
+    const char *restrict format,
+    va_list ap);
+int <a href="#vsprintf_s"><b>vsprintf_s</b></a>(char *restrict s, rsize_t n,
+    const char *restrict format,
+    va_list ap);
+int <a href="#vsscanf_s"><b>vsscanf_s</b></a>(const char *restrict s,
+    const char *restrict format,
+    va_list ap);
+
+char *<a href="#gets_s"><b>gets_s</b></a>(char *s, rsize_t n);
+#endif /* __STDC_WANT_LIB_EXT1__ */
+</pre>
+
+  <h2><a name="BUFSIZ"><code>BUFSIZ</code></a></h2>
+  <pre>
+#define <b>BUFSIZ</b> <i>&lt;integer constant expression &gt;= 256&gt;</i>
+</pre>
+
+  <p>The macro yields the size of the stream buffer used by <a href="#setbuf"><code>setbuf</code></a>.</p>
+
+  <h2><a name="clearerr"><code>clearerr</code></a></h2>
+  <pre>
+void <b>clearerr</b>(FILE *stream);
+</pre>
+
+  <p>The function clears the end-of-file and error indicators for the stream <code>stream</code>.</p>
+
+  <h2><a name="EOF"><code>EOF</code></a></h2>
+  <pre>
+#define <b>EOF</b> <i>&lt;integer constant expression &lt; 0&gt;</i>
+</pre>
+
+  <p>The macro yields the return value used to signal the end of a stream or to report an error
+  condition.</p>
+
+  <h2><a name="errno_t"><code>errno_t</code></a></h2>
+  <pre>
+typedef int <b>errno_t</b>; <b>[added with TR24731]</b>
+</pre>
+
+  <p>The type is a synonym for <i>int,</i> used to represent a value that can be stored in <a href=
+  "errno.html#errno"><code>errno</code></a>.</p>
+
+  <h2><a name="fclose"><code>fclose</code></a></h2>
+  <pre>
+int <b>fclose</b>(FILE *stream);
+</pre>
+
+  <p>The function closes the file associated with the stream <code>stream</code>. It returns zero if
+  successful; otherwise, it returns <a href="#EOF"><code>EOF</code></a>. <code>fclose</code> writes any
+  buffered output to the file, deallocates the stream buffer if it was automatically allocated, and removes
+  the association between the stream and the file. Do not use the value of <code>stream</code> in subsequent
+  expressions.</p>
+
+  <h2><a name="feof"><code>feof</code></a></h2>
+  <pre>
+int <b>feof</b>(FILE *stream);
+</pre>
+
+  <p>The function returns a nonzero value if the end-of-file indicator is set for the stream
+  <code>stream</code>.</p>
+
+  <h2><a name="ferror"><code>ferror</code></a></h2>
+  <pre>
+int <b>ferror</b>(FILE *stream);
+</pre>
+
+  <p>The function returns a nonzero value if the error indicator is set for the stream
+  <code>stream</code>.</p>
+
+  <h2><a name="fflush"><code>fflush</code></a></h2>
+  <pre>
+int <b>fflush</b>(FILE *stream);
+</pre>
+
+  <p>The function writes any buffered output to the file associated with the stream <code>stream</code> and
+  returns zero if successful; otherwise, it returns <a href="#EOF"><code>EOF</code></a>. If
+  <code>stream</code> is a null pointer, <code>fflush</code> writes any buffered output to all files opened
+  for output.</p>
+
+  <h2><a name="fgetc"><code>fgetc</code></a></h2>
+  <pre>
+int <b>fgetc</b>(FILE *stream);
+</pre>
+
+  <p>The function reads the next character <code>c</code> (if present) from the input stream
+  <code>stream</code>, advances the file-position indicator (if defined), and returns <code>(int)(unsigned
+  char)c</code>. If the function sets either the end-of-file indicator or the error indicator, it returns
+  <a href="#EOF"><code>EOF</code></a>.</p>
+
+  <h2><a name="fgetpos"><code>fgetpos</code></a></h2>
+  <pre>
+int <b>fgetpos</b>(FILE *restrict stream, fpos_t *restrict pos);
+</pre>
+
+  <p>The function stores the file-position indicator for the stream <code>stream</code> in <code>*pos</code>
+  and returns zero if successful; otherwise, the function stores a positive value in <a href=
+  "errno.html#errno"><code>errno</code></a> and returns a nonzero value.</p>
+
+  <h2><a name="fgets"><code>fgets</code></a></h2>
+  <pre>
+char *<b>fgets</b>(char *restrict s, int n, FILE *restrict stream);
+</pre>
+
+  <p>The function reads characters from the input stream <code>stream</code> and stores them in successive
+  elements of the array beginning at <code>s</code> and continuing until it stores <code>n-1</code>
+  characters, stores an <code><i>NL</i></code> character, or sets the end-of-file or error indicators. If
+  <code>fgets</code> stores any characters, it concludes by storing a null character in the next element of
+  the array. It returns <code>s</code> if it stores any characters and it has not set the error indicator for
+  the stream; otherwise, it returns a null pointer. If it sets the error indicator, the array contents are
+  indeterminate.</p>
+
+  <h2><a name="FILE"><code>FILE</code></a></h2>
+  <pre>
+typedef <i>o-type</i> <b>FILE</b>;
+</pre>
+
+  <p>The type is an object type <code><i>o-type</i></code> that stores all <a href=
+  "lib_file.html#Controlling%20Streams">control information</a> for a stream. The functions <a href=
+  "#fopen"><code>fopen</code></a> and <a href="#freopen"><code>freopen</code></a> allocate all
+  <code>FILE</code> objects used by the read and write functions.</p>
+
+  <h2><a name="FILENAME_MAX"><code>FILENAME_MAX</code></a></h2>
+  <pre>
+#define <b>FILENAME_MAX</b> <i>&lt;integer constant expression &gt; 0&gt;</i>
+</pre>
+
+  <p>The macro yields the maximum size array of characters that you must provide to hold a <a href=
+  "lib_over.html#filename">filename</a>.</p>
+
+  <h2><a name="fopen"><code>fopen</code></a></h2>
+  <pre>
+FILE *<b>fopen</b>(const char *restrict filename, const char *restrict mode);
+</pre>
+
+  <p>The function opens the file with the filename <code>filename</code>, associates it with a stream, and
+  returns a pointer to the object controlling the stream. If the open fails, it returns a null pointer. The
+  initial characters of <code>mode</code> determine how the program <a href=
+  "lib_file.html#Files%20and%20Streams">manipulates</a> the stream and whether it interprets the stream as
+  <a href="lib_file.html#Text%20and%20Binary%20Streams">text or binary</a>. The initial characters must be
+  one of the following sequences:</p>
+
+  <ul>
+    <li><b><code>"r"</code></b> -- to open an existing text file for reading</li>
+
+    <li><b><code>"w"</code></b> -- to create a text file or to open and truncate an existing text file, for
+    writing</li>
+
+    <li><b><code>"a"</code></b> -- to create a text file or to open an existing text file, for writing. The
+    file-position indicator is positioned at the end of the file before each write</li>
+
+    <li><b><code>"rb"</code></b> -- to open an existing binary file for reading</li>
+
+    <li><b><code>"wb"</code></b> -- to create a binary file or to open and truncate an existing binary file,
+    for writing</li>
+
+    <li><b><code>"ab"</code></b> -- to create a binary file or to open an existing binary file, for writing.
+    The file-position indicator is positioned at the end of the file (possibly after arbitrary null byte
+    padding) before each write</li>
+
+    <li><b><code>"r+"</code></b> -- to open an existing text file for reading and writing</li>
+
+    <li><b><code>"w+"</code></b> -- to create a text file or to open and truncate an existing text file, for
+    reading and writing</li>
+
+    <li><b><code>"a+"</code></b> -- to create a text file or to open an existing text file, for reading and
+    writing. The file-position indicator is positioned at the end of the file before each write</li>
+
+    <li><b><code>"r+b"</code></b> or <b><code>"rb+"</code></b> -- to open an existing binary file for reading
+    and writing</li>
+
+    <li><b><code>"w+b"</code></b> or <b><code>"wb+"</code></b> -- to create a binary file or to open and
+    truncate an existing binary file, for reading and writing</li>
+
+    <li><b><code>"a+b"</code></b> or <b><code>"ab+"</code></b> -- to create a binary file or to open an
+    existing binary file, for reading and writing. The file-position indicator is positioned at the end of
+    the file (possibly after arbitrary null byte padding) before each write</li>
+  </ul>
+
+  <p>If you open a file for both reading and writing, the target environment can open a binary file instead
+  of a text file. If the file is not interactive, the stream is fully buffered.</p>
+
+  <h2><a name="fopen_s"><code>fopen_s</code></a></h2>
+  <pre>
+errno_t <b>fopen_s</b>(FILE *restrict *restrict pstream,
+    const char *restrict filename, const char *restrict mode); <b>[added with TR24731]</b>
+</pre>
+
+  <p>A <a href="index_ext1.html#runtime%20constraint%20violation">runtime constraint violation</a> occurs
+  if:</p>
+
+  <ul>
+    <li><code>pstream</code> is a null pointer</li>
+
+    <li><code>filename</code> is a null pointer</li>
+
+    <li><code>mode</code> is a null pointer</li>
+  </ul>
+
+  <p>If such a violation occurs, the function returns the error code it reported to the constraint
+  handler.</p>
+
+  <p>Otherwise, the function opens the file with the filename <code>filename</code>, as if by evaluating
+  <code>*pstream = <a href="#fopen">fopen(filename, mode)</a></code>, except that the file is opened with
+  exclusive (non-shared) access, if possible, and:</p>
+
+  <ul>
+    <li>if <code>mode[0] == 'u'</code> the second argument to <code>fopen</code> is <code>mode + 1</code> and
+    the file is left with system default access permissions (like <code>fopen</code>)</li>
+
+    <li>if <code>mode[0] != 'u'</code> the second argument to <code>fopen</code> is <code>mode</code> and the
+    file is left with access permissions that prevent other users from accessing it, if possible</li>
+  </ul>
+
+  <p>The function returns zero only if the open succeeds.</p>
+
+  <h2><a name="FOPEN_MAX"><code>FOPEN_MAX</code></a></h2>
+  <pre>
+#define <b>FOPEN_MAX</b> <i>&lt;integer constant expression &gt;= 8&gt;</i>
+</pre>
+
+  <p>The macro yields the maximum number of files that the target environment permits to be simultaneously
+  open (including <a href="#stderr"><code>stderr</code></a>, <a href="#stdin"><code>stdin</code></a>, and
+  <a href="#stdout"><code>stdout</code></a>).</p>
+
+  <h2><a name="fpos_t"><code>fpos_t</code></a></h2>
+  <pre>
+typedef <i>o-type</i> <b>fpos_t</b>;
+</pre>
+
+  <p>The type is an object type <code><i>o-type</i></code> of an object that you declare to hold the value of
+  a file-position indicator stored by <a href="#fsetpos"><code>fsetpos</code></a> and accessed by <a href=
+  "#fgetpos"><code>fgetpos</code></a>.</p>
+
+  <h2><a name="fprintf"><code>fprintf</code></a></h2>
+  <pre>
+int <b>fprintf</b>(FILE *restrict stream, const char *restrict format, ...);
+</pre>
+
+  <p>A <a href="index_ext1.html#runtime%20constraint%20violation">runtime constraint violation</a> occurs if
+  the argument corresponding to a <code>%s</code> conversion specifier is a null pointer. If such a violation
+  occurs, the function returns a negative value, after producing an unspecified amount of output.</p>
+
+  <p>Otherwise, the function <a href="lib_prin.html#Print%20Functions">generates formatted text</a>, under
+  the control of the format <code>format</code> and any additional arguments, and writes each generated
+  character to the stream <code>stream</code>. It returns the number of characters generated, or it returns a
+  negative value if the function sets the error indicator for the stream.</p>
+
+  <h2><a name="fprintf_s"><code>fprintf_s</code></a></h2>
+  <pre>
+int <b>fprintf_s</b>(FILE *restrict stream,
+    const char *restrict format, ...); <b>[added with TR24731]</b>
+</pre>
+
+  <p>A <a href="index_ext1.html#runtime%20constraint%20violation">runtime constraint violation</a> occurs
+  if:</p>
+
+  <ul>
+    <li><code>stream</code> is a null pointer</li>
+
+    <li><code>format</code> is a null pointer</li>
+
+    <li>the argument corresponding to a <code>%s</code> conversion specifier is a null pointer</li>
+
+    <li><code>format</code> contains a <code>%n</code> conversion specifier</li>
+  </ul>
+
+  <p>If such a violation occurs, the function returns a negative value, after producing an unspecified amount
+  of output.</p>
+
+  <p>Otherwise, the function <a href="lib_prin.html#Print%20Functions">generates formatted text</a>, under
+  the control of the format <code>format</code> and any additional arguments, and writes each generated
+  character to the stream <code>stream</code>. It returns the number of characters generated, or it returns a
+  negative value if the function sets the error indicator for the stream.</p>
+
+  <h2><a name="fputc"><code>fputc</code></a></h2>
+  <pre>
+int <b>fputc</b>(int c, FILE *stream);
+</pre>
+
+  <p>The function writes the character <code>(unsigned char)c</code> to the output stream
+  <code>stream</code>, advances the file-position indicator (if defined), and returns <code>(int)(unsigned
+  char)c</code>. If the function sets the error indicator for the stream, it returns <a href=
+  "#EOF"><code>EOF</code></a>.</p>
+
+  <h2><a name="fputs"><code>fputs</code></a></h2>
+  <pre>
+int <b>fputs</b>(const char *restrict s, FILE *restrict stream);
+</pre>
+
+  <p>The function accesses characters from the <a href="lib_over.html#C%20string">C string</a> <code>s</code>
+  and writes them to the output stream <code>stream</code>. The function does not write the terminating null
+  character. It returns a nonnegative value if it has not set the error indicator; otherwise, it returns
+  <a href="#EOF"><code>EOF</code></a>.</p>
+
+  <h2><a name="fread"><code>fread</code></a></h2>
+  <pre>
+size_t <b>fread</b>(void *restrict ptr,
+    size_t size, size_t nelem, FILE *restrict stream);
+</pre>
+
+  <p>The function reads characters from the input stream <code>stream</code> and stores them in successive
+  elements of the array whose first element has the address <code>(char *)ptr</code> until the function
+  stores <code>size*nelem</code> characters or sets the end-of-file or error indicator. It returns
+  <code>n/size</code>, where <code>n</code> is the number of characters it read. If <code>n</code> is not a
+  multiple of <code>size</code>, the value stored in the last element is indeterminate. If the function sets
+  the error indicator, the file-position indicator is indeterminate.</p>
+
+  <h2><a name="freopen"><code>freopen</code></a></h2>
+  <pre>
+FILE *<b>freopen</b>(const char *restrict filename, const char *restrict mode,
+    FILE *stream);
+</pre>
+
+  <p>The function closes the file associated with the stream <code>stream</code> (as if by calling <a href=
+  "#fclose"><code>fclose</code></a>); then it opens the file with the filename <code>filename</code> and
+  associates the file with the stream <code>stream</code> (as if by calling <code><a href=
+  "#fopen">fopen</a>(filename, mode)</code>). It returns <code>stream</code> if the open is successful;
+  otherwise, it returns a null pointer.</p>
+
+  <h2><a name="freopen_s"><code>freopen_s</code></a></h2>
+  <pre>
+errno_t <b>freopen_s</b>(FILE *restrict *restrict pstream,
+    const char *restrict filename, const char *restrict mode,
+    FILE *stream); <b>[added with TR24731]</b>
+</pre>
+
+  <p>A <a href="index_ext1.html#runtime%20constraint%20violation">runtime constraint violation</a> occurs
+  if:</p>
+
+  <ul>
+    <li><code>pstream</code> is a null pointer</li>
+
+    <li><code>mode</code> is a null pointer</li>
+
+    <li><code>stream</code> is a null pointer</li>
+  </ul>
+
+  <p>If such a violation occurs, the function returns the error code it reported to the constraint
+  handler.</p>
+
+  <p>Otherwise, if <code>filename</code> is a null pointer, it is effectively set to the name of the opened
+  file controlled by <code>stream</code>, if possible.</p>
+
+  <p>The function reopens the file with the filename <code>filename</code>, as if by evaluating
+  <code>*pstream = <a href="#freopen">freopen(filename, mode)</a></code>. It returns zero only if the open
+  succeeds.</p>
+
+  <h2><a name="fscanf"><code>fscanf</code></a></h2>
+  <pre>
+int <b>fscanf</b>(FILE *restrict stream, const char *restrict format, ...);
+</pre>
+
+  <p>A <a href="index_ext1.html#runtime%20constraint%20violation">runtime constraint violation</a> occurs if
+  any pointer argument after <code>format</code> is a null pointer. If such a violation occurs, the function
+  returns a negative value, after consuming an unspecified amount of input.</p>
+
+  <p>Otherwise, the function <a href="lib_scan.html#Scan%20Functions">scans formatted text</a>, under the
+  control of the format <code>format</code> and any additional arguments. It obtains each scanned character
+  from the stream <code>stream</code>. It returns the number of input items matched and assigned, or it
+  returns <a href="#EOF"><code>EOF</code></a> if the function does not store values before it sets the
+  end-of-file or error indicator for the stream.</p>
+
+  <h2><a name="fscanf_s"><code>fscanf_s</code></a></h2>
+  <pre>
+int <b>fscanf_s</b>(FILE *restrict stream,
+    const char *restrict format, ...); <b>[added with TR24731]</b>
+</pre>
+
+  <p>A <a href="index_ext1.html#runtime%20constraint%20violation">runtime constraint violation</a> occurs
+  if:</p>
+
+  <ul>
+    <li><code>format</code> is a null pointer</li>
+
+    <li>any pointer argument after <code>format</code> is a null pointer</li>
+  </ul>
+
+  <p>If such a violation occurs, the function returns a negative value, after consuming an unspecified amount
+  of input.</p>
+
+  <p>Otherwise, the function <a href="lib_scan.html#Scan%20Functions">scans formatted text</a>, with <a href=
+  "#additional%20scan%20checking">additional checking</a>, under the control of the format
+  <code>format</code> and any additional arguments. It obtains each scanned character from the stream
+  <code>stream</code>. It returns the number of input items matched and assigned, or it returns <a href=
+  "#EOF"><code>EOF</code></a> if the function does not store values before it sets the end-of-file or error
+  indicator for the stream.</p>
+
+  <p><b><a name="additional scan checking">Additional checking</a></b> occurs for the scan conversion
+  specifiers <code>c</code>, <code>s</code>, and <code>[</code>. Each of these conversion specifiers consumes
+  an additional argument, of type <code><a href="#rsize_t">rsize_t</a></code>, that specifies the maximum
+  number of elements <code>N</code> that can be stored in the array object. It is a runtime constraint
+  violation if <code>N</code> is greater than <code><a href="index_ext1.html#RSIZE_MAX">RSIZE_MAX</a></code>,
+  or if the number of elements to be stored is greater than <code>N</code>.</p>
+
+  <h2><a name="fseek"><code>fseek</code></a></h2>
+  <pre>
+int <b>fseek</b>(FILE *stream, long offset, int mode);
+</pre>
+
+  <p>The function sets the file-position indicator for the stream <code>stream</code> (as specified by
+  <code>offset</code> and <code>mode</code>), clears the end-of-file indicator for the stream, and returns
+  zero if successful.</p>
+
+  <p>For a <a href="lib_file.html#binary%20stream">binary stream</a>, <code>offset</code> is a signed offset
+  in bytes:</p>
+
+  <ul>
+    <li>If <code>mode</code> has the value <a href="#SEEK_SET"><code>SEEK_SET</code></a>, <code>fseek</code>
+    adds <code>offset</code> to the file-position indicator for the beginning of the file.</li>
+
+    <li>If <code>mode</code> has the value <a href="#SEEK_CUR"><code>SEEK_CUR</code></a>, <code>fseek</code>
+    adds <code>offset</code> to the current file-position indicator.</li>
+
+    <li>If <code>mode</code> has the value <a href="#SEEK_END"><code>SEEK_END</code></a>, <code>fseek</code>
+    adds <code>offset</code> to the file-position indicator for the end of the file (possibly after arbitrary
+    null character padding).</li>
+  </ul>
+
+  <p><code>fseek</code> sets the file-position indicator to the result of this addition.</p>
+
+  <p>For a <a href="lib_file.html#text%20stream">text stream</a>:</p>
+
+  <ul>
+    <li>If <code>mode</code> has the value <a href="#SEEK_SET"><code>SEEK_SET</code></a>, <code>fseek</code>
+    sets the file-position indicator to the value encoded in <code>offset</code>, which is either a value
+    returned by an earlier successful call to <a href="#ftell"><code>ftell</code></a> or zero to indicate the
+    beginning of the file.</li>
+
+    <li>If <code>mode</code> has the value <a href="#SEEK_CUR"><code>SEEK_CUR</code></a> and
+    <code>offset</code> is zero, <code>fseek</code> leaves the file-position indicator at its current
+    value.</li>
+
+    <li>If <code>mode</code> has the value <a href="#SEEK_END"><code>SEEK_END</code></a> and
+    <code>offset</code> is zero, <code>fseek</code> sets the file-position indicator to indicate the end of
+    the file.</li>
+  </ul>
+
+  <p>The function defines no other combination of argument values.</p>
+
+  <h2><a name="fsetpos"><code>fsetpos</code></a></h2>
+  <pre>
+int <b>fsetpos</b>(FILE *stream, const fpos_t *pos);
+</pre>
+
+  <p>The function sets the file-position indicator for the stream <code>stream</code> to the value stored in
+  <code>*pos</code>, clears the end-of-file indicator for the stream, and returns zero if successful.
+  Otherwise, the function stores a positive value in <a href="errno.html#errno"><code>errno</code></a> and
+  returns a nonzero value.</p>
+
+  <h2><a name="ftell"><code>ftell</code></a></h2>
+  <pre>
+long <b>ftell</b>(FILE *stream);
+</pre>
+
+  <p>The function returns an encoded form of the file-position indicator for the stream <code>stream</code>
+  or stores a positive value in <a href="errno.html#errno"><code>errno</code></a> and returns the value -1.
+  For a binary file, a successful return value gives the number of bytes from the beginning of the file. For
+  a text file, target environments can vary on the representation and range of encoded file-position
+  indicator values.</p>
+
+  <h2><a name="fwrite"><code>fwrite</code></a></h2>
+  <pre>
+size_t <b>fwrite</b>(const void *restrict ptr,
+    size_t size, size_t nelem, FILE *stream);
+</pre>
+
+  <p>The function writes characters to the output stream <code>stream</code>, accessing values from
+  successive elements of the array whose first element has the address <code>(char *)ptr</code> until the
+  function writes <code>size*nelem</code> characters or sets the error indicator. It returns
+  <code>n/size</code>, where <code>n</code> is the number of characters it wrote. If the function sets the
+  error indicator, the file-position indicator is indeterminate.</p>
+
+  <h2><a name="getc"><code>getc</code></a></h2>
+  <pre>
+int <b>getc</b>(FILE *stream);
+</pre>
+
+  <p>The function has the same effect as <code><a href="#fgetc">fgetc</a>(stream)</code> except that a macro
+  version of <code>getc</code> can evaluate <code>stream</code> more than once.</p>
+
+  <h2><a name="getchar"><code>getchar</code></a></h2>
+  <pre>
+int <b>getchar</b>(void);
+</pre>
+
+  <p>The function has the same effect as <code><a href="#fgetc">fgetc</a>(stdin)</code>, reading a character
+  from the stream <a href="#stdin"><code>stdin</code></a></p>
+
+  <h2><a name="gets"><code>gets</code></a></h2>
+  <pre>
+char *<b>gets</b>(char *s);
+</pre>
+
+  <p>The function reads characters from the stream <a href="#stdin"><code>stdin</code></a> and stores them in
+  successive elements of the array whose first element has the address <code>s</code> until the function
+  reads an <code><i>NL</i></code> character (which is not stored) or sets the end-of-file or error indicator.
+  If <code>gets</code> reads any characters, it concludes by storing a null character in the next element of
+  the array. It returns <code>s</code> if it reads any characters and has not set the error indicator for the
+  stream; otherwise, it returns a null pointer. If it sets the error indicator, the array contents are
+  indeterminate. The number of characters that <code>gets</code> reads and stores cannot be limited. Use
+  <a href="#fgets"><code>fgets</code></a> instead.</p>
+
+  <h2><a name="gets_s"><code>gets_s</code></a></h2>
+  <pre>
+char *<b>gets_s</b>(char *s, rsize_t n); <b>[added with TR24731]</b>
+</pre>
+
+  <p>A <a href="index_ext1.html#runtime%20constraint%20violation">runtime constraint violation</a> occurs
+  if:</p>
+
+  <ul>
+    <li><code>s</code> is a null pointer</li>
+
+    <li><code>n</code> is zero or greater than <code><a href=
+    "index_ext1.html#RSIZE_MAX">RSIZE_MAX</a></code></li>
+
+    <li>the function reads <code>n - 1</code> characters without encountering an <code><i>NL</i></code>
+    character, end of file, or a read error</li>
+  </ul>
+
+  <p>If such a violation occurs, other than the first two, the function stores a null character at
+  <code>s[0]]</code>. It then returns a null pointer, after consuming an unspecified amount of input.</p>
+
+  <p>Otherwise, the function reads characters from the stream <a href="#stdin"><code>stdin</code></a> and
+  stores them in successive elements of the array whose first element has the address <code>s</code> until
+  the function reads an <code><i>NL</i></code> character (which is not stored) or sets the end-of-file or
+  error indicator. If <code>gets_s</code> reads any characters, it concludes by storing a null character in
+  the next element of the array. It returns <code>s</code> if it reads any characters and has not set the
+  error indicator for the stream; otherwise, it stores a null character at <code>s[0]]</code> and returns a
+  null pointer.</p>
+
+  <h2><a name="_IOFBF"><code>_IOFBF</code></a></h2>
+  <pre>
+#define <b>_IOFBF</b> <i>&lt;integer constant expression&gt;</i>
+</pre>
+
+  <p>The macro yields the value of the <code>mode</code> argument to <a href=
+  "#setvbuf"><code>setvbuf</code></a> to indicate <b><a name="full buffering">full buffering</a></b>. (Flush
+  the stream buffer only when it fills.)</p>
+
+  <h2><a name="_IOLBF"><code>_IOLBF</code></a></h2>
+  <pre>
+#define <b>_IOLBF</b> <i>&lt;integer constant expression&gt;</i>
+</pre>
+
+  <p>The macro yields the value of the <code>mode</code> argument to <a href=
+  "#setvbuf"><code>setvbuf</code></a> to indicate <b><a name="line buffering">line buffering</a></b>. (Flush
+  the stream buffer at the end of a <a href="lib_file.html#text%20lines">text line</a>.)</p>
+
+  <h2><a name="_IONBF"><code>_IONBF</code></a></h2>
+  <pre>
+#define <b>_IONBF</b> <i>&lt;integer constant expression&gt;</i>
+</pre>
+
+  <p>The macro yields the value of the <code>mode</code> argument to <a href=
+  "#setvbuf"><code>setvbuf</code></a> to indicate <b><a name="no buffering">no buffering</a></b>. (Flush the
+  stream buffer at the end of each write operation.)</p>
+
+  <h2><a name="L_tmpnam"><code>L_tmpnam</code></a></h2>
+  <pre>
+#define <b>L_tmpnam</b> <i>&lt;integer constant expression &gt; 0&gt;</i>
+</pre>
+
+  <p>The macro yields the number of characters that the target environment requires for representing
+  temporary filenames created by <a href="#tmpnam"><code>tmpnam</code></a>.</p>
+
+  <h2><a name="L_tmpnam_s"><code>L_tmpnam_s</code></a></h2>
+  <pre>
+#define <b>L_tmpnam_s</b> <i>&lt;integer constant expression &gt; 0&gt;</i> <b>[added with TR24731]</b>
+</pre>
+
+  <p>The macro yields the number of characters that the target environment requires for representing
+  temporary filenames created by <a href="#tmpnam"><code>tmpnam</code></a>.</p>
+
+  <h2><a name="NULL"><code>NULL</code></a></h2>
+  <pre>
+#define <b>NULL</b> <i>&lt;either 0, 0L, or (void *)0&gt;</i> <b>[0 in C++]</b>
+</pre>
+
+  <p>The macro yields a null pointer constant that is usable as an <a href=
+  "express.html#address%20constant%20expression">address constant expression</a>.</p>
+
+  <h2><a name="perror"><code>perror</code></a></h2>
+  <pre>
+void <b>perror</b>(const char *s);
+</pre>
+
+  <p>The function writes a line of text to the stream <a href="#stderr"><code>stderr</code></a>. If
+  <code>s</code> is not a null pointer, the function first writes the <a href="lib_over.html#C%20string">C
+  string</a> <code>s</code> (as if by calling <code><a href="#fputs">fputs</a>(s, stderr)</code>), followed
+  by a colon (<code>:</code>) and a <code><i>space</i></code>. It then writes the same message <a href=
+  "lib_over.html#C%20string">C string</a> that is returned by <code><a href=
+  "string.html#strerror">strerror</a>(errno)</code>, converting the value stored in <a href=
+  "errno.html#errno"><code>errno</code></a>, followed by an <code><i>NL</i></code>.</p>
+
+  <h2><a name="printf"><code>printf</code></a></h2>
+  <pre>
+int <b>printf</b>(const char *restrict format, ...);
+</pre>
+
+  <p>A <a href="index_ext1.html#runtime%20constraint%20violation">runtime constraint violation</a> occurs if
+  the argument corresponding to a <code>%s</code> conversion specifier is a null pointer. If such a violation
+  occurs, the function returns a negative value, after producing an unspecified amount of output.</p>
+
+  <p>Otherwise, the function <a href="lib_prin.html#Print%20Functions">generates formatted text</a>, under
+  the control of the format <code>format</code> and any additional arguments, and writes each generated
+  character to the stream <a href="#stdout"><code>stdout</code></a>. It returns the number of characters
+  generated, or it returns a negative value if the function sets the error indicator for the stream.</p>
+
+  <h2><a name="printf_s"><code>printf_s</code></a></h2>
+  <pre>
+int <b>printf_s</b>(const char *restrict format, ...); <b>[added with TR24731]</b>
+</pre>
+
+  <p>A <a href="index_ext1.html#runtime%20constraint%20violation">runtime constraint violation</a> occurs
+  if:</p>
+
+  <ul>
+    <li><code>format</code> is a null pointer</li>
+
+    <li>the argument corresponding to a <code>%s</code> conversion specifier is a null pointer</li>
+
+    <li><code>format</code> contains a <code>%n</code> conversion specifier</li>
+  </ul>
+
+  <p>If such a violation occurs, the function returns a negative value, after producing an unspecified amount
+  of output.</p>
+
+  <p>Otherwise, the function <a href="lib_prin.html#Print%20Functions">generates formatted text</a>, under
+  the control of the format <code>format</code> and any additional arguments, and writes each generated
+  character to the stream <a href="#stdout"><code>stdout</code></a>. It returns the number of characters
+  generated, or it returns a negative value if the function sets the error indicator for the stream.</p>
+
+  <h2><a name="putc"><code>putc</code></a></h2>
+  <pre>
+int <b>putc</b>(int c, FILE *stream);
+</pre>
+
+  <p>The function has the same effect as <code><a href="#fputc">fputc</a>(c, stream)</code> except that a
+  macro version of <code>putc</code> can evaluate <code>stream</code> more than once.</p>
+
+  <h2><a name="putchar"><code>putchar</code></a></h2>
+  <pre>
+int <b>putchar</b>(int c);
+</pre>
+
+  <p>The function has the same effect as <code><a href="#fputc">fputc</a>(c, stdout)</code>, writing a
+  character to the stream <a href="#stdout"><code>stdout</code></a>.</p>
+
+  <h2><a name="puts"><code>puts</code></a></h2>
+  <pre>
+int <b>puts</b>(const char *s);
+</pre>
+
+  <p>The function accesses characters from the <a href="lib_over.html#C%20string">C string</a> <code>s</code>
+  and writes them to the stream <a href="#stdout"><code>stdout</code></a>. The function writes an
+  <code><i>NL</i></code> character to the stream in place of the terminating null character. It returns a
+  nonnegative value if it has not set the error indicator; otherwise, it returns <a href=
+  "#EOF"><code>EOF</code></a>.</p>
+
+  <h2><a name="remove"><code>remove</code></a></h2>
+  <pre>
+int <b>remove</b>(const char *filename);
+</pre>
+
+  <p>The function removes the file with the filename <code>filename</code> and returns zero if successful. If
+  the file is open when you remove it, the result is implementation defined. After you remove it, you cannot
+  open it as an existing file.</p>
+
+  <h2><a name="rename"><code>rename</code></a></h2>
+  <pre>
+int <b>rename</b>(const char *old, const char *new);
+</pre>
+
+  <p>The function renames the file with the filename <code>old</code> to have the filename <code>new</code>
+  and returns zero if successful. If a file with the filename <code>new</code> already exists, the result is
+  implementation defined. After you rename it, you cannot open the file with the filename
+  <code>old</code>.</p>
+
+  <h2><a name="rewind"><code>rewind</code></a></h2>
+  <pre>
+void <b>rewind</b>(FILE *stream);
+</pre>
+
+  <p>The function calls <code><a href="#fseek">fseek</a>(stream, 0L, SEEK_SET)</code> and then clears the
+  error indicator for the stream <code>stream</code>.</p>
+
+  <h2><a name="rsize_t"><code>rsize_t</code></a></h2>
+  <pre>
+typedef size_t <b>rsize_t</b>; <b>[added with TR24731]</b>
+</pre>
+
+  <p>The type is a synonym for <code>size_t</code>, used to represent a function argument to be checked on
+  entry to a function. It is a <a href="index_ext1.html#runtime%20constraint%20violation">runtime constraint
+  violation</a> for an argument of type <code>rsize_t</code> to be greater than <code><a href=
+  "index_ext1.html#RSIZE_MAX">RSIZE_MAX</a></code>.</p>
+
+  <h2><a name="scanf"><code>scanf</code></a></h2>
+  <pre>
+int <b>scanf</b>(const char *restrict format, ...);
+</pre>
+
+  <p>A <a href="index_ext1.html#runtime%20constraint%20violation">runtime constraint violation</a> occurs if
+  any pointer argument after <code>format</code> is a null pointer. If such a violation occurs, the function
+  returns a negative value, after consuming an unspecified amount of input.</p>
+
+  <p>Otherwise, the function <a href="lib_scan.html#Scan%20Functions">scans formatted text</a>, under the
+  control of the format <code>format</code> and any additional arguments. It obtains each scanned character
+  from the stream <a href="#stdin"><code>stdin</code></a>. It returns the number of input items matched and
+  assigned, or it returns <a href="#EOF"><code>EOF</code></a> if the function does not store values before it
+  sets the end-of-file or error indicators for the stream.</p>
+
+  <h2><a name="scanf_s"><code>scanf_s</code></a></h2>
+  <pre>
+int <b>scanf_s</b>(const char *restrict format, ...); <b>[added with TR24731]</b>
+</pre>
+
+  <p>A <a href="index_ext1.html#runtime%20constraint%20violation">runtime constraint violation</a> occurs
+  if:</p>
+
+  <ul>
+    <li><code>format</code> is a null pointer</li>
+
+    <li>any pointer argument after <code>format</code> is a null pointer</li>
+  </ul>
+
+  <p>If such a violation occurs, the function returns a negative value, after consuming an unspecified amount
+  of input.</p>
+
+  <p>Otherwise, the function <a href="lib_scan.html#Scan%20Functions">scans formatted text</a>, with <a href=
+  "#additional%20scan%20checking">additional checking</a>, under the control of the format
+  <code>format</code> and any additional arguments. It obtains each scanned character from the stream
+  <a href="#stdin"><code>stdin</code></a>. It returns the number of input items matched and assigned, or it
+  returns <a href="#EOF"><code>EOF</code></a> if the function does not store values before it sets the
+  end-of-file or error indicators for the stream.</p>
+
+  <h2><a name="SEEK_CUR"><code>SEEK_CUR</code></a></h2>
+  <pre>
+#define <b>SEEK_CUR</b> <i>&lt;integer constant expression&gt;</i>
+</pre>
+
+  <p>The macro yields the value of the <code>mode</code> argument to <a href="#fseek"><code>fseek</code></a>
+  to indicate seeking relative to the current file-position indicator.</p>
+
+  <h2><a name="SEEK_END"><code>SEEK_END</code></a></h2>
+  <pre>
+#define <b>SEEK_END</b> <i>&lt;integer constant expression&gt;</i>
+</pre>
+
+  <p>The macro yields the value of the <code>mode</code> argument to <a href="#fseek"><code>fseek</code></a>
+  to indicate seeking relative to the end of the file.</p>
+
+  <h2><a name="SEEK_SET"><code>SEEK_SET</code></a></h2>
+  <pre>
+#define <b>SEEK_SET</b> <i>&lt;integer constant expression&gt;</i>
+</pre>
+
+  <p>The macro yields the value of the <code>mode</code> argument to <a href="#fseek"><code>fseek</code></a>
+  to indicate seeking relative to the beginning of the file.</p>
+
+  <h2><a name="setbuf"><code>setbuf</code></a></h2>
+  <pre>
+void <b>setbuf</b>(FILE *restrict stream, char *restrict buf);
+</pre>
+
+  <p>If <code>buf</code> is not a null pointer, the function calls <code><a href=
+  "#setvbuf">setvbuf</a>(stream, buf, __IOFBF, BUFSIZ)</code>, specifying full buffering with <a href=
+  "#_IOFBF"><code>_IOFBF</code></a> and a buffer size of <a href="#BUFSIZ"><code>BUFSIZ</code></a>
+  characters. Otherwise, the function calls <code><a href="#setvbuf">setvbuf</a>(stream, 0, _IONBF,
+  BUFSIZ)</code>, specifying no buffering with <a href="#_IONBF"><code>_IONBF</code></a>.</p>
+
+  <h2><a name="setvbuf"><code>setvbuf</code></a></h2>
+  <pre>
+int <b>setvbuf</b>(FILE *restrict stream, char *restrict buf, int mode,
+    size_t size);
+</pre>
+
+  <p>The function sets the buffering mode for the stream <code>stream</code> according to <code>buf</code>,
+  <code>mode</code>, and <code>size</code>. It returns zero if successful. If <code>buf</code> is not a null
+  pointer, then <code>buf</code> is the address of the first element of an array of <i>char</i> of size
+  <code>size</code> that can be used as the stream buffer. Otherwise, <code>setvbuf</code> can allocate a
+  stream buffer that is freed when the file is closed. For <code>mode</code> you must supply one of the
+  following values:</p>
+
+  <ul>
+    <li><b><a href="#_IOFBF"><code>_IOFBF</code></a></b> -- to indicate full buffering</li>
+
+    <li><b><a href="#_IOLBF"><code>_IOLBF</code></a></b> -- to indicate line buffering</li>
+
+    <li><b><a href="#_IONBF"><code>_IONBF</code></a></b> -- to indicate no buffering</li>
+  </ul>
+
+  <p>You must call <code>setvbuf</code> after you call <a href="#fopen"><code>fopen</code></a> to associate a
+  file with that stream and before you call a library function that performs any other operation on the
+  stream.</p>
+
+  <h2><a name="size_t"><code>size_t</code></a></h2>
+  <pre>
+typedef <i>ui-type</i> <b>size_t</b>;
+</pre>
+
+  <p>The type is the unsigned integer type <code><i>ui-type</i></code> of an object that you declare to store
+  the result of the <a href="express.html#sizeof%20operator"><i>sizeof</i></a> operator.</p>
+
+  <h2><a name="snprintf"><code>snprintf</code></a></h2>
+  <pre>
+int <b>snprintf</b>(char *restrict s, size_t n,
+    const char *restrict format, ...); <b>[added with <a href="lib_over.html#C99">C99</a>]</b>
+</pre>
+
+  <p>A <a href="index_ext1.html#runtime%20constraint%20violation">runtime constraint violation</a> occurs if
+  the argument corresponding to a <code>%s</code> conversion specifier is a null pointer. If such a violation
+  occurs, the function returns a negative value, after producing an unspecified amount of output.</p>
+
+  <p>Otherwise, the function <a href="lib_prin.html#Print%20Functions">generates formatted text</a>, under
+  the control of the format <code>format</code> and any additional arguments, and stores each generated
+  character in successive locations of the array object whose first element has the address <code>s</code>.
+  If <code>n</code> is zero, it stores no characters. Otherwise, the function stores up to <code>n - 1</code>
+  characters and concludes by storing a null character in the next location of the array. It returns the
+  number of characters generated, not including the null character, or a negative value if an encoding error
+  occurs.</p>
+
+  <h2><a name="snprintf_s"><code>snprintf_s</code></a></h2>
+  <pre>
+int <b>snprintf_s</b>(char *restrict s, rsize_t n,
+    const char *restrict format, ...); <b>[added with TR24731]</b>
+</pre>
+
+  <p>A <a href="index_ext1.html#runtime%20constraint%20violation">runtime constraint violation</a> occurs
+  if:</p>
+
+  <ul>
+    <li><code>s</code> is a null pointer</li>
+
+    <li><code>n</code> is greater than <code><a href="index_ext1.html#RSIZE_MAX">RSIZE_MAX</a></code></li>
+
+    <li><code>format</code> is a null pointer</li>
+
+    <li>the argument corresponding to a <code>%s</code> conversion specifier is a null pointer</li>
+
+    <li><code>format</code> contains a <code>%n</code> conversion specifier</li>
+  </ul>
+
+  <p>If such a violation occurs, other than the first two, the function stores a null character at
+  <code>s[0]]</code>. It then returns a negative value.</p>
+
+  <p>Otherwise, the function <a href="lib_prin.html#Print%20Functions">generates formatted text</a>, under
+  the control of the format <code>format</code> and any additional arguments, and stores each generated
+  character in successive locations of the array object whose first element has the address <code>s</code>.
+  If <code>n</code> is zero, it stores no characters. Otherwise, the function stores up to <code>n - 1</code>
+  characters and concludes by storing a null character in the next location of the array. It returns the
+  <i>total</i> number of characters generated (even those not stored), not including the null character, or a
+  negative value if an encoding error occurs.</p>
+
+  <h2><a name="sprintf"><code>sprintf</code></a></h2>
+  <pre>
+int <b>sprintf</b>(char *restrict s, const char *restrict format, ...);
+</pre>
+
+  <p>A <a href="index_ext1.html#runtime%20constraint%20violation">runtime constraint violation</a> occurs if
+  the argument corresponding to a <code>%s</code> conversion specifier is a null pointer. If such a violation
+  occurs, the function returns a negative value, after producing an unspecified amount of output.</p>
+
+  <p>Otherwise, the function <a href="lib_prin.html#Print%20Functions">generates formatted text</a>, under
+  the control of the format <code>format</code> and any additional arguments, and stores each generated
+  character in successive locations of the array object whose first element has the address <code>s</code>.
+  The function concludes by storing a null character in the next location of the array. It returns the number
+  of characters generated, not including the null character, or a negative value if an encoding error
+  occurs.</p>
+
+  <h2><a name="sprintf_s"><code>sprintf_s</code></a></h2>
+  <pre>
+int <b>sprintf_s</b>(char *restrict s, rsize_t n,
+    const char *restrict format, ...); <b>[added with TR24731]</b>
+</pre>
+
+  <p>A <a href="index_ext1.html#runtime%20constraint%20violation">runtime constraint violation</a> occurs
+  if:</p>
+
+  <ul>
+    <li><code>s</code> is a null pointer</li>
+
+    <li><code>n</code> is greater than <code><a href="index_ext1.html#RSIZE_MAX">RSIZE_MAX</a></code></li>
+
+    <li><code>format</code> is a null pointer</li>
+
+    <li>the argument corresponding to a <code>%s</code> conversion specifier is a null pointer</li>
+
+    <li><code>format</code> contains a <code>%n</code> conversion specifier</li>
+
+    <li>the function attempts to generate more than <code>n - 1</code> characters</li>
+  </ul>
+
+  <p>If such a violation occurs, other than the first two, the function stores a null character in
+  <code>s[0]</code>. It then returns zero.</p>
+
+  <p>Otherwise, the function <a href="lib_prin.html#Print%20Functions">generates formatted text</a>, under
+  the control of the format <code>format</code> and any additional arguments, and stores each generated
+  character in successive locations of the array object whose first element has the address <code>s</code>.
+  If <code>n</code> is zero, it stores no characters. Otherwise, the function stores up to <code>n - 1</code>
+  characters and concludes by storing a null character in the next location of the array. It returns the
+  <i>total</i> number of characters generated (even those not stored), not including the null character, or a
+  negative value if an encoding error occurs.</p>
+
+  <h2><a name="sscanf"><code>sscanf</code></a></h2>
+  <pre>
+int <b>sscanf</b>(const char *restrict s, const char *restrict format, ...);
+</pre>
+
+  <p>A <a href="index_ext1.html#runtime%20constraint%20violation">runtime constraint violation</a> occurs if
+  any pointer argument after <code>format</code> is a null pointer. If such a violation occurs, the function
+  returns a negative value, after consuming an unspecified amount of input.</p>
+
+  <p>Otherwise, the function <a href="lib_scan.html#Scan%20Functions">scans formatted text</a>, under the
+  control of the format <code>format</code> and any additional arguments. It accesses each scanned character
+  from successive locations of the array object whose first element has the address <code>s</code>. It
+  returns the number of items matched and assigned, or it returns <a href="#EOF"><code>EOF</code></a> if the
+  function does not store values before it accesses a null character from the array.</p>
+
+  <h2><a name="sscanf_s"><code>sscanf_s</code></a></h2>
+  <pre>
+int <b>sscanf_s</b>(const char *restrict s, const char *restrict format, ...); <b>[added with TR24731]</b>
+</pre>
+
+  <p>A <a href="index_ext1.html#runtime%20constraint%20violation">runtime constraint violation</a> occurs
+  if:</p>
+
+  <ul>
+    <li><code>s</code> is a null pointer</li>
+
+    <li><code>format</code> is a null pointer</li>
+
+    <li>any pointer argument after <code>format</code> is a null pointer</li>
+  </ul>
+
+  <p>If such a violation occurs, the function returns a negative value, after consuming an unspecified amount
+  of input.</p>
+
+  <p>Otherwise, the function <a href="lib_scan.html#Scan%20Functions">scans formatted text</a>, with <a href=
+  "#additional%20scan%20checking">additional checking</a>, under the control of the format
+  <code>format</code> and any additional arguments. It accesses each scanned character from successive
+  locations of the array object whose first element has the address <code>s</code>. It returns the number of
+  items matched and assigned, or it returns <a href="#EOF"><code>EOF</code></a> if the function does not
+  store values before it accesses a null character from the array.</p>
+
+  <h2><a name="stderr"><code>stderr</code></a></h2>
+  <pre>
+#define <b>stderr</b> <i>&lt;pointer to FILE rvalue&gt;</i>
+</pre>
+
+  <p>The macro yields a pointer to the object that controls the standard error output stream.</p>
+
+  <h2><a name="stdin"><code>stdin</code></a></h2>
+  <pre>
+#define <b>stdin</b> <i>&lt;pointer to FILE rvalue&gt;</i>
+</pre>
+
+  <p>The macro yields a pointer to the object that controls the standard input stream.</p>
+
+  <h2><a name="stdout"><code>stdout</code></a></h2>
+  <pre>
+#define <b>stdout</b> <i>&lt;pointer to FILE rvalue&gt;</i>
+</pre>
+
+  <p>The macro yields a pointer to the object that controls the standard output stream.</p>
+
+  <h2><a name="tmpfile"><code>tmpfile</code></a></h2>
+  <pre>
+FILE *<b>tmpfile</b>(void)
+</pre>
+
+  <p>The function creates a temporary binary file with the filename <code><i>temp-name</i></code> and then
+  has the same effect as calling <code><a href="#fopen">fopen</a>(<i>temp-name</i>, "wb+")</code>. The file
+  <code><i>temp-name</i></code> is removed when the program closes it, either by calling <a href=
+  "#fclose"><code>fclose</code></a> explicitly or at normal program termination. The filename
+  <code><i>temp-name</i></code> does not conflict with any filenames that you create. If the open is
+  successful, the function returns a pointer to the object controlling the stream; otherwise, it returns a
+  null pointer.</p>
+
+  <h2><a name="tmpfile_s"><code>tmpfile_s</code></a></h2>
+  <pre>
+errno_t <b>tmpfile_s</b>(FILE *restrict *restrict pstream) <b>[added with TR24731]</b>
+</pre>
+
+  <p>A <a href="index_ext1.html#runtime%20constraint%20violation">runtime constraint violation</a> occurs if
+  <code>pstream</code> is a null pointer. If such a violation occurs, the function returns the error code it
+  reported to the constraint handler.</p>
+
+  <p>Otherwise, the function creates a temporary binary file with the filename <code><i>temp-name</i></code>
+  and then has the same effect as evaluating <code>*pstream = <a href="#fopen">fopen</a>(<i>temp-name</i>,
+  "wb+")</code>. The file <code><i>temp-name</i></code> is removed when the program closes it, either by
+  calling <a href="#fclose"><code>fclose</code></a> explicitly or at normal program termination. The filename
+  <code><i>temp-name</i></code> does not conflict with any filenames that you create. The function returns
+  zero only if the open is successful.</p>
+
+  <h2><a name="TMP_MAX"><code>TMP_MAX</code></a></h2>
+  <pre>
+#define <b>TMP_MAX</b> <i>&lt;integer constant expression &gt;= 25&gt;</i>
+</pre>
+
+  <p>The macro yields the minimum number of distinct filenames created by the function <a href=
+  "#tmpnam"><code>tmpnam</code></a>.</p>
+
+  <h2><a name="TMP_MAX_S"><code>TMP_MAX_S</code></a></h2>
+  <pre>
+#define <b>TMP_MAX_S</b> <i>&lt;integer constant expression &gt;= 25&gt;</i> <b>[added with TR24731]</b>
+</pre>
+
+  <p>The macro yields the minimum number of distinct filenames created by the function <a href=
+  "#tmpnam_s"><code>tmpnam_s</code></a>.</p>
+
+  <h2><a name="tmpnam"><code>tmpnam</code></a></h2>
+  <pre>
+char *<b>tmpnam</b>(char *s);
+</pre>
+
+  <p>The function creates a unique filename <code><i>temp-name</i></code> and returns a pointer to the
+  filename. If <code>s</code> is not a null pointer, then <code>s</code> must be the address of the first
+  element of an array at least of size <a href="#L_tmpnam"><code>L_tmpnam</code></a>. The function stores
+  <code><i>temp-name</i></code> in the array and returns <code>s</code>. Otherwise, if <code>s</code> is a
+  null pointer, the function stores <code><i>temp-name</i></code> in a static-duration array and returns the
+  address of its first element. Subsequent calls to <code>tmpnam</code> can alter the values stored in this
+  array.</p>
+
+  <p>The function returns unique filenames for each of the first <a href="#TMP_MAX"><code>TMP_MAX</code></a>
+  times it is called, after which its behavior is implementation defined. The filename
+  <code><i>temp-name</i></code> does not conflict with any filenames that you create.</p>
+
+  <h2><a name="tmpnam_s"><code>tmpnam_s</code></a></h2>
+  <pre>
+errno_t <b>tmpnam_s</b>(char *s, rsize_t n); <b>[added with TR24731]</b>
+</pre>
+
+  <p>A <a href="index_ext1.html#runtime%20constraint%20violation">runtime constraint violation</a> occurs
+  if:</p>
+
+  <ul>
+    <li><code>s</code> is a null pointer</li>
+
+    <li><code>n</code> is greater than <code><a href="index_ext1.html#RSIZE_MAX">RSIZE_MAX</a></code></li>
+
+    <li><code>n</code> is less than <code><a href="string.html#strlen">strlen</a>(s) + 1</code></li>
+  </ul>
+
+  <p>If such a violation occurs, the function returns the error code it reported to the constraint
+  handler.</p>
+
+  <p>Otherwise, the function creates a unique filename <code><i>temp-name</i></code> and stores it as a
+  null-terminated string beginning as <code>s</code>. <code>s</code> must be the address of the first element
+  of an array that should be at least of size <a href="#L_tmpnam_s"><code>L_tmpnam_s</code></a>. The function
+  returns zero only if it succeeds.</p>
+
+  <p>The function creates unique filenames for each of the first <a href=
+  "#TMP_MAX_S"><code>TMP_MAX_S</code></a> times it is called, after which its behavior is implementation
+  defined. The filename <code><i>temp-name</i></code> does not conflict with any filenames that you
+  create.</p>
+
+  <h2><a name="ungetc"><code>ungetc</code></a></h2>
+  <pre>
+int <b>ungetc</b>(int c, FILE *stream);
+</pre>
+
+  <p>If <code>c</code> is not equal to <a href="#EOF"><code>EOF</code></a>, the function stores
+  <code>(unsigned char)c</code> in the object whose address is <code>stream</code> and clears the end-of-file
+  indicator. If <code>c</code> equals <a href="#EOF"><code>EOF</code></a> or the store cannot occur, the
+  function returns <a href="#EOF"><code>EOF</code></a>; otherwise, it returns <code>(unsigned char)c</code>.
+  A subsequent library function call that reads a character from the stream <code>stream</code> obtains this
+  stored value, which is then forgotten.</p>
+
+  <p>Thus, you can effectively <b><a name="push back">push back</a></b> a character to a stream after reading
+  a character. (You need not push back the same character that you read.) An implementation can let you push
+  back additional characters before you read the first one. You read the characters in reverse order of
+  pushing them back to the stream. You cannot portably:</p>
+
+  <ul>
+    <li>push back more than one character</li>
+
+    <li>push back a character if the file-position indicator is at the beginning of the file</li>
+
+    <li>Call <a href="#ftell"><code>ftell</code></a> for a text file that has a character currently pushed
+    back</li>
+  </ul>
+
+  <p>A call to the functions <a href="#fseek"><code>fseek</code></a>, <a href=
+  "#fsetpos"><code>fsetpos</code></a>, or <a href="#rewind"><code>rewind</code></a> for the stream causes the
+  stream to forget any pushed-back characters. For a binary stream, the file-position indicator is
+  decremented for each character that is pushed back.</p>
+
+  <h2><a name="vfprintf"><code>vfprintf</code></a></h2>
+  <pre>
+int <b>vfprintf</b>(FILE *restrict stream, const char *restrict format,
+     va_list ap);
+</pre>
+
+  <p>A <a href="index_ext1.html#runtime%20constraint%20violation">runtime constraint violation</a> occurs if
+  the argument corresponding to a <code>%s</code> conversion specifier is a null pointer. If such a violation
+  occurs, the function returns a negative value, after producing an unspecified amount of output.</p>
+
+  <p>Otherwise, the function <a href="lib_prin.html#Print%20Functions">generates formatted text</a>, under
+  the control of the format <code>format</code> and any additional arguments, and writes each generated
+  character to the stream <code>stream</code>. It returns the number of characters generated, or it returns a
+  negative value if the function sets the error indicator for the stream.</p>
+
+  <p>The function accesses additional arguments by using the context information designated by
+  <code>ap</code>. The program must execute the macro <a href=
+  "stdarg.html#va_start"><code>va_start</code></a> before it calls the function, and then execute the macro
+  <a href="stdarg.html#va_end"><code>va_end</code></a> after the function returns.</p>
+
+  <h2><a name="vfprintf_s"><code>vfprintf_s</code></a></h2>
+  <pre>
+int <b>vfprintf_s</b>(FILE *restrict stream, const char *restrict format,
+     va_list ap); <b>[added with TR24731]</b>
+</pre>
+
+  <p>A <a href="index_ext1.html#runtime%20constraint%20violation">runtime constraint violation</a> occurs
+  if:</p>
+
+  <ul>
+    <li><code>stream</code> is a null pointer</li>
+
+    <li><code>format</code> is a null pointer</li>
+
+    <li>the argument corresponding to a <code>%s</code> conversion specifier is a null pointer</li>
+
+    <li><code>format</code> contains a <code>%n</code> conversion specifier</li>
+  </ul>
+
+  <p>If such a violation occurs, the function returns a negative value, after producing an unspecified amount
+  of output.</p>
+
+  <p>Otherwise, the function <a href="lib_prin.html#Print%20Functions">generates formatted text</a>, under
+  the control of the format <code>format</code> and any additional arguments, and writes each generated
+  character to the stream <code>stream</code>. It returns the number of characters generated, or it returns a
+  negative value if the function sets the error indicator for the stream.</p>
+
+  <p>The function accesses additional arguments by using the context information designated by
+  <code>ap</code>. The program must execute the macro <a href=
+  "stdarg.html#va_start"><code>va_start</code></a> before it calls the function, and then execute the macro
+  <a href="stdarg.html#va_end"><code>va_end</code></a> after the function returns.</p>
+
+  <h2><a name="vfscanf"><code>vfscanf</code></a></h2>
+  <pre>
+int <b>vfscanf</b>(FILE *restrict stream, const char *restrict format,
+    va_list ap); <b>[added with <a href="lib_over.html#C99">C99</a>]</b>
+</pre>
+
+  <p>A <a href="index_ext1.html#runtime%20constraint%20violation">runtime constraint violation</a> occurs if
+  any pointer argument after <code>format</code> is a null pointer. If such a violation occurs, the function
+  returns a negative value, after consuming an unspecified amount of input.</p>
+
+  <p>Otherwise, the function <a href="lib_scan.html#Scan%20Functions">scans formatted text</a>, under the
+  control of the format <code>format</code> and any additional arguments. It obtains each scanned character
+  from the stream <code>stream</code>. It returns the number of input items matched and assigned, or it
+  returns <a href="#EOF"><code>EOF</code></a> if the function does not store values before it sets the
+  end-of-file or error indicator for the stream.</p>
+
+  <p>The function accesses additional arguments by using the context information designated by
+  <code>ap</code>. The program must execute the macro <a href=
+  "stdarg.html#va_start"><code>va_start</code></a> before it calls the function, and then execute the macro
+  <a href="stdarg.html#va_end"><code>va_end</code></a> after the function returns.</p>
+
+  <h2><a name="vfscanf_s"><code>vfscanf_s</code></a></h2>
+  <pre>
+int <b>vfscanf_s</b>(FILE *restrict stream, const char *restrict format,
+    va_list ap); <b>[added with TR24731]</b>
+</pre>
+
+  <p>A <a href="index_ext1.html#runtime%20constraint%20violation">runtime constraint violation</a> occurs
+  if:</p>
+
+  <ul>
+    <li><code>stream</code> is a null pointer</li>
+
+    <li><code>format</code> is a null pointer</li>
+
+    <li>any pointer argument after <code>format</code> is a null pointer</li>
+  </ul>
+
+  <p>If such a violation occurs, the function returns a negative value, after consuming an unspecified amount
+  of input.</p>
+
+  <p>Otherwise, the function <a href="lib_scan.html#Scan%20Functions">scans formatted text</a>, with <a href=
+  "#additional%20scan%20checking">additional checking</a>, under the control of the format
+  <code>format</code> and any additional arguments. It obtains each scanned character from the stream
+  <code>stream</code>. It returns the number of input items matched and assigned, or it returns <a href=
+  "#EOF"><code>EOF</code></a> if the function does not store values before it sets the end-of-file or error
+  indicator for the stream.</p>
+
+  <p>The function accesses additional arguments by using the context information designated by
+  <code>ap</code>. The program must execute the macro <a href=
+  "stdarg.html#va_start"><code>va_start</code></a> before it calls the function, and then execute the macro
+  <a href="stdarg.html#va_end"><code>va_end</code></a> after the function returns.</p>
+
+  <h2><a name="vprintf"><code>vprintf</code></a></h2>
+  <pre>
+int <b>vprintf</b>(const char *restrict format,
+    va_list ap);
+</pre>
+
+  <p>A <a href="index_ext1.html#runtime%20constraint%20violation">runtime constraint violation</a> occurs if
+  the argument corresponding to a <code>%s</code> conversion specifier is a null pointer. If such a violation
+  occurs, the function returns a negative value, after producing an unspecified amount of output.</p>
+
+  <p>Otherwise, the function <a href="lib_prin.html#Print%20Functions">generates formatted text</a>, under
+  the control of the format <code>format</code> and any additional arguments, and writes each generated
+  character to the stream <a href="#stdout"><code>stdout</code></a>. It returns the number of characters
+  generated, or a negative value if the function sets the error indicator for the stream.</p>
+
+  <p>The function accesses additional arguments by using the context information designated by
+  <code>ap</code>. The program must execute the macro <a href=
+  "stdarg.html#va_start"><code>va_start</code></a> before it calls the function, and then execute the macro
+  <a href="stdarg.html#va_end"><code>va_end</code></a> after the function returns.</p>
+
+  <h2><a name="vprintf_s"><code>vprintf_s</code></a></h2>
+  <pre>
+int <b>vprintf_s</b>(const char *restrict format,
+    va_list ap); <b>[added with TR24731]</b>
+</pre>
+
+  <p>A <a href="index_ext1.html#runtime%20constraint%20violation">runtime constraint violation</a> occurs
+  if:</p>
+
+  <ul>
+    <li><code>format</code> is a null pointer</li>
+
+    <li>the argument corresponding to a <code>%s</code> conversion specifier is a null pointer</li>
+
+    <li><code>format</code> contains a <code>%n</code> conversion specifier</li>
+  </ul>
+
+  <p>If such a violation occurs, the function returns a negative value, after producing an unspecified amount
+  of output.</p>
+
+  <p>Otherwise, the function <a href="lib_prin.html#Print%20Functions">generates formatted text</a>, under
+  the control of the format <code>format</code> and any additional arguments, and writes each generated
+  character to the stream <a href="#stdout"><code>stdout</code></a>. It returns the number of characters
+  generated, or a negative value if the function sets the error indicator for the stream.</p>
+
+  <p>The function accesses additional arguments by using the context information designated by
+  <code>ap</code>. The program must execute the macro <a href=
+  "stdarg.html#va_start"><code>va_start</code></a> before it calls the function, and then execute the macro
+  <a href="stdarg.html#va_end"><code>va_end</code></a> after the function returns.</p>
+
+  <h2><a name="vscanf"><code>vscanf</code></a></h2>
+  <pre>
+int <b>vscanf</b>(const char *restrict format,
+    va_list ap); <b>[added with <a href="lib_over.html#C99">C99</a>]</b>
+</pre>
+
+  <p>A <a href="index_ext1.html#runtime%20constraint%20violation">runtime constraint violation</a> occurs if
+  any pointer argument after <code>format</code> is a null pointer. If such a violation occurs, the function
+  returns a negative value, after consuming an unspecified amount of input.</p>
+
+  <p>Otherwise, the function <a href="lib_scan.html#Scan%20Functions">scans formatted text</a>, under the
+  control of the format <code>format</code> and any additional arguments. It obtains each scanned character
+  from the stream <a href="#stdin"><code>stdin</code></a>. It returns the number of input items matched and
+  assigned, or it returns <a href="#EOF"><code>EOF</code></a> if the function does not store values before it
+  sets the end-of-file or error indicators for the stream.</p>
+
+  <p>The function accesses additional arguments by using the context information designated by
+  <code>ap</code>. The program must execute the macro <a href=
+  "stdarg.html#va_start"><code>va_start</code></a> before it calls the function, and then execute the macro
+  <a href="stdarg.html#va_end"><code>va_end</code></a> after the function returns.</p>
+
+  <h2><a name="vscanf_s"><code>vscanf_s</code></a></h2>
+  <pre>
+int <b>vscanf_s</b>(const char *restrict format,
+    va_list ap); <b>[added with TR24731]</b>
+</pre>
+
+  <p>A <a href="index_ext1.html#runtime%20constraint%20violation">runtime constraint violation</a> occurs
+  if:</p>
+
+  <ul>
+    <li><code>format</code> is a null pointer</li>
+
+    <li>any pointer argument after <code>format</code> is a null pointer</li>
+  </ul>
+
+  <p>If such a violation occurs, the function returns a negative value, after consuming an unspecified amount
+  of input.</p>
+
+  <p>Otherwise, the function <a href="lib_scan.html#Scan%20Functions">scans formatted text</a>, with <a href=
+  "#additional%20scan%20checking">additional checking</a>, under the control of the format
+  <code>format</code> and any additional arguments. It obtains each scanned character from the stream
+  <a href="#stdin"><code>stdin</code></a>. It returns the number of input items matched and assigned, or it
+  returns <a href="#EOF"><code>EOF</code></a> if the function does not store values before it sets the
+  end-of-file or error indicators for the stream.</p>
+
+  <p>The function accesses additional arguments by using the context information designated by
+  <code>ap</code>. The program must execute the macro <a href=
+  "stdarg.html#va_start"><code>va_start</code></a> before it calls the function, and then execute the macro
+  <a href="stdarg.html#va_end"><code>va_end</code></a> after the function returns.</p>
+
+  <h2><a name="vsnprintf"><code>vsnprintf</code></a></h2>
+  <pre>
+int <b>vsnprintf</b>(char *restrict s, size_t n, const char *restrict format,
+    va_list ap); <b>[added with <a href="lib_over.html#C99">C99</a>]</b>
+</pre>
+
+  <p>A <a href="index_ext1.html#runtime%20constraint%20violation">runtime constraint violation</a> occurs if
+  the argument corresponding to a <code>%s</code> conversion specifier is a null pointer. If such a violation
+  occurs, the function returns a negative value, after producing an unspecified amount of output.</p>
+
+  <p>Otherwise, the function <a href="lib_prin.html#Print%20Functions">generates formatted text</a>, under
+  the control of the format <code>format</code> and any additional arguments, and stores each generated
+  character in successive locations of the array object whose first element has the address <code>s</code>.
+  If <code>n</code> is zero, it stores no characters. Otherwise, the function stores up to <code>n - 1</code>
+  characters and concludes by storing a null character in the next location of the array. It returns the
+  number of characters generated -- not including the null character.</p>
+
+  <p>The function accesses additional arguments by using the context information designated by
+  <code>ap</code>. The program must execute the macro <a href=
+  "stdarg.html#va_start"><code>va_start</code></a> before it calls the function, and then execute the macro
+  <a href="stdarg.html#va_end"><code>va_end</code></a> after the function returns.</p>
+
+  <h2><a name="vsnprintf_s"><code>vsnprintf_s</code></a></h2>
+  <pre>
+int <b>vsnprintf_s</b>(char *restrict s, rsize_t n, const char *restrict format,
+    va_list ap); <b>[added with TR24731]</b>
+</pre>
+
+  <p>A <a href="index_ext1.html#runtime%20constraint%20violation">runtime constraint violation</a> occurs
+  if:</p>
+
+  <ul>
+    <li><code>s</code> is a null pointer</li>
+
+    <li><code>n</code> is greater than <code><a href="index_ext1.html#RSIZE_MAX">RSIZE_MAX</a></code></li>
+
+    <li><code>format</code> is a null pointer</li>
+
+    <li>the argument corresponding to a <code>%s</code> conversion specifier is a null pointer</li>
+
+    <li><code>format</code> contains a <code>%n</code> conversion specifier</li>
+  </ul>
+
+  <p>If such a violation occurs, other than the first two, the function stores a null character at
+  <code>s[0]]</code>. It then returns a negative value.</p>
+
+  <p>Otherwise, the function <a href="lib_prin.html#Print%20Functions">generates formatted text</a>, under
+  the control of the format <code>format</code> and any additional arguments, and stores generated characters
+  in successive locations of the array object whose first element has the address <code>s</code>. If
+  <code>n</code> is zero, it stores no characters. Otherwise, the function stores up to <code>n - 1</code>
+  characters and concludes by storing a null character in the next location of the array. It returns the
+  <i>total</i> number of characters generated (even those not stored), not including the null character, or a
+  negative value if an encoding error occurs.</p>
+
+  <p>The function accesses additional arguments by using the context information designated by
+  <code>ap</code>. The program must execute the macro <a href=
+  "stdarg.html#va_start"><code>va_start</code></a> before it calls the function, and then execute the macro
+  <a href="stdarg.html#va_end"><code>va_end</code></a> after the function returns.</p>
+
+  <h2><a name="vsprintf"><code>vsprintf</code></a></h2>
+  <pre>
+int <b>vsprintf</b>(char *restrict s, const char *restrict format,
+    va_list ap);
+</pre>
+
+  <p>A <a href="index_ext1.html#runtime%20constraint%20violation">runtime constraint violation</a> occurs if
+  the argument corresponding to a <code>%s</code> conversion specifier is a null pointer. If such a violation
+  occurs, the function returns a negative value, after producing an unspecified amount of output.</p>
+
+  <p>Otherwise, the function <a href="lib_prin.html#Print%20Functions">generates formatted text</a>, under
+  the control of the format <code>format</code> and any additional arguments, and stores each generated
+  character in successive locations of the array object whose first element has the address <code>s</code>.
+  The function concludes by storing a null character in the next location of the array. It returns the number
+  of characters generated -- not including the null character.</p>
+
+  <p>The function accesses additional arguments by using the context information designated by
+  <code>ap</code>. The program must execute the macro <a href=
+  "stdarg.html#va_start"><code>va_start</code></a> before it calls the function, and then execute the macro
+  <a href="stdarg.html#va_end"><code>va_end</code></a> after the function returns.</p>
+
+  <h2><a name="vsprintf_s"><code>vsprintf_s</code></a></h2>
+  <pre>
+int <b>vsprintf_s</b>(char *restrict s, rsize_t n,
+    const char *restrict format,
+    va_list ap); <b>[added with TR24731]</b>
+</pre>
+
+  <p>A <a href="index_ext1.html#runtime%20constraint%20violation">runtime constraint violation</a> occurs
+  if:</p>
+
+  <ul>
+    <li><code>s</code> is a null pointer</li>
+
+    <li><code>n</code> is greater than <code><a href="index_ext1.html#RSIZE_MAX">RSIZE_MAX</a></code></li>
+
+    <li><code>format</code> is a null pointer</li>
+
+    <li>the argument corresponding to a <code>%s</code> conversion specifier is a null pointer</li>
+
+    <li><code>format</code> contains a <code>%n</code> conversion specifier</li>
+
+    <li>the function generates more than <code>n</code> characters, counting the terminating null
+    character</li>
+  </ul>
+
+  <p>If such a violation occurs, other than the first two, the function stores a null character at
+  <code>s[0]]</code>. It then returns zero.</p>
+
+  <p>Otherwise, the function <a href="lib_prin.html#Print%20Functions">generates formatted text</a>, under
+  the control of the format <code>format</code> and any additional arguments, and stores each generated
+  character in successive locations of the array object whose first element has the address <code>s</code>.
+  The function concludes by storing a null character in the next location of the array. It returns the number
+  of characters generated, not including the null character, or a negative value if an encoding error
+  occurs.</p>
+
+  <p>The function accesses additional arguments by using the context information designated by
+  <code>ap</code>. The program must execute the macro <a href=
+  "stdarg.html#va_start"><code>va_start</code></a> before it calls the function, and then execute the macro
+  <a href="stdarg.html#va_end"><code>va_end</code></a> after the function returns.</p>
+
+  <h2><a name="vsscanf"><code>vsscanf</code></a></h2>
+  <pre>
+int <b>vsscanf</b>(const char *restrict s, const char *restrict format,
+    va_list ap); <b>[added with <a href="lib_over.html#C99">C99</a>]</b>
+</pre>
+
+  <p>A <a href="index_ext1.html#runtime%20constraint%20violation">runtime constraint violation</a> occurs if
+  any pointer argument after <code>format</code> is a null pointer. If such a violation occurs, the function
+  returns a negative value, after consuming an unspecified amount of input.</p>
+
+  <p>Otherwise, the function <a href="lib_scan.html#Scan%20Functions">scans formatted text</a>, under the
+  control of the format <code>format</code> and any additional arguments. It accesses each scanned character
+  from successive locations of the array object whose first element has the address <code>s</code>. It
+  returns the number of items matched and assigned, or it returns <a href="#EOF"><code>EOF</code></a> if the
+  function does not store values before it accesses a null character from the array.</p>
+
+  <p>The function accesses additional arguments by using the context information designated by
+  <code>ap</code>. The program must execute the macro <a href=
+  "stdarg.html#va_start"><code>va_start</code></a> before it calls the function, and then execute the macro
+  <a href="stdarg.html#va_end"><code>va_end</code></a> after the function returns.</p>
+
+  <h2><a name="vsscanf_s"><code>vsscanf_s</code></a></h2>
+  <pre>
+int <b>vsscanf_s</b>(const char *restrict s, const char *restrict format,
+    va_list ap); <b>[added with TR24731]</b>
+</pre>
+
+  <p>A <a href="index_ext1.html#runtime%20constraint%20violation">runtime constraint violation</a> occurs
+  if:</p>
+
+  <ul>
+    <li><code>s</code> is a null pointer</li>
+
+    <li><code>format</code> is a null pointer</li>
+
+    <li>any pointer argument after <code>format</code> is a null pointer</li>
+  </ul>
+
+  <p>If such a violation occurs, the function returns a negative value, after consuming an unspecified amount
+  of input.</p>
+
+  <p>Otherwise, the function <a href="lib_scan.html#Scan%20Functions">scans formatted text</a>, with <a href=
+  "#additional%20scan%20checking">additional checking</a>, under the control of the format
+  <code>format</code> and any additional arguments. It accesses each scanned character from successive
+  locations of the array object whose first element has the address <code>s</code>. It returns the number of
+  items matched and assigned, or it returns <a href="#EOF"><code>EOF</code></a> if the function does not
+  store values before it accesses a null character from the array.</p>
+
+  <p>The function accesses additional arguments by using the context information designated by
+  <code>ap</code>. The program must execute the macro <a href=
+  "stdarg.html#va_start"><code>va_start</code></a> before it calls the function, and then execute the macro
+  <a href="stdarg.html#va_end"><code>va_end</code></a> after the function returns.</p>
+  <hr>
+
+  <p>See also the <b><a href="index.html#Table%20of%20Contents">Table of Contents</a></b> and the <b><a href=
+  "_index.html">Index</a></b>.</p>
+
+  <p><i><a href="crit_pjp.html">Copyright</a> &copy; 1992-2010 by P.J. Plauger and Jim Brodie. All rights
+  reserved.</i></p><!--V5.30:126I-->
+</body>
+</html>

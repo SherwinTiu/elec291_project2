@@ -1,0 +1,424 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html>
+<head>
+  <meta name="generator" content=
+  "HTML Tidy for Mac OS X (vers 31 October 2006 - Apple Inc. build 15.15), see www.w3.org">
+
+  <title>Multibyte Conversions</title>
+</head>
+
+<body>
+  <h1><a name="Multibyte Conversions">Multibyte Conversions</a></h1>
+  <hr>
+
+  <p><b><a href="#Multibyte%20Sequences%20in%20C">Multibyte Sequences in C</a> &middot; <a href=
+  "#Multibyte%20Sequences%20in%20C++">Multibyte Sequences in C++</a> &middot; <a href=
+  "#Wide-Character%20Limitations">Wide-Character Limitations</a> &middot; <a href=
+  "#Wide-Character%20Encodings">Wide-Character Encodings</a> &middot; <a href=
+  "#Multibyte%20Encodings">Multibyte Encodings</a></b></p>
+
+  <h2><a name="Multibyte Sequences in C">Multibyte Sequences in C</a></h2>
+
+  <p>You can represent a character two different ways within a C (or C++) program:</p>
+
+  <ul>
+    <li>as a wide character, where each character occupies a single element of type <code>wchar_t</code></li>
+
+    <li>as a multibyte sequence, where each character occupies one or more sequential bytes (elements of type
+    <code>char</code>)</li>
+  </ul>
+
+  <p>Moreover, a multibyte sequence can have a <b><a name="state-dependent encoding">state-dependent
+  encoding</a></b>, where one or more byte sequences changes the interpretation of byte sequences that
+  follow. Every sequence of such multibyte sequences is presumed to begin in an <b><a name=
+  "initial shift state">initial shift state</a></b>, and can be brought back to the initial shift state by a
+  suitable homing sequence (which may be state dependent).</p>
+
+  <p>As a special case, certain characters can be represented as <b><a name=
+  "single-byte sequence">single-byte sequences</a></b> in the initial shift state. Such characters form the
+  single-byte character set from traditional C. They are thus candidates for testing and manipulation by the
+  functions defined in the Standard C header <code>&lt;ctype.h&gt;</code>. And they are the characters you
+  write to, and read from, <b><a name="byte stream">byte streams</a></b>, using the functions defined in the
+  Standard C header <code>&lt;stdio.h&gt;</code>.</p>
+
+  <p>The Standard C library defines a number of functions for converting between multibyte and wide-character
+  representations. See, for example, the functions <code>mbtowc</code> and <code>wctomb</code>, defined in
+  the header <code>&lt;stdlib&gt;</code>. The specific conversion rule is implementation defined. It may be
+  possible to change the rule globally by a call to <code>setlocale</code>, but no standards currently exist
+  for specifying how to do so. Whatever conversion rule applies, however, it must obey several constraints
+  spelled out in the C Standard:</p>
+
+  <ul>
+    <li>The literal <code>'x'</code>, where <code>x</code> is any member of the <b><a name=
+    "basic C character set">basic C character set</a></b>, must correspond to the (only) byte of the
+    single-byte sequence that represents <code>x</code>.</li>
+
+    <li>Each member of the basic C character set has a different encoding from all other such members.</li>
+
+    <li>The literal <code>L'x'</code> must correspond to the wide character that represents
+    <code>x</code>.</li>
+
+    <li>The nul character <code>'\0'</code> is represented by the single-byte sequence whose (only) byte has
+    the value zero</li>
+
+    <li>The nul wide character <code>L'\0'</code> is represented by the wide character that has the value
+    zero.</li>
+
+    <li>No multibyte sequence can have a byte with value zero as other than the first (and only) byte.</li>
+  </ul>
+
+  <p>Not all multibyte encodings obey all these rules. For example, the last rule is broken by a multibyte
+  encoding that represents each two-byte wide character by its less-significant byte followed by its
+  more-significant byte. Such a <b><a name="little-endian sequence">little-endian sequence</a></b> is easy to
+  generate and useful for communicating values between different computer architectures, but it can contain
+  any number of bytes with zero value that are <i>not</i> nul characters. Thus, this encoding is not suitable
+  as an implementation of, say, the function <code>mbtowc</code>. (The encoding that puts the
+  more-significant byte first is called a <b><a name="big-endian sequence">big-endian sequence</a></b>,
+  naturally enough.)</p>
+
+  <p>The C Standard recognizes the need for <b><a name="generalized multibyte sequence">generalized multibyte
+  sequences</a></b>, which may break one or more of the rules above, for communicating sequences of
+  characters between programs. The Standard C header <code>&lt;wchar.h&gt;</code> defines a host of
+  functions, such as <code>fwscanf</code> and <code>fwprintf</code>, for reading and writing <b><a name=
+  "wide stream">wide streams</a></b>. You write a sequence of wide characters to a wide stream and the stream
+  converts the wide characters in the program to generalized multibyte sequences in the external stream.
+  Similarly, you read a sequence of wide characters from a wide stream and the stream converts generalized
+  multibyte sequences in the external stream to a sequence of wide characters in the program. (Wide streams
+  otherwise behave very much like the more traditional byte streams from the earliest days of C.)</p>
+
+  <p>Once again, however, no standards exist for specifying the multibyte encoding rule for converting
+  between a wide-character sequence within the program and the generalized multibyte sequences in the
+  external file or data stream.</p>
+
+  <h2><a name="Multibyte Sequences in C++">Multibyte Sequences in C++</a></h2>
+
+  <p>The Standard C++ library incorporates all of the Standard C library, at least through 1998. Thus, it
+  contains all the functions outlined above for converting between wide characters and multibyte sequences
+  and for reading and writing wide streams. Moreover, it extends the traditional iostreams classes to include
+  wide-stream as well as byte-stream operations. For example, you traditionally read a byte stream by
+  <i>extracting</i> bytes (elements of type <code>char</code>) from the object <code>std::cin</code>, which
+  has type <code>std::istream</code>. In Standard C++, <code>std::cin</code> has type
+  <code>std::basic_istream&lt;char, std::char_traits&lt;char&gt; &gt;</code> and <code>std::istream</code> is
+  just a synonym (type definition) for this type. To read the standard input as a wide stream, you extract
+  wide characters (elements of type <code>wchar_t</code>) from the object <code>std::wcin</code>, which has
+  type <code>std::basic_istream&lt;wchar_t, std::char_traits&lt;wchar_t&gt; &gt;</code>. (The type definition
+  <code>std::wistream</code> is a synonym for this type.) The wide stream responds by reading bytes from the
+  actual stream and composing them, by some rule, into the wide character stream.</p>
+
+  <p>Similarly, you can write a byte stream by <i>inserting</i> bytes into an object of type
+  <code>std::cout</code>, which has type <code>std::ostream</code>. In Standard C++, <code>std::cout</code>
+  has type <code>std::basic_ostream&lt;char, std::char_traits&lt;char&gt; &gt;</code> and
+  <code>std::ostream</code> is just a synonym for this type. To write the standard output as a wide stream,
+  you insert wide characters (elements of type <code>wchar_t</code>) into the object <code>std::wcout</code>,
+  which has type <code>std::basic_ostream&lt;wchar_t, std::char_traits&lt;wchar_t&gt; &gt;</code>. (The type
+  definition <code>std::wostream</code> is a synonym for this type.) The wide stream responds by writing
+  bytes to the actual string, composing them, by some rule, from the wide character stream.</p>
+
+  <p>What multibyte encoding rule do these wide-stream objects apply? That depends, in principle at least, on
+  the locale associated with each wide-stream object. The Standard C function <code>setlocale</code> alters
+  the global behavior of the Standard C library, but C++ provides for greater encapsulation. C++ lets you
+  deal with multiple locales within a program all at the same time. You can construct an object of class
+  <code>std::locale</code> in a variety of ways. One way is to use a locale name acceptable to
+  <code>setlocale</code>, to make an object that presumably encapsulates the same locale-dependent library
+  behavior as in C. You then associate a locale object with a wide-stream object by calling the member
+  function <code>imbue</code>, as in:</p>
+  <pre>
+std::locale loc("en_US");  // US English locale
+std::wifstream mystr;
+
+mystr.imbue(loc);
+mystr.open("file.txt", std::ios_base::binary);
+if (!mystr.is_open())
+    throw "open failed";
+</pre>
+
+  <p>Henceforth, you can extract wide characters from <code>mystr</code>. The wide stream generates each wide
+  character from a generalized multibyte sequence read from the file <code>file.txt</code>, using a
+  conversion rule that is presumably determined by the locale named <code>en_US</code>.</p>
+
+  <p>But to belabor the point, no standards exist for specifying the multibyte conversion rule associated
+  with <code>en_US</code> or any other named locale. An implementation may offer a rich set of well
+  documented locales, or it may offer nothing beyond the required <code>"C"</code> locale. It may provide for
+  multiple multibyte encoding rules, or it may apply just one rule universally. Put simply, you cannot in
+  general depend on the availability of predefined locales to supply the multibyte conversion rule(s) you
+  need.</p>
+
+  <p>The Standard C++ library offers a more deterministic approach, however. It may not say how to specify
+  the behavior of a locale, in general, but it does specify quite a bit of the behavior of an
+  <code>std::locale</code> object. An <code>std::locale</code> object encapsulates references to a couple of
+  dozen locale facets, each of which encapsulates in turn some aspect of locale-dependent library behavior.
+  The facet <code>std::codecvt&lt;wchar_t, char, std::mbstate_t&gt;</code>, in particular, performs
+  conversions between wide characters and generalized multibyte sequences. Given a <code>std::codecvt</code>
+  facet of the appropriate flavor, you can construct a locale object that does what you want and imbue it
+  into the wide stream object(s) you use to read and write files as you desire.</p>
+
+  <p>Say, for example, you have a definition for the template class
+  <code>Dinkum::codecvt::codecvt_utf8&lt;Elem&gt;</code> that implements the multibyte encoding rule you want
+  to use for a stream with element type <code>Elem</code>. (<code>Elem</code> is typically
+  <code>wchar_t</code> for a wide stream.) Replace the declaration of <code>loc</code> above with:</p>
+  <pre>
+std::locale loc(locale::classic(),
+    new Dinkum::codecvt::codecvt_utf8&lt;wchar_t&gt;);
+</pre>
+
+  <p>and you have the locale object you need to imbue into one or more wide stream objects. If your compiler
+  balks at this form, and you are using the Dinkum C++ Library, try the sturdier substitute:</p>
+  <pre>
+std::locale loc = _ADDFAC(std::locale::classic(),
+    new Dinkum::codecvt::codecvt_utf8&lt;wchar_t&gt;);
+</pre>
+
+  <p>which works with older compilers as well as newer ones.</p>
+
+  <p>This document describes a collection of template classes that can serve as code-conversion facets and
+  how you can use them. Each implements a different multibyte conversion rule. Please note, however, that
+  each of these template classes implements a conversion <i>between</i> two encodings. It is not enough to
+  decide that you want to read a file containing, say, UTF-8 encoded characters. You also have to know what
+  set of wide-character codes you can convert it to. And you need to know what options are available to you
+  with a particular C++ implementation.</p>
+
+  <h2><a name="Wide-Character Limitations">Wide-Character Limitations</a></h2>
+
+  <p>The compiler imposes two important constraints on the wide-character encodings you can use in a C or C++
+  program:</p>
+
+  <ul>
+    <li>the representation it chooses for the type <code>wchar_t</code>, which stores a wide-character code,
+    and</li>
+
+    <li>the values it generates for wide-character literals, of the form <code>L'x'</code> (and
+    <code>L"xyz"</code>, by extension)</li>
+  </ul>
+
+  <p>To a lesser extent, it also matters how the library defines:</p>
+
+  <ul>
+    <li>the macro <code><a name="WEOF">WEOF</a></code></li>
+
+    <li>the macro <code><a name="WCHAR_MAX">WCHAR_MAX</a></code> which is also the value returned by the
+    member function <code>std::numeric_limits&lt;wchar_t&gt;::max()</code></li>
+
+    <li>the macro <code><a name="WCHAR_MIN">WCHAR_MIN</a></code> which is also the value returned by the
+    member function <code>std::numeric_limits&lt;wchar_t&gt;::min()</code></li>
+  </ul>
+
+  <p>Size matters the most. A large number of C and C++ compilers represent type <code>wchar_t</code> as a
+  one-, two-, or four-byte integer. Those sizes usually translate into eight-, 16-, or 32-bit
+  representations. The code-conversion facets described here are all designed to work properly if
+  <code>wchar_t</code> is larger or smaller than required. For a value too large to convert, in either
+  direction, you can usually instruct the facet either to truncate the result or to report a conversion
+  error. A wide-character result smaller than a <code>wchar_t</code> value is padded with high-order zero
+  bits.</p>
+
+  <p>It is not strictly necessary to convert between generalized multibyte sequences and elements of type
+  <code>wchar_t</code>, by the way. You can specialize template class <code>std::basic_istream</code> and
+  friends for element types other than <code>char</code> and <code>wchar_t</code>. The code-conversion facets
+  described here are all designed to work properly for an integer element type other than
+  <code>wchar_t</code>. So you can write:</p>
+  <pre>
+std::locale loc = _ADDFAC(std::locale::classic(),
+    new Dinkum::codecvt::codecvt_utf8&lt;unsigned long&gt;);
+std::basic_ifstream&lt;unsigned long&gt; mystr;
+
+mystr.imbue(loc);
+mystr.open("file.txt", std::ios_base::binary);
+if (!mystr.is_open())
+    throw "open failed";
+</pre>
+
+  <p>and traffic within the program with elements of type <code>unsigned long</code>.</p>
+
+  <p>Be warned, however, that single-element inserters and extractors will not work properly with elements of
+  most integer types other than <code>char</code> and <code>wchar_t</code>. If you write:</p>
+  <pre>
+unsigned char ch;
+mystr &gt;&gt; ch;
+</pre>
+
+  <p>the extractor will <i>not</i> extract a single element and store it in <code>ch</code>. Rather, it will
+  skip white space, then read a sequence of decimal digits and convert them to an integer value to store in
+  <code>ch</code>. Moreover, the extractor will expect the imbued locale <code>loc</code> to contain a facet
+  of type <code>std::ctype&lt;unsigned long&gt;</code>, to test for white space. You will have to supply your
+  own version, which may or may not be easy.</p>
+
+  <p>In principle, you can specialize a stream on a user-defined type that you supply, not just on an
+  arithmetic type. But be warned that not all Standard C++ libraries are this flexible, and those that are
+  may have different requirements.</p>
+
+  <p>If you choose to work with streams with elements other than type <code>char</code> or
+  <code>wchar_t</code>, you should extract elements from an input stream only by calling <code>read</code>,
+  which performs no checking on the value transmitted, as in:</p>
+  <pre>
+if (!mystr.read(&amp;ch, 1))
+    throw "unexpected end of file";
+</pre>
+
+  <p>Similarly, you should insert elements into an output stream only by calling <code>write</code>.</p>
+
+  <p>Once you settle on a wide-character encoding of a representable size, you then have to determine how
+  well it interacts with code generated by the C or C++ compiler. If you use conventional wide streams, with
+  elements of type <code>wchar_t</code>, you have the maximum freedom to use all the inserters and extractors
+  defined by the Standard C++ library. If the program contains wide-character and wide-string literals, they
+  should probably agree with the encoding you choose. Otherwise, you (and succeeding maintainers) will
+  enounter any number of surprises. You can in principle write literals that contain arbitrary wide
+  characters. If you do, the wide-character encoding you use had better exactly match what the compiler
+  presumes. A good coding style, however, is to use just characters from the basic C character set in
+  literals. Then any wide-character encoding that agrees with this subset of values is a safe candidate. (For
+  example, many wide-character encodings use the same code values as ASCII, a.k.a ISO 646 and ISO 8859, for
+  the basic C character set.)</p>
+
+  <p>An even safer alternative is to use no wide-character or wide-string literals at all, at least in the
+  parts of a program that need to be maximally flexible. That avoids most potential problems, but not
+  necessarily all.</p>
+
+  <p>You may still have to worry about the value of the macro <code>WEOF</code>. It is used throughout both
+  the C and C++ libraries as an end-of-stream indicator, often in a context where you might otherwise expect
+  a wide-character code. Wherever possible, a good implementation will choose a value that cannot be mistaken
+  for a valid code. (The macro <code>EOF</code> is often defined as <code>-1</code> so that it can never be
+  confused with any of the single-byte codes, each of which is represented as a non-negative value.) This is
+  not possible if the representation of <code>wint_t</code> has no more bits than that for
+  <code>wchar_t</code>. In such a case, the implementation must at least choose a value for <code>WEOF</code>
+  that is invalid as a wide-character code. A common value is <code>(wchar_t)(-1)</code> which has all bits
+  set in an unsigned representation. Many wide-character encodings reserve this value as invalid, <i>but not
+  all.</i></p>
+
+  <p>If you choose an encoding that permits all code values, expect problems when you read the value
+  <code>(wchar_t)WEOF</code> from a file. It will almost always be mistaken for an end-of-file indication
+  from lower-level code. You will face similar problems when you write this value to a file. It will almost
+  always be mistaken for a write-error indication from lower-level code. Once again, your safest bet is to
+  extract elements only by calling <code>read</code> and insert elements only by calling <code>write</code>,
+  as described above. These member functions test only the number of elements read or written, without
+  inspecting any values. They are the <i>only</i> such functions that transmit element values
+  transparently.</p>
+
+  <p>Some implementations choose a signed-integer representation for <code>wchar_t</code>. In this case, the
+  macro <code>WCHAR_MIN</code> is less than zero. (It must be zero for an unsigned-integer representation.)
+  The code-conversion facets presented here all treat wide characters as non-negative codes. They assume that
+  it is safe to store in a <code>wchar_t</code> object all code values in the range <code>[0, WCHAR_MAX -
+  WCHAR_MIN]</code>, and that the value will be recovered if cast to a suitably large unsigned-integer type.
+  In the common case where the computer represents negative numbers in twos-complement, with quiet wraparound
+  on overflow, these assumptions are safe. But beware of a representation that has a negative zero,
+  particularly if it sometimes collapses to positive zero. And beware of a representation that traps on
+  apparent integer overflow when converting from unsigned to signed. Both can cause trouble for
+  wide-character encodings that the compiler does not anticipate.</p>
+
+  <h2><a name="Wide-Character Encodings">Wide-Character Encodings</a></h2>
+
+  <h3><a name="One-Byte Wide-Character Encodings">One-Byte Wide-Character Encodings</a></h3>
+
+  <p>A number of character-set encodings fit neatly in a single eight-bit byte. Many of these are based on
+  <b><a name="ASCII">ASCII</a></b>, or <b><a name="ISO 646">ISO 646</a></b>, which defines code values in the
+  range [0, 127]. The character set <b><a name="ISO 8859-1">ISO 8859-1</a></b> extends this encoding by
+  defining the remaining codes, in the range [128, 255]. Variations on this popular set exist for several
+  Western European alphabets, such as <b><a name="ISO 8859-7">ISO 8859-7</a></b> for Greek.</p>
+
+  <p>Microsoft Windows and other systems implement a large number of <b><a name="code page">code
+  pages</a></b>, each of which effectively defines a mapping between multibyte and wide-character encodings.
+  Many of these code pages simply assign one-byte codes to a selection of characters from a larger character
+  set.</p>
+
+  <p>An implementation based on one of these eight-bit character-set encodings may well be content to define
+  <code>wchar_t</code> as one of the one-byte character types (<code>char</code>, <code>signed char</code>,
+  or <code>unsigned char</code>). And it will likely adopt the same character set encoding for both its
+  single-byte and wide-character encoding. Yet another approach is to allow a broader range of wide-character
+  codes, but to permit wide-character conversions only when a single-byte equivalent is defined. This is a
+  good way to reconcile the numerous ISO 8859-x single-byte encodings, or Windows single-byte code pages,
+  with an unambiguous subset of Unicode (UCS-2) wide-character codes.</p>
+
+  <p>A widely used character-set encoding outside the ISO family is <b><a name="EBCDIC">EBCDIC</a></b>. It
+  has been used for several decades by IBM and still has a presence. EBCDIC is also an eight-bit encoding,
+  with the added virtue that all its Unicode equivalents (the ISO 8859-1 subset of UCS-2) also fit in a
+  single byte. so it is another candidate for either a one-byte wide-character encoding or a subset of
+  Unicode with only single-byte multibyte codes.</p>
+
+  <h3><a name="Two-Byte Wide-Character Encodings">Two-Byte Wide-Character Encodings</a></h3>
+
+  <p>The Japanese were among the first to face the problem of representing character sets whose elements
+  number in the thousands. Over the past couple of decades, a series of Japanese Industrial Standards have
+  evolved to represent a mix of Kanji, Hirigana, and Katakana characters for Japanese, plus the Western
+  characters traditionally used with computers. A widely used encoding is <b><a name="JIS X0208">JIS
+  X0208</a></b>, which uses 16 bits to represent a subset of Kanji plus these other alphabets. As usual, ISO
+  646 characters form a subset of this larger character set. Thus, JIS X0208 is often used in conjunction
+  with a two-byte representation of <code>wchar_t</code>, usually declared as either <code>short</code> or
+  <code>unsigned short</code>.</p>
+
+  <p><b><a name="Unicode">Unicode</a></b> is probably the most widely known encoding for larger character
+  sets. It is maintained by the private Unicode Consortium (see <a href=
+  "http://www.unicode.org">http://www.unicode.org</a>), but has been kept pretty closely in sync with the
+  evolution of <b><a name="ISO 10646">ISO 10646</a></b>, a.k.a. <b><a name="UCS">UCS</a></b>. Both have the
+  virtue of overlapping neatly with ISO 8859-1. And both are serious attempts to provide a single, unified
+  representation for all the characters used throughout the world -- past, present, and future (including
+  Klingon). Unicode got a real boost when it was adopted as the character set encoding for Java, which
+  strives for a high level of portability and international support.</p>
+
+  <p>That's the good news. What muddies the picture is that Unicode has been subsetted in ways that now prove
+  to be short sighted. The full ISO 10646 specification sets aside 31 bits to represent upwards of two
+  billion different characters (<b><a name="UCS-4">UCS-4</a></b>). These codes can be represented nicely as
+  non-negative values in a 32-bit integer, either signed or unsigned. But until fairly recently, all the
+  defined code values could be represented in 16 bits (<b><a name="UCS-2">UCS-2</a></b>). Java fixated on a
+  16-bit representation for the basic Java type <code>char</code>, which is equivalent to the C or C++ type
+  <code>wchar_t</code>. Less rigidly, but for similar reasons, a number of C and C++ implementations have
+  chosen to represent wide characters using the 16-bit subset of Unicode stored in a two-byte
+  <code>wchar_t</code>.</p>
+
+  <p>But the set of code values has recently been extended. Currently, all defined characters in ISO 10646 or
+  Unicode fall in the range [0, 0x10FFFF]. As a palliative, some people are proposing the use of <b><a name=
+  "UTF-16">UTF-16</a></b> as a wide-character encoding. UTF-16 involves a bit of trickery. All the codes
+  above 0xFFFF can be represented in 20 bits. These 20 bits can then be divided into two ten-bit pieces and
+  stuffed into a pair of 16-bit codes that occupy holes left in the range [0, 0xFFFF]. Thus UTF-16 provides a
+  way to represent all the currently defined Unicode characters as either one or two 16-bit words.</p>
+
+  <p>It is important to emphasize that UTF-16 is neither a proper generalized multibyte encoding, nor a
+  proper multibyte encoding, nor a proper wide-character encoding, in C or C++ terms. It can be made into a
+  generalized multibyte encoding simply by adding rules for specifying the order of individual bytes for the
+  two- or four-byte codes (UTF-16LE for little-endian, UTF-16BE for big-endian, or UTF-16 with a header code
+  that signals the endianness of the codes that follow.) It cannot be made into a multibyte encoding because
+  it contains embedded bytes with zero value. It can be made into a wide-character encoding only by ignoring
+  a fundamental principle -- every character is supposed to be representable as a single element of fixed
+  size. Nevertheless, more than one group has expressed an interest in using UTF-16 as a kind of bastard
+  wide-character encoding, choosing to break a rule for some currently lesser-used characters rather than
+  face the fallout from changing the size of a basic character type.</p>
+
+  <h3><a name="Four-Byte Wide-Character Encodings">Four-Byte Wide-Character Encodings</a></h3>
+
+  <p>A four-byte representation for <code>wchar_t</code> has the obvious virtue that it can store all
+  elements of the largest character sets currently under consideration. (The costs of the extra storage
+  required are still being debated.) ISO 10646 is an obvious candidate for wide-character encoding in this
+  case. But even here you can find several subsetting choices. The range of valid character codes can be
+  assumed to be:</p>
+
+  <ul>
+    <li>[0, 0x0010FFFF], for the currently defined full range of codes</li>
+
+    <li>[0, 0x7FFFFFFF], for the originally anticipated full range of codes</li>
+
+    <li>[0, 0xFFFFFFFF], for 32-bit transparent encoding</li>
+  </ul>
+
+  <p>Such range issues will become more apparent when examining the choice of multibyte conversion rules that
+  can be used with each wide-character encoding.</p>
+
+  <h2><a name="Multibyte Encodings">Multibyte Encodings</a></h2>
+
+  <p>As you may have gathered from the dozens of code-conversion facets in this library, there are many
+  multibyte encodings. A large number are jiggered to survive transmission via text files, but not all. Some
+  are designed to be economical of storage, using shorter byte sequences for the more frequently used
+  wide-character codes, but not all. Some are designed to permit easy translation to and from wide-character
+  codes, but not all. The one common denominator of the code-conversion facets presented here is that every
+  one translates a multibyte encoding that was created for a good commercial reason.</p>
+
+  <p>If you don't recognize an encoding supported by this library, chances are that you have no (current)
+  need for it. If you see one that you need, chances are that this implementation will do what you want. If
+  you want to learn more about any of the mappings implemented in this library, chances are that the source
+  code will supply more precise details. And if you want to add your own code-conversion facets, chances are
+  that one of the ones in this library will serve as background information and inspiration.</p>
+  <hr>
+
+  <p>See also the <b><a href="index.html">Table of Contents</a></b> and the <b><a href=
+  "_index.html">Index</a></b>.</p>
+
+  <p><i><a href="crit_pjp.html">Copyright</a> &copy; 1992-2010 by Dinkumware, Ltd. All rights
+  reserved.</i></p><!--V5.30:126I-->
+</body>
+</html>

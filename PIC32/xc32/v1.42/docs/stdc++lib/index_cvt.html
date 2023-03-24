@@ -1,0 +1,303 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html>
+<head>
+  <meta name="generator" content=
+  "HTML Tidy for Mac OS X (vers 31 October 2006 - Apple Inc. build 15.15), see www.w3.org">
+
+  <title>Dinkum Conversions Library</title>
+</head>
+
+<body>
+  <h1><a name="Dinkum Conversions Library">Dinkum Conversions Library</a></h1>
+  <hr>
+
+  <p>A C++ program can specialize a number of templates from the <b>Dinkum Conversions Library</b>, a
+  portable library for converting wide strings and input/output streams to and from their corresponding
+  multibyte encoding.</p>
+  <hr>
+
+  <h2><a name="Conversions Table of Contents">Conversions Table of Contents</a></h2>
+
+  <p><b><code><a href="wbuffer.html">"Dinkum/codecvt/wbuffer"</a> &middot; <a href=
+  "wstring.html">"Dinkum/codecvt/wstring"</a></code></b></p>
+
+  <p><b><a href="multibyte.html">Multibyte Encodings</a></b></p>
+
+  <p><b><a href="#Overview">Overview</a> &middot; <a href="#Code%20Conversions">Code Conversions</a></b></p>
+  <hr>
+
+  <h2><a name="Overview">Overview</a></h2>
+
+  <p>The Dinkum Conversions Library consists of a rich assortment of <b>code-conversion facets</b>, all
+  suitable as replacements for template class <code>codecvt</code>, defined in the header
+  <code>&lt;locale&gt;</code> in the Standard C++ library. When you write:</p>
+  <pre>
+#include &lt;fstream&gt;
+#include &lt;locale&gt;
+.....
+    {   // write Hello as one line to a file
+    std::wofstream mystr("myfile.txt"); // open file as wide stream
+    mystr &lt;&lt; L"Hello" &lt;&lt; std::endl;
+    }
+</pre>
+
+  <p>the program opens a file named <code>myfile.txt</code> and writes six wide characters (each of type
+  <code>wchar_t</code>) to the file, by converting each of the wide characters in turn to its corresponding
+  <b>multibyte sequence</b>. (For more details, see the companion essay on <a href="multibyte.html">Multibyte
+  Encodings</a>.) Wide characters inserted into the stream are translated, under the hood, by the
+  code-conversion facet <code>codecvt&lt;wchar_t, char, mbstate_t&gt;</code> obtained from the global locale
+  object when the program constructs <code>mystr</code>.</p>
+
+  <p>Similarly, you can construct a <code>wifstream</code> object that reads multibyte sequences from a file
+  and converts them in turn to a sequence of wide characters that the program extracts from the object. It
+  uses the same code-conversion facet as above. Unless you explicitly specify otherwise, that facet
+  implements a default mapping between wide characters and multibyte encodings, which may not be the mapping
+  you want. Worse, the C++ Standard provides no portable way to specify the mapping. It leaves each
+  implementation, or programmer, to supply any desired mappings.</p>
+
+  <p>The Dinkum Conversions Library lets you explicitly specify a number of different mappings, and it works
+  with all the currently popular implementations of the Standard C++ library. Chances are, it includes the
+  mapping you want. Say, for example, that you want to convert between Unicode wide characters within the
+  program and UTF8-encoded files. The header <code>utf8</code> defines template class
+  <code>codecvt_utf8</code> to do this job. So you can write:</p>
+  <pre>
+#include &lt;fstream&gt;
+#include &lt;locale&gt;
+#include "Dinkum/codecvt/utf8"
+.....
+    {   // write Hello as one line to a file
+    std::wofstream mystr("myfile.txt"); // open file as wide stream
+    std::locale loc(std::locale::classic(),
+        new Dinkum::codecvt::codecvt_utf8&lt;wchar_t&gt;);
+    mystr.imbue(loc);  // replace codecvt&lt;wchar_t, char, std::mbstate_t&gt;
+    mystr &lt;&lt; L"Hello" &lt;&lt; std::endl;
+    }
+</pre>
+
+  <p>In this particular case, the final file contents will be the pedestrian byte sequence
+  <code>Hello\n</code>, because all codes in the basic C character set have the obvious single-byte
+  equivalents. But in general, the program will translate any valid Unicode code to the appropriate multibyte
+  sequence in the file.</p>
+
+  <p>Now for an important warning: Not all Standard C++ libraries work properly with all the code-conversion
+  facets presented here. The Dinkum C++ Library behaves properly in all cases, but others are less reliable.
+  So the Conversions Library also includes a stream buffer that offloads the code conversion process from
+  existing stream buffers, and does it correctly. The header <a href="wbuffer.html"><code>wbuffer</code></a>
+  defines template class <code>wbuffer_convert</code>, which is the conversion stream buffer. So with
+  <i>any</i> Standard C++ library, you can safely replace the code sequence above with:</p>
+  <pre>
+#include &lt;fstream&gt;
+#include &lt;locale&gt;
+#include "Dinkum/codecvt/wbuffer"
+#include "Dinkum/codecvt/utf8"
+.....
+    {   // write Hello as one line to a file
+    std::ofstream bytestream("myfile.txt"); // open file as byte stream
+    Dinkum::codecvt::wbuffer_convert&lt;
+        Dinkum::codecvt::codecvt_utf8&lt;wchar_t&gt; &gt;
+            mybuf(bytestream.rdbuf());  // construct wide stream buffer object
+    std::wostream mystr(&amp;mybuf); // construct wide ostream object
+    mystr &lt;&lt; L"Hello" &lt;&lt; std::endl;
+    }
+</pre>
+
+  <p>Template class <code>wbuffer_convert</code> looks like a wide stream to the program. It performs all
+  input and output by calling on an underlying byte stream, typically an existing one from the Standard C++
+  library. Internally, it uses any of the code-conversion facets presented here to perform the
+  wide-to-multibyte mapping.</p>
+
+  <p>Still another approach is to perform code conversion as a mapping between wide and byte strings. The
+  Standard C++ library uses code-conversion facets only when performing input and output to a file, but the
+  Conversions Library provides a string converter as well. The header <a href=
+  "wstring.html"><code>wstring</code></a> defines template class <code>wstring_convert</code>, which is the
+  string converter. So you can rewrite the running example above as:</p>
+  <pre>
+#include &lt;fstream&gt;
+#include &lt;locale&gt;
+#include &lt;string&gt;
+#include "Dinkum/codecvt/wstring"
+#include "Dinkum/codecvt/utf8"
+.....
+    {   // write Hello as one line to a file
+    std::ofstream bytestream("myfile.txt"); // open file as byte stream
+    Dinkum::codecvt::wstring_convert&lt;
+        Dinkum::codecvt::codecvt_utf8&lt;wchar_t&gt;&gt; myconv;
+    std::string mbstring = myconv.to_bytes(L"Hello\n");
+    mystr &lt;&lt; mbstring;
+    }
+</pre>
+
+  <p>Template class <code>string_convert</code> also lets you convert from multibyte to wide strings, of
+  course.</p>
+
+  <h2><a name="Code Conversions">Code Conversions</a></h2>
+
+  <p>Here is a table of the code-conversion facets defined in this library:</p>
+  <pre>
+<b>Header      Wide        Multibyte
+File        Code        Code</b>
+
+<a name="8859_1">8859_1</a>      UCS2/4      ISO 8859-1
+<a name="8859_2">8859_2</a>      UCS2/4      ISO 8859-2
+<a name="8859_3">8859_3</a>      UCS2/4      ISO 8859-3
+<a name="8859_4">8859_4</a>      UCS2/4      ISO 8859-4
+<a name="8859_5">8859_5</a>      UCS2/4      ISO 8859-5
+<a name="8859_6">8859_6</a>      UCS2/4      ISO 8859-6
+<a name="8859_7">8859_7</a>      UCS2/4      ISO 8859-7
+<a name="8859_8">8859_8</a>      UCS2/4      ISO 8859-8
+<a name="8859_9">8859_9</a>      UCS2/4      ISO 8859-9
+<a name="8859_10">8859_10</a>     UCS2/4      ISO 8859-10
+<a name="8859_13">8859_13</a>     UCS2/4      ISO 8859-13
+<a name="8859_14">8859_14</a>     UCS2/4      ISO 8859-14
+<a name="8859_15">8859_15</a>     UCS2/4      ISO 8859-15
+<a name="8859_16">8859_16</a>     UCS2/4      ISO 8859-16
+<a name="baltic">baltic</a>      UCS2/4      ISO IR-179 Baltic
+<a name="big5">big5</a>        UCS2/4      BIG5 Chinese double byte
+<a name="cp037">cp037</a>       UCS2/4      Code page 037 IBM US Canada
+<a name="cp424">cp424</a>       UCS2/4      Code page 424 IBM EBCDIC Hebrew
+<a name="cp437">cp437</a>       UCS2/4      Code page 437 DOS Latin US
+<a name="cp500">cp500</a>       UCS2/4      Code page 500 IBM International
+<a name="cp737">cp737</a>       UCS2/4      Code page 737 DOS Greek
+<a name="cp775">cp775</a>       UCS2/4      Code page 775 DOS Baltic Rim
+<a name="cp850">cp850</a>       UCS2/4      Code page 850 DOS Latin1
+<a name="cp852">cp852</a>       UCS2/4      Code page 852 DOS Latin2
+<a name="cp855">cp855</a>       UCS2/4      Code page 855 DOS Cyrillic
+<a name="cp856">cp856</a>       UCS2/4      Code page 856 Hebrew PC
+<a name="cp857">cp857</a>       UCS2/4      Code page 857 DOS Turkish
+<a name="cp860">cp860</a>       UCS2/4      Code page 860 DOS Portugese
+<a name="cp861">cp861</a>       UCS2/4      Code page 861 DOS Icelandic
+<a name="cp862">cp862</a>       UCS2/4      Code page 862 DOS Hebrew
+<a name="cp863">cp863</a>       UCS2/4      Code page 863 DOS Canada French
+<a name="cp864">cp864</a>       UCS2/4      Code page 864 DOS Arabic
+<a name="cp865">cp865</a>       UCS2/4      Code page 865 DOS Nordic
+<a name="cp866">cp866</a>       UCS2/4      Code page 866 DOS Cyrillic Russian
+<a name="cp869">cp869</a>       UCS2/4      Code page 869 DOS Greek2
+<a name="cp874">cp874</a>       UCS2/4      Code page 874 DOS Thai
+<a name="cp875">cp875</a>       UCS2/4      Code page 875 IBM Greek
+<a name="cp932">cp932</a>       UCS2/4      Code page 932 DOS double byte
+<a name="cp936">cp936</a>       UCS2/4      Code page 936 DOS double byte
+<a name="cp949">cp949</a>       UCS2/4      Code page 949 DOS double byte
+<a name="cp950">cp950</a>       UCS2/4      Code page 950 DOS double byte
+<a name="cp1006">cp1006</a>      UCS2/4      Code page 1006 IBM Arabic
+<a name="cp1026">cp1026</a>      UCS2/4      Code page 1026 IBM Latin Turkish
+<a name="cp1250">cp1250</a>      UCS2/4      Code page 1250 
+<a name="cp1251">cp1251</a>      UCS2/4      Code page 1251
+<a name="cp1252">cp1252</a>      UCS2/4      Code page 1252
+<a name="cp1253">cp1253</a>      UCS2/4      Code page 1253
+<a name="cp1254">cp1254</a>      UCS2/4      Code page 1254
+<a name="cp1255">cp1255</a>      UCS2/4      Code page 1255
+<a name="cp1256">cp1256</a>      UCS2/4      Code page 1256
+<a name="cp1257">cp1257</a>      UCS2/4      Code page 1257
+<a name="cp1258">cp1258</a>      UCS2/4      Code page 1258
+<a name="cyrillic">cyrillic</a>    UCS2/4      Code page 10007 Mac Cyrillic
+<a name="ebcdic">ebcdic</a>      UCS2/4      EBCDIC
+<a name="euc">euc</a>         UCS2/4      EUC Japanese
+<a name="euc_0208">euc_0208</a>    JIS X0208   EUC Japanese
+<a name="gb12345">gb12345</a>     UCS2/4      GB12345-80 double byte
+<a name="gb2312">gb2312</a>      UCS2/4      GB2312-80 double byte
+<a name="greek">greek</a>       UCS2/4      Code page 10006 Mac Greek
+<a name="iceland">iceland</a>     UCS2/4      Code page 10079 Mac Icelandic
+<a name="jis">jis</a>         UCS2/4      JIS Japanese
+<a name="jis0201">jis0201</a>     UCS2/4      JIS X0201 Japanese
+<a name="jis_0208">jis_0208</a>    JIS X0208   JIS Japanese
+<a name="ksc5601">ksc5601</a>     UCS2/4      KSC5601 Unified Hangul double byte
+<a name="latin2">latin2</a>      UCS2/4      Code page 10029 Mac Latin2
+<a name="one_one">one_one</a>     UCS2/4      UCS2/4 transparent, optional header, binary
+<a name="roman">roman</a>       UCS2/4      Code page 10000 Mac Roman
+<a name="sjis">sjis</a>        UCS2/4      Shift JIS Japanese
+<a name="sjis_0208">sjis_0208</a>   JIS X0208   Shift JIS Japanese
+<a name="turkish">turkish</a>     UCS2/4      Code page 10081 Mac Turkish
+<a name="utf8">utf8</a>        UCS2/4      UTF-8, optional header
+<a name="utf8_utf16">utf8_utf16</a>  UTF-16      UTF-8, optional header
+<a name="utf16">utf16</a>       UCS2/4      UTF-16, optional header, binary
+</pre>
+
+  <p>The first column gives the name of the header file, in the include subdirectory
+  <code>Dinkum/codecvt</code>. The second column describes the wide-character encoding assumed by the
+  code-conversion facet:</p>
+
+  <ul>
+    <li><a href="multibyte.html#UCS">UCS2/4</a> means Unicode (ISO 10646) encoded within the program as
+    either a 16-bit integer (UCS-2) or a 32-bit integer (UCS-4).</li>
+
+    <li><a href="multibyte.html#UTF-16">UTF-16</a> means Unicode encoded within the program as either one or
+    two 16-bit integers. (Note that this does <i>not</i> meet all the requirements of a valid wide-character
+    encoding for Standard C or Standard C++.)</li>
+
+    <li><a href="multibyte.html#JIS%20X0208">JIS X0208</a> means the Japanese standard for encoding wide
+    characters within the program as 16-bit integers.</li>
+  </ul>
+
+  <p>The third column briefly describes the multibyte encoding assumed by the code-conversion facet. For more
+  information, see the header itself. Many are derived from tables made available by various standards
+  bodies. In such cases, the header preserves as comments any descriptive information that accompanies the
+  tables.</p>
+
+  <p>All the code-conversion facets are defined as templates with the common form:</p>
+  <pre>
+template&lt;Elem,
+    unsigned long Maxcode = <i>default value</i>&gt;
+    class codecvt_XXX {....};
+</pre>
+
+  <p><code>Elem</code> is the wide-character type, typically <code>wchar_t</code>. <code>Maxcode</code> is
+  the largest wide-character code that the code-conversion facet will read or write without reporting a
+  conversion error. Each facet specifies a default value which is most appropriate for its multibyte
+  encoding.</p>
+
+  <p>If the multibyte description in the table advertises an "optional header," the template class also has
+  an optional third template parameter to provide additional information about the multibyte encoding. You
+  specify this information as the union of three enumeration constants:</p>
+
+  <ul>
+    <li><code>consume_header</code> -- to consume an initial header sequence when reading a multibyte
+    sequence and determine the endianness of the subsequent multibyte sequence to be read</li>
+
+    <li><code>generate_header</code> -- to generate an initial header sequence when writing a multibyte
+    sequence to advertise the endianness of the subsequent multibyte sequence to be written</li>
+
+    <li><code>little_endian</code> -- to generate a multibyte sequence in little-endian order, as opposed to
+    the default big-endian order</li>
+  </ul>
+
+  <p>Finally, if the multibyte description in the table is labeled as "binary," then it is not suitable for
+  reading and writing as a text file. Such a multibyte sequence may contain nul bytes that do not represent
+  nul characters (which makes it unsuitable for storing in a nul-terminated byte string as well). It may also
+  contain other bytes that get altered or discarded when reading or writing text files. Be sure to open files
+  in binary mode if you read or write wide streams using these code-conversion facets.</p>
+
+  <p>To use one of these code-conversion facets, follow the pattern in the examples given above. In more
+  detail:</p>
+
+  <ul>
+    <li>Determine which header file <code>XXX</code>, from the table above, implements the code-conversion
+    rule you want to use and include the header <code>"Dinkum/codecvt/XXX"</code> at the top of the C++
+    source file.</li>
+
+    <li>Refer to the code-conversion facet by the name <code>Dinkum::codecvt::codecvt_XXX</code>. Almost
+    always you will want to specialize the template class on the element type <code>wchar_t</code>, as in
+    <code>Dinkum::codecvt::codecvt_XXX&lt;wchar_t&gt;</code>.</li>
+
+    <li>If you want to disallow conversion of wide-character codes above a certain maximum value, add a
+    second template parameter to specify this value, as in <code>Dinkum::codecvt::codecvt_XXX&lt;wchar_t,
+    0x10ffff&gt;</code>. (On an implementation with 32-bit wide characters, this particular value causes a
+    conversion error if the code-conversion facet generates, or is asked to generate, a Unicode
+    wide-character code that is currently undefined.)</li>
+
+    <li>If the multibyte description in the table advertises an "optional header," you can add a third
+    template parameter as described above, as in <code>Dinkum::codecvt::codecvt_XXX&lt;wchar_t, 0x10ffff,
+    generate_header&gt;</code>.</li>
+  </ul>
+
+  <p>For more examples of how to use these code-conversion facets, study the test code that exercises each
+  facet.</p>
+  <hr>
+
+  <p>See also the <b><a href="index.html">Table of Contents</a></b> and the <b><a href=
+  "_index.html">Index</a></b>.</p>
+
+  <p><i><a href="crit_pjp.html">Copyright</a> &copy; 1992-2010 by Dinkumware, Ltd. All rights
+  reserved.</i></p><!--V5.30:126I-->
+</body>
+</html>

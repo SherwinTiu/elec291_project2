@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html>
+<head>
+  <meta name="generator" content=
+  "HTML Tidy for Mac OS X (vers 31 October 2006 - Apple Inc. build 15.15), see www.w3.org">
+
+  <title>&lt;assert.h&gt;</title>
+</head>
+
+<body>
+  <h1><a name="&lt;assert.h&gt;"><code>&lt;assert.h&gt;</code></a></h1>
+  <hr>
+
+  <p>Include the standard header <b><code>&lt;assert.h&gt;</code></b> to define the macro <a href=
+  "#assert"><code>assert</code></a>, which is useful for diagnosing logic errors in the program. You can
+  eliminate the testing code produced by the macro <code>assert</code> without removing the macro references
+  from the program by defining the macro <b><a name="NDEBUG"><code>NDEBUG</code></a></b> in the program
+  before you include <code>&lt;assert.h&gt;</code>. Each time the program includes this header, it
+  redetermines the definition of the macro <code>assert</code>.</p>
+  <pre>
+#undef assert
+#if defined NDEBUG
+#define <b><a href="#assert">assert</a></b>(test) (void)0
+#else
+#define <b><a href="#assert">assert</a></b>(test) <i>&lt;void expression&gt;</i>
+#endif
+</pre>
+
+  <h2><a name="assert"><code>assert</code></a></h2>
+  <pre>
+#undef assert
+#if defined NDEBUG
+#define <b>assert</b>(test) (void)0
+#else
+#define <b>assert</b>(test) <i>&lt;void expression&gt;</i>
+#endif
+</pre>
+
+  <p>If the <i>int</i> expression <code>test</code> equals zero, the macro writes to <a href=
+  "stdio.html#stderr"><code>stderr</code></a> a diagnostic message that includes:</p>
+
+  <ul>
+    <li>the text of <code>test</code></li>
+
+    <li>the source filename (the predefined macro <a href=
+    "preproc.html#__FILE__"><code>__FILE__</code></a>)</li>
+
+    <li>the source line number (the predefined macro <a href=
+    "preproc.html#__LINE__"><code>__LINE__</code></a>)</li>
+  </ul>
+
+  <p>It then calls <a href="stdlib.html#abort"><code>abort</code></a>.</p>
+
+  <p>You can write the macro <code>assert</code> in the program in any <a href=
+  "function.html#side-effects%20context">side-effects context</a>.</p>
+  <hr>
+
+  <p>See also the <b><a href="index.html#Table%20of%20Contents">Table of Contents</a></b> and the <b><a href=
+  "_index.html">Index</a></b>.</p>
+
+  <p><i><a href="crit_pjp.html">Copyright</a> &copy; 1992-2010 by P.J. Plauger and Jim Brodie. All rights
+  reserved.</i></p><!--V5.30:126I-->
+</body>
+</html>

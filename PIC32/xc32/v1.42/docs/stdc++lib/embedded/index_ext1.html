@@ -1,0 +1,145 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html>
+<head>
+  <meta name="generator" content=
+  "HTML Tidy for Mac OS X (vers 31 October 2006 - Apple Inc. build 15.15), see www.w3.org">
+
+  <title>C Library Extension 1</title>
+</head>
+
+<body>
+  <h1><a name="C Library Extension 1">C Library Extension 1</a></h1>
+
+  <p>[added with TR24731]</p>
+  <hr>
+
+  <p>ISO/IEC <a name="TR24731">TR24731</a> is a non-normative Technical Report titled <b>Extensions to the C
+  Library, Part 1: Bounds-checking interfaces</b>. It adds a number of functions that check arguments for
+  unexpected null pointers, short buffers, and other common errors. The functions are based on additions made
+  by Microsoft to Visual C++ 2005 (V8). The additions all occur within existing headers.</p>
+  <hr>
+
+  <p><b><code><a href="#__STDC_LIB_EXT1__">__STDC_LIB_EXT1__</a> &middot; <a href=
+  "#__STDC_WANT_LIB_EXT1__">__STDC_WANT_LIB_EXT1__</a></code></b></p>
+
+  <p><b><code>errno.h: <a href="errno.html#errno_t">errno_t</a></code></b></p>
+
+  <p><b><code>stddef.h: <a href="stddef.html#rsize_t">rsize_t</a></code></b></p>
+
+  <p><b><code>stdio.h: <a href="stdio.html#L_tmpnam_s">L_tmpnam_s</a> &middot; <a href=
+  "stdio.html#TMP_MAX_S">TMP_MAX_S</a> &middot; <a href="stdio.html#errno_t">errno_t</a> &middot; <a href=
+  "stdio.html#gets_s">gets_s</a> &middot; <a href="stdio.html#fopen_s">fopen_s</a> &middot; <a href=
+  "stdio.html#fprintf_s">fprintf_s</a> &middot; <a href="stdio.html#freopen_s">freopen_s</a> &middot;
+  <a href="stdio.html#fscanf_s">fscanf_s</a> &middot; <a href="stdio.html#printf_s">printf_s</a> &middot;
+  <a href="stdio.html#rsize_t">rsize_t</a> &middot; <a href="stdio.html#scanf_s">scanf_s</a> &middot;
+  <a href="stdio.html#snprintf_s">snprintf_s</a> &middot; <a href="stdio.html#sprintf_s">sprintf_s</a>
+  &middot; <a href="stdio.html#sscanf_s">sscanf_s</a> &middot; <a href="stdio.html#tmpfile_s">tmpfile_s</a>
+  &middot; <a href="stdio.html#tmpnam_s">tmpnam_s</a> &middot; <a href="stdio.html#vfprintf_s">vfprintf_s</a>
+  &middot; <a href="stdio.html#vfscanf_s">vfscanf_s</a> &middot; <a href="stdio.html#vprintf_s">vprintf_s</a>
+  &middot; <a href="stdio.html#vscanf_s">vscanf_s</a> &middot; <a href=
+  "stdio.html#vsnprintf_s">vsnprintf_s</a> &middot; <a href="stdio.html#vsprintf_s">vsprintf_s</a> &middot;
+  <a href="stdio.html#vsscanf_s">vsscanf_s</a></code></b></p>
+
+  <p><b><code>stdlib.h: <a href="stdlib.html#abort_handler_s">abort_handler_s</a> &middot; <a href=
+  "stdlib.html#bsearch_s">bsearch_s</a> &middot; <a href=
+  "stdlib.html#constraint_handler_t">constraint_handler_t</a> &middot; <a href=
+  "stdlib.html#errno_t">errno_t</a> &middot; <a href="stdlib.html#getenv_s">getenv_s</a> &middot; <a href=
+  "stdlib.html#ignore_handler_s">ignore_handler_s</a> &middot; <a href=
+  "stdlib.html#mbstowcs_s">mbstowcs_s</a> &middot; <a href="stdlib.html#qsort_s">qsort_s</a> &middot;
+  <a href="stdlib.html#rsize_t">rsize_t</a> &middot; <a href=
+  "stdlib.html#set_constraint_handler_s">set_constraint_handler_s</a> &middot; <a href=
+  "stdlib.html#wcstombs_s">wcstombs_s</a> &middot; <a href="stdlib.html#wctomb_s">wctomb_s</a></code></b></p>
+
+  <p><b><code>string.h: <a href="string.html#errno_t">errno_t</a> &middot; <a href=
+  "string.html#memcpy_s">memcpy_s</a> &middot; <a href="string.html#memmove_s">memmove_s</a> &middot;
+  <a href="string.html#rsize_t">rsize_t</a> &middot; <a href="string.html#strcat_s">strcat_s</a> &middot;
+  <a href="string.html#strcpy_s">strcpy_s</a> &middot; <a href="string.html#strerror_s">strerror_s</a>
+  &middot; <a href="string.html#strerrorlen_s">strerrorlen_s</a> &middot; <a href=
+  "string.html#strncat_s">strncat_s</a> &middot; <a href="string.html#strncpy_s">strncpy_s</a> &middot;
+  <a href="string.html#strnlen_s">strnlen_s</a> &middot; <a href=
+  "string.html#strtok_s">strtok_s</a></code></b></p>
+
+  <p><b><code>time.h: <a href="time.html#asctime_s">asctime_s</a> &middot; <a href=
+  "time.html#ctime_s">ctime_s</a> &middot; <a href="time.html#errno_t">errno_t</a> &middot; <a href=
+  "time.html#gmtime_s">gmtime_s</a> &middot; <a href="time.html#localtime_s">localtime_s</a> &middot;
+  <a href="time.html#rsize_t">rsize_t</a></code></b></p>
+  <hr>
+
+  <h2><a name="Overview">Overview</a></h2>
+
+  <p>The macro <code><a name="__STDC_LIB_EXT1__">__STDC_LIB_EXT1__</a></code> is defined as
+  <code>200509L</code> to indicate the presence of C Library Extension 1. If you define the macro
+  <code><a name="__STDC_WANT_LIB_EXT1__">__STDC_WANT_LIB_EXT1__</a></code> as zero before you include any of
+  the headers that contain C Library Extension 1 additions, then none of these additions will be visible to
+  the program. Otherwise, in this <a href="index.html#implementation">implementation</a>, the library defines
+  this macro as <code>1</code> and includes all the additions.</p>
+
+  <p>C Library Extension 1 introduces the concept of a <b><a name="runtime constraint violation">runtime
+  constraint violation</a></b>, which is a condition detected and reported at runtime. Examples include
+  calling a function with an unexpected null pointer argument or with a buffer length argument that is too
+  small or too large. The description of each library function describes any runtime constraints added with
+  TR24731 that it enforces. (Note that some existing library functions have such added runtime
+  constraints.)</p>
+
+  <p>A library function reports a runtime constraint violation by calling a <b><a name=
+  "constraint handler">constraint handler</a></b>, of type <code><a href=
+  "stdlib.html#constraint_handler_t">constraint_handler_t</a></code>, with three arguments:</p>
+
+  <ul>
+    <li><code>const char *mesg</code> -- a null-terminated error message</li>
+
+    <li><code>void *p</code> -- a pointer, either null or to an implementation-defined object</li>
+
+    <li><code>errno_t errcode</code> -- an error code suitable for assigning to <code><a href=
+    "errno.html#errno">errno</a></code></li>
+  </ul>
+
+  <p>In this implementation, the library always calls the constraint handler with <code>p</code> a null
+  pointer. If the constraint handler returns, the library returns to the function that reported the runtime
+  constraint violation. The default constraint handler writes <code>mesg</code> to the standard error stream
+  and returns.</p>
+
+  <p>You can alter the constraint handler that gets called by calling <code><a href=
+  "stdlib.html#set_constraint_handler_s">set_constraint_handler_s</a></code>. For convenience, the library
+  supplies two functions that you can use as constraint handlers:</p>
+
+  <ul>
+    <li><code><a href="stdlib.html#abort_handler_s">abort_handler_s</a></code>, which writes
+    <code>mesg</code> to the standard error stream and aborts</li>
+
+    <li><code><a href="stdlib.html#ignore_handler_s">ignore_handler_s</a></code>, which simply returns</li>
+  </ul>
+
+  <p>You can also supply your own constraint handler.</p>
+
+  <p>Two useful synonyms for other types are:</p>
+
+  <ul>
+    <li><code>typedef int <a href="errno.html#errno_t">errno_t</a></code>, for representing error codes</li>
+
+    <li><code>typedef size_t <a href="stddef.html#rsize_t">rsize_t</a></code>, for representing object sizes
+    that should never be greater than the value of the macro <code><b><a name=
+    "RSIZE_MAX">RSIZE_MAX</a></b></code></li>
+  </ul>
+
+  <p>An implementation typically defines <code>RSIZE_MAX</code> as the size in bytes of the largest object
+  that you can declare or allocate dynamically. Note that:</p>
+
+  <ul>
+    <li>if <code>RSIZE_MAX &lt;= (size_t)(-1) / 2</code> and <code>sizeof (int) &lt;= sizeof (size_t)</code>
+    then a negative <code>int</code> value converted to <code>rsize_t</code> will cause a runtime constraint
+    violation instead of being treated as a ridiculously large unsigned value</li>
+
+    <li>if <code>RSIZE_MAX == SIZE_MAX</code> no runtime constraint violation can occur for any value of type
+    <code>rsize_t</code></li>
+  </ul>
+  <hr>
+
+  <p>See also the <b><a href="index.html">Table of Contents</a></b> and the <b><a href=
+  "_index.html">Index</a></b>.</p>
+
+  <p><i><a href="crit_pjp.html">Copyright</a> &copy; 1992-2010 by P.J. Plauger. All rights reserved.</i></p>
+  <!--V5.30:126I-->
+</body>
+</html>

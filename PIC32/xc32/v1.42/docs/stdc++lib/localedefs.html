@@ -1,0 +1,154 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html>
+<head>
+  <meta name="generator" content=
+  "HTML Tidy for Mac OS X (vers 31 October 2006 - Apple Inc. build 15.15), see www.w3.org">
+
+  <title>Locale Definitions</title>
+</head>
+
+<body>
+  <h1><a name="Locale Definitions">Locale Definitions</a></h1>
+  <hr>
+
+  <p>The <code>locales</code> subdirectory in the library distribution contains a number of files, listed
+  below, each of which defines a European or American locale. To use them with the Dinkum C Library,
+  concatenate as many as you like into a single file, then set the environment variable <code>LOCFILE</code>
+  to that filename. Say, for example, that you choose to make all locales available on a Linux system, and
+  you wish to store them in the file /opt/sxl/lib/locales.txt. In this directory, execute the commands:</p>
+  <pre>
+$ cat POSIX *_* &gt; /opt/sxl/lib/locales.txt
+$ LOCFILE=/opt/sxl/lib/locales.txt
+$ export LOCFILE
+</pre>
+
+  <p>You can then write C code such as:</p>
+  <pre>
+#include &lt;stdio.h&gt;
+#include &lt;locale.h&gt;
+#include &lt;time.h&gt;
+
+int main()
+    {   /* switch to Austrian locale and print date information */
+    const char *lname = setlocale(LC_ALL, "de_AT");
+    time_t now = time(0);
+    struct tm *pt = localtime(&amp;now);
+    char buffer[128];
+
+    printf("returned %s\n", lname == 0 ? "NIL" : lname);
+    strftime(buffer, sizeof (buffer), "%a %A %b %B", pt);
+    printf("%s\n", buffer);
+    return 0;
+    }
+</pre>
+
+  <p>When executed on a Wednesday during the month of June, it produces the output:</p>
+  <pre>
+returned de_AT
+Mit Mittwoch Jun Juni
+</pre>
+
+  <p>The Standard C++ Library, when used with the Dinkum Standard C Library, can also make use of these
+  locales. It uses the same locale names as the C function <code>setlocale</code>.</p>
+
+  <p>Note that these locales address only single-byte character sets, typically variants of ISO-8859. In
+  their current form, the files supplied here make no attempt to alter the wide-character behavior of the
+  Standard C Library, even where it might make sense to do so.</p>
+
+  <p>Listed below are all the supplied locales. <b><code>NAME</code></b> represents both the file name and
+  the locale name used in a call to <code>setlocale</code>. <b><code>CHARMAP</code></b> represents the file
+  name of the character map used to interpret the Posix locale specification. And <b><code>LOCALE</code></b>
+  is a brief description of the language/culture combination supported by the locale.</p>
+  <pre>
+<b>NAME  CHARMAP        LOCALE</b>
+
+POSIX ISO-8859-1    Posix locale
+cs_CZ ISO-8859-2    Czech language locale for Czech Republic
+da_DK ISO-8859-1    Danish language locale for Denmark
+da_EU ISO-8859-15   Danish language locale for Europe
+de_AT ISO-8859-1    German language locale for Austria
+de_BE ISO-8859-1    German language locale for Belgium
+de_CH ISO-8859-1    German language locale for Switzerland
+de_DE ISO-8859-1    German language locale for Germany
+de_EU ISO-8859-15   German language locale for Europe
+de_LU ISO-8859-1    German language locale for Luxemburg
+el_EU ISO-8859-7x   Greek language locale for Europe (Euro symbol added)
+el_GR ISO-8859-7    Greek language locale for Greece
+en_AU ISO-8859-1    English language locale for Australia
+en_CA ISO-8859-1    English language locale for Canada
+en_DK ISO_8859-1    English language locale for Denmark
+en_EU ISO-8859-15   English language locale for Europe
+en_GB ISO-8859-1    English language locale for United Kingdom
+en_IE ISO-8859-1    English language locale for Ireland
+en_NZ ISO-8859-1    English language locale for New Zealand
+en_US ISO-8859-1    English language locale for USA
+es_AR ISO-8859-1    Spanish language locale for Argentina
+es_BO ISO-8859-1    Spanish language locale for Bolivia
+es_CL ISO-8859-1    Spanish language locale for Chile
+es_CO ISO-8859-1    Spanish language locale for Colombia
+es_DO ISO-8859-1    Spanish language locale for Dominican Republic
+es_EC ISO-8859-1    Spanish language locale for Equador
+es_ES ISO-8859-1    Spanish language locale for Spain
+es_EU ISO-8859-15   Spanish language locale for Europe
+es_GT ISO-8859-1    Spanish language locale for Guatemala
+es_HN ISO-8859-1    Spanish language locale for Honduras
+es_MX ISO-8859-1    Spanish language locale for Mexico
+es_PA ISO-8859-1    Spanish language locale for Panama
+es_PE ISO-8859-1    Spanish language locale for Peru
+es_PY ISO-8859-1    Spanish language locale for Paraguay
+es_SV ISO-8859-1    Spanish language locale for Salvador
+es_US ISO-8859-1    Spanish language locale for USA
+es_UY ISO-8859-1    Spanish language locale for Uruguay
+es_VE ISO-8859-1    Spanish language locale for Venezuela
+et_EE ISO-8859-1    Estonian language for Estonia
+eu_ES ISO-8859-1    Basque language locale for Spain
+fi_EU ISO-8859-15   Finnish language locale for Europe
+fi_FI ISO-8859-1    Finnish language locale for Finland
+fo_FO ISO-8859-1    Faroese language locale for Faroe Islands
+fr_BE ISO-8859-1    French language locale for Belgium
+fr_CA ISO-8859-1    French language locale for Canada
+fr_CH ISO-8859-1    French language locale for Switzerland
+fr_EU ISO-8859-15   French language locale for Europe
+fr_FR ISO-8859-1    French language locale for France
+fr_LU ISO-8859-1    French language locale for Luxemburg
+ga_EU ISO-8859-15   Irish language locale for Europe
+ga_IE ISO-8859-1    Irish language locale for Ireland
+gl_ES ISO-8859-1    Galician language locale for Spain
+hr_HR ISO-8859-2    Croatian language locale for Croatia
+hu_HU ISO-8859-2    Hungarian language locale for Hungary
+id_ID ISO-8859-1    Indonesian language locale for Indonesia
+is_EU ISO-8859-15   Icelandic language locale for Europe
+is_IS ISO-8859-1    Icelandic language locale for Iceland
+it_EU ISO-8859-15   Italian language locale for Europe
+it_IT ISO-8859-1    Italian language locale for Italy
+iw_IL ISO-8859-8    Hebrew language locale for Israel
+kl_GL ISO-8859-1    Greenlandic language locale for Greenland
+lt_LT   BALTIC      Lithuanian language locale for Lithuania
+lv_LV   BALTIC      Latvian language locale for Latvia
+nl_BE ISO-8859-1    Dutch language locale for Belgium
+nl_EU ISO-8859-15   Dutch language locale for Europe
+nl_NL ISO-8859-9    Dutch language locale for Netherlands
+no_EU ISO-8859-15   Norwegian language locale for Europe
+no_NO ISO-8859-1    Norwegian language locale for Norway
+pl_PL ISO-8859-2    Polish language locale for Poland
+pt_BR ISO-8859-1    Portugese language locale for Brazil
+pt_EU ISO-8859-15   Portugese language locale for Europe
+pt_PT ISO-8859-1    Portugese language locale for Portugal
+ro_RO ISO-8859-2    Romanian language locale for Romania
+ru_RU ISO-8859-5    Russian language locale for Russia
+sl_SI ISO-8859-2    Slovenian language locale for Slovenia
+sv_EU ISO-8859-15   Swedish language locale for Europe
+sv_FI ISO-8859-1    Swedish language locale for Finland
+sv_SE ISO-8859-1    Swedish language locale for Sweden
+tr_TR ISO-8859-9    Turkish language locale for Turkey
+</pre>
+  <hr>
+
+  <p>See also the <b><a href="index.html#Table%20of%20Contents">Table of Contents</a></b> and the <b><a href=
+  "_index.html">Index</a></b>.</p>
+
+  <p><i><a href="crit_pjp.html">Copyright</a> &copy; 1992-2010 by P.J. Plauger. All rights reserved.</i></p>
+  <!--V5.30:126I-->
+</body>
+</html>

@@ -1,0 +1,392 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html>
+<head>
+  <meta name="generator" content=
+  "HTML Tidy for Mac OS X (vers 31 October 2006 - Apple Inc. build 15.15), see www.w3.org">
+
+  <title>&lt;locale.h&gt;</title>
+</head>
+
+<body>
+  <h1><a name="&lt;locale.h&gt;"><code>&lt;locale.h&gt;</code></a></h1>
+  <hr>
+
+  <p>Include the standard header <b><code>&lt;locale.h&gt;</code></b> to alter or access properties of the
+  current <b><a name="locale">locale</a></b> -- a collection of culture-specific information. An
+  implementation can define additional macros in this standard header with names that begin with
+  <code>LC_</code>. You can use any of these macro names as the <b><a name="locale category">locale
+  category</a></b> argument (which selects a cohesive subset of a locale) to <a href=
+  "#setlocale"><code>setlocale</code></a>.</p>
+  <pre>
+#define <a href="#LC_ALL"><b>LC_ALL</b></a> <i>&lt;integer constant expression&gt;</i>
+#define <a href="#LC_COLLATE"><b>LC_COLLATE</b></a> <i>&lt;integer constant expression&gt;</i>
+#define <a href="#LC_CTYPE"><b>LC_CTYPE</b></a> <i>&lt;integer constant expression&gt;</i>
+#define <a href="#LC_MONETARY"><b>LC_MONETARY</b></a> <i>&lt;integer constant expression&gt;</i>
+#define <a href="#LC_NUMERIC"><b>LC_NUMERIC</b></a> <i>&lt;integer constant expression&gt;</i>
+#define <a href="#LC_TIME"><b>LC_TIME</b></a> <i>&lt;integer constant expression&gt;</i>
+#define <a href="#NULL"><b>NULL</b></a> <i>&lt;either 0, 0L, or (void *)0&gt;</i> <b>[0 in C++]</b>
+
+struct <a href="#lconv"><b>lconv</b></a>;
+
+struct lconv *<a href="#localeconv"><b>localeconv</b></a>(void);
+char *<a href="#setlocale"><b>setlocale</b></a>(int category, const char *locname);
+</pre>
+
+  <h2><a name="LC_ALL"><code>LC_ALL</code></a></h2>
+  <pre>
+#define <b>LC_ALL</b> <i>&lt;integer constant expression&gt;</i>
+</pre>
+
+  <p>The macro yields the <a href="#locale%20category">locale category</a> argument value that affects all
+  locale categories.</p>
+
+  <h2><a name="LC_COLLATE"><code>LC_COLLATE</code></a></h2>
+  <pre>
+#define <b>LC_COLLATE</b> <i>&lt;integer constant expression&gt;</i>
+</pre>
+
+  <p>The macro yields the <a href="#locale%20category">locale category</a> argument value that affects the
+  collation functions <code>strcoll</code> and <code>strxfrm</code>.</p>
+
+  <h2><a name="LC_CTYPE"><code>LC_CTYPE</code></a></h2>
+  <pre>
+#define <b>LC_CTYPE</b> <i>&lt;integer constant expression&gt;</i>
+</pre>
+
+  <p>The macro yields the <a href="#locale%20category">locale category</a> argument value that affects
+  <a href="ctype.html">character classification</a> functions and various multibyte conversion functions.</p>
+
+  <h2><a name="LC_MONETARY"><code>LC_MONETARY</code></a></h2>
+  <pre>
+#define <b>LC_MONETARY</b> <i>&lt;integer constant expression&gt;</i>
+</pre>
+
+  <p>The macro yields the <a href="#locale%20category">locale category</a> argument value that affects
+  monetary information returned by <a href="#localeconv"><code>localeconv</code></a>.</p>
+
+  <h2><a name="LC_NUMERIC"><code>LC_NUMERIC</code></a></h2>
+  <pre>
+#define <b>LC_NUMERIC</b> <i>&lt;integer constant expression&gt;</i>
+</pre>
+
+  <p>The macro yields the <a href="#locale%20category">locale category</a> argument value that affects
+  numeric information returned by <a href="#localeconv"><code>localeconv</code></a>, including the decimal
+  point used by numeric conversion, read, and write functions.</p>
+
+  <h2><a name="LC_TIME"><code>LC_TIME</code></a></h2>
+  <pre>
+#define <b>LC_TIME</b> <i>&lt;integer constant expression&gt;</i>
+</pre>
+
+  <p>The macro yields the <a href="#locale%20category">locale category</a> argument value that affects the
+  time conversion function <a href="time.html#strftime"><code>strftime</code></a>.</p>
+
+  <h2><a name="lconv"><code>lconv</code></a></h2>
+  <pre>
+struct <b>lconv</b> {
+    <b>ELEMENT</b>                   <b>"C" LOCALE</b>   <b>LOCALE CATEGORY</b>
+    char *decimal_point;      <b>"."</b>          <b>LC_NUMERIC</b>
+    char *grouping;           <b>""</b>           <b>LC_NUMERIC</b>
+    char *thousands_sep;      <b>""</b>           <b>LC_NUMERIC</b>
+
+    char *mon_decimal_point;  <b>""</b>           <b>LC_MONETARY</b>
+    char *mon_grouping;       <b>""</b>           <b>LC_MONETARY</b>
+    char *mon_thousands_sep;  <b>""</b>           <b>LC_MONETARY</b>
+
+    char *negative_sign;      <b>""</b>           <b>LC_MONETARY</b>
+    char *positive_sign;      <b>""</b>           <b>LC_MONETARY</b>
+
+    char *currency_symbol;    <b>""</b>           <b>LC_MONETARY</b>
+    char frac_digits;         <b>CHAR_MAX</b>     <b>LC_MONETARY</b>
+    char n_cs_precedes;       <b>CHAR_MAX</b>     <b>LC_MONETARY</b>
+    char n_sep_by_space;      <b>CHAR_MAX</b>     <b>LC_MONETARY</b>
+    char n_sign_posn;         <b>CHAR_MAX</b>     <b>LC_MONETARY</b>
+    char p_cs_precedes;       <b>CHAR_MAX</b>     <b>LC_MONETARY</b>
+    char p_sep_by_space;      <b>CHAR_MAX</b>     <b>LC_MONETARY</b>
+    char p_sign_posn;         <b>CHAR_MAX</b>     <b>LC_MONETARY</b>
+
+    char *int_curr_symbol;    <b>""</b>           <b>LC_MONETARY</b>
+    char int_frac_digits;     <b>CHAR_MAX</b>     <b>LC_MONETARY</b>
+    char int_n_cs_precedes;   <b>CHAR_MAX</b>     <b>LC_MONETARY  [added with C99]</b>
+    char int_n_sep_by_space;  <b>CHAR_MAX</b>     <b>LC_MONETARY  [added with C99]</b>
+    char int_n_sign_posn;     <b>CHAR_MAX</b>     <b>LC_MONETARY  [added with C99]</b>
+    char int_p_cs_precedes;   <b>CHAR_MAX</b>     <b>LC_MONETARY  [added with C99]</b>
+    char int_p_sep_by_space;  <b>CHAR_MAX</b>     <b>LC_MONETARY  [added with C99]</b>
+    char int_p_sign_posn;     <b>CHAR_MAX</b>     <b>LC_MONETARY  [added with C99]</b>
+    };
+</pre>
+
+  <p><code>struct lconv</code> contains members that describe how to format numeric and monetary values.
+  Functions in the Standard C library use only the field <code>decimal_point</code>. The information is
+  otherwise advisory:</p>
+
+  <ul>
+    <li>Members of type <i>pointer to char</i> all designate <a href="lib_over.html#C%20string">C
+    strings</a>.</li>
+
+    <li>Members of type <i>char</i> have nonnegative values.</li>
+
+    <li>A <i>char</i> value of <a href="limits.html#CHAR_MAX"><code>CHAR_MAX</code></a> indicates that a
+    meaningful value is not available in the current locale.</li>
+  </ul>
+
+  <p>The members shown above can occur in arbitrary order and can be interspersed with additional members.
+  The comment following each member shows its value for the <b><a name="C locale"><code>"C"</code>
+  locale</a></b>, the locale in effect at <a href="lib_over.html#program%20startup">program startup</a>,
+  followed by the <a href="#locale%20category">locale category</a> that can affect its value.</p>
+
+  <p>A description of each member follows, with an example in parentheses that would be suitable for a USA
+  locale.</p>
+
+  <p><b><a name="currency_symbol"><code>currency_symbol</code></a></b> -- the local currency symbol
+  (<code>"$"</code>)</p>
+
+  <p><b><a name="decimal_point"><code>decimal_point</code></a></b> -- the decimal point for non-monetary
+  values (<code>"."</code>)</p>
+
+  <p><b><a name="grouping"><code>grouping</code></a></b> -- the sizes of digit groups for non-monetary
+  values. An empty string calls for no grouping. Otherwise, successive elements of the string describe groups
+  going away from the decimal point:</p>
+
+  <ul>
+    <li>An element value of zero (the terminating null character) calls for the previous element value to be
+    repeated indefinitely.</li>
+
+    <li>An element value of <a href="limits.html#CHAR_MAX"><code>CHAR_MAX</code></a> ends any further
+    grouping (and hence ends the string).</li>
+  </ul>
+
+  <p>Thus, the array <code>{3, 2, CHAR_MAX}</code> calls for a group of three digits, then two, then whatever
+  remains, as in <code>9876,54,321</code>, while <code>"\3"</code> calls for repeated groups of three digits,
+  as in <code>987,654,321</code>. (<code>"\3"</code>)</p>
+
+  <p><b><a name="int_curr_symbol"><code>int_curr_symbol</code></a></b> -- the international currency symbol
+  specified by ISO 4217 (<code>"USD "</code>)</p>
+
+  <p><b><a name="mon_decimal_point"><code>mon_decimal_point</code></a></b> -- the decimal point for monetary
+  values (<code>"."</code>)</p>
+
+  <p><b><a name="mon_grouping"><code>mon_grouping</code></a></b> -- the sizes of digit groups for monetary
+  values. Successive elements of the string describe groups going away from the decimal point. The encoding
+  is the same as for <a href="#grouping"><code>grouping</code></a>.</p>
+
+  <p><b><a name="mon_thousands_sep"><code>mon_thousands_sep</code></a></b> -- the separator for digit groups
+  to the left of the decimal point for monetary values (<code>","</code>)</p>
+
+  <p><b><a name="negative_sign"><code>negative_sign</code></a></b> -- the negative sign for monetary values
+  (<code>"-"</code>)</p>
+
+  <p><b><a name="positive_sign"><code>positive_sign</code></a></b> -- the positive sign for monetary values
+  (<code>"+"</code>)</p>
+
+  <p><b><a name="thousands_sep"><code>thousands_sep</code></a></b> -- the separator for digit groups to the
+  left of the decimal point for non-monetary values (<code>","</code>)</p>
+
+  <p><b><a name="frac_digits"><code>frac_digits</code></a></b> -- the number of digits to display to the
+  right of the decimal point for monetary values (<code>2</code>)</p>
+
+  <p><b><a name="int_frac_digits"><code>int_frac_digits</code></a></b> -- the number of digits to display to
+  the right of the decimal point for international monetary values (<code>2</code>)</p>
+
+  <p><b><a name="int_n_cs_precedes"><code>int_n_cs_precedes</code></a></b> <b>[added with C99]</b> -- whether
+  the international currency symbol precedes or follows the value for negative monetary values:</p>
+
+  <ul>
+    <li>A value of 0 indicates that the symbol follows the value.</li>
+
+    <li>A value of 1 indicates that the symbol precedes the value. (<code>1</code>)</li>
+  </ul>
+
+  <p><b><a name="int_n_sep_by_space"><code>int_n_sep_by_space</code></a></b> <b>[added with C99]</b> --
+  whether the international currency symbol is separated by a space (defined by
+  <code>int_curr_symbol[3]</code>) or by no space from the value for negative monetary values:</p>
+
+  <ul>
+    <li>A value of 0 indicates that no space separates symbol from value.</li>
+
+    <li>A value of 1 indicates that a space separates symbol, or adjacent symbol and sign, from value.</li>
+
+    <li>A value of 2 indicates that a space separates symbol from adjacent sign, otherwise a space separates
+    non-adjacent sign from value. (<code>0</code>)</li>
+  </ul>
+
+  <p><b><a name="int_n_sign_posn"><code>int_n_sign_posn</code></a></b> <b>[added with C99]</b> -- the format
+  for negative international monetary values:</p>
+
+  <ul>
+    <li>A value of 0 indicates that parentheses surround the value and the currency symbol.</li>
+
+    <li>A value of 1 indicates that the negative sign precedes the value and the currency symbol.</li>
+
+    <li>A value of 2 indicates that the negative sign follows the value and the currency_symbol.</li>
+
+    <li>A value of 3 indicates that the negative sign immediately precedes the currency symbol.</li>
+
+    <li>A value of 4 indicates that the negative sign immediately follows the currency_symbol.
+    (<code>4</code>)</li>
+  </ul>
+
+  <p><b><a name="int_p_cs_precedes"><code>int_p_cs_precedes</code></a></b> <b>[added with C99]</b> -- whether
+  the international currency symbol precedes or follows the value for positive monetary values:</p>
+
+  <ul>
+    <li>A value of 0 indicates that the symbol follows the value.</li>
+
+    <li>A value of 1 indicates that the symbol precedes the value. (<code>1</code>)</li>
+  </ul>
+
+  <p><b><a name="int_p_sep_by_space"><code>int_p_sep_by_space</code></a></b> <b>[added with C99]</b> --
+  whether the international currency symbol is separated by a space (defined by
+  <code>int_curr_symbol[3]</code>) or by no space from the value for positive monetary values:</p>
+
+  <ul>
+    <li>A value of 0 indicates that no space separates symbol from value.</li>
+
+    <li>A value of 1 indicates that a space separates symbol, or adjacent symbol and sign, from value.</li>
+
+    <li>A value of 2 indicates that a space separates symbol from adjacent sign, otherwise a space separates
+    non-adjacent sign from value. (<code>0</code>)</li>
+  </ul>
+
+  <p><b><a name="int_p_sign_posn"><code>int_p_sign_posn</code></a></b> <b>[added with C99]</b> -- the format
+  for positive international monetary values:</p>
+
+  <ul>
+    <li>A value of 0 indicates that parentheses surround the value and the currency symbol.</li>
+
+    <li>A value of 1 indicates that the positive sign precedes the value and the currency symbol.</li>
+
+    <li>A value of 2 indicates that the positive sign follows the value and the currency symbol.</li>
+
+    <li>A value of 3 indicates that the positive sign immediately precedes the currency symbol.</li>
+
+    <li>A value of 4 indicates that the positive sign immediately follows the currency symbol.
+    (<code>4</code>)</li>
+  </ul>
+
+  <p><b><a name="n_cs_precedes"><code>n_cs_precedes</code></a></b> -- whether the currency symbol precedes or
+  follows the value for negative monetary values:</p>
+
+  <ul>
+    <li>A value of 0 indicates that the symbol follows the value.</li>
+
+    <li>A value of 1 indicates that the symbol precedes the value. (<code>1</code>)</li>
+  </ul>
+
+  <p><b><a name="n_sep_by_space"><code>n_sep_by_space</code></a></b> -- whether the currency symbol is
+  separated by a space or by no space from the value for negative monetary values:</p>
+
+  <ul>
+    <li>A value of 0 indicates that no space separates symbol from value.</li>
+
+    <li>A value of 1 indicates that a space separates symbol, or adjacent symbol and sign, from value.</li>
+
+    <li><b>[added with C99]</b> A value of 2 indicates that a space separates symbol from adjacent sign,
+    otherwise a space separates non-adjacent sign from value. (<code>0</code>)</li>
+  </ul>
+
+  <p><b><a name="n_sign_posn"><code>n_sign_posn</code></a></b> -- the format for negative monetary
+  values:</p>
+
+  <ul>
+    <li>A value of 0 indicates that parentheses surround the value and the currency symbol.</li>
+
+    <li>A value of 1 indicates that the negative sign precedes the value and the currency symbol.</li>
+
+    <li>A value of 2 indicates that the negative sign follows the value and the currency_symbol.</li>
+
+    <li>A value of 3 indicates that the negative sign immediately precedes the currency symbol.</li>
+
+    <li>A value of 4 indicates that the negative sign immediately follows the currency_symbol.
+    (<code>4</code>)</li>
+  </ul>
+
+  <p><b><a name="p_cs_precedes"><code>p_cs_precedes</code></a></b> -- whether the currency symbol precedes or
+  follows the value for positive monetary values:</p>
+
+  <ul>
+    <li>A value of 0 indicates that the symbol follows the value.</li>
+
+    <li>A value of 1 indicates that the symbol precedes the value. (<code>1</code>)</li>
+  </ul>
+
+  <p><b><a name="p_sep_by_space"><code>p_sep_by_space</code></a></b> -- whether the currency symbol is
+  separated by a space or by no space from the value for positive monetary values:</p>
+
+  <ul>
+    <li>A value of 0 indicates that no space separates symbol from value.</li>
+
+    <li>A value of 1 indicates that a space separates symbol, or adjacent symbol and sign, from value.</li>
+
+    <li><b>[added with C99]</b> A value of 2 indicates that a space separates symbol from adjacent sign,
+    otherwise a space separates non-adjacent sign from value. (<code>0</code>)</li>
+  </ul>
+
+  <p><b><a name="p_sign_posn"><code>p_sign_posn</code></a></b> -- the format for positive monetary
+  values:</p>
+
+  <ul>
+    <li>A value of 0 indicates that parentheses surround the value and the currency symbol.</li>
+
+    <li>A value of 1 indicates that the positive sign precedes the value and the currency symbol.</li>
+
+    <li>A value of 2 indicates that the positive sign follows the value and the currency symbol.</li>
+
+    <li>A value of 3 indicates that the positive sign immediately precedes the currency symbol.</li>
+
+    <li>A value of 4 indicates that the positive sign immediately follows the currency symbol.
+    (<code>4</code>)</li>
+  </ul>
+
+  <h2><a name="localeconv"><code>localeconv</code></a></h2>
+  <pre>
+struct lconv *<b>localeconv</b>(void);
+</pre>
+
+  <p>The function returns a pointer to a static-duration structure containing numeric formatting information
+  for the current locale. You cannot alter values stored in the static-duration structure. The stored values
+  can change on later calls to <code>localeconv</code> or on calls to <a href=
+  "#setlocale"><code>setlocale</code></a> that alter any of the categories <a href=
+  "#LC_ALL"><code>LC_ALL</code></a>, <a href="#LC_MONETARY"><code>LC_MONETARY</code></a>, or <a href=
+  "#LC_NUMERIC"><code>LC_NUMERIC</code></a>.</p>
+
+  <h2><a name="NULL"><code>NULL</code></a></h2>
+  <pre>
+#define <b>NULL</b> <i>&lt;either 0, 0L, or (void *)0&gt;</i> <b>[0 in C++]</b>
+</pre>
+
+  <p>The macro yields a null pointer constant that is usable as an <a href=
+  "express.html#address%20constant%20expression">address constant expression</a>.</p>
+
+  <h2><a name="setlocale"><code>setlocale</code></a></h2>
+  <pre>
+char *<b>setlocale</b>(int category, const char *locname);
+</pre>
+
+  <p>The function either returns a pointer to a static-duration string describing a new locale or returns a
+  null pointer (if the new locale cannot be selected). The value of <code>category</code> selects one or more
+  <a href="#locale%20category">locale categories</a>, each of which must match the value of one of the macros
+  defined in this standard header with names that begin with <code>LC_</code>.</p>
+
+  <p>If <code>locname</code> is a null pointer, the locale remains unchanged. If <code>locname</code>
+  designates the string <code>"C"</code>, the new locale is the <a href="#C%20locale"><code>"C"</code></a>
+  locale for the locale category specified. If <code>locname</code> designates the string <code>""</code>,
+  the new locale is the <b><a name="native locale">native locale</a></b> (a default locale presumably
+  tailored for the local culture) for the locale category specified. <code>locname</code> can also designate
+  a string returned on an earlier call to <code>setlocale</code> or to other strings that the implementation
+  can define.</p>
+
+  <p>At <a href="lib_over.html#program%20startup">program startup</a>, the target environment calls
+  <code>setlocale( <a href="#LC_ALL">LC_ALL</a>, "C")</code> before it calls <code>main</code>.</p>
+
+  <p>The function is not necessarily thread safe.</p>
+  <hr>
+
+  <p>See also the <b><a href="index.html#Table%20of%20Contents">Table of Contents</a></b> and the <b><a href=
+  "_index.html">Index</a></b>.</p>
+
+  <p><i><a href="crit_pjp.html">Copyright</a> &copy; 1992-2010 by P.J. Plauger and Jim Brodie. All rights
+  reserved.</i></p><!--V5.30:126I-->
+</body>
+</html>

@@ -1,0 +1,162 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html>
+<head>
+  <meta name="generator" content=
+  "HTML Tidy for Mac OS X (vers 31 October 2006 - Apple Inc. build 15.15), see www.w3.org">
+
+  <title>&lt;stdexcept&gt;</title>
+</head>
+
+<body>
+  <h1><a name="&lt;stdexcept&gt;"><code>&lt;stdexcept&gt;</code></a></h1>
+  <hr>
+
+  <p>Include the standard header <b><code>&lt;stdexcept&gt;</code></b> to define several classes used for
+  reporting exceptions. The classes form a derivation hierarchy, as indicated by the indenting above, all
+  derived from class <code><a href="exceptio.html#exception">exception</a></code>.</p>
+  <pre>
+        // DECLARATIONS
+class <b><a href="#logic_error">logic_error</a></b>;
+    class <b><a href="#domain_error">domain_error</a></b>;
+    class <b><a href="#invalid_argument">invalid_argument</a></b>;
+    class <b><a href="#length_error">length_error</a></b>;
+    class <b><a href="#out_of_range">out_of_range</a></b>;
+
+class <b><a href="#runtime_error">runtime_error</a></b>;
+    class <b><a href="#range_error">range_error</a></b>;
+    class <b><a href="#overflow_error">overflow_error</a></b>;
+    class <b><a href="#underflow_error">underflow_error</a></b>;
+        // END OF DECLARATIONS
+</pre>
+
+  <h2><a name="domain_error"><code>domain_error</code></a></h2>
+  <pre>
+class <b>domain_error</b> : public <a href="#logic_error">logic_error</a> {
+public:
+    explicit <b>domain_error</b>(const string&amp; message);
+    explicit <b>domain_error</b>(const char *message); <b>[added with C++0X]</b>
+    };
+</pre>
+
+  <p>The class serves as the base class for all exceptions thrown to report a <a href=
+  "math.html#domain%20error">domain error</a>. The value returned by <code><a href=
+  "exceptio.html#exception::what">what</a>()</code> is a copy of <code>message.<a href=
+  "string2.html#string::data">data</a>()</code>.</p>
+
+  <h2><a name="invalid_argument"><code>invalid_argument</code></a></h2>
+  <pre>
+class <b>invalid_argument</b> : public <a href="#logic_error">logic_error</a> {
+public:
+    explicit <b>invalid_argument</b>(const string&amp; message);
+    explicit <b>invalid_argument</b>(const char *message); <b>[added with C++0X]</b>
+    };
+</pre>
+
+  <p>The class serves as the base class for all exceptions thrown to report an invalid argument. The value
+  returned by <code><a href="exceptio.html#exception::what">what</a>()</code> is a copy of
+  <code>message.<a href="string2.html#string::data">data</a>()</code>.</p>
+
+  <h2><a name="length_error"><code>length_error</code></a></h2>
+  <pre>
+class <b>length_error</b> : public <a href="#logic_error">logic_error</a> {
+public:
+    explicit <b>length_error</b>(const string&amp; message);
+    explicit <b>length_error</b>(const char *message); <b>[added with C++0X]</b>
+    };
+</pre>
+
+  <p>The class serves as the base class for all exceptions thrown to report an attempt to generate an object
+  too long to be specified. The value returned by <code><a href=
+  "exceptio.html#exception::what">what</a>()</code> is a copy of <code>message.<a href=
+  "string2.html#string::data">data</a>()</code>.</p>
+
+  <h2><a name="logic_error"><code>logic_error</code></a></h2>
+  <pre>
+class <b>logic_error</b> : public <a href="exceptio.html#exception">exception</a> {
+public:
+    explicit <b>logic_error</b>(const string&amp; message);
+    explicit <b>logic_error</b>(const char *message); <b>[added with C++0X]</b>
+    };
+</pre>
+
+  <p>The class serves as the base class for all exceptions thrown to report errors presumably detectable
+  before the program executes, such as violations of logical preconditions. The value returned by
+  <code><a href="exceptio.html#exception::what">what</a>()</code> is a copy of <code>message.<a href=
+  "string2.html#string::data">data</a>()</code>.</p>
+
+  <h2><a name="out_of_range"><code>out_of_range</code></a></h2>
+  <pre>
+class <b>out_of_range</b> : public <a href="#logic_error">logic_error</a> {
+public:
+    explicit <b>out_of_range</b>(const string&amp; message);
+    explicit <b>out_of_range</b>(const char *message); <b>[added with C++0X]</b>
+    };
+</pre>
+
+  <p>The class serves as the base class for all exceptions thrown to report an argument that is out of its
+  valid range. The value returned by <code><a href="exceptio.html#exception::what">what</a>()</code> is a
+  copy of <code>message.<a href="string2.html#string::data">data</a>()</code>.</p>
+
+  <h2><a name="overflow_error"><code>overflow_error</code></a></h2>
+  <pre>
+class <b>overflow_error</b> : public <a href="#runtime_error">runtime_error</a> {
+public:
+    explicit <b>overflow_error</b>(const string&amp; message);
+    explicit <b>overflow_error</b>(const char *message); <b>[added with C++0X]</b>
+    };
+</pre>
+
+  <p>The class serves as the base class for all exceptions thrown to report an arithmetic overflow. The value
+  returned by <code><a href="exceptio.html#exception::what">what</a>()</code> is a copy of
+  <code>message.<a href="string2.html#string::data">data</a>()</code>.</p>
+
+  <h2><a name="range_error"><code>range_error</code></a></h2>
+  <pre>
+class <b>range_error</b> : public <a href="#runtime_error">runtime_error</a> {
+public:
+    explicit <b>range_error</b>(const string&amp; message);
+    explicit <b>range_error</b>(const char *message); <b>[added with C++0X]</b>
+    };
+</pre>
+
+  <p>The class serves as the base class for all exceptions thrown to report a <a href=
+  "math.html#range%20error">range error</a>. The value returned by <code><a href=
+  "exceptio.html#exception::what">what</a>()</code> is a copy of <code>message.<a href=
+  "string2.html#string::data">data</a>()</code>.</p>
+
+  <h2><a name="runtime_error"><code>runtime_error</code></a></h2>
+  <pre>
+class <b>runtime_error</b> : public <a href="exceptio.html#exception">exception</a> {
+public:
+    explicit <b>runtime_error</b>(const string&amp; message);
+    explicit <b>runtime_error</b>(const char *message); <b>[added with C++0X]</b>
+    };
+</pre>
+
+  <p>The class serves as the base class for all exceptions thrown to report errors presumably detectable only
+  when the program executes. The value returned by <code><a href=
+  "exceptio.html#exception::what">what</a>()</code> is a copy of <code>message.<a href=
+  "string2.html#string::data">data</a>()</code>.</p>
+
+  <h2><a name="underflow_error"><code>underflow_error</code></a></h2>
+  <pre>
+class <b>underflow_error</b> : public <a href="#runtime_error">runtime_error</a> {
+public:
+    explicit <b>underflow_error</b>(const string&amp; message);
+    explicit <b>underflow_error</b>(const char *message); <b>[added with C++0X]</b>
+    };
+</pre>
+
+  <p>The class serves as the base class for all exceptions thrown to report an arithmetic underflow. The
+  value returned by <code><a href="exceptio.html#exception::what">what</a>()</code> is a copy of
+  <code>message.<a href="string2.html#string::data">data</a>()</code>.</p>
+  <hr>
+
+  <p>See also the <b><a href="index.html#Table%20of%20Contents">Table of Contents</a></b> and the <b><a href=
+  "_index.html">Index</a></b>.</p>
+
+  <p><i><a href="crit_pjp.html">Copyright</a> &copy; 1992-2010 by P.J. Plauger. All rights reserved.</i></p>
+  <!--V5.30:126I-->
+</body>
+</html>

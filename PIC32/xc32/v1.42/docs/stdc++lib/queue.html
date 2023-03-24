@@ -1,0 +1,582 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html>
+<head>
+  <meta name="generator" content=
+  "HTML Tidy for Mac OS X (vers 31 October 2006 - Apple Inc. build 15.15), see www.w3.org">
+
+  <title>&lt;queue&gt;</title>
+</head>
+
+<body>
+  <h1><a name="&lt;queue&gt;"><code>&lt;queue&gt;</code></a></h1>
+  <hr>
+
+  <p>Include the <a href="index.html#STL">STL</a> standard header <b><code>&lt;queue&gt;</code></b> to define
+  the template classes <code>priority_queue</code> and <code>queue</code>, and several supporting
+  templates.</p>
+  <pre>
+namespace std {
+template&lt;class Ty, class Container&gt;
+    class <b><a href="#queue">queue</a></b>;
+template&lt;class Ty, class Container, class Pr&gt;
+    class <b><a href="#priority_queue">priority_queue</a></b>;
+
+        // TEMPLATE FUNCTIONS
+template&lt;class Ty, class Container&gt;
+    bool <b><a href="#operator==">operator==</a></b>(const queue&lt;Ty, Container&gt;&amp; left,
+        const queue&lt;Ty, Container&gt;&amp;);
+template&lt;class Ty, class Container&gt;
+    bool <b><a href="#operator!=">operator!=</a></b>(const queue&lt;Ty, Container&gt;&amp; left,
+        const queue&lt;Ty, Container&gt;&amp;);
+template&lt;class Ty, class Container&gt;
+    bool <b><a href="#operator%3C">operator&lt;</a></b>(const queue&lt;Ty, Container&gt;&amp; left,
+        const queue&lt;Ty, Container&gt;&amp;);
+template&lt;class Ty, class Container&gt;
+    bool <b><a href="#operator%3E">operator&gt;</a></b>(const queue&lt;Ty, Container&gt;&amp; left,
+        const queue&lt;Ty, Container&gt;&amp;);
+template&lt;class Ty, class Container&gt;
+    bool <b><a href="#operator%3C=">operator&lt;=</a></b>(const queue&lt;Ty, Container&gt;&amp; left,
+        const queue&lt;Ty, Container&gt;&amp;);
+template&lt;class Ty, class Container&gt;
+    bool <b><a href="#operator%3E=">operator&gt;=</a></b>(const queue&lt;Ty, Container&gt;&amp; left,
+        const queue&lt;Ty, Container&gt;&amp;);
+
+template&lt;class Ty, class Container&gt;
+    bool <b><a href="#swap">swap</a></b>(queue&lt;Ty, Container&gt;&amp; left,
+        queue&lt;Ty, Container&gt;&amp;); <b>[added with C++0X]</b>
+template&lt;class Ty, class Container, class Pr&gt;
+    bool <b><a href="#swap">swap</a></b>(priority_queue&lt;Ty, Container, Pr&gt;&amp; left,
+        priority_queue&lt;Ty, Container, Pr&gt;&amp;); <b>[added with C++0X]</b>
+}  // namespace std
+</pre>
+
+  <h2><a name="operator!="><code>operator!=</code></a></h2>
+  <pre>
+template&lt;class Ty, class Container&gt;
+    bool <b>operator!=</b>(const queue &lt;Ty, Container&gt;&amp; left,
+        const queue &lt;Ty, Container&gt;&amp; right);
+</pre>
+
+  <p>The template function returns <code>!(left == right)</code>.</p>
+
+  <h2><a name="operator=="><code>operator==</code></a></h2>
+  <pre>
+template&lt;class Ty, class Container&gt;
+    bool <b>operator==</b>(const queue &lt;Ty, Container&gt;&amp; left,
+        const queue &lt;Ty, Container&gt;&amp; right);
+</pre>
+
+  <p>The template function overloads <code>operator==</code> to compare two objects of template class
+  <a href="#queue"><code>queue</code></a>. The function returns <code>left.<a href="#queue::c">c</a> ==
+  right.c</code>.</p>
+
+  <h2><a name="operator&lt;"><code>operator&lt;</code></a></h2>
+  <pre>
+template&lt;class Ty, class Container&gt;
+    bool <b>operator&lt;</b>(const queue &lt;Ty, Container&gt;&amp; left,
+        const queue &lt;Ty, Container&gt;&amp; right);
+</pre>
+
+  <p>The template function overloads <code>operator&lt;</code> to compare two objects of template class
+  <a href="#queue"><code>queue</code></a>. The function returns <code>left.<a href="#queue::c">c</a> &lt;
+  right.c</code>.</p>
+
+  <h2><a name="operator&lt;="><code>operator&lt;=</code></a></h2>
+  <pre>
+template&lt;class Ty, class Container&gt;
+    bool <b>operator&lt;=</b>(const queue &lt;Ty, Container&gt;&amp; left,
+        const queue &lt;Ty, Container&gt;&amp; right);
+</pre>
+
+  <p>The template function returns <code>!(right &lt; left)</code>.</p>
+
+  <h2><a name="operator&gt;"><code>operator&gt;</code></a></h2>
+  <pre>
+template&lt;class Ty, class Container&gt;
+    bool <b>operator&gt;</b>(const queue &lt;Ty, Container&gt;&amp; left,
+        const queue &lt;Ty, Container&gt;&amp; right);
+</pre>
+
+  <p>The template function returns <code>right &lt; left</code>.</p>
+
+  <h2><a name="operator&gt;="><code>operator&gt;=</code></a></h2>
+  <pre>
+template&lt;class Ty, class Container&gt;
+    bool <b>operator&gt;=</b>(const queue &lt;Ty, Container&gt;&amp; left,
+        const queue &lt;Ty, Container&gt;&amp; right);
+</pre>
+
+  <p>The template function returns <code>!(left &lt; right)</code>.</p>
+
+  <h2><a name="priority_queue"><code>priority_queue</code></a></h2>
+  <pre>
+template&lt;class Ty,
+    class Container = vector&lt;Ty&gt;,
+    class Pr = less&lt;typename Container::value_type&gt; &gt;
+    class priority_queue {
+public:
+    typedef Container <b><a href="#priority_queue::container_type">container_type</a></b>;
+    typedef typename Container::value_type <b><a href="#priority_queue::value_type">value_type</a></b>;
+    typedef typename Container::size_type <b><a href="#priority_queue::size_type">size_type</a></b>;
+    typedef typename Container::reference <b><a href="#priority_queue::reference">reference</a></b>;
+    typedef typename Container::const_reference <b><a href=
+"#priority_queue::const_reference">const_reference</a></b>;
+
+    <b><a href="#priority_queue::priority_queue">priority_queue</a></b>();
+    explicit <b><a href="#priority_queue::priority_queue">priority_queue</a></b>(const Pr&amp; pred);
+    <b><a href="#priority_queue::priority_queue">priority_queue</a></b>(const Pr&amp; pred,
+        const container_type&amp; cont);
+    <b><a href="#priority_queue::priority_queue">priority_queue</a></b>(const priority_queue&amp; right);
+    template&lt;class InIt&gt;
+        <b><a href="#priority_queue::priority_queue">priority_queue</a></b>(InIt first, InIt last);
+    template&lt;class InIt&gt;
+        <b><a href="#priority_queue::priority_queue">priority_queue</a></b>(InIt first, InIt last,
+            const Pr&amp; pred);
+    template&lt;class InIt&gt;
+        <b><a href="#priority_queue::priority_queue">priority_queue</a></b>(InIt first, InIt last,
+            const Pr&amp; pred, const container_type&amp; cont);
+
+    <b><a href="#priority_queue::priority_queue">priority_queue</a></b>(const Pr&amp; pred,
+        container_type&amp;&amp; cont); <b>[added with C++0X]</b>
+    <b><a href=
+"#priority_queue::priority_queue">priority_queue</a></b>(priority_queue&amp;&amp; right); <b>[added with C++0X]</b>
+    template&lt;class InIt&gt;
+        <b><a href="#priority_queue::priority_queue">priority_queue</a></b>(InIt first, InIt last,
+            const Pr&amp; pred, container_type&amp;&amp; cont); <b>[added with C++0X]</b>
+    priority_queue <b><a href=
+"#priority_queue::operator=">operator=</a></b>(priority_queue&amp;&amp; right); <b>[added with C++0X]</b>
+    void <b><a href=
+"#priority_queue::swap">swap</a></b>(priority_queue&amp; right); <b>[added with C++0X]</b>
+
+    bool <b><a href="#priority_queue::empty">empty</a></b>() const;
+    size_type <b><a href="#priority_queue::size">size</a></b>() const;
+    const_reference <b><a href="#priority_queue::top">top</a></b>() const;
+    void <b><a href="#priority_queue::push">push</a></b>(const value_type&amp; val);
+    void <b><a href="#priority_queue::push">push</a></b>(value_type&amp;&amp; val); <b>[added with C++0X]</b>
+    template&lt;class... Ty&gt;
+        void <b><a href=
+"#priority_queue::emplace">emplace</a></b>(Ty&amp;&amp;... val); <b>[added with C++0X]</b>
+    void <b><a href="#priority_queue::pop">pop</a></b>();
+
+protected:
+    Container <b><a href="#priority_queue::c">c</a></b>;
+    Pr <b><a href="#priority_queue::comp">comp</a></b>;
+    };
+</pre>
+
+  <p>The template class describes an object that controls a varying-length sequence of elements. The object
+  allocates and frees storage for the sequence it controls through a protected object named <b><a name=
+  "priority_queue::c"><code>c</code></a></b>, of class <code>Container</code>. The type <code>Ty</code> of
+  elements in the controlled sequence must match <code><a href=
+  "#priority_queue::value_type">value_type</a></code>.</p>
+
+  <p>The sequence is ordered using a protected object named <b><a name=
+  "priority_queue::comp"><code>comp</code></a></b>. After each insertion or removal of the top element (at
+  position zero), for the iterators <code>P0</code> and <code>Pi</code> designating elements at positions
+  <code>0</code> and <code>I</code>, <code>comp(*P0, *Pi)</code> is false. (For the default template
+  parameter <code><a href="functio2.html#less">less</a>&lt;typename Container::value_type&gt;</code> the top
+  element of the sequence compares largest, or highest priority.)</p>
+
+  <p>An object of class <code>Container</code> must supply random-access iterators and several public members
+  defined the same as for <code><a href="deque.html#deque">deque</a></code> and <code><a href=
+  "vector.html#vector">vector</a></code> (both of which are suitable candidates for class
+  <code>Container</code>). The required members are:</p>
+  <pre>
+    typedef Ty <b>value_type</b>;
+    typedef T0 <b>size_type</b>;
+    typedef T1 <b>iterator</b>;
+    typedef T2 <b>reference</b>;
+    typedef T3 <b>const_reference</b>;
+
+    <b>Container</b>();
+    template&lt;class InIt&gt;
+        <b>Container</b>(InIt first, InIt last);
+        void <b>swap</b>(Container&amp; right); <b>[added with C++0X]</b>
+
+    template&lt;class InIt&gt;
+        void <b>insert</b>(iterator where, InIt first, InIt last);
+    iterator <b>begin</b>();
+    iterator <b>end</b>();
+    bool <b>empty</b>() const;
+    size_type <b>size</b>() const;
+    const_reference <b>front</b>() const;
+    void <b>push_back</b>(const value_type&amp; val);
+    template&lt;class... Ty&gt;
+        void <b>emplace_back</b>(const Ty&amp;... val); <b>[added with C++0X]</b>
+    void <b>pop_back</b>();
+</pre>
+
+  <p>Here, <code>T0</code>, <code>T1</code>, <code>T2</code>, and <code>T3</code> are unspecified types that
+  meet the stated requirements.</p>
+
+  <h3><code><a name="priority_queue::const_reference">priority_queue::const_reference</a></code></h3>
+  <pre>
+typedef typename Container::const_reference <b>const_reference</b>;
+</pre>
+
+  <p>The type is a synonym for <code>Container::const_reference</code>.</p>
+
+  <h3><code><a name="priority_queue::container_type">priority_queue::container_type</a></code></h3>
+  <pre>
+typedef typename Container::container_type <b>container_type</b>;
+</pre>
+
+  <p>The type is a synonym for the template parameter <code>Container</code>.</p>
+
+  <h3><code><a name="priority_queue::empty">priority_queue::empty</a></code></h3>
+  <pre>
+bool <b>empty</b>() const;
+</pre>
+
+  <p>The member function returns true for an empty controlled sequence.</p>
+
+  <h3><code><a name="priority_queue::emplace">priority_queue::emplace</a></code></h3>
+  <pre>
+template&lt;class... Ty&gt;
+    void <b>emplace</b>(Ty&amp;&amp;... val); <b>[added with C++0X]</b>
+</pre>
+
+  <p>The member function executes:</p>
+  <pre>
+c.emplace_back(forward&lt;Ty&gt;(val)...);
+push_heap(c.begin(), c.end(), comp);
+</pre>
+
+  <h3><code><a name="priority_queue::operator=">priority_queue::operator=</a></code></h3>
+  <pre>
+priority_queue&gt; <b>operator=</b>(priority_queue&amp;&amp; right); <b>[added with C++0X]</b>
+</pre>
+
+  <p>The operator moves <code>right</code>, as an <a href="lib_cpp.html#rvalue%20references">rvalue
+  reference</a> to <code>*this</code>.</p>
+
+  <h3><code><a name="priority_queue::pop">priority_queue::pop</a></code></h3>
+  <pre>
+void <b>pop</b>();
+</pre>
+
+  <p>The member function removes the first element of the controlled sequence, which must be non-empty, then
+  reorders it.</p>
+
+  <h3><code><a name="priority_queue::priority_queue">priority_queue::priority_queue</a></code></h3>
+  <pre>
+<b>priority_queue</b>();
+explicit <b>priority_queue</b>(const Pr&amp; pred);
+<b>priority_queue</b>(const Pr&amp; pred,
+    const container_type&amp; cont);
+<b>priority_queue</b>(const priority_queue&amp; right);
+template&lt;class InIt&gt;
+    <b>priority_queue</b>(InIt first, InIt last);
+template&lt;class InIt&gt;
+    <b>priority_queue</b>(InIt first, InIt last,
+        const Pr&amp; pred);
+template&lt;class InIt&gt;
+    <b>priority_queue</b>(InIt first, InIt last,
+        const Pr&amp; pred, const container_type&amp; cont);
+
+<b>priority_queue</b>(const Pr&amp; pred,
+    container_type&amp;&amp; cont); <b>[added with C++0X]</b>
+<b>priority_queue</b>(priority_queue&amp;&amp; right); <b>[added with C++0X]</b>
+template&lt;class InIt&gt;
+    <b>priority_queue</b>(InIt first, InIt last,
+        const Pr&amp; pred, container_type&amp;&amp; cont); <b>[added with C++0X]</b>
+</pre>
+
+  <p>All constructors with an argument <code>cont</code> initialize the stored object with <code><a href=
+  "#priority_queue::c">c</a>(cont)</code>. The remaining constructors initialize the stored object with
+  <code>c()</code>, to specify an empty initial controlled sequence. The constructors with arguments
+  <code>first</code> and <code>last</code> then call <code>c.insert(c.end(), first, last)</code>.</p>
+
+  <p>The last three constructors behave the same as earlier ones, but with an <a href=
+  "lib_cpp.html#rvalue%20references">rvalue reference</a>.</p>
+
+  <p>All constructors also store a function object in <code><a href="#priority_queue::comp">comp</a></code>.
+  The function object <code>comp</code> is the argument <code>pred</code>, if present. For the copy
+  constructor, it is <code>right.comp</code>. Otherwise, it is <code>Pr()</code>.</p>
+
+  <p>A non-empty initial controlled sequence is then ordered by calling <code><a href=
+  "algorith.html#make_heap">make_heap</a>(c.begin(), c.end(), comp)</code>.</p>
+
+  <h3><code><a name="priority_queue::push">priority_queue::push</a></code></h3>
+  <pre>
+void <b>push</b>(const Ty&amp; val);
+void <b>push</b>(value_type&amp;&amp; val); <b>[added with C++0X]</b>
+</pre>
+
+  <p>The first member function inserts an element with value <code>val</code> at the end of the controlled
+  sequence, then reorders it.</p>
+
+  <p>The second member functions is the same as the first, but with an <a href=
+  "lib_cpp.html#rvalue%20references">rvalue reference</a>.</p>
+
+  <h3><code><a name="priority_queue::reference">priority_queue::reference</a></code></h3>
+  <pre>
+typedef typename Container::reference <b>reference</b>;
+</pre>
+
+  <p>The type is a synonym for <code>Container::reference</code>.</p>
+
+  <h3><code><a name="priority_queue::size">priority_queue::size</a></code></h3>
+  <pre>
+size_type <b>size</b>() const;
+</pre>
+
+  <p>The member function returns the length of the controlled sequence.</p>
+
+  <h3><code><a name="priority_queue::size_type">priority_queue::size_type</a></code></h3>
+  <pre>
+typedef typename Container::size_type <b>size_type</b>;
+</pre>
+
+  <p>The type is a synonym for <code>Container::size_type</code>.</p>
+
+  <h3><code><a name="priority_queue::swap">priority_queue::swap</a></code></h3>
+  <pre>
+void <b>swap</b>(priority_queue&amp; right); <b>[added with C++0X]</b>
+</pre>
+
+  <p>The template function swaps <code>right</code> with <code>*this</code>.</p>
+
+  <h3><code><a name="priority_queue::top">priority_queue::top</a></code></h3>
+  <pre>
+const_reference <b>top</b>() const;
+</pre>
+
+  <p>The member function returns a reference to the first (highest priority) element of the controlled
+  sequence, which must be non-empty.</p>
+
+  <h3><code><a name="priority_queue::value_type">priority_queue::value_type</a></code></h3>
+  <pre>
+typedef typename Container::value_type <b>value_type</b>;
+</pre>
+
+  <p>The type is a synonym for <code>Container::value_type</code>.</p>
+
+  <h2><a name="queue"><code>queue</code></a></h2>
+  <pre>
+template&lt;class Ty,
+    class Container = deque&lt;Ty&gt; &gt;
+    class queue {
+public:
+    typedef Container <b><a href="#queue::container_type">container_type</a></b>;
+    typedef typename Container::value_type <b><a href="#queue::value_type">value_type</a></b>;
+    typedef typename Container::size_type <b><a href="#queue::size_type">size_type</a></b>;
+    typedef typename Container::reference <b><a href="#queue::reference">reference</a></b>;
+    typedef typename Container::const_reference <b><a href="#queue::const_reference">const_reference</a></b>;
+
+    <b><a href="#queue::queue">queue</a></b>();
+    explicit <b><a href="#queue::queue">queue</a></b>(const container_type&amp; cont);
+    <b><a href="#queue::queue">queue</a></b>(queue&amp;&amp; right); <b>[added with C++0X]</b>
+    explicit <b><a href=
+"#queue::queue">queue</a></b>(container_type&amp;&amp; cont); <b>[added with C++0X]</b>
+
+    queue <b><a href="#queue::operator=">operator=</a></b>(queue&amp;&amp; right); <b>[added with C++0X]</b>
+    void <b><a href="#queue::swap">swap</a></b>(queue&amp; right); <b>[added with C++0X]</b>
+
+    bool <b><a href="#queue::empty">empty</a></b>() const;
+    size_type <b><a href="#queue::size">size</a></b>() const;
+
+    reference <b><a href="#queue::back">back</a></b>();
+    const_reference <b><a href="#queue::back">back</a></b>() const;
+    reference <b><a href="#queue::front">front</a></b>();
+    const_reference <b><a href="#queue::front">front</a></b>() const;
+
+    void <b><a href="#queue::push">push</a></b>(const value_type&amp; val);
+    void <b><a href="#queue::push">push</a></b>(value_type&amp;&amp; val); <b>[added with C++0X]</b>
+    template&lt;class... Ty&gt;
+        void <b><a href="#queue::emplace">emplace</a></b>(Ty&amp;&amp;... val); <b>[added with C++0X]</b>
+    void <b><a href="#queue::pop">pop</a></b>();
+
+protected:
+    Container <b><a href="#queue::c">c</a></b>;
+    };
+</pre>
+
+  <p>The template class describes an object that controls a varying-length sequence of elements. The object
+  allocates and frees storage for the sequence it controls through a protected object named <b><a name=
+  "queue::c"><code>c</code></a></b>, of class <code>Container</code>. The type <code>Ty</code> of elements in
+  the controlled sequence must match <code><a href="#queue::value_type">value_type</a></code>.</p>
+
+  <p>An object of class <code>Container</code> must supply several public members defined the same as for
+  <code><a href="deque.html#deque">deque</a></code> and <code><a href="list.html#list">list</a></code> (both
+  of which are suitable candidates for class <code>Container</code>). The required members are:</p>
+  <pre>
+    typedef Ty <b>value_type</b>;
+    typedef T0 <b>size_type</b>;
+    typedef T1 <b>reference</b>;
+    typedef T2 <b>const_reference</b>;
+
+    <b>Container</b>();
+        void <b>swap</b>(Container&amp; right); <b>[added with C++0X]</b>
+    bool <b>empty</b>() const;
+    size_type <b>size</b>() const;
+    reference <b>front</b>();
+    const_reference <b>front</b>() const;
+    reference <b>back</b>();
+    const_reference <b>back</b>() const;
+    void <b>push_back</b>(const value_type&amp; val);
+    template&lt;class... Ty&gt;
+        void <b>emplace_back</b>(const Ty&amp;... val); <b>[added with C++0X]</b>
+    void <b>pop_front</b>();
+
+    bool <b>operator==</b>(const Container&amp; cont) const;
+    bool <b>operator!=</b>(const Container&amp; cont) const;
+    bool <b>operator&lt;</b>(const Container&amp; cont) const;
+    bool <b>operator&gt;</b>(const Container&amp; cont) const;
+    bool <b>operator&lt;=</b>(const Container&amp; cont) const;
+    bool <b>operator&gt;=</b>(const Container&amp; cont) const;
+</pre>
+
+  <p>Here, <code>T0</code>, <code>T1</code>, and <code>T2</code> are unspecified types that meet the stated
+  requirements.</p>
+
+  <h3><code><a name="queue::back">queue::back</a></code></h3>
+  <pre>
+reference <b>back</b>();
+const_reference <b>back</b>() const;
+</pre>
+
+  <p>The member function returns a reference to the last element of the controlled sequence, which must be
+  non-empty.</p>
+
+  <h3><code><a name="queue::const_reference">queue::const_reference</a></code></h3>
+  <pre>
+typedef typename Container::const_reference <b>const_reference</b>;
+</pre>
+
+  <p>The type is a synonym for <code>Container::const_reference</code>.</p>
+
+  <h3><code><a name="queue::container_type">queue::container_type</a></code></h3>
+  <pre>
+typedef Container <b>container_type</b>;
+</pre>
+
+  <p>The type is a synonym for the template parameter <code>Container</code>.</p>
+
+  <h3><code><a name="queue::emplace">queue::emplace</a></code></h3>
+  <pre>
+template&lt;class... Ty&gt;
+    void <b>emplace</b>(Ty&amp;&amp;... val); <b>[added with C++0X]</b>
+</pre>
+
+  <p>The member function executes:</p>
+  <pre>
+c.emplace_back(forward&lt;Ty&gt;(val)...);
+</pre>
+
+  <h3><code><a name="queue::empty">queue::empty</a></code></h3>
+  <pre>
+bool <b>empty</b>() const;
+</pre>
+
+  <p>The member function returns true for an empty controlled sequence.</p>
+
+  <h3><code><a name="queue::front">queue::front</a></code></h3>
+  <pre>
+reference <b>front</b>();
+const_reference <b>front</b>() const;
+</pre>
+
+  <p>The member function returns a reference to the first element of the controlled sequence, which must be
+  non-empty.</p>
+
+  <h3><code><a name="queue::operator=">queue::operator=</a></code></h3>
+  <pre>
+queue&gt; <b>operator=</b>(queue&amp;&amp; right); <b>[added with C++0X]</b>
+</pre>
+
+  <p>The operator moves <code>right</code>, as an <a href="lib_cpp.html#rvalue%20references">rvalue
+  reference</a> to <code>*this</code>.</p>
+
+  <h3><code><a name="queue::pop">queue::pop</a></code></h3>
+  <pre>
+void <b>pop</b>();
+</pre>
+
+  <p>The member function removes the first element of the controlled sequence, which must be non-empty.</p>
+
+  <h3><code><a name="queue::push">queue::push</a></code></h3>
+  <pre>
+void <b>push</b>(const Ty&amp; val);
+void <b>push</b>(value_type&amp;&amp; val); <b>[added with C++0X]</b>
+</pre>
+
+  <p>The first member function inserts an element with value <code>val</code> at the end of the controlled
+  sequence.</p>
+
+  <p>The second member functions is the same as the first, but with an <a href=
+  "lib_cpp.html#rvalue%20references">rvalue reference</a>.</p>
+
+  <h3><code><a name="queue::queue">queue::queue</a></code></h3>
+  <pre>
+<b>queue</b>();
+explicit <b>queue</b>(const container_type&amp; cont);
+<b>queue</b>(queue&amp;&amp; right); <b>[added with C++0X]</b>
+explicit <b>queue</b>(container_type&amp;&amp; cont); <b>[added with C++0X]</b>
+</pre>
+
+  <p>The first constructor initializes the stored object with <code><a href="#queue::c">c</a>()</code>, to
+  specify an empty initial controlled sequence. The second constructor initializes the stored object with
+  <code><a href="#queue::c">c</a>(cont)</code>, to specify an initial controlled sequence that is a copy of
+  the sequence controlled by <code>cont</code>.</p>
+
+  <p>The third constructor is a move constructor, and the fourth is the same as the second but with an
+  <a href="lib_cpp.html#rvalue%20references">rvalue reference</a>.</p>
+
+  <h3><code><a name="queue::reference">queue::reference</a></code></h3>
+  <pre>
+typedef typename Container::reference <b>reference</b>;
+</pre>
+
+  <p>The type is a synonym for <code>Container::reference</code>.</p>
+
+  <h3><code><a name="queue::size">queue::size</a></code></h3>
+  <pre>
+size_type <b>size</b>() const;
+</pre>
+
+  <p>The member function returns the length of the controlled sequence.</p>
+
+  <h3><code><a name="queue::size_type">queue::size_type</a></code></h3>
+  <pre>
+typedef typename Container::size_type <b>size_type</b>;
+</pre>
+
+  <p>The type is a synonym for <code>Container::size_type</code>.</p>
+
+  <h3><code><a name="queue::swap">queue::swap</a></code></h3>
+  <pre>
+void <b>swap</b>(queue&amp;&amp; right); <b>[added with C++0X]</b>
+</pre>
+
+  <p>The template function swaps <code>right</code> with <code>*this</code>.</p>
+
+  <h3><code><a name="queue::value_type">queue::value_type</a></code></h3>
+  <pre>
+typedef typename Container::value_type <b>value_type</b>;
+</pre>
+
+  <p>The type is a synonym for <code>Container::value_type</code>.</p>
+
+  <h2><code><a name="swap">swap</a></code></h2>
+  <pre>
+template&lt;class Ty, class Container&gt;
+    bool <b>swap</b>(queue&lt;Ty, Container&gt;&amp; left,
+        queue&lt;Ty, Container&gt;&amp;); <b>[added with C++0X]</b>
+template&lt;class Ty, class Container, class Pr&gt;
+    bool <b>swap</b>(priority_queue&lt;Ty, Container, Pr&gt;&amp; left,
+        priority_queue&lt;Ty, Container, Pr&gt;&amp;); <b>[added with C++0X]</b>
+</pre>
+
+  <p>The template function executes <code>left.<a href="#queue::swap">swap</a>(right)</code>.</p>
+  <hr>
+
+  <p>See also the <b><a href="index.html#Table%20of%20Contents">Table of Contents</a></b> and the <b><a href=
+  "_index.html">Index</a></b>.</p>
+
+  <p><i><a href="crit_pjp.html">Copyright</a> &copy; 1992-2010 by P.J. Plauger. Portions derived from work
+  <a href="crit_hp.html">copyright</a> &copy; 1994 by Hewlett-Packard Company. All rights reserved.</i></p>
+  <!--V5.30:126I-->
+</body>
+</html>

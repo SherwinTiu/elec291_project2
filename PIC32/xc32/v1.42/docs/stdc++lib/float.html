@@ -1,0 +1,341 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html>
+<head>
+  <meta name="generator" content=
+  "HTML Tidy for Mac OS X (vers 31 October 2006 - Apple Inc. build 15.15), see www.w3.org">
+
+  <title>&lt;float.h&gt;</title>
+</head>
+
+<body>
+  <h1><a name="&lt;float.h&gt;"><code>&lt;float.h&gt;</code></a></h1>
+  <hr>
+
+  <p>Include the standard header <b><code>&lt;float.h&gt;</code></b> to determine various properties of
+  floating-point type representations. The standard header <code>&lt;float.h&gt;</code> is available even in
+  a <a href="lib_over.html#freestanding%20implementation">freestanding implementation</a>.</p>
+
+  <p>You can test the values of any of the integer macros except <a href=
+  "#FLT_ROUNDS"><code>FLT_ROUNDS</code></a> in an <a href="preproc.html#if%20directive"><i>if</i>
+  directive</a>. (The macros expand to <a href="preproc.html#if%20expression"><i>#if</i> expressions</a>.)
+  All other macros defined in this header expand to <a href=
+  "express.html#floating-point%20constant%20expression">floating-point constant expressions</a>.</p>
+
+  <p>Some target environments can change the rounding and error-reporting properties of floating-point type
+  representations while the program is running.</p>
+  <pre>
+#define <a href="#FLT_RADIX"><b>FLT_RADIX</b></a> <i>&lt;#if expression &gt;= 2&gt;</i>
+#define <a href="#FLT_ROUNDS"><b>FLT_ROUNDS</b></a> <i>&lt;integer rvalue&gt;</i>
+#define <a href=
+"#FLT_EVAL_METHOD"><b>FLT_EVAL_METHOD</b></a> <i>&lt;#if expression&gt;</i> <b>[added with C99]</b>
+#define <a href=
+"#DECIMAL_DIG"><b>DECIMAL_DIG</b></a> <i>&lt;#if expression&gt; &gt;= 10</i> <b>[added with C99]</b>
+
+#define <a href="#DBL_DIG"><b>DBL_DIG</b></a> <i>&lt;#if expression &gt;= 10&gt;</i>
+#define <a href="#DBL_EPSILON"><b>DBL_EPSILON</b></a> <i>&lt;double constant &lt;= 10^(-9)&gt;</i>
+#define <a href="#DBL_MANT_DIG"><b>DBL_MANT_DIG</b></a> <i>&lt;#if expression&gt;</i>
+#define <a href="#DBL_MAX"><b>DBL_MAX</b></a> <i>&lt;double constant &gt;= 10^37&gt;</i>
+#define <a href="#DBL_MAX_10_EXP"><b>DBL_MAX_10_EXP</b></a> <i>&lt;#if expression &gt;= 37&gt;</i>
+#define <a href="#DBL_MAX_EXP"><b>DBL_MAX_EXP</b></a> <i>&lt;#if expression&gt;</i>
+#define <a href="#DBL_MIN"><b>DBL_MIN</b></a> <i>&lt;double constant &lt;= 10^(-37)&gt;</i>
+#define <a href="#DBL_MIN_10_EXP"><b>DBL_MIN_10_EXP</b></a> <i>&lt;#if expression &lt;= -37&gt;</i>
+#define <a href="#DBL_MIN_EXP"><b>DBL_MIN_EXP</b></a> <i>&lt;#if expression&gt;</i>
+
+#define <a href="#FLT_DIG"><b>FLT_DIG</b></a> <i>&lt;#if expression &gt;= 6&gt;</i>
+#define <a href="#FLT_EPSILON"><b>FLT_EPSILON</b></a> <i>&lt;float constant &lt;= 10^(-5)&gt;</i>
+#define <a href="#FLT_MANT_DIG"><b>FLT_MANT_DIG</b></a> <i>&lt;#if expression&gt;</i>
+#define <a href="#FLT_MAX"><b>FLT_MAX</b></a> <i>&lt;float constant &gt;= 10^37&gt;</i>
+#define <a href="#FLT_MAX_10_EXP"><b>FLT_MAX_10_EXP</b></a> <i>&lt;#if expression &gt;= 37&gt;</i>
+#define <a href="#FLT_MAX_EXP"><b>FLT_MAX_EXP</b></a> <i>&lt;#if expression&gt;</i>
+#define <a href="#FLT_MIN"><b>FLT_MIN</b></a> <i>&lt;float constant &lt;= 10^(-37)&gt;</i>
+#define <a href="#FLT_MIN_10_EXP"><b>FLT_MIN_10_EXP</b></a> <i>&lt;#if expression &lt;= -37&gt;</i>
+#define <a href="#FLT_MIN_EXP"><b>FLT_MIN_EXP</b></a> <i>&lt;#if expression&gt;</i>
+
+#define <a href="#LDBL_DIG"><b>LDBL_DIG</b></a> <i>&lt;#if expression &gt;= 10&gt;</i>
+#define <a href="#LDBL_EPSILON"><b>LDBL_EPSILON</b></a> <i>&lt;long double constant &lt;= 10^(-9)&gt;</i>
+#define <a href="#LDBL_MANT_DIG"><b>LDBL_MANT_DIG</b></a> <i>&lt;#if expression&gt;</i>
+#define <a href="#LDBL_MAX"><b>LDBL_MAX</b></a> <i>&lt;long double constant &gt;= 10^37&gt;</i>
+#define <a href="#LDBL_MAX_10_EXP"><b>LDBL_MAX_10_EXP</b></a> <i>&lt;#if expression &gt;= 37&gt;</i>
+#define <a href="#LDBL_MAX_EXP"><b>LDBL_MAX_EXP</b></a> <i>&lt;#if expression&gt;</i>
+#define <a href="#LDBL_MIN"><b>LDBL_MIN</b></a> <i>&lt;long double constant &lt;= 10^(-37)&gt;</i>
+#define <a href="#LDBL_MIN_10_EXP"><b>LDBL_MIN_10_EXP</b></a> <i>&lt;#if expression &lt;= -37&gt;</i>
+#define <a href="#LDBL_MIN_EXP"><b>LDBL_MIN_EXP</b></a> <i>&lt;#if expression&gt;</i>
+</pre>
+
+  <h2><a name="DBL_DIG"><code>DBL_DIG</code></a></h2>
+  <pre>
+#define <b>DBL_DIG</b> <i>&lt;#if expression &gt;= 10&gt;</i>
+</pre>
+
+  <p>The macro yields the precision in decimal digits for type <i>double.</i></p>
+
+  <h2><a name="DBL_EPSILON"><code>DBL_EPSILON</code></a></h2>
+  <pre>
+#define <b>DBL_EPSILON</b> <i>&lt;double constant &lt;= 10^(-9)&gt;</i>
+</pre>
+
+  <p>The macro yields the smallest <i>X</i> of type <i>double</i> such that 1.0 + <i>X</i> != 1.0.</p>
+
+  <h2><a name="DBL_MANT_DIG"><code>DBL_MANT_DIG</code></a></h2>
+  <pre>
+#define <b>DBL_MANT_DIG</b> <i>&lt;#if expression&gt;</i>
+</pre>
+
+  <p>The macro yields the number of mantissa digits, base <a href="#FLT_RADIX"><code>FLT_RADIX</code></a>,
+  for type <i>double.</i></p>
+
+  <h2><a name="DBL_MAX"><code>DBL_MAX</code></a></h2>
+  <pre>
+#define <b>DBL_MAX</b> <i>&lt;double constant &gt;= 10^37&gt;</i>
+</pre>
+
+  <p>The macro yields the largest finite representable value of type <i>double.</i></p>
+
+  <h2><a name="DBL_MAX_10_EXP"><code>DBL_MAX_10_EXP</code></a></h2>
+  <pre>
+#define <b>DBL_MAX_10_EXP</b> <i>&lt;#if expression &gt;= 37&gt;</i>
+</pre>
+
+  <p>The macro yields the maximum integer <i>X,</i> such that 10^<i>X</i> is a finite representable value of
+  type <i>double.</i></p>
+
+  <h2><a name="DBL_MAX_EXP"><code>DBL_MAX_EXP</code></a></h2>
+  <pre>
+#define <b>DBL_MAX_EXP</b> <i>&lt;#if expression&gt;</i>
+</pre>
+
+  <p>The macro yields the maximum integer <i>X,</i> such that <a href=
+  "#FLT_RADIX"><code>FLT_RADIX</code></a>^(<i>X</i> - 1) is a finite representable value of type
+  <i>double.</i></p>
+
+  <h2><a name="DBL_MIN"><code>DBL_MIN</code></a></h2>
+  <pre>
+#define <b>DBL_MIN</b> <i>&lt;double constant &lt;= 10^(-37)&gt;</i>
+</pre>
+
+  <p>The macro yields the smallest normalized, finite representable value of type <i>double.</i></p>
+
+  <h2><a name="DBL_MIN_10_EXP"><code>DBL_MIN_10_EXP</code></a></h2>
+  <pre>
+#define <b>DBL_MIN_10_EXP</b> <i>&lt;#if expression &lt;= -37&gt;</i>
+</pre>
+
+  <p>The macro yields the minimum integer <i>X</i> such that 10^<i>X</i> is a normalized, finite
+  representable value of type <i>double.</i></p>
+
+  <h2><a name="DBL_MIN_EXP"><code>DBL_MIN_EXP</code></a></h2>
+  <pre>
+#define <b>DBL_MIN_EXP</b> <i>&lt;#if expression&gt;</i>
+</pre>
+
+  <p>The macro yields the minimum integer <i>X</i> such that <a href=
+  "#FLT_RADIX"><code>FLT_RADIX</code></a>^(<i>X</i> - 1) is a normalized, finite representable value of type
+  <i>double.</i></p>
+
+  <h2><a name="DECIMAL_DIG"><code>DECIMAL_DIG</code></a></h2>
+  <pre>
+#define <b>DECIMAL_DIG</b> <i>&lt;#if expression &gt;= 10&gt;</i> <b>[added with C99]</b>
+</pre>
+
+  <p>The macro yields the minimum number of decimal digits needed to represent all the significant digits for
+  type <i>long double.</i></p>
+
+  <h2><a name="FLT_DIG"><code>FLT_DIG</code></a></h2>
+  <pre>
+#define <b>FLT_DIG</b> <i>&lt;#if expression &gt;= 6&gt;</i>
+</pre>
+
+  <p>The macro yields the precision in decimal digits for type <i>float.</i></p>
+
+  <h2><a name="FLT_EPSILON"><code>FLT_EPSILON</code></a></h2>
+  <pre>
+#define <b>FLT_EPSILON</b> <i>&lt;float constant &lt;= 10^(-5)&gt;</i>
+</pre>
+
+  <p>The macro yields the smallest <i>X</i> of type <i>float</i> such that 1.0 + <i>X</i> != 1.0.</p>
+
+  <h2><a name="FLT_EVAL_METHOD"><code>FLT_EVAL_METHOD</code></a></h2>
+  <pre>
+#define <b>FLT_EVAL_METHOD</b> <i>&lt;#if expression&gt;</i> <b>[added with C99]</b>
+</pre>
+
+  <p>The macro yields a value that describes the evaluation mode for floating-point operations. The values
+  are:</p>
+
+  <ul>
+    <li>-1 if the mode is indeterminate</li>
+
+    <li>0 if no promotions occur</li>
+
+    <li>1 if <i>float</i> values promote to <i>double</i></li>
+
+    <li>2 if <i>float</i> and <i>double</i> values promote to <i>long double</i></li>
+  </ul>
+
+  <p>An implementation can define additional negative values for this macro.</p>
+
+  <h2><a name="FLT_MANT_DIG"><code>FLT_MANT_DIG</code></a></h2>
+  <pre>
+#define <b>FLT_MANT_DIG</b> <i>&lt;#if expression&gt;</i>
+</pre>
+
+  <p>The macro yields the number of mantissa digits, base <a href="#FLT_RADIX"><code>FLT_RADIX</code></a>,
+  for type <i>float.</i></p>
+
+  <h2><a name="FLT_MAX"><code>FLT_MAX</code></a></h2>
+  <pre>
+#define <b>FLT_MAX</b> <i>&lt;float constant &gt;= 10^37&gt;</i>
+</pre>
+
+  <p>The macro yields the largest finite representable value of type <i>float.</i></p>
+
+  <h2><a name="FLT_MAX_10_EXP"><code>FLT_MAX_10_EXP</code></a></h2>
+  <pre>
+#define <b>FLT_MAX_10_EXP</b> <i>&lt;#if expression &gt;= 37&gt;</i>
+</pre>
+
+  <p>The macro yields the maximum integer <i>X,</i> such that 10^<i>X</i> is a finite representable value of
+  type <i>float.</i></p>
+
+  <h2><a name="FLT_MAX_EXP"><code>FLT_MAX_EXP</code></a></h2>
+  <pre>
+#define <b>FLT_MAX_EXP</b> <i>&lt;#if expression&gt;</i>
+</pre>
+
+  <p>The macro yields the maximum integer <i>X,</i> such that <a href=
+  "#FLT_RADIX"><code>FLT_RADIX</code></a>^(<i>X</i> - 1) is a finite representable value of type
+  <i>float.</i></p>
+
+  <h2><a name="FLT_MIN"><code>FLT_MIN</code></a></h2>
+  <pre>
+#define <b>FLT_MIN</b> <i>&lt;float constant &lt;= 10^(-37)&gt;</i>
+</pre>
+
+  <p>The macro yields the smallest normalized, finite representable value of type <i>float.</i></p>
+
+  <h2><a name="FLT_MIN_10_EXP"><code>FLT_MIN_10_EXP</code></a></h2>
+  <pre>
+#define <b>FLT_MIN_10_EXP</b> <i>&lt;#if expression &lt;= -37&gt;</i>
+</pre>
+
+  <p>The macro yields the minimum integer <i>X,</i> such that 10^<i>X</i> is a normalized, finite
+  representable value of type <i>float.</i></p>
+
+  <h2><a name="FLT_MIN_EXP"><code>FLT_MIN_EXP</code></a></h2>
+  <pre>
+#define <b>FLT_MIN_EXP</b> <i>&lt;#if expression&gt;</i>
+</pre>
+
+  <p>The macro yields the minimum integer <i>X,</i> such that <a href=
+  "#FLT_RADIX"><code>FLT_RADIX</code></a>^(<i>X</i> - 1) is a normalized, finite representable value of type
+  <i>float.</i></p>
+
+  <h2><a name="FLT_RADIX"><code>FLT_RADIX</code></a></h2>
+  <pre>
+#define <b>FLT_RADIX</b> <i>&lt;#if expression &gt;= 2&gt;</i>
+</pre>
+
+  <p>The macro yields the radix of all floating-point representations.</p>
+
+  <h2><a name="FLT_ROUNDS"><code>FLT_ROUNDS</code></a></h2>
+  <pre>
+#define <b>FLT_ROUNDS</b> <i>&lt;integer rvalue&gt;</i>
+</pre>
+
+  <p>The macro yields a value that describes the current rounding mode for floating-point operations. Note
+  that the target environment can change the rounding mode while the program executes. How it does so,
+  however, is not specified. The values are:</p>
+
+  <ul>
+    <li>-1 if the mode is indeterminate</li>
+
+    <li>0 if rounding is toward zero</li>
+
+    <li>1 if rounding is to nearest representable value</li>
+
+    <li>2 if rounding is toward positive infinity</li>
+
+    <li>3 if rounding is toward negative infinity</li>
+  </ul>
+
+  <p>An implementation can define additional values for this macro.</p>
+
+  <h2><a name="LDBL_DIG"><code>LDBL_DIG</code></a></h2>
+  <pre>
+#define <b>LDBL_DIG</b> <i>&lt;#if expression &gt;= 10&gt;</i>
+</pre>
+
+  <p>The macro yields the precision in decimal digits for type <i>long double.</i></p>
+
+  <h2><a name="LDBL_EPSILON"><code>LDBL_EPSILON</code></a></h2>
+  <pre>
+#define <b>LDBL_EPSILON</b> <i>&lt;long double constant &lt;= 10^(-9)&gt;</i>
+</pre>
+
+  <p>The macro yields the smallest <i>X</i> of type <i>long double</i> such that 1.0 + <i>X</i> != 1.0.</p>
+
+  <h2><a name="LDBL_MANT_DIG"><code>LDBL_MANT_DIG</code></a></h2>
+  <pre>
+#define <b>LDBL_MANT_DIG</b> <i>&lt;#if expression&gt;</i>
+</pre>
+
+  <p>The macro yields the number of mantissa digits, base <a href="#FLT_RADIX"><code>FLT_RADIX</code></a>,
+  for type <i>long double.</i></p>
+
+  <h2><a name="LDBL_MAX"><code>LDBL_MAX</code></a></h2>
+  <pre>
+#define <b>LDBL_MAX</b> <i>&lt;long double constant &gt;= 10^37&gt;</i>
+</pre>
+
+  <p>The macro yields the largest finite representable value of type <i>long double.</i></p>
+
+  <h2><a name="LDBL_MAX_10_EXP"><code>LDBL_MAX_10_EXP</code></a></h2>
+  <pre>
+#define <b>LDBL_MAX_10_EXP</b> <i>&lt;#if expression &gt;= 37&gt;</i>
+</pre>
+
+  <p>The macro yields the maximum integer <i>X,</i> such that 10^<i>X</i> is a finite representable value of
+  type <i>long double.</i></p>
+
+  <h2><a name="LDBL_MAX_EXP"><code>LDBL_MAX_EXP</code></a></h2>
+  <pre>
+#define <b>LDBL_MAX_EXP</b> <i>&lt;#if expression&gt;</i>
+</pre>
+
+  <p>The macro yields the maximum integer <i>X,</i> such that <a href=
+  "#FLT_RADIX"><code>FLT_RADIX</code></a>^(<i>X</i> - 1) is a finite representable value of type <i>long
+  double.</i></p>
+
+  <h2><a name="LDBL_MIN"><code>LDBL_MIN</code></a></h2>
+  <pre>
+#define <b>LDBL_MIN</b> <i>&lt;long double constant &lt;= 10^(-37)&gt;</i>
+</pre>
+
+  <p>The macro yields the smallest normalized, finite representable value of type <i>long double.</i></p>
+
+  <h2><a name="LDBL_MIN_10_EXP"><code>LDBL_MIN_10_EXP</code></a></h2>
+  <pre>
+#define <b>LDBL_MIN_10_EXP</b> <i>&lt;#if expression &lt;= -37&gt;</i>
+</pre>
+
+  <p>The macro yields the minimum integer <i>X,</i> such that 10^<i>X</i> is a normalized, finite
+  representable value of type <i>long double.</i></p>
+
+  <h2><a name="LDBL_MIN_EXP"><code>LDBL_MIN_EXP</code></a></h2>
+  <pre>
+#define <b>LDBL_MIN_EXP</b> <i>&lt;#if expression&gt;</i>
+</pre>
+
+  <p>The macro yields the minimum integer <i>X,</i> such that <a href=
+  "#FLT_RADIX"><code>FLT_RADIX</code></a>^(<i>X</i> - 1) is a normalized, finite representable value of type
+  <i>long double.</i></p>
+  <hr>
+
+  <p>See also the <b><a href="index.html#Table%20of%20Contents">Table of Contents</a></b> and the <b><a href=
+  "_index.html">Index</a></b>.</p>
+
+  <p><i><a href="crit_pjp.html">Copyright</a> &copy; 1992-2010 by P.J. Plauger and Jim Brodie. All rights
+  reserved.</i></p><!--V5.30:126I-->
+</body>
+</html>

@@ -1,0 +1,1500 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html>
+<head>
+  <meta name="generator" content=
+  "HTML Tidy for Mac OS X (vers 31 October 2006 - Apple Inc. build 15.15), see www.w3.org">
+
+  <title>&lt;map&gt;</title>
+</head>
+
+<body>
+  <h1><a name="&lt;map&gt;"><code>&lt;map&gt;</code></a></h1>
+  <hr>
+
+  <p>Include the <a href="index.html#STL">STL</a> standard header <b><code>&lt;map&gt;</code></b> to define
+  the <a href="lib_cont.html#Containers">container</a> template classes <code>map</code> and
+  <code>multimap</code>, and their supporting templates.</p>
+  <pre>
+namespace std {
+template&lt;class Key, class Ty, class Pr, class Alloc&gt;
+    class <b><a href="#map">map</a></b>;
+template&lt;class Key, class Ty, class Pr, class Alloc&gt;
+    class <b><a href="#multimap">multimap</a></b>;
+
+        // TEMPLATE FUNCTIONS
+template&lt;class Key, class Ty, class Pr, class Alloc&gt;
+    bool <b><a href="#operator==">operator==</a></b>(
+        const map&lt;Key, Ty, Pr, Alloc&gt;&amp; left,
+        const map&lt;Key, Ty, Pr, Alloc&gt;&amp; right);
+template&lt;class Key, class Ty, class Pr, class Alloc&gt;
+    bool <b><a href="#operator==">operator==</a></b>(
+        const multimap&lt;Key, Ty, Pr, Alloc&gt;&amp; left,
+        const multimap&lt;Key, Ty, Pr, Alloc&gt;&amp; right);
+template&lt;class Key, class Ty, class Pr, class Alloc&gt;
+    bool <b><a href="#operator!=">operator!=</a></b>(
+        const map&lt;Key, Ty, Pr, Alloc&gt;&amp; left,
+        const map&lt;Key, Ty, Pr, Alloc&gt;&amp; right);
+template&lt;class Key, class Ty, class Pr, class Alloc&gt;
+    bool <b><a href="#operator!=">operator!=</a></b>(
+        const multimap&lt;Key, Ty, Pr, Alloc&gt;&amp; left,
+        const multimap&lt;Key, Ty, Pr, Alloc&gt;&amp; right);
+template&lt;class Key, class Ty, class Pr, class Alloc&gt;
+    bool <b><a href="#operator%3C">operator&lt;</a></b>(
+        const map&lt;Key, Ty, Pr, Alloc&gt;&amp; left,
+        const map&lt;Key, Ty, Pr, Alloc&gt;&amp; right);
+template&lt;class Key, class Ty, class Pr, class Alloc&gt;
+    bool <b><a href="#operator%3C">operator&lt;</a></b>(
+        const multimap&lt;Key, Ty, Pr, Alloc&gt;&amp; left,
+        const multimap&lt;Key, Ty, Pr, Alloc&gt;&amp; right);
+template&lt;class Key, class Ty, class Pr, class Alloc&gt;
+    bool <b><a href="#operator%3E">operator&gt;</a></b>(
+        const map&lt;Key, Ty, Pr, Alloc&gt;&amp; left,
+        const map&lt;Key, Ty, Pr, Alloc&gt;&amp; right);
+template&lt;class Key, class Ty, class Pr, class Alloc&gt;
+    bool <b><a href="#operator%3E">operator&gt;</a></b>(
+        const multimap&lt;Key, Ty, Pr, Alloc&gt;&amp; left,
+        const multimap&lt;Key, Ty, Pr, Alloc&gt;&amp; right);
+template&lt;class Key, class Ty, class Pr, class Alloc&gt;
+    bool <b><a href="#operator%3C=">operator&lt;=</a></b>(
+        const map&lt;Key, Ty, Pr, Alloc&gt;&amp; left,
+        const map&lt;Key, Ty, Pr, Alloc&gt;&amp; right);
+template&lt;class Key, class Ty, class Pr, class Alloc&gt;
+    bool <b><a href="#operator%3C=">operator&lt;=</a></b>(
+        const multimap&lt;Key, Ty, Pr, Alloc&gt;&amp; left,
+        const multimap&lt;Key, Ty, Pr, Alloc&gt;&amp; right);
+template&lt;class Key, class Ty, class Pr, class Alloc&gt;
+    bool <b><a href="#operator%3E=">operator&gt;=</a></b>(
+        const map&lt;Key, Ty, Pr, Alloc&gt;&amp; left,
+        const map&lt;Key, Ty, Pr, Alloc&gt;&amp; right);
+template&lt;class Key, class Ty, class Pr, class Alloc&gt;
+    bool <b><a href="#operator%3E=">operator&gt;=</a></b>(
+        const multimap&lt;Key, Ty, Pr, Alloc&gt;&amp; left,
+        const multimap&lt;Key, Ty, Pr, Alloc&gt;&amp; right);
+
+template&lt;class Key, class Ty, class Pr, class Alloc&gt;
+    void <b><a href="#swap">swap</a></b>(
+        map&lt;Key, Ty, Pr, Alloc&gt;&amp; left,
+        map&lt;Key, Ty, Pr, Alloc&gt;&amp; right);
+template&lt;class Key, class Ty, class Pr, class Alloc&gt;
+    void <b><a href="#swap">swap</a></b>(
+        multimap&lt;Key, Ty, Pr, Alloc&gt;&amp; left,
+        multimap&lt;Key, Ty, Pr, Alloc&gt;&amp; right);
+}  // namespace std
+</pre>
+
+  <h2><a name="map"><code>map</code></a></h2>
+  <hr>
+
+  <p><b><code><a href="#map::allocator_type">allocator_type</a> &middot; <a href="#map::at">at</a> &middot;
+  <a href="#map::begin">begin</a> &middot; <a href="#map::cbegin">cbegin</a> &middot; <a href=
+  "#map::cend">cend</a> &middot; <a href="#map::clear">clear</a> &middot; <a href=
+  "#map::const_iterator">const_iterator</a> &middot; <a href="#map::const_pointer">const_pointer</a> &middot;
+  <a href="#map::const_reference">const_reference</a> &middot; <a href=
+  "#map::const_reverse_iterator">const_reverse_iterator</a> &middot; <a href="#map::count">count</a> &middot;
+  <a href="#map::crbegin">crbegin</a> &middot; <a href="#map::crend">crend</a> &middot; <a href=
+  "#map::difference_type">difference_type</a> &middot; <a href="#map::emplace">emplace</a> &middot; <a href=
+  "#map::emplace_hint">emplace_hint</a> &middot; <a href="#map::empty">empty</a> &middot; <a href=
+  "#map::end">end</a> &middot; <a href="#map::equal_range">equal_range</a> &middot; <a href=
+  "#map::erase">erase</a> &middot; <a href="#map::find">find</a> &middot; <a href=
+  "#map::get_allocator">get_allocator</a> &middot; <a href="#map::insert">insert</a> &middot; <a href=
+  "#map::iterator">iterator</a> &middot; <a href="#map::key_comp">key_comp</a> &middot; <a href=
+  "#map::key_compare">key_compare</a> &middot; <a href="#map::key_type">key_type</a> &middot; <a href=
+  "#map::lower_bound">lower_bound</a> &middot; <a href="#map::map">map</a> &middot; <a href=
+  "#map::mapped_type">mapped_type</a> &middot; <a href="#map::max_size">max_size</a> &middot; <a href=
+  "#map::operator=">operator=</a> &middot; <a href="#map::operator[]">operator[]</a> &middot; <a href=
+  "#map::pointer">pointer</a> &middot; <a href="#map::rbegin">rbegin</a> &middot; <a href=
+  "#map::reference">reference</a> &middot; <a href="#map::rend">rend</a> &middot; <a href=
+  "#map::reverse_iterator">reverse_iterator</a> &middot; <a href="#map::size">size</a> &middot; <a href=
+  "#map::size_type">size_type</a> &middot; <a href="#map::swap">swap</a> &middot; <a href=
+  "#map::upper_bound">upper_bound</a> &middot; <a href="#map::value_comp">value_comp</a> &middot; <a href=
+  "#map::value_compare">value_compare</a> &middot; <a href="#map::value_type">value_type</a></code></b></p>
+  <hr>
+  <pre>
+template&lt;class Key, class Ty, class Pr = less&lt;Key&gt;,
+    class Alloc = allocator&lt;pair&lt;const Key, Ty&gt; &gt; &gt;
+    class <b>map</b> {
+public:
+    typedef Key <b><a href="#map::key_type">key_type</a></b>;
+    typedef Ty <b><a href="#map::mapped_type">mapped_type</a></b>;
+    typedef Pr <b><a href="#map::key_compare">key_compare</a></b>;
+    typedef Alloc <b><a href="#map::allocator_type">allocator_type</a></b>;
+    typedef pair&lt;const Key, Ty&gt; <b><a href="#map::value_type">value_type</a></b>;
+    class <b><a href="#map::value_compare">value_compare</a></b>;
+    typedef typename Alloc::pointer <b><a href="#map::pointer">pointer</a></b>;
+    typedef typename Alloc::const_pointer <b><a href="#map::const_pointer">const_pointer</a></b>;
+    typedef typename Alloc::reference <b><a href="#map::reference">reference</a></b>;
+    typedef typename Alloc::const_reference <b><a href="#map::const_reference">const_reference</a></b>;
+    typedef typename Alloc::size_type <b><a href="#map::size_type">size_type</a></b>;
+    typedef typename Alloc::difference_type <b><a href="#map::difference_type">difference_type</a></b>;
+
+    typedef T0 <b><a href="#map::iterator">iterator</a></b>;
+    typedef T1 <b><a href="#map::const_iterator">const_iterator</a></b>;
+    typedef reverse_iterator&lt;const_iterator&gt;
+        <b><a href="#map::const_reverse_iterator">const_reverse_iterator</a></b>;
+    typedef reverse_iterator&lt;iterator&gt; <b><a href="#map::reverse_iterator">reverse_iterator</a></b>;
+
+    <b><a href="#map::map">map</a></b>();
+    explicit <b><a href="#map::map">map</a></b>(const Pr&amp; pred);
+    <b><a href="#map::map">map</a></b>(const Pr&amp; pred, const Alloc&amp; al);
+    <b><a href="#map::map">map</a></b>(const map&amp; right);
+    template&lt;class InIt&gt;
+        <b><a href="#map::map">map</a></b>(InIt first, InIt last);
+    template&lt;class InIt&gt;
+        <b><a href="#map::map">map</a></b>(InIt first, InIt last,
+            const Pr&amp; pred);
+    template&lt;class InIt&gt;
+        <b><a href="#map::map">map</a></b>(InIt first, InIt last,
+        const Pr&amp; pred, const Alloc&amp; al);
+
+    <b><a href="#map::map">map</a></b>(initializer_list&lt;Ty&gt; init) <b>[added with C++0X]</b>
+    <b><a href="#map::map">map</a></b>(initializer_list&lt;Ty&gt; init,
+        const Pr&amp; pred); <b>[added with C++0X]</b>
+    <b><a href="#map::map">map</a></b>(initializer_list&lt;Ty&gt; init,
+        const Pr&amp; pred, const Alloc&amp; al); <b>[added with C++0X]</b>
+    <b><a href="#map::map">map</a></b>(map&amp;&amp; right); <b>[added with C++0X]</b>
+
+    map&amp; <b><a href="#map::operator=">operator=</a></b>(const map&amp; right);
+    map&amp; <b><a href=
+"#map::operator=">operator=</a></b>(initializer_list&lt;Ty&gt; init) <b>[added with C++0X]</b>
+    map&amp; <b><a href="#map::operator=">operator=</a></b>(map&amp;&amp; right); <b>[added with C++0X]</b>
+
+    iterator <b><a href="#map::begin">begin</a></b>();
+    const_iterator <b><a href="#map::begin">begin</a></b>() const;
+    iterator <b><a href="#map::end">end</a></b>();
+    const_iterator <b><a href="#map::end">end</a></b>() const;
+    reverse_iterator <b><a href="#map::rbegin">rbegin</a></b>();
+    const_reverse_iterator <b><a href="#map::rbegin">rbegin</a></b>() const;
+    reverse_iterator <b><a href="#map::rend">rend</a></b>();
+    const_reverse_iterator <b><a href="#map::rend">rend</a></b>() const;
+
+    const_iterator <b><a href="#map::cbegin">cbegin</a></b>() const; <b>[added with C++0X]</b>
+    const_iterator <b><a href="#map::cend">cend</a></b>() const; <b>[added with C++0X]</b>
+    const_reverse_iterator <b><a href="#map::crbegin">crbegin</a></b>() const; <b>[added with C++0X]</b>
+    const_reverse_iterator <b><a href="#map::crend">crend</a></b>() const; <b>[added with C++0X]</b>
+
+    size_type <b><a href="#map::size">size</a></b>() const;
+    size_type <b><a href="#map::max_size">max_size</a></b>() const;
+    bool <b><a href="#map::empty">empty</a></b>() const;
+    Alloc <b><a href="#map::get_allocator">get_allocator</a></b>() const;
+
+    mapped_type&amp; <b><a href="#map::operator[]">operator[]</a></b>(const Key&amp; keyval);
+    mapped_type&amp; <b><a href=
+"#map::operator[]">operator[]</a></b>(Key&amp;&amp; keyval); <b>[added with C++0X]</b>
+
+    mapped_type&amp; <b><a href="#map::at">at</a></b>(const Key&amp; keyval); <b>[added with C++0X]</b>
+    const mapped_type&amp; <b><a href=
+"#map::at">at</a></b>(const Key&amp; keyval); const <b>[added with C++0X]</b>
+
+    pair&lt;iterator, bool&gt; <b><a href="#map::insert">insert</a></b>(const value_type&amp; val);
+    iterator <b><a href="#map::insert">insert</a></b>(const_iterator where, const value_type&amp; val);
+    template&lt;class InIt&gt;
+        void <b><a href="#map::insert">insert</a></b>(InIt first, InIt last);
+    void <b><a href="#map::insert">insert</a></b>(initializer_list&lt;Ty&gt; init) <b>[added with C++0X]</b>
+    template&lt;class Valty&gt;
+        pair&lt;iterator, bool&gt; <b><a href=
+"#map::insert">insert</a></b>(Valty&amp;&amp; val); <b>[added with C++0X]</b>
+    template&lt;class Valty&gt;
+        iterator <b><a href=
+"#map::insert">insert</a></b>(const_iterator where, Valty&amp;&amp; val); <b>[added with C++0X]</b>
+
+    template&lt;class... Valty&gt;
+        pair&lt;iterator, bool&gt; <b><a href=
+"#map::emplace">emplace</a></b>(Valty&amp;&amp;... val); <b>[added with C++0X]</b>
+    template&lt;class... Valty&gt;
+        iterator <b><a href=
+"#map::emplace_hint">emplace_hint</a></b>(const_iterator where, Valty&amp;&amp;... val); <b>[added with C++0X]</b>
+
+    iterator <b><a href="#map::erase">erase</a></b>(const_iterator where);
+    iterator <b><a href="#map::erase">erase</a></b>(const_iterator first, const_iterator last);
+    size_type <b><a href="#map::erase">erase</a></b>(const Key&amp; keyval);
+    void <b><a href="#map::clear">clear</a></b>();
+
+    void <b><a href="#map::swap">swap</a></b>(map&amp; right);
+
+    key_compare <b><a href="#map::key_comp">key_comp</a></b>() const;
+    value_compare <b><a href="#map::value_comp">value_comp</a></b>() const;
+
+    iterator <b><a href="#map::find">find</a></b>(const Key&amp; keyval);
+    const_iterator <b><a href="#map::find">find</a></b>(const Key&amp; keyval) const;
+    size_type <b><a href="#map::count">count</a></b>(const Key&amp; keyval) const;
+    iterator <b><a href="#map::lower_bound">lower_bound</a></b>(const Key&amp; keyval);
+    const_iterator <b><a href="#map::lower_bound">lower_bound</a></b>(const Key&amp; keyval) const;
+    iterator <b><a href="#map::upper_bound">upper_bound</a></b>(const Key&amp; keyval);
+    const_iterator <b><a href="#map::upper_bound">upper_bound</a></b>(const Key&amp; keyval) const;
+    pair&lt;iterator, iterator&gt; <b><a href="#map::equal_range">equal_range</a></b>(const Key&amp; keyval);
+    pair&lt;const_iterator, const_iterator&gt;
+        <b><a href="#map::equal_range">equal_range</a></b>(const Key&amp; keyval) const;
+    };
+</pre>
+
+  <p>The template class describes an object that controls a varying-length sequence of elements of type
+  <code><a href="utility.html#pair">pair</a>&lt;const Key, Ty&gt;</code>. The sequence is <a href=
+  "lib_stl.html#sequence%20ordering">ordered by</a> the predicate <code>Pr</code>. The first element of each
+  pair is the <b>sort key</b> and the second is its associated <b>value</b>. The sequence is represented in a
+  way that permits lookup, insertion, and removal of an arbitrary element with a number of operations
+  proportional to the logarithm of the number of elements in the sequence (logarithmic time). Moreover,
+  inserting an element invalidates no iterators, and removing an element invalidates only those iterators
+  which point at the removed element.</p>
+
+  <p>The object orders the sequence it controls by calling a stored <b>function object</b> of type
+  <code>Pr</code>. You access this stored object by calling the member function <code><a href=
+  "#map::key_comp">key_comp</a>()</code>. Such a function object must impose a <a href=
+  "lib_stl.html#strict%20weak%20ordering">strict weak ordering</a> on sort keys of type <code>Key</code>. For
+  any element <code>X</code> that precedes <code>Y</code> in the sequence, <code>key_comp()(Y.<a href=
+  "utility.html#pair::first">first</a>, X.first)</code> is false. (For the default function object
+  <code><a href="functio2.html#less">less</a>&lt;Key&gt;</code>, sort keys never decrease in value.) Unlike
+  template class <code><a href="#multimap">multimap</a></code>, an object of template class <code>map</code>
+  ensures that <code>key_comp()(X.first, Y.first)</code> is true. (Each key is unique.)</p>
+
+  <p>The object allocates and frees storage for the sequence it controls through a stored <a href=
+  "memory.html#allocator%20object">allocator object</a> of class <code>Alloc</code>. Such an allocator object
+  must have the same external interface as an object of template class <a href=
+  "memory.html#allocator"><code>allocator</code></a>. Note that the stored allocator object is <i>not</i>
+  copied when the container object is assigned.</p>
+
+  <h3><code><a name="map::allocator_type">map::allocator_type</a></code></h3>
+  <pre>
+typedef Alloc <b>allocator_type</b>;
+</pre>
+
+  <p>The type is a synonym for the template parameter <code>Alloc</code>.</p>
+
+  <h3><code><a name="map::at">map::at</a></code></h3>
+  <pre>
+const mapped_type&amp; <b>at</b>(const Key&amp; keyval) const; <b>[added with C++0X]</b>
+mapped_type&amp; <b>at</b>(const Key&amp; keyval); <b>[added with C++0X]</b>
+</pre>
+
+  <p>The member function effectively determines the iterator <code>where</code> as the return value of
+  <code><a href="#map::find">find</a>(keyval)</code>. If that iterator does not designate an element whose
+  sort key has <a href="lib_stl.html#equivalent%20ordering">equivalent ordering</a> to <code>keyval</code>,
+  the function throws an object of class <code>out_of_range</code>. Otherwise, it returns a reference to
+  <code>(*where).<a href="utility.html#pair::second">second</a></code>.</p>
+
+  <h3><code><a name="map::begin">map::begin</a></code></h3>
+  <pre>
+const_iterator <b>begin</b>() const;
+iterator <b>begin</b>();
+</pre>
+
+  <p>The member function returns a bidirectional iterator that points at the first element of the sequence
+  (or just beyond the end of an empty sequence).</p>
+
+  <h3><code><a name="map::cbegin">map::cbegin</a></code></h3>
+  <pre>
+const_iterator <b>cbegin</b>() const; <b>[added with C++0X]</b>
+</pre>
+
+  <p>The member functions return a bidirectional iterator that points at the first element of the sequence
+  (or just beyond the end of an empty sequence).</p>
+
+  <h3><code><a name="map::cend">map::cend</a></code></h3>
+  <pre>
+const_reference <b>cend</b>() const; <b>[added with C++0X]</b>
+</pre>
+
+  <p>The member functions return a bidirectional iterator that points just beyond the end of the
+  sequence.</p>
+
+  <h3><code><a name="map::clear">map::clear</a></code></h3>
+  <pre>
+void <b>clear</b>();
+</pre>
+
+  <p>The member function calls <code><a href="#map::erase">erase</a>( <a href="#map::begin">begin</a>(),
+  <a href="#map::end">end</a>())</code>.</p>
+
+  <h3><code><a name="map::const_iterator">map::const_iterator</a></code></h3>
+  <pre>
+typedef T1 <b>const_iterator</b>;
+</pre>
+
+  <p>The type describes an object that can serve as a constant bidirectional iterator for the controlled
+  sequence. It is described here as a synonym for the implementation-defined type <code>T1</code>.</p>
+
+  <h3><code><a name="map::const_pointer">map::const_pointer</a></code></h3>
+  <pre>
+typedef typename Alloc::const_pointer <b>const_pointer</b>;
+</pre>
+
+  <p>The type describes an object that can serve as a constant pointer to an element of the controlled
+  sequence.</p>
+
+  <h3><code><a name="map::const_reference">map::const_reference</a></code></h3>
+  <pre>
+typedef typename Alloc::const_reference <b>const_reference</b>;
+</pre>
+
+  <p>The type describes an object that can serve as a constant reference to an element of the controlled
+  sequence.</p>
+
+  <h3><code><a name="map::const_reverse_iterator">map::const_reverse_iterator</a></code></h3>
+  <pre>
+typedef reverse_iterator&lt;const_iterator&gt;
+    <b>const_reverse_iterator</b>;
+</pre>
+
+  <p>The type describes an object that can serve as a constant reverse bidirectional iterator for the
+  controlled sequence.</p>
+
+  <h3><code><a name="map::count">map::count</a></code></h3>
+  <pre>
+size_type <b>count</b>(const Key&amp; keyval) const;
+</pre>
+
+  <p>The member function returns the number of elements in the range <code>[<a href=
+  "#map::lower_bound">lower_bound</a>(keyval), <a href=
+  "#map::upper_bound">upper_bound</a>(keyval)).</code></p>
+
+  <h3><code><a name="map::crbegin">map::crbegin</a></code></h3>
+  <pre>
+const_reverse_iterator <b>crbegin</b>() const; <b>[added with C++0X]</b>
+</pre>
+
+  <p>The member functions return a reverse iterator that points just beyond the end of the controlled
+  sequence. Hence, it designates the beginning of the reverse sequence.</p>
+
+  <h3><code><a name="map::crend">map::crend</a></code></h3>
+  <pre>
+const_reverse_iterator <b>crend</b>() const; <b>[added with C++0X]</b>
+</pre>
+
+  <p>The member functions return a reverse iterator that points at the first element of the sequence (or just
+  beyond the end of an empty sequence)). Hence, it designates the end of the reverse sequence.</p>
+
+  <h3><code><a name="map::difference_type">map::difference_type</a></code></h3>
+  <pre>
+typedef typename Alloc::difference_type <b>difference_type</b>;
+</pre>
+
+  <p>The signed integer type describes an object that can represent the difference between the addresses of
+  any two elements in the controlled sequence.</p>
+
+  <h3><code><a name="map::emplace">map::emplace</a></code></h3>
+  <pre>
+template&lt;class... Valty&gt;
+    pair&lt;iterator, bool&gt; <b>emplace</b>(Valty&amp;&amp;... val); <b>[added with C++0X]</b>
+</pre>
+
+  <p>The member function returns <code><a href="#map::insert">insert</a>(forward&lt;pair&lt;key,
+  mapped_type&gt; &gt;( pair&lt;key, mapped_type&gt;(val...))</code>.</p>
+
+  <h3><code><a name="map::emplace_hint">map::emplace_hint</a></code></h3>
+  <pre>
+template&lt;class... Valty&gt;
+    iterator <b>emplace_hint</b>(const_iterator where, Valty&amp;&amp;... val); <b>[added with C++0X]</b>
+</pre>
+
+  <p>The member function returns <code>insert(where, forward&lt;pair&lt;key, mapped_type&gt; &gt;(
+  pair&lt;key, mapped_type&gt;(val...))</code>.</p>
+
+  <h3><code><a name="map::empty">map::empty</a></code></h3>
+  <pre>
+bool <b>empty</b>() const;
+</pre>
+
+  <p>The member function returns true for an empty controlled sequence.</p>
+
+  <h3><code><a name="map::end">map::end</a></code></h3>
+  <pre>
+const_iterator <b>end</b>() const;
+iterator <b>end</b>();
+</pre>
+
+  <p>The member function returns a bidirectional iterator that points just beyond the end of the
+  sequence.</p>
+
+  <h3><code><a name="map::equal_range">map::equal_range</a></code></h3>
+  <pre>
+pair&lt;iterator, iterator&gt; <b>equal_range</b>(const Key&amp; keyval);
+pair&lt;const_iterator, const_iterator&gt;
+    <b>equal_range</b>(const Key&amp; keyval) const;
+</pre>
+
+  <p>The member function returns a pair of iterators <code>X</code> such that <code>X.<a href=
+  "utility.html#pair::first">first</a> == <a href="#map::lower_bound">lower_bound</a>(keyval)</code> and
+  <code>X.<a href="utility.html#pair::second">second</a> == <a href=
+  "#map::upper_bound">upper_bound</a>(keyval)</code>.</p>
+
+  <h3><code><a name="map::erase">map::erase</a></code></h3>
+  <pre>
+iterator <b>erase</b>(const_iterator where);
+iterator <b>erase</b>(const_iterator first, const_iterator last);
+size_type <b>erase</b>(const Key&amp; keyval);
+</pre>
+
+  <p>The first member function removes the element of the controlled sequence pointed to by
+  <code>where</code>. The second member function removes the elements in the interval <code>[first,
+  last)</code>. Both return an iterator that designates the first element remaining beyond any elements
+  removed, or <code><a href="#map::end">end</a>()</code> if no such element exists.</p>
+
+  <p>The third member function removes the elements with sort keys in the range <code>[<a href=
+  "#map::lower_bound">lower_bound</a>(keyval), <a href="#map::upper_bound">upper_bound</a>(keyval)).</code>
+  It returns the number of elements it removes.</p>
+
+  <p>The member functions never throw an exception.</p>
+
+  <p>In this <a href="index.html#implementation">implementation</a>, the first two member functions return an
+  iterator that designates the first element remaining beyond any elements removed, or <code><a href=
+  "#map::end">end</a>()</code> if no such element exists.</p>
+
+  <h3><code><a name="map::find">map::find</a></code></h3>
+  <pre>
+iterator <b>find</b>(const Key&amp; keyval);
+const_iterator <b>find</b>(const Key&amp; keyval) const;
+</pre>
+
+  <p>The member function returns an iterator that designates the element in the controlled sequence whose
+  sort key has <a href="lib_stl.html#equivalent%20ordering">equivalent ordering</a> to <code>keyval</code>.
+  If no such element exists, the function returns <code><a href="#map::end">end</a>()</code>.</p>
+
+  <h3><code><a name="map::get_allocator">map::get_allocator</a></code></h3>
+  <pre>
+Alloc <b>get_allocator</b>() const;
+</pre>
+
+  <p>The member function returns the stored <a href="memory.html#allocator%20object">allocator
+  object</a>.</p>
+
+  <h3><code><a name="map::insert">map::insert</a></code></h3>
+  <pre>
+pair&lt;iterator, bool&gt; <b>insert</b>(const value_type&amp; val);
+iterator <b>insert</b>(const_iterator where, const value_type&amp; val);
+template&lt;class InIt&gt;
+    void <b>insert</b>(InIt first, InIt last);
+void <b>insert</b>(initializer_list&lt;Ty&gt; init) <b>[added with C++0X]</b>
+template&lt;class Valty&gt;
+    pair&lt;iterator, bool&gt; <b>insert</b>(Valty&amp;&amp; val); <b>[added with C++0X]</b>
+template&lt;class Valty&gt;
+    iterator <b>insert</b>(const_iterator where, Valty&amp;&amp; val); <b>[added with C++0X]</b>
+</pre>
+
+  <p>The first member function determines whether an element <code>X</code> exists in the sequence whose key
+  has <a href="lib_stl.html#equivalent%20ordering">equivalent ordering</a> to that of <code>val</code>. If
+  not, it creates such an element <code>X</code> and initializes it with <code>val</code>. The function then
+  determines the iterator <code>where</code> that designates <code>X</code>. If an insertion occurred, the
+  function returns <code><a href="utility.html#pair">pair</a>(where, true)</code>. Otherwise, it returns
+  <code>pair(where, false)</code>.</p>
+
+  <p>The second member function returns <code>insert(val).first</code>, using <code>where</code> as a
+  starting place within the controlled sequence to search for the insertion point. (Insertion can occur in
+  amortized constant time, instead of logarithmic time, if the insertion point immediately precedes or
+  follows <code>where</code>.) The third member function inserts the sequence of element values, for each
+  <code>where</code> in the range <code>[first, last)</code>, by calling <code>insert(*where)</code>.</p>
+
+  <p>The fourth member function inserts the sequence specified by an object of class <code><b><a href=
+  "lib_cpp.html#initializer_list">initializer_list</a></b>&lt;Ty&gt;</code>.</p>
+
+  <p>The last two member functions behave the same as the first two but with an <a href=
+  "lib_cpp.html#rvalue%20references">rvalue reference</a>.</p>
+
+  <p>If an exception is thrown during the insertion of a single element, the container is left unaltered and
+  the exception is rethrown. If an exception is thrown during the insertion of multiple elements, the
+  container is left in a stable but unspecified state and the exception is rethrown.</p>
+
+  <h3><code><a name="map::iterator">map::iterator</a></code></h3>
+  <pre>
+typedef T0 <b>iterator</b>;
+</pre>
+
+  <p>The type describes an object that can serve as a bidirectional iterator for the controlled sequence. It
+  is described here as a synonym for the implementation-defined type <code>T0</code>.</p>
+
+  <h3><code><a name="map::key_comp">map::key_comp</a></code></h3>
+  <pre>
+key_compare <b>key_comp</b>() const;
+</pre>
+
+  <p>The member function returns the stored function object that determines the order of elements in the
+  controlled sequence. The stored object defines the member function:</p>
+  <pre>
+bool operator()(const Key&amp; left, const Key&amp; right);
+</pre>
+
+  <p>which returns true if <code>left</code> strictly precedes <code>right</code> in the sort order.</p>
+
+  <h3><code><a name="map::key_compare">map::key_compare</a></code></h3>
+  <pre>
+typedef Pr <b>key_compare</b>;
+</pre>
+
+  <p>The type describes a function object that can compare two sort keys to determine the relative order of
+  two elements in the controlled sequence.</p>
+
+  <h3><code><a name="map::key_type">map::key_type</a></code></h3>
+  <pre>
+typedef Key <b>key_type</b>;
+</pre>
+
+  <p>The type describes the sort key object stored in each element of the controlled sequence.</p>
+
+  <h3><code><a name="map::lower_bound">map::lower_bound</a></code></h3>
+  <pre>
+iterator <b>lower_bound</b>(const Key&amp; keyval);
+const_iterator <b>lower_bound</b>(const Key&amp; keyval) const;
+</pre>
+
+  <p>The member function returns an iterator that designates the earliest element <code>X</code> in the
+  controlled sequence for which <code><a href="#map::key_comp">key_comp</a>()(X. <a href=
+  "utility.html#pair::first">first</a>, keyval)</code> is false.</p>If no such element exists, the function
+  returns <code><a href="#map::end">end</a>()</code>.
+
+  <h3><code><a name="map::map">map::map</a></code></h3>
+  <pre>
+<b>map</b>();
+explicit <b>map</b>(const Pr&amp; pred);
+<b>map</b>(const Pr&amp; pred, const Alloc&amp; al);
+<b>map</b>(const map&amp; right);
+template&lt;class InIt&gt;
+    <b>map</b>(InIt first, InIt last);
+template&lt;class InIt&gt;
+    <b>map</b>(InIt first, InIt last,
+        const Pr&amp; pred);
+template&lt;class InIt&gt;
+    <b>map</b>(InIt first, InIt last,
+        const Pr&amp; pred, const Alloc&amp; al);
+
+<b>map</b>(initializer_list&lt;Ty&gt; init) <b>[added with C++0X]</b>
+<b>map</b>(initializer_list&lt;Ty&gt; init,
+    const Pr&amp; pred); <b>[added with C++0X]</b>
+<b>map</b>(initializer_list&lt;Ty&gt; init,
+    const Pr&amp; pred, const Alloc&amp; al); <b>[added with C++0X]</b>
+<b>map</b>(map&amp;&amp; right); <b>[added with C++0X]</b>
+</pre>
+
+  <p>All constructors store an <a href="memory.html#allocator%20object">allocator object</a> and initialize
+  the controlled sequence. The allocator object is the argument <code>al</code>, if present. For the copy
+  constructor, it is <code>right.<a href="#map::get_allocator">get_allocator</a>()</code>. Otherwise, it is
+  <code>Alloc()</code>.</p>
+
+  <p>All constructors also store a function object that can later be returned by calling <code><a href=
+  "#map::key_comp">key_comp</a>()</code>. The function object is the argument <code>pred</code>, if present.
+  For the copy constructor, it is <code>right.<a href="#map::key_comp">key_comp</a>()</code>). Otherwise, it
+  is <code>Pr()</code>.</p>
+
+  <p>The first three constructors specify an empty initial controlled sequence. The fourth constructor
+  specifies a copy of the sequence controlled by <code>right</code>. The next three constructors specify the
+  sequence of element values <code>[first, last)</code>.</p>
+
+  <p>The next three constructors specify the initial controlled sequence with an object of class
+  <code><b><a href="lib_cpp.html#initializer_list">initializer_list</a></b>&lt;Ty&gt;</code>.</p>
+
+  <p>The last constructor is the same as the fourth, but with an <a href=
+  "lib_cpp.html#rvalue%20references">rvalue reference</a>.</p>
+
+  <h3><code><a name="map::mapped_type">map::mapped_type</a></code></h3>
+  <pre>
+typedef Ty <b>mapped_type</b>;
+</pre>
+
+  <p>The type is a synonym for the template parameter <code>Ty</code>.</p>
+
+  <h3><code><a name="map::max_size">map::max_size</a></code></h3>
+  <pre>
+size_type <b>max_size</b>() const;
+</pre>
+
+  <p>The member function returns the length of the longest sequence that the object can control.</p>
+
+  <h3><code><a name="map::operator=">map::operator=</a></code></h3>
+  <pre>
+map&amp; <b>operator=</b>(const map&amp; right);
+map&amp; <b>operator=</b>(initializer_list&lt;Ty&gt; init) <b>[added with C++0X]</b>
+map&amp; <b>operator=</b>(map&amp;&amp; right); <b>[added with C++0X]</b>
+</pre>
+
+  <p>The first member operator replaces the controlled sequence with a copy of the sequence controlled by
+  <code>right</code>.</p>
+
+  <p>The second member operator replaces the controlled sequence from an object of class <code><b><a href=
+  "lib_cpp.html#initializer_list">initializer_list</a></b>&lt;Ty&gt;</code>.</p>
+
+  <p>The third member operator is the same as the first, but with an <a href=
+  "lib_cpp.html#rvalue%20references">rvalue reference</a>.</p>
+
+  <h3><code><a name="map::operator[]">map::operator[]</a></code></h3>
+  <pre>
+mapped_type&amp; <b>operator[]</b>(const Key&amp; keyval);
+mapped_type&amp; <b>operator[]</b>(Key&amp;&amp; keyval); <b>[added with C++0X]</b>
+</pre>
+
+  <p>The first member operator effectively determines the iterator <code>where</code> as the return value of
+  <code><a href="#map::insert">insert</a>( <a href="#map::value_type">value_type</a>(keyval, Ty())</code>.
+  (It inserts an element with the specified key if no such element exists.) It then returns a reference to
+  <code>(*where).<a href="utility.html#pair::second">second</a></code>.</p>
+
+  <p>The second member operator is the same as the first, but with an <a href=
+  "lib_cpp.html#rvalue%20references">rvalue reference</a>.</p>
+
+  <h3><code><a name="map::pointer">map::pointer</a></code></h3>
+  <pre>
+typedef typename Alloc::pointer <b>pointer</b>;
+</pre>
+
+  <p>The type describes an object that can serve as a pointer to an element of the controlled sequence.</p>
+
+  <h3><code><a name="map::rbegin">map::rbegin</a></code></h3>
+  <pre>
+const_reverse_iterator <b>rbegin</b>() const;
+reverse_iterator <b>rbegin</b>();
+</pre>
+
+  <p>The member function returns a reverse bidirectional iterator that points just beyond the end of the
+  controlled sequence. Hence, it designates the beginning of the reverse sequence.</p>
+
+  <h3><code><a name="map::reference">map::reference</a></code></h3>
+  <pre>
+typedef typename Alloc::reference <b>reference</b>;
+</pre>
+
+  <p>The type describes an object that can serve as a reference to an element of the controlled sequence.</p>
+
+  <h3><code><a name="map::rend">map::rend</a></code></h3>
+  <pre>
+const_reverse_iterator <b>rend</b>() const;
+reverse_iterator <b>rend</b>();
+</pre>
+
+  <p>The member function returns a reverse bidirectional iterator that points at the first element of the
+  sequence (or just beyond the end of an empty sequence). Hence, it designates the end of the reverse
+  sequence.</p>
+
+  <h3><code><a name="map::reverse_iterator">map::reverse_iterator</a></code></h3>
+  <pre>
+typedef reverse_iterator&lt;iterator&gt; <b>reverse_iterator</b>;
+</pre>
+
+  <p>The type describes an object that can serve as a reverse bidirectional iterator for the controlled
+  sequence.</p>
+
+  <h3><code><a name="map::size">map::size</a></code></h3>
+  <pre>
+size_type <b>size</b>() const;
+</pre>
+
+  <p>The member function returns the length of the controlled sequence.</p>
+
+  <h3><code><a name="map::size_type">map::size_type</a></code></h3>
+  <pre>
+typedef typename Alloc::size_type <b>size_type</b>;
+</pre>
+
+  <p>The unsigned integer type describes an object that can represent the length of any controlled
+  sequence.</p>
+
+  <h3><code><a name="map::swap">map::swap</a></code></h3>
+  <pre>
+void <b>swap</b>(map&amp; right);
+</pre>
+
+  <p>The member function swaps the controlled sequences between <code>*this</code> and <code>right</code>. If
+  <code><a href="#map::get_allocator">get_allocator</a>() == right.get_allocator()</code>, it does so in
+  constant time, it throws an exception only as a result of copying the stored function object of type
+  <code>Pr</code>, and it invalidates no references, pointers, or iterators that designate elements in the
+  two controlled sequences. Otherwise, it performs a number of element assignments and constructor calls
+  proportional to the number of elements in the two controlled sequences.</p>
+
+  <h3><code><a name="map::upper_bound">map::upper_bound</a></code></h3>
+  <pre>
+iterator <b>upper_bound</b>(const Key&amp; keyval);
+const_iterator <b>upper_bound</b>(const Key&amp; keyval) const;
+</pre>
+
+  <p>The member function returns an iterator that designates the earliest element <code>X</code> in the
+  controlled sequence for which <code><a href="#map::key_comp">key_comp</a>()(keyval, X.<a href=
+  "utility.html#pair::first">first</a>)</code> is true.</p>If no such element exists, the function returns
+  <code><a href="#map::end">end</a>()</code>.
+
+  <h3><code><a name="map::value_comp">map::value_comp</a></code></h3>
+  <pre>
+value_compare <b>value_comp</b>() const;
+</pre>
+
+  <p>The member function returns a function object that determines the order of elements in the controlled
+  sequence.</p>
+
+  <h3><code><a name="map::value_compare">map::value_compare</a></code></h3>
+  <pre>
+class <b>value_compare</b>
+    : public <a href="functio2.html#binary_function">binary_function</a>&lt;value_type, value_type,
+        bool&gt; {
+public:
+    bool operator()(const value_type&amp; left,
+        const value_type&amp; right) const
+        {return (comp(left.first, right.first)); }
+protected:
+    value_compare(key_compare pr)
+        : comp(pr) {}
+    key_compare comp;
+    };
+</pre>
+
+  <p>The type describes a function object that can compare the sort keys in two elements to determine their
+  relative order in the controlled sequence. The function object stores an object <b><code><a name=
+  "map::value_compare::comp">comp</a></code></b> of type <code><a href=
+  "#map::key_compare">key_compare</a></code>. The member function <b><code>operator()</code></b> uses this
+  object to compare the sort-key components of two element.</p>
+
+  <h3><code><a name="map::value_type">map::value_type</a></code></h3>
+  <pre>
+typedef <a href="utility.html#pair">pair</a>&lt;const Key, Ty&gt; <b>value_type</b>;
+</pre>
+
+  <p>The type describes an element of the controlled sequence.</p>
+
+  <h2><a name="multimap"><code>multimap</code></a></h2>
+  <hr>
+
+  <p><b><code><a href="#multimap::allocator_type">allocator_type</a> &middot; <a href=
+  "#multimap::begin">begin</a> &middot; <a href="#multimap::cbegin">cbegin</a> &middot; <a href=
+  "#multimap::cend">cend</a> &middot; <a href="#multimap::clear">clear</a> &middot; <a href=
+  "#multimap::const_iterator">const_iterator</a> &middot; <a href=
+  "#multimap::const_pointer">const_pointer</a> &middot; <a href=
+  "#multimap::const_reference">const_reference</a> &middot; <a href=
+  "#multimap::const_reverse_iterator">const_reverse_iterator</a> &middot; <a href=
+  "#multimap::count">count</a> &middot; <a href="#multimap::crbegin">crbegin</a> &middot; <a href=
+  "#multimap::crend">crend</a> &middot; <a href="#multimap::difference_type">difference_type</a> &middot;
+  <a href="#multimap::emplace">emplace</a> &middot; <a href="#multimap::emplace_hint">emplace_hint</a>
+  &middot; <a href="#multimap::empty">empty</a> &middot; <a href="#multimap::end">end</a> &middot; <a href=
+  "#multimap::equal_range">equal_range</a> &middot; <a href="#multimap::erase">erase</a> &middot; <a href=
+  "#multimap::find">find</a> &middot; <a href="#multimap::get_allocator">get_allocator</a> &middot; <a href=
+  "#multimap::insert">insert</a> &middot; <a href="#multimap::iterator">iterator</a> &middot; <a href=
+  "#multimap::key_comp">key_comp</a> &middot; <a href="#multimap::key_compare">key_compare</a> &middot;
+  <a href="#multimap::key_type">key_type</a> &middot; <a href="#multimap::lower_bound">lower_bound</a>
+  &middot; <a href="#multimap::mapped_type">mapped_type</a> &middot; <a href=
+  "#multimap::max_size">max_size</a> &middot; <a href="#multimap::multimap">multimap</a> &middot; <a href=
+  "#multimap::operator=">operator=</a> &middot; <a href="#multimap::rbegin">rbegin</a> &middot; <a href=
+  "#multimap::reference">reference</a> &middot; <a href="#multimap::rend">rend</a> &middot; <a href=
+  "#multimap::reverse_iterator">reverse_iterator</a> &middot; <a href="#multimap::size">size</a> &middot;
+  <a href="#multimap::size_type">size_type</a> &middot; <a href="#multimap::swap">swap</a> &middot; <a href=
+  "#multimap::upper_bound">upper_bound</a> &middot; <a href="#multimap::value_comp">value_comp</a> &middot;
+  <a href="#multimap::value_compare">value_compare</a> &middot; <a href=
+  "#multimap::value_type">value_type</a></code></b></p>
+  <hr>
+  <pre>
+template&lt;class Key, class Ty, class Pr = less&lt;Key&gt;,
+    class Alloc = allocator&lt;pair&lt;const Key, Ty&gt; &gt; &gt;
+    class <b>multimap</b> {
+public:
+    typedef Key <b><a href="#multimap::key_type">key_type</a></b>;
+    typedef Ty <b><a href="#multimap::mapped_type">mapped_type</a></b>;
+    typedef Pr <b><a href="#multimap::key_compare">key_compare</a></b>;
+    typedef Alloc <b><a href="#multimap::allocator_type">allocator_type</a></b>;
+    typedef pair&lt;const Key, Ty&gt; <b><a href="#multimap::value_type">value_type</a></b>;
+    class <b><a href="#multimap::value_compare">value_compare</a></b>;
+    typedef typename Alloc::reference <b><a href="#multimap::reference">reference</a></b>;
+    typedef typename Alloc::const_reference <b><a href="#multimap::const_reference">const_reference</a></b>;
+    typedef typename Alloc::size_type <b><a href="#multimap::size_type">size_type</a></b>;
+    typedef typename Alloc::difference_type <b><a href="#multimap::difference_type">difference_type</a></b>;
+
+    typedef T0 <b><a href="#multimap::iterator">iterator</a></b>;
+    typedef T1 <b><a href="#multimap::const_iterator">const_iterator</a></b>;
+    typedef reverse_iterator&lt;const_iterator&gt;
+        <b><a href="#multimap::const_reverse_iterator">const_reverse_iterator</a></b>;
+    typedef reverse_iterator&lt;iterator&gt; <b><a href=
+"#multimap::reverse_iterator">reverse_iterator</a></b>;
+
+    <b><a href="#multimap::multimap">multimap</a></b>();
+    explicit <b><a href="#multimap::multimap">multimap</a></b>(const Pr&amp; pred);
+    <b><a href="#multimap::multimap">multimap</a></b>(const Pr&amp; pred, const Alloc&amp; al);
+    <b><a href="#multimap::multimap">multimap</a></b>(const multimap&amp; right);
+    template&lt;class InIt&gt;
+        <b><a href="#multimap::multimap">multimap</a></b>(InIt first, InIt last);
+    template&lt;class InIt&gt;
+        <b><a href="#multimap::multimap">multimap</a></b>(InIt first, InIt last,
+            const Pr&amp; pred);
+    template&lt;class InIt&gt;
+        <b><a href="#multimap::multimap">multimap</a></b>(InIt first, InIt last,
+            const Pr&amp; pred, const Alloc&amp; al);
+
+    <b><a href=
+"#multimap::multimap">multimap</a></b>(initializer_list&lt;Ty&gt; init) <b>[added with C++0X]</b>
+    <b><a href="#multimap::multimap">multimap</a></b>(initializer_list&lt;Ty&gt; init,
+        const Pr&amp; pred); <b>[added with C++0X]</b>
+    <b><a href="#multimap::multimap">multimap</a></b>(initializer_list&lt;Ty&gt; init,
+        const Pr&amp; pred, const Alloc&amp; al); <b>[added with C++0X]</b>
+    <b><a href="#multimap::multimap">multimap</a></b>(multimap&amp;&amp; right); <b>[added with C++0X]</b>
+
+    multimap&amp; <b><a href="#multimap::operator=">operator=</a></b>(const multimap&amp; right);
+    multimap&amp; <b><a href=
+"#multimap::operator=">operator=</a></b>(initializer_list&lt;Ty&gt; init) <b>[added with C++0X]</b>
+    multimap&amp; <b><a href=
+"#multimap::operator=">operator=</a></b>(multimap&amp;&amp; right); <b>[added with C++0X]</b>
+
+    iterator <b><a href="#multimap::begin">begin</a></b>();
+    const_iterator <b><a href="#multimap::begin">begin</a></b>() const;
+    iterator <b><a href="#multimap::end">end</a></b>();
+    const_iterator <b><a href="#multimap::end">end</a></b>() const;
+    reverse_iterator <b><a href="#multimap::rbegin">rbegin</a></b>();
+    const_reverse_iterator <b><a href="#multimap::rbegin">rbegin</a></b>() const;
+    reverse_iterator <b><a href="#multimap::rend">rend</a></b>();
+    const_reverse_iterator <b><a href="#multimap::rend">rend</a></b>() const;
+
+    const_iterator <b><a href="#multimap::cbegin">cbegin</a></b>() const; <b>[added with C++0X]</b>
+    const_iterator <b><a href="#multimap::cend">cend</a></b>() const; <b>[added with C++0X]</b>
+    const_reverse_iterator <b><a href="#multimap::crbegin">crbegin</a></b>() const; <b>[added with C++0X]</b>
+    const_reverse_iterator <b><a href="#multimap::crend">crend</a></b>() const; <b>[added with C++0X]</b>
+
+    size_type <b><a href="#multimap::size">size</a></b>() const;
+    size_type <b><a href="#multimap::max_size">max_size</a></b>() const;
+    bool <b><a href="#multimap::empty">empty</a></b>() const;
+    Alloc <b><a href="#multimap::get_allocator">get_allocator</a></b>() const;
+
+    iterator <b><a href="#multimap::insert">insert</a></b>(const value_type&amp; val);
+    iterator <b><a href="#multimap::insert">insert</a></b>(const_iterator where, const value_type&amp; val);
+    template&lt;class InIt&gt;
+        void <b><a href="#multimap::insert">insert</a></b>(InIt first, InIt last);
+    void <b><a href=
+"#multimap::insert">insert</a></b>(initializer_list&lt;Ty&gt; init) <b>[added with C++0X]</b>
+    template&lt;class Valty&gt;
+        pair&lt;iterator, bool&gt; <b><a href=
+"#multimap::insert">insert</a></b>(Valty&amp;&amp; val); <b>[added with C++0X]</b>
+    template&lt;class Valty&gt;
+        iterator <b><a href=
+"#multimap::insert">insert</a></b>(const_iterator where, Valty&amp;&amp; val); <b>[added with C++0X]</b>
+
+    template&lt;class... Valty&gt;
+        pair&lt;iterator, bool&gt; <b><a href=
+"#multimap::emplace">emplace</a></b>(Valty&amp;&amp;... val); <b>[added with C++0X]</b>
+    template&lt;class... Valty&gt;
+        iterator <b><a href=
+"#multimap::emplace_hint">emplace_hint</a></b>(const_iterator where, Valty&amp;&amp;... val); <b>[added with C++0X]</b>
+
+    iterator <b><a href="#multimap::erase">erase</a></b>(const_iterator where);
+    iterator <b><a href="#multimap::erase">erase</a></b>(const_iterator first, const_iterator last);
+    size_type <b><a href="#multimap::erase">erase</a></b>(const Key&amp; keyval);
+    void <b><a href="#multimap::clear">clear</a></b>();
+
+    void <b><a href="#multimap::swap">swap</a></b>(multimap&amp; right);
+
+    key_compare <b><a href="#multimap::key_comp">key_comp</a></b>() const;
+    value_compare <b><a href="#multimap::value_comp">value_comp</a></b>() const;
+
+    iterator <b><a href="#multimap::find">find</a></b>(const Key&amp; keyval);
+    const_iterator <b><a href="#multimap::find">find</a></b>(const Key&amp; keyval) const;
+    size_type <b><a href="#multimap::count">count</a></b>(const Key&amp; keyval) const;
+    iterator <b><a href="#multimap::lower_bound">lower_bound</a></b>(const Key&amp; keyval);
+    const_iterator <b><a href="#multimap::lower_bound">lower_bound</a></b>(const Key&amp; keyval) const;
+    iterator <b><a href="#multimap::upper_bound">upper_bound</a></b>(const Key&amp; keyval);
+    const_iterator <b><a href="#multimap::upper_bound">upper_bound</a></b>(const Key&amp; keyval) const;
+    pair&lt;iterator, iterator&gt; <b><a href=
+"#multimap::equal_range">equal_range</a></b>(const Key&amp; keyval);
+    pair&lt;const_iterator, const_iterator&gt;
+        <b><a href="#multimap::equal_range">equal_range</a></b>(const Key&amp; keyval) const;
+    };
+</pre>
+
+  <p>The template class describes an object that controls a varying-length sequence of elements of type
+  <code><a href="utility.html#pair">pair</a>&lt;const Key, Ty&gt;</code>. The sequence is <a href=
+  "lib_stl.html#sequence%20ordering">ordered by</a> the predicate <code>Pr</code>. The first element of each
+  pair is the <b>sort key</b> and the second is its associated <b>value</b>. The sequence is represented in a
+  way that permits lookup, insertion, and removal of an arbitrary element with a number of operations
+  proportional to the logarithm of the number of elements in the sequence (logarithmic time). Moreover,
+  inserting an element invalidates no iterators, and removing an element invalidates only those iterators
+  which point at the removed element.</p>
+
+  <p>The object orders the sequence it controls by calling a stored <b>function object</b> of type
+  <code>Pr</code>. You access this stored object by calling the member function <code><a href=
+  "#multimap::key_comp">key_comp</a>()</code>. Such a function object must impose a <a href=
+  "lib_stl.html#strict%20weak%20ordering">strict weak ordering</a> on sort keys of type <code>Key</code>. For
+  any element <code>X</code> that precedes <code>Y</code> in the sequence, <code>key_comp()(Y.<a href=
+  "utility.html#pair::first">first</a>, X.first)</code> is false. (For the default function object
+  <code><a href="functio2.html#less">less</a>&lt;Key&gt;</code>, sort keys never decrease in value.) Unlike
+  template class <code><a href="#map">map</a></code>, an object of template class <code>multimap</code> does
+  not ensure that <code>key_comp()(X.first, Y.first)</code> is true. (Keys need not be unique.)</p>
+
+  <p>The object allocates and frees storage for the sequence it controls through a stored <a href=
+  "memory.html#allocator%20object">allocator object</a> of class <code>Alloc</code>. Such an allocator object
+  must have the same external interface as an object of template class <a href=
+  "memory.html#allocator"><code>allocator</code></a>. Note that the stored allocator object is <i>not</i>
+  copied when the container object is assigned.</p>
+
+  <p>Inserting and erasing elements preserves the order of elements with equivalent ordering.</p>
+
+  <h3><code><a name="multimap::allocator_type">multimap::allocator_type</a></code></h3>
+  <pre>
+typedef Alloc <b>allocator_type</b>;
+</pre>
+
+  <p>The type is a synonym for the template parameter <code>Alloc</code>.</p>
+
+  <h3><code><a name="multimap::begin">multimap::begin</a></code></h3>
+  <pre>
+const_iterator <b>begin</b>() const;
+iterator <b>begin</b>();
+</pre>
+
+  <p>The member function returns a bidirectional iterator that points at the first element of the sequence
+  (or just beyond the end of an empty sequence).</p>
+
+  <h3><code><a name="multimap::cbegin">multimap::cbegin</a></code></h3>
+  <pre>
+const_iterator <b>cbegin</b>() const; <b>[added with C++0X]</b>
+</pre>
+
+  <p>The member functions return a bidirectional iterator that points at the first element of the sequence
+  (or just beyond the end of an empty sequence).</p>
+
+  <h3><code><a name="multimap::cend">multimap::cend</a></code></h3>
+  <pre>
+const_reference <b>cend</b>() const; <b>[added with C++0X]</b>
+</pre>
+
+  <p>The member functions return a bidirectional iterator that points just beyond the end of the
+  sequence.</p>
+
+  <h3><code><a name="multimap::clear">multimap::clear</a></code></h3>
+  <pre>
+void <b>clear</b>();
+</pre>
+
+  <p>The member function calls <code><a href="#multimap::erase">erase</a>( <a href=
+  "#multimap::begin">begin</a>(), <a href="#multimap::end">end</a>())</code>.</p>
+
+  <h3><code><a name="multimap::const_iterator">multimap::const_iterator</a></code></h3>
+  <pre>
+typedef T1 <b>const_iterator</b>;
+</pre>
+
+  <p>The type describes an object that can serve as a constant bidirectional iterator for the controlled
+  sequence. It is described here as a synonym for the implementation-defined type <code>T1</code>.</p>
+
+  <h3><code><a name="multimap::const_pointer">multimap::const_pointer</a></code></h3>
+  <pre>
+typedef typename Alloc::const_pointer <b>const_pointer</b>;
+</pre>
+
+  <p>The type describes an object that can serve as a constant pointer to an element of the controlled
+  sequence.</p>
+
+  <h3><code><a name="multimap::const_reference">multimap::const_reference</a></code></h3>
+  <pre>
+typedef typename Alloc::const_reference <b>const_reference</b>;
+</pre>
+
+  <p>The type describes an object that can serve as a constant reference to an element of the controlled
+  sequence.</p>
+
+  <h3><code><a name="multimap::const_reverse_iterator">multimap::const_reverse_iterator</a></code></h3>
+  <pre>
+typedef reverse_iterator&lt;const_iterator&gt;
+    <b>const_reverse_iterator</b>;
+</pre>
+
+  <p>The type describes an object that can serve as a constant reverse bidirectional iterator for the
+  controlled sequence.</p>
+
+  <h3><code><a name="multimap::count">multimap::count</a></code></h3>
+  <pre>
+size_type <b>count</b>(const Key&amp; keyval) const;
+</pre>
+
+  <p>The member function returns the number of elements in the range <code>[<a href=
+  "#multimap::lower_bound">lower_bound</a>(keyval), <a href=
+  "#multimap::upper_bound">upper_bound</a>(keyval)).</code></p>
+
+  <h3><code><a name="multimap::crbegin">multimap::crbegin</a></code></h3>
+  <pre>
+const_reverse_iterator <b>crbegin</b>() const; <b>[added with C++0X]</b>
+</pre>
+
+  <p>The member functions return a reverse iterator that points just beyond the end of the controlled
+  sequence. Hence, it designates the beginning of the reverse sequence.</p>
+
+  <h3><code><a name="multimap::crend">multimap::crend</a></code></h3>
+  <pre>
+const_reverse_iterator <b>crend</b>() const; <b>[added with C++0X]</b>
+</pre>
+
+  <p>The member functions return a reverse iterator that points at the first element of the sequence (or just
+  beyond the end of an empty sequence)). Hence, it designates the end of the reverse sequence.</p>
+
+  <h3><code><a name="multimap::difference_type">multimap::difference_type</a></code></h3>
+  <pre>
+typedef typename Alloc::difference_type <b>difference_type</b>;
+</pre>
+
+  <p>The signed integer type describes an object that can represent the difference between the addresses of
+  any two elements in the controlled sequence.</p>
+
+  <h3><code><a name="multimap::emplace">multimap::emplace</a></code></h3>
+  <pre>
+template&lt;class... Valty&gt;
+    pair&lt;iterator, bool&gt; <b>emplace</b>(Valty&amp;&amp;... val); <b>[added with C++0X]</b>
+</pre>
+
+  <p>The member function returns <code><a href="#multimap::insert">insert</a>(forward&lt;pair&lt;key,
+  mapped_type&gt; &gt;( pair&lt;key, mapped_type&gt;(val...))</code>.</p>
+
+  <h3><code><a name="multimap::emplace_hint">multimap::emplace_hint</a></code></h3>
+  <pre>
+template&lt;class... Valty&gt;
+    iterator <b>emplace_hint</b>(const_iterator where, Valty&amp;&amp;... val); <b>[added with C++0X]</b>
+</pre>
+
+  <p>The member function returns <code>insert(where, forward&lt;pair&lt;key, mapped_type&gt; &gt;(
+  pair&lt;key, mapped_type&gt;(val...))</code>.</p>
+
+  <h3><code><a name="multimap::empty">multimap::empty</a></code></h3>
+  <pre>
+bool <b>empty</b>() const;
+</pre>
+
+  <p>The member function returns true for an empty controlled sequence.</p>
+
+  <h3><code><a name="multimap::end">multimap::end</a></code></h3>
+  <pre>
+const_iterator <b>end</b>() const;
+iterator <b>end</b>();
+</pre>
+
+  <p>The member function returns a bidirectional iterator that points just beyond the end of the
+  sequence.</p>
+
+  <h3><code><a name="multimap::equal_range">multimap::equal_range</a></code></h3>
+  <pre>
+pair&lt;iterator, iterator&gt; <b>equal_range</b>(const Key&amp; keyval);
+pair&lt;const_iterator, const_iterator&gt;
+    <b>equal_range</b>(const Key&amp; keyval) const;
+</pre>
+
+  <p>The member function returns a pair of iterators <code>X</code> such that <code>X.<a href=
+  "utility.html#pair::first">first</a> == <a href="#multimap::lower_bound">lower_bound</a>(keyval)</code> and
+  <code>X.<a href="utility.html#pair::second">second</a> == <a href=
+  "#multimap::upper_bound">upper_bound</a>(keyval)</code>.</p>
+
+  <h3><code><a name="multimap::erase">multimap::erase</a></code></h3>
+  <pre>
+iterator <b>erase</b>(const_iterator where);
+iterator <b>erase</b>(const_iterator first, const_iterator last);
+size_type <b>erase</b>(const Key&amp; keyval);
+</pre>
+
+  <p>The first member function removes the element of the controlled sequence pointed to by
+  <code>where</code>. The second member function removes the elements in the range <code>[first,
+  last)</code>. Both return an iterator that designates the first element remaining beyond any elements
+  removed, or <code><a href="#multimap::end">end</a>()</code> if no such element exists.</p>
+
+  <p>The third member removes the elements with sort keys in the range <code>[<a href=
+  "#multimap::lower_bound">lower_bound</a>(keyval), <a href=
+  "#multimap::upper_bound">upper_bound</a>(keyval)).</code> It returns the number of elements it removes.</p>
+
+  <p>The member functions never throw an exception, nor do they alter the order of any remaining
+  elements.</p>
+
+  <p>In this <a href="index.html#implementation">implementation</a>, the first two member functions return an
+  iterator that designates the first element remaining beyond any elements removed, or <code><a href=
+  "#multimap::end">end</a>()</code> if no such element exists.</p>
+
+  <h3><code><a name="multimap::find">multimap::find</a></code></h3>
+  <pre>
+iterator <b>find</b>(const Key&amp; keyval);
+const_iterator <b>find</b>(const Key&amp; keyval) const;
+</pre>
+
+  <p>The member function returns an iterator that designates the earliest element in the controlled sequence
+  whose sort key has <a href="lib_stl.html#equivalent%20ordering">equivalent ordering</a> to
+  <code>keyval</code>. If no such element exists, the function returns <code><a href=
+  "#multimap::end">end</a>()</code>.</p>
+
+  <h3><code><a name="multimap::get_allocator">multimap::get_allocator</a></code></h3>
+  <pre>
+Alloc <b>get_allocator</b>() const;
+</pre>
+
+  <p>The member function returns the stored <a href="memory.html#allocator%20object">allocator
+  object</a>.</p>
+
+  <h3><code><a name="multimap::insert">multimap::insert</a></code></h3>
+  <pre>
+iterator <b>insert</b>(const value_type&amp; val);
+iterator <b>insert</b>(const_iterator where, const value_type&amp; val);
+template&lt;class InIt&gt;
+    void <b>insert</b>(InIt first, InIt last);
+void <b>insert</b>(initializer_list&lt;Ty&gt; init) <b>[added with C++0X]</b>
+template&lt;class Valty&gt;
+    pair&lt;iterator, bool&gt; <b>insert</b>(Valty&amp;&amp; val); <b>[added with C++0X]</b>
+template&lt;class Valty&gt;
+    iterator <b>insert</b>(const_iterator where, Valty&amp;&amp; val); <b>[added with C++0X]</b>
+</pre>
+
+  <p>The first member function inserts the element <code>val</code> in the controlled sequence, then returns
+  the iterator that designates the inserted element. Beginning with <b>C++0X</b>, insertion occurs at the end
+  of a sequence of elements with <a href="lib_stl.html#equivalent%20ordering">equivalent ordering</a>.</p>
+
+  <p>The second member function returns <code>insert(val)</code>, using <code>where</code> as a starting
+  place within the controlled sequence to search for the insertion point. (Insertion can occur in amortized
+  constant time, instead of logarithmic time, if the insertion point immediately precedes or follows
+  <code>where</code>.) Beginning with <b>C++0X</b>, insertion occurs at the point nearest the position before
+  <code>where</code> in a sequence of elements with equivalent ordering.</p>
+
+  <p>The third member function inserts the sequence of element values, for each <code>where</code> in the
+  range <code>[first, last)</code>, by calling <code>insert(*where)</code>. Beginning with <b>C++0X</b>,
+  insertion of each element occurs at the end of a sequence of elements with equivalent ordering.</p>
+
+  <p>The fourth member function inserts the sequence specified by an object of class <code><b><a href=
+  "lib_cpp.html#initializer_list">initializer_list</a></b>&lt;Ty&gt;</code>.</p>
+
+  <p>The last two member functions behave the same as the first two but with an <a href=
+  "lib_cpp.html#rvalue%20references">rvalue reference</a>.</p>
+
+  <p>If an exception is thrown during the insertion of a single element, the container is left unaltered and
+  the exception is rethrown. If an exception is thrown during the insertion of multiple elements, the
+  container is left in a stable but unspecified state and the exception is rethrown.</p>
+
+  <p>The member functions never alter the order of any preexisting elements.</p>
+
+  <h3><code><a name="multimap::iterator">multimap::iterator</a></code></h3>
+  <pre>
+typedef T0 <b>iterator</b>;
+</pre>
+
+  <p>The type describes an object that can serve as a bidirectional iterator for the controlled sequence. It
+  is described here as a synonym for the implementation-defined type <code>T0</code>.</p>
+
+  <h3><code><a name="multimap::key_comp">multimap::key_comp</a></code></h3>
+  <pre>
+key_compare <b>key_comp</b>() const;
+</pre>
+
+  <p>The member function returns the stored function object that determines the order of elements in the
+  controlled sequence. The stored object defines the member function:</p>
+  <pre>
+bool operator()(const Key&amp; left, const Key&amp; right);
+</pre>
+
+  <p>which returns true if <code>left</code> strictly precedes <code>right</code> in the sort order.</p>
+
+  <h3><code><a name="multimap::key_compare">multimap::key_compare</a></code></h3>
+  <pre>
+typedef Pr <b>key_compare</b>;
+</pre>
+
+  <p>The type describes a function object that can compare two sort keys to determine the relative order of
+  two elements in the controlled sequence.</p>
+
+  <h3><code><a name="multimap::key_type">multimap::key_type</a></code></h3>
+  <pre>
+typedef Key <b>key_type</b>;
+</pre>
+
+  <p>The type describes the sort key object stored in each element of the controlled sequence.</p>
+
+  <h3><code><a name="multimap::lower_bound">multimap::lower_bound</a></code></h3>
+  <pre>
+iterator <b>lower_bound</b>(const Key&amp; keyval);
+const_iterator <b>lower_bound</b>(const Key&amp; keyval) const;
+</pre>
+
+  <p>The member function returns an iterator that designates the earliest element <code>X</code> in the
+  controlled sequence for which <code><a href="#multimap::key_comp">key_comp</a>()(X. <a href=
+  "utility.html#pair::first">first</a>, keyval)</code> is false.</p>If no such element exists, the function
+  returns <code><a href="#multimap::end">end</a>()</code>.
+
+  <h3><code><a name="multimap::mapped_type">multimap::mapped_type</a></code></h3>
+  <pre>
+typedef Ty <b>mapped_type</b>;
+</pre>
+
+  <p>The type is a synonym for the template parameter <code>Ty</code>.</p>
+
+  <h3><code><a name="multimap::max_size">multimap::max_size</a></code></h3>
+  <pre>
+size_type <b>max_size</b>() const;
+</pre>
+
+  <p>The member function returns the length of the longest sequence that the object can control.</p>
+
+  <h3><code><a name="multimap::multimap">multimap::multimap</a></code></h3>
+  <pre>
+<b>multimap</b>();
+explicit <b>multimap</b>(const Pr&amp; pred);
+<b>multimap</b>(const Pr&amp; pred, const Alloc&amp; al);
+<b>multimap</b>(const multimap&amp; right);
+template&lt;class InIt&gt;
+    <b>multimap</b>(InIt first, InIt last);
+template&lt;class InIt&gt;
+    <b>multimap</b>(InIt first, InIt last,
+        const Pr&amp; pred);
+template&lt;class InIt&gt;
+    <b>multimap</b>(InIt first, InIt last,
+        const Pr&amp; pred, const Alloc&amp; al);
+
+<b>multimap</b>(initializer_list&lt;Ty&gt; init) <b>[added with C++0X]</b>
+<b>multimap</b>(initializer_list&lt;Ty&gt; init,
+    const Pr&amp; pred); <b>[added with C++0X]</b>
+<b>multimap</b>(initializer_list&lt;Ty&gt; init,
+    const Pr&amp; pred, const Alloc&amp; al); <b>[added with C++0X]</b>
+<b>multimap</b>(multimap&amp;&amp; right); <b>[added with C++0X]</b>
+</pre>
+
+  <p>All constructors store an <a href="memory.html#allocator%20object">allocator object</a> and initialize
+  the controlled sequence. The allocator object is the argument <code>al</code>, if present. For the copy
+  constructor, it is <code>right.<a href="#multimap::get_allocator">get_allocator</a>()</code>. Otherwise, it
+  is <code>Alloc()</code>.</p>
+
+  <p>All constructors also store a function object that can later be returned by calling <code><a href=
+  "#multimap::key_comp">key_comp</a>()</code>. The function object is the argument <code>pred</code>, if
+  present. For the copy constructor, it is <code>right.<a href="#multimap::key_comp">key_comp</a>()</code>).
+  Otherwise, it is <code>Pr()</code>.</p>
+
+  <p>The first three constructors specify an empty initial controlled sequence. The fourth constructor
+  specifies a copy of the sequence controlled by <code>right</code>. The next three constructors specify the
+  sequence of element values <code>[first, last)</code>.</p>
+
+  <p>The next three constructors specify the initial controlled sequence with an object of class
+  <code><b><a href="lib_cpp.html#initializer_list">initializer_list</a></b>&lt;Ty&gt;</code>.</p>
+
+  <p>The last constructor is the same as the fourth, but with an <a href=
+  "lib_cpp.html#rvalue%20references">rvalue reference</a>.</p>
+
+  <h3><code><a name="multimap::operator=">multimap::operator=</a></code></h3>
+  <pre>
+multimap&amp; <b>operator=</b>(const multimap&amp; right);
+multimap&amp; <b>operator=</b>(initializer_list&lt;Ty&gt; init) <b>[added with C++0X]</b>
+multimap&amp; <b>operator=</b>(multimap&amp;&amp; right); <b>[added with C++0X]</b>
+</pre>
+
+  <p>The first member operator replaces the controlled sequence with a copy of the sequence controlled by
+  <code>right</code>.</p>
+
+  <p>The second member operator replaces the controlled sequence from an object of class <code><b><a href=
+  "lib_cpp.html#initializer_list">initializer_list</a></b>&lt;Ty&gt;</code>.</p>
+
+  <p>The third member operator is the same as the first, but with an <a href=
+  "lib_cpp.html#rvalue%20references">rvalue reference</a>.</p>
+
+  <h3><code><a name="multimap::pointer">multimap::pointer</a></code></h3>
+  <pre>
+typedef typename Alloc::pointer <b>pointer</b>;
+</pre>
+
+  <p>The type describes an object that can serve as a pointer to an element of the controlled sequence.</p>
+
+  <h3><code><a name="multimap::rbegin">multimap::rbegin</a></code></h3>
+  <pre>
+const_reverse_iterator <b>rbegin</b>() const;
+reverse_iterator <b>rbegin</b>();
+</pre>
+
+  <p>The member function returns a reverse bidirectional iterator that points just beyond the end of the
+  controlled sequence. Hence, it designates the beginning of the reverse sequence.</p>
+
+  <h3><code><a name="multimap::reference">multimap::reference</a></code></h3>
+  <pre>
+typedef typename Alloc::reference <b>reference</b>;
+</pre>
+
+  <p>The type describes an object that can serve as a reference to an element of the controlled sequence.</p>
+
+  <h3><code><a name="multimap::rend">multimap::rend</a></code></h3>
+  <pre>
+const_reverse_iterator <b>rend</b>() const;
+reverse_iterator <b>rend</b>();
+</pre>
+
+  <p>The member function returns a reverse bidirectional iterator that points at the first element of the
+  sequence (or just beyond the end of an empty sequence). Hence, it designates the end of the reverse
+  sequence.</p>
+
+  <h3><code><a name="multimap::reverse_iterator">multimap::reverse_iterator</a></code></h3>
+  <pre>
+typedef reverse_iterator&lt;iterator&gt; <b>reverse_iterator</b>;
+</pre>
+
+  <p>The type describes an object that can serve as a reverse bidirectional iterator for the controlled
+  sequence.</p>
+
+  <h3><code><a name="multimap::size">multimap::size</a></code></h3>
+  <pre>
+size_type <b>size</b>() const;
+</pre>
+
+  <p>The member function returns the length of the controlled sequence.</p>
+
+  <h3><code><a name="multimap::size_type">multimap::size_type</a></code></h3>
+  <pre>
+typedef typename Alloc::size_type <b>size_type</b>;
+</pre>
+
+  <p>The unsigned integer type describes an object that can represent the length of any controlled
+  sequence.</p>
+
+  <h3><code><a name="multimap::swap">multimap::swap</a></code></h3>
+  <pre>
+void <b>swap</b>(multimap&amp; right);
+</pre>
+
+  <p>The member function swaps the controlled sequences between <code>*this</code> and <code>right</code>. If
+  <code><a href="#multimap::get_allocator">get_allocator</a>() == right.get_allocator()</code>, it does so in
+  constant time, it throws an exception only as a result of copying the stored function object of type
+  <code>Pr</code>, and it invalidates no references, pointers, or iterators that designate elements in the
+  two controlled sequences. Otherwise, it performs a number of element assignments and constructor calls
+  proportional to the number of elements in the two controlled sequences.</p>
+
+  <h3><code><a name="multimap::upper_bound">multimap::upper_bound</a></code></h3>
+  <pre>
+iterator <b>upper_bound</b>(const Key&amp; keyval);
+const_iterator <b>upper_bound</b>(const Key&amp; keyval) const;
+</pre>
+
+  <p>The member function returns an iterator that designates the earliest element <code>right</code> in the
+  controlled sequence for which <code><a href="#multimap::key_comp">key_comp</a>()(keyval, right.<a href=
+  "utility.html#pair::first">first</a>)</code> is true.</p>If no such element exists, the function returns
+  <code><a href="#multimap::end">end</a>()</code>.
+
+  <h3><code><a name="multimap::value_comp">multimap::value_comp</a></code></h3>
+  <pre>
+value_compare <b>value_comp</b>() const;
+</pre>
+
+  <p>The member function returns a function object that determines the order of elements in the controlled
+  sequence.</p>
+
+  <h3><code><a name="multimap::value_compare">multimap::value_compare</a></code></h3>
+  <pre>
+class <b>value_compare</b>
+    : public <a href="functio2.html#binary_function">binary_function</a>&lt;value_type, value_type,
+        bool&gt; {
+public:
+    bool operator()(const value_type&amp; left,
+        const value_type&amp; right) const
+        {return (comp(left.first, right.first)); }
+protected:
+    value_compare(key_compare pr)
+        : comp(pr) {}
+    key_compare comp;
+    };
+</pre>
+
+  <p>The type describes a function object that can compare the sort keys in two elements to determine their
+  relative order in the controlled sequence. The function object stores an object <b><code><a name=
+  "multimap::value_compare::comp">comp</a></code></b> of type <code><a href=
+  "#multimap::key_compare">key_compare</a></code>. The member function <b><code>operator()</code></b> uses
+  this object to compare the sort-key components of two element.</p>
+
+  <h3><code><a name="multimap::value_type">multimap::value_type</a></code></h3>
+  <pre>
+typedef <a href="utility.html#pair">pair</a>&lt;const Key, Ty&gt; <b>value_type</b>;
+</pre>
+
+  <p>The type describes an element of the controlled sequence.</p>
+
+  <h2><a name="operator!="><code>operator!=</code></a></h2>
+  <pre>
+template&lt;class Key, class Ty, class Pr, class Alloc&gt;
+    bool <b>operator!=</b>(
+        const map &lt;Key, Ty, Pr, Alloc&gt;&amp; left,
+        const map &lt;Key, Ty, Pr, Alloc&gt;&amp; right);
+template&lt;class Key, class Ty, class Pr, class Alloc&gt;
+    bool <b>operator!=</b>(
+        const multimap &lt;Key, Ty, Pr, Alloc&gt;&amp; left,
+        const multimap &lt;Key, Ty, Pr, Alloc&gt;&amp; right);
+</pre>
+
+  <p>The template function returns <code>!(left == right)</code>.</p>
+
+  <h2><a name="operator=="><code>operator==</code></a></h2>
+  <pre>
+template&lt;class Key, class Ty, class Pr, class Alloc&gt;
+    bool <b>operator==</b>(
+        const map &lt;Key, Ty, Pr, Alloc&gt;&amp; left,
+        const map &lt;Key, Ty, Pr, Alloc&gt;&amp; right);
+template&lt;class Key, class Ty, class Pr, class Alloc&gt;
+    bool <b>operator==</b>(
+        const multimap &lt;Key, Ty, Pr, Alloc&gt;&amp; left,
+        const multimap &lt;Key, Ty, Pr, Alloc&gt;&amp; right);
+</pre>
+
+  <p>The first template function overloads <code>operator==</code> to compare two objects of template class
+  <a href="#map"><code>map</code></a>. The second template function overloads <code>operator==</code> to
+  compare two objects of template class <a href="#multimap"><code>multimap</code></a>. Both functions return
+  <code>left.<a href="#multimap::size">size</a>() == right.size() &amp;&amp; <a href=
+  "algorith.html#equal">equal</a>(left. <a href="#multimap::begin">begin</a>(), left. <a href=
+  "#multimap::end">end</a>(), right.begin())</code>.</p>
+
+  <h2><a name="operator&lt;"><code>operator&lt;</code></a></h2>
+  <pre>
+template&lt;class Key, class Ty, class Pr, class Alloc&gt;
+    bool <b>operator&lt;</b>(
+        const map &lt;Key, Ty, Pr, Alloc&gt;&amp; left,
+        const map &lt;Key, Ty, Pr, Alloc&gt;&amp; right);
+template&lt;class Key, class Ty, class Pr, class Alloc&gt;
+    bool <b>operator&lt;</b>(
+        const multimap &lt;Key, Ty, Pr, Alloc&gt;&amp; left,
+        const multimap &lt;Key, Ty, Pr, Alloc&gt;&amp; right);
+</pre>
+
+  <p>The first template function overloads <code>operator&lt;</code> to compare two objects of template class
+  <a href="#map"><code>map</code></a>. The second template function overloads <code>operator&lt;</code> to
+  compare two objects of template class <a href="#multimap"><code>multimap</code></a>. Both functions return
+  <code><a href="algorith.html#lexicographical_compare">lexicographical_compare</a>(left. <a href=
+  "#multimap::begin">begin</a>(), left. <a href="#multimap::end">end</a>(), right.begin(), right.end(),
+  left.<a href="#multimap::value_comp">value_comp</a>())</code>.</p>
+
+  <h2><a name="operator&lt;="><code>operator&lt;=</code></a></h2>
+  <pre>
+template&lt;class Key, class Ty, class Pr, class Alloc&gt;
+    bool <b>operator&lt;=</b>(
+        const map &lt;Key, Ty, Pr, Alloc&gt;&amp; left,
+        const map &lt;Key, Ty, Pr, Alloc&gt;&amp; right);
+template&lt;class Key, class Ty, class Pr, class Alloc&gt;
+    bool <b>operator&lt;=</b>(
+        const multimap &lt;Key, Ty, Pr, Alloc&gt;&amp; left,
+        const multimap &lt;Key, Ty, Pr, Alloc&gt;&amp; right);
+</pre>
+
+  <p>The template function returns <code>!(right &lt; left)</code>.</p>
+
+  <h2><a name="operator&gt;"><code>operator&gt;</code></a></h2>
+  <pre>
+template&lt;class Key, class Ty, class Pr, class Alloc&gt;
+    bool <b>operator&gt;</b>(
+        const map &lt;Key, Ty, Pr, Alloc&gt;&amp; left,
+        const map &lt;Key, Ty, Pr, Alloc&gt;&amp; right);
+template&lt;class Key, class Ty, class Pr, class Alloc&gt;
+    bool <b>operator&gt;</b>(
+        const multimap &lt;Key, Ty, Pr, Alloc&gt;&amp; left,
+        const multimap &lt;Key, Ty, Pr, Alloc&gt;&amp; right);
+</pre>
+
+  <p>The template function returns <code>right &lt; left</code>.</p>
+
+  <h2><a name="operator&gt;="><code>operator&gt;=</code></a></h2>
+  <pre>
+template&lt;class Key, class Ty, class Pr, class Alloc&gt;
+    bool <b>operator&gt;=</b>(
+        const map &lt;Key, Ty, Pr, Alloc&gt;&amp; left,
+        const map &lt;Key, Ty, Pr, Alloc&gt;&amp; right);
+template&lt;class Key, class Ty, class Pr, class Alloc&gt;
+    bool <b>operator!=</b>(
+        const multimap &lt;Key, Ty, Pr, Alloc&gt;&amp; left,
+        const multimap &lt;Key, Ty, Pr, Alloc&gt;&amp; right);
+</pre>
+
+  <p>The template function returns <code>!(left &lt; right)</code>.</p>
+
+  <h2><a name="swap"><code>swap</code></a></h2>
+  <pre>
+template&lt;class Key, class Ty, class Pr, class Alloc&gt;
+    void <b>swap</b>(
+        map &lt;Key, Ty, Pr, Alloc&gt;&amp; left,
+        map &lt;Key, Ty, Pr, Alloc&gt;&amp; right);
+template&lt;class Key, class Ty, class Pr, class Alloc&gt;
+    void <b>swap</b>(
+        multimap &lt;Key, Ty, Pr, Alloc&gt;&amp; left,
+        multimap &lt;Key, Ty, Pr, Alloc&gt;&amp; right);
+</pre>
+
+  <p>The template function executes <code>left.swap(right)</code>.</p>
+  <hr>
+
+  <p>See also the <b><a href="index.html#Table%20of%20Contents">Table of Contents</a></b> and the <b><a href=
+  "_index.html">Index</a></b>.</p>
+
+  <p><i><a href="crit_pjp.html">Copyright</a> &copy; 1992-2010 by P.J. Plauger. Portions derived from work
+  <a href="crit_hp.html">copyright</a> &copy; 1994 by Hewlett-Packard Company. All rights reserved.</i></p>
+  <!--V5.30:126I-->
+</body>
+</html>
