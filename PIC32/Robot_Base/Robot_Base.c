@@ -400,21 +400,26 @@ void main(void)
   		  4. 3 means turn right
   		  5. 4 means brake*/
 
-		if(movement_instruction == 0){
+		//if(movement_instruction == 0){
+			waitms(1000);
 			go_forward();
-		}
-		else if(movement_instruction == 1){
+			waitms(1000);
+		//}
+		//else if(movement_instruction == 1){
 			go_backward();
-		}
-		else if(movement_instruction == 2){
+			waitms(1000);
+		//}
+		//else if(movement_instruction == 2){
 			turn_left();
-		}
-		else if(movement_instruction == 3){
+			waitms(1000);
+		//}
+		//else if(movement_instruction == 3){
 			turn_right();
-		}
-		else if(movement_instruction == 4){
+			waitms(1000);
+		//}
+		//else if(movement_instruction == 4){
 			stop_motors();
-		}
+		//}
 
 		
 
