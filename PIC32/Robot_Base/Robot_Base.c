@@ -467,6 +467,6 @@ void main(void)
 			ISR_pwm2=200;	
 		}*/
 
-		waitms(200);
+		//waitms(200);
 	}
 }
