@@ -277,6 +277,55 @@ void stop_motors(){
 	LATAbits.LATA4 = 0;
 }
 
+/*returns movement of the car
+  1. 0 means go forward
+  2. 1 means go backward
+  3. 2 means turn left
+  4. 3 means turn right
+  5. 4 means brake
+  The movements are determined by duration of devoid of magnetic field signals
+
+  _CP0_GET_COUNT() = (SYSCLK/(2*1000)) = 1ms in SI unit
+*/
+int determine_car_movement(){
+	//reset timer
+	_CP0_GET_COUNT(0);
+
+	//if receiver starts not receiving anything aka adc = 0, start the timer
+	while(ADCRead(4) == 0){
+		if(_CP0_GET_COUNT() > (SYSCLK/8)) return 0;
+	}
+		
+	//depending on the duration of no signal, return appropriate movement
+
+	//first if no signal during the range of 3ms to 8ms (expected: 5ms) then that's fwd 
+	if(_CP0_GET_COUNT() >= (SYSCLK/(2*1000)) * 3 && _CP0_GET_COUNT() <= (SYSCLK/(2*1000)) * 8){
+		return 0;
+	}
+
+    //if no signal during the range of 12ms to 18ms (expected: 15ms) then that's left turn 
+	else if(_CP0_GET_COUNT() >= (SYSCLK/(2*1000)) * 12 && _CP0_GET_COUNT() <= (SYSCLK/(2*1000)) * 18){
+		return 2;
+	}
+
+	//if no signal during the range of 22ms to 28ms (expected: 25ms) then that's right turn 
+	else if(_CP0_GET_COUNT() >= (SYSCLK/(2*1000)) * 22 && _CP0_GET_COUNT() <= (SYSCLK/(2*1000)) * 28){
+		return 3;
+	}
+
+	//if no signal during the range of 32ms to 38ms (expected: 35ms) then that's brake
+	else if(_CP0_GET_COUNT() >= (SYSCLK/(2*1000)) * 32 && _CP0_GET_COUNT() <= (SYSCLK/(2*1000)) * 38){
+		return 4;
+	}
+
+	//if no signal during the range of 47ms to 53ms (expected: 50ms) then that's backward
+	else if(_CP0_GET_COUNT() >= (SYSCLK/(2*1000)) * 47 && _CP0_GET_COUNT() <= (SYSCLK/(2*1000)) * 53){
+		return 1;
+	}
+
+
+}
+
 // In order to keep this as nimble as possible, avoid
 // using floating point or printf() on any of its forms!
 void main(void)
@@ -286,6 +335,7 @@ void main(void)
     long int v;
 	unsigned long int count, f;
 	unsigned char LED_toggle=0;
+	int movement_instruction;
 
 	CFGCON = 0;
   
@@ -302,6 +352,13 @@ void main(void)
 	uart_puts("Measures period on RB5 (pin 14 of DIP28 package)\r\n");
 	uart_puts("Toggles RA0, RA1, RB0, RB1, RA2 (pins 2, 3, 4, 5, 9, of DIP28 package)\r\n");
 	uart_puts("Generates Servo PWM signals at RA3, RB4 (pins 10, 11 of DIP28 package)\r\n\r\n");
+	
+	//set motors off initially
+	LATAbits.LATA2 = 0;
+	LATAbits.LATA3 = 0;
+	LATBbits.LATB4 = 0; 
+	LATAbits.LATA4 = 0;
+
 	while(1)
 	{
     	adcval = ADCRead(4); // note that we call pin AN4 (RB2) by it's analog number
@@ -335,15 +392,41 @@ void main(void)
 			uart_puts("NO SIGNAL                     \r");
 		}
 
+		movement_instruction = determine_car_movement();
+
+		/*1. 0 means go forward
+  		  2. 1 means go backward
+  		  3. 2 means turn left
+  		  4. 3 means turn right
+  		  5. 4 means brake*/
+
+		if(movement_instruction == 0){
+			go_forward();
+		}
+		else if(movement_instruction == 1){
+			go_backward();
+		}
+		else if(movement_instruction == 2){
+			turn_left();
+		}
+		else if(movement_instruction == 3){
+			turn_right();
+		}
+		else if(movement_instruction == 4){
+			stop_motors();
+		}
+
+		
+
 		// Now toggle the pins on/off to see if they are working.
 		// First turn all off:
-		LATAbits.LATA0 = 0;	
+		/*LATAbits.LATA0 = 0;	
 		LATAbits.LATA1 = 0;			
 		LATBbits.LATB0 = 0;			
 		LATBbits.LATB1 = 0;		
-		LATAbits.LATA2 = 0;			
+		LATAbits.LATA2 = 0;	*/		
 		// Now turn on one of the outputs per loop cycle to check
-		switch (LED_toggle++)
+		/*switch (LED_toggle++)
 		{
 			/*case 0:
 				LATAbits.LATA0 = 1;
@@ -365,7 +448,7 @@ void main(void)
 		}
 		if(LED_toggle>4) LED_toggle=0;*/
 
-		// Change the servo PWM signals
+		/*// Change the servo PWM signals
 		if (ISR_pwm1<200)
 		{
 			ISR_pwm1++;
@@ -382,7 +465,7 @@ void main(void)
 		else
 		{
 			ISR_pwm2=200;	
-		}
+		}*/
 
 		waitms(200);
 	}
