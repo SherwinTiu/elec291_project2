@@ -3,71 +3,9 @@ Archive member included to satisfy reference by file (symbol)
 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libnosys.a(errno.o)
                               newlib_stubs.o (errno)
 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libgcc.a(_divsi3.o)
-                              serial.o (__aeabi_idiv)
+                              main.o (__aeabi_idiv)
 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libgcc.a(_dvmd_tls.o)
                               C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libgcc.a(_divsi3.o) (__aeabi_idiv0)
-C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-fflush.o)
-                              main.o (fflush)
-C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-findfp.o)
-                              C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-fflush.o) (__sglue)
-C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-fwalk.o)
-                              C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-fflush.o) (_fwalk_sglue)
-C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-printf.o)
-                              main.o (printf)
-C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-stdio.o)
-                              C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-findfp.o) (__sread)
-C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-memset.o)
-                              C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-findfp.o) (memset)
-C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-closer.o)
-                              C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-stdio.o) (_close_r)
-C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-impure.o)
-                              main.o (_impure_ptr)
-C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-lseekr.o)
-                              C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-stdio.o) (_lseek_r)
-C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-readr.o)
-                              C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-stdio.o) (_read_r)
-C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-writer.o)
-                              C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-stdio.o) (_write_r)
-C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-lock.o)
-                              C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-findfp.o) (__retarget_lock_init_recursive)
-C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-freer.o)
-                              C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-fflush.o) (_free_r)
-C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-mallocr.o)
-                              C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-findfp.o) (_malloc_r)
-C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-mlock.o)
-                              C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-freer.o) (__malloc_lock)
-C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-nano-vfprintf.o)
-                              C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-printf.o) (_vfprintf_r)
-C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-nano-vfprintf_i.o)
-                              C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-nano-vfprintf.o) (_printf_i)
-C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-fvwrite.o)
-                              C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-nano-vfprintf.o) (__sfvwrite_r)
-C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-wbuf.o)
-                              C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-nano-vfprintf.o) (__swbuf_r)
-C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-wsetup.o)
-                              C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-nano-vfprintf.o) (__swsetup_r)
-C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-memmove.o)
-                              C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-fvwrite.o) (memmove)
-C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-sbrkr.o)
-                              C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-mallocr.o) (_sbrk_r)
-C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-memchr-stub.o)
-                              C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-nano-vfprintf.o) (memchr)
-C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-memcpy-stub.o)
-                              C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-fvwrite.o) (memcpy)
-C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-reallocr.o)
-                              C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-fvwrite.o) (_realloc_r)
-C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-makebuf.o)
-                              C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-wsetup.o) (__smakebuf_r)
-C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-fstatr.o)
-                              C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-makebuf.o) (_fstat_r)
-C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-isattyr.o)
-                              C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-makebuf.o) (_isatty_r)
-C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-msizer.o)
-                              C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-reallocr.o) (_malloc_usable_size_r)
-C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libgcc.a(_thumb1_case_shi.o)
-                              C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-nano-vfprintf_i.o) (__gnu_thumb1_case_shi)
-C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libgcc.a(_udivsi3.o)
-                              C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-nano-vfprintf_i.o) (__aeabi_uidivmod)
 
 Memory Configuration
 
@@ -90,7 +28,7 @@ LOAD C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-non
 LOAD C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libm.a
 END GROUP
 
-.text           0x08000000     0x25f8
+.text           0x08000000     0x1740
  *(.vectors)
  .vectors       0x08000000       0xb8 startup.o
                 0x08000000                Vectors
@@ -99,334 +37,124 @@ END GROUP
                 0x080000b8       0x28 startup.o
                 0x080000b8                ResetInit
  *(.text*)
- .text          0x080000e0      0x3b4 main.o
+ .text          0x080000e0      0x9c8 main.o
                 0x080000e0                wait_1ms
                 0x08000118                delayms
                 0x0800013a                TIM2_Handler
-                0x08000178                Hardware_Init
-                0x08000344                main
- .text          0x08000494      0x5b4 serial.o
-                0x08000494                ReadCom
-                0x08000508                WriteCom
-                0x080005a8                initUART
-                0x080006f8                USART1_Handler
-                0x08000724                usart_rx
-                0x08000754                usart_tx
-                0x080007bc                PutBuf
-                0x0800081e                GetBuf
-                0x08000874                GetBufCount
-                0x08000888                eputs
-                0x080008c4                eputc
-                0x080008e2                egetc
-                0x080008fc                egets
-                0x08000988                egetc_echo
-                0x080009ae                egets_echo
- .text          0x08000a48      0x1a8 startup.o
-                0x08000ac0                initClock
-                0x08000bc8                EXTI2_3_Handler
-                0x08000bc8                TIM21_Handler
-                0x08000bc8                SysTick_Handler
-                0x08000bc8                I2C1_Handler
-                0x08000bc8                PendSV_Handler
-                0x08000bc8                NMI_Handler
-                0x08000bc8                WWDG_Handler
-                0x08000bc8                RTC_Handler
-                0x08000bc8                EXTI4_15_Handler
-                0x08000bc8                DMA_CH4_5_6_7_Handler
-                0x08000bc8                Default_Handler
-                0x08000bc8                LPUART1_Handler
-                0x08000bc8                FLASH_Handler
-                0x08000bc8                EXTI0_1_Handler
-                0x08000bc8                DMA_CH1_Handler
-                0x08000bc8                SPI2_Handler
-                0x08000bc8                DMA_CH2_3_Handler
-                0x08000bc8                I2C2_Handler
-                0x08000bc8                SVC_Handler
-                0x08000bc8                LPTIM1_Handler
-                0x08000bc8                USART2_Handler
-                0x08000bc8                SPI1_Handler
-                0x08000bc8                RCC_Handler
-                0x08000bc8                PVD_Handler
-                0x08000bc8                TIM6_Handler
-                0x08000bc8                TIM22_Handler
-                0x08000bc8                ADC_COMP_Handler
-                0x08000bdc                Hard_Fault_Handler
- .text          0x08000bf0      0x29c newlib_stubs.o
-                0x08000bf0                _exit
-                0x08000bfa                _close
-                0x08000c0e                _execve
-                0x08000c30                _fork
-                0x08000c48                _fstat
-                0x08000c64                _getpid
-                0x08000c70                _kill
-                0x08000c90                _link
-                0x08000cb0                _lseek
-                0x08000cc6                _stat
-                0x08000ce2                _times
-                0x08000cf6                _unlink
-                0x08000d14                _wait
-                0x08000d34                _isatty
-                0x08000d5c                _sbrk
-                0x08000dc0                _read
-                0x08000e38                _write
- .text          0x08000e8c        0x0 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libnosys.a(errno.o)
- .text          0x08000e8c      0x1d4 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libgcc.a(_divsi3.o)
-                0x08000e8c                __divsi3
-                0x08000e8c                __aeabi_idiv
-                0x08001058                __aeabi_idivmod
- .text          0x08001060        0x4 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libgcc.a(_dvmd_tls.o)
-                0x08001060                __aeabi_idiv0
-                0x08001060                __aeabi_ldiv0
- .text          0x08001064        0x0 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-fflush.o)
- .text.__sflush_r
-                0x08001064      0x11c C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-fflush.o)
-                0x08001064                __sflush_r
- .text._fflush_r
-                0x08001180       0x56 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-fflush.o)
-                0x08001180                _fflush_r
- *fill*         0x080011d6        0x2 
- .text.fflush   0x080011d8       0x30 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-fflush.o)
-                0x080011d8                fflush
- .text          0x08001208        0x0 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-findfp.o)
- .text.std      0x08001208       0x6c C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-findfp.o)
- .text.stdio_exit_handler
-                0x08001274       0x1c C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-findfp.o)
- .text.cleanup_stdio
-                0x08001290       0x3c C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-findfp.o)
- .text.__fp_lock
-                0x080012cc       0x18 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-findfp.o)
- .text.__fp_unlock
-                0x080012e4       0x18 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-findfp.o)
- .text.global_stdio_init.part.0
-                0x080012fc       0x3c C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-findfp.o)
- .text.__sfp_lock_acquire
-                0x08001338       0x10 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-findfp.o)
-                0x08001338                __sfp_lock_acquire
- .text.__sfp_lock_release
-                0x08001348       0x10 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-findfp.o)
-                0x08001348                __sfp_lock_release
- .text.__sfp    0x08001358       0xa8 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-findfp.o)
-                0x08001358                __sfp
- .text.__sinit  0x08001400       0x30 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-findfp.o)
-                0x08001400                __sinit
- .text.__fp_lock_all
-                0x08001430       0x1c C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-findfp.o)
-                0x08001430                __fp_lock_all
- .text.__fp_unlock_all
-                0x0800144c       0x1c C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-findfp.o)
-                0x0800144c                __fp_unlock_all
- .text          0x08001468        0x0 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-fwalk.o)
- .text._fwalk_sglue
-                0x08001468       0x38 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-fwalk.o)
-                0x08001468                _fwalk_sglue
- .text          0x080014a0        0x0 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-printf.o)
- .text._printf_r
-                0x080014a0       0x18 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-printf.o)
-                0x080014a0                _iprintf_r
-                0x080014a0                _printf_r
- .text.printf   0x080014b8       0x20 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-printf.o)
-                0x080014b8                iprintf
-                0x080014b8                printf
- .text          0x080014d8        0x0 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-stdio.o)
- .text.__sread  0x080014d8       0x28 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-stdio.o)
-                0x080014d8                __sread
- .text.__seofread
-                0x08001500        0x4 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-stdio.o)
-                0x08001500                __seofread
- .text.__swrite
-                0x08001504       0x38 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-stdio.o)
-                0x08001504                __swrite
- .text.__sseek  0x0800153c       0x2c C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-stdio.o)
-                0x0800153c                __sseek
- .text.__sclose
-                0x08001568        0xc C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-stdio.o)
-                0x08001568                __sclose
- .text          0x08001574        0x0 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-memset.o)
- .text.memset   0x08001574       0x10 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-memset.o)
-                0x08001574                memset
- .text          0x08001584        0x0 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-closer.o)
- .text._close_r
-                0x08001584       0x24 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-closer.o)
-                0x08001584                _close_r
- .text          0x080015a8        0x0 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-impure.o)
- .text          0x080015a8        0x0 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-lseekr.o)
- .text._lseek_r
-                0x080015a8       0x28 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-lseekr.o)
-                0x080015a8                _lseek_r
- .text          0x080015d0        0x0 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-readr.o)
- .text._read_r  0x080015d0       0x28 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-readr.o)
-                0x080015d0                _read_r
- .text          0x080015f8        0x0 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-writer.o)
- .text._write_r
-                0x080015f8       0x28 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-writer.o)
-                0x080015f8                _write_r
- .text          0x08001620        0x0 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-lock.o)
- .text.__retarget_lock_init
-                0x08001620        0x2 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-lock.o)
-                0x08001620                __retarget_lock_init
- .text.__retarget_lock_init_recursive
-                0x08001622        0x2 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-lock.o)
-                0x08001622                __retarget_lock_init_recursive
- .text.__retarget_lock_close
-                0x08001624        0x2 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-lock.o)
-                0x08001624                __retarget_lock_close
- .text.__retarget_lock_close_recursive
-                0x08001626        0x2 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-lock.o)
-                0x08001626                __retarget_lock_close_recursive
- .text.__retarget_lock_acquire
-                0x08001628        0x2 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-lock.o)
-                0x08001628                __retarget_lock_acquire
- .text.__retarget_lock_acquire_recursive
-                0x0800162a        0x2 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-lock.o)
-                0x0800162a                __retarget_lock_acquire_recursive
- .text.__retarget_lock_try_acquire
-                0x0800162c        0x4 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-lock.o)
-                0x0800162c                __retarget_lock_try_acquire
- .text.__retarget_lock_try_acquire_recursive
-                0x08001630        0x4 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-lock.o)
-                0x08001630                __retarget_lock_try_acquire_recursive
- .text.__retarget_lock_release
-                0x08001634        0x2 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-lock.o)
-                0x08001634                __retarget_lock_release
- .text.__retarget_lock_release_recursive
-                0x08001636        0x2 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-lock.o)
-                0x08001636                __retarget_lock_release_recursive
- .text          0x08001638        0x0 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-freer.o)
- .text._free_r  0x08001638       0x94 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-freer.o)
-                0x08001638                _free_r
- .text          0x080016cc        0x0 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-mallocr.o)
- .text.sbrk_aligned
-                0x080016cc       0x44 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-mallocr.o)
- .text._malloc_r
-                0x08001710       0xf4 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-mallocr.o)
-                0x08001710                _malloc_r
- .text          0x08001804        0x0 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-mlock.o)
- .text.__malloc_lock
-                0x08001804       0x10 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-mlock.o)
-                0x08001804                __malloc_lock
- .text.__malloc_unlock
-                0x08001814       0x10 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-mlock.o)
-                0x08001814                __malloc_unlock
- .text          0x08001824        0x0 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-nano-vfprintf.o)
- .text.__sfputc_r
-                0x08001824       0x2a C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-nano-vfprintf.o)
- .text.__sfputs_r
-                0x0800184e       0x24 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-nano-vfprintf.o)
-                0x0800184e                __sfputs_r
- .text.__sprint_r
-                0x08001872       0x20 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-nano-vfprintf.o)
-                0x08001872                __sprint_r
- *fill*         0x08001892        0x2 
- .text._vfprintf_r
-                0x08001894      0x238 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-nano-vfprintf.o)
-                0x08001894                _vfprintf_r
-                0x08001894                _vfiprintf_r
- .text.vfprintf
-                0x08001acc       0x18 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-nano-vfprintf.o)
-                0x08001acc                vfprintf
-                0x08001acc                vfiprintf
- .text          0x08001ae4        0x0 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-nano-vfprintf_i.o)
- .text._printf_common
-                0x08001ae4       0xde C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-nano-vfprintf_i.o)
-                0x08001ae4                _printf_common
- *fill*         0x08001bc2        0x2 
- .text._printf_i
-                0x08001bc4      0x234 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-nano-vfprintf_i.o)
-                0x08001bc4                _printf_i
- .text          0x08001df8        0x0 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-fvwrite.o)
- .text.__sfvwrite_r
-                0x08001df8      0x2bc C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-fvwrite.o)
-                0x08001df8                __sfvwrite_r
- .text          0x080020b4        0x0 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-wbuf.o)
- .text.__swbuf_r
-                0x080020b4       0x84 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-wbuf.o)
-                0x080020b4                __swbuf_r
- .text.__swbuf  0x08002138       0x14 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-wbuf.o)
-                0x08002138                __swbuf
- .text          0x0800214c        0x0 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-wsetup.o)
- .text.__swsetup_r
-                0x0800214c       0xbc C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-wsetup.o)
-                0x0800214c                __swsetup_r
- .text          0x08002208        0x0 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-memmove.o)
- .text.memmove  0x08002208       0x26 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-memmove.o)
-                0x08002208                memmove
- .text          0x0800222e        0x0 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-sbrkr.o)
- *fill*         0x0800222e        0x2 
- .text._sbrk_r  0x08002230       0x24 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-sbrkr.o)
-                0x08002230                _sbrk_r
- .text          0x08002254        0x0 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-memchr-stub.o)
- .text.memchr   0x08002254       0x16 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-memchr-stub.o)
-                0x08002254                memchr
- .text          0x0800226a        0x0 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-memcpy-stub.o)
- .text.memcpy   0x0800226a       0x12 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-memcpy-stub.o)
-                0x0800226a                memcpy
- .text          0x0800227c        0x0 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-reallocr.o)
- .text._realloc_r
-                0x0800227c       0x5e C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-reallocr.o)
-                0x0800227c                _realloc_r
- .text          0x080022da        0x0 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-makebuf.o)
- *fill*         0x080022da        0x2 
- .text.__swhatbuf_r
-                0x080022dc       0x54 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-makebuf.o)
-                0x080022dc                __swhatbuf_r
- .text.__smakebuf_r
-                0x08002330       0x82 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-makebuf.o)
-                0x08002330                __smakebuf_r
- .text          0x080023b2        0x0 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-fstatr.o)
- *fill*         0x080023b2        0x2 
- .text._fstat_r
-                0x080023b4       0x24 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-fstatr.o)
-                0x080023b4                _fstat_r
- .text          0x080023d8        0x0 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-isattyr.o)
- .text._isatty_r
-                0x080023d8       0x24 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-isattyr.o)
-                0x080023d8                _isatty_r
- .text          0x080023fc        0x0 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-msizer.o)
- .text._malloc_usable_size_r
-                0x080023fc       0x10 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-msizer.o)
-                0x080023fc                _malloc_usable_size_r
- .text          0x0800240c       0x14 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libgcc.a(_thumb1_case_shi.o)
-                0x0800240c                __gnu_thumb1_case_shi
- .text          0x08002420      0x114 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libgcc.a(_udivsi3.o)
-                0x08002420                __aeabi_uidiv
-                0x08002420                __udivsi3
-                0x0800252c                __aeabi_uidivmod
+                0x08000178                Configure_Pins
+                0x08000280                Delay_us
+                0x080002e0                waitms
+                0x0800032c                LCD_pulse
+                0x0800035c                LCD_byte
+                0x080004de                WriteData
+                0x08000512                WriteCommand
+                0x08000546                LCD_4BIT
+                0x08000590                LCDprint
+                0x0800060c                Hardware_Init
+                0x080007ec                main
+ .text          0x08000aa8      0x5b4 serial.o
+                0x08000aa8                ReadCom
+                0x08000b1c                WriteCom
+                0x08000bbc                initUART
+                0x08000d0c                USART1_Handler
+                0x08000d38                usart_rx
+                0x08000d68                usart_tx
+                0x08000dd0                PutBuf
+                0x08000e32                GetBuf
+                0x08000e88                GetBufCount
+                0x08000e9c                eputs
+                0x08000ed8                eputc
+                0x08000ef6                egetc
+                0x08000f10                egets
+                0x08000f9c                egetc_echo
+                0x08000fc2                egets_echo
+ .text          0x0800105c      0x1a8 startup.o
+                0x080010d4                initClock
+                0x080011dc                EXTI2_3_Handler
+                0x080011dc                TIM21_Handler
+                0x080011dc                SysTick_Handler
+                0x080011dc                I2C1_Handler
+                0x080011dc                PendSV_Handler
+                0x080011dc                NMI_Handler
+                0x080011dc                WWDG_Handler
+                0x080011dc                RTC_Handler
+                0x080011dc                EXTI4_15_Handler
+                0x080011dc                DMA_CH4_5_6_7_Handler
+                0x080011dc                Default_Handler
+                0x080011dc                LPUART1_Handler
+                0x080011dc                FLASH_Handler
+                0x080011dc                EXTI0_1_Handler
+                0x080011dc                DMA_CH1_Handler
+                0x080011dc                SPI2_Handler
+                0x080011dc                DMA_CH2_3_Handler
+                0x080011dc                I2C2_Handler
+                0x080011dc                SVC_Handler
+                0x080011dc                LPTIM1_Handler
+                0x080011dc                USART2_Handler
+                0x080011dc                SPI1_Handler
+                0x080011dc                RCC_Handler
+                0x080011dc                PVD_Handler
+                0x080011dc                TIM6_Handler
+                0x080011dc                TIM22_Handler
+                0x080011dc                ADC_COMP_Handler
+                0x080011f0                Hard_Fault_Handler
+ .text          0x08001204      0x29c newlib_stubs.o
+                0x08001204                _exit
+                0x0800120e                _close
+                0x08001222                _execve
+                0x08001244                _fork
+                0x0800125c                _fstat
+                0x08001278                _getpid
+                0x08001284                _kill
+                0x080012a4                _link
+                0x080012c4                _lseek
+                0x080012da                _stat
+                0x080012f6                _times
+                0x0800130a                _unlink
+                0x08001328                _wait
+                0x08001348                _isatty
+                0x08001370                _sbrk
+                0x080013d4                _read
+                0x0800144c                _write
+ .text          0x080014a0        0x0 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libnosys.a(errno.o)
+ .text          0x080014a0      0x1d4 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libgcc.a(_divsi3.o)
+                0x080014a0                __divsi3
+                0x080014a0                __aeabi_idiv
+                0x0800166c                __aeabi_idivmod
+ .text          0x08001674        0x4 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libgcc.a(_dvmd_tls.o)
+                0x08001674                __aeabi_idiv0
+                0x08001674                __aeabi_ldiv0
  *(.rodata*)
- .rodata        0x08002534       0x12 main.o
- *fill*         0x08002546        0x2 
- .rodata        0x08002548       0x7c startup.o
- .rodata._vfprintf_r.str1.1
-                0x080025c4       0x11 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-nano-vfprintf.o)
- .rodata._printf_i.str1.1
-                0x080025d5       0x22 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-nano-vfprintf_i.o)
-                0x080025f8                . = ALIGN (0x4)
- *fill*         0x080025f7        0x1 
-                0x080025f8                PROVIDE (__init_array_start = .)
+ .rodata        0x08001678       0x4a main.o
+ *fill*         0x080016c2        0x2 
+ .rodata        0x080016c4       0x7c startup.o
+                0x08001740                . = ALIGN (0x4)
+                0x08001740                PROVIDE (__init_array_start = .)
  *(SORT_BY_NAME(.init_array.*))
  *(.init_array)
-                0x080025f8                PROVIDE (__init_array_end = .)
-                0x080025f8                . = ALIGN (0x4)
-                0x080025f8                _etext = .
+                0x08001740                PROVIDE (__init_array_end = .)
+                0x08001740                . = ALIGN (0x4)
+                0x08001740                _etext = .
 
-.glue_7         0x080025f8        0x0
- .glue_7        0x080025f8        0x0 linker stubs
+.glue_7         0x08001740        0x0
+ .glue_7        0x08001740        0x0 linker stubs
 
-.glue_7t        0x080025f8        0x0
- .glue_7t       0x080025f8        0x0 linker stubs
+.glue_7t        0x08001740        0x0
+ .glue_7t       0x08001740        0x0 linker stubs
 
-.vfp11_veneer   0x080025f8        0x0
- .vfp11_veneer  0x080025f8        0x0 linker stubs
+.vfp11_veneer   0x08001740        0x0
+ .vfp11_veneer  0x08001740        0x0 linker stubs
 
-.v4_bx          0x080025f8        0x0
- .v4_bx         0x080025f8        0x0 linker stubs
+.v4_bx          0x08001740        0x0
+ .v4_bx         0x08001740        0x0 linker stubs
 
-.iplt           0x080025f8        0x0
- .iplt          0x080025f8        0x0 main.o
+.iplt           0x08001740        0x0
+ .iplt          0x08001740        0x0 main.o
 
-.rel.dyn        0x080025f8        0x0
- .rel.iplt      0x080025f8        0x0 main.o
+.rel.dyn        0x08001740        0x0
+ .rel.iplt      0x08001740        0x0 main.o
 
-.data           0x20000000       0x64 load address 0x080025f8
+.data           0x20000000        0x8 load address 0x08001740
                 0x20000000                . = ALIGN (0x4)
                 0x20000000                _data = .
  *(.data*)
@@ -441,156 +169,51 @@ END GROUP
  .data          0x20000008        0x0 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libnosys.a(errno.o)
  .data          0x20000008        0x0 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libgcc.a(_divsi3.o)
  .data          0x20000008        0x0 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libgcc.a(_dvmd_tls.o)
- .data          0x20000008        0x0 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-fflush.o)
- .data          0x20000008        0x0 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-findfp.o)
- .data.__sglue  0x20000008        0xc C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-findfp.o)
-                0x20000008                __sglue
- .data          0x20000014        0x0 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-fwalk.o)
- .data          0x20000014        0x0 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-printf.o)
- .data          0x20000014        0x0 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-stdio.o)
- .data          0x20000014        0x0 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-memset.o)
- .data          0x20000014        0x0 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-closer.o)
- .data          0x20000014        0x0 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-impure.o)
- .data._impure_ptr
-                0x20000014        0x4 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-impure.o)
-                0x20000014                _impure_ptr
- .data._impure_data
-                0x20000018       0x4c C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-impure.o)
-                0x20000018                _impure_data
- .data          0x20000064        0x0 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-lseekr.o)
- .data          0x20000064        0x0 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-readr.o)
- .data          0x20000064        0x0 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-writer.o)
- .data          0x20000064        0x0 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-lock.o)
- .data          0x20000064        0x0 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-freer.o)
- .data          0x20000064        0x0 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-mallocr.o)
- .data          0x20000064        0x0 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-mlock.o)
- .data          0x20000064        0x0 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-nano-vfprintf.o)
- .data          0x20000064        0x0 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-nano-vfprintf_i.o)
- .data          0x20000064        0x0 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-fvwrite.o)
- .data          0x20000064        0x0 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-wbuf.o)
- .data          0x20000064        0x0 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-wsetup.o)
- .data          0x20000064        0x0 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-memmove.o)
- .data          0x20000064        0x0 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-sbrkr.o)
- .data          0x20000064        0x0 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-memchr-stub.o)
- .data          0x20000064        0x0 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-memcpy-stub.o)
- .data          0x20000064        0x0 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-reallocr.o)
- .data          0x20000064        0x0 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-makebuf.o)
- .data          0x20000064        0x0 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-fstatr.o)
- .data          0x20000064        0x0 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-isattyr.o)
- .data          0x20000064        0x0 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-msizer.o)
- .data          0x20000064        0x0 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libgcc.a(_thumb1_case_shi.o)
- .data          0x20000064        0x0 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libgcc.a(_udivsi3.o)
-                0x20000064                . = ALIGN (0x4)
-                0x20000064                _edata = .
+                0x20000008                . = ALIGN (0x4)
+                0x20000008                _edata = .
 
-.igot.plt       0x20000064        0x0 load address 0x0800265c
- .igot.plt      0x20000064        0x0 main.o
+.igot.plt       0x20000008        0x0 load address 0x08001748
+ .igot.plt      0x20000008        0x0 main.o
 
-.bss            0x20000064      0x200 load address 0x0800265c
-                0x20000064                _bss = .
+.bss            0x20000008       0xb4 load address 0x08001748
+                0x20000008                _bss = .
  *(.bss*)
- .bss           0x20000064        0x4 main.o
-                0x20000064                PWM_Counter
- .bss           0x20000068       0xa4 serial.o
-                0x20000068                ComRXBuffer
-                0x200000b4                ComTXBuffer
-                0x20000100                ComOpen
-                0x20000104                ComError
-                0x20000108                ComBusy
- .bss           0x2000010c        0x0 startup.o
- .bss           0x2000010c        0x8 newlib_stubs.o
-                0x2000010c                __env
- .bss           0x20000114        0x0 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libnosys.a(errno.o)
- .bss.errno     0x20000114        0x4 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libnosys.a(errno.o)
-                0x20000114                errno
- .bss           0x20000118        0x0 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libgcc.a(_divsi3.o)
- .bss           0x20000118        0x0 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libgcc.a(_dvmd_tls.o)
- .bss           0x20000118        0x0 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-fflush.o)
- .bss           0x20000118        0x0 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-findfp.o)
- .bss.__sf      0x20000118      0x138 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-findfp.o)
-                0x20000118                __sf
- .bss.__stdio_exit_handler
-                0x20000250        0x4 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-findfp.o)
-                0x20000250                __stdio_exit_handler
- .bss           0x20000254        0x0 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-fwalk.o)
- .bss           0x20000254        0x0 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-printf.o)
- .bss           0x20000254        0x0 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-stdio.o)
- .bss           0x20000254        0x0 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-memset.o)
- .bss           0x20000254        0x0 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-closer.o)
- .bss           0x20000254        0x0 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-impure.o)
- .bss           0x20000254        0x0 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-lseekr.o)
- .bss           0x20000254        0x0 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-readr.o)
- .bss           0x20000254        0x0 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-writer.o)
- .bss           0x20000254        0x0 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-lock.o)
- .bss.__lock___arc4random_mutex
-                0x20000254        0x1 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-lock.o)
-                0x20000254                __lock___arc4random_mutex
- .bss.__lock___dd_hash_mutex
-                0x20000255        0x1 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-lock.o)
-                0x20000255                __lock___dd_hash_mutex
- .bss.__lock___tz_mutex
-                0x20000256        0x1 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-lock.o)
-                0x20000256                __lock___tz_mutex
- .bss.__lock___env_recursive_mutex
-                0x20000257        0x1 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-lock.o)
-                0x20000257                __lock___env_recursive_mutex
- .bss.__lock___malloc_recursive_mutex
-                0x20000258        0x1 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-lock.o)
-                0x20000258                __lock___malloc_recursive_mutex
- .bss.__lock___at_quick_exit_mutex
-                0x20000259        0x1 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-lock.o)
-                0x20000259                __lock___at_quick_exit_mutex
- .bss.__lock___atexit_recursive_mutex
-                0x2000025a        0x1 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-lock.o)
-                0x2000025a                __lock___atexit_recursive_mutex
- .bss.__lock___sfp_recursive_mutex
-                0x2000025b        0x1 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-lock.o)
-                0x2000025b                __lock___sfp_recursive_mutex
- .bss           0x2000025c        0x0 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-freer.o)
- .bss           0x2000025c        0x0 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-mallocr.o)
- .bss.__malloc_sbrk_start
-                0x2000025c        0x4 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-mallocr.o)
-                0x2000025c                __malloc_sbrk_start
- .bss.__malloc_free_list
-                0x20000260        0x4 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-mallocr.o)
-                0x20000260                __malloc_free_list
- .bss           0x20000264        0x0 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-mlock.o)
- .bss           0x20000264        0x0 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-nano-vfprintf.o)
- .bss           0x20000264        0x0 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-nano-vfprintf_i.o)
- .bss           0x20000264        0x0 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-fvwrite.o)
- .bss           0x20000264        0x0 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-wbuf.o)
- .bss           0x20000264        0x0 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-wsetup.o)
- .bss           0x20000264        0x0 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-memmove.o)
- .bss           0x20000264        0x0 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-sbrkr.o)
- .bss           0x20000264        0x0 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-memchr-stub.o)
- .bss           0x20000264        0x0 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-memcpy-stub.o)
- .bss           0x20000264        0x0 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-reallocr.o)
- .bss           0x20000264        0x0 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-makebuf.o)
- .bss           0x20000264        0x0 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-fstatr.o)
- .bss           0x20000264        0x0 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-isattyr.o)
- .bss           0x20000264        0x0 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-msizer.o)
- .bss           0x20000264        0x0 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libgcc.a(_thumb1_case_shi.o)
- .bss           0x20000264        0x0 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libgcc.a(_udivsi3.o)
+ .bss           0x20000008        0x4 main.o
+                0x20000008                PWM_Counter
+ .bss           0x2000000c       0xa4 serial.o
+                0x2000000c                ComRXBuffer
+                0x20000058                ComTXBuffer
+                0x200000a4                ComOpen
+                0x200000a8                ComError
+                0x200000ac                ComBusy
+ .bss           0x200000b0        0x0 startup.o
+ .bss           0x200000b0        0x8 newlib_stubs.o
+                0x200000b0                __env
+ .bss           0x200000b8        0x0 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libnosys.a(errno.o)
+ .bss.errno     0x200000b8        0x4 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libnosys.a(errno.o)
+                0x200000b8                errno
+ .bss           0x200000bc        0x0 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libgcc.a(_divsi3.o)
+ .bss           0x200000bc        0x0 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libgcc.a(_dvmd_tls.o)
  *(COMMON)
-                0x20000264                . = ALIGN (0x4)
-                0x20000264                _ebss = .
+                0x200000bc                . = ALIGN (0x4)
+                0x200000bc                _ebss = .
                 [!provide]                PROVIDE (end = .)
-                0x20000264                PROVIDE (_HeapStart = .)
+                0x200000bc                PROVIDE (_HeapStart = .)
                 0x20002000                PROVIDE (_StackTop = (ORIGIN (ram) + LENGTH (ram)))
 OUTPUT(main.elf elf32-littlearm)
 LOAD linker stubs
 
-.debug_info     0x00000000     0x1f6f
- .debug_info    0x00000000      0xd3c main.o
- .debug_info    0x00000d3c      0x79e serial.o
- .debug_info    0x000014da      0x391 startup.o
- .debug_info    0x0000186b      0x704 newlib_stubs.o
+.debug_info     0x00000000     0x1973
+ .debug_info    0x00000000      0x740 main.o
+ .debug_info    0x00000740      0x79e serial.o
+ .debug_info    0x00000ede      0x391 startup.o
+ .debug_info    0x0000126f      0x704 newlib_stubs.o
 
-.debug_abbrev   0x00000000      0x826
- .debug_abbrev  0x00000000      0x2a9 main.o
- .debug_abbrev  0x000002a9      0x208 serial.o
- .debug_abbrev  0x000004b1      0x1c2 startup.o
- .debug_abbrev  0x00000673      0x1b3 newlib_stubs.o
+.debug_abbrev   0x00000000      0x76d
+ .debug_abbrev  0x00000000      0x1f0 main.o
+ .debug_abbrev  0x000001f0      0x208 serial.o
+ .debug_abbrev  0x000003f8      0x1c2 startup.o
+ .debug_abbrev  0x000005ba      0x1b3 newlib_stubs.o
 
 .debug_aranges  0x00000000       0x88
  .debug_aranges
@@ -602,20 +225,20 @@ LOAD linker stubs
  .debug_aranges
                 0x00000068       0x20 newlib_stubs.o
 
-.debug_line     0x00000000      0xe9e
- .debug_line    0x00000000      0x411 main.o
- .debug_line    0x00000411      0x4f4 serial.o
- .debug_line    0x00000905      0x2c3 startup.o
- .debug_line    0x00000bc8      0x2d6 newlib_stubs.o
+.debug_line     0x00000000     0x10c2
+ .debug_line    0x00000000      0x635 main.o
+ .debug_line    0x00000635      0x4f4 serial.o
+ .debug_line    0x00000b29      0x2c3 startup.o
+ .debug_line    0x00000dec      0x2d6 newlib_stubs.o
 
-.debug_str      0x00000000      0xa9a
- .debug_str     0x00000000      0x67e main.o
-                                0x6f3 (size before relaxing)
- .debug_str     0x0000067e      0x129 serial.o
+.debug_str      0x00000000      0x7f2
+ .debug_str     0x00000000      0x3b6 main.o
+                                0x3fd (size before relaxing)
+ .debug_str     0x000003b6      0x124 serial.o
                                 0x3be (size before relaxing)
- .debug_str     0x000007a7       0xe8 startup.o
+ .debug_str     0x000004da       0xee startup.o
                                 0x2ff (size before relaxing)
- .debug_str     0x0000088f      0x20b newlib_stubs.o
+ .debug_str     0x000005c8      0x22a newlib_stubs.o
                                 0x3f0 (size before relaxing)
 
 .comment        0x00000000       0x45
@@ -641,104 +264,13 @@ LOAD linker stubs
                 0x000000dc       0x1e C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libgcc.a(_divsi3.o)
  .ARM.attributes
                 0x000000fa       0x1e C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libgcc.a(_dvmd_tls.o)
- .ARM.attributes
-                0x00000118       0x2c C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-fflush.o)
- .ARM.attributes
-                0x00000144       0x2c C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-findfp.o)
- .ARM.attributes
-                0x00000170       0x2c C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-fwalk.o)
- .ARM.attributes
-                0x0000019c       0x2c C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-printf.o)
- .ARM.attributes
-                0x000001c8       0x2c C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-stdio.o)
- .ARM.attributes
-                0x000001f4       0x2c C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-memset.o)
- .ARM.attributes
-                0x00000220       0x2c C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-closer.o)
- .ARM.attributes
-                0x0000024c       0x2c C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-impure.o)
- .ARM.attributes
-                0x00000278       0x2c C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-lseekr.o)
- .ARM.attributes
-                0x000002a4       0x2c C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-readr.o)
- .ARM.attributes
-                0x000002d0       0x2c C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-writer.o)
- .ARM.attributes
-                0x000002fc       0x2c C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-lock.o)
- .ARM.attributes
-                0x00000328       0x2c C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-freer.o)
- .ARM.attributes
-                0x00000354       0x2c C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-mallocr.o)
- .ARM.attributes
-                0x00000380       0x2c C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-mlock.o)
- .ARM.attributes
-                0x000003ac       0x2c C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-nano-vfprintf.o)
- .ARM.attributes
-                0x000003d8       0x2c C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-nano-vfprintf_i.o)
- .ARM.attributes
-                0x00000404       0x2c C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-fvwrite.o)
- .ARM.attributes
-                0x00000430       0x2c C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-wbuf.o)
- .ARM.attributes
-                0x0000045c       0x2c C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-wsetup.o)
- .ARM.attributes
-                0x00000488       0x2c C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-memmove.o)
- .ARM.attributes
-                0x000004b4       0x2c C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-sbrkr.o)
- .ARM.attributes
-                0x000004e0       0x2c C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-memchr-stub.o)
- .ARM.attributes
-                0x0000050c       0x2c C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-memcpy-stub.o)
- .ARM.attributes
-                0x00000538       0x2c C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-reallocr.o)
- .ARM.attributes
-                0x00000564       0x2c C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-makebuf.o)
- .ARM.attributes
-                0x00000590       0x2c C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-fstatr.o)
- .ARM.attributes
-                0x000005bc       0x2c C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-isattyr.o)
- .ARM.attributes
-                0x000005e8       0x2c C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-msizer.o)
- .ARM.attributes
-                0x00000614       0x1e C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libgcc.a(_thumb1_case_shi.o)
- .ARM.attributes
-                0x00000632       0x1e C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libgcc.a(_udivsi3.o)
 
-.debug_frame    0x00000000      0xda0
- .debug_frame   0x00000000       0xa4 main.o
- .debug_frame   0x000000a4      0x1e8 serial.o
- .debug_frame   0x0000028c       0x94 startup.o
- .debug_frame   0x00000320      0x228 newlib_stubs.o
- .debug_frame   0x00000548       0x20 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libgcc.a(_divsi3.o)
- .debug_frame   0x00000568       0x68 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-fflush.o)
- .debug_frame   0x000005d0      0x138 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-findfp.o)
- .debug_frame   0x00000708       0x34 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-fwalk.o)
- .debug_frame   0x0000073c       0x4c C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-printf.o)
- .debug_frame   0x00000788       0x90 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-stdio.o)
- .debug_frame   0x00000818       0x20 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-memset.o)
- .debug_frame   0x00000838       0x2c C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-closer.o)
- .debug_frame   0x00000864       0x2c C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-lseekr.o)
- .debug_frame   0x00000890       0x2c C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-readr.o)
- .debug_frame   0x000008bc       0x2c C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-writer.o)
- .debug_frame   0x000008e8       0xb0 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-lock.o)
- .debug_frame   0x00000998       0x2c C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-freer.o)
- .debug_frame   0x000009c4       0x50 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-mallocr.o)
- .debug_frame   0x00000a14       0x40 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-mlock.o)
- .debug_frame   0x00000a54       0x9c C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-nano-vfprintf.o)
- .debug_frame   0x00000af0       0x54 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-nano-vfprintf_i.o)
- .debug_frame   0x00000b44       0x30 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-fvwrite.o)
- .debug_frame   0x00000b74       0x48 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-wbuf.o)
- .debug_frame   0x00000bbc       0x2c C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-wsetup.o)
- .debug_frame   0x00000be8       0x28 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-memmove.o)
- .debug_frame   0x00000c10       0x2c C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-sbrkr.o)
- .debug_frame   0x00000c3c       0x20 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-memchr-stub.o)
- .debug_frame   0x00000c5c       0x28 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-memcpy-stub.o)
- .debug_frame   0x00000c84       0x34 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-reallocr.o)
- .debug_frame   0x00000cb8       0x50 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-makebuf.o)
- .debug_frame   0x00000d08       0x2c C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-fstatr.o)
- .debug_frame   0x00000d34       0x2c C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-isattyr.o)
- .debug_frame   0x00000d60       0x20 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-msizer.o)
- .debug_frame   0x00000d80       0x20 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libgcc.a(_udivsi3.o)
+.debug_frame    0x00000000      0x67c
+ .debug_frame   0x00000000      0x1b8 main.o
+ .debug_frame   0x000001b8      0x1e8 serial.o
+ .debug_frame   0x000003a0       0x94 startup.o
+ .debug_frame   0x00000434      0x228 newlib_stubs.o
+ .debug_frame   0x0000065c       0x20 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libgcc.a(_divsi3.o)
 
 .debug_rnglists
                 0x00000000       0x1a
@@ -751,10 +283,6 @@ LOAD linker stubs
                 0x00000000       0xc9 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libgcc.a(_divsi3.o)
  .debug_line_str
                 0x000000c9       0xc9 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libgcc.a(_dvmd_tls.o)
- .debug_line_str
-                0x000000c9       0xc9 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libgcc.a(_thumb1_case_shi.o)
- .debug_line_str
-                0x000000c9       0xc9 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libgcc.a(_udivsi3.o)
 
 Cross Reference Table
 
@@ -765,10 +293,12 @@ ComError                                          serial.o
 ComOpen                                           serial.o
 ComRXBuffer                                       serial.o
 ComTXBuffer                                       serial.o
+Configure_Pins                                    main.o
 DMA_CH1_Handler                                   startup.o
 DMA_CH2_3_Handler                                 startup.o
 DMA_CH4_5_6_7_Handler                             startup.o
 Default_Handler                                   startup.o
+Delay_us                                          main.o
 EXTI0_1_Handler                                   startup.o
 EXTI2_3_Handler                                   startup.o
 EXTI4_15_Handler                                  startup.o
@@ -779,6 +309,10 @@ Hard_Fault_Handler                                startup.o
 Hardware_Init                                     main.o
 I2C1_Handler                                      startup.o
 I2C2_Handler                                      startup.o
+LCD_4BIT                                          main.o
+LCD_byte                                          main.o
+LCD_pulse                                         main.o
+LCDprint                                          main.o
 LPTIM1_Handler                                    startup.o
 LPUART1_Handler                                   startup.o
 NMI_Handler                                       startup.o
@@ -803,187 +337,43 @@ USART2_Handler                                    startup.o
 Vectors                                           startup.o
 WWDG_Handler                                      startup.o
 WriteCom                                          serial.o
+WriteCommand                                      main.o
+WriteData                                         main.o
 _HeapStart                                        newlib_stubs.o
 _StackTop                                         newlib_stubs.o
                                                   startup.o
 __aeabi_idiv                                      C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libgcc.a(_divsi3.o)
-                                                  C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-fvwrite.o)
                                                   serial.o
+                                                  main.o
 __aeabi_idiv0                                     C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libgcc.a(_dvmd_tls.o)
-                                                  C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libgcc.a(_udivsi3.o)
                                                   C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libgcc.a(_divsi3.o)
 __aeabi_idivmod                                   C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libgcc.a(_divsi3.o)
-                                                  C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-fvwrite.o)
 __aeabi_ldiv0                                     C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libgcc.a(_dvmd_tls.o)
-__aeabi_uidiv                                     C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libgcc.a(_udivsi3.o)
-__aeabi_uidivmod                                  C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libgcc.a(_udivsi3.o)
-                                                  C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-nano-vfprintf_i.o)
 __divsi3                                          C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libgcc.a(_divsi3.o)
 __env                                             newlib_stubs.o
-__fp_lock_all                                     C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-findfp.o)
-__fp_unlock_all                                   C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-findfp.o)
-__gnu_thumb1_case_shi                             C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libgcc.a(_thumb1_case_shi.o)
-                                                  C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-nano-vfprintf_i.o)
 __init_array_end                                  startup.o
 __init_array_start                                startup.o
-__lock___arc4random_mutex                         C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-lock.o)
-__lock___at_quick_exit_mutex                      C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-lock.o)
-__lock___atexit_recursive_mutex                   C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-lock.o)
-__lock___dd_hash_mutex                            C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-lock.o)
-__lock___env_recursive_mutex                      C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-lock.o)
-__lock___malloc_recursive_mutex                   C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-lock.o)
-                                                  C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-mlock.o)
-__lock___sfp_recursive_mutex                      C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-lock.o)
-                                                  C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-findfp.o)
-__lock___tz_mutex                                 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-lock.o)
-__malloc_free_list                                C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-mallocr.o)
-                                                  C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-freer.o)
-__malloc_lock                                     C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-mlock.o)
-                                                  C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-mallocr.o)
-                                                  C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-freer.o)
-__malloc_sbrk_start                               C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-mallocr.o)
-__malloc_unlock                                   C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-mlock.o)
-                                                  C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-mallocr.o)
-                                                  C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-freer.o)
-__retarget_lock_acquire                           C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-lock.o)
-__retarget_lock_acquire_recursive                 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-lock.o)
-                                                  C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-nano-vfprintf.o)
-                                                  C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-mlock.o)
-                                                  C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-findfp.o)
-                                                  C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-fflush.o)
-__retarget_lock_close                             C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-lock.o)
-__retarget_lock_close_recursive                   C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-lock.o)
-__retarget_lock_init                              C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-lock.o)
-__retarget_lock_init_recursive                    C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-lock.o)
-                                                  C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-findfp.o)
-__retarget_lock_release                           C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-lock.o)
-__retarget_lock_release_recursive                 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-lock.o)
-                                                  C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-nano-vfprintf.o)
-                                                  C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-mlock.o)
-                                                  C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-findfp.o)
-                                                  C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-fflush.o)
-__retarget_lock_try_acquire                       C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-lock.o)
-__retarget_lock_try_acquire_recursive             C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-lock.o)
-__sclose                                          C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-stdio.o)
-                                                  C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-findfp.o)
-__seofread                                        C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-stdio.o)
-__sf                                              C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-findfp.o)
-                                                  C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-impure.o)
-__sflush_r                                        C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-fflush.o)
-__sfp                                             C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-findfp.o)
-__sfp_lock_acquire                                C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-findfp.o)
-__sfp_lock_release                                C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-findfp.o)
-__sfputs_r                                        C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-nano-vfprintf.o)
-__sfvwrite_r                                      C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-fvwrite.o)
-                                                  C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-nano-vfprintf.o)
-__sglue                                           C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-findfp.o)
-                                                  C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-fflush.o)
-__sinit                                           C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-findfp.o)
-                                                  C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-wsetup.o)
-                                                  C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-wbuf.o)
-                                                  C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-nano-vfprintf.o)
-                                                  C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-fflush.o)
-__smakebuf_r                                      C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-makebuf.o)
-                                                  C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-wsetup.o)
-__sprint_r                                        C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-nano-vfprintf.o)
-__sread                                           C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-stdio.o)
-                                                  C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-findfp.o)
-__sseek                                           C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-stdio.o)
-                                                  C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-findfp.o)
-__stdio_exit_handler                              C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-findfp.o)
-__swbuf                                           C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-wbuf.o)
-__swbuf_r                                         C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-wbuf.o)
-                                                  C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-nano-vfprintf.o)
-__swhatbuf_r                                      C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-makebuf.o)
-__swrite                                          C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-stdio.o)
-                                                  C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-findfp.o)
-__swsetup_r                                       C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-wsetup.o)
-                                                  C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-wbuf.o)
-                                                  C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-fvwrite.o)
-                                                  C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-nano-vfprintf.o)
-__udivsi3                                         C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libgcc.a(_udivsi3.o)
 _close                                            newlib_stubs.o
-                                                  C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-closer.o)
-_close_r                                          C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-closer.o)
-                                                  C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-stdio.o)
 _data                                             startup.o
 _ebss                                             startup.o
 _edata                                            startup.o
 _etext                                            startup.o
 _execve                                           newlib_stubs.o
 _exit                                             newlib_stubs.o
-_fflush_r                                         C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-fflush.o)
-                                                  C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-wbuf.o)
-                                                  C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-fvwrite.o)
-                                                  C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-findfp.o)
 _fork                                             newlib_stubs.o
-_free_r                                           C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-freer.o)
-                                                  C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-reallocr.o)
-                                                  C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-wsetup.o)
-                                                  C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-fvwrite.o)
-                                                  C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-fflush.o)
 _fstat                                            newlib_stubs.o
-                                                  C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-fstatr.o)
-_fstat_r                                          C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-fstatr.o)
-                                                  C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-makebuf.o)
-_fwalk_sglue                                      C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-fwalk.o)
-                                                  C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-findfp.o)
-                                                  C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-fflush.o)
 _getpid                                           newlib_stubs.o
-_impure_data                                      C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-impure.o)
-                                                  C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-findfp.o)
-                                                  C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-fflush.o)
-_impure_ptr                                       C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-impure.o)
-                                                  C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-wsetup.o)
-                                                  C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-wbuf.o)
-                                                  C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-nano-vfprintf.o)
-                                                  C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-printf.o)
-                                                  C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-fflush.o)
-                                                  main.o
-_iprintf_r                                        C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-printf.o)
 _isatty                                           newlib_stubs.o
-                                                  C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-isattyr.o)
-_isatty_r                                         C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-isattyr.o)
-                                                  C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-makebuf.o)
 _kill                                             newlib_stubs.o
 _link                                             newlib_stubs.o
 _lseek                                            newlib_stubs.o
-                                                  C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-lseekr.o)
-_lseek_r                                          C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-lseekr.o)
-                                                  C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-stdio.o)
-_malloc_r                                         C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-mallocr.o)
-                                                  C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-makebuf.o)
-                                                  C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-reallocr.o)
-                                                  C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-fvwrite.o)
-                                                  C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-findfp.o)
-_malloc_usable_size_r                             C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-msizer.o)
-                                                  C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-reallocr.o)
-_printf_common                                    C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-nano-vfprintf_i.o)
-_printf_float                                     C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-nano-vfprintf.o)
-_printf_i                                         C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-nano-vfprintf_i.o)
-                                                  C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-nano-vfprintf.o)
-_printf_r                                         C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-printf.o)
 _read                                             newlib_stubs.o
-                                                  C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-readr.o)
-_read_r                                           C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-readr.o)
-                                                  C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-stdio.o)
-_realloc_r                                        C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-reallocr.o)
-                                                  C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-fvwrite.o)
 _sbrk                                             newlib_stubs.o
-                                                  C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-sbrkr.o)
-_sbrk_r                                           C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-sbrkr.o)
-                                                  C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-mallocr.o)
 _stat                                             newlib_stubs.o
 _times                                            newlib_stubs.o
 _unlink                                           newlib_stubs.o
-_vfiprintf_r                                      C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-nano-vfprintf.o)
-_vfprintf_r                                       C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-nano-vfprintf.o)
-                                                  C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-printf.o)
 _wait                                             newlib_stubs.o
 _write                                            newlib_stubs.o
-                                                  C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-writer.o)
-_write_r                                          C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-writer.o)
-                                                  C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-stdio.o)
 delayms                                           main.o
 egetc                                             serial.o
                                                   newlib_stubs.o
@@ -996,39 +386,15 @@ eputc                                             serial.o
 eputs                                             serial.o
                                                   startup.o
 errno                                             C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libnosys.a(errno.o)
-                                                  C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-isattyr.o)
-                                                  C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-fstatr.o)
-                                                  C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-sbrkr.o)
-                                                  C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-writer.o)
-                                                  C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-readr.o)
-                                                  C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-lseekr.o)
-                                                  C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-closer.o)
                                                   newlib_stubs.o
-fflush                                            C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-fflush.o)
-                                                  main.o
 initClock                                         startup.o
 initUART                                          serial.o
                                                   startup.o
-iprintf                                           C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-printf.o)
 main                                              main.o
                                                   startup.o
-memchr                                            C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-memchr-stub.o)
-                                                  C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-fvwrite.o)
-                                                  C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-nano-vfprintf_i.o)
-                                                  C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-nano-vfprintf.o)
-memcpy                                            C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-memcpy-stub.o)
-                                                  C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-reallocr.o)
-                                                  C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-fvwrite.o)
-memmove                                           C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-memmove.o)
-                                                  C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-fvwrite.o)
-memset                                            C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-memset.o)
-                                                  C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-findfp.o)
-printf                                            C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-printf.o)
-                                                  main.o
 pwm1                                              main.o
 pwm2                                              main.o
 usart_rx                                          serial.o
 usart_tx                                          serial.o
-vfiprintf                                         C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-nano-vfprintf.o)
-vfprintf                                          C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libc_nano.a(libc_a-nano-vfprintf.o)
 wait_1ms                                          main.o
+waitms                                            main.o
