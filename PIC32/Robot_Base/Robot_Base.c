@@ -60,6 +60,7 @@ void __ISR(_TIMER_1_VECTOR, IPL5SOFT) Timer1_Handler(void)
 		ISR_cnt=0; // 2000 * 10us=20ms
 		LATAbits.LATA3 = 1;
 		LATBbits.LATB4 = 1;
+		ISR_frc++;
 	}
 }
 
