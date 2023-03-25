@@ -232,9 +232,9 @@ void ConfigurePins(void)
 	INTCONbits.MVEC = 1;
 
 	//Configure output pins for motor
+	TRISBbits.TRISB0 = 0; // pin4
+	TRISBbits.TRISB1 = 0; // pin5
 	TRISAbits.TRISA2 = 0; // pin9
-	TRISAbits.TRISA3 = 0; // pin10
-	TRISBbits.TRISB4 = 0; // pin11
 	TRISAbits.TRISA4 = 0; // pin12
 }
 
@@ -251,39 +251,39 @@ void PrintFixedPoint (unsigned long number, int decimals)
 }
 
 void go_forward(){
-	LATAbits.LATA2 = 1; //output to pin9 (right wheel fwd)
-	LATAbits.LATA3 = 0;
-	LATBbits.LATB4 = 1; //output to pin10 (left wheel fwd)
-	LATAbits.LATA4 = 0;
+	LATBbits.LATB0 = 0; //pin 4
+	LATBbits.LATB1 = 1; //pin 5
+	LATAbits.LATA2 = 0; //pin 9
+	LATAbits.LATA4 = 1; //pin 12
 }
 
 void go_backward(){
-	LATAbits.LATA2 = 0; 
-	LATAbits.LATA3 = 1; //output to pin10 (right wheel bwd)
-	LATBbits.LATB4 = 0;
-	LATAbits.LATA4 = 1; //output to pin12 (left wheel bwd)
+	LATBbits.LATB0 = 1; //pin 4
+	LATBbits.LATB1 = 0; //pin 5
+	LATAbits.LATA2 = 1; //pin 9
+	LATAbits.LATA4 = 0; //pin 12
 }
 
 void turn_left(){
-	LATAbits.LATA2 = 1; //output to pin9 (right wheel fwd)
-	LATAbits.LATA3 = 0;
-	LATBbits.LATB4 = 0; 
-	LATAbits.LATA4 = 0;
+	LATBbits.LATB0 = 0; //pin 4
+	LATBbits.LATB1 = 1; //pin 5
+	LATAbits.LATA2 = 1; //pin 9
+	LATAbits.LATA4 = 0; //pin 12
 }
 
 void turn_right(){
-	LATAbits.LATA2 = 0;
-	LATAbits.LATA3 = 0;
-	LATBbits.LATB4 = 1; //output to pin10 (left wheel fwd)
-	LATAbits.LATA4 = 0;
+	LATBbits.LATB0 = 1; //pin 4
+	LATBbits.LATB1 = 0; //pin 5
+	LATAbits.LATA2 = 0; //pin 9
+	LATAbits.LATA4 = 1; //pin 12
 }
 
 void stop_motors(){
 	//all motor pins off
-	LATAbits.LATA2 = 0;
-	LATAbits.LATA3 = 0;
-	LATBbits.LATB4 = 0; 
-	LATAbits.LATA4 = 0;
+	LATBbits.LATB0 = 1; //pin 4
+	LATBbits.LATB1 = 1; //pin 5
+	LATAbits.LATA2 = 1; //pin 9
+	LATAbits.LATA4 = 1; //pin 12
 }
 
 /*returns movement of the car
@@ -363,10 +363,10 @@ void main(void)
 	uart_puts("Generates Servo PWM signals at RA3, RB4 (pins 10, 11 of DIP28 package)\r\n\r\n");
 	
 	//set motors off initially
-	LATAbits.LATA2 = 0;
-	LATAbits.LATA3 = 0;
-	LATBbits.LATB4 = 0; 
-	LATAbits.LATA4 = 0;
+	LATAbits.LATA2 = 1;
+	LATAbits.LATA3 = 1;
+	LATBbits.LATB4 = 1; 
+	LATAbits.LATA4 = 1;
 
 	while(1)
 	{
@@ -402,8 +402,6 @@ void main(void)
 		}
 
 		movement_instruction = determine_car_movement();
-		//ISR_pwm1 = 255;
-		//ISR_pwm2 = 255;
 
 		/*1. 0 means go forward
   		  2. 1 means go backward
@@ -411,13 +409,18 @@ void main(void)
   		  4. 3 means turn right
   		  5. 4 means brake*/
 
-		//if(movement_instruction == 0){
-			//delay_ms(1000);
-			
-		LATAbits.LATA2 = 1; //output to pin9 (right wheel fwd)
-		//LATAbits.LATA3 = 0;
-		//LATBbits.LATB4 = 0; 
-		//LATAbits.LATA4 = 0;
+		
+		go_forward();
+		delay_ms(1000);
+		turn_right();
+		delay_ms(1000);
+		go_backward();
+		delay_ms(1000);
+		turn_left();
+		delay_ms(1000);
+		stop_motors();
+		delay_ms(1000);
+	
 	
 		
 
@@ -476,6 +479,6 @@ void main(void)
 			ISR_pwm2=200;	
 		}*/
 
-		//waitms(200);
+		waitms(200);
 	}
 }
