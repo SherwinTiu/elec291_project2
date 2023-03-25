@@ -289,7 +289,7 @@ void stop_motors(){
 */
 int determine_car_movement(){
 	//reset timer
-	_CP0_GET_COUNT(0);
+	_CP0_SET_COUNT(0); // resets the core timer count
 
 	//if receiver starts not receiving anything aka adc = 0, start the timer
 	while(ADCRead(4) == 0){
@@ -403,6 +403,8 @@ void main(void)
 		//if(movement_instruction == 0){
 			waitms(1000);
 			go_forward();
+			printf("\r%d\n", ADCRead(9));
+			printf("\r%d\n", ADCRead(10));
 			waitms(1000);
 		//}
 		//else if(movement_instruction == 1){
@@ -453,7 +455,7 @@ void main(void)
 		}
 		if(LED_toggle>4) LED_toggle=0;*/
 
-		/*// Change the servo PWM signals
+		/* Change the servo PWM signals
 		if (ISR_pwm1<200)
 		{
 			ISR_pwm1++;
