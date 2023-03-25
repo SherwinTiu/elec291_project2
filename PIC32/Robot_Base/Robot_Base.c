@@ -402,6 +402,8 @@ void main(void)
 		}
 
 		movement_instruction = determine_car_movement();
+		ISR_pwm1 = 255;
+		ISR_pwm2 = 255;
 
 		/*1. 0 means go forward
   		  2. 1 means go backward
@@ -470,7 +472,7 @@ void main(void)
 		if(LED_toggle>4) LED_toggle=0;*/
 
 		 //Change the servo PWM signals
-		if (ISR_pwm1<200)
+		/*if (ISR_pwm1<200)
 		{
 			ISR_pwm1++;
 		}
@@ -486,7 +488,7 @@ void main(void)
 		else
 		{
 			ISR_pwm2=200;	
-		}
+		}*/
 
 		waitms(200);
 	}
