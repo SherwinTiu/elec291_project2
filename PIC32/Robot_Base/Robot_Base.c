@@ -412,11 +412,11 @@ void main(void)
   		  5. 4 means brake*/
 
 		//if(movement_instruction == 0){
-			delay_ms(1000);
-			for(int i = 0; i < 500; i++){
-				go_forward();
-				wait_1ms();
-			}
+			//delay_ms(1000);
+			
+			go_forward();
+	
+		
 
 			
 
