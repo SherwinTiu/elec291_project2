@@ -289,7 +289,7 @@ void stop_motors(){
 */
 int determine_car_movement(){
 	//reset timer
-	_CP0_SET_COUNT(0); // resets the core timer count
+	_CP0_SET_COUNT(0);
 
 	//if receiver starts not receiving anything aka adc = 0, start the timer
 	while(ADCRead(4) == 0){
