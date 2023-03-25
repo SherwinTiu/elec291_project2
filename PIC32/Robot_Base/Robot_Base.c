@@ -37,7 +37,7 @@
 #define FREQ 100000L // We need the ISR for timer 1 every 10 us
 #define Baud2BRG(desired_baud)( (SYSCLK / (16*desired_baud))-1)
 
-volatile int ISR_pwm1=150, ISR_pwm2=150, ISR_cnt=0;
+volatile int ISR_pwm1=150, ISR_pwm2=150, ISR_cnt=0, ISR_frc;
 
 // The Interrupt Service Routine for timer 1 is used to generate one or more standard
 // hobby servo signals.  The servo signal has a fixed period of 20ms and a pulse width
@@ -89,6 +89,14 @@ void wait_1ms(void)
 
     // get the core timer count
     while ( _CP0_GET_COUNT() < (SYSCLK/(2*1000)) );
+}
+
+void delay_ms (int msecs)
+{	
+	int ticks;
+	ISR_frc=0;
+	ticks=msecs/20;
+	while(ISR_frc<ticks);
 }
 
 void waitms(int len)
@@ -401,23 +409,23 @@ void main(void)
   		  5. 4 means brake*/
 
 		//if(movement_instruction == 0){
-			waitms(1000);
+			delay_ms(1000);
 			go_forward();
 			printf("\r%d\n", ADCRead(9));
 			printf("\r%d\n", ADCRead(10));
-			waitms(1000);
+			delay_ms(1000);
 		//}
 		//else if(movement_instruction == 1){
 			go_backward();
-			waitms(1000);
+			delay_ms(1000);
 		//}
 		//else if(movement_instruction == 2){
 			turn_left();
-			waitms(1000);
+			delay_ms(1000);
 		//}
 		//else if(movement_instruction == 3){
 			turn_right();
-			waitms(1000);
+			delay_ms(1000);
 		//}
 		//else if(movement_instruction == 4){
 			stop_motors();
@@ -474,6 +482,6 @@ void main(void)
 			ISR_pwm2=200;	
 		}*/
 
-		//waitms(200);
+		waitms(200);
 	}
 }
