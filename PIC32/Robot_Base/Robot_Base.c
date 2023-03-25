@@ -411,9 +411,14 @@ void main(void)
 
 		//if(movement_instruction == 0){
 			delay_ms(1000);
+			
 			go_forward();
-			printf("\r%d\n", ADCRead(9));
-			printf("\r%d\n", ADCRead(10));
+
+
+			
+			//go_forward();
+			//printf("\r%d\n", ADCRead(9));
+			//printf("\r%d\n", ADCRead(10));
 			delay_ms(1000);
 		//}
 		//else if(movement_instruction == 1){
@@ -464,7 +469,7 @@ void main(void)
 		}
 		if(LED_toggle>4) LED_toggle=0;*/
 
-		/* Change the servo PWM signals
+		 //Change the servo PWM signals
 		if (ISR_pwm1<200)
 		{
 			ISR_pwm1++;
@@ -481,7 +486,7 @@ void main(void)
 		else
 		{
 			ISR_pwm2=200;	
-		}*/
+		}
 
 		waitms(200);
 	}
