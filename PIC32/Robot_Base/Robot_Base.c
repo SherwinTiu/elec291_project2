@@ -402,8 +402,8 @@ void main(void)
 		}
 
 		movement_instruction = determine_car_movement();
-		ISR_pwm1 = 255;
-		ISR_pwm2 = 255;
+		//ISR_pwm1 = 255;
+		//ISR_pwm2 = 255;
 
 		/*1. 0 means go forward
   		  2. 1 means go backward
@@ -413,32 +413,15 @@ void main(void)
 
 		//if(movement_instruction == 0){
 			delay_ms(1000);
+			for(int i = 0; i < 500; i++){
+				go_forward();
+				wait_1ms();
+			}
+
 			
-			go_forward();
 
 
-			
-			//go_forward();
-			//printf("\r%d\n", ADCRead(9));
-			//printf("\r%d\n", ADCRead(10));
-			delay_ms(1000);
-		//}
-		//else if(movement_instruction == 1){
-			go_backward();
-			delay_ms(1000);
-		//}
-		//else if(movement_instruction == 2){
-			turn_left();
-			delay_ms(1000);
-		//}
-		//else if(movement_instruction == 3){
-			turn_right();
-			delay_ms(1000);
-		//}
-		//else if(movement_instruction == 4){
-			stop_motors();
-		//}
-
+		
 		
 
 		// Now toggle the pins on/off to see if they are working.
