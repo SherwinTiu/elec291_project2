@@ -414,7 +414,10 @@ void main(void)
 		//if(movement_instruction == 0){
 			//delay_ms(1000);
 			
-			go_forward();
+		LATAbits.LATA2 = 1; //output to pin9 (right wheel fwd)
+		//LATAbits.LATA3 = 0;
+		//LATBbits.LATB4 = 0; 
+		//LATAbits.LATA4 = 0;
 	
 		
 
@@ -473,6 +476,6 @@ void main(void)
 			ISR_pwm2=200;	
 		}*/
 
-		waitms(200);
+		//waitms(200);
 	}
 }
