@@ -414,10 +414,10 @@ void main(void)
 		//if(movement_instruction == 0){
 			//delay_ms(1000);
 			
-		LATAbits.LATA2 = 1; //output to pin9 (right wheel fwd)
-		//LATAbits.LATA3 = 0;
-		//LATBbits.LATB4 = 0; 
-		//LATAbits.LATA4 = 0;
+		LATAbits.LATA2 = 1; //output to pin9 (left wheel fwd)
+		LATAbits.LATA3 = 1; //(right whl bck)
+		LATBbits.LATB4 = 1; //(right whl fwd)
+		LATAbits.LATA4 = 1;
 	
 		
 
