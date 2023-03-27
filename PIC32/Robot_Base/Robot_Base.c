@@ -291,17 +291,19 @@ void stop_motors(){
   2. 1 means go backward
   3. 2 means turn left
   4. 3 means turn right
-  5. 4 means brake
+  5. 4 means horn
+  6. 5 means mode change
   The movements are determined by duration of devoid of magnetic field signals
 
   _CP0_GET_COUNT() = (SYSCLK/(2*1000)) = 1ms in SI unit
 */
-int determine_car_movement(){
+int determine_car_movement(int adcvalue_control_mode){
 	//reset timer
 	_CP0_SET_COUNT(0);
 
 	//if receiver starts not receiving anything aka adc = 0, start the timer
-	while(ADCRead(4) == 0){
+	while(adcvalue_control_mode == 0){
+		stop_motors(); //while it's receiving no signal then don't move
 		if(_CP0_GET_COUNT() > (SYSCLK/8)) return 0;
 	}
 		
@@ -322,9 +324,14 @@ int determine_car_movement(){
 		return 3;
 	}
 
-	//if no signal during the range of 32ms to 38ms (expected: 35ms) then that's brake
-	else if(_CP0_GET_COUNT() >= (SYSCLK/(2*1000)) * 32 && _CP0_GET_COUNT() <= (SYSCLK/(2*1000)) * 38){
+	//if no signal during the range of 58ms to 62ms (expected: 60ms) then that's a horn
+	else if(_CP0_GET_COUNT() >= (SYSCLK/(2*1000)) * 58 && _CP0_GET_COUNT() <= (SYSCLK/(2*1000)) * 62){
 		return 4;
+	}
+
+	//if no signal during the range of 53ms to 57ms (expected: 55ms) then that's a mode change
+	else if(_CP0_GET_COUNT() >= (SYSCLK/(2*1000)) * 53 && _CP0_GET_COUNT() <= (SYSCLK/(2*1000)) * 57){
+		return 5;
 	}
 
 	//if no signal during the range of 43ms to 47ms (expected: 45ms) then that's backward
@@ -339,16 +346,25 @@ long int get_receiver_difference_in_V(long int voltage_left, long int voltage_ri
 	return difference;
 }
 
+int mode_handler(int instruction, int mode){
+	if(instruction == 5){
+		mode = !mode;
+		return mode;
+	}
+}
+
 // In order to keep this as nimble as possible, avoid
 // using floating point or printf() on any of its forms!
 void main(void)
 {
 	volatile unsigned long t=0;
-    int adcval;
-    long int v;
+    int adcval1, adcval2;
+    long int v1,v2;
 	unsigned long int count, f;
 	unsigned char LED_toggle=0;
 	int movement_instruction;
+	int mode = 0;
+	long int left_right_difference;
 
 	CFGCON = 0;
   
@@ -374,21 +390,21 @@ void main(void)
 
 	while(1)
 	{
-    	adcval = ADCRead(4); // note that we call pin AN4 (RB2) by it's analog number
+    	adcval1 = ADCRead(4); // note that we call pin AN4 (RB2) by it's analog number (receiver pin left)
 		uart_puts("ADC[4]=0x");
-		PrintNumber(adcval, 16, 3);
+		PrintNumber(adcval1, 16, 3);
 		uart_puts(", V=");
-		v=(adcval*3290L)/1023L; // 3.290 is VDD
-		PrintFixedPoint(v, 3);
-		uart_puts("V ");
+		v1=(adcval1*3290L)/1023L; // 3.290 is VDD
+		//PrintFixedPoint(v1, 3);
+		//uart_puts("V ");
 
-		adcval=ADCRead(5);
+		adcval2 =ADCRead(5); //receiver pin right
 		uart_puts("ADC[5]=0x");
-		PrintNumber(adcval, 16, 3);
+		PrintNumber(adcval2, 16, 3);
 		uart_puts(", V=");
-		v=(adcval*3290L)/1023L; // 3.290 is VDD
-		PrintFixedPoint(v, 3);
-		uart_puts("V ");
+		v2=(adcval2*3290L)/1023L; // 3.290 is VDD
+		//PrintFixedPoint(v2, 3);
+		//uart_puts("V ");
 
 		count=GetPeriod(100);
 		if(count>0)
@@ -405,34 +421,49 @@ void main(void)
 			uart_puts("NO SIGNAL                     \r");
 		}
 
-		movement_instruction = determine_car_movement();
+		movement_instruction = determine_car_movement(adcval1);
+		mode = mode_handler(movement_instruction, mode);
+		left_right_difference = get_receiver_difference_in_V(v1, v2);
 
 		/*1. 0 means go forward
   		  2. 1 means go backward
   		  3. 2 means turn left
   		  4. 3 means turn right
-  		  5. 4 means brake*/
+  		  5. 4 means horn*/
 
-		
-		go_forward();
-		delay_ms(1000);
-		turn_right();
-		delay_ms(1000);
-		go_backward();
-		delay_ms(1000);
-		turn_left();
-		delay_ms(1000);
-		stop_motors();
-		delay_ms(1000);
-	
-	
-		
+		//if following mode (mode = 0)
+		if(mode == 0){
+			if(left_right_difference > 0){ //if left - right is positive then turn left to align
+				turn_left();
+			}
 
+			else if(left_right_difference < 0){ // if left - right is negative then turn right to align		
+				turn_right();
+			}
+		}
+		//if control mode (mode = 1)
+		else if(mode == 1){
+			if(movement_instruction  == 0)
+			{
+				go_forward();
+			}
+			else if(movement_instruction == 1)
+			{
+				go_backward();
+			}
+			else if(movement_instruction == 2)
+			{
+				turn_left();
+			}
+			else if(movement_instruction == 3)
+			{
+				turn_right();
+			}
+			/*else if(movement_instruction == 4){
+				//horn
+			}*/
 			
-
-
-		
-		
+		}
 
 		// Now toggle the pins on/off to see if they are working.
 		// First turn all off:
