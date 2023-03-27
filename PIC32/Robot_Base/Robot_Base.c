@@ -307,18 +307,18 @@ int determine_car_movement(){
 		
 	//depending on the duration of no signal, return appropriate movement
 
-	//first if no signal during the range of 3ms to 8ms (expected: 5ms) then that's fwd 
-	if(_CP0_GET_COUNT() >= (SYSCLK/(2*1000)) * 3 && _CP0_GET_COUNT() <= (SYSCLK/(2*1000)) * 8){
+	//first if no signal during the range of 48ms to 52ms (expected:50ms) then that's fwd 
+	if(_CP0_GET_COUNT() >= (SYSCLK/(2*1000)) * 48 && _CP0_GET_COUNT() <= (SYSCLK/(2*1000)) * 52){
 		return 0;
 	}
 
-    //if no signal during the range of 12ms to 18ms (expected: 15ms) then that's left turn 
-	else if(_CP0_GET_COUNT() >= (SYSCLK/(2*1000)) * 12 && _CP0_GET_COUNT() <= (SYSCLK/(2*1000)) * 18){
+    //if no signal during the range of 38ms to 42ms (expected: 40ms) then that's left turn 
+	else if(_CP0_GET_COUNT() >= (SYSCLK/(2*1000)) * 38 && _CP0_GET_COUNT() <= (SYSCLK/(2*1000)) * 42){
 		return 2;
 	}
 
-	//if no signal during the range of 22ms to 28ms (expected: 25ms) then that's right turn 
-	else if(_CP0_GET_COUNT() >= (SYSCLK/(2*1000)) * 22 && _CP0_GET_COUNT() <= (SYSCLK/(2*1000)) * 28){
+	//if no signal during the range of 33ms to 37ms (expected: 35ms) then that's right turn 
+	else if(_CP0_GET_COUNT() >= (SYSCLK/(2*1000)) * 33 && _CP0_GET_COUNT() <= (SYSCLK/(2*1000)) * 37){
 		return 3;
 	}
 
@@ -327,12 +327,16 @@ int determine_car_movement(){
 		return 4;
 	}
 
-	//if no signal during the range of 47ms to 53ms (expected: 50ms) then that's backward
-	else if(_CP0_GET_COUNT() >= (SYSCLK/(2*1000)) * 47 && _CP0_GET_COUNT() <= (SYSCLK/(2*1000)) * 53){
+	//if no signal during the range of 43ms to 47ms (expected: 45ms) then that's backward
+	else if(_CP0_GET_COUNT() >= (SYSCLK/(2*1000)) * 43 && _CP0_GET_COUNT() <= (SYSCLK/(2*1000)) * 47){
 		return 1;
 	}
+}
 
-
+long int get_receiver_difference_in_V(long int voltage_left, long int voltage_right){
+	long int difference;
+	difference = voltage_left - voltage_right;
+	return difference;
 }
 
 // In order to keep this as nimble as possible, avoid
