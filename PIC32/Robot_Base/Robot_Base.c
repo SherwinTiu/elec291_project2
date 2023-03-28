@@ -38,6 +38,18 @@
 #define Baud2BRG(desired_baud)( (SYSCLK / (16*desired_baud))-1)
 
 volatile int ISR_pwm1=150, ISR_pwm2=150, ISR_cnt=0, ISR_frc;
+int movement_instruction;
+
+int ADCRead(char analogPIN)
+{
+    AD1CHS = analogPIN << 16;    // AD1CHS<16:19> controls which analog pin goes to the ADC
+ 
+    AD1CON1bits.SAMP = 1;        // Begin sampling
+    while(AD1CON1bits.SAMP);     // wait until acquisition is done
+    while(!AD1CON1bits.DONE);    // wait until conversion done
+ 
+    return ADC1BUF0;             // result stored in ADC1BUF0
+}
 
 // The Interrupt Service Routine for timer 1 is used to generate one or more standard
 // hobby servo signals.  The servo signal has a fixed period of 20ms and a pulse width
@@ -54,6 +66,9 @@ void __ISR(_TIMER_1_VECTOR, IPL5SOFT) Timer1_Handler(void)
 	if(ISR_cnt==ISR_pwm2)
 	{
 		LATBbits.LATB4 = 0;
+	}
+	if(ISR_cnt == 100){
+		//movement_instruction = determine_car_movement(ADCRead(4) * 3290.0 / 1023.0);
 	}
 	if(ISR_cnt>=2000)
 	{
@@ -192,16 +207,6 @@ void ADCConf(void)
     AD1CON1SET=0x8000;      // Enable ADC
 }
 
-int ADCRead(char analogPIN)
-{
-    AD1CHS = analogPIN << 16;    // AD1CHS<16:19> controls which analog pin goes to the ADC
- 
-    AD1CON1bits.SAMP = 1;        // Begin sampling
-    while(AD1CON1bits.SAMP);     // wait until acquisition is done
-    while(!AD1CON1bits.DONE);    // wait until conversion done
- 
-    return ADC1BUF0;             // result stored in ADC1BUF0
-}
 
 void ConfigurePins(void)
 {
@@ -279,6 +284,7 @@ void turn_right(){
 }
 
 void stop_motors(){
+	printf("\n\r0ol");
 	//all motor pins off
 	LATBbits.LATB0 = 1; //pin 4
 	LATBbits.LATB1 = 1; //pin 5
@@ -299,58 +305,74 @@ void stop_motors(){
 */
 int determine_car_movement(int adcvalue_control_mode){
 	//reset timer
+	int time = 0;
 	_CP0_SET_COUNT(0);
-
+	printf("\n\rv1 val: %d", adcvalue_control_mode);
 	//if receiver starts not receiving anything aka adc = 0, start the timer
-	while(adcvalue_control_mode == 0){
-		stop_motors(); //while it's receiving no signal then don't move
-		if(_CP0_GET_COUNT() > (SYSCLK/8)) return 0;
+	while(adcvalue_control_mode < 150){
+		adcvalue_control_mode = ADCRead(4) * 3290.0 / 1023.0;
+		if(_CP0_GET_COUNT() > (SYSCLK/8)) return 9;
+		
 	}
+
+	time = _CP0_GET_COUNT();
+	printf("\r\ntime: %d", time);
+
 		
 	//depending on the duration of no signal, return appropriate movement
 
 	//first if no signal during the range of 48ms to 52ms (expected:50ms) then that's fwd 
-	if(_CP0_GET_COUNT() >= (SYSCLK/(2*1000)) * 48 && _CP0_GET_COUNT() <= (SYSCLK/(2*1000)) * 52){
+	if(time >= (SYSCLK/(2*1000)) * 48 && time <= (SYSCLK/(2*1000)) * 52){
 		return 0;
 	}
 
     //if no signal during the range of 38ms to 42ms (expected: 40ms) then that's left turn 
-	else if(_CP0_GET_COUNT() >= (SYSCLK/(2*1000)) * 38 && _CP0_GET_COUNT() <= (SYSCLK/(2*1000)) * 42){
+	else if(time >= (SYSCLK/(2*1000)) * 38 && time <= (SYSCLK/(2*1000)) * 42){
 		return 2;
 	}
 
 	//if no signal during the range of 33ms to 37ms (expected: 35ms) then that's right turn 
-	else if(_CP0_GET_COUNT() >= (SYSCLK/(2*1000)) * 33 && _CP0_GET_COUNT() <= (SYSCLK/(2*1000)) * 37){
+	else if(time >= (SYSCLK/(2*1000)) * 33 && time <= (SYSCLK/(2*1000)) * 37){
 		return 3;
 	}
 
 	//if no signal during the range of 58ms to 62ms (expected: 60ms) then that's a horn
-	else if(_CP0_GET_COUNT() >= (SYSCLK/(2*1000)) * 58 && _CP0_GET_COUNT() <= (SYSCLK/(2*1000)) * 62){
+	else if(time >= (SYSCLK/(2*1000)) * 58 && time <= (SYSCLK/(2*1000)) * 62){
 		return 4;
 	}
 
 	//if no signal during the range of 53ms to 57ms (expected: 55ms) then that's a mode change
-	else if(_CP0_GET_COUNT() >= (SYSCLK/(2*1000)) * 53 && _CP0_GET_COUNT() <= (SYSCLK/(2*1000)) * 57){
+	else if(time >= (SYSCLK/(2*1000)) * 53 && time <= (SYSCLK/(2*1000)) * 57){
 		return 5;
 	}
 
 	//if no signal during the range of 43ms to 47ms (expected: 45ms) then that's backward
-	else if(_CP0_GET_COUNT() >= (SYSCLK/(2*1000)) * 43 && _CP0_GET_COUNT() <= (SYSCLK/(2*1000)) * 47){
+	else if(time >= (SYSCLK/(2*1000)) * 43 && time <= (SYSCLK/(2*1000)) * 47){
 		return 1;
+	}
+	else{
+		return 9;
 	}
 }
 
-long int get_receiver_difference_in_V(long int voltage_left, long int voltage_right){
-	long int difference;
+double get_receiver_difference_in_V(double voltage_left, double voltage_right){
+	double difference;
 	difference = voltage_left - voltage_right;
 	return difference;
 }
 
 int mode_handler(int instruction, int mode){
-	if(instruction == 5){
+	/*if(instruction == 5){
+		printf("\n\rmode before: %d", mode);
 		mode = !mode;
+		printf("\n\rmode after: %d", mode);
 		return mode;
-	}
+	}*/
+
+	mode = 1;
+	return mode;
+
+	
 }
 
 // In order to keep this as nimble as possible, avoid
@@ -358,21 +380,20 @@ int mode_handler(int instruction, int mode){
 void main(void)
 {
 	volatile unsigned long t=0;
-    int adcval1, adcval2;
-    long int v1,v2;
+    double adcval1, adcval2;
+    double v1,v2;
 	unsigned long int count, f;
 	unsigned char LED_toggle=0;
 	int movement_instruction;
-	int mode = 0;
-	long int left_right_difference;
+	int mode;
+	double left_right_difference;
 
 	CFGCON = 0;
   
     UART2Configure(115200);  // Configure UART2 for a baud rate of 115200
     ConfigurePins();
+	ADCConf(); // Configure ADC
     SetupTimer1();
-  
-    ADCConf(); // Configure ADC
     
     waitms(500); // Give PuTTY time to start
 	uart_puts("\x1b[2J\x1b[1;1H"); // Clear screen using ANSI escape sequence.
@@ -387,24 +408,26 @@ void main(void)
 	LATAbits.LATA3 = 1;
 	LATBbits.LATB4 = 1; 
 	LATAbits.LATA4 = 1;
+	mode = 0;
 
 	while(1)
 	{
-    	adcval1 = ADCRead(4); // note that we call pin AN4 (RB2) by it's analog number (receiver pin left)
-		uart_puts("ADC[4]=0x");
-		PrintNumber(adcval1, 16, 3);
-		uart_puts(", V=");
-		v1=(adcval1*3290L)/1023L; // 3.290 is VDD
-		//PrintFixedPoint(v1, 3);
-		//uart_puts("V ");
+    	
+		adcval1 = ADCRead(4); // note that we call pin AN4 (RB2) by it's analog number (receiver pin left)
+		//uart_puts("ADC[4]=0x");
+		//PrintNumber(adcval1, 16, 3);
+		uart_puts(", V_left=");
+		v1=(adcval1*3290.0)/1023.0; // 3.290 is VDD offset is -650
+		printf("%f", v1);
+		uart_puts("mV ");
 
 		adcval2 =ADCRead(5); //receiver pin right
-		uart_puts("ADC[5]=0x");
-		PrintNumber(adcval2, 16, 3);
-		uart_puts(", V=");
-		v2=(adcval2*3290L)/1023L; // 3.290 is VDD
-		//PrintFixedPoint(v2, 3);
-		//uart_puts("V ");
+		//uart_puts("ADC[5]=0x");
+		//PrintNumber(adcval2, 16, 3);
+		uart_puts(", V_right=");
+		v2=(adcval2*3290.0)/1023.0*1.008; // 3.290 is VDD
+		printf("%f", v2);
+		uart_puts("mV ");
 
 		count=GetPeriod(100);
 		if(count>0)
@@ -421,7 +444,18 @@ void main(void)
 			uart_puts("NO SIGNAL                     \r");
 		}
 
-		movement_instruction = determine_car_movement(adcval1);
+		adcval1 = ADCRead(4); // note that we call pin AN4 (RB2) by it's analog number (receiver pin left)
+		//uart_puts("ADC[4]=0x");
+		//PrintNumber(adcval1, 16, 3);
+		//uart_puts(", V_left=");
+		v1=(adcval1*3290.0)/1023.0; // 3.290 is VDD offset is -650
+		//printf("%f", v1);
+		//uart_puts("mV ");
+
+		//if(v1 < 150){
+		movement_instruction = determine_car_movement(v1);
+		//}
+		
 		mode = mode_handler(movement_instruction, mode);
 		left_right_difference = get_receiver_difference_in_V(v1, v2);
 
@@ -430,35 +464,83 @@ void main(void)
   		  3. 2 means turn left
   		  4. 3 means turn right
   		  5. 4 means horn*/
-
+		//printf("\n\r%f", left_right_difference);
+		
 		//if following mode (mode = 0)
-		if(mode == 0){
-			if(left_right_difference > 0){ //if left - right is positive then turn left to align
+		
+		/*if(mode == 0){
+			printf("\r\nDifference: %f", left_right_difference); 
+
+			//printf("\n\r%f", left_right_difference);
+			if(left_right_difference > 200 + 100){ //if left - right is positive then turn left to align
 				turn_left();
+				delay_ms(2);
+				stop_motors();
+				//printf("Turning left...Difference: %f", left_right_difference);                                  
 			}
 
-			else if(left_right_difference < 0){ // if left - right is negative then turn right to align		
+			else if(left_right_difference < 200 - 100){ //if left - right is positive then turn left to align
 				turn_right();
+				delay_ms(200);
+				stop_motors();
+				//printf("Turning left...Difference: %f", left_right_difference);                                  
 			}
-		}
+
+			else{
+				stop_motors();
+
+				//here we need to have an algorithm where it moves back/forward so that left - right = 0.2 ish
+				if(left_right_difference > 0.2 + 0.3){
+					go_backward();
+					delay_ms(200);
+					stop_motors();
+				}
+
+				if(left_right_difference < 0.2 - 0.3){
+					go_forward();
+					delay_ms(200);
+					stop_motors();
+				}
+			}
+
+			//else if()
+		}*/
 		//if control mode (mode = 1)
-		else if(mode == 1){
+		if(mode == 1){
+			printf("\n\r %d", movement_instruction);
 			if(movement_instruction  == 0)
 			{
 				go_forward();
+				delay_ms(200);
+				stop_motors();
+				
 			}
 			else if(movement_instruction == 1)
 			{
 				go_backward();
+				delay_ms(200);
+				stop_motors();
+				
 			}
 			else if(movement_instruction == 2)
 			{
 				turn_left();
+				delay_ms(200);
+				stop_motors();
+				
 			}
 			else if(movement_instruction == 3)
 			{
 				turn_right();
+				//delay_ms(200);
+				//stop_motors();
 			}
+			else{
+				stop_motors();
+				delay_ms(200);
+			}
+
+			stop_motors();
 			/*else if(movement_instruction == 4){
 				//horn
 			}*/
