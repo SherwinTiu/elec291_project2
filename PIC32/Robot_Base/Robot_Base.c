@@ -327,8 +327,8 @@ int determine_car_movement(double adcvalue_control_mode){
 		
 	//depending on the duration of no signal, return appropriate movement
 
-	//first if no signal during the range of 48ms to 52ms (expected:50ms) then that's fwd 
-	if(time >= (SYSCLK/(2*1000)) * 48 && time <= (SYSCLK/(2*1000)) * 52){
+	//first if no signal during the range of 450ms to 550ms (expected:500ms) then that's fwd 
+	if(time >= (SYSCLK/(2*1000)) * 450 && time <= (SYSCLK/(2*1000)) * 550){
 		return 0;
 	}
 

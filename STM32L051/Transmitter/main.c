@@ -425,7 +425,7 @@ int main(void)
 			{
 				LCDprint("Forward", 2, 1);
 				NVIC->ICER[0] |= BIT15;
-				delayms(1000);
+				delayms(500);
 				NVIC->ISER[0] |= BIT15;
 				delayms(250);
 			}
