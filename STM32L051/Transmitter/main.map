@@ -28,7 +28,7 @@ LOAD C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-non
 LOAD C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libm.a
 END GROUP
 
-.text           0x08000000     0x1740
+.text           0x08000000     0x18dc
  *(.vectors)
  .vectors       0x08000000       0xb8 startup.o
                 0x08000000                Vectors
@@ -37,124 +37,127 @@ END GROUP
                 0x080000b8       0x28 startup.o
                 0x080000b8                ResetInit
  *(.text*)
- .text          0x080000e0      0x9c8 main.o
+ .text          0x080000e0      0xb64 main.o
                 0x080000e0                wait_1ms
                 0x08000118                delayms
                 0x0800013a                TIM2_Handler
-                0x08000178                Configure_Pins
-                0x08000280                Delay_us
-                0x080002e0                waitms
-                0x0800032c                LCD_pulse
-                0x0800035c                LCD_byte
-                0x080004de                WriteData
-                0x08000512                WriteCommand
-                0x08000546                LCD_4BIT
-                0x08000590                LCDprint
-                0x0800060c                Hardware_Init
-                0x080007ec                main
- .text          0x08000aa8      0x5b4 serial.o
-                0x08000aa8                ReadCom
-                0x08000b1c                WriteCom
-                0x08000bbc                initUART
-                0x08000d0c                USART1_Handler
-                0x08000d38                usart_rx
-                0x08000d68                usart_tx
-                0x08000dd0                PutBuf
-                0x08000e32                GetBuf
-                0x08000e88                GetBufCount
-                0x08000e9c                eputs
-                0x08000ed8                eputc
-                0x08000ef6                egetc
-                0x08000f10                egets
-                0x08000f9c                egetc_echo
-                0x08000fc2                egets_echo
- .text          0x0800105c      0x1a8 startup.o
-                0x080010d4                initClock
-                0x080011dc                EXTI2_3_Handler
-                0x080011dc                TIM21_Handler
-                0x080011dc                SysTick_Handler
-                0x080011dc                I2C1_Handler
-                0x080011dc                PendSV_Handler
-                0x080011dc                NMI_Handler
-                0x080011dc                WWDG_Handler
-                0x080011dc                RTC_Handler
-                0x080011dc                EXTI4_15_Handler
-                0x080011dc                DMA_CH4_5_6_7_Handler
-                0x080011dc                Default_Handler
-                0x080011dc                LPUART1_Handler
-                0x080011dc                FLASH_Handler
-                0x080011dc                EXTI0_1_Handler
-                0x080011dc                DMA_CH1_Handler
-                0x080011dc                SPI2_Handler
-                0x080011dc                DMA_CH2_3_Handler
-                0x080011dc                I2C2_Handler
-                0x080011dc                SVC_Handler
-                0x080011dc                LPTIM1_Handler
-                0x080011dc                USART2_Handler
-                0x080011dc                SPI1_Handler
-                0x080011dc                RCC_Handler
-                0x080011dc                PVD_Handler
-                0x080011dc                TIM6_Handler
-                0x080011dc                TIM22_Handler
-                0x080011dc                ADC_COMP_Handler
-                0x080011f0                Hard_Fault_Handler
- .text          0x08001204      0x29c newlib_stubs.o
-                0x08001204                _exit
-                0x0800120e                _close
-                0x08001222                _execve
-                0x08001244                _fork
-                0x0800125c                _fstat
-                0x08001278                _getpid
-                0x08001284                _kill
-                0x080012a4                _link
-                0x080012c4                _lseek
-                0x080012da                _stat
-                0x080012f6                _times
-                0x0800130a                _unlink
-                0x08001328                _wait
-                0x08001348                _isatty
-                0x08001370                _sbrk
-                0x080013d4                _read
-                0x0800144c                _write
- .text          0x080014a0        0x0 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libnosys.a(errno.o)
- .text          0x080014a0      0x1d4 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libgcc.a(_divsi3.o)
-                0x080014a0                __divsi3
-                0x080014a0                __aeabi_idiv
-                0x0800166c                __aeabi_idivmod
- .text          0x08001674        0x4 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libgcc.a(_dvmd_tls.o)
-                0x08001674                __aeabi_idiv0
-                0x08001674                __aeabi_ldiv0
+                0x08000178                ADC_Config
+                0x080001d4                initADC
+                0x08000274                readADC
+                0x080002e0                Configure_Pins
+                0x080003e8                Delay_us
+                0x08000448                waitms
+                0x08000494                LCD_pulse
+                0x080004c4                LCD_byte
+                0x08000646                WriteData
+                0x0800067a                WriteCommand
+                0x080006ae                LCD_4BIT
+                0x080006f8                LCDprint
+                0x08000774                Hardware_Init
+                0x08000954                main
+ .text          0x08000c44      0x5b4 serial.o
+                0x08000c44                ReadCom
+                0x08000cb8                WriteCom
+                0x08000d58                initUART
+                0x08000ea8                USART1_Handler
+                0x08000ed4                usart_rx
+                0x08000f04                usart_tx
+                0x08000f6c                PutBuf
+                0x08000fce                GetBuf
+                0x08001024                GetBufCount
+                0x08001038                eputs
+                0x08001074                eputc
+                0x08001092                egetc
+                0x080010ac                egets
+                0x08001138                egetc_echo
+                0x0800115e                egets_echo
+ .text          0x080011f8      0x1a8 startup.o
+                0x08001270                initClock
+                0x08001378                EXTI2_3_Handler
+                0x08001378                TIM21_Handler
+                0x08001378                SysTick_Handler
+                0x08001378                I2C1_Handler
+                0x08001378                PendSV_Handler
+                0x08001378                NMI_Handler
+                0x08001378                WWDG_Handler
+                0x08001378                RTC_Handler
+                0x08001378                EXTI4_15_Handler
+                0x08001378                DMA_CH4_5_6_7_Handler
+                0x08001378                Default_Handler
+                0x08001378                LPUART1_Handler
+                0x08001378                FLASH_Handler
+                0x08001378                EXTI0_1_Handler
+                0x08001378                DMA_CH1_Handler
+                0x08001378                SPI2_Handler
+                0x08001378                DMA_CH2_3_Handler
+                0x08001378                I2C2_Handler
+                0x08001378                SVC_Handler
+                0x08001378                LPTIM1_Handler
+                0x08001378                USART2_Handler
+                0x08001378                SPI1_Handler
+                0x08001378                RCC_Handler
+                0x08001378                PVD_Handler
+                0x08001378                TIM6_Handler
+                0x08001378                TIM22_Handler
+                0x08001378                ADC_COMP_Handler
+                0x0800138c                Hard_Fault_Handler
+ .text          0x080013a0      0x29c newlib_stubs.o
+                0x080013a0                _exit
+                0x080013aa                _close
+                0x080013be                _execve
+                0x080013e0                _fork
+                0x080013f8                _fstat
+                0x08001414                _getpid
+                0x08001420                _kill
+                0x08001440                _link
+                0x08001460                _lseek
+                0x08001476                _stat
+                0x08001492                _times
+                0x080014a6                _unlink
+                0x080014c4                _wait
+                0x080014e4                _isatty
+                0x0800150c                _sbrk
+                0x08001570                _read
+                0x080015e8                _write
+ .text          0x0800163c        0x0 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libnosys.a(errno.o)
+ .text          0x0800163c      0x1d4 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libgcc.a(_divsi3.o)
+                0x0800163c                __divsi3
+                0x0800163c                __aeabi_idiv
+                0x08001808                __aeabi_idivmod
+ .text          0x08001810        0x4 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libgcc.a(_dvmd_tls.o)
+                0x08001810                __aeabi_idiv0
+                0x08001810                __aeabi_ldiv0
  *(.rodata*)
- .rodata        0x08001678       0x4a main.o
- *fill*         0x080016c2        0x2 
- .rodata        0x080016c4       0x7c startup.o
-                0x08001740                . = ALIGN (0x4)
-                0x08001740                PROVIDE (__init_array_start = .)
+ .rodata        0x08001814       0x4a main.o
+ *fill*         0x0800185e        0x2 
+ .rodata        0x08001860       0x7c startup.o
+                0x080018dc                . = ALIGN (0x4)
+                0x080018dc                PROVIDE (__init_array_start = .)
  *(SORT_BY_NAME(.init_array.*))
  *(.init_array)
-                0x08001740                PROVIDE (__init_array_end = .)
-                0x08001740                . = ALIGN (0x4)
-                0x08001740                _etext = .
+                0x080018dc                PROVIDE (__init_array_end = .)
+                0x080018dc                . = ALIGN (0x4)
+                0x080018dc                _etext = .
 
-.glue_7         0x08001740        0x0
- .glue_7        0x08001740        0x0 linker stubs
+.glue_7         0x080018dc        0x0
+ .glue_7        0x080018dc        0x0 linker stubs
 
-.glue_7t        0x08001740        0x0
- .glue_7t       0x08001740        0x0 linker stubs
+.glue_7t        0x080018dc        0x0
+ .glue_7t       0x080018dc        0x0 linker stubs
 
-.vfp11_veneer   0x08001740        0x0
- .vfp11_veneer  0x08001740        0x0 linker stubs
+.vfp11_veneer   0x080018dc        0x0
+ .vfp11_veneer  0x080018dc        0x0 linker stubs
 
-.v4_bx          0x08001740        0x0
- .v4_bx         0x08001740        0x0 linker stubs
+.v4_bx          0x080018dc        0x0
+ .v4_bx         0x080018dc        0x0 linker stubs
 
-.iplt           0x08001740        0x0
- .iplt          0x08001740        0x0 main.o
+.iplt           0x080018dc        0x0
+ .iplt          0x080018dc        0x0 main.o
 
-.rel.dyn        0x08001740        0x0
- .rel.iplt      0x08001740        0x0 main.o
+.rel.dyn        0x080018dc        0x0
+ .rel.iplt      0x080018dc        0x0 main.o
 
-.data           0x20000000        0x8 load address 0x08001740
+.data           0x20000000        0x8 load address 0x080018dc
                 0x20000000                . = ALIGN (0x4)
                 0x20000000                _data = .
  *(.data*)
@@ -172,10 +175,10 @@ END GROUP
                 0x20000008                . = ALIGN (0x4)
                 0x20000008                _edata = .
 
-.igot.plt       0x20000008        0x0 load address 0x08001748
+.igot.plt       0x20000008        0x0 load address 0x080018e4
  .igot.plt      0x20000008        0x0 main.o
 
-.bss            0x20000008       0xb4 load address 0x08001748
+.bss            0x20000008       0xb4 load address 0x080018e4
                 0x20000008                _bss = .
  *(.bss*)
  .bss           0x20000008        0x4 main.o
@@ -203,17 +206,17 @@ END GROUP
 OUTPUT(main.elf elf32-littlearm)
 LOAD linker stubs
 
-.debug_info     0x00000000     0x1973
- .debug_info    0x00000000      0x740 main.o
- .debug_info    0x00000740      0x79e serial.o
- .debug_info    0x00000ede      0x391 startup.o
- .debug_info    0x0000126f      0x704 newlib_stubs.o
+.debug_info     0x00000000     0x1aef
+ .debug_info    0x00000000      0x8bc main.o
+ .debug_info    0x000008bc      0x79e serial.o
+ .debug_info    0x0000105a      0x391 startup.o
+ .debug_info    0x000013eb      0x704 newlib_stubs.o
 
-.debug_abbrev   0x00000000      0x76d
- .debug_abbrev  0x00000000      0x1f0 main.o
- .debug_abbrev  0x000001f0      0x208 serial.o
- .debug_abbrev  0x000003f8      0x1c2 startup.o
- .debug_abbrev  0x000005ba      0x1b3 newlib_stubs.o
+.debug_abbrev   0x00000000      0x7d1
+ .debug_abbrev  0x00000000      0x254 main.o
+ .debug_abbrev  0x00000254      0x208 serial.o
+ .debug_abbrev  0x0000045c      0x1c2 startup.o
+ .debug_abbrev  0x0000061e      0x1b3 newlib_stubs.o
 
 .debug_aranges  0x00000000       0x88
  .debug_aranges
@@ -225,20 +228,20 @@ LOAD linker stubs
  .debug_aranges
                 0x00000068       0x20 newlib_stubs.o
 
-.debug_line     0x00000000     0x10c2
- .debug_line    0x00000000      0x635 main.o
- .debug_line    0x00000635      0x4f4 serial.o
- .debug_line    0x00000b29      0x2c3 startup.o
- .debug_line    0x00000dec      0x2d6 newlib_stubs.o
+.debug_line     0x00000000     0x119c
+ .debug_line    0x00000000      0x70f main.o
+ .debug_line    0x0000070f      0x4f4 serial.o
+ .debug_line    0x00000c03      0x2c3 startup.o
+ .debug_line    0x00000ec6      0x2d6 newlib_stubs.o
 
-.debug_str      0x00000000      0x7f2
- .debug_str     0x00000000      0x3b6 main.o
-                                0x3fd (size before relaxing)
- .debug_str     0x000003b6      0x124 serial.o
+.debug_str      0x00000000      0x86e
+ .debug_str     0x00000000      0x432 main.o
+                                0x480 (size before relaxing)
+ .debug_str     0x00000432      0x124 serial.o
                                 0x3be (size before relaxing)
- .debug_str     0x000004da       0xee startup.o
+ .debug_str     0x00000556       0xee startup.o
                                 0x2ff (size before relaxing)
- .debug_str     0x000005c8      0x22a newlib_stubs.o
+ .debug_str     0x00000644      0x22a newlib_stubs.o
                                 0x3f0 (size before relaxing)
 
 .comment        0x00000000       0x45
@@ -265,12 +268,12 @@ LOAD linker stubs
  .ARM.attributes
                 0x000000fa       0x1e C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libgcc.a(_dvmd_tls.o)
 
-.debug_frame    0x00000000      0x67c
- .debug_frame   0x00000000      0x1b8 main.o
- .debug_frame   0x000001b8      0x1e8 serial.o
- .debug_frame   0x000003a0       0x94 startup.o
- .debug_frame   0x00000434      0x228 newlib_stubs.o
- .debug_frame   0x0000065c       0x20 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libgcc.a(_divsi3.o)
+.debug_frame    0x00000000      0x6d4
+ .debug_frame   0x00000000      0x210 main.o
+ .debug_frame   0x00000210      0x1e8 serial.o
+ .debug_frame   0x000003f8       0x94 startup.o
+ .debug_frame   0x0000048c      0x228 newlib_stubs.o
+ .debug_frame   0x000006b4       0x20 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libgcc.a(_divsi3.o)
 
 .debug_rnglists
                 0x00000000       0x1a
@@ -288,6 +291,7 @@ Cross Reference Table
 
 Symbol                                            File
 ADC_COMP_Handler                                  startup.o
+ADC_Config                                        main.o
 ComBusy                                           serial.o
 ComError                                          serial.o
 ComOpen                                           serial.o
@@ -387,6 +391,7 @@ eputs                                             serial.o
                                                   startup.o
 errno                                             C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libnosys.a(errno.o)
                                                   newlib_stubs.o
+initADC                                           main.o
 initClock                                         startup.o
 initUART                                          serial.o
                                                   startup.o
@@ -394,6 +399,7 @@ main                                              main.o
                                                   startup.o
 pwm1                                              main.o
 pwm2                                              main.o
+readADC                                           main.o
 usart_rx                                          serial.o
 usart_tx                                          serial.o
 wait_1ms                                          main.o

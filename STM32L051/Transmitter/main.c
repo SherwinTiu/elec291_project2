@@ -4,6 +4,8 @@
 #include "../Common/Include/serial.h"
 #include "lcd.h"
 #include <string.h>
+#include "adc.h"
+#include <math.h>
 
 #define F_CPU 32000000L
 #define DEF_F 16200L // 16.20 kHz freq (frequency with highest output)
@@ -50,16 +52,97 @@ void TIM2_Handler(void)
 //      VDDA -|5       28|- PB5 
 //LCD_RS PA0 -|6       27|- PB4 (reverse button)
 // LCD_E PA1 -|7       26|- PB3 (forward button)
-//LCD_D4 PA2 -|8       25|- PA15 (right button)
-//LCD_D5 PA3 -|9       24|- PA14 (left button)
-//LCD_D6 PA4 -|10      23|- PA13 (switch mode button)
+//LCD_D4 PA2 -|8       25|- PA15 (right button) (joystick y axis)
+//LCD_D5 PA3 -|9       24|- PA14 (left button) (joystick x axis)
+//LCD_D6 PA4 -|10      23|- PA13 (switch mode button) 
 //LCD_D7 PA5 -|11      22|- PA12 (h bridge pin 2)
 //       PA6 -|12      21|- PA11 (h bridge pin 1)
 //       PA7 -|13      20|- PA10 (Reserved for RXD)
-//       PB0 -|14      19|- PA9  (Reserved for TXD)
-//       PB1 -|15      18|- PA8
+// yaxis PB0 -|14      19|- PA9  (Reserved for TXD)
+// xaxis PB1 -|15      18|- PA8
 //       VSS -|16      17|- VDD
 //             ----------
+
+// Joystick ADC
+void ADC_Config(void)
+{
+	// Configure the pin used for a blinking LED: PA8 (pin 18)
+	RCC->IOPENR  |= BIT0; // peripheral clock enable for port A
+    GPIOA->MODER  = (GPIOA->MODER & ~(BIT17|BIT16) ) | BIT16; // Make pin PA8 output (page 200 of RM0451, two bits used to configure: bit0=1, bit1=0))
+	
+	// Configure the pin used for analog input: PB1 (pin 15)
+	RCC->IOPENR  |= BIT1;         // peripheral clock enable for port B
+	GPIOB->MODER |= (BIT2|BIT3);  // Select analog mode for PB1 (pin 15 of LQFP32 package)
+	GPIOB->MODER |= (BIT0|BIT1); // analog mode for PB0
+}
+
+void initADC(void)
+{
+	RCC->APB2ENR |= BIT9; // peripheral clock enable for ADC (page 175 or RM0451)
+
+	// ADC clock selection procedure (page 746 of RM0451)
+	/* (1) Select PCLK by writing 11 in CKMODE */
+	ADC1->CFGR2 |= ADC_CFGR2_CKMODE; /* (1) */
+	
+	// ADC enable sequence procedure (page 745 of RM0451)
+	/* (1) Clear the ADRDY bit */
+	/* (2) Enable the ADC */
+	/* (3) Wait until ADC ready */
+	ADC1->ISR |= ADC_ISR_ADRDY; /* (1) */
+	ADC1->CR |= ADC_CR_ADEN; /* (2) */
+	if ((ADC1->CFGR1 & ADC_CFGR1_AUTOFF) == 0)
+	{
+		while ((ADC1->ISR & ADC_ISR_ADRDY) == 0) /* (3) */
+		{
+			/* For robust implementation, add here time-out management */
+		}
+	}	
+
+	// Calibration code procedure (page 745 of RM0451)
+	/* (1) Ensure that ADEN = 0 */
+	/* (2) Clear ADEN */
+	/* (3) Set ADCAL=1 */
+	/* (4) Wait until EOCAL=1 */
+	/* (5) Clear EOCAL */
+	if ((ADC1->CR & ADC_CR_ADEN) != 0) /* (1) */
+	{
+		ADC1->CR |= ADC_CR_ADDIS; /* (2) */
+	}
+	ADC1->CR |= ADC_CR_ADCAL; /* (3) */
+	while ((ADC1->ISR & ADC_ISR_EOCAL) == 0) /* (4) */
+	{
+		/* For robust implementation, add here time-out management */
+	}
+	ADC1->ISR |= ADC_ISR_EOCAL; /* (5) */
+}
+
+int readADC(unsigned int channel)
+{
+	// Single conversion sequence code example - Software trigger (page 746 of RM0451)
+	/* (1) Select HSI16 by writing 00 in CKMODE (reset value) */
+	/* (2) Select the auto off mode */
+	/* (3) Select channel */
+	/* (4) Select a sampling mode of 111 i.e. 239.5 ADC clk to be greater than17.1us */
+	/* (5) Wake-up the VREFINT (only for VRefInt) */
+	// ADC1->CFGR2 &= ~ADC_CFGR2_CKMODE; /* (1) */
+	ADC1->CFGR1 |= ADC_CFGR1_AUTOFF; /* (2) */
+	ADC1->CHSELR = channel; /* (3) */
+	ADC1->SMPR |= ADC_SMPR_SMP_0 | ADC_SMPR_SMP_1 | ADC_SMPR_SMP_2; /* (4) */
+	//printf("go through readADC\n");
+	if(channel==ADC_CHSELR_CHSEL17)
+	{
+		ADC->CCR |= ADC_CCR_VREFEN; /* (5) */
+	}
+	
+	/* Performs the ADC conversion */
+	ADC1->CR |= ADC_CR_ADSTART; /* start the ADC conversion */
+	while ((ADC1->ISR & ADC_ISR_EOC) == 0) /* wait end of conversion */
+	{
+		/* For robust implementation, add here time-out management */
+	}
+
+	return ADC1->DR; // ADC_DR has the 12 bits out of the ADC
+}
 
 // LCD
 void Configure_Pins (void)
@@ -237,7 +320,16 @@ int main(void)
 	int mode = 1;
 	int mode_button;
 	int current_forward, current_reverse, current_left, current_right, horn = 1;
-	//int mode_flag = 0;
+	//int j;
+	//int k;
+	int x;
+	int y;
+	delayms(500); // Give PuTTY time to start
+
+
+	// ADC initialization
+	ADC_Config();
+	initADC();
 
 	Hardware_Init();
 
@@ -258,27 +350,53 @@ int main(void)
 
 	while (1)
 	{
-		/*while button helde{
+		//mode_button = (GPIOA->IDR & GPIO_IDR_ID13) ? 1 : 0;
 
-			set left_flag
-			delay_ms(100)
-		}*/
+		x=readADC(ADC_CHSELR_CHSEL9); // x-axis
+		y=readADC(ADC_CHSELR_CHSEL8); // y-axis
 
-		mode_button = (GPIOA->IDR & GPIO_IDR_ID13) ? 1 : 0;
+		// y-axis
+		//y = (j*3.3)/4096.0;
+		//printf("x=%d V\n", x);
+		//printf("y=%d V\n\r", y);
+		//fflush(stdout);
 
+
+		if(x>3700 || x<350){
+			if(x>3700){
+				current_left = 0;
+			}
+			else {
+				current_right = 0;
+			}
+		}
+		else if (y>3700 || y<500) {
+			if (y>3700) {
+				current_reverse = 0;
+			} 
+			else {
+				current_forward = 0;
+			}
+		}
+
+
+		// x-axis
+		// x = (k*3.3)/4096.0;
+		// printf("ADC[9]=%d y=%f V\n\r", k, x);
+		// fflush(stdout);
+		
 		if (mode_button == 0) {
 			if(mode == 1){
 				mode = 0;
 				LCDprint("Follow Mode", 1, 1);
 				LCDprint(" ", 2, 1);
-
-				
 			}
 			else {
 				mode = 1;
 				LCDprint("Control Mode", 1, 1);
 			}			
 
+		// Mode change 
 		// Disable timer 2 interrupts in the NVIC
 			NVIC->ICER[0] |= BIT15;
 			delayms(55);
@@ -301,7 +419,7 @@ int main(void)
 			}
 
 			// forward
-			current_forward = (GPIOB->IDR & GPIO_IDR_ID3) ? 1 : 0; // off state (button is state 1 if not pressed, button is state 0 if pressed)
+			// current_forward = (GPIOB->IDR & GPIO_IDR_ID3) ? 1 : 0; // off state (button is state 1 if not pressed, button is state 0 if pressed)
 
 			if (current_forward == 0)
 			{
@@ -322,7 +440,7 @@ int main(void)
 
 			
 			// reverse button
-			current_reverse = (GPIOB->IDR & GPIO_IDR_ID4) ? 1 : 0;
+			//current_reverse = (GPIOB->IDR & GPIO_IDR_ID4) ? 1 : 0;
 
 			if (current_reverse == 0)
 			{
@@ -335,7 +453,7 @@ int main(void)
 			}
 
 			// left button
-			current_left = (GPIOA->IDR & GPIO_IDR_ID14) ? 1 : 0;
+			//current_left = (GPIOA->IDR & GPIO_IDR_ID14) ? 1 : 0;
 
 			if (current_left == 0)
 			{
@@ -347,7 +465,7 @@ int main(void)
 			}
 
 			// right button
-			current_right = (GPIOA->IDR & GPIO_IDR_ID15) ? 1 : 0;
+			//current_right = (GPIOA->IDR & GPIO_IDR_ID15) ? 1 : 0;
 			
 			if (current_right == 0)
 			{
@@ -362,7 +480,13 @@ int main(void)
 		if (horn == 1 && current_forward == 1 && current_reverse == 1 && current_left == 1 && current_right == 1) {
 			LCDprint(" ", 2, 1);
 		}
-		delayms(100);
+
+		current_forward = 1;
+		current_reverse = 1;
+		current_right = 1;
+		current_left = 1;
+		delayms(500);
+		//delayms(100);
 
 	}
 
