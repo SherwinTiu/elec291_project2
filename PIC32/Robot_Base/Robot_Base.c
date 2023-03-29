@@ -255,6 +255,7 @@ void PrintFixedPoint (unsigned long number, int decimals)
 	PrintNumber(number%divider, 10, decimals);
 }
 
+// movements
 void go_forward(){
 	LATBbits.LATB0 = 0; //pin 4
 	LATBbits.LATB1 = 1; //pin 5
@@ -308,7 +309,7 @@ int determine_car_movement(double adcvalue_control_mode){
 	int time = 0;
 	delay_ms(5);
 	_CP0_SET_COUNT(0);
-	while(ADCRead(4) * 3290.0 / 1023.0 < adcvalue_control_mode*0.992 && ADCRead(4)*3290.0 /1023.0 < 0.2* adcvalue_control_mode){
+	while(ADCRead(4) * 3290.0 / 1023.0 < adcvalue_control_mode*0.992 && ADCRead(4)*3290.0 /1023.0 > 0.2* adcvalue_control_mode){
 		
 		if(_CP0_GET_COUNT() > (SYSCLK/8)) return 9;
 		
@@ -318,42 +319,42 @@ int determine_car_movement(double adcvalue_control_mode){
 	/*while(adcvalue_control_mode < 150){
 		reading = ADCRead(4) * 3290.0 / 1023.0;
 		if(_CP0_GET_COUNT() > (SYSCLK/8)) return 9;
-		
+		 	
 	}*/
 
-	time = _CP0_GET_COUNT();// / 2;
+	time = _CP0_GET_COUNT() * (SYSCLK/(2*1000));// / 2; time in ms
 	printf("\r\ntime: %d", time);
 
 		
 	//depending on the duration of no signal, return appropriate movement
 
 	//first if no signal during the range of 450ms to 550ms (expected:500ms) then that's fwd 
-	if(time >= (SYSCLK/(2*1000)) * 450 && time <= (SYSCLK/(2*1000)) * 550){
+	if(time >= 450 && time <=  550){
 		return 0;
 	}
 
     //if no signal during the range of 38ms to 42ms (expected: 40ms) then that's left turn 
-	else if(time >= (SYSCLK/(2*1000)) * 38 && time <= (SYSCLK/(2*1000)) * 42){
+	else if(time >=  38 && time <=  42){
 		return 2;
 	}
 
 	//if no signal during the range of 33ms to 37ms (expected: 35ms) then that's right turn 
-	else if(time >= (SYSCLK/(2*1000)) * 33 && time <= (SYSCLK/(2*1000)) * 37){
+	else if(time >= 33 && time <= 37){
 		return 3;
 	}
 
 	//if no signal during the range of 58ms to 62ms (expected: 60ms) then that's a horn
-	else if(time >= (SYSCLK/(2*1000)) * 58 && time <= (SYSCLK/(2*1000)) * 62){
+	else if(time >= 58 && time <= 62){
 		return 4;
 	}
 
 	//if no signal during the range of 53ms to 57ms (expected: 55ms) then that's a mode change
-	else if(time >= (SYSCLK/(2*1000)) * 53 && time <= (SYSCLK/(2*1000)) * 57){
+	else if(time >= 53 && time <= 57){
 		return 5;
 	}
 
 	//if no signal during the range of 43ms to 47ms (expected: 45ms) then that's backward
-	else if(time >= (SYSCLK/(2*1000)) * 43 && time <= (SYSCLK/(2*1000)) * 47){
+	else if(time >= 43 && time <= 47){
 		return 1;
 	}
 	else{
@@ -425,7 +426,7 @@ void main(void)
 		uart_puts(", V_left=");
 		v1=(adcval1*3290.0)/1023.0; // 3.290 is VDD offset is -650
 		printf("%f", v1);
-		uart_puts("mV ");
+		uart_puts("V ");
 
 		adcval2 =ADCRead(5); //receiver pin right
 		//uart_puts("ADC[5]=0x");
@@ -433,7 +434,7 @@ void main(void)
 		uart_puts(", V_right=");
 		v2=(adcval2*3290.0)/1023.0*1.008; // 3.290 is VDD
 		printf("%f", v2);
-		uart_puts("mV ");
+		uart_puts("V ");
 
 		count=GetPeriod(100);
 		if(count>0)
