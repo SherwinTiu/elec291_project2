@@ -306,9 +306,9 @@ void stop_motors(){
 int determine_car_movement(double adcvalue_control_mode){
 	//reset timer
 	int time = 0;
-	delay_ms(10);
+	delay_ms(5);
 	_CP0_SET_COUNT(0);
-	while(ADCRead(4) * 3290.0 / 1023.0 < adcvalue_control_mode*0.992){
+	while(ADCRead(4) * 3290.0 / 1023.0 < adcvalue_control_mode*0.992 && ADCRead(4)*3290.0 /1023.0 < 0.2* adcvalue_control_mode){
 		
 		if(_CP0_GET_COUNT() > (SYSCLK/8)) return 9;
 		
@@ -321,7 +321,7 @@ int determine_car_movement(double adcvalue_control_mode){
 		
 	}*/
 
-	time = _CP0_GET_COUNT() / 2;
+	time = _CP0_GET_COUNT();// / 2;
 	printf("\r\ntime: %d", time);
 
 		
