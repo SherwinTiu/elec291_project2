@@ -119,12 +119,21 @@ END GROUP
                 0x08001510                _sbrk
                 0x08001574                _read
                 0x080015ec                _write
+<<<<<<< HEAD
+ .text          0x08001640        0x0 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libnosys.a(errno.o)
+ .text          0x08001640      0x1d4 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libgcc.a(_divsi3.o)
+                0x08001640                __divsi3
+                0x08001640                __aeabi_idiv
+                0x0800180c                __aeabi_idivmod
+ .text          0x08001814        0x4 C:\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libgcc.a(_dvmd_tls.o)
+=======
  .text          0x08001640        0x0 C:\elec291_new\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libnosys.a(errno.o)
  .text          0x08001640      0x1d4 C:\elec291_new\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libgcc.a(_divsi3.o)
                 0x08001640                __divsi3
                 0x08001640                __aeabi_idiv
                 0x0800180c                __aeabi_idivmod
  .text          0x08001814        0x4 C:\elec291_new\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\arm-gnu-toolchain-12.2.rel1-mingw-w64-i686-arm-none-eabi\lib\gcc\arm-none-eabi\12.2.1\thumb\v6-m\nofp\libgcc.a(_dvmd_tls.o)
+>>>>>>> origin/main
                 0x08001814                __aeabi_idiv0
                 0x08001814                __aeabi_ldiv0
  *(.rodata*)
