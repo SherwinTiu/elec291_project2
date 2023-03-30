@@ -8,7 +8,7 @@
 #include <math.h>
 
 #define F_CPU 32000000L
-#define DEF_F 16200L // 16.20 kHz freq (frequency with highest output)
+#define DEF_F 16250L // 16.25 kHz freq (frequency with highest output)
 
 volatile int PWM_Counter = 0;
 volatile unsigned char pwm1=100, pwm2=100;
@@ -425,7 +425,7 @@ int main(void)
 			{
 				LCDprint("Forward", 2, 1);
 				NVIC->ICER[0] |= BIT15;
-				delayms(50);
+				delayms(500);
 				NVIC->ISER[0] |= BIT15;
 				delayms(250);
 			}
