@@ -362,11 +362,6 @@ int determine_car_movement(double adcvalue_control_mode){
 	}
 }
 
-double get_receiver_difference_in_V(double voltage_left, double voltage_right){
-	double difference;
-	difference = voltage_left - voltage_right;
-	return difference;
-}
 
 int mode_handler(int instruction, int mode){
 	/*if(instruction == 5){
@@ -383,14 +378,25 @@ int mode_handler(int instruction, int mode){
 }
 
 
-long int real_time_average_V1(long int voltages[]){
-	int count = 0;
-	long int sum_V = 0;
-	while(count < 19){
-		sum_V += voltages[count];
-		count++;
+long int real_time_average_V1(){
+	int count1 = 0;
+	long int sum_V1 = 0;
+	while(count1 < 20){
+		
+		sum_V1 += ADCRead(4);
+		count1++;
 	}
-	return sum_V / 20L;
+	return sum_V1 * 3290L / 1023L / 20L;
+}
+long int real_time_average_V2(){
+	int count2 = 0;
+	long int sum_V2 = 0;
+	while(count2 < 20){
+		
+		sum_V2 += ADCRead(5);
+		count2++;
+	}
+	return sum_V2 * 3290L / 1023L / 20L;
 }
 
 // In order to keep this as nimble as possible, avoid
@@ -434,41 +440,29 @@ void main(void)
 	while(1)
 	{
     	
-		adcval1 = ADCRead(4); // note that we call pin AN4 (RB2) by it's analog number (receiver pin left)
+		//adcval1 = ADCRead(4); // note that we call pin AN4 (RB2) by it's analog number (receiver pin left)
 		//uart_puts("ADC[4]=0x");
 		//PrintNumber(adcval1, 16, 3);
 		uart_puts(", V_left=");
-		v1=(adcval1*3290L)/1023L; // 3.290 is VDD offset is -650
-		sampleV_arr1[array_count] = v1;
+		
+		v1 = real_time_average_V1() * 1.0158;
+		PrintFixedPoint(v1, 3);
+		uart_puts("V ");
+		
 
-		if(array_count == 19){
-			v1 = real_time_average_V(sampleV_arr1) * 1.0158;
-			PrintFixedPoint(v1, 3);
-			uart_puts("V ");
-		}
-
-		adcval2 =ADCRead(5); //receiver pin right
 		//uart_puts("ADC[5]=0x");
 		//PrintNumber(adcval2, 16, 3);
 		uart_puts(", V_right=");
-		v2=(adcval2*3290L)/1023L; // 3.290 is VDD
-		sampleV_arr2[array_count] = v2;
 
-		if(array_count == 19){
-			v2 = real_time_average_V(sampleV_arr2);
-			PrintFixedPoint(v2, 3);
-	    	uart_puts("V ");
-		}
 
-		array_count++;
+		v2 = real_time_average_V2();
+		PrintFixedPoint(v2, 3);
+	    uart_puts("V ");
 
-		if(array_count > 19){
-			array_count = 0;
-		}
 
-		left_right_difference = get_receiver_difference_in_V(v1, v2);
+		left_right_difference = v1 - v2;
 
-		count=GetPeriod(100);
+		/*count=GetPeriod(100);
 		if(count>0)
 		{
 			f=((SYSCLK/2L)*100L)/count;
@@ -481,7 +475,7 @@ void main(void)
 		else
 		{
 			uart_puts("NO SIGNAL                     \r");
-		}
+		}*/
 
 		//adcval1 = ADCRead(4); // note that we call pin AN4 (RB2) by it's analog number (receiver pin left)
 		//uart_puts("ADC[4]=0x");
