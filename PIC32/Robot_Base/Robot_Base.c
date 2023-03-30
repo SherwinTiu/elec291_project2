@@ -323,7 +323,7 @@ int determine_car_movement(double adcvalue_control_mode){
 	}*/
 
 	time = _CP0_GET_COUNT() * (SYSCLK/(2*1000));// / 2; time in ms
-	printf("\r\ntime: %d", time);
+	printf("\r\ntime: %dms", time);
 
 		
 	//depending on the duration of no signal, return appropriate movement
@@ -376,7 +376,7 @@ int mode_handler(int instruction, int mode){
 		return mode;
 	}*/
 
-	mode = 1;
+	mode = 0;
 	return mode;
 
 	
@@ -426,15 +426,15 @@ void main(void)
 		uart_puts(", V_left=");
 		v1=(adcval1*3290.0)/1023.0; // 3.290 is VDD offset is -650
 		printf("%f", v1);
-		uart_puts("V ");
+		uart_puts("mV ");
 
 		adcval2 =ADCRead(5); //receiver pin right
 		//uart_puts("ADC[5]=0x");
 		//PrintNumber(adcval2, 16, 3);
 		uart_puts(", V_right=");
-		v2=(adcval2*3290.0)/1023.0*1.008; // 3.290 is VDD
+		v2=(adcval2*3290.0)/1023.0; // 3.290 is VDD
 		printf("%f", v2);
-		uart_puts("V ");
+		uart_puts("mV ");
 
 		count=GetPeriod(100);
 		if(count>0)
@@ -455,12 +455,12 @@ void main(void)
 		//uart_puts("ADC[4]=0x");
 		//PrintNumber(adcval1, 16, 3);
 		//uart_puts(", V_left=");
-		v1=(adcval1*3290.0)/1023.0; // 3.290 is VDD offset is -650
+		//v1=(adcval1*3290.0)/1023.0; // 3.290 is VDD offset is -650
 		//printf("%f", v1);
 		//uart_puts("mV ");
 
 		//if(v1 < 150){
-		movement_instruction = determine_car_movement(v1);
+		
 		//}
 		
 		mode = mode_handler(movement_instruction, mode);
@@ -475,21 +475,21 @@ void main(void)
 		
 		//if following mode (mode = 0)
 		
-		/*if(mode == 0){
+		if(mode == 0){
 			printf("\r\nDifference: %f", left_right_difference); 
 
 			//printf("\n\r%f", left_right_difference);
-			if(left_right_difference > 200 + 100){ //if left - right is positive then turn left to align
+			if(left_right_difference > 20 ){ //if left - right is positive then turn left to align
 				turn_left();
-				delay_ms(2);
-				stop_motors();
+				//delay_ms(100);	
+				//stop_motors();
 				//printf("Turning left...Difference: %f", left_right_difference);                                  
 			}
 
-			else if(left_right_difference < 200 - 100){ //if left - right is positive then turn left to align
+			else if(left_right_difference <  -20){ //if left - right is positive then turn left to align
 				turn_right();
-				delay_ms(200);
-				stop_motors();
+				//delay_ms(100);
+				//stop_motors();
 				//printf("Turning left...Difference: %f", left_right_difference);                                  
 			}
 
@@ -497,23 +497,28 @@ void main(void)
 				stop_motors();
 
 				//here we need to have an algorithm where it moves back/forward so that left - right = 0.2 ish
-				if(left_right_difference > 0.2 + 0.3){
-					go_backward();
-					delay_ms(200);
-					stop_motors();
+				if(v1 < 600){
+					go_forward();
+					//delay_ms(100);
+					//stop_motors();
 				}
 
-				if(left_right_difference < 0.2 - 0.3){
-					go_forward();
-					delay_ms(200);
+				else if(v1 > 700){
+					go_backward();
+					//delay_ms(100);
+					//stop_motors();
+				}
+
+				else {
 					stop_motors();
 				}
 			}
 
 			//else if()
-		}*/
+		}
 		//if control mode (mode = 1)
 		if(mode == 1){
+			movement_instruction = determine_car_movement(v1);
 			printf("\n\r %d", movement_instruction);
 			if(movement_instruction  == 0)
 			{
