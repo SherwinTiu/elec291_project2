@@ -383,7 +383,7 @@ int mode_handler(int instruction, int mode){
 }
 
 
-long int real_time_average_V(long int voltages[]){
+long int real_time_average_V1(long int voltages[]){
 	int count = 0;
 	long int sum_V = 0;
 	while(count < 19){
@@ -443,9 +443,9 @@ void main(void)
 
 		if(array_count == 19){
 			v1 = real_time_average_V(sampleV_arr1) * 1.0158;
+			PrintFixedPoint(v1, 3);
+			uart_puts("V ");
 		}
-		PrintFixedPoint(v1, 3);
-		uart_puts("V ");
 
 		adcval2 =ADCRead(5); //receiver pin right
 		//uart_puts("ADC[5]=0x");
@@ -456,13 +456,15 @@ void main(void)
 
 		if(array_count == 19){
 			v2 = real_time_average_V(sampleV_arr2);
-			array_count = 0;
+			PrintFixedPoint(v2, 3);
+	    	uart_puts("V ");
 		}
 
-		PrintFixedPoint(v2, 3);
-		uart_puts("V ");
-
 		array_count++;
+
+		if(array_count > 19){
+			array_count = 0;
+		}
 
 		left_right_difference = get_receiver_difference_in_V(v1, v2);
 
@@ -512,15 +514,15 @@ void main(void)
 			//printf("\n\r%f", left_right_difference);
 			if(left_right_difference > (v1+v2)/2*0.2 ){ //if left - right is positive then turn left to align
 				turn_left();
-				delay_ms(50);	
-				//stop_motors();
+				delay_ms(200);	
+				stop_motors();
 				//printf("Turning left...Difference: %f", left_right_difference);                                  
 			}
 
 			else if(left_right_difference <  -(v1+v2)/2*0.2){ //if left - right is positive then turn left to align
 				turn_right();
-				delay_ms(50);
-				//stop_motors();
+				delay_ms(200);
+				stop_motors();
 				//printf("Turning left...Difference: %f", left_right_difference);                                  
 			}
 
@@ -530,15 +532,16 @@ void main(void)
 				//here we need to have an algorithm where it moves back/forward so that left - right = 0.2 ish
 				if(v1 < 0.530){
 					go_forward();
+					delay_ms(200);
+			    	stop_motors();
 					//delay_ms(100);
 					//stop_motors();
 				}
 
-				else if(v1 > 0.750){\
+				else if(v1 > 0.750){
 					go_backward();
-					
-					//delay_ms(100);
-					//stop_motors();
+					delay_ms(200);
+					stop_motors();
 				}
 
 				else {
