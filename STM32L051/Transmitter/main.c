@@ -8,7 +8,7 @@
 #include <math.h>
 
 #define F_CPU 32000000L
-#define DEF_F 16200L // 16.20 kHz freq (frequency with highest output)
+#define DEF_F 16000L // 16.20 kHz freq (frequency with highest output)
 
 volatile int PWM_Counter = 0;
 volatile unsigned char pwm1=100, pwm2=100;
