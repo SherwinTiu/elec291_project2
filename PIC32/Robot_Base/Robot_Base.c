@@ -285,7 +285,7 @@ void turn_right(){
 }
 
 void stop_motors(){
-	printf("\n\r0ol");
+	//printf("\n\r0ol");
 	//all motor pins off
 	LATBbits.LATB0 = 1; //pin 4
 	LATBbits.LATB1 = 1; //pin 5
@@ -382,18 +382,32 @@ int mode_handler(int instruction, int mode){
 	
 }
 
+
+long int real_time_average_V(long int voltages[]){
+	int count = 0;
+	long int sum_V = 0;
+	while(count < 19){
+		sum_V += voltages[count];
+		count++;
+	}
+	return sum_V / 20L;
+}
+
 // In order to keep this as nimble as possible, avoid
 // using floating point or printf() on any of its forms!
 void main(void)
 {
 	volatile unsigned long t=0;
-    double adcval1, adcval2;
-    double v1,v2;
+    long int adcval1, adcval2;
+    long int v1,v2;
 	unsigned long int count, f;
 	unsigned char LED_toggle=0;
 	int movement_instruction;
 	int mode;
-	double left_right_difference;
+	float left_right_difference;
+	long int sampleV_arr1[20];
+	long int sampleV_arr2[20];
+	int array_count = 0;
 
 	CFGCON = 0;
   
@@ -424,17 +438,33 @@ void main(void)
 		//uart_puts("ADC[4]=0x");
 		//PrintNumber(adcval1, 16, 3);
 		uart_puts(", V_left=");
-		v1=(adcval1*3290.0)/1023.0; // 3.290 is VDD offset is -650
-		printf("%f", v1);
-		uart_puts("mV ");
+		v1=(adcval1*3290L)/1023L; // 3.290 is VDD offset is -650
+		sampleV_arr1[array_count] = v1;
+
+		if(array_count == 19){
+			v1 = real_time_average_V(sampleV_arr1) * 1.0158;
+		}
+		PrintFixedPoint(v1, 3);
+		uart_puts("V ");
 
 		adcval2 =ADCRead(5); //receiver pin right
 		//uart_puts("ADC[5]=0x");
 		//PrintNumber(adcval2, 16, 3);
 		uart_puts(", V_right=");
-		v2=(adcval2*3290.0)/1023.0; // 3.290 is VDD
-		printf("%f", v2);
-		uart_puts("mV ");
+		v2=(adcval2*3290L)/1023L; // 3.290 is VDD
+		sampleV_arr2[array_count] = v2;
+
+		if(array_count == 19){
+			v2 = real_time_average_V(sampleV_arr2);
+			array_count = 0;
+		}
+
+		PrintFixedPoint(v2, 3);
+		uart_puts("V ");
+
+		array_count++;
+
+		left_right_difference = get_receiver_difference_in_V(v1, v2);
 
 		count=GetPeriod(100);
 		if(count>0)
@@ -451,7 +481,7 @@ void main(void)
 			uart_puts("NO SIGNAL                     \r");
 		}
 
-		adcval1 = ADCRead(4); // note that we call pin AN4 (RB2) by it's analog number (receiver pin left)
+		//adcval1 = ADCRead(4); // note that we call pin AN4 (RB2) by it's analog number (receiver pin left)
 		//uart_puts("ADC[4]=0x");
 		//PrintNumber(adcval1, 16, 3);
 		//uart_puts(", V_left=");
@@ -464,7 +494,7 @@ void main(void)
 		//}
 		
 		mode = mode_handler(movement_instruction, mode);
-		left_right_difference = get_receiver_difference_in_V(v1, v2);
+		
 
 		/*1. 0 means go forward
   		  2. 1 means go backward
@@ -476,19 +506,20 @@ void main(void)
 		//if following mode (mode = 0)
 		
 		if(mode == 0){
-			printf("\r\nDifference: %f", left_right_difference); 
+			//printf("\r\nDifference: %f", left_right_difference); 
+			
 
 			//printf("\n\r%f", left_right_difference);
-			if(left_right_difference > 20 ){ //if left - right is positive then turn left to align
+			if(left_right_difference > (v1+v2)/2*0.2 ){ //if left - right is positive then turn left to align
 				turn_left();
-				//delay_ms(100);	
+				delay_ms(50);	
 				//stop_motors();
 				//printf("Turning left...Difference: %f", left_right_difference);                                  
 			}
 
-			else if(left_right_difference <  -20){ //if left - right is positive then turn left to align
+			else if(left_right_difference <  -(v1+v2)/2*0.2){ //if left - right is positive then turn left to align
 				turn_right();
-				//delay_ms(100);
+				delay_ms(50);
 				//stop_motors();
 				//printf("Turning left...Difference: %f", left_right_difference);                                  
 			}
@@ -497,14 +528,15 @@ void main(void)
 				stop_motors();
 
 				//here we need to have an algorithm where it moves back/forward so that left - right = 0.2 ish
-				if(v1 < 600){
+				if(v1 < 0.530){
 					go_forward();
 					//delay_ms(100);
 					//stop_motors();
 				}
 
-				else if(v1 > 700){
+				else if(v1 > 0.750){\
 					go_backward();
+					
 					//delay_ms(100);
 					//stop_motors();
 				}
