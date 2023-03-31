@@ -9,3 +9,4 @@ Additional Features:
 5. Speed Boost (3 points)
          - This can be implemented using pulse-width modulation (PWM) for the motor control. You can either have preset speed levels or implement a slider on the transmitter to adjust the speed in real-time.
 6. Joystick (finished) 
+7. Speedometer
