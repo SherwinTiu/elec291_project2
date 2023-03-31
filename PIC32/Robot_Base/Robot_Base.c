@@ -443,7 +443,7 @@ void main(void)
 		//adcval1 = ADCRead(4); // note that we call pin AN4 (RB2) by it's analog number (receiver pin left)
 		//uart_puts("ADC[4]=0x");
 		//PrintNumber(adcval1, 16, 3);
-		uart_puts(", V_left=");
+		uart_puts("\r\n, V_left=");
 		
 		v1 = real_time_average_V1() * 1.0158;
 		PrintFixedPoint(v1, 3);
