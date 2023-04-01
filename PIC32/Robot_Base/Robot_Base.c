@@ -309,8 +309,10 @@ int determine_car_movement(double adcvalue_control_mode){
 	int time = 0;
 	delay_ms(5);
 	_CP0_SET_COUNT(0);
-	while(ADCRead(4) * 3290.0 / 1023.0 < adcvalue_control_mode*0.992 && ADCRead(4)*3290.0 /1023.0 > 0.2* adcvalue_control_mode){
-		
+	TMR1 = 0;
+	T1CONbits.ON = 1;
+	while(ADCRead(4) * 3290.0 / 1023.0 < adcvalue_control_mode*0.800 /*&& ADCRead(4)*3290.0 /1023.0 > 0.2* adcvalue_control_mode*/){
+		// 0.992
 		if(_CP0_GET_COUNT() > (SYSCLK/8)) return 9;
 		
 	}
@@ -321,11 +323,14 @@ int determine_car_movement(double adcvalue_control_mode){
 		if(_CP0_GET_COUNT() > (SYSCLK/8)) return 9;
 		 	
 	}*/
+	T1CONbits.ON = 0;
 
 	time = _CP0_GET_COUNT() * (SYSCLK/(2*1000));// / 2; time in ms
 	printf("\r\ntime: %dms", time);
+	T1CONbits.ON = 1;
 
-		
+
+	
 	//depending on the duration of no signal, return appropriate movement
 
 	//first if no signal during the range of 450ms to 550ms (expected:500ms) then that's fwd 
@@ -371,7 +376,7 @@ int mode_handler(int instruction, int mode){
 		return mode;
 	}*/
 
-	mode = 0;
+	mode = 1;
 	return mode;
 
 	
