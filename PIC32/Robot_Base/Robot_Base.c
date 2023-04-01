@@ -447,7 +447,7 @@ void main(void)
 		//PrintNumber(adcval1, 16, 3);
 		uart_puts("\r\n, V_left=");
 		
-		v1 = real_time_average_V1()* 1.007;
+		v1 = real_time_average_V1();
 		printf(" V1_test =  %d ,", v1);
 		PrintFixedPoint(v1, 3);
 		uart_puts("V ");
@@ -459,7 +459,7 @@ void main(void)
 		uart_puts(", V_right=");
 
 
-		v2 = real_time_average_V2();
+		v2 = real_time_average_V2()*1.12;
 		PrintFixedPoint(v2, 3);
 	    uart_puts("V ");
 
@@ -505,19 +505,19 @@ void main(void)
 		
 		//if following mode (mode = 0)
 		
-		if(mode == 0){
+		if(mode == 0 && v1 != 0){
 			//printf("\r\nDifference: %f", left_right_difference); 
 			
 
 			//printf("\n\r%f", left_right_difference);
-			if(left_right_difference > (v1+v2)/2*0.20 ){ //if left - right is positive then turn left to align
+			if(left_right_difference > (v1+v2)/2*0.12 ){ //if left - right is positive then turn left to align
 				turn_left();
 				//delay_ms(10);	
 				//stop_motors();
 				//printf("Turning left...Difference: %f", left_right_difference);                                  
 			}
 
-			else if(left_right_difference <  -((v1+v2)/2*0.20)){ //if left - right is positive then turn left to align
+			else if(left_right_difference <  -((v1+v2)/2*0.12)){ //if left - right is positive then turn left to align
 				turn_right();
 				//delay_ms(10);
 				//stop_motors();
