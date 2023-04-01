@@ -381,20 +381,22 @@ int mode_handler(int instruction, int mode){
 long int real_time_average_V1(){
 	int count1 = 0;
 	long int sum_V1 = 0;
-	while(count1 < 20){
+	while(count1 < 10){
 		
 		sum_V1 += ADCRead(4);
 		count1++;
+		delay_ms(10);
 	}
 	return sum_V1 * 3290L / 1023L / 20L;
 }
 long int real_time_average_V2(){
 	int count2 = 0;
 	long int sum_V2 = 0;
-	while(count2 < 20){
+	while(count2 < 10){
 		
 		sum_V2 += ADCRead(5);
 		count2++;
+		delay_ms(10);
 	}
 	return sum_V2 * 3290L / 1023L / 20L;
 }
@@ -445,9 +447,11 @@ void main(void)
 		//PrintNumber(adcval1, 16, 3);
 		uart_puts("\r\n, V_left=");
 		
-		v1 = real_time_average_V1() * 1.0158;
+		v1 = real_time_average_V1()* 1.007;
+		printf(" V1_test =  %d ,", v1);
 		PrintFixedPoint(v1, 3);
 		uart_puts("V ");
+
 		
 
 		//uart_puts("ADC[5]=0x");
@@ -461,7 +465,7 @@ void main(void)
 
 
 		left_right_difference = v1 - v2;
-
+		printf(" left_diff : %f \r\n", left_right_difference);
 		/*count=GetPeriod(100);
 		if(count>0)
 		{
@@ -506,17 +510,17 @@ void main(void)
 			
 
 			//printf("\n\r%f", left_right_difference);
-			if(left_right_difference > (v1+v2)/2*0.2 ){ //if left - right is positive then turn left to align
+			if(left_right_difference > (v1+v2)/2*0.20 ){ //if left - right is positive then turn left to align
 				turn_left();
-				delay_ms(200);	
-				stop_motors();
+				//delay_ms(10);	
+				//stop_motors();
 				//printf("Turning left...Difference: %f", left_right_difference);                                  
 			}
 
-			else if(left_right_difference <  -(v1+v2)/2*0.2){ //if left - right is positive then turn left to align
+			else if(left_right_difference <  -((v1+v2)/2*0.20)){ //if left - right is positive then turn left to align
 				turn_right();
-				delay_ms(200);
-				stop_motors();
+				//delay_ms(10);
+				//stop_motors();
 				//printf("Turning left...Difference: %f", left_right_difference);                                  
 			}
 
@@ -524,23 +528,27 @@ void main(void)
 				stop_motors();
 
 				//here we need to have an algorithm where it moves back/forward so that left - right = 0.2 ish
-				if(v1 < 0.530){
+				if(v1 < 500){ // 0.530 too big, 460
 					go_forward();
-					delay_ms(200);
-			    	stop_motors();
+					//delay_ms(10);
+			    	//stop_motors();
 					//delay_ms(100);
 					//stop_motors();
 				}
 
-				else if(v1 > 0.750){
+				else if(v1 > 800){ // 750
 					go_backward();
-					delay_ms(200);
-					stop_motors();
+					//delay_ms(10);
+					//stop_motors();
 				}
 
-				else {
-					stop_motors();
-				}
+				// else{
+				// 	stop_motors();
+				// }
+
+				// else {
+				// 	stop_motors();
+				// }
 			}
 
 			//else if()
@@ -566,8 +574,8 @@ void main(void)
 			else if(movement_instruction == 2)
 			{
 				turn_left();
-				delay_ms(200);
-				stop_motors();
+				//delay_ms(200);
+				//stop_motors();
 				
 			}
 			else if(movement_instruction == 3)
@@ -639,4 +647,6 @@ void main(void)
 
 		//waitms(200);
 	}
+	delay_ms(50);
+	stop_motors();
 }
