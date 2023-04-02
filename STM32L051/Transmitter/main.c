@@ -8,11 +8,7 @@
 #include <math.h>
 
 #define F_CPU 32000000L
-<<<<<<< HEAD
-#define DEF_F 16250L // 16.25 kHz freq (frequency with highest output)
-=======
-#define DEF_F 16000L // 16.20 kHz freq (frequency with highest output)
->>>>>>> origin/main
+#define DEF_F 16230L // 16.25 kHz freq (frequency with highest output)
 
 volatile int PWM_Counter = 0;
 volatile unsigned char pwm1=100, pwm2=100;
@@ -317,6 +313,50 @@ void Hardware_Init()
 	__enable_irq();
 }
 
+// Command generator 
+void sendCommandGenerator(int command) {
+	// turn off signal to synchronize 
+	NVIC->ICER[0] |= BIT15;
+	delayms(62); // bit 0 turn off signal
+	NVIC->ISER[0] |= BIT15; 
+	delayms(62); // bit 1 turn on signal for 62 ms
+
+	// turn left
+	if (command == 1) {
+		NVIC->ICER[0] |= BIT15;
+		delayms(124); // bit 0 0 
+		NVIC->ISER[0] |= BIT15;
+
+		// sequence is bit 1 0 0 1
+	}
+	else if (command == 2) {
+		// turn off signal for 62 ms 
+		NVIC->ICER[0] |= BIT15;
+		delayms(62); // bit 0
+		NVIC->ISER[0] |= BIT15;
+		delayms(62); // bit 1
+		NVIC->ICER[0] |= BIT15;
+		delayms(62); // bit 0
+		NVIC->ISER[0] |= BIT15;
+
+		// sequence is 1 0 1 0
+	}
+	else if (command == 3) {
+		// turn off signal for 62 ms
+		NVIC->ICER[0] |= BIT15;
+		delayms(62); // bit 0
+		NVIC->ISER[0] |= BIT15;
+		delayms(62); // bit 1
+		delayms(62); // bit 1
+
+		// sequence is 1 0 1 1 
+	}
+	else if (command == 4) {
+		delayms(62); // tur
+		// sequence is 1 1 0 0
+	}
+}
+
 int main(void)
 {
 	// char buff[32];
@@ -366,7 +406,7 @@ int main(void)
 		//fflush(stdout);
 
 
-		if(x>3700 || x<350){
+		if(x>3750 || x<345){
 			if(x>3700){
 				current_left = 0;
 			}
@@ -429,9 +469,9 @@ int main(void)
 			{
 				LCDprint("Forward", 2, 1);
 				NVIC->ICER[0] |= BIT15;
-				delayms(500);
+				delayms(200);
 				NVIC->ISER[0] |= BIT15;
-				delayms(250);
+				//delayms(250);
 			}
 
 			// while (current_forward == 0) // while button is pressed
@@ -451,7 +491,7 @@ int main(void)
 				//printf("pb4\r\n");
 				LCDprint("Backwards", 2, 1);
 				NVIC->ICER[0] |= BIT15;
-				delayms(45);
+				delayms(300);
 				NVIC->ISER[0] |= BIT15;
 				delayms(250);
 			}
@@ -463,7 +503,7 @@ int main(void)
 			{
 				LCDprint("Left", 2, 1);
 				NVIC->ICER[0] |= BIT15;
-				delayms(40);
+				delayms(250);
 				NVIC->ISER[0] |= BIT15;
 				delayms(250);
 			}
@@ -475,7 +515,7 @@ int main(void)
 			{
 				LCDprint("Right", 2, 1);
 				NVIC->ICER[0] |= BIT15;
-				delayms(35);
+				delayms(62);
 				NVIC->ISER[0] |= BIT15;
 				delayms(250);
 			}
