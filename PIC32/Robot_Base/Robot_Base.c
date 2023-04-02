@@ -37,6 +37,18 @@
 #define FREQ 100000L // We need the ISR for timer 1 every 10 us
 #define Baud2BRG(desired_baud)( (SYSCLK / (16*desired_baud))-1)
 
+
+// check this: defining the pins
+#define trigger RA0
+#define echo RA1
+
+
+LATBbits.LATA0 = 0; //pin 2 trigger
+	LATBbits.LATA1 = 1; //pin 3 echo
+
+
+
+
 volatile int ISR_pwm1=150, ISR_pwm2=150, ISR_cnt=0, ISR_frc, ISR_cnt2=0; 
 long int time_ISR = 0;
 long int Prev_V_ISR = 0, Peak_V_ISR = 0;
@@ -729,54 +741,56 @@ void main(void)
 			movement_instruction = determine_car_movement(v1);
 
 			printf("\n\r %d", movement_instruction);
-			if(movement_instruction  == 0)
-			{
-				go_forward();
-				delay_ms(200);
-				stop_motors();
+			detect_obstacle(movement_instruction);
+			
+			// if(movement_instruction  == 0)
+			// {
+			// 	go_forward();
+			// 	delay_ms(200);
+			// 	stop_motors();
 				
-			}
-			else if(movement_instruction == 1)
-			{
-				go_backward();
-				delay_ms(200);
-				stop_motors();
+			// }
+			// else if(movement_instruction == 1)
+			// {
+			// 	go_backward();
+			// 	delay_ms(200);
+			// 	stop_motors();
 				
-			}
+			// }
 
-			/*else if(movement_instruction_ISR == 1)
-			{
-				go_forward();
-				delay_ms(500);
-				stop_motors();
-				movement_instruction_ISR = 0;
+			// /*else if(movement_instruction_ISR == 1)
+			// {
+			// 	go_forward();
+			// 	delay_ms(500);
+			// 	stop_motors();
+			// 	movement_instruction_ISR = 0;
 				
-			}*/
+			// }*/
 
-			else if(movement_instruction == 2)
-			{
-				turn_left();
-				delay_ms(200);
-				stop_motors();
-				movement_instruction_ISR = 0;
-			}
-			else if(movement_instruction == 3)
-			{
-				turn_right();
-				delay_ms(200);
-				stop_motors();
-				movement_instruction_ISR = 0;
-			}
-			else{
-				stop_motors();
-				delay_ms(200);
-				movement_instruction_ISR = 0;
-			}
+			// else if(movement_instruction == 2)
+			// {
+			// 	turn_left();
+			// 	delay_ms(200);
+			// 	stop_motors();
+			// 	movement_instruction_ISR = 0;
+			// }
+			// else if(movement_instruction == 3)
+			// {
+			// 	turn_right();
+			// 	delay_ms(200);
+			// 	stop_motors();
+			// 	movement_instruction_ISR = 0;
+			// }
+			// else{
+			// 	stop_motors();
+			// 	delay_ms(200);
+			// 	movement_instruction_ISR = 0;
+			// }
 
-			stop_motors();
-			/*else if(movement_instruction == 4){
-				//horn
-			}*/
+			// stop_motors();
+			// /*else if(movement_instruction == 4){
+			// 	//horn
+			// }*/
 			
 		}
 
@@ -834,3 +848,90 @@ void main(void)
 	delay_ms(5);
 	//stop_motors();
 }
+
+
+
+//this should be in main:
+
+//random stuff:
+
+
+ //need to configure the IO pins
+//LATBbits.LATA0 = 0; //pin 2
+//	LATBbits.LATA1 = 1; //pin 3
+
+ int detect_obstacle(movement_instruction)
+{
+	int distance = 0;
+	TMR1 = 0; //reset the timer
+
+	//T1CONbits.ON = 1;
+	//_CP0_SET_COUNT(0);
+	// you need to send the pulse to the sensor
+     trigger =1;
+	 	delay_ms(10);
+		trigger = 0;
+	while(!echo){
+		//the timer should be on
+		T1CONbits.ON = 1;
+		_CP0_SET_COUNT(0);
+		if(movement_instruction  == 0)
+			{
+				go_forward();
+				delay_ms(200);
+				stop_motors();
+				
+			}
+			else if(movement_instruction == 1)
+			{
+				go_backward();
+				delay_ms(200);
+				stop_motors();
+				
+			}
+
+			/*else if(movement_instruction_ISR == 1)
+			{
+				go_forward();
+				delay_ms(500);
+				stop_motors();
+				movement_instruction_ISR = 0;
+				
+			}*/
+
+			else if(movement_instruction == 2)
+			{
+				turn_left();
+				delay_ms(200);
+				stop_motors();
+				movement_instruction_ISR = 0;
+			}
+			else if(movement_instruction == 3)
+			{
+				turn_right();
+				delay_ms(200);
+				stop_motors();
+				movement_instruction_ISR = 0;
+			}
+			else{
+				stop_motors();
+				delay_ms(200);
+				movement_instruction_ISR = 0;
+			}
+
+			stop_motors();
+			/*else if(movement_instruction == 4){
+				//horn
+			}*/
+}
+
+	while(echo);
+	//when obstacle turn off timer
+
+	T1CONbits.ON = 0;
+	dsitance = (_CP0_GET_COUNT() / (SYSCLK/(2*1000))) * 1000;
+	//T1CONbits.ON = 1;
+	stop_motors();
+
+}
+
