@@ -72,23 +72,6 @@ void __ISR(_TIMER_1_VECTOR, IPL5SOFT) Timer1_Handler(void)
 	if(ISR_cnt == 100){
 	}
 
-	/*if(ISR_cnt == 1000 || ISR_cnt == 2000){
-		prev_V_ISR = curent_V_ISR
-		curent_V_ISR = ADCRead(4) * 3290.0 / 1023.0;
-
-		if(current_V_ISR < prev_V_ISR * 0.8){
-			10msCount++;
-			first_V_ISR_Drop == current_V_ISR;
-		}
-
-		if( current_V_ISR < fisrt_V_ISR_DROP ){
-			10msCount++;
-			zero_V_ISR = current_V_ISR;
-		}
-
-		if(current_V_ISR >)
-
-	}*/
 
 	if(ISR_cnt>=2000)
 	{
@@ -99,10 +82,6 @@ void __ISR(_TIMER_1_VECTOR, IPL5SOFT) Timer1_Handler(void)
 		ISR_frc++;
 	}
 
-	/*if(20msCount == 2 && 5msCount == 0){
-		intrusction = 0;
-		20msCount = 0;
-	}*/
 
 
 }
@@ -116,16 +95,17 @@ void __ISR(_TIMER_1_VECTOR, IPL5SOFT) Timer1_Handler(void)
 
 	if(ISR_cnt2 == 1000){
 		
-		if(ADCRead(4) * 3290.0 / 1023.0 < 0.8 * Prev_V_ISR){
-			T1CONbits.ON = 1;
+		if(ADCRead(4) * 3290.0 / 1023.0 < 0.9 * Prev_V_ISR){
+			T2CONbits.ON = 1;
 			_CP0_SET_COUNT(0);
 			Peak_V_ISR = Prev_V_ISR;
 			
-			while(ADCRead(4) * 3290.0 / 1023.0 < 0.8 * Peak_V_ISR);
+			while(ADCRead(4) * 3290.0 / 1023.0 < 0.9 * Peak_V_ISR);
 
-            T1CONbits.ON = 0;
+            T2CONbits.ON = 0;
 			time_ISR = (_CP0_GET_COUNT() / (SYSCLK/(2*1000))) * 1000; // TIME in uS
-			T1CONbits.ON = 1;
+			printf("Time ISR: %d", time_ISR);
+			T2CONbits.ON = 1;
 
 			if(time_ISR <= 25000){                    //no signal
 				movement_instruction_ISR = 0;
@@ -133,7 +113,7 @@ void __ISR(_TIMER_1_VECTOR, IPL5SOFT) Timer1_Handler(void)
 			}
 
 			if(time_ISR > 25000 && time_ISR <= 75000){   //go right
-				movement_instruction_ISR = 1;
+				movement_instruction_ISR = 4;
 				time_ISR = 0;
 			}
 
@@ -173,9 +153,8 @@ void __ISR(_TIMER_1_VECTOR, IPL5SOFT) Timer1_Handler(void)
 	if(ISR_cnt2 >= 1000)
 		{
 			ISR_cnt2=0; // 1000 * 10us=10ms
-			printf("Time ISR: %d", time_ISR);
 		}
-    /*
+    
 	if(ISR_cnt2>=1000)
 	{
 		ISR_cnt2=0; // 1000 * 10us=10ms
@@ -216,7 +195,7 @@ void __ISR(_TIMER_1_VECTOR, IPL5SOFT) Timer1_Handler(void)
 		movement_instruction_ISR = 0;
 		time_ISR = 0;
 	}
-    */
+    
 	
 }
 
@@ -446,115 +425,6 @@ void stop_motors(){
 	LATAbits.LATA4 = 1; //pin 12
 }
 
-/*returns movement of the car
-  1. 0 means go forward
-  2. 1 means go backward
-  3. 2 means turn left
-  4. 3 means turn right
-  5. 4 means horn
-  6. 5 means mode change
-  The movements are determined by duration of devoid of magnetic field signals
-
-  _CP0_GET_COUNT() = (SYSCLK/(2*1000)) = 1ms in SI unit
-*/
-
-
-//  int determine_car_movement(double adcvalue_control_mode){
-// 	//reset timer
-// 	int time = 0;
-// 	//unsigned int start_count, end_count, elapsed_time;
-// 	//delay_ms(5);
-// 	TMR1 = 0;
-// 	T1CONbits.ON = 1;
-// 	_CP0_SET_COUNT(0);
-// 	//
-// 	//start_count = _CP0_GET_COUNT() / (SYSCLK/(2*1000)) * 1000; //microseconds
-// 	//PrintFixedPoint(start_count, 1);
-// 	//uart_puts("\n");
-// 	while(ADCRead(4) * 3290.0 / 1023.0 < 440 /*&& ADCRead(4)*3290.0 /1023.0 > 0.2* adcvalue_control_mode*/){
-// 		// Volts
-// 		// 0.992
-// 		//printf("\r\n%d ",(_CP0_GET_COUNT() / (SYSCLK/(2*1000))) * 1000);
-// 		uart_puts("\n\r While...");
-// 		//if(_CP0_GET_COUNT() > (SYSCLK/8)) return 9;
-		
-// 	}
-	
-// 	T1CONbits.ON = 0;
-
-// 	time = (_CP0_GET_COUNT() / (SYSCLK/(2*1000))) * 1000;
-// 	printf("\r\n ADCRead: %f", ADCRead(4) * 3290.0 / 1023.0 / 1000);
-// 	T1CONbits.ON = 1;
-// 	//printf("\r\nTime: %d ",time);
-// 	//delay_ms(50);
-// 	//printf("\n\rv1 val: %d", adcvalue_control_mode);
-// 	//if receiver starts not receiving anything aka adc = 0, start the timer
-// 	/*while(adcvalue_control_mode < 150){
-// 		reading = ADCRead(4) * 3290.0 / 1023.0;
-// 		if(_CP0_GET_COUNT() > (SYSCLK/8)) return 9;
-		 	
-// 	}*/
-	
-// 	//end_count = _CP0_GET_COUNT() / (SYSCLK/(2*1000)) * 1000; //milliseconds ~0.250
-// 	//uart_puts("\rEnd Count: ");
-// 	//PrintFixedPoint(end_count, 1);
-// 	//elapsed_time = (end_count - start_count) * 1000;
-// 	//printf("\n\rElapsed time: %dms", elapsed_time);
-
-// 	// time =  (SYSCLK/(2*1000)) / _CP0_GET_COUNT() ;// / 2; time in ms
-// 	// printf("\r\ntime: %dms; start: %dms; end: %dms; elapsed: %dms", time, start_count, end_count, elapsed_time);
-// 	// //T1CONbits.ON = 1;
-
-// 	// while(ADCRead(4) * 3290.0 / 1023.0 > 0.5 * adcvalue_control_mode ){
-// 	// 	uart_puts("stuck in while loop  ");
-// 	// 	PrintFixedPoint(ADCRead(4) * 3290.0 / 1023.0, 3);
-// 	// 	uart_puts("\r\n\n Test adc val");
-// 	// }
-// 	// while(ADCRead(4) * 3290.0 / 1023.0 / 1000 < 0.3 /** adcvalue_control_mode*/ ){
-// 	// 	go_forward();
-// 	// 	printf("Go Forward");
-// 	// }
-
-// 	//stop_motors();
-// 	printf("\r\nTime: %d ",time);
-	
-// 	//depending on the duration of no signal, return appropriate movement
-
-// 	//first if no signal during the range of 450ms to 550ms (expected:500ms) then that's fwd 
-// 	if(time >= 100 && time <= 60000){ // buffer range ()
-// 		return 0;
-// 	}
-
-//     //if no signal during the range of 38ms to 42ms (expected: 40ms) then that's left turn 
-// 	else if(time >=  38 && time <=  42){
-// 		return 2;
-// 	}
-
-// 	//if no signal during the range of 33ms to 37ms (expected: 35ms) then that's right turn 
-// 	else if(time >= 33 && time <= 37){
-// 		return 3;
-// 	}
-
-// 	//if no signal during the range of 58ms to 62ms (expected: 60ms) then that's a horn
-// 	/*else if(time >= 58 && time <= 62){
-// 		return 4;
-// 	}
-// 	*/
-
-// 	//if no signal during the range of 53ms to 57ms (expected: 55ms) then that's a mode change
-// 	else if(time >= 53 && time <= 57){
-// 		return 5;
-// 	}
-
-// 	//if no signal during the range of 43ms to 47ms (expected: 45ms) then that's backward
-// 	else if(time >= 80000 && time <= 250000){
-// 		return 1;
-// 	}
-// 	else{
-// 		return 9;
-// 	}
-// 	//T1CONbits.ON = 1;
-// }
 
 
 int mode_handler(int instruction, int mode){
@@ -685,33 +555,8 @@ void main(void)
 		printf(" left_diff : %f \r\n", left_right_difference);
 		//***********************************************************
 		
-		/*count=GetPeriod(100);
 		
-		if(count>0)
-		{
-			f=((SYSCLK/2L)*100L)/count;
-			uart_puts("f=");
-			PrintNumber(f, 10, 7);
-			uart_puts("Hz, count=");
-			PrintNumber(count, 10, 6);
-			uart_puts("          \r");
-		}
-		else
-		{
-			uart_puts("NO SIGNAL                     \r");
-		}*/
 
-		//adcval1 = ADCRead(4); // note that we call pin AN4 (RB2) by it's analog number (receiver pin left)
-		//uart_puts("ADC[4]=0x");
-		//PrintNumber(adcval1, 16, 3);
-		//uart_puts(", V_left=");
-		//v1=(adcval1*3290.0)/1023.0; // 3.290 is VDD offset is -650
-		//printf("%f", v1);
-		//uart_puts("mV ");
-
-		//if(v1 < 150){
-		
-		//}
 		
 		mode = mode_handler(movement_instruction, mode);
 		
@@ -762,56 +607,44 @@ void main(void)
 					//stop_motors();
 				}
 
-				// else{
-				// 	stop_motors();
-				// }
-
-				// else {
-				// 	stop_motors();
-				// }
 			}
 
-			//else if()
 		}
 		//if control mode (mode = 1)
 		if(mode == 1){
 			
 			v1 = real_time_average_V1();
-			//movement_instruction = determine_car_movement(v1);
 
-			printf("\n\r %d", movement_instruction);
-			if(movement_instruction  == 0)
+			printf("\n\r %d", movement_instruction_ISR);
+			
+			if(movement_instruction_ISR  == 1)
 			{
 				go_forward();
 				delay_ms(700);
 				stop_motors();
+				movement_instruction_ISR = 0;
+
 				
 			}
-			else if(movement_instruction == 1)
+			else if(movement_instruction_ISR == 2)
 			{
 				go_backward();
 				delay_ms(700);
 				stop_motors();
+				movement_instruction_ISR = 0;
+
 				
 			}
 
-			/*else if(movement_instruction_ISR == 1)
-			{
-				go_forward();
-				delay_ms(500);
-				stop_motors();
-				movement_instruction_ISR = 0;
-				
-			}*/
 
-			else if(movement_instruction == 2)
+			else if(movement_instruction_ISR == 3)
 			{
 				turn_left();
 				delay_ms(700);
 				stop_motors();
 				movement_instruction_ISR = 0;
 			}
-			else if(movement_instruction == 3)
+			else if(movement_instruction_ISR == 4)
 			{
 				turn_right();
 				delay_ms(700);
@@ -824,64 +657,10 @@ void main(void)
 				movement_instruction_ISR = 0;
 			}
 
-			stop_motors();
-			/*else if(movement_instruction == 4){
-				//horn
-			}*/
+			
 			
 		}
-
-		// Now toggle the pins on/off to see if they are working.
-		// First turn all off:
-		/*LATAbits.LATA0 = 0;	
-		LATAbits.LATA1 = 0;			
-		LATBbits.LATB0 = 0;			
-		LATBbits.LATB1 = 0;		
-		LATAbits.LATA2 = 0;	*/		
-		// Now turn on one of the outputs per loop cycle to check
-		/*switch (LED_toggle++)
-		{
-			/*case 0:
-				LATAbits.LATA0 = 1;
-				break;
-			case 1:
-				LATAbits.LATA1 = 1;
-				break;
-			case 2:
-				LATBbits.LATB0 = 1;
-				break;
-			case 3:
-				LATBbits.LATB1 = 1;
-				break;
-			case 4:
-				LATAbits.LATA2 = 1;
-				break;
-			default:
-				break;
-		}
-		if(LED_toggle>4) LED_toggle=0;*/
-
-		 //Change the servo PWM signals
-		/*if (ISR_pwm1<200)
-		{
-			ISR_pwm1++;
-		}
-		else
-		{
-			ISR_pwm1=100;	
-		}
-
-		if (ISR_pwm2>100)
-		{
-			ISR_pwm2--;
-		}
-		else
-		{
-			ISR_pwm2=200;	
-		}*/
-
-		//waitms(200);
+	
 	}
 	delay_ms(5);
-	//stop_motors();
 }
