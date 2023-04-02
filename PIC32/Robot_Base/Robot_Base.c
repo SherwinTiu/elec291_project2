@@ -116,12 +116,12 @@ void __ISR(_TIMER_1_VECTOR, IPL5SOFT) Timer1_Handler(void)
 
 	if(ISR_cnt2 == 1000){
 		
-		if(ADCRead(4) * 3290.0 / 1023.0 < 0.8 * Prev_V_ISR){
-			T1CONbits.ON = 1;
+		if(ADCRead(4) * 3290.0 / 1023.0 -175 < 0.85 * (Prev_V_ISR -175)){
+			T2CONbits.ON = 1;
 			_CP0_SET_COUNT(0);
 			Peak_V_ISR = Prev_V_ISR;
 			
-			while(ADCRead(4) * 3290.0 / 1023.0 < 0.8 * Peak_V_ISR);
+			while(ADCRead(4) * 3290.0 / 1023.0 -175 < 0.85 * (Peak_V_ISR -175));
 
             T1CONbits.ON = 0;
 			time_ISR = (_CP0_GET_COUNT() / (SYSCLK/(2*1000))) * 1000; // TIME in uS
