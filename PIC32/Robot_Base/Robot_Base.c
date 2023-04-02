@@ -561,7 +561,6 @@ void main(void)
 	int array_count = 0;
 
 	CFGCON = 0;
-	Prev_V_ISR = ADCRead(4) * 3290.0 / 1023.0;
   
     UART2Configure(115200);  // Configure UART2 for a baud rate of 115200
     ConfigurePins();
