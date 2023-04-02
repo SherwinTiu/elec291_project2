@@ -3,7 +3,7 @@ Magnetic Field Tracking Robot
 
 Additional Features:
 1. Go home (5 points) (save movements in array and reverse movements)
-2. Honk (1 or 2 points) (finished)
+2. Python Mapping
 3. LCD display (1 or 2 points) (finished)
 4. Autopilot  (predefined movements) (5 points)
 5. Speed Boost (3 points)
