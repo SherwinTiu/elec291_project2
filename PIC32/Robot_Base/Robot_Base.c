@@ -39,8 +39,8 @@
 
 volatile int ISR_pwm1=150, ISR_pwm2=150, ISR_cnt=0, ISR_frc, ISR_cnt2=0; 
 long int time_ISR = 0;
-long int Prev_V_ISR = 0, Peak_V_ISR = 0;
-int movement_instruction_ISR=0;
+long int Prev_V_ISR, Peak_V_ISR = 0;
+int movement_instruction_ISR=0, bitone, bittwo, bitthree;
 
 int ADCRead(char analogPIN)
 {
@@ -84,6 +84,14 @@ void __ISR(_TIMER_1_VECTOR, IPL5SOFT) Timer1_Handler(void)
 
 
 
+}
+
+void delay_ms (int msecs)
+{	
+	int ticks;
+	ISR_frc=0;
+	ticks=msecs/20;
+	while(ISR_frc<ticks);
 }
 
 
@@ -145,86 +153,85 @@ void __ISR(_TIMER_1_VECTOR, IPL5SOFT) Timer1_Handler(void)
 		}
 
 		else{
-			if(ADCRead(4) * 3290.0 / 1023.0 < 1.4 * Prev_V_ISR){
 				Prev_V_ISR = ADCRead(4) * 3290.0 / 1023.0;
 			}
-		}
+	}
 
-		/*if(ISR_cnt2 % 100 == 0){
-			
-			if(adcread(4) * 3290.0 / 1023.0 < 20 ){
+	/*if(ISR_cnt2 % 100 == 0){
+		
+		if(ADCRead(4) * 3290.0 / 1023.0 < 0.2 ){
 
-				while(adcread(4) * 3290.0 / 1023.0 < Peak_V_ISR);
+			while(ADCRead(4) * 3290.0 / 1023.0 < 0.2);
 
-				delayms(93);
+			delay_ms(93);
 
-				if(adcread(4) < 0.5 Peak_V_ISR){
+			if(ADCRead(4) * 3290.0 / 1023.0 < 0.2 ){
 					bitone = 0;
-				}
+			}
 
-				else{
+			else{
 					bitone = 1;
-				}
+			}
 
-				delayms(62);
+			delay_ms(62);
 
-				if(adcread(4) < 0.5 Peak_V_ISR){
-					bittwo = 0;
-				}
+			if(ADCRead(4) * 3290.0 / 1023.0 < 0.2 ){
+				bittwo = 0;
+			}
 
-				else{
-					bittwo = 1;
-				}
+			else{
+				bittwo = 1;
+			}
 
-				delayms(62);
+			delay_ms(62);
 
-				if(adcread(4) < 0.5 Peak_V_ISR){
-					bitthree = 0;
-				}
+			if(ADCRead(4)  * 3290.0 / 1023.0 < 0.2 ){
+				bitthree = 0;
+			}
 
-				else{
-					bitthree = 1;
-				}
+			else{
+				bitthree = 1;
+			}
 
 
-				//if(bitone == 1 && bittwo == 1 && bitthree == 1 ){ //No movement
-				//	movement_instruction_ISR = 0;
-				//}
 
-				if(bitone == 0 && bittwo == 1 && bitthree == 1 ){ //Go forward
-					movement_instruction_ISR = 1;
-				}
+			if(bitone == 0 && bittwo == 1 && bitthree == 1 ){ //Go forward
+				movement_instruction_ISR = 1;
+			}
 
-				if(bitone == 1 && bittwo == 0 && bitthree == 0 ){ //Go backward
-					movement_instruction_ISR = 2;
-				}
+			if(bitone == 1 && bittwo == 0 && bitthree == 0 ){ //Go backward
+				movement_instruction_ISR = 2;
+			}
 
-				if(bitone == 0 && bittwo == 0 && bitthree == 1 ){ //Go left
-					movement_instruction_ISR = 3;
-				}
+			if(bitone == 0 && bittwo == 0 && bitthree == 1 ){ //Go left
+				movement_instruction_ISR = 3;
+			}
 
-				if(bitone == 0 && bittwo == 1 && bitthree == 0 ){ //Go right
-					movement_instruction_ISR = 4;
-				}
+			if(bitone == 0 && bittwo == 1 && bitthree == 0 ){ //Go right
+				movement_instruction_ISR = 4;
+			}
 
+			else{
+				movement_instruction_ISR = 0;
+			}
+
+			printf("movement instruction ISR %d\r\n", movement_instruction_ISR);
 
 			}
 			
-		}*/
+		}
+
+		else{
+			Peak_V_ISR = ADCRead(4) * 3290.0 / 1023.0;
+		}/*
 
 		
-	}
-
-	if(ISR_cnt2 >= 1000)
-		{
+	
+	if(ISR_cnt2 >= 1000){
+	
 			ISR_cnt2=0; // 1000 * 10us=10ms
-		}
-    
-	if(ISR_cnt2>=1000)
-	{
-		ISR_cnt2=0; // 1000 * 10us=10ms
-		//printf("Time ISR: %d", time_ISR);
 	}
+    
 
 	if(time_ISR <= 25000){                    //no signal
 		movement_instruction_ISR = 0;
@@ -302,14 +309,6 @@ void wait_1ms(void)
 
     // get the core timer count
     while ( _CP0_GET_COUNT() < (SYSCLK/(2*1000)) );
-}
-
-void delay_ms (int msecs)
-{	
-	int ticks;
-	ISR_frc=0;
-	ticks=msecs/20;
-	while(ISR_frc<ticks);
 }
 
 void waitms(int len)
@@ -529,6 +528,8 @@ void main(void)
 	uart_puts("Measures period on RB5 (pin 14 of DIP28 package)\r\n");
 	uart_puts("Toggles RA0, RA1, RB0, RB1, RA2 (pins 2, 3, 4, 5, 9, of DIP28 package)\r\n");
 	uart_puts("Generates Servo PWM signals at RA3, RB4 (pins 10, 11 of DIP28 package)\r\n\r\n");
+
+	Prev_V_ISR = ADCRead(4) * 3290.0 / 1023.0;
 	
 	//set motors off initially
 	LATAbits.LATA2 = 1;
@@ -647,7 +648,7 @@ void main(void)
 		//if control mode (mode = 1)
 		if(mode == 1){
 			
-			v1 = real_time_average_V1();
+			//v1 = real_time_average_V1();
 
 			printf("\n\r %d", movement_instruction_ISR);
 			
@@ -658,7 +659,6 @@ void main(void)
 				stop_motors();
 				movement_instruction_ISR = 0;
 
-				
 			}
 			else if(movement_instruction_ISR == 2)
 			{
@@ -667,7 +667,6 @@ void main(void)
 				stop_motors();
 				movement_instruction_ISR = 0;
 
-				
 			}
 
 
