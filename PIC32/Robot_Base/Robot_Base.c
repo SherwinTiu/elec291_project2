@@ -95,16 +95,16 @@ void __ISR(_TIMER_1_VECTOR, IPL5SOFT) Timer1_Handler(void)
 
 	if(ISR_cnt2 == 1000){
 		
-		if(ADCRead(4) * 3290.0 / 1023.0 < 0.9 * Prev_V_ISR){
+		if(ADCRead(4) * 3290.0 / 1023.0 - 175 < 0.85 * (Prev_V_ISR-175)){
 			T2CONbits.ON = 1;
 			_CP0_SET_COUNT(0);
 			Peak_V_ISR = Prev_V_ISR;
 			
-			while(ADCRead(4) * 3290.0 / 1023.0 < 0.9 * Peak_V_ISR);
+			while(ADCRead(4) * 3290.0 / 1023.0 - 175 < 0.7 * (Peak_V_ISR -175));
 
             T2CONbits.ON = 0;
 			time_ISR = (_CP0_GET_COUNT() / (SYSCLK/(2*1000))) * 1000; // TIME in uS
-			printf("Time ISR: %d", time_ISR);
+			printf("Time ISR: %d\r\n", time_ISR);
 			T2CONbits.ON = 1;
 
 			if(time_ISR <= 25000){                    //no signal
@@ -145,8 +145,73 @@ void __ISR(_TIMER_1_VECTOR, IPL5SOFT) Timer1_Handler(void)
 		}
 
 		else{
-			Prev_V_ISR = ADCRead(4) * 3290.0 / 1023.0;
+			if(ADCRead(4) * 3290.0 / 1023.0 < 1.4 * Prev_V_ISR){
+				Prev_V_ISR = ADCRead(4) * 3290.0 / 1023.0;
+			}
 		}
+
+		/*if(ISR_cnt2 % 100 == 0){
+			
+			if(adcread(4) * 3290.0 / 1023.0 < 20 ){
+
+				while(adcread(4) * 3290.0 / 1023.0 < Peak_V_ISR);
+
+				delayms(93);
+
+				if(adcread(4) < 0.5 Peak_V_ISR){
+					bitone = 0;
+				}
+
+				else{
+					bitone = 1;
+				}
+
+				delayms(62);
+
+				if(adcread(4) < 0.5 Peak_V_ISR){
+					bittwo = 0;
+				}
+
+				else{
+					bittwo = 1;
+				}
+
+				delayms(62);
+
+				if(adcread(4) < 0.5 Peak_V_ISR){
+					bitthree = 0;
+				}
+
+				else{
+					bitthree = 1;
+				}
+
+
+				//if(bitone == 1 && bittwo == 1 && bitthree == 1 ){ //No movement
+				//	movement_instruction_ISR = 0;
+				//}
+
+				if(bitone == 0 && bittwo == 1 && bitthree == 1 ){ //Go forward
+					movement_instruction_ISR = 1;
+				}
+
+				if(bitone == 1 && bittwo == 0 && bitthree == 0 ){ //Go backward
+					movement_instruction_ISR = 2;
+				}
+
+				if(bitone == 0 && bittwo == 0 && bitthree == 1 ){ //Go left
+					movement_instruction_ISR = 3;
+				}
+
+				if(bitone == 0 && bittwo == 1 && bitthree == 0 ){ //Go right
+					movement_instruction_ISR = 4;
+				}
+
+
+			}
+			
+		}*/
+
 		
 	}
 
@@ -255,38 +320,7 @@ void waitms(int len)
 #define PIN_PERIOD (PORTB&(1<<5))
 
 // GetPeriod() seems to work fine for frequencies between 200Hz and 700kHz.
-long int GetPeriod (int n)
-{
-	int i;
-	unsigned int saved_TCNT1a, saved_TCNT1b;
-	
-    _CP0_SET_COUNT(0); // resets the core timer count
-	while (PIN_PERIOD!=0) // Wait for square wave to be 0
-	{
-		if(_CP0_GET_COUNT() > (SYSCLK/8)) return 0;
-	}
 
-    _CP0_SET_COUNT(0); // resets the core timer count
-	while (PIN_PERIOD==0) // Wait for square wave to be 1
-	{
-		if(_CP0_GET_COUNT() > (SYSCLK/8)) return 0;
-	}
-	
-    _CP0_SET_COUNT(0); // resets the core timer count
-	for(i=0; i<n; i++) // Measure the time of 'n' periods
-	{
-		while (PIN_PERIOD!=0) // Wait for square wave to be 0
-		{
-			if(_CP0_GET_COUNT() > (SYSCLK/8)) return 0;
-		}
-		while (PIN_PERIOD==0) // Wait for square wave to be 1
-		{
-			if(_CP0_GET_COUNT() > (SYSCLK/8)) return 0;
-		}
-	}
-
-	return  _CP0_GET_COUNT();
-}
  
 void UART2Configure(int baud_rate)
 {
