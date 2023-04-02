@@ -120,12 +120,12 @@ void delay_ms (int msecs)
 				time_ISR = 0;
 			}
 
-			if(time_ISR > 25000 && time_ISR <= 75000){   //go right
+			if(time_ISR > 25000 && time_ISR <= 70000){   //go right
 				movement_instruction_ISR = 4;
 				time_ISR = 0;
 			}
 
-			if(time_ISR > 75000 && time_ISR <= 125000){  //go backward
+			if(time_ISR > 70000 && time_ISR <= 125000){  //go backward
 				movement_instruction_ISR = 2;
 				time_ISR = 0;
 			}
@@ -223,10 +223,10 @@ void delay_ms (int msecs)
 
 		else{
 			Peak_V_ISR = ADCRead(4) * 3290.0 / 1023.0;
-		}/*
+		}
 
 		
-	
+	}*/
 	if(ISR_cnt2 >= 1000){
 	
 			ISR_cnt2=0; // 1000 * 10us=10ms
@@ -649,6 +649,7 @@ void main(void)
 		if(mode == 1){
 			
 			//v1 = real_time_average_V1();
+			while(movement_instruction_ISR == 0);
 
 			printf("\n\r %d", movement_instruction_ISR);
 			
