@@ -175,7 +175,7 @@ void __ISR(_TIMER_1_VECTOR, IPL5SOFT) Timer1_Handler(void)
 		{
 			ISR_cnt2=0; // 1000 * 10us=10ms
 		}
-    /*
+    
 	if(ISR_cnt2>=1000)
 	{
 		ISR_cnt2=0; // 1000 * 10us=10ms
@@ -216,7 +216,7 @@ void __ISR(_TIMER_1_VECTOR, IPL5SOFT) Timer1_Handler(void)
 		movement_instruction_ISR = 0;
 		time_ISR = 0;
 	}
-    */
+    
 	
 }
 
