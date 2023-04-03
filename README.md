@@ -36,3 +36,4 @@ Additional Features:
 - [ ] Memory movements
 - [ ] Blinkers
 - [ ] HONK! Buzzer                           (IN PROGRESS)
+- [ ] HC04 Bluetooth
