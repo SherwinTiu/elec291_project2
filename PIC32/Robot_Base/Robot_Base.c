@@ -41,7 +41,7 @@ volatile int ISR_pwm1=150, ISR_pwm2=150, ISR_cnt=0, ISR_frc, ISR_cnt2=0;
 long int time_ISR = 0;
 long int Prev_V_ISR, Peak_V_ISR = 0;
 volatile int bitone, bittwo, bitthree;
-volatile int movement_instruction_ISR = 0; 
+int movement_instruction_ISR = 0; 
 
 volatile int entered_if_statement = 0;
 long int timer_count = 0;
