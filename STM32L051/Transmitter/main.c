@@ -1,3 +1,4 @@
+
 #include "../Common/Include/stm32l051xx.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -316,20 +317,25 @@ void Hardware_Init()
 // Command generator 
 void sendCommandGenerator(int command) {
 	// turn off signal to synchronize 
+	
+if(command != 0){	
 	NVIC->ICER[0] |= BIT15;
 	delayms(62); // bit 0 turn off signal
 	NVIC->ISER[0] |= BIT15; 
 	delayms(62); // bit 1 turn on signal for 62 ms
+}
+
 
 	// turn left
-	if (command == 1) {
+	if (command == 3) {
 		NVIC->ICER[0] |= BIT15;
-		delayms(124); // bit 0 0 
+		delayms(124); // bit 0 0 1
 		NVIC->ISER[0] |= BIT15;
 
 		// sequence is bit 1 0 0 1
 	}
-	else if (command == 2) {
+	//turn right
+	else if (command == 4) {
 		// turn off signal for 62 ms 
 		NVIC->ICER[0] |= BIT15;
 		delayms(62); // bit 0
@@ -341,7 +347,9 @@ void sendCommandGenerator(int command) {
 
 		// sequence is 1 0 1 0
 	}
-	else if (command == 3) {
+
+	//go forward
+	else if (command == 1) {
 		// turn off signal for 62 ms
 		NVIC->ICER[0] |= BIT15;
 		delayms(62); // bit 0
@@ -351,8 +359,12 @@ void sendCommandGenerator(int command) {
 
 		// sequence is 1 0 1 1 
 	}
-	else if (command == 4) {
-		delayms(62); // tur
+	//go backward
+	else if (command == 2) {
+		delayms(62); //bit 1
+		NVIC->ICER[0] |= BIT15;
+		delayms(124); // bit 0 0
+		NVIC->ISER[0] |= BIT15;
 		// sequence is 1 1 0 0
 	}
 }
@@ -364,8 +376,8 @@ int main(void)
 	int mode = 1;
 	int mode_button;
 	int current_forward, current_reverse, current_left, current_right, horn = 1;
-	//int j;
-	//int k;
+	int command = 0;
+	
 	int x;
 	int y;
 	delayms(500); // Give PuTTY time to start
@@ -408,26 +420,30 @@ int main(void)
 
 		if(x>3750 || x<345){
 			if(x>3700){
-				current_left = 0;
+				//current_left = 0;
+				command = 3;
 			}
 			else {
-				current_right = 0;
+				//current_right = 0;
+				command = 4;
 			}
 		}
 		else if (y>3700 || y<500) {
 			if (y>3700) {
-				current_reverse = 0;
+				//current_reverse = 0;
+				command = 2;
 			} 
 			else {
-				current_forward = 0;
+				//current_forward = 0;
+				command = 1;
 			}
 		}
 
+		else{
+			command = 0;
+		}
 
-		// x-axis
-		// x = (k*3.3)/4096.0;
-		// printf("ADC[9]=%d y=%f V\n\r", k, x);
-		// fflush(stdout);
+
 		
 		if (mode_button == 0) {
 			if(mode == 1){
@@ -447,20 +463,15 @@ int main(void)
 			NVIC->ISER[0] |= BIT15; // enable timer 2 interrupts in the NVIC
 		}
 
-		// forward button
+		
 		if (mode == 1)
 		{
 			// horn
-			horn = (GPIOB->IDR & GPIO_IDR_ID7) ? 1 : 0;
 
-			if (horn == 0)
-			{
-				LCDprint("HONK", 2, 1);
-				NVIC->ICER[0] |= BIT15;
-				delayms(60);
-				NVIC->ISER[0] |= BIT15;
-				delayms(250);
-			}
+			sendCommandGenerator(command);
+
+			command = 0;
+
 
 			// forward
 			// current_forward = (GPIOB->IDR & GPIO_IDR_ID3) ? 1 : 0; // off state (button is state 1 if not pressed, button is state 0 if pressed)
@@ -469,18 +480,12 @@ int main(void)
 			{
 				LCDprint("Forward", 2, 1);
 				NVIC->ICER[0] |= BIT15;
-				delayms(700);
+				delayms(200);
 				NVIC->ISER[0] |= BIT15;
 				//delayms(250);
 			}
 
-			// while (current_forward == 0) // while button is pressed
-			// {
-			// 	printf("PB3\n");
-			// 	current_forward = (GPIOB->IDR & GPIO_IDR_ID3)?1:0;
-			// 	fflush(stdout);
-			// delayms(50);
-			//}
+			
 
 			
 			// reverse button
@@ -521,7 +526,7 @@ int main(void)
 			}
 		}
 		
-		if (horn == 1 && current_forward == 1 && current_reverse == 1 && current_left == 1 && current_right == 1) {
+		if (current_forward == 1 && current_reverse == 1 && current_left == 1 && current_right == 1) {
 			LCDprint(" ", 2, 1);
 		}
 
@@ -529,8 +534,8 @@ int main(void)
 		current_reverse = 1;
 		current_right = 1;
 		current_left = 1;
-		delayms(500);
-		//delayms(100);
+		
+		delayms(1000);
 
 	}
 
