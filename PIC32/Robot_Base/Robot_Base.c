@@ -43,8 +43,7 @@
 #define echo RA1
 
 
-LATBbits.LATA0 = 0; //pin 2 trigger
-	LATBbits.LATA1 = 1; //pin 3 echo
+
 
 
 
@@ -335,6 +334,10 @@ void ConfigurePins(void)
     TRISBbits.TRISB2 = 1;   // set RB2 as an input
     ANSELBbits.ANSB3 = 1;   // set RB3 (AN5, pin 7 of DIP28) as analog pin
     TRISBbits.TRISB3 = 1;   // set RB3 as an input
+    LATAbits.LATA1 = 1; //pin 3 echo
+	//pins for the sensor
+	//LATAbits.LATA0 = 0; //pin 2 trigger
+	
     
 	// Configure digital input pin to measure signal period
 	ANSELB &= ~(1<<5); // Set RB5 as a digital I/O (pin 14 of DIP28)
@@ -355,6 +358,8 @@ void ConfigurePins(void)
 	//TRISAbits.TRISA3 = 0; // pin 10 of DIP28
 	//TRISBbits.TRISB4 = 0; // pin 11 of DIP28
 	INTCONbits.MVEC = 1;
+	//pins for the sensor
+	LATAbits.LATA0 = 0; //pin 2 trigger
 
 	//Configure output pins for motor
 	TRISBbits.TRISB0 = 0; // pin4
@@ -862,6 +867,7 @@ void main(void)
 
  int detect_obstacle(movement_instruction)
 {
+	//  declare honk
 	int distance = 0;
 	TMR1 = 0; //reset the timer
 
@@ -932,6 +938,10 @@ void main(void)
 	dsitance = (_CP0_GET_COUNT() / (SYSCLK/(2*1000))) * 1000;
 	//T1CONbits.ON = 1;
 	stop_motors();
+	
+
+	// should also have the code for the honk function :)
+
 
 }
 
