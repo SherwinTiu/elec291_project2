@@ -13,12 +13,12 @@ Base Features/Requirements
 - [x] Distance - 50 cm
 
 Additional Features:
-- [ ]Go home (5 points) 
+- [ ] Go home (5 points) 
          
          - Save movements in array and reverse movements
 
 
-- [ ] Python (Mapping)
+- [ ] Python (Mapping)                       (IN PROGRESS)
 - [x] LCD display (1 or 2 points)
 - [ ] Autopilot  (predefined movements) (5 points)
 - [ ] Speed Boost (3 points)
