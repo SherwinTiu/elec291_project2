@@ -38,14 +38,6 @@
 #define Baud2BRG(desired_baud)( (SYSCLK / (16*desired_baud))-1)
 
 
-// check this: defining the pins
-#define trigger RA0
-#define echo RA1
-
-
-
-
-
 
 
 volatile int ISR_pwm1=150, ISR_pwm2=150, ISR_cnt=0, ISR_frc, ISR_cnt2=0; 
@@ -334,7 +326,7 @@ void ConfigurePins(void)
     TRISBbits.TRISB2 = 1;   // set RB2 as an input
     ANSELBbits.ANSB3 = 1;   // set RB3 (AN5, pin 7 of DIP28) as analog pin
     TRISBbits.TRISB3 = 1;   // set RB3 as an input
-    LATAbits.LATA1 = 1; //pin 3 echo
+    ANSELAbits.ANSA1 = 1; //pin 3 echo
 	//pins for the sensor
 	//LATAbits.LATA0 = 0; //pin 2 trigger
 	
@@ -359,7 +351,7 @@ void ConfigurePins(void)
 	//TRISBbits.TRISB4 = 0; // pin 11 of DIP28
 	INTCONbits.MVEC = 1;
 	//pins for the sensor
-	LATAbits.LATA0 = 0; //pin 2 trigger
+	TRISAbits.TRISA0 = 0; //pin 2 trigger
 
 	//Configure output pins for motor
 	TRISBbits.TRISB0 = 0; // pin4
@@ -561,6 +553,42 @@ long int real_time_average_V2(){
 	return sum_V2 * 3290L / 1023L / 20L;
 }
 
+//returns 1 if obstacle close af
+int detect_obstacle(movement_instruction)
+{
+	//  declare honk
+	int distance = 0;
+	long int time = 0;
+
+	T1CONbits.ON = 1; //turn on timer
+	//_CP0_SET_COUNT(0);
+	// you need to send the pulse to the sensor
+	TMR1 = 0; //reset the timer
+	_CP0_SET_COUNT(0);
+    LATAbits.LATA0 = 0; //on
+	delay_ms(10);
+	LATAbits.LATA0 = 1; //off
+
+
+	while(ADCRead(1) * 3290.0 / 1023.0 < 0.3); //count timer while echo is off
+	T1CONbits.ON = 0; //turn timer off
+	//get inst time
+	time = _CP0_GET_COUNT() / (SYSCLK/(2*1000)) * 1000; //time in us 
+	T1CONbits.ON = 1; //turn on timer
+
+	
+	distance = time * 0.034 / 2 * 1000 //this is in 10^-5 m
+	
+	if(distance < 1000){
+		return 1;
+	}
+	else{
+		return 0;
+	}
+
+}
+
+
 // In order to keep this as nimble as possible, avoid
 // using floating point or printf() on any of its forms!
 void main(void)
@@ -600,27 +628,7 @@ void main(void)
 	mode = 0;
 
 
-	/*
-	in timer runnning in background:
 
-	when voltage drops below threshold,
-	set flag up
-	when voltage rises above thresshold,
-	set flag down
-	record how much time passes between up flag and down flag
-	determine instruction
-
-	in main follow mode:
-
-	if instruction = 5, switch modes, else stay
-
-	in main  control mode:
-
-	if instruction = 5, switch mode
-
-	else execute other instructions
-	
-	*/
 
 	while(1)
 	{
@@ -855,93 +863,37 @@ void main(void)
 }
 
 
-
-//this should be in main:
-
-//random stuff:
-
-
- //need to configure the IO pins
-//LATBbits.LATA0 = 0; //pin 2
-//	LATBbits.LATA1 = 1; //pin 3
-
- int detect_obstacle(movement_instruction)
+int detect_obstacle(movement_instruction)
 {
 	//  declare honk
 	int distance = 0;
-	TMR1 = 0; //reset the timer
+	long int time = 0;
 
-	//T1CONbits.ON = 1;
+	T1CONbits.ON = 1; //turn on timer
 	//_CP0_SET_COUNT(0);
 	// you need to send the pulse to the sensor
-     trigger =1;
-	 	delay_ms(10);
-		trigger = 0;
-	while(!echo){
-		//the timer should be on
-		T1CONbits.ON = 1;
-		_CP0_SET_COUNT(0);
-		if(movement_instruction  == 0)
-			{
-				go_forward();
-				delay_ms(200);
-				stop_motors();
-				
-			}
-			else if(movement_instruction == 1)
-			{
-				go_backward();
-				delay_ms(200);
-				stop_motors();
-				
-			}
+	TMR1 = 0; //reset the timer
+	_CP0_SET_COUNT(0);
+    LATAbits.LATA0 = 0; //on
+	delay_ms(10);
+	LATAbits.LATA0 = 1; //off
 
-			/*else if(movement_instruction_ISR == 1)
-			{
-				go_forward();
-				delay_ms(500);
-				stop_motors();
-				movement_instruction_ISR = 0;
-				
-			}*/
 
-			else if(movement_instruction == 2)
-			{
-				turn_left();
-				delay_ms(200);
-				stop_motors();
-				movement_instruction_ISR = 0;
-			}
-			else if(movement_instruction == 3)
-			{
-				turn_right();
-				delay_ms(200);
-				stop_motors();
-				movement_instruction_ISR = 0;
-			}
-			else{
-				stop_motors();
-				delay_ms(200);
-				movement_instruction_ISR = 0;
-			}
+	while(ADCRead(1) * 3290.0 / 1023.0 < 0.3); //count timer while echo is off
+	T1CONbits.ON = 0; //turn timer off
+	//get inst time
+	time = _CP0_GET_COUNT() / (SYSCLK/(2*1000)) * 1000; //time in us 
+	T1CONbits.ON = 1; //turn on timer
 
-			stop_motors();
-			/*else if(movement_instruction == 4){
-				//horn
-			}*/
-}
-
-	while(echo);
-	//when obstacle turn off timer
-
-	T1CONbits.ON = 0;
-	dsitance = (_CP0_GET_COUNT() / (SYSCLK/(2*1000))) * 1000;
-	//T1CONbits.ON = 1;
-	stop_motors();
 	
-
-	// should also have the code for the honk function :)
-
+	distance = time * 0.034 / 2 * 1000 //this is in 10^-5 m
+	
+	if(distance < 1000){
+		return 1;
+	}
+	else{
+		return 0;
+	}
 
 }
 
