@@ -1,27 +1,36 @@
 # elec291_project2
 Magnetic Field Tracking Robot
 
+Base Features/Requirements
+- [x] Two different Microcontrollers 
+- [ ] Battery-operated                       (IN PROGRESS)
+- [x] Robot Construction/Assembly
+- [x] C programming
+- [x] MOSFET drivers 
+- [x] Controller Mode
+- [x] Follower Mode
+- [ ] Integration                            (IN PROGRESS)
+- [x] Distance - 50 cm
+
 Additional Features:
-1. Go home (5 points) 
+- [ ]Go home (5 points) 
          
          - Save movements in array and reverse movements
 
 
-2. Python (Mapping)
-3. LCD display (1 or 2 points) (FINISHED)
-4. Autopilot  (predefined movements) (5 points)
-5. Speed Boost (3 points)
+- [ ] Python (Mapping)
+- [x] LCD display (1 or 2 points)
+- [ ] Autopilot  (predefined movements) (5 points)
+- [ ] Speed Boost (3 points)
          
          - This can be implemented using pulse-width modulation (PWM) for the motor control. 
          - You can either have preset speed levels or implement a slider on the transmitter to adjust the speed in real-time.
 
 
-6. Joystick (FINISHED) 
-7. Speedometer
-8. Auto-stop/Auto-brake
-9. Extra movements
-10. Memory movements
-11. LCD (FINISHED)
-12. Blinkers
-13. Sensor (IN PROGRESS)
-14. HONK! (IN PROGRESS)
+- [x] Joystick 
+- [ ] Speedometer
+- [ ] Ultrasonic Sensor Auto-stop/Auto-brake (IN PROGRESS)
+- [ ] Extra movements
+- [ ] Memory movements
+- [ ] Blinkers
+- [ ] HONK! Buzzer                           (IN PROGRESS)
