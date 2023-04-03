@@ -39,8 +39,11 @@
 
 volatile int ISR_pwm1=150, ISR_pwm2=150, ISR_cnt=0, ISR_frc, ISR_cnt2=0; 
 long int time_ISR = 0;
-long int Prev_V_ISR = 0, Peak_V_ISR = 0;
-int movement_instruction_ISR=0;
+long int Prev_V_ISR, Peak_V_ISR = 0;
+volatile int movement_instruction_ISR=0;
+volatile int bitone, bittwo, bitthree;
+volatile int entered_if_statement = 0;
+long int timer_count = 0;
 
 int ADCRead(char analogPIN)
 {
@@ -86,28 +89,37 @@ void __ISR(_TIMER_1_VECTOR, IPL5SOFT) Timer1_Handler(void)
 
 }
 
+void delay_ms (int msecs)
+{	
+	int ticks;
+	ISR_frc=0;
+	ticks=msecs/20;
+	while(ISR_frc<ticks);
+}
 
- __ISR(_TIMER_2_VECTOR, IPL5SOFT) Timer2_Handler(void)
-{
+
+ __ISR(_TIMER_2_VECTOR, IPL5SOFT) Timer2_Handler(void){
+
 	IFS0CLR=_IFS0_T2IF_MASK; // Clear timer 2 interrupt flag, bit 4 of IFS0
 
 	ISR_cnt2++;
 
-	if(ISR_cnt2 == 1000){
+	/*if(ISR_cnt2 == 1000){
 		
-		if(ADCRead(4) * 3290.0 / 1023.0 < 0.8 * Prev_V_ISR){
-			T1CONbits.ON = 1;
+		if(ADCRead(4) * 3290.0 / 1023.0 - 150 < 0.85 * (Prev_V_ISR-150)){
+			T2CONbits.ON = 1;
 			_CP0_SET_COUNT(0);
 			Peak_V_ISR = Prev_V_ISR;
 			
-			while(ADCRead(4) * 3290.0 / 1023.0 < 0.8 * Peak_V_ISR);
+			while(ADCRead(4) * 3290.0 / 1023.0 - 150 < 0.70 * (Peak_V_ISR -150));
 
             T2CONbits.ON = 0;
 			time_ISR = (_CP0_GET_COUNT() / (SYSCLK/(2*1000))) * 1000; // TIME in uS
-			T1CONbits.ON = 1;
+			printf("Time ISR: %d\r\n", time_ISR);
+			T2CONbits.ON = 1;
 
-			if(time_ISR <= 25000){                    //no signal
-				movement_instruction_ISR = 0;
+			if(time_ISR <= 25000){                       //no signal
+				//movement_instruction_ISR = 0;
 				time_ISR = 0;
 			}
 
@@ -144,123 +156,66 @@ void __ISR(_TIMER_1_VECTOR, IPL5SOFT) Timer1_Handler(void)
 		}
 
 		else{
-			if(ADCRead(4) * 3290.0 / 1023.0 < 1.4 * Prev_V_ISR){
 				Prev_V_ISR = ADCRead(4) * 3290.0 / 1023.0;
 			}
-		}
+		
 
-		/*if(ISR_cnt2 % 100 == 0){
+	}*/
+
+	if(ISR_cnt2 % 100 == 0){
+		timer_count++;
+		
+		if(ADCRead(4) * 3290.0 / 1023.0 < 200 ){
+
 			
-			if(adcread(4) * 3290.0 / 1023.0 < 20 ){
-
-				while(adcread(4) * 3290.0 / 1023.0 < Peak_V_ISR);
-
-				delayms(93);
-
-				if(adcread(4) < 0.5 Peak_V_ISR){
+			//printf("entered if statemtn\r\n");
+			
+			while(ADCRead(4) * 3290.0 / 1023.0 < 200);
+			
+			//delay_ms(93);
+			
+			if(ADCRead(4) * 3290.0 / 1023.0 < 200 && timer_count < 93){
 					bitone = 0;
-				}
-
-				else{
-					bitone = 1;
-				}
-
-				delayms(62);
-
-				if(adcread(4) < 0.5 Peak_V_ISR){
-					bittwo = 0;
-				}
-
-				else{
-					bittwo = 1;
-				}
-
-				delayms(62);
-
-				if(adcread(4) < 0.5 Peak_V_ISR){
-					bitthree = 0;
-				}
-
-				else{
-					bitthree = 1;
-				}
-
-
-				//if(bitone == 1 && bittwo == 1 && bitthree == 1 ){ //No movement
-				//	movement_instruction_ISR = 0;
-				//}
-
-				if(bitone == 0 && bittwo == 1 && bitthree == 1 ){ //Go forward
-					movement_instruction_ISR = 1;
-				}
-
-				if(bitone == 1 && bittwo == 0 && bitthree == 0 ){ //Go backward
-					movement_instruction_ISR = 2;
-				}
-
-				if(bitone == 0 && bittwo == 0 && bitthree == 1 ){ //Go left
-					movement_instruction_ISR = 3;
-				}
-
-				if(bitone == 0 && bittwo == 1 && bitthree == 0 ){ //Go right
-					movement_instruction_ISR = 4;
-				}
-
-
 			}
-			
-		}*/
+			else{
+					bitone = 1;
+			}
+			//delay_ms(62);
+			if(ADCRead(4) * 3290.0 / 1023.0 < 200 && timer_count >= 93 && timer_count < 155){
+				bittwo = 0;
+			}
+			else{
+				bittwo = 1;
+			}
+			//delay_ms(62);
+			if(ADCRead(4)  * 3290.0 / 1023.0 < 200 /*&& timer_count >= 155 && timer_count <= 217*/){
+				bitthree = 0;
+			}
+			else{
+				bitthree = 1;
+			}
 
+
+			
+			
+			
+		}
+		
+		else{
+			Peak_V_ISR = ADCRead(4) * 3290.0 / 1023.0;
+		}
 		
 	}
+	if(ISR_cnt2 >= 1000){
 
-	if(ISR_cnt2 >= 1000)
-		{
+			//printf("entered if statemnt: %d\n\r", entered_if_statement );
+			//printf("movement instruction:  %d \n\r", movement_instruction_ISR);
 			ISR_cnt2=0; // 1000 * 10us=10ms
-		}
-    
-	if(ISR_cnt2>=1000)
-	{
-		ISR_cnt2=0; // 1000 * 10us=10ms
-		//printf("Time ISR: %d", time_ISR);
-	}
-
-	if(time_ISR <= 25000){                    //no signal
-		movement_instruction_ISR = 0;
-		time_ISR = 0;
-	}
-
-	if(time_ISR > 25000 && time_ISR <= 75000){   //go right
-		movement_instruction_ISR = 1;
-		time_ISR = 0;
-	}
-
-	if(time_ISR > 75000 && time_ISR <= 125000){  //go backward
-		movement_instruction_ISR = 2;
-		time_ISR = 0;
-	}
-
-	if(time_ISR > 125000 && time_ISR <= 175000){ //go left
-		movement_instruction_ISR = 3;
-		time_ISR = 0;
-	}
-
-	if(time_ISR > 175000 && time_ISR <= 225000){ //go forward
-		movement_instruction_ISR = 1;
-		time_ISR = 0;
-	}
-
-	if(time_ISR > 225000 && time_ISR <= 275000){ //switch mode
-		movement_instruction_ISR = 5;
-		time_ISR = 0;
-	}
-
-	if(time_ISR >= 275000){                   //no signal
-		movement_instruction_ISR = 0;
-		time_ISR = 0;
 	}
     
-	
+	if (timer_count > 220) {
+		timer_count = 0;
+	}
 }
 
 void SetupTimer1 (void)
@@ -301,14 +256,6 @@ void wait_1ms(void)
 
     // get the core timer count
     while ( _CP0_GET_COUNT() < (SYSCLK/(2*1000)) );
-}
-
-void delay_ms (int msecs)
-{	
-	int ticks;
-	ISR_frc=0;
-	ticks=msecs/20;
-	while(ISR_frc<ticks);
 }
 
 void waitms(int len)
@@ -528,33 +475,29 @@ void main(void)
 	uart_puts("Measures period on RB5 (pin 14 of DIP28 package)\r\n");
 	uart_puts("Toggles RA0, RA1, RB0, RB1, RA2 (pins 2, 3, 4, 5, 9, of DIP28 package)\r\n");
 	uart_puts("Generates Servo PWM signals at RA3, RB4 (pins 10, 11 of DIP28 package)\r\n\r\n");
+
+	//Prev_V_ISR = ADCRead(4) * 3290.0 / 1023.0;
 	
 	//set motors off initially
 	LATAbits.LATA2 = 1;
 	LATAbits.LATA3 = 1;
 	LATBbits.LATB4 = 1; 
 	LATAbits.LATA4 = 1;
-	mode = 0;
+	mode = 1;
 
 
 	/*
 	in timer runnning in background:
-
 	when voltage drops below threshold,
 	set flag up
 	when voltage rises above thresshold,
 	set flag down
 	record how much time passes between up flag and down flag
 	determine instruction
-
 	in main follow mode:
-
 	if instruction = 5, switch modes, else stay
-
 	in main  control mode:
-
 	if instruction = 5, switch mode
-
 	else execute other instructions
 	
 	*/
@@ -646,9 +589,33 @@ void main(void)
 		//if control mode (mode = 1)
 		if(mode == 1){
 			
-			v1 = real_time_average_V1();
+			//v1 = real_time_average_V1();
+			//while(movement_instruction_ISR == 0);
 
-			printf("\n\r %d", movement_instruction_ISR);
+			//printf("\n\r %d", movement_instruction_ISR);
+			printf("\r\nBit3: %d", bitthree);
+			printf("\r\ntimer count: %d", timer_count);
+
+
+			if(bitone == 0 && bittwo == 1 && bitthree == 1 ){ //Go forward
+				movement_instruction_ISR = 1;
+			}
+			if(bitone == 1 && bittwo == 0 && bitthree == 0 ){ //Go backward
+				movement_instruction_ISR = 2;
+			}
+			if(bitone == 0 && bittwo == 0 && bitthree == 1 ){ //Go left
+				movement_instruction_ISR = 3;
+			}
+			if(bitone == 0 && bittwo == 1 && bitthree == 0 ){ //Go right
+				movement_instruction_ISR = 4;
+			}
+			else{
+				movement_instruction_ISR = 0;
+			}
+
+
+
+			
 			
 			if(movement_instruction_ISR  == 1)
 			{
@@ -657,7 +624,6 @@ void main(void)
 				stop_motors();
 				movement_instruction_ISR = 0;
 
-				
 			}
 			else if(movement_instruction_ISR == 2)
 			{
@@ -666,7 +632,6 @@ void main(void)
 				stop_motors();
 				movement_instruction_ISR = 0;
 
-				
 			}
 
 
@@ -695,5 +660,5 @@ void main(void)
 		}
 	
 	}
-	delay_ms(5);
+	delay_ms(50);
 }
