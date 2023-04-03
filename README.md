@@ -11,6 +11,8 @@ Base Features/Requirements
 - [x] Follower Mode
 - [ ] Integration                            (IN PROGRESS)
 - [x] Distance - 50 cm
+- [ ] Project Report
+- [ ] Video Presentation
 
 Additional Features:
 - [ ] Go home (5 points) 
