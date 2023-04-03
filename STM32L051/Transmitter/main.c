@@ -420,21 +420,21 @@ int main(void)
 
 		if(x>3750 || x<345){
 			if(x>3700){
-				//current_left = 0;
+				current_left = 0;
 				command = 3;
 			}
 			else {
-				//current_right = 0;
+				current_right = 0;
 				command = 4;
 			}
 		}
 		else if (y>3700 || y<500) {
 			if (y>3700) {
-				//current_reverse = 0;
+				current_reverse = 0;
 				command = 2;
 			} 
 			else {
-				//current_forward = 0;
+				current_forward = 0;
 				command = 1;
 			}
 		}
@@ -468,7 +468,7 @@ int main(void)
 		{
 			// horn
 
-			sendCommandGenerator(command);
+			//sendCommandGenerator(command);
 
 			command = 0;
 
