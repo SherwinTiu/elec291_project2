@@ -39,8 +39,8 @@
 
 volatile int ISR_pwm1=150, ISR_pwm2=150, ISR_cnt=0, ISR_frc, ISR_cnt2=0; 
 long int time_ISR = 0;
-long int Prev_V_ISR = 0, Peak_V_ISR = 0;
-int movement_instruction_ISR=0;
+long int Prev_V_ISR, Peak_V_ISR = 0;
+int movement_instruction_ISR=0, bitone, bittwo, bitthree;
 
 int ADCRead(char analogPIN)
 {
@@ -86,6 +86,14 @@ void __ISR(_TIMER_1_VECTOR, IPL5SOFT) Timer1_Handler(void)
 
 }
 
+void delay_ms (int msecs)
+{	
+	int ticks;
+	ISR_frc=0;
+	ticks=msecs/20;
+	while(ISR_frc<ticks);
+}
+
 
  __ISR(_TIMER_2_VECTOR, IPL5SOFT) Timer2_Handler(void)
 {
@@ -95,16 +103,16 @@ void __ISR(_TIMER_1_VECTOR, IPL5SOFT) Timer1_Handler(void)
 
 	if(ISR_cnt2 == 1000){
 		
-		if(ADCRead(4) * 3290.0 / 1023.0 < 0.9 * Prev_V_ISR){
+		if(ADCRead(4) * 3290.0 / 1023.0 - 175 < 0.85 * (Prev_V_ISR-175)){
 			T2CONbits.ON = 1;
 			_CP0_SET_COUNT(0);
 			Peak_V_ISR = Prev_V_ISR;
 			
-			while(ADCRead(4) * 3290.0 / 1023.0 < 0.9 * Peak_V_ISR);
+			while(ADCRead(4) * 3290.0 / 1023.0 - 175 < 0.7 * (Peak_V_ISR -175));
 
             T2CONbits.ON = 0;
 			time_ISR = (_CP0_GET_COUNT() / (SYSCLK/(2*1000))) * 1000; // TIME in uS
-			printf("Time ISR: %d", time_ISR);
+			printf("Time ISR: %d\r\n", time_ISR);
 			T2CONbits.ON = 1;
 
 			if(time_ISR <= 25000){                    //no signal
@@ -112,12 +120,12 @@ void __ISR(_TIMER_1_VECTOR, IPL5SOFT) Timer1_Handler(void)
 				time_ISR = 0;
 			}
 
-			if(time_ISR > 25000 && time_ISR <= 75000){   //go right
+			if(time_ISR > 25000 && time_ISR <= 70000){   //go right
 				movement_instruction_ISR = 4;
 				time_ISR = 0;
 			}
 
-			if(time_ISR > 75000 && time_ISR <= 125000){  //go backward
+			if(time_ISR > 70000 && time_ISR <= 125000){  //go backward
 				movement_instruction_ISR = 2;
 				time_ISR = 0;
 			}
@@ -145,21 +153,85 @@ void __ISR(_TIMER_1_VECTOR, IPL5SOFT) Timer1_Handler(void)
 		}
 
 		else{
-			Prev_V_ISR = ADCRead(4) * 3290.0 / 1023.0;
-		}
-		
+				Prev_V_ISR = ADCRead(4) * 3290.0 / 1023.0;
+			}
 	}
 
-	if(ISR_cnt2 >= 1000)
-		{
-			ISR_cnt2=0; // 1000 * 10us=10ms
+	/*if(ISR_cnt2 % 100 == 0){
+		
+		if(ADCRead(4) * 3290.0 / 1023.0 < 0.2 ){
+
+			while(ADCRead(4) * 3290.0 / 1023.0 < 0.2);
+
+			delay_ms(93);
+
+			if(ADCRead(4) * 3290.0 / 1023.0 < 0.2 ){
+					bitone = 0;
+			}
+
+			else{
+					bitone = 1;
+			}
+
+			delay_ms(62);
+
+			if(ADCRead(4) * 3290.0 / 1023.0 < 0.2 ){
+				bittwo = 0;
+			}
+
+			else{
+				bittwo = 1;
+			}
+
+			delay_ms(62);
+
+			if(ADCRead(4)  * 3290.0 / 1023.0 < 0.2 ){
+				bitthree = 0;
+			}
+
+			else{
+				bitthree = 1;
+			}
+
+
+
+			if(bitone == 0 && bittwo == 1 && bitthree == 1 ){ //Go forward
+				movement_instruction_ISR = 1;
+			}
+
+			if(bitone == 1 && bittwo == 0 && bitthree == 0 ){ //Go backward
+				movement_instruction_ISR = 2;
+			}
+
+			if(bitone == 0 && bittwo == 0 && bitthree == 1 ){ //Go left
+				movement_instruction_ISR = 3;
+			}
+
+			if(bitone == 0 && bittwo == 1 && bitthree == 0 ){ //Go right
+				movement_instruction_ISR = 4;
+			}
+
+			else{
+				movement_instruction_ISR = 0;
+			}
+
+			printf("movement instruction ISR %d\r\n", movement_instruction_ISR);
+
+			}
+			
 		}
-    
-	if(ISR_cnt2>=1000)
-	{
-		ISR_cnt2=0; // 1000 * 10us=10ms
-		//printf("Time ISR: %d", time_ISR);
+
+		else{
+			Peak_V_ISR = ADCRead(4) * 3290.0 / 1023.0;
+		}
+
+		
+	}*/
+	if(ISR_cnt2 >= 1000){
+	
+			ISR_cnt2=0; // 1000 * 10us=10ms
 	}
+    
 
 	if(time_ISR <= 25000){                    //no signal
 		movement_instruction_ISR = 0;
@@ -239,14 +311,6 @@ void wait_1ms(void)
     while ( _CP0_GET_COUNT() < (SYSCLK/(2*1000)) );
 }
 
-void delay_ms (int msecs)
-{	
-	int ticks;
-	ISR_frc=0;
-	ticks=msecs/20;
-	while(ISR_frc<ticks);
-}
-
 void waitms(int len)
 {
 	while(len--) wait_1ms();
@@ -255,38 +319,7 @@ void waitms(int len)
 #define PIN_PERIOD (PORTB&(1<<5))
 
 // GetPeriod() seems to work fine for frequencies between 200Hz and 700kHz.
-long int GetPeriod (int n)
-{
-	int i;
-	unsigned int saved_TCNT1a, saved_TCNT1b;
-	
-    _CP0_SET_COUNT(0); // resets the core timer count
-	while (PIN_PERIOD!=0) // Wait for square wave to be 0
-	{
-		if(_CP0_GET_COUNT() > (SYSCLK/8)) return 0;
-	}
 
-    _CP0_SET_COUNT(0); // resets the core timer count
-	while (PIN_PERIOD==0) // Wait for square wave to be 1
-	{
-		if(_CP0_GET_COUNT() > (SYSCLK/8)) return 0;
-	}
-	
-    _CP0_SET_COUNT(0); // resets the core timer count
-	for(i=0; i<n; i++) // Measure the time of 'n' periods
-	{
-		while (PIN_PERIOD!=0) // Wait for square wave to be 0
-		{
-			if(_CP0_GET_COUNT() > (SYSCLK/8)) return 0;
-		}
-		while (PIN_PERIOD==0) // Wait for square wave to be 1
-		{
-			if(_CP0_GET_COUNT() > (SYSCLK/8)) return 0;
-		}
-	}
-
-	return  _CP0_GET_COUNT();
-}
  
 void UART2Configure(int baud_rate)
 {
@@ -495,6 +528,8 @@ void main(void)
 	uart_puts("Measures period on RB5 (pin 14 of DIP28 package)\r\n");
 	uart_puts("Toggles RA0, RA1, RB0, RB1, RA2 (pins 2, 3, 4, 5, 9, of DIP28 package)\r\n");
 	uart_puts("Generates Servo PWM signals at RA3, RB4 (pins 10, 11 of DIP28 package)\r\n\r\n");
+
+	Prev_V_ISR = ADCRead(4) * 3290.0 / 1023.0;
 	
 	//set motors off initially
 	LATAbits.LATA2 = 1;
@@ -613,7 +648,8 @@ void main(void)
 		//if control mode (mode = 1)
 		if(mode == 1){
 			
-			v1 = real_time_average_V1();
+			//v1 = real_time_average_V1();
+			while(movement_instruction_ISR == 0);
 
 			printf("\n\r %d", movement_instruction_ISR);
 			
@@ -624,7 +660,6 @@ void main(void)
 				stop_motors();
 				movement_instruction_ISR = 0;
 
-				
 			}
 			else if(movement_instruction_ISR == 2)
 			{
@@ -633,7 +668,6 @@ void main(void)
 				stop_motors();
 				movement_instruction_ISR = 0;
 
-				
 			}
 
 
