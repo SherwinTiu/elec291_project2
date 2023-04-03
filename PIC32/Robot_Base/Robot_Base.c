@@ -44,6 +44,7 @@ volatile int movement_instruction_ISR=0;
 volatile int bitone, bittwo, bitthree;
 volatile int entered_if_statement = 0;
 long int timer_count = 0;
+long int adc_four;
 
 int ADCRead(char analogPIN)
 {
@@ -164,31 +165,32 @@ void delay_ms (int msecs)
 
 	if(ISR_cnt2 % 100 == 0){
 		timer_count++;
+		adc_four = ADCRead(4) * 3290.0 / 1023.0;
 		
-		if(ADCRead(4) * 3290.0 / 1023.0 < 200 ){
+		if(adc_four < 200 ){
 
 			
 			//printf("entered if statemtn\r\n");
 			
-			while(ADCRead(4) * 3290.0 / 1023.0 < 200);
+			//while(ADCRead(4) * 3290.0 / 1023.0 < 200);
 			
 			//delay_ms(93);
 			
-			if(ADCRead(4) * 3290.0 / 1023.0 < 200 && timer_count < 93){
+			if(timer_count < 93){
 					bitone = 0;
 			}
 			else{
 					bitone = 1;
 			}
 			//delay_ms(62);
-			if(ADCRead(4) * 3290.0 / 1023.0 < 200 && timer_count >= 93 && timer_count < 155){
+			if(timer_count >= 93 && timer_count < 155){
 				bittwo = 0;
 			}
 			else{
 				bittwo = 1;
 			}
 			//delay_ms(62);
-			if(ADCRead(4)  * 3290.0 / 1023.0 < 200 /*&& timer_count >= 155 && timer_count <= 217*/){
+			if(timer_count >= 155 && timer_count <= 217){
 				bitthree = 0;
 			}
 			else{
