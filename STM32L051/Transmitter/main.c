@@ -319,7 +319,7 @@ void sendCommandGenerator(int command) {
 	NVIC->ICER[0] |= BIT15;
 	delayms(62); // bit 0 turn off signal
 	NVIC->ISER[0] |= BIT15; 
-	delayms(62); // bit 1 turn on signal for 62 ms
+    delayms(62); // bit 1 turn on signal for 62 ms
 
 	// turn left
 	if (command == 1) {

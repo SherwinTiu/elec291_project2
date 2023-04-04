@@ -226,6 +226,14 @@ void delay_ms (int msecs)
 	while(ISR_frc<ticks);
 }
 
+void delay_us (int usecs)
+{	
+	int ticks;
+	ISR_frc=0;
+	ticks=usecs/20000;
+	while(ISR_frc<ticks);
+}
+
 void waitms(int len)
 {
 	while(len--) wait_1ms();
@@ -326,11 +334,9 @@ void ConfigurePins(void)
     TRISBbits.TRISB2 = 1;   // set RB2 as an input
     ANSELBbits.ANSB3 = 1;   // set RB3 (AN5, pin 7 of DIP28) as analog pin
     TRISBbits.TRISB3 = 1;   // set RB3 as an input
-    ANSELAbits.ANSA1 = 1; //pin 3 echo
-	//pins for the sensor
-	//LATAbits.LATA0 = 0; //pin 2 trigger
+    TRISBbits.TRISB14 = 1; //pin 3 echo (TRIS = DIGITAL, ANSEL = ANALOG)
 	
-    
+	
 	// Configure digital input pin to measure signal period
 	ANSELB &= ~(1<<5); // Set RB5 as a digital I/O (pin 14 of DIP28)
     TRISB |= (1<<5);   // configure pin RB5 as input
@@ -342,8 +348,7 @@ void ConfigurePins(void)
     // CNPUBbits.CNPUB5=1;
     
     // Configure output pins
-	TRISAbits.TRISA0 = 0; // pin  2 of DIP28
-	TRISAbits.TRISA1 = 0; // pin  3 of DIP28
+	//TRISAbits.TRISA1 = 0; // pin  3 of DIP28
 	TRISBbits.TRISB0 = 0; // pin  4 of DIP28
 	TRISBbits.TRISB1 = 0; // pin  5 of DIP28
 	//TRISAbits.TRISA2 = 0; // pin  9 of DIP28
@@ -351,7 +356,7 @@ void ConfigurePins(void)
 	//TRISBbits.TRISB4 = 0; // pin 11 of DIP28
 	INTCONbits.MVEC = 1;
 	//pins for the sensor
-	TRISAbits.TRISA0 = 0; //pin 2 trigger
+	TRISBbits.TRISB15 = 0; //pin 2 trigger
 
 	//Configure output pins for motor
 	TRISBbits.TRISB0 = 0; // pin4
@@ -553,33 +558,43 @@ long int real_time_average_V2(){
 	return sum_V2 * 3290L / 1023L / 20L;
 }
 
-//returns 1 if obstacle close af
+//returns 1 if obstacle close as fuck
 int detect_obstacle(movement_instruction)
 {
 	//  declare honk
 	int distance = 0;
 	long int time = 0;
 
-	T1CONbits.ON = 1; //turn on timer
+	T1CONbits.ON = 1; //turn on timer initially
 	//_CP0_SET_COUNT(0);
-	// you need to send the pulse to the sensor
 	TMR1 = 0; //reset the timer
-	_CP0_SET_COUNT(0);
-    LATAbits.LATA0 = 0; //on
-	delay_ms(10);
-	LATAbits.LATA0 = 1; //off
+	// you need to send the pulse to the sensor
+    LATBbits.LATB15 = 0; //on
+	delay_us(10);
+	LATBbits.LATB15 = 1; //off
 
+	while(PORTBbits.RB14 == 0){
+		printf("\r\necho: %d ", PORTBbits.RB14);
+	} //count timer while echo is off
 
-	while(ADCRead(1) * 3290.0 / 1023.0 < 0.3); //count timer while echo is off
-	T1CONbits.ON = 0; //turn timer off
+	T1CONbits.ON = 1; //turn on timer
+	
+	while(PORTBbits.RB14 == 1){
+		printf("\r\necho: %d ", PORTBbits.RB14);
+	} 
+
+	T1CONbits.ON = 0; //turn off timer
+
 	//get inst time
 	time = _CP0_GET_COUNT() / (SYSCLK/(2*1000)) * 1000; //time in us 
 	T1CONbits.ON = 1; //turn on timer
 
-	
-	distance = time * 0.034 / 2 * 1000 //this is in 10^-5 m
+	distance = time * 0.034 / 2 * 1000; //this is in 10^-5 m
+	printf("\r\nDistance: %d ", distance);
+	printf("\r\nTime_Sensor: %d ", time);
 	
 	if(distance < 1000){
+		
 		return 1;
 	}
 	else{
@@ -689,7 +704,6 @@ void main(void)
 		
 		mode = mode_handler(movement_instruction, mode);
 		
-
 		/*1. 0 means go forward
   		  2. 1 means go backward
   		  3. 2 means turn left
@@ -726,8 +740,7 @@ void main(void)
 					go_forward();
 					//delay_ms(10);
 			    	//stop_motors();
-					//delay_ms(100);
-					//stop_motors();
+
 				}
 
 				else if(v1 > 800){ // 750
@@ -740,9 +753,6 @@ void main(void)
 				// 	stop_motors();
 				// }
 
-				// else {
-				// 	stop_motors();
-				// }
 			}
 
 			//else if()
@@ -754,7 +764,9 @@ void main(void)
 			movement_instruction = determine_car_movement(v1);
 
 			printf("\n\r %d", movement_instruction);
-			detect_obstacle(movement_instruction);
+			int test = detect_obstacle(movement_instruction);
+
+			printf("\r\n Test result: %d ", test);
 			
 			// if(movement_instruction  == 0)
 			// {
@@ -862,38 +874,4 @@ void main(void)
 	//stop_motors();
 }
 
-
-int detect_obstacle(movement_instruction)
-{
-	//  declare honk
-	int distance = 0;
-	long int time = 0;
-
-	T1CONbits.ON = 1; //turn on timer
-	//_CP0_SET_COUNT(0);
-	// you need to send the pulse to the sensor
-	TMR1 = 0; //reset the timer
-	_CP0_SET_COUNT(0);
-    LATAbits.LATA0 = 0; //on
-	delay_ms(10);
-	LATAbits.LATA0 = 1; //off
-
-
-	while(ADCRead(1) * 3290.0 / 1023.0 < 0.3); //count timer while echo is off
-	T1CONbits.ON = 0; //turn timer off
-	//get inst time
-	time = _CP0_GET_COUNT() / (SYSCLK/(2*1000)) * 1000; //time in us 
-	T1CONbits.ON = 1; //turn on timer
-
-	
-	distance = time * 0.034 / 2 * 1000 //this is in 10^-5 m
-	
-	if(distance < 1000){
-		return 1;
-	}
-	else{
-		return 0;
-	}
-
-}
 
