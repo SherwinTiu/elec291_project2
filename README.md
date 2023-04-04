@@ -33,7 +33,6 @@ Additional Features:
 - [ ] Speedometer
 - [ ] Ultrasonic Sensor Auto-stop/Auto-brake (IN PROGRESS)
 - [ ] Extra movements
-- [ ] Memory movements
 - [ ] Blinkers
 - [ ] HONK! Buzzer                           (IN PROGRESS)
 - [ ] HC04 Bluetooth
