@@ -479,7 +479,7 @@ int determine_car_movement(double adcvalue_control_mode){
 	// }
 
 	//stop_motors();
-	printf("\r\nTime: %d ",time);
+	//printf("\r\nTime: %d ",time);
 	
 	//depending on the duration of no signal, return appropriate movement
 
@@ -559,7 +559,7 @@ long int real_time_average_V2(){
 }
 
 //returns 1 if obstacle close as fuck
-int detect_obstacle(movement_instruction)
+/*int detect_obstacle(movement_instruction)
 {
 	//  declare honk
 	int distance = 0;
@@ -601,6 +601,37 @@ int detect_obstacle(movement_instruction)
 		return 0;
 	}
 
+}*/
+
+float MeasurePulse(void)
+{
+    float pw;
+    uint8_t overflow_count;
+
+    LATBbits.LATB15 = 1;
+    delay_us(10);
+    LATBbits.LATB15 = 0;
+
+    // Reset the counter
+    TMR1 = 0;
+    overflow_count = 0;
+
+    while (PORTBbits.RB14 == 0); // Wait for the signal
+    T1CONbits.ON = 1;           // Start the timer
+
+    while (PORTBbits.RB14)
+    {
+        if (IFS0bits.T1IF) // Did the 16-bit timer overflow?
+        {
+            IFS0bits.T1IF = 0;
+            overflow_count++;
+            if (overflow_count > 5) break;
+        }
+    }
+
+    T1CONbits.ON = 0; // Stop timer 2, the 24-bit number [overflow_count-TMR2] has the period!
+    pw = (overflow_count * 65536.0 + TMR1) * (1 / (float)SYSCLK);
+    return pw; //pulse width
 }
 
 
@@ -620,6 +651,10 @@ void main(void)
 	long int sampleV_arr2[20];
 	int array_count = 0;
 
+	// for sensor
+	float pulse_time_average = 0.0;
+	int i;
+
 	CFGCON = 0;
   
     UART2Configure(115200);  // Configure UART2 for a baud rate of 115200
@@ -627,7 +662,7 @@ void main(void)
 	ADCConf(); // Configure ADC
     SetupTimer1();
     
-    waitms(50); // Give PuTTY time to start
+    waitms(100); // Give PuTTY time to start
 	uart_puts("\x1b[2J\x1b[1;1H"); // Clear screen using ANSI escape sequence.
 	uart_puts("\r\nPIC32 multi I/O example.\r\n");
 	uart_puts("Measures the voltage at channels 4 and 5 (pins 6 and 7 of DIP28 package)\r\n");
@@ -640,7 +675,7 @@ void main(void)
 	LATAbits.LATA3 = 1;
 	LATBbits.LATB4 = 1; 
 	LATAbits.LATA4 = 1;
-	mode = 0;
+	mode = 1;
 
 
 
@@ -741,6 +776,8 @@ void main(void)
 					//delay_ms(10);
 			    	//stop_motors();
 
+					
+
 				}
 
 				else if(v1 > 800){ // 750
@@ -763,10 +800,31 @@ void main(void)
 			v1 = real_time_average_V1();
 			movement_instruction = determine_car_movement(v1);
 
-			printf("\n\r %d", movement_instruction);
-			int test = detect_obstacle(movement_instruction);
+			//printf("\n\r %d", movement_instruction);
+			//int test = detect_obstacle(movement_instruction);
 
-			printf("\r\n Test result: %d ", test);
+			//printf("\r\n Test result: %d ", test);
+
+		// ===============================================================================================
+
+			// Sensor code from EFM8 Sample Code
+			// Change number i < X to something else
+			// How would this affect timing?
+			/*for(i=0; i<10; i++){
+				pulse_time_average += MeasurePulse();
+				waitms(10);
+			}*/
+			//pulse_time_average /= 10;
+			pulse_time_average = MeasurePulse();
+			printf("\r\n time average of pulse: %5.3fms", pulse_time_average * 1000.0);
+			//printf("\r\n Pulse Time Average: %5.3fms d=%7.3fcm", pulse_time_average * 1000.0, pulse_time_average * 34300.0/2.0);
+			
+			// Replace distance (2003) with actual calculations
+			/*if(pulse_time_average <= 2003){	// Too close!
+				stop_motors(); // Or equivalent
+			}*/
+
+		// ===============================================================================================
 			
 			// if(movement_instruction  == 0)
 			// {
