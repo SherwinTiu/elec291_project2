@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <stdint.h>
 #include <stdbool.h>
+#include <math.h>
 
 
 /* Pinout for DIP28 PIC32MX130:
@@ -112,7 +113,7 @@ void delay_ms (int msecs)
 
 
 
- __ISR(_TIMER_2_VECTOR, IPL5SOFT) Timer2_Handler(void){
+__ISR(_TIMER_2_VECTOR, IPL5SOFT) Timer2_Handler(void){
 
 	IFS0CLR=_IFS0_T2IF_MASK; // Clear timer 2 interrupt flag, bit 4 of IFS0
 
@@ -125,8 +126,13 @@ void delay_ms (int msecs)
 			_CP0_SET_COUNT(0);
 			Peak_V_ISR = Prev_V_ISR;
 			
-			//while(ADCRead(4) * 3290.0 / 1023.0 - 150 < 0.75 * (Peak_V_ISR -150) && movement_flag != 1);
-			while(ADCRead(4) * 3290.0 / 1023.0 - 150 < 0.85 * (Peak_V_ISR -150) && movement_flag != 1);
+			while(ADCRead(4) * 3290.0 / 1023.0 - 150 < 0.85 * (Peak_V_ISR -150) && movement_flag != 1){
+				if ((_CP0_GET_COUNT() / (SYSCLK/(2*1000))) * 1000 > 350000){
+					Peak_V_ISR = -100000;
+					break;
+				}
+			}
+			//while(ADCRead(4) * 3290.0 / 1023.0 - 150 < 0.85 * (Peak_V_ISR -150) && movement_flag != 1);
 
 
 			//while(ADCRead(4) * 3290.0 / 1023.0 - 150 < 100 && movement_flag != 1);
@@ -137,7 +143,7 @@ void delay_ms (int msecs)
 			//time_ISR = 2 * (_CP0_GET_COUNT() / (SYSCLK/(2*1000))) * 1000; // TIME in uS
 
 			
-			//printf("Time ISR: %d\r\n", time_ISR);
+			printf("Time ISR: %d\r\n", time_ISR);
 			
 			T2CONbits.ON = 1;
 
@@ -146,36 +152,41 @@ void delay_ms (int msecs)
 				time_ISR = 0;
 			}
 
-			else if(time_ISR > 80000 && time_ISR <= 120000){  //go backward ///was 75000 and 125000 
+			else if(time_ISR > 80000 && time_ISR <= 120000 ){  //go backward ///was 75000 and 125000 
 				movement_instruction_ISR = 2;
 				time_ISR = 0;
 			}
 
-			else if(time_ISR > 130000 && time_ISR <= 170000){ //go left ///was 125000 and 175000
+			else if(time_ISR > 130000  && time_ISR <= 170000 ){ //go left ///was 125000 and 175000
 				movement_instruction_ISR = 3;
 				time_ISR = 0;
 			}
 
-			else if(time_ISR > 180000 && time_ISR <= 220000){ //go forward //was 175000 and 225000
+			else if(time_ISR > 180000 && time_ISR <= 220000 ){ //go forward //was 175000 and 225000
 				movement_instruction_ISR = 1;
 				time_ISR = 0;
 			}
 
-			else if(time_ISR > 230000 && time_ISR <= 270000){ //go right ///was 225000 and 275000
+			else if(time_ISR > 230000  && time_ISR <= 270000 ){ //go right ///was 225000 and 275000
 				movement_instruction_ISR = 4;
 				time_ISR = 0;
 			}
 
-			else if(time_ISR > 270500 && time_ISR <= 340000){ //switch mode ///was 275000 and 325000
+			else if(time_ISR > 270500  && time_ISR <= 340000 ){ //switch mode ///was 275000 and 325000
 				movement_instruction_ISR = 5;
 				time_ISR = 0;
 			}
 
-			else if(time_ISR >= 350000){                      //no signal /// was 325000
+			else if(time_ISR >= 350000 ){                      //no signal /// was 325000
 				//movement_instruction_ISR = 0;
 				time_ISR = 0;
 			}
+			
+			else{
+				time_ISR = 0;
+			}
 
+			//
 			//printf("movement instruction: %d\r\n", time_ISR);
 
 		}
@@ -214,99 +225,19 @@ void delay_ms (int msecs)
 		}*/
 
 		else{
-				Prev_V_ISR = ADCRead(4) * 3290.0 / 1023.0;
+			Prev_V_ISR = ADCRead(4) * 3290.0 / 1023.0;
+			time_ISR = 0;
 		}
-		
-
 	}
 
-	if(ISR_cnt2 >= 1000){
 
-			//printf("entered if statemnt: %d\n\r", entered_if_statement );
-			//printf("movement instruction:  %d \n\r", movement_instruction_ISR);
+	if(ISR_cnt2 >= 1000){
 			ISR_cnt2=0; // 1000 * 10us=10ms
 	}
 
-	/*else if(time_ISR >= 350000){                      //no signal /// was 325000
-				//movement_instruction_ISR = 0;
-				time_ISR = 0;
-	}*/
-    
-
-
-	/*if(ISR_cnt2 % 100 == 0){
-		//timer_count++;
-		adc_four = ADCRead(4) * 3290L / 1023L;
-		
-		if(adc_four < 200 || timer_count > 0){
-			/*if(adc_four < 200){
-				uart_puts("adcfour thing\r\n");
-			}
-			
-			if(timer_count > 0){
-				uart_puts("timer thing\r\n");
-			}
-			timer_count++;
-			
-				if (timer_count == 250 && adc_four > 1000) {
-					bitone = 1;
-					uart_puts("bit one 1\r\n");
-
-				}
-				else if (timer_count == 250 && adc_four < 1000) {
-					bitone = 0;
-					uart_puts("bit one 0\r\n");
-				}
-				else if (timer_count == 350 && adc_four > 500) {
-					bittwo = 1;
-					uart_puts("bit two 1\r\n");
-
-
-				}
-				else if (timer_count == 350 && adc_four < 500) {
-					bittwo = 0;
-					uart_puts("bit two 0\r\n");
-
-
-				}
-				else if (timer_count == 450 && adc_four > 200) {
-					bitthree = 1;
-					uart_puts("bit three 1\r\n");
-
-				}
-				else if (timer_count == 450 && adc_four < 200) {
-					bitthree = 0;
-					uart_puts("bit three 0\r\n");
-
-				}
-		}
-		
-		
-	}*/
-    
-	/*if (timer_count > 470) {
-
-		if(bitone == 0 && bittwo == 1 && bitthree == 1 ){ //Go forward
-				movement_instruction_ISR = 1;
-			}
-			if(bitone == 1 && bittwo == 0 && bitthree == 0 ){ //Go backward
-				movement_instruction_ISR = 2;
-			}
-			if(bitone == 0 && bittwo == 0 && bitthree == 1 ){ //Go left
-				movement_instruction_ISR = 3;
-			}
-			if(bitone == 0 && bittwo == 1 && bitthree == 0 ){ //Go right
-				movement_instruction_ISR = 4;
-			}
-	}
 	
-	if(timer_count > 520){
 		
-		timer_count = 0;
-		bitone = 1;
-		bitthree = 1;
-		bittwo = 1;
-	}*/
+		
 	
 }
 
@@ -422,9 +353,12 @@ void ConfigurePins(void)
 	
 	//ANSELAbits.ANSA1 = 1;   // the button input for the switch mode
 	//Button tx	`o switch modes
-	ANSELA &= ~(1<<1); // Set RA1 as a digital I/O
-    TRISA |= (1<<1);   // configure pin RA1 as input
-    CNPUA |= (1<<1);   // Enable pull-up resistor for RA1
+	//ANSELA &= ~(1<<1); // Set RA1 as a digital I/O
+    //TRISA |= (1<<1);   // configure pin RA1 as input
+    //CNPUA |= (1<<1);   // Enable pull-up resistor for RA1
+	ANSELAbits.ANSA1 = 0;
+	TRISAbits.TRISA1 = 1;
+	CNPUA |= (1<<1);   // Enable pull-up resistor for RA1
     
 	// Configure digital input pin to measure signal period
 	ANSELB &= ~(1<<5); // Set RB5 as a digital I/O (pin 14 of DIP28)
@@ -438,7 +372,7 @@ void ConfigurePins(void)
     
     // Configure output pins
 	TRISAbits.TRISA0 = 0; // pin  2 of DIP28
-	TRISAbits.TRISA1 = 0; // pin  3 of DIP28
+	//TRISAbits.TRISA1 = 0; // pin  3 of DIP28
 	TRISBbits.TRISB0 = 0; // pin  4 of DIP28
 	TRISBbits.TRISB1 = 0; // pin  5 of DIP28
 	//TRISAbits.TRISA2 = 0; // pin  9 of DIP28
@@ -451,6 +385,12 @@ void ConfigurePins(void)
 	TRISBbits.TRISB1 = 0; // pin5
 	TRISAbits.TRISA2 = 0; // pin9
 	TRISAbits.TRISA4 = 0; // pin12
+
+
+	// Pin RA3 as pushbutton
+	//ANSELAbits.ANSA3 = 0;
+	//TRISAbits.TRISA3 = 1;
+	//CNPUA |= (1<<3);   // Enable pull-up resistor for RA1
 }
 
 void PrintFixedPoint (unsigned long number, int decimals)
@@ -519,6 +459,18 @@ if(mode == 1){
 else if(mode == 0){
 	movement_flag_follow = 0;
 }
+}
+
+void stop_motors2(){
+	//printf("\n\r0ol");
+	//all motor pins off
+	LATBbits.LATB0 = 1; //pin 4
+	LATBbits.LATB1 = 1; //pin 5
+	LATAbits.LATA2 = 1; //pin 9
+	LATAbits.LATA4 = 1; //pin 12
+	movement_flag = 0;
+
+
 }
 
 
@@ -615,45 +567,92 @@ int reverseCommand(int command) {
 
 
 void goHome(int* go_home_array, int size) {
-	while (size > 0) {
-		if(go_home_array[size] == 1)
+	while (size-1 >= 0) {
+		    if(go_home_array[size-1] == 1)
 			{
 				go_forward();
 				//printf("going forward\r\n");
 				delay_ms(700);
 				//printf("stopped moving\r\n");
-				stop_motors();
+				stop_motors2();
 
 			}
-			else if(go_home_array[size] == 2)
+			
+			else if(go_home_array[size-1] == 2)
 			{
 				go_backward();
 				//printf("going back\r\n");
 				delay_ms(700);
 				//printf("stopped moving\r\n");
-				stop_motors();
+				stop_motors2();
 			}
 
-			else if(go_home_array[size] == 3)
+			else if(go_home_array[size-1] == 3)
 			{
 				turn_left();
 				//printf("going left\r\n");
 				delay_ms(700);
 				//printf("stopped moving\r\n");
-				stop_motors();
+				stop_motors2();
 			}
 
-			else if(go_home_array[size] == 4)
+			else if(go_home_array[size-1] == 4)
 			{
 				turn_right();
 				//printf("going right\r\n");
 				delay_ms(700);
 				//printf("stopped moving\r\n");
-				stop_motors();
+				stop_motors2();
 			}
 			size--;
-	}
+			delay_ms(50);
+	} 
 	return;
+}
+
+// Calculation angle for robot to turn in Go Home Fast
+double angle_diff(double curr_x, double curr_y, double robot_angle) {
+	double angle_to_origin = atan2(-curr_y, -curr_x)*(18000/314); // gives angle in degrees
+
+	// Calculate difference between orientation angle of robot and angle_to_origin
+	double diff = robot_angle*(18000/314) - angle_to_origin;
+
+	while (diff > 180) {
+		diff -= 360;
+	}
+
+	while (diff < -180) {
+		diff += 360;
+	}
+
+	return diff;
+}
+
+// Go Home Fast Movement
+void goHomeFast(double angle, double distance) {
+	// Turn first 
+	if (angle < 0) {
+		turn_right();
+		//printf("going right\r\n");
+		delay_ms(angle*700/90);
+		//printf("stopped moving\r\n");
+		stop_motors();
+	}
+	else if (angle > 0) {
+		turn_left();
+		//printf("going right\r\n");
+		delay_ms(angle*700/90);
+		//printf("stopped moving\r\n");
+		stop_motors();
+	}
+	delay_ms(30);
+
+	// Move in path
+	go_forward();
+	//printf("going forward\r\n");
+	delay_ms((int) 700 * distance);
+	//printf("stopped moving\r\n");
+	stop_motors();
 }
 
 
@@ -678,6 +677,12 @@ void main(void)
 	int reversed_command;
 	int go_home[100];
 	int go_home_count = 0;
+
+
+	// Go Home Fast variables
+	double curr_x = 0; // current x coordinate of robot
+	double curr_y = 0; // current y coordinate of robot
+	double orientation_angle = 0; // robots current angle of orientation relative to the x axis 
 
 	CFGCON = 0;
   
@@ -729,7 +734,7 @@ void main(void)
 		uart_puts("\r\n, V_left=");
 		
 			v1 = real_time_average_V1();
-			printf(" V1_test =  %d ,", v1);
+			//printf(" V1_test =  %d ,", v1);
 			PrintFixedPoint(v1, 3);
 			uart_puts("V ");
 		
@@ -745,7 +750,7 @@ void main(void)
 
 
 		left_right_difference = v1 - v2;
-		printf(" left_diff : %f \r\n", left_right_difference);
+		//printf(" left_diff : %f \r\n", left_right_difference);
 		//***********************************************************
 
 	/*if(mode == 0 && movement_flag_follow == 0){
@@ -786,7 +791,7 @@ void main(void)
             movement_instruction_ISR = 0;
 		}
 
-		if(mode == 0 && v1 != 0){
+		if(mode == 0 /*&& v1 != 0*/){
 			//printf("\r\nDifference: %f", left_right_difference); 
 
 			//mode = mode_handler(movement_instruction, mode);
@@ -795,7 +800,7 @@ void main(void)
 			//movement_flag = 1;
 
 			//printf("\n\r%f", left_right_difference);
-			if(left_right_difference > (v1+v2)/2*0.12 ){ //if left - right is positive then turn left to align ///was 0.12
+			if(left_right_difference > (v1+v2)/2*0.14 ){ //if left - right is positive then turn left to align ///was 0.12
 				turn_left();
 				//delay_ms(10);	
 				//stop_motors();
@@ -834,23 +839,32 @@ void main(void)
 		}
 		//if control mode (mode = 1)
 		while(mode == 1){
-			printf("RA1: %d", PORTA&(1<<1));
+			
+			//printf("RA1: %d", PORTA&(1<<1));
 			// go home 
+			/*if (PORTAbits.RA1 == 1) {
+					printf("\r\nGoing Home");
+					goHome(go_home, go_home_count);
+				}*/
 			
 			//printf("ADC four: %d\r\n", adc_four);
 			
 			//v1 = real_time_average_V1();
 			
 			while(movement_instruction_ISR == 0) {
-				if (PORTA&(1<<1) == 1) {
-					printf("\r\nGoing Home");
-					goHome(go_home, go_home_count);
+				// if (PORTAbits.RA1 == 0) {
+				// 	//printf("\r\nGoing Home");
+				// 	goHome(go_home, go_home_count);
+				// 	//go_home = [];
+				// 	go_home[0] = 0;
+				// 	go_home_count = 0;
+				// }
+
+				if (PORTAbits.RA1 == 0) {
+					goHomeFast(angle_diff(curr_x, curr_y, orientation_angle), sqrt(pow(curr_x, 2) + pow(curr_y, 2)));
 				}
-				else if (PORTA&(1<<1) == 0) {
-					printf("button");
-				}
-				delay_ms(10);
-			};
+				//delay_ms(10);
+			}
 
 			//printf("\n\r %d", movement_instruction_ISR);
 			//printf("\r\nBit3: %d", bitthree);
@@ -897,6 +911,11 @@ void main(void)
 				delay_ms(700);
 				//printf("stopped moving\r\n");
 				stop_motors();
+
+				// Go Home Fast stuff
+				curr_x += cos(orientation_angle);
+				curr_y += sin(orientation_angle);
+
 				reversed_command = reverseCommand(movement_instruction_ISR);
 				go_home[go_home_count] = reversed_command;
 				movement_instruction_ISR = 0;
@@ -911,6 +930,11 @@ void main(void)
 				delay_ms(700);
 				//printf("stopped moving\r\n");
 				stop_motors();
+
+				// Go Home Fast stuff
+				curr_x += cos(3.14/2 + orientation_angle);
+				curr_y += sin(3.14/2 + orientation_angle);
+
 				reversed_command = reverseCommand(movement_instruction_ISR);
 				go_home[go_home_count] = reversed_command;
 				go_home_count++;
@@ -925,6 +949,10 @@ void main(void)
 				delay_ms(700);
 				//printf("stopped moving\r\n");
 				stop_motors();
+
+				// Go Home Fast stuff
+				orientation_angle += 3.14/2;
+
 				reversed_command = reverseCommand(movement_instruction_ISR);
 				go_home[go_home_count] = reversed_command;
 				go_home_count++;
@@ -938,6 +966,10 @@ void main(void)
 				delay_ms(700);
 				//printf("stopped moving\r\n");
 				stop_motors();
+
+				// Go Home Fast stuff
+				orientation_angle -= 3.14/2;
+
 				reversed_command = reverseCommand(movement_instruction_ISR);
 				go_home[go_home_count] = reversed_command;
 				go_home_count++;
