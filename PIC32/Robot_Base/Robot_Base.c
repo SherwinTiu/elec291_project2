@@ -2,6 +2,9 @@
 #include <sys/attribs.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdint.h>
+#include <stdbool.h>
+
 
 /* Pinout for DIP28 PIC32MX130:
                                           --------
@@ -37,18 +40,23 @@
 #define FREQ 100000L // We need the ISR for timer 1 every 10 us
 #define Baud2BRG(desired_baud)( (SYSCLK / (16*desired_baud))-1)
 
+
 volatile int ISR_pwm1=150, ISR_pwm2=150, ISR_cnt=0, ISR_frc, ISR_cnt2=0; 
 long int time_ISR = 0;
 long int Prev_V_ISR, Peak_V_ISR = 0;
 volatile int bitone, bittwo, bitthree;
 volatile int movement_instruction_ISR = 0; 
 volatile int movement_flag = 0;
+volatile int movement_flag_follow = 0;
+int mode;
+
 
 volatile int entered_if_statement = 0;
 long int timer_count = 0;
 long int adc_four;
 int startflag1, startflag2, bitflag1,bitflag2,bitflag3 = 0;
 int num_bits_read = 0;
+
 
 int ADCRead(char analogPIN)
 {
@@ -110,7 +118,7 @@ void delay_ms (int msecs)
 
 	ISR_cnt2++;
 
-	if(ISR_cnt2 == 1000 && movement_flag != 1){
+	if(ISR_cnt2 == 1000 && movement_flag != 1 && mode == 1){
 		
 		if(ADCRead(4) * 3290.0 / 1023.0 - 150 < 0.85 * (Prev_V_ISR-150)){
 		    T2CONbits.ON = 1;
@@ -129,7 +137,7 @@ void delay_ms (int msecs)
 			//time_ISR = 2 * (_CP0_GET_COUNT() / (SYSCLK/(2*1000))) * 1000; // TIME in uS
 
 			
-			printf("Time ISR: %d\r\n", time_ISR);
+			//printf("Time ISR: %d\r\n", time_ISR);
 			
 			T2CONbits.ON = 1;
 
@@ -158,23 +166,56 @@ void delay_ms (int msecs)
 				time_ISR = 0;
 			}
 
-			else if(time_ISR > 280000 && time_ISR <= 320000){ //switch mode ///was 275000 and 325000
+			else if(time_ISR > 270500 && time_ISR <= 340000){ //switch mode ///was 275000 and 325000
 				movement_instruction_ISR = 5;
 				time_ISR = 0;
 			}
 
-			else if(time_ISR >= 325000){                     //no signal
+			else if(time_ISR >= 350000){                      //no signal /// was 325000
 				//movement_instruction_ISR = 0;
 				time_ISR = 0;
 			}
 
-			printf("movement instruction: %d\r\n", time_ISR);
+			//printf("movement instruction: %d\r\n", time_ISR);
 
 		}
 
+		///Switch Modes while in follow mode 
+		/*else if(ISR_cnt2 == 1000 && movement_flag_follow != 1 && mode == 0){
+
+			if(ADCRead(4) * 3290.0 / 1023.0 - 150 < 0.85 * (Prev_V_ISR-150)){
+				T2CONbits.ON = 1;
+				_CP0_SET_COUNT(0);
+				Peak_V_ISR = Prev_V_ISR;
+				
+				//while(ADCRead(4) * 3290.0 / 1023.0 - 150 < 0.75 * (Peak_V_ISR -150) && movement_flag != 1);
+				while(ADCRead(4) * 3290.0 / 1023.0 - 150 < 0.85 * (Peak_V_ISR -150) && movement_flag != 1);
+
+
+				//while(ADCRead(4) * 3290.0 / 1023.0 - 150 < 100 && movement_flag != 1);
+
+				T2CONbits.ON = 0;
+				
+				time_ISR = (_CP0_GET_COUNT() / (SYSCLK/(2*1000))) * 1000; // TIME in uS
+				//time_ISR = 2 * (_CP0_GET_COUNT() / (SYSCLK/(2*1000))) * 1000; // TIME in uS
+
+				
+				printf("Time ISR: %d\r\n", time_ISR);
+				
+				T2CONbits.ON = 1;
+			}
+
+			if(time_ISR > 280000 && time_ISR <= 340000){ //switch mode ///was 275000 and 325000
+					movement_instruction_ISR = 5;
+					time_ISR = 0;
+			}
+			
+			
+		}*/
+
 		else{
 				Prev_V_ISR = ADCRead(4) * 3290.0 / 1023.0;
-			}
+		}
 		
 
 	}
@@ -185,6 +226,11 @@ void delay_ms (int msecs)
 			//printf("movement instruction:  %d \n\r", movement_instruction_ISR);
 			ISR_cnt2=0; // 1000 * 10us=10ms
 	}
+
+	/*else if(time_ISR >= 350000){                      //no signal /// was 325000
+				//movement_instruction_ISR = 0;
+				time_ISR = 0;
+	}*/
     
 
 
@@ -373,6 +419,12 @@ void ConfigurePins(void)
     TRISBbits.TRISB2 = 1;   // set RB2 as an input
     ANSELBbits.ANSB3 = 1;   // set RB3 (AN5, pin 7 of DIP28) as analog pin
     TRISBbits.TRISB3 = 1;   // set RB3 as an input
+	
+	//ANSELAbits.ANSA1 = 1;   // the button input for the switch mode
+	//Button tx	`o switch modes
+	ANSELA &= ~(1<<1); // Set RA1 as a digital I/O
+    TRISA |= (1<<1);   // configure pin RA1 as input
+    CNPUA |= (1<<1);   // Enable pull-up resistor for RA1
     
 	// Configure digital input pin to measure signal period
 	ANSELB &= ~(1<<5); // Set RB5 as a digital I/O (pin 14 of DIP28)
@@ -420,6 +472,7 @@ void go_forward(){
 	LATAbits.LATA2 = 0; //pin 9
 	LATAbits.LATA4 = 1; //pin 12
 	movement_flag = 1;
+	movement_flag_follow = 1;
 }
 
 void go_backward(){
@@ -428,6 +481,8 @@ void go_backward(){
 	LATAbits.LATA2 = 1; //pin 9
 	LATAbits.LATA4 = 0; //pin 12
 	movement_flag = 1;
+	movement_flag_follow = 1;
+	
 }
 
 void turn_left(){
@@ -436,6 +491,7 @@ void turn_left(){
 	LATAbits.LATA2 = 1; //pin 9
 	LATAbits.LATA4 = 0; //pin 12
 	movement_flag = 1;
+	movement_flag_follow = 1;
 }
 
 void turn_right(){
@@ -444,6 +500,9 @@ void turn_right(){
 	LATAbits.LATA2 = 0; //pin 9
 	LATAbits.LATA4 = 1; //pin 12
 	movement_flag = 1;
+	movement_flag_follow = 1;
+	
+
 }
 
 void stop_motors(){
@@ -453,24 +512,60 @@ void stop_motors(){
 	LATBbits.LATB1 = 1; //pin 5
 	LATAbits.LATA2 = 1; //pin 9
 	LATAbits.LATA4 = 1; //pin 12
+if(mode == 1){
 	movement_flag = 0;
+}
+
+else if(mode == 0){
+	movement_flag_follow = 0;
+}
 }
 
 
 
-int mode_handler(int instruction, int mode){
+/*int mode_handler(int instruction, int mode){
 	/*if(instruction == 5){
 		printf("\n\rmode before: %d", mode);
 		mode = !mode;
 		printf("\n\rmode after: %d", mode);
 		return mode;
-	}*/
+	}
 
-	mode = 1;
+	
+	if((PORTA&(1<<1)?'1':'0') == 1){
+
+		if(mode == 0){
+			mode = 1;
+		}
+		if(mode == 1){
+			mode = 0;
+		}
+
+
+	if(ADCRead(4) * 3290.0 / 1023.0 - 150 < 0.85 * (v1-150)){
+		T2CONbits.ON = 1;
+		_CP0_SET_COUNT(0);
+		Peakv1 = Prev1;
+		
+		//while(ADCRead(4) * 3290.0 / 1023.0 - 150 < 0.75 * (Peak_V_ISR -150) && movement_flag != 1);
+		while(ADCRead(4) * 3290.0 / 1023.0 - 150 < 0.85 * (Peak_V_ISR -150) );
+
+
+		//while(ADCRead(4) * 3290.0 / 1023.0 - 150 < 100 && movement_flag != 1);
+
+		T2CONbits.ON = 0;
+		
+		time_ISR = (_CP0_GET_COUNT() / (SYSCLK/(2*1000))) * 1000;
+
+	}
+
+	printf("mode: %d", mode);
+
+	//mode = 0;
 	return mode;
 
 	
-}
+}*/
 
 long int real_time_average_V1(){
 	int count1 = 0;
@@ -481,6 +576,11 @@ long int real_time_average_V1(){
 		count1++;
 		delay_ms(10);
 	}
+
+	/*if(sum_V1 * 3290L / 1023L / 20L < 300 && mode == 0 && mode == 0){
+		mode = 1;
+		printf("mode: %d\r\n", mode);
+	}*/
 	return sum_V1 * 3290L / 1023L / 20L;
 }
 
@@ -496,22 +596,88 @@ long int real_time_average_V2(){
 	return sum_V2 * 3290L / 1023L / 20L;
 }
 
+int reverseCommand(int command) {
+	if (command == 1) {
+		return 2;
+	}
+	else if (command == 2) {
+		return 1;
+	}
+	else if (command == 3) {
+		return 4;
+	}
+	else if (command == 4) {
+		return 3;
+	}
+
+	return;
+}
+
+
+void goHome(int* go_home_array, int size) {
+	while (size > 0) {
+		if(go_home_array[size] == 1)
+			{
+				go_forward();
+				//printf("going forward\r\n");
+				delay_ms(700);
+				//printf("stopped moving\r\n");
+				stop_motors();
+
+			}
+			else if(go_home_array[size] == 2)
+			{
+				go_backward();
+				//printf("going back\r\n");
+				delay_ms(700);
+				//printf("stopped moving\r\n");
+				stop_motors();
+			}
+
+			else if(go_home_array[size] == 3)
+			{
+				turn_left();
+				//printf("going left\r\n");
+				delay_ms(700);
+				//printf("stopped moving\r\n");
+				stop_motors();
+			}
+
+			else if(go_home_array[size] == 4)
+			{
+				turn_right();
+				//printf("going right\r\n");
+				delay_ms(700);
+				//printf("stopped moving\r\n");
+				stop_motors();
+			}
+			size--;
+	}
+	return;
+}
+
+
 // In order to keep this as nimble as possible, avoid
 // using floating point or printf() on any of its forms!
 void main(void)
 {
 	volatile unsigned long t=0;
     long int adcval1, adcval2;
-    long int v1,v2;
+    long int v1,v2, Prev1, Peakv1;
 	unsigned long int count, f;
+	long int time;
 	unsigned char LED_toggle=0;
 	int movement_instruction = 9;
-	int mode;
+	//int mode;
 	float left_right_difference;
 	long int sampleV_arr1[20];
 	long int sampleV_arr2[20];
 	int array_count = 0;
 	//int movement_instruction_ISR=0;
+
+	int reversed_command;
+	int go_home[100];
+	int go_home_count = 0;
 
 	CFGCON = 0;
   
@@ -562,11 +728,10 @@ void main(void)
 		//PrintNumber(adcval1, 16, 3);
 		uart_puts("\r\n, V_left=");
 		
-		v1 = real_time_average_V1();
-		printf(" V1_test =  %d ,", v1);
-		PrintFixedPoint(v1, 3);
-		uart_puts("V ");
-
+			v1 = real_time_average_V1();
+			printf(" V1_test =  %d ,", v1);
+			PrintFixedPoint(v1, 3);
+			uart_puts("V ");
 		
 
 		//uart_puts("ADC[5]=0x");
@@ -582,12 +747,31 @@ void main(void)
 		left_right_difference = v1 - v2;
 		printf(" left_diff : %f \r\n", left_right_difference);
 		//***********************************************************
-		
-		
 
-		
-		mode = mode_handler(movement_instruction, mode);
-		
+	/*if(mode == 0 && movement_flag_follow == 0){
+		if(ADCRead(4) * 3290.0 / 1023.0 - 150 < 0.85 * (Prev1-150)){
+			T2CONbits.ON = 1;
+			_CP0_SET_COUNT(0);
+			Peakv1 = Prev1;
+			
+			//while(ADCRead(4) * 3290.0 / 1023.0 - 150 < 0.75 * (Peak_V_ISR -150) && movement_flag != 1);
+			while(ADCRead(4) * 3290.0 / 1023.0 - 150 < 0.85 * (Peakv1 -150) ){
+				printf("hello");
+			}
+
+
+			//while(ADCRead(4) * 3290.0 / 1023.0 - 150 < 100 && movement_flag != 1);
+
+			T2CONbits.ON = 0;
+			
+			time = (_CP0_GET_COUNT() / (SYSCLK/(2*1000))) * 1000 + 210000;
+			printf("time: %d\r\n", time);
+
+			if(time > 280000 && time <= 320000){ //switch mode ///was 275000 and 325000
+				mode = 1;
+			}
+		}
+	}*/	
 
 		/*1. 0 means go forward
   		  2. 1 means go backward
@@ -597,20 +781,28 @@ void main(void)
 		//printf("\n\r%f", left_right_difference);
 		
 		//if following mode (mode = 0)
-		
-		if(mode == 0/* && v1 != 0*/){
+		if(mode == 0 && movement_instruction_ISR == 5){
+			mode = 1;
+            movement_instruction_ISR = 0;
+		}
+
+		if(mode == 0 && v1 != 0){
 			//printf("\r\nDifference: %f", left_right_difference); 
+
+			//mode = mode_handler(movement_instruction, mode);
+
 			
+			//movement_flag = 1;
 
 			//printf("\n\r%f", left_right_difference);
-			if(left_right_difference > (v1+v2)/2*0.12 ){ //if left - right is positive then turn left to align
+			if(left_right_difference > (v1+v2)/2*0.12 ){ //if left - right is positive then turn left to align ///was 0.12
 				turn_left();
 				//delay_ms(10);	
 				//stop_motors();
 				//printf("Turning left...Difference: %f", left_right_difference);                                  
 			}
 
-			else if(left_right_difference <  -((v1+v2)/2*0.12)){ //if left - right is positive then turn left to align
+			else if(left_right_difference <  -((v1+v2)/2*0.15)){ //if left - right is positive then turn left to align ///was 0.12
 				turn_right();
 				//delay_ms(10);
 				//stop_motors();
@@ -620,8 +812,8 @@ void main(void)
 			else{
 				stop_motors();
 
-				//here we need to have an algorithm where it moves back/forward so that left - right = 0.2 ish
-				if(v1 < 500){ // 0.530 too big, 460
+				//here we need to have an algorithm where it moves back/forward so that left - right = 0.2 ish 
+				if(v1 < 650){ // 0.530 too big, 460
 					go_forward();
 					//delay_ms(10);
 			    	//stop_motors();
@@ -637,14 +829,28 @@ void main(void)
 
 			}
 
+			Prev1 = v1;
+
 		}
 		//if control mode (mode = 1)
 		while(mode == 1){
+			printf("RA1: %d", PORTA&(1<<1));
+			// go home 
+			
 			//printf("ADC four: %d\r\n", adc_four);
 			
 			//v1 = real_time_average_V1();
 			
-			while(movement_instruction_ISR == 0);
+			while(movement_instruction_ISR == 0) {
+				if (PORTA&(1<<1) == 1) {
+					printf("\r\nGoing Home");
+					goHome(go_home, go_home_count);
+				}
+				else if (PORTA&(1<<1) == 0) {
+					printf("button");
+				}
+				delay_ms(10);
+			};
 
 			//printf("\n\r %d", movement_instruction_ISR);
 			//printf("\r\nBit3: %d", bitthree);
@@ -683,41 +889,6 @@ void main(void)
 			
 			
 			}*/
-
-			/*if(bitone == 0 && bittwo == 1 && bitthree == 1 ){ //Go forward
-				go_forward();
-				delay_ms(700);
-				stop_motors();
-				movement_instruction_ISR = 0;
-			}
-			if(bitone == 1 && bittwo == 0 && bitthree == 0 ){ //Go backward
-				go_backward();
-				delay_ms(700);
-				stop_motors();
-				movement_instruction_ISR = 0;
-			}
-			if(bitone == 0 && bittwo == 0 && bitthree == 1 ){ //Go left
-				turn_left();
-				delay_ms(700);
-				stop_motors();
-				movement_instruction_ISR = 0;
-			}
-			if(bitone == 0 && bittwo == 1 && bitthree == 0 ){ //Go right
-				turn_right();
-				delay_ms(700);
-				stop_motors();
-				movement_instruction_ISR = 0;
-			}
-			else{
-				stop_motors();
-				delay_ms(700);
-				movement_instruction_ISR = 0;
-			}*/
-
-			//printf("\r\nmovement_instruction_isr: %d", movement_instruction_ISR);
-
-
-			
 			
 			if(movement_instruction_ISR  == 1)
 			{
@@ -726,7 +897,10 @@ void main(void)
 				delay_ms(700);
 				//printf("stopped moving\r\n");
 				stop_motors();
+				reversed_command = reverseCommand(movement_instruction_ISR);
+				go_home[go_home_count] = reversed_command;
 				movement_instruction_ISR = 0;
+				go_home_count++;
 
 			}
 			
@@ -737,6 +911,9 @@ void main(void)
 				delay_ms(700);
 				//printf("stopped moving\r\n");
 				stop_motors();
+				reversed_command = reverseCommand(movement_instruction_ISR);
+				go_home[go_home_count] = reversed_command;
+				go_home_count++;
 				movement_instruction_ISR = 0;
 
 			}
@@ -748,6 +925,9 @@ void main(void)
 				delay_ms(700);
 				//printf("stopped moving\r\n");
 				stop_motors();
+				reversed_command = reverseCommand(movement_instruction_ISR);
+				go_home[go_home_count] = reversed_command;
+				go_home_count++;
 				movement_instruction_ISR = 0;
 			}
 
@@ -758,6 +938,19 @@ void main(void)
 				delay_ms(700);
 				//printf("stopped moving\r\n");
 				stop_motors();
+				reversed_command = reverseCommand(movement_instruction_ISR);
+				go_home[go_home_count] = reversed_command;
+				go_home_count++;
+				movement_instruction_ISR = 0;
+			}
+
+			else if(movement_instruction_ISR == 5)
+			{
+				//printf("stopped moving\r\n");
+				stop_motors();
+				mode = 0;
+				delay_ms(500);
+
 				movement_instruction_ISR = 0;
 			}
 
@@ -766,12 +959,34 @@ void main(void)
 				delay_ms(200);
 				movement_instruction_ISR = 0;
 			}
-
-			
 			
 		}
 	
-	}
 	delay_ms(50);
+
+	}
 }
 
+
+
+/*void main(void)
+{
+	CFGCON = 0;
+  
+    UART2Configure(115200);  // Configure UART2 for a baud rate of 115200
+    
+    ANSELB &= ~(1<<15); // Set RB15 as a digital I/O
+    TRISB |= (1<<15);   // configure pin RB15 as input
+    CNPUB |= (1<<15);   // Enable pull-up resistor for RB15
+ 
+    delayms(500);
+    printf("\r\nPIC32 push button test. Connect push button between RB15 (pin 26) and ground.\r\n");
+    
+    while(1)
+    {
+        printf("\rRB15(pin 26): %c", PORTB&(1<<15)?'1':'0');
+        fflush(stdout);
+        delayms(300);
+    }
+}
+*/

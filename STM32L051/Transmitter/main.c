@@ -41,8 +41,6 @@ void TIM2_Handler(void)
 	GPIOA->ODR ^= BIT11;
 	
 	GPIOA->ODR ^= BIT12;
-
-	printf("This is the ISR");
 	
 }
 
@@ -408,6 +406,7 @@ int main(void)
 
 	while (1)
 	{
+		//printf("This is the ISR");
 		mode_button = (GPIOA->IDR & GPIO_IDR_ID13) ? 1 : 0;
 
 		x=readADC(ADC_CHSELR_CHSEL9); // x-axis
@@ -532,7 +531,7 @@ int main(void)
 		current_right = 1;
 		current_left = 1;
 		
-		delayms(100);
+		delayms(500);
 
 	}
 
