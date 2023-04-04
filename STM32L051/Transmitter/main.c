@@ -41,6 +41,8 @@ void TIM2_Handler(void)
 	GPIOA->ODR ^= BIT11;
 	
 	GPIOA->ODR ^= BIT12;
+
+	printf("This is the ISR");
 	
 }
 
@@ -320,16 +322,16 @@ void sendCommandGenerator(int command) {
 	
 if(command != 0){	
 	NVIC->ICER[0] |= BIT15;
-	delayms(62); // bit 0 turn off signal
+	delayms(100); // bit 0 turn off signal
 	NVIC->ISER[0] |= BIT15; 
-	delayms(62); // bit 1 turn on signal for 62 ms
+	delayms(100); // bit 1 turn on signal for 62 ms
 }
 
 
 	// turn left
 	if (command == 3) {
 		NVIC->ICER[0] |= BIT15;
-		delayms(124); // bit 0 0 1
+		delayms(200); // bit 0 0 1
 		NVIC->ISER[0] |= BIT15;
 
 		// sequence is bit 1 0 0 1
@@ -406,7 +408,7 @@ int main(void)
 
 	while (1)
 	{
-		//mode_button = (GPIOA->IDR & GPIO_IDR_ID13) ? 1 : 0;
+		mode_button = (GPIOA->IDR & GPIO_IDR_ID13) ? 1 : 0;
 
 		x=readADC(ADC_CHSELR_CHSEL9); // x-axis
 		y=readADC(ADC_CHSELR_CHSEL8); // y-axis
@@ -459,7 +461,7 @@ int main(void)
 		// Mode change 
 		// Disable timer 2 interrupts in the NVIC
 			NVIC->ICER[0] |= BIT15;
-			delayms(55);
+			delayms(300);
 			NVIC->ISER[0] |= BIT15; // enable timer 2 interrupts in the NVIC
 		}
 
@@ -474,68 +476,63 @@ int main(void)
 
 
 			// forward
-			// current_forward = (GPIOB->IDR & GPIO_IDR_ID3) ? 1 : 0; // off state (button is state 1 if not pressed, button is state 0 if pressed)
 
 			if (current_forward == 0)
 			{
-				LCDprint("Forward", 2, 1);
+				//LCDprint("Forward", 2, 1);
 				NVIC->ICER[0] |= BIT15;
 				delayms(200);
 				NVIC->ISER[0] |= BIT15;
-				//delayms(250);
+				delayms(100);
 			}
 
-			
 
-			
-			// reverse button
-			//current_reverse = (GPIOB->IDR & GPIO_IDR_ID4) ? 1 : 0;
+			// reverse 
 
 			if (current_reverse == 0)
 			{
 				//printf("pb4\r\n");
-				LCDprint("Backwards", 2, 1);
+				//LCDprint("Backwards", 2, 1);
 				NVIC->ICER[0] |= BIT15;
-				delayms(300);
+				delayms(100);
 				NVIC->ISER[0] |= BIT15;
-				delayms(250);
+				delayms(200);
 			}
 
-			// left button
-			//current_left = (GPIOA->IDR & GPIO_IDR_ID14) ? 1 : 0;
+			// left 
 
 			if (current_left == 0)
 			{
-				LCDprint("Left", 2, 1);
+				//LCDprint("Left", 2, 1);
 				NVIC->ICER[0] |= BIT15;
-				delayms(250);
+				delayms(150);
 				NVIC->ISER[0] |= BIT15;
-				delayms(250);
+				delayms(150);
 			}
 
-			// right button
+			// right 
 			//current_right = (GPIOA->IDR & GPIO_IDR_ID15) ? 1 : 0;
 			
 			if (current_right == 0)
 			{
-				LCDprint("Right", 2, 1);
+				//LCDprint("Right", 2, 1);
 				NVIC->ICER[0] |= BIT15;
-				delayms(62);
-				NVIC->ISER[0] |= BIT15;
 				delayms(250);
+				NVIC->ISER[0] |= BIT15;
+				delayms(50);
 			}
 		}
 		
-		if (current_forward == 1 && current_reverse == 1 && current_left == 1 && current_right == 1) {
+		/*if (current_forward == 1 && current_reverse == 1 && current_left == 1 && current_right == 1) {
 			LCDprint(" ", 2, 1);
-		}
+		}*/
 
 		current_forward = 1;
 		current_reverse = 1;
 		current_right = 1;
 		current_left = 1;
 		
-		delayms(1000);
+		delayms(100);
 
 	}
 

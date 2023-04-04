@@ -40,14 +40,15 @@
 volatile int ISR_pwm1=150, ISR_pwm2=150, ISR_cnt=0, ISR_frc, ISR_cnt2=0; 
 long int time_ISR = 0;
 long int Prev_V_ISR, Peak_V_ISR = 0;
-volatile int bitone = 1, bittwo = 1, bitthree = 1;
-int movement_instruction_ISR = 0; 
+volatile int bitone, bittwo, bitthree;
+volatile int movement_instruction_ISR = 0; 
+volatile int movement_flag = 0;
 
 volatile int entered_if_statement = 0;
 long int timer_count = 0;
 long int adc_four;
-volatile int startflag1 = 0;
-volatile int startflag2 = 0, bitflag1 = 0,bitflag2 = 0,bitflag3 = 0;
+int startflag1, startflag2, bitflag1,bitflag2,bitflag3 = 0;
+int num_bits_read = 0;
 
 int ADCRead(char analogPIN)
 {
@@ -68,24 +69,24 @@ void __ISR(_TIMER_1_VECTOR, IPL5SOFT) Timer1_Handler(void)
 	IFS0CLR=_IFS0_T1IF_MASK; // Clear timer 1 interrupt flag, bit 4 of IFS0
 
 	ISR_cnt++;
-	if(ISR_cnt==ISR_pwm1)
+	/*if(ISR_cnt==ISR_pwm1)
 	{
 		LATAbits.LATA3 = 0;
 	}
 	if(ISR_cnt==ISR_pwm2)
 	{
 		LATBbits.LATB4 = 0;
-	}
-	if(ISR_cnt == 100){
-	}
+	}*/
+	//if(ISR_cnt == 100){
+	//}
 
 
-	if(ISR_cnt>=2000)
+	if(ISR_cnt>=100)
 	{
 		/*20msCount++;*/
 		ISR_cnt=0; // 2000 * 10us=20ms
-		LATAbits.LATA3 = 1;
-		LATBbits.LATB4 = 1;
+		//LATAbits.LATA3 = 1;
+		//LATBbits.LATB4 = 1;
 		ISR_frc++;
 	}
 
@@ -97,9 +98,10 @@ void delay_ms (int msecs)
 {	
 	int ticks;
 	ISR_frc=0;
-	ticks=msecs/20;
+	ticks=msecs;
 	while(ISR_frc<ticks);
 }
+
 
 
  __ISR(_TIMER_2_VECTOR, IPL5SOFT) Timer2_Handler(void){
@@ -108,54 +110,65 @@ void delay_ms (int msecs)
 
 	ISR_cnt2++;
 
-	if(ISR_cnt2 == 1000){
+	if(ISR_cnt2 == 1000 && movement_flag != 1){
 		
 		if(ADCRead(4) * 3290.0 / 1023.0 - 150 < 0.85 * (Prev_V_ISR-150)){
-			T2CONbits.ON = 1;
+		    T2CONbits.ON = 1;
 			_CP0_SET_COUNT(0);
 			Peak_V_ISR = Prev_V_ISR;
 			
-			while(ADCRead(4) * 3290.0 / 1023.0 - 150 < 0.80 * (Peak_V_ISR -150));
+			//while(ADCRead(4) * 3290.0 / 1023.0 - 150 < 0.75 * (Peak_V_ISR -150) && movement_flag != 1);
+			while(ADCRead(4) * 3290.0 / 1023.0 - 150 < 0.85 * (Peak_V_ISR -150) && movement_flag != 1);
+
+
+			//while(ADCRead(4) * 3290.0 / 1023.0 - 150 < 100 && movement_flag != 1);
 
             T2CONbits.ON = 0;
+			
 			time_ISR = (_CP0_GET_COUNT() / (SYSCLK/(2*1000))) * 1000; // TIME in uS
+			//time_ISR = 2 * (_CP0_GET_COUNT() / (SYSCLK/(2*1000))) * 1000; // TIME in uS
+
+			
 			printf("Time ISR: %d\r\n", time_ISR);
+			
 			T2CONbits.ON = 1;
 
-			if(time_ISR <= 75000){                       //no signal
+			if(time_ISR <= 75000){                            //no signal
 				//movement_instruction_ISR = 0;
 				time_ISR = 0;
 			}
 
-			else if(time_ISR > 75000 && time_ISR <= 125000){  //go backward
+			else if(time_ISR > 80000 && time_ISR <= 120000){  //go backward ///was 75000 and 125000 
 				movement_instruction_ISR = 2;
 				time_ISR = 0;
 			}
 
-			else if(time_ISR > 125000 && time_ISR <= 175000){ //go left
+			else if(time_ISR > 130000 && time_ISR <= 170000){ //go left ///was 125000 and 175000
 				movement_instruction_ISR = 3;
 				time_ISR = 0;
 			}
 
-			else if(time_ISR > 175000 && time_ISR <= 225000){ //go forward
+			else if(time_ISR > 180000 && time_ISR <= 220000){ //go forward //was 175000 and 225000
 				movement_instruction_ISR = 1;
 				time_ISR = 0;
 			}
 
-			else if(time_ISR > 225000 && time_ISR <= 275000){ //go right
+			else if(time_ISR > 230000 && time_ISR <= 270000){ //go right ///was 225000 and 275000
 				movement_instruction_ISR = 4;
 				time_ISR = 0;
 			}
 
-			else if(time_ISR > 275000 && time_ISR <= 325000){   //switch mode
+			else if(time_ISR > 280000 && time_ISR <= 320000){ //switch mode ///was 275000 and 325000
 				movement_instruction_ISR = 5;
 				time_ISR = 0;
 			}
 
-			else if(time_ISR >= 275000){                     //no signal
+			else if(time_ISR >= 325000){                     //no signal
 				//movement_instruction_ISR = 0;
 				time_ISR = 0;
 			}
+
+			printf("movement instruction: %d\r\n", time_ISR);
 
 		}
 
@@ -166,91 +179,88 @@ void delay_ms (int msecs)
 
 	}
 
-	/*if(ISR_cnt2 % 100 == 0){
-		//timer_count++;
-		adc_four = ADCRead(4) * 3290.0 / 1023.0;
-		
-		if(adc_four < 200){
-			startflag1 = 1;
-		}
-
-		else if(startflag1 == 1 && startflag2 == 0 && adc_four > 200 ){
-			startflag2 = 1;
-		}
-
-		else if(startflag1 == 1 && startflag2 == 1){
-			timer_count++;
-			//printf("entered if statemtn\r\n");
-			
-			//while(adc_four < 200);
-			
-			//delay_ms(93);
-			
-			if(/*timer_count < 97 && timer_count > 92 timer_count == 93 && adc_four < 200 ){
-					bitone = 0;
-					bitflag1 = 1;
-			}
-			else if (/*timer_count < 97 && timer_count > 92 timer_count == 93 && adc_four > 200) {
-					bitone = 1;
-					bitflag1 =1;
-			}
-			else {
-				bitone = bitone;
-			}
-			//delay_ms(62);
-			if(/*timer_count < 159 && timer_count > 154 timer_count == 155 && adc_four < 200){
-				bittwo = 0;
-				bitflag2 = 1;
-			}
-			else if (/*timer_count < 159 && timer_count > 154 timer_count == 155 && adc_four > 200) {
-				bittwo = 1;
-				bitflag2 =1;
-			}
-			else {
-				bittwo = bittwo;
-			}
-			//delay_ms(62);
-			if(/*timer_count < 221 && timer_count > 215 timer_count == 217 && adc_four < 200){
-				bitthree = 0;
-				bitflag3 =1;
-			}
-			else if (/*timer_count < 221 && timer_count > 215 timer_count == 217 && adc_four > 200) {
-				bitthree = 1;
-				bitflag3 = 1;
-			}
-			else {
-				bitthree = bitthree;
-			}
-				
-		}
-		
-		else{
-			Peak_V_ISR = adc_four;
-		}
-		*/
-	}
-	
 	if(ISR_cnt2 >= 1000){
 
 			//printf("entered if statemnt: %d\n\r", entered_if_statement );
 			//printf("movement instruction:  %d \n\r", movement_instruction_ISR);
 			ISR_cnt2=0; // 1000 * 10us=10ms
 	}
-	
     
-	if ( startflag2 == 1 && timer_count > 225) {
-		timer_count = 0;
-		bitflag1 = 0;
-		bitflag2 = 0;
-		bitflag3 = 0;
 
-		bitone = 1;
-		bittwo = 1;
-		bitthree = 1;
-		startflag1 = 0;
-		startflag2 = 0;
+
+	/*if(ISR_cnt2 % 100 == 0){
+		//timer_count++;
+		adc_four = ADCRead(4) * 3290L / 1023L;
+		
+		if(adc_four < 200 || timer_count > 0){
+			/*if(adc_four < 200){
+				uart_puts("adcfour thing\r\n");
+			}
+			
+			if(timer_count > 0){
+				uart_puts("timer thing\r\n");
+			}
+			timer_count++;
+			
+				if (timer_count == 250 && adc_four > 1000) {
+					bitone = 1;
+					uart_puts("bit one 1\r\n");
+
+				}
+				else if (timer_count == 250 && adc_four < 1000) {
+					bitone = 0;
+					uart_puts("bit one 0\r\n");
+				}
+				else if (timer_count == 350 && adc_four > 500) {
+					bittwo = 1;
+					uart_puts("bit two 1\r\n");
+
+
+				}
+				else if (timer_count == 350 && adc_four < 500) {
+					bittwo = 0;
+					uart_puts("bit two 0\r\n");
+
+
+				}
+				else if (timer_count == 450 && adc_four > 200) {
+					bitthree = 1;
+					uart_puts("bit three 1\r\n");
+
+				}
+				else if (timer_count == 450 && adc_four < 200) {
+					bitthree = 0;
+					uart_puts("bit three 0\r\n");
+
+				}
+		}
+		
+		
+	}*/
+    
+	/*if (timer_count > 470) {
+
+		if(bitone == 0 && bittwo == 1 && bitthree == 1 ){ //Go forward
+				movement_instruction_ISR = 1;
+			}
+			if(bitone == 1 && bittwo == 0 && bitthree == 0 ){ //Go backward
+				movement_instruction_ISR = 2;
+			}
+			if(bitone == 0 && bittwo == 0 && bitthree == 1 ){ //Go left
+				movement_instruction_ISR = 3;
+			}
+			if(bitone == 0 && bittwo == 1 && bitthree == 0 ){ //Go right
+				movement_instruction_ISR = 4;
+			}
 	}
-
+	
+	if(timer_count > 520){
+		
+		timer_count = 0;
+		bitone = 1;
+		bitthree = 1;
+		bittwo = 1;
+	}*/
 	
 }
 
@@ -409,6 +419,7 @@ void go_forward(){
 	LATBbits.LATB1 = 1; //pin 5
 	LATAbits.LATA2 = 0; //pin 9
 	LATAbits.LATA4 = 1; //pin 12
+	movement_flag = 1;
 }
 
 void go_backward(){
@@ -416,6 +427,7 @@ void go_backward(){
 	LATBbits.LATB1 = 0; //pin 5
 	LATAbits.LATA2 = 1; //pin 9
 	LATAbits.LATA4 = 0; //pin 12
+	movement_flag = 1;
 }
 
 void turn_left(){
@@ -423,6 +435,7 @@ void turn_left(){
 	LATBbits.LATB1 = 1; //pin 5
 	LATAbits.LATA2 = 1; //pin 9
 	LATAbits.LATA4 = 0; //pin 12
+	movement_flag = 1;
 }
 
 void turn_right(){
@@ -430,6 +443,7 @@ void turn_right(){
 	LATBbits.LATB1 = 0; //pin 5
 	LATAbits.LATA2 = 0; //pin 9
 	LATAbits.LATA4 = 1; //pin 12
+	movement_flag = 1;
 }
 
 void stop_motors(){
@@ -439,6 +453,7 @@ void stop_motors(){
 	LATBbits.LATB1 = 1; //pin 5
 	LATAbits.LATA2 = 1; //pin 9
 	LATAbits.LATA4 = 1; //pin 12
+	movement_flag = 0;
 }
 
 
@@ -624,22 +639,16 @@ void main(void)
 
 		}
 		//if control mode (mode = 1)
-		if(mode == 1){
-			printf("ADC four: %d\r\n", adc_four);
+		while(mode == 1){
+			//printf("ADC four: %d\r\n", adc_four);
 			
 			//v1 = real_time_average_V1();
-			//while(movement_instruction_ISR == 0);
+			
+			while(movement_instruction_ISR == 0);
 
 			//printf("\n\r %d", movement_instruction_ISR);
-			printf("\r\nBit1: %d", bitone);
-			printf("\r\nBit2: %d", bittwo);
-			printf("\r\nBit3: %d", bitthree);
-			printf("\r\nbitflag1: %d", bitflag1);
-			printf("\r\nbitflag2: %d", bitflag2);
-			printf("\r\nbitflag3: %d", bitflag3);
-			printf("\r\ntimer count: %d", timer_count);
-			printf("\r\nStartflag1: %d", startflag1);
-			printf("\r\nStartflag2: %d", startflag2);
+			//printf("\r\nBit3: %d", bitthree);
+			//printf("\r\ntimer count: %d", timer_count);
 
 
 			/*if(ADCRead(4) * 3290.0 / 1023.0 < 200 ){
@@ -675,29 +684,29 @@ void main(void)
 			
 			}*/
 
-			/*if(bitone == 0 && bittwo == 1 && bitthree == 0 && bitflag1 == 1 && bitflag2 == 1 && bitflag3 == 1){ //Go forward
+			/*if(bitone == 0 && bittwo == 1 && bitthree == 1 ){ //Go forward
 				go_forward();
 				delay_ms(700);
 				stop_motors();
-				movement_instruction_ISR = 1;
+				movement_instruction_ISR = 0;
 			}
-			if(bitone == 1 && bittwo == 0 && bitthree == 0 && bitflag1 == 1 && bitflag2 == 1 && bitflag3 == 1){ //Go backward
+			if(bitone == 1 && bittwo == 0 && bitthree == 0 ){ //Go backward
 				go_backward();
 				delay_ms(700);
 				stop_motors();
-				movement_instruction_ISR = 2;
+				movement_instruction_ISR = 0;
 			}
-			if(bitone == 0 && bittwo == 0 && bitthree == 1 && bitflag1 == 1 && bitflag2 == 1 && bitflag3 == 1){ //Go left
+			if(bitone == 0 && bittwo == 0 && bitthree == 1 ){ //Go left
 				turn_left();
 				delay_ms(700);
 				stop_motors();
-				movement_instruction_ISR = 3;
+				movement_instruction_ISR = 0;
 			}
-			if(bitone == 0 && bittwo == 1 && bitthree == 1 && bitflag1 == 1 && bitflag2 == 1 && bitflag3 == 1){ //Go right
+			if(bitone == 0 && bittwo == 1 && bitthree == 0 ){ //Go right
 				turn_right();
 				delay_ms(700);
 				stop_motors();
-				movement_instruction_ISR = 4;
+				movement_instruction_ISR = 0;
 			}
 			else{
 				stop_motors();
@@ -705,7 +714,7 @@ void main(void)
 				movement_instruction_ISR = 0;
 			}*/
 
-			printf("\r\nmovement_instruction_isr: %d", movement_instruction_ISR);
+			//printf("\r\nmovement_instruction_isr: %d", movement_instruction_ISR);
 
 
 			
@@ -713,7 +722,9 @@ void main(void)
 			if(movement_instruction_ISR  == 1)
 			{
 				go_forward();
+				//printf("going forward\r\n");
 				delay_ms(700);
+				//printf("stopped moving\r\n");
 				stop_motors();
 				movement_instruction_ISR = 0;
 
@@ -722,7 +733,9 @@ void main(void)
 			else if(movement_instruction_ISR == 2)
 			{
 				go_backward();
+				//printf("going back\r\n");
 				delay_ms(700);
+				//printf("stopped moving\r\n");
 				stop_motors();
 				movement_instruction_ISR = 0;
 
@@ -731,7 +744,9 @@ void main(void)
 			else if(movement_instruction_ISR == 3)
 			{
 				turn_left();
+				//printf("going left\r\n");
 				delay_ms(700);
+				//printf("stopped moving\r\n");
 				stop_motors();
 				movement_instruction_ISR = 0;
 			}
@@ -739,13 +754,16 @@ void main(void)
 			else if(movement_instruction_ISR == 4)
 			{
 				turn_right();
+				//printf("going right\r\n");
 				delay_ms(700);
+				//printf("stopped moving\r\n");
 				stop_motors();
 				movement_instruction_ISR = 0;
 			}
+
 			else{
 				stop_motors();
-				delay_ms(700);
+				delay_ms(200);
 				movement_instruction_ISR = 0;
 			}
 
@@ -756,5 +774,4 @@ void main(void)
 	}
 	delay_ms(50);
 }
-
 
