@@ -3,7 +3,7 @@ Magnetic Field Tracking Robot
 
 Base Features/Requirements
 - [x] Two different Microcontrollers 
-- [ ] Battery-operated                       (IN PROGRESS)
+- [x] Battery-operated                       (IN PROGRESS)
 - [x] Robot Construction/Assembly
 - [x] C programming
 - [x] MOSFET drivers 
@@ -15,7 +15,7 @@ Base Features/Requirements
 - [ ] Video Presentation
 
 Additional Features:
-- [ ] Go home (5 points) 
+- [ ] Go home (5 points)                     (IN PROGRESS)
          
          - Save movements in array and reverse movements
 
@@ -32,7 +32,8 @@ Additional Features:
 - [x] Joystick 
 - [ ] Speedometer
 - [ ] Ultrasonic Sensor Auto-stop/Auto-brake (IN PROGRESS)
+         - EFM8 or Arduino 
 - [ ] Extra movements
 - [ ] Blinkers
 - [ ] HONK! Buzzer                           (IN PROGRESS)
-- [ ] HC04 Bluetooth
+- [ ] HC04 Bluetooth                         (IN PROGRESS)
