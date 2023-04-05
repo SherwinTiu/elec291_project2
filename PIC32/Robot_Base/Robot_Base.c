@@ -892,6 +892,7 @@ void main(void)
 
 			while(1){
 				printf("\r\nT=%5.3fms d=%7.3fcm", pulse_time_average*1000.0, pulse_time_average*34300.0/2.0);
+				waitms(10);
 			}
 			
 			//printf("RA1: %d", PORTA&(1<<1));
