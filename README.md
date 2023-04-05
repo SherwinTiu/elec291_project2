@@ -39,3 +39,4 @@
 - [ ] Blinkers
 - [ ] HONK! Buzzer                           (IN PROGRESS)
 - [ ] HC04 Bluetooth                         (IN PROGRESS)
+- [x] "Natural boundaries"
