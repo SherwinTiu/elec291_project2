@@ -8,7 +8,7 @@
 #include <math.h>
 
 #define F_CPU 32000000L
-#define DEF_F 16230L // 16.25 kHz freq (frequency with highest output)
+#define DEF_F 16330L // 16.25 kHz freq (frequency with highest output)16290
 
 volatile int PWM_Counter = 0;
 volatile unsigned char pwm1=100, pwm2=100;
@@ -408,6 +408,8 @@ int main(void)
 	delayms(500); // Give putty a chance to start before we send characters with printf()
 	
 	LCDprint("Control Mode", 1, 1);
+	LCDprint("F: 16330 Htz ", 2, 1);
+
 
 	/*printf("Servo signal generatioin using the STM32L051 using TIM2\r\n");
 	printf("(outputs are PA11 and PA12, pins 21 and 22).\r\n");
@@ -585,13 +587,15 @@ int main(void)
 			}
 			else if (full_turn == 0) { // 180 turn
 				TIM2->CR1 &= ~BIT0; // disable counting
-				delayms(400);
-				TIM2->CR1 |= BIT0; // enable counting
+				delayms(350);
+				TIM2->CR1 |= BIT0;// enable counting
+				delayms(650); 
 			}
 			else if (parallel_park == 0) {
 				TIM2->CR1 &= ~BIT0; // disable counting
-				delayms(450);
+				delayms(400);
 				TIM2->CR1 |= BIT0; // enable counting
+				delayms(600); 
 			}
 		}
 		

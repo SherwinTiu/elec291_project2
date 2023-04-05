@@ -142,7 +142,7 @@ __ISR(_TIMER_2_VECTOR, IPL5SOFT) Timer2_Handler(void){
 
             T2CONbits.ON = 0;
 			
-			time_ISR = (_CP0_GET_COUNT() / (SYSCLK/(2*1000))); // TIME in uS
+			time_ISR = (_CP0_GET_COUNT() / (SYSCLK/(2*1000))) + 35; // TIME in mS
 			//time_ISR = 2 * (_CP0_GET_COUNT() / (SYSCLK/(2*1000))) * 1000; // TIME in uS
 
 			T2CONbits.ON = 1;
@@ -154,12 +154,8 @@ __ISR(_TIMER_2_VECTOR, IPL5SOFT) Timer2_Handler(void){
 				time_ISR = 0;
 			}*/
 
-			if(time_ISR > 260 && time_ISR <= 310){  //go backward ///was 75000 and 125000 
-				movement_instruction_ISR = 2;
-				time_ISR = 0;
-			}
 
-			else if(time_ISR > 110 && time_ISR <= 160){ //go left ///was 125000 and 175000
+			if(time_ISR > 110 && time_ISR <= 160){ //go left ///was 125000 and 175000
 				movement_instruction_ISR = 3;
 				time_ISR = 0;
 			}
@@ -174,16 +170,26 @@ __ISR(_TIMER_2_VECTOR, IPL5SOFT) Timer2_Handler(void){
 				time_ISR = 0;
 			}
 
+			if(time_ISR > 260 && time_ISR <= 310){  //go backward ///was 75000 and 125000 
+				movement_instruction_ISR = 2;
+				time_ISR = 0;
+			}
+
+			else if(time_ISR > 310 && time_ISR <= 360){ // 180 turn ///was 225000 and 275000
+				movement_instruction_ISR = 6;
+				time_ISR = 0;
+			}
+
+			else if(time_ISR > 360 && time_ISR <= 410){ // parallel park ///was 225000 and 275000
+				movement_instruction_ISR = 4;
+				time_ISR = 0;
+			}
+
 			else if(time_ISR > 900 && time_ISR <= 1100 ){ //switch mode ///was 275000 and 325000
 				movement_instruction_ISR = 5;
 				time_ISR = 0;
 			}
-			/* for 180 turn signal
-			else if () {
-				movement_instruction_ISR = 6;
-				time_ISR = 0;
-			}
-			*/
+			
 
 			else{ //no signal
 				time_ISR = 0;
@@ -194,18 +200,17 @@ __ISR(_TIMER_2_VECTOR, IPL5SOFT) Timer2_Handler(void){
 
 		}
 
-
-		else{
+	}
+	else if(ISR_cnt2 == 1000 && mode == 1){
 			Prev_V_ISR = ADCRead(5) * 3290.0 / 1023.0;
 			time_ISR = 0;
-		}
 	}
 
 
 	if(ISR_cnt2 >= 1000){
+			Prev_V_ISR = ADCRead(5) * 3290.0 / 1023.0;
 			ISR_cnt2=0; // 1000 * 10us=10ms
 			time_ISR = 0;
-			Prev_V_ISR = ADCRead(5) * 3290.0 / 1023.0;
 	}
 
 	
@@ -418,13 +423,8 @@ void stop_motors(){
 	LATBbits.LATB1 = 1; //pin 5
 	LATAbits.LATA2 = 1; //pin 9
 	LATAbits.LATA4 = 1; //pin 12
-if(mode == 1){
 	movement_flag = 0;
-}
-
-else if(mode == 0){
 	movement_flag_follow = 0;
-}
 }
 
 void stop_motors2(){
@@ -438,6 +438,7 @@ void stop_motors2(){
 
 
 }
+
 
 
 
@@ -697,119 +698,92 @@ void main(void)
 
 	while(1)
 	{
-    	while(mode == 0 /*&& v1 != 0*/){
-		//adcval1 = ADCRead(4); // note that we call pin AN4 (RB2) by it's analog number (receiver pin left)
-		//uart_puts("ADC[4]=0x");
-		//PrintNumber(adcval1, 16, 3);
-		uart_puts("\r\n, V_left=");
-		
-		v1 = real_time_average_V1();
-		//printf(" V1_test =  %d ,", v1);
-		PrintFixedPoint(v1, 3);
-		uart_puts("V ");
-		
-
-		//uart_puts("ADC[5]=0x");
-		//PrintNumber(adcval2, 16, 3);
-		uart_puts(", V_right=");
-
-
-		v2 = real_time_average_V2();
-		PrintFixedPoint(v2, 3);
-	    uart_puts("V ");
-
-
-		left_right_difference = v1 - v2;
-		//printf(" left_diff : %f \r\n", left_right_difference);
-		//***********************************************************
-
-	/*if(mode == 0 && movement_flag_follow == 0){
-		if(ADCRead(4) * 3290.0 / 1023.0 - 150 < 0.85 * (Prev1-150)){
-			T2CONbits.ON = 1;
-			_CP0_SET_COUNT(0);
-			Peakv1 = Prev1;
+    	
+		while(mode == 0 /*&& v1 != 0*/){
+			//adcval1 = ADCRead(4); // note that we call pin AN4 (RB2) by it's analog number (receiver pin left)
+			//uart_puts("ADC[4]=0x");
+			//PrintNumber(adcval1, 16, 3);
+			uart_puts("\r\n, V_left=");
 			
-			//while(ADCRead(4) * 3290.0 / 1023.0 - 150 < 0.75 * (Peak_V_ISR -150) && movement_flag != 1);
-			while(ADCRead(4) * 3290.0 / 1023.0 - 150 < 0.85 * (Peakv1 -150) ){
-				printf("hello");
-			}
-
-
-			//while(ADCRead(4) * 3290.0 / 1023.0 - 150 < 100 && movement_flag != 1);
-
-			T2CONbits.ON = 0;
+			v1 = real_time_average_V1();
+			//printf(" V1_test =  %d ,", v1);
+			PrintFixedPoint(v1, 3);
+			uart_puts("V ");
 			
-			time = (_CP0_GET_COUNT() / (SYSCLK/(2*1000))) * 1000 + 210000;
-			printf("time: %d\r\n", time);
 
-			if(time > 280000 && time <= 320000){ //switch mode ///was 275000 and 325000
+			//uart_puts("ADC[5]=0x");
+			//PrintNumber(adcval2, 16, 3);
+			uart_puts(", V_right=");
+
+
+			v2 = real_time_average_V2();
+			PrintFixedPoint(v2, 3);
+			uart_puts("V ");
+
+
+			left_right_difference = v1 - v2;
+			//printf(" left_diff : %f \r\n", left_right_difference);
+			//***********************************************************
+
+			/*1. 0 means go forward
+			2. 1 means go backward
+			3. 2 means turn left
+			4. 3 means turn right
+			5. 4 means horn*/
+			//printf("\n\r%f", left_right_difference);
+			
+			//if following mode (mode = 0)
+			/*if(mode == 0 && movement_instruction_ISR == 5){
 				mode = 1;
-			}
-		}
-	}*/	
+				movement_instruction_ISR = 0;
+			}*/
 
-		/*1. 0 means go forward
-  		  2. 1 means go backward
-  		  3. 2 means turn left
-  		  4. 3 means turn right
-  		  5. 4 means horn*/
-		//printf("\n\r%f", left_right_difference);
-		
-		//if following mode (mode = 0)
-		/*if(mode == 0 && movement_instruction_ISR == 5){
-			mode = 1;
-            movement_instruction_ISR = 0;
-		}*/
+			//if(mode == 0 /*&& v1 != 0*/){
+				
 
-		//if(mode == 0 /*&& v1 != 0*/){
-			
+				//printf("\r\nDifference: %f", left_right_difference); 
+	
+				//movement_flag = 1;
 
-			//printf("\r\nDifference: %f", left_right_difference); 
+				//printf("\n\r%f", left_right_difference);
+				if(left_right_difference > (v1+v2)/2*0.1 ){ //if left - right is positive then turn left to align ///was 0.12
+					turn_left();
+					delay_ms(100);	
+					stop_motors();
+					//printf("Turning left...Difference: %f", left_right_difference);                                  
+				}
+
+				else if(left_right_difference <  -((v1+v2)/2*0.1)){ //if left - right is positive then turn left to align ///was 0.12
+					turn_right();
+					delay_ms(100);
+					stop_motors();
+					//printf("Turning left...Difference: %f", left_right_difference);                                  
+				}
+
+				else{
+					stop_motors();
+
+					//here we need to have an algorithm where it moves back/forward so that left - right = 0.2 ish 
+					if(v1 < 160){ // 0.530 too big, 460
+						go_forward();
+						//delay_ms(10);
+						//stop_motors();
+					}
+
+					else if(v1 > 180){ // 750
+						go_backward();
+						//delay_ms(10);
+						//stop_motors();
+					}
+
+				}
+
+			   // Prev1 = v1;
 
 			if(v1 < 200){ //switch mode ///was 275000 and 325000
 				mode = 1;
 				stop_motors();
 			}
-
-			
-			//movement_flag = 1;
-
-			//printf("\n\r%f", left_right_difference);
-			if(left_right_difference > (v1+v2)/2*0.12 ){ //if left - right is positive then turn left to align ///was 0.12
-				turn_left();
-				//delay_ms(10);	
-				//stop_motors();
-				//printf("Turning left...Difference: %f", left_right_difference);                                  
-			}
-
-			else if(left_right_difference <  -((v1+v2)/2*0.15)){ //if left - right is positive then turn left to align ///was 0.12
-				turn_right();
-				//delay_ms(10);
-				//stop_motors();
-				//printf("Turning left...Difference: %f", left_right_difference);                                  
-			}
-
-			else{
-				stop_motors();
-
-				//here we need to have an algorithm where it moves back/forward so that left - right = 0.2 ish 
-				if(v1 < 650){ // 0.530 too big, 460
-					go_forward();
-					//delay_ms(10);
-			    	//stop_motors();
-					//delay_ms(100);
-					//stop_motors();
-				}
-
-				else if(v1 > 800){ // 750
-					go_backward();
-					//delay_ms(10);
-					//stop_motors();
-				}
-
-			}
-
-			Prev1 = v1;
 
 		}
 		//if control mode (mode = 1)
@@ -984,6 +958,12 @@ void main(void)
 			}
 
 			else if (movement_instruction_ISR == 6) { // 180 turn
+				turn_left();
+				delay_ms(1400);
+				stop_motors();
+			}
+
+			else if (movement_instruction_ISR == 7) { // parallel park
 				turn_left();
 				delay_ms(1400);
 				stop_motors();
