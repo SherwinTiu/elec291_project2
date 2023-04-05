@@ -1,7 +1,7 @@
 # elec291_project2
-Magnetic Field Tracking Robot
+## Magnetic Field Tracking Robot
 
-Base Features/Requirements
+### Base Features/Requirements
 - [x] Two different Microcontrollers 
 - [x] Battery-operated                       (IN PROGRESS)
 - [x] Robot Construction/Assembly
@@ -14,7 +14,7 @@ Base Features/Requirements
 - [ ] Project Report
 - [ ] Video Presentation
 
-Additional Features:
+### Additional Features:
 - [ ] Go home (5 points)                     (IN PROGRESS)
          
          - Save movements in array and reverse movements
@@ -32,7 +32,9 @@ Additional Features:
 - [x] Joystick 
 - [ ] Speedometer
 - [ ] Ultrasonic Sensor Auto-stop/Auto-brake (IN PROGRESS)
+         
          - EFM8 or Arduino 
+         
 - [ ] Extra movements
 - [ ] Blinkers
 - [ ] HONK! Buzzer                           (IN PROGRESS)
