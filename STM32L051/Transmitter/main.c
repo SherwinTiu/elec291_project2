@@ -1,4 +1,3 @@
-
 #include "../Common/Include/stm32l051xx.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -51,8 +50,8 @@ void TIM2_Handler(void)
 //      PC15 -|3       30|- PB7 (horn)
 //      NRST -|4       29|- PB6 
 //      VDDA -|5       28|- PB5 
-//LCD_RS PA0 -|6       27|- PB4 (reverse button)
-// LCD_E PA1 -|7       26|- PB3 (forward button)
+//LCD_RS PA0 -|6       27|- PB4 (180 turn)
+// LCD_E PA1 -|7       26|- PB3 (mapping)
 //LCD_D4 PA2 -|8       25|- PA15 (right button) (joystick y axis)
 //LCD_D5 PA3 -|9       24|- PA14 (left button) (joystick x axis)
 //LCD_D6 PA4 -|10      23|- PA13 (switch mode button) 
@@ -254,7 +253,6 @@ void LCDprint(char * string, unsigned char line, unsigned char clear)
 	if(clear) for(; j<CHARS_PER_LINE; j++) WriteData(' '); // Clear the rest of the line
 }
 
-
 void Hardware_Init()
 {
 	// Set up output pins
@@ -284,11 +282,12 @@ void Hardware_Init()
 
 	// PB pins init
 	RCC->IOPENR |= RCC_IOPENR_GPIOBEN;
-	GPIOB->MODER &= ~GPIO_MODER_MODE3_0; // PB3 forward button
-	GPIOB->MODER &= ~GPIO_MODER_MODE4_0; // PB4 reverse button
+	GPIOB->MODER &= ~GPIO_MODER_MODE3_0; // PB3 
+	GPIOB->MODER &= ~GPIO_MODER_MODE4_0; // PB4
+	GPIOB->MODER &= ~GPIO_MODER_MODE5_0; // PB5  
 	GPIOB->MODER &= ~GPIO_MODER_MODE7_0; // horn
-	GPIOB->PUPDR = (GPIOB->PUPDR & ~(GPIO_PUPDR_PUPD3_1 | GPIO_PUPDR_PUPD4_1 | GPIO_PUPDR_PUPD7_1))
-                    | (GPIO_PUPDR_PUPD3_0 | GPIO_PUPDR_PUPD4_0 | GPIO_PUPDR_PUPD7_0);
+	GPIOB->PUPDR = (GPIOB->PUPDR & ~(GPIO_PUPDR_PUPD3_1 | GPIO_PUPDR_PUPD4_1 | GPIO_PUPDR_PUPD5_1 | GPIO_PUPDR_PUPD7_1))
+                    | (GPIO_PUPDR_PUPD3_0 | GPIO_PUPDR_PUPD4_0 | GPIO_PUPDR_PUPD5_0 | GPIO_PUPDR_PUPD7_0);
 
 	/* //Button for forward
 	GPIOA->MODER &= ~(BIT28 | BIT29); // Make pin PA14 input button
@@ -316,8 +315,6 @@ void Hardware_Init()
 
 // Command generator 
 void sendCommandGenerator(int command) {
-	// turn off signal to synchronize 
-	
 if(command != 0){	
 	NVIC->ICER[0] |= BIT15;
 	delayms(100); // bit 0 turn off signal
@@ -375,13 +372,25 @@ int main(void)
 	int npwm;
 	int mode = 1;
 	int mode_button;
-	int current_forward, current_reverse, current_left, current_right, horn = 1;
+	int current_forward, current_reverse, current_left, current_right, horn, full_turn, parallel_park = 1;
 	int command = 0;
+	int full_turn_button;
+	int parallel_park_button;
 	
+	// for mapping 
+	int path_map_x[100];
+	int path_map_y[100];
+	path_map_x[0] = 0;
+	path_map_y[0] = 0;
+	int curr_x = 0;
+	int curr_y = 0;
+	int dir = 0;
+	int map_count = 1;
+	int map_button;
+
 	int x;
 	int y;
 	delayms(500); // Give PuTTY time to start
-
 
 	// ADC initialization
 	ADC_Config();
@@ -406,18 +415,13 @@ int main(void)
 
 	while (1)
 	{
-		//printf("This is the ISR");
 		mode_button = (GPIOA->IDR & GPIO_IDR_ID13) ? 1 : 0;
+		map_button = (GPIOB->IDR & GPIO_IDR_ID3) ? 1 : 0;
+		full_turn_button = (GPIOB->IDR & GPIO_IDR_ID4) ? 1 : 0;
+		parallel_park_button = (GPIOB->IDR & GPIO_IDR_ID5) ? 1 : 0;
 
 		x=readADC(ADC_CHSELR_CHSEL9); // x-axis
 		y=readADC(ADC_CHSELR_CHSEL8); // y-axis
-
-		// y-axis
-		//y = (j*3.3)/4096.0;
-		//printf("x=%d V\n", x);
-		//printf("y=%d V\n\r", y);
-		//fflush(stdout);
-
 
 		if(x>3750 || x<345){
 			if(x>3700){
@@ -444,81 +448,150 @@ int main(void)
 			command = 0;
 		}
 
-
-		
 		if (mode_button == 0) {
 			if(mode == 1){
 				mode = 0;
 				LCDprint("Follow Mode", 1, 1);
 				LCDprint(" ", 2, 1);
+				TIM2->CR1 &= ~BIT0; // disable counting
+				delayms(1000);
+				TIM2->CR1 |= BIT0; // enable counting
+
 			}
 			else {
 				mode = 1;
 				LCDprint("Control Mode", 1, 1);
+				TIM2->CR1 &= ~BIT0; // disable counting
+				delayms(1000);
+				TIM2->CR1 |= BIT0; // enable counting
 			}			
-
-		// Mode change 
-		// Disable timer 2 interrupts in the NVIC
-			NVIC->ICER[0] |= BIT15;
-			delayms(300);
-			NVIC->ISER[0] |= BIT15; // enable timer 2 interrupts in the NVIC
 		}
 
-		
+		if (full_turn_button == 0) { // pin PB4
+			full_turn = 0;
+		}
+
+		if (parallel_park_button == 0) {
+			parallel_park = 0;
+		}
+
+		printf("%d %d\r", path_map_x[0], path_map_y[0]);
+		if (map_button == 0) {
+			for (int i=0;i<map_count;i++) {
+				printf("%d %d\r", path_map_x[i], path_map_y[i]);
+				delayms(100);
+			}
+			map_count = 0;
+		}
+
 		if (mode == 1)
 		{
-			// horn
-
-			//sendCommandGenerator(command);
-
 			command = 0;
-
-
-			// forward
 
 			if (current_forward == 0)
 			{
+				// For mapping
+				if(dir==0){   //Car movement based on it's orientation
+					curr_y++;
+				}else if(dir==1){
+					curr_x++;
+				}else if(dir==2){
+					curr_y--;
+				}else{
+					curr_x--;
+				}
+
+				path_map_x[map_count] = curr_x;
+				path_map_y[map_count] = curr_y;
+				map_count++;
+
 				//LCDprint("Forward", 2, 1);
-				NVIC->ICER[0] |= BIT15;
+				//NVIC->ICER[0] |= BIT15;
+				TIM2->CR1 &= ~BIT0; // disable counting
 				delayms(200);
-				NVIC->ISER[0] |= BIT15;
-				delayms(100);
+				TIM2->CR1 |= BIT0; // enable counting
+				//NVIC->ISER[0] |= BIT15;
+				delayms(800);
 			}
 
 
 			// reverse 
 
-			if (current_reverse == 0)
+			else if (current_reverse == 0)
 			{
-				//printf("pb4\r\n");
+				// For mapping
+				if(dir==0){   //Car movement based on it's orientation
+					curr_y--;
+				}else if(dir==1){
+					curr_x--;
+				}else if(dir==2){
+					curr_y++;
+				}else{
+					curr_x++;
+				}
+
+				path_map_x[map_count] = curr_x;
+				path_map_y[map_count] = curr_y;
+				map_count++;
+
 				//LCDprint("Backwards", 2, 1);
-				NVIC->ICER[0] |= BIT15;
-				delayms(100);
-				NVIC->ISER[0] |= BIT15;
-				delayms(200);
+				//NVIC->ICER[0] |= BIT15;
+				TIM2->CR1 &= ~BIT0; // disable counting
+				delayms(300);
+				TIM2->CR1 |= BIT0; // enable counting
+				//NVIC->ISER[0] |= BIT15;
+				delayms(700);
 			}
 
-			// left 
-
-			if (current_left == 0)
+			else if (current_left == 0)
 			{
+				if(dir==0) {   //Orientation of the car
+					dir = 3;
+				} else {
+					dir--;
+				}
+
+				path_map_x[map_count] = curr_x;
+				path_map_y[map_count] = curr_y;
+				map_count++;
 				//LCDprint("Left", 2, 1);
-				NVIC->ICER[0] |= BIT15;
+				//NVIC->ICER[0] |= BIT15;
+				TIM2->CR1 &= ~BIT0; // disable counting
 				delayms(150);
-				NVIC->ISER[0] |= BIT15;
-				delayms(150);
+				TIM2->CR1 |= BIT0; // enable counting
+				//NVIC->ISER[0] |= BIT15;
+				delayms(850);
 			}
-
-			// right 
-			//current_right = (GPIOA->IDR & GPIO_IDR_ID15) ? 1 : 0;
 			
-			if (current_right == 0)
+			else if (current_right == 0)
 			{
+				if(dir==3) {   //Orientation of the car
+					dir = 0;
+				} else {
+					dir++;
+				}
+
+				path_map_x[map_count] = curr_x;
+				path_map_y[map_count] = curr_y;
+				map_count++;
+
 				//LCDprint("Right", 2, 1);
-				NVIC->ICER[0] |= BIT15;
+				//NVIC->ICER[0] |= BIT15;
+				TIM2->CR1 &= ~BIT0; // disable counting
 				delayms(250);
-				NVIC->ISER[0] |= BIT15;
-				delayms(50);
+				TIM2->CR1 |= BIT0; // enable counting
+				//NVIC->ISER[0] |= BIT15;
+				delayms(750);
+			}
+			else if (full_turn == 0) { // 180 turn
+				TIM2->CR1 &= ~BIT0; // disable counting
+				delayms(400);
+				TIM2->CR1 |= BIT0; // enable counting
+			}
+			else if (parallel_park == 0) {
+				TIM2->CR1 &= ~BIT0; // disable counting
+				delayms(450);
+				TIM2->CR1 |= BIT0; // enable counting
 			}
 		}
 		
@@ -530,8 +603,10 @@ int main(void)
 		current_reverse = 1;
 		current_right = 1;
 		current_left = 1;
+		full_turn = 1;
+		parallel_park = 1;
 		
-		delayms(500);
+		//delayms(800);
 
 	}
 

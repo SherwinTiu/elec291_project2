@@ -97,6 +97,7 @@ void __ISR(_TIMER_1_VECTOR, IPL5SOFT) Timer1_Handler(void)
 		//LATAbits.LATA3 = 1;
 		//LATBbits.LATB4 = 1;
 		ISR_frc++;
+		//ISR_frc2++;
 	}
 
 
@@ -111,7 +112,14 @@ void delay_ms (int msecs)
 	while(ISR_frc<ticks);
 }
 
-
+void uart_puts(char * s)
+{
+	while(*s)
+	{
+		putchar(*s);
+		s++;
+	}
+}
 
 __ISR(_TIMER_2_VECTOR, IPL5SOFT) Timer2_Handler(void){
 
@@ -121,17 +129,12 @@ __ISR(_TIMER_2_VECTOR, IPL5SOFT) Timer2_Handler(void){
 
 	if(ISR_cnt2 == 1000 && movement_flag != 1 && mode == 1){
 		
-		if(ADCRead(4) * 3290.0 / 1023.0 - 150 < 0.85 * (Prev_V_ISR-150)){
+		if((ADCRead(5) * 3290.0 / 1023.0 - 150 < 0.85 * (Prev_V_ISR -150)) && movement_flag != 1){
 		    T2CONbits.ON = 1;
 			_CP0_SET_COUNT(0);
 			Peak_V_ISR = Prev_V_ISR;
-			
-			while(ADCRead(4) * 3290.0 / 1023.0 - 150 < 0.85 * (Peak_V_ISR -150) && movement_flag != 1){
-				if ((_CP0_GET_COUNT() / (SYSCLK/(2*1000))) * 1000 > 350000){
-					Peak_V_ISR = -100000;
-					break;
-				}
-			}
+
+			while((ADCRead(5) * 3290.0 / 1023.0 - 150 < 0.70 * (Peak_V_ISR -150)) && movement_flag != 1);
 			//while(ADCRead(4) * 3290.0 / 1023.0 - 150 < 0.85 * (Peak_V_ISR -150) && movement_flag != 1);
 
 
@@ -139,50 +142,50 @@ __ISR(_TIMER_2_VECTOR, IPL5SOFT) Timer2_Handler(void){
 
             T2CONbits.ON = 0;
 			
-			time_ISR = (_CP0_GET_COUNT() / (SYSCLK/(2*1000))) * 1000; // TIME in uS
+			time_ISR = (_CP0_GET_COUNT() / (SYSCLK/(2*1000))); // TIME in uS
 			//time_ISR = 2 * (_CP0_GET_COUNT() / (SYSCLK/(2*1000))) * 1000; // TIME in uS
 
-			
-			printf("Time ISR: %d\r\n", time_ISR);
-			
 			T2CONbits.ON = 1;
 
-			if(time_ISR <= 75000){                            //no signal
+			printf("Time ISR: %d\r\n", time_ISR);
+
+			/*if(time_ISR <= 75000){                            //no signal
 				//movement_instruction_ISR = 0;
 				time_ISR = 0;
-			}
+			}*/
 
-			else if(time_ISR > 80000 && time_ISR <= 120000 ){  //go backward ///was 75000 and 125000 
+			if(time_ISR > 260 && time_ISR <= 310){  //go backward ///was 75000 and 125000 
 				movement_instruction_ISR = 2;
 				time_ISR = 0;
 			}
 
-			else if(time_ISR > 130000  && time_ISR <= 170000 ){ //go left ///was 125000 and 175000
+			else if(time_ISR > 110 && time_ISR <= 160){ //go left ///was 125000 and 175000
 				movement_instruction_ISR = 3;
 				time_ISR = 0;
 			}
 
-			else if(time_ISR > 180000 && time_ISR <= 220000 ){ //go forward //was 175000 and 225000
+			else if(time_ISR > 160 && time_ISR <= 210 ){ //go forward //was 175000 and 225000
 				movement_instruction_ISR = 1;
 				time_ISR = 0;
 			}
 
-			else if(time_ISR > 230000  && time_ISR <= 270000 ){ //go right ///was 225000 and 275000
+			else if(time_ISR > 210 && time_ISR <= 260){ //go right ///was 225000 and 275000
 				movement_instruction_ISR = 4;
 				time_ISR = 0;
 			}
 
-			else if(time_ISR > 270500  && time_ISR <= 340000 ){ //switch mode ///was 275000 and 325000
+			else if(time_ISR > 900 && time_ISR <= 1100 ){ //switch mode ///was 275000 and 325000
 				movement_instruction_ISR = 5;
 				time_ISR = 0;
 			}
-
-			else if(time_ISR >= 350000 ){                      //no signal /// was 325000
-				//movement_instruction_ISR = 0;
+			/* for 180 turn signal
+			else if () {
+				movement_instruction_ISR = 6;
 				time_ISR = 0;
 			}
-			
-			else{
+			*/
+
+			else{ //no signal
 				time_ISR = 0;
 			}
 
@@ -191,41 +194,9 @@ __ISR(_TIMER_2_VECTOR, IPL5SOFT) Timer2_Handler(void){
 
 		}
 
-		///Switch Modes while in follow mode 
-		/*else if(ISR_cnt2 == 1000 && movement_flag_follow != 1 && mode == 0){
-
-			if(ADCRead(4) * 3290.0 / 1023.0 - 150 < 0.85 * (Prev_V_ISR-150)){
-				T2CONbits.ON = 1;
-				_CP0_SET_COUNT(0);
-				Peak_V_ISR = Prev_V_ISR;
-				
-				//while(ADCRead(4) * 3290.0 / 1023.0 - 150 < 0.75 * (Peak_V_ISR -150) && movement_flag != 1);
-				while(ADCRead(4) * 3290.0 / 1023.0 - 150 < 0.85 * (Peak_V_ISR -150) && movement_flag != 1);
-
-
-				//while(ADCRead(4) * 3290.0 / 1023.0 - 150 < 100 && movement_flag != 1);
-
-				T2CONbits.ON = 0;
-				
-				time_ISR = (_CP0_GET_COUNT() / (SYSCLK/(2*1000))) * 1000; // TIME in uS
-				//time_ISR = 2 * (_CP0_GET_COUNT() / (SYSCLK/(2*1000))) * 1000; // TIME in uS
-
-				
-				printf("Time ISR: %d\r\n", time_ISR);
-				
-				T2CONbits.ON = 1;
-			}
-
-			if(time_ISR > 280000 && time_ISR <= 340000){ //switch mode ///was 275000 and 325000
-					movement_instruction_ISR = 5;
-					time_ISR = 0;
-			}
-			
-			
-		}*/
 
 		else{
-			Prev_V_ISR = ADCRead(4) * 3290.0 / 1023.0;
+			Prev_V_ISR = ADCRead(5) * 3290.0 / 1023.0;
 			time_ISR = 0;
 		}
 	}
@@ -233,6 +204,8 @@ __ISR(_TIMER_2_VECTOR, IPL5SOFT) Timer2_Handler(void){
 
 	if(ISR_cnt2 >= 1000){
 			ISR_cnt2=0; // 1000 * 10us=10ms
+			time_ISR = 0;
+			Prev_V_ISR = ADCRead(5) * 3290.0 / 1023.0;
 	}
 
 	
@@ -304,14 +277,7 @@ void UART2Configure(int baud_rate)
     U2MODESET = 0x8000;     // enable UART2
 }
 
-void uart_puts(char * s)
-{
-	while(*s)
-	{
-		putchar(*s);
-		s++;
-	}
-}
+
 
 char HexDigit[]="0123456789ABCDEF";
 void PrintNumber(long int val, int Base, int digits)
@@ -533,7 +499,7 @@ long int real_time_average_V1(){
 		mode = 1;
 		printf("mode: %d\r\n", mode);
 	}*/
-	return sum_V1 * 3290L / 1023L / 20L;
+	return sum_V1 * 3290L / 1023L / 10L;
 }
 
 long int real_time_average_V2(){
@@ -545,7 +511,7 @@ long int real_time_average_V2(){
 		count2++;
 		delay_ms(10);
 	}
-	return sum_V2 * 3290L / 1023L / 20L;
+	return sum_V2 * 3290L / 1023L / 10L;
 }
 
 int reverseCommand(int command) {
@@ -611,49 +577,49 @@ void goHome(int* go_home_array, int size) {
 }
 
 // Calculation angle for robot to turn in Go Home Fast
-double angle_diff(double curr_x, double curr_y, double robot_angle) {
-	double angle_to_origin = atan2(-curr_y, -curr_x)*(18000/314); // gives angle in degrees
+// double angle_diff(double curr_x, double curr_y, double robot_angle) {
+// 	double angle_to_origin = atan2(-curr_y, -curr_x)*(18000/314); // gives angle in degrees
 
-	// Calculate difference between orientation angle of robot and angle_to_origin
-	double diff = robot_angle*(18000/314) - angle_to_origin;
+// 	// Calculate difference between orientation angle of robot and angle_to_origin
+// 	double diff = robot_angle*(18000/314) - angle_to_origin;
 
-	while (diff > 180) {
-		diff -= 360;
-	}
+// 	while (diff > 180) {
+// 		diff -= 360;
+// 	}
 
-	while (diff < -180) {
-		diff += 360;
-	}
+// 	while (diff < -180) {
+// 		diff += 360;
+// 	}
 
-	return diff;
-}
+// 	return diff;
+// }
 
 // Go Home Fast Movement
-void goHomeFast(double angle, double distance) {
-	// Turn first 
-	if (angle < 0) {
-		turn_right();
-		//printf("going right\r\n");
-		delay_ms(angle*700/90);
-		//printf("stopped moving\r\n");
-		stop_motors();
-	}
-	else if (angle > 0) {
-		turn_left();
-		//printf("going right\r\n");
-		delay_ms(angle*700/90);
-		//printf("stopped moving\r\n");
-		stop_motors();
-	}
-	delay_ms(30);
+// void goHomeFast(double angle, double distance) {
+// 	// Turn first 
+// 	if (angle < 0) {
+// 		turn_right();
+// 		//printf("going right\r\n");
+// 		delay_ms(angle*700/90);
+// 		//printf("stopped moving\r\n");
+// 		stop_motors();
+// 	}
+// 	else if (angle > 0) {
+// 		turn_left();
+// 		//printf("going right\r\n");
+// 		delay_ms(angle*700/90);
+// 		//printf("stopped moving\r\n");
+// 		stop_motors();
+// 	}
+// 	delay_ms(30);
 
-	// Move in path
-	go_forward();
-	//printf("going forward\r\n");
-	delay_ms((int) 700 * distance);
-	//printf("stopped moving\r\n");
-	stop_motors();
-}
+// 	// Move in path
+// 	go_forward();
+// 	//printf("going forward\r\n");
+// 	delay_ms((int) 700 * distance);
+// 	//printf("stopped moving\r\n");
+// 	stop_motors();
+// }
 
 
 // In order to keep this as nimble as possible, avoid
@@ -669,9 +635,9 @@ void main(void)
 	int movement_instruction = 9;
 	//int mode;
 	float left_right_difference;
-	long int sampleV_arr1[20];
-	long int sampleV_arr2[20];
-	int array_count = 0;
+	//long int sampleV_arr1[20];
+	//long int sampleV_arr2[20];
+	//int array_count = 0;
 	//int movement_instruction_ISR=0;
 
 	int reversed_command;
@@ -680,9 +646,13 @@ void main(void)
 
 
 	// Go Home Fast variables
-	double curr_x = 0; // current x coordinate of robot
-	double curr_y = 0; // current y coordinate of robot
-	double orientation_angle = 0; // robots current angle of orientation relative to the x axis 
+	//double curr_x = 0; // current x coordinate of robot
+	//double curr_y = 0; // current y coordinate of robot
+	//double orientation_angle = 0; // robots current angle of orientation relative to the x axis 
+    
+	//signed int x_cor = 0;  XY Fast Go Home
+	//signed int y_cor = 0;
+	//int dir = 0;
 
 	CFGCON = 0;
   
@@ -727,16 +697,16 @@ void main(void)
 
 	while(1)
 	{
-    	
+    	while(mode == 0 /*&& v1 != 0*/){
 		//adcval1 = ADCRead(4); // note that we call pin AN4 (RB2) by it's analog number (receiver pin left)
 		//uart_puts("ADC[4]=0x");
 		//PrintNumber(adcval1, 16, 3);
 		uart_puts("\r\n, V_left=");
 		
-			v1 = real_time_average_V1();
-			//printf(" V1_test =  %d ,", v1);
-			PrintFixedPoint(v1, 3);
-			uart_puts("V ");
+		v1 = real_time_average_V1();
+		//printf(" V1_test =  %d ,", v1);
+		PrintFixedPoint(v1, 3);
+		uart_puts("V ");
 		
 
 		//uart_puts("ADC[5]=0x");
@@ -786,21 +756,26 @@ void main(void)
 		//printf("\n\r%f", left_right_difference);
 		
 		//if following mode (mode = 0)
-		if(mode == 0 && movement_instruction_ISR == 5){
+		/*if(mode == 0 && movement_instruction_ISR == 5){
 			mode = 1;
             movement_instruction_ISR = 0;
-		}
+		}*/
 
-		if(mode == 0 /*&& v1 != 0*/){
+		//if(mode == 0 /*&& v1 != 0*/){
+			
+
 			//printf("\r\nDifference: %f", left_right_difference); 
 
-			//mode = mode_handler(movement_instruction, mode);
+			if(v1 < 200){ //switch mode ///was 275000 and 325000
+				mode = 1;
+				stop_motors();
+			}
 
 			
 			//movement_flag = 1;
 
 			//printf("\n\r%f", left_right_difference);
-			if(left_right_difference > (v1+v2)/2*0.14 ){ //if left - right is positive then turn left to align ///was 0.12
+			if(left_right_difference > (v1+v2)/2*0.12 ){ //if left - right is positive then turn left to align ///was 0.12
 				turn_left();
 				//delay_ms(10);	
 				//stop_motors();
@@ -860,9 +835,9 @@ void main(void)
 				// 	go_home_count = 0;
 				// }
 
-				if (PORTAbits.RA1 == 0) {
-					goHomeFast(angle_diff(curr_x, curr_y, orientation_angle), sqrt(pow(curr_x, 2) + pow(curr_y, 2)));
-				}
+				// if (PORTAbits.RA1 == 0) {
+				// 	goHomeFast(angle_diff(curr_x, curr_y, orientation_angle), sqrt(pow(curr_x, 2) + pow(curr_y, 2)));
+				// }
 				//delay_ms(10);
 			}
 
@@ -912,9 +887,19 @@ void main(void)
 				//printf("stopped moving\r\n");
 				stop_motors();
 
+				/*if(dir==0){   Car movement based on it's orientation
+					y_cor++;
+				}else if(dir==1){
+					x_cor++;
+				}else if(dir==2){
+					y_cor--;
+				}else{
+					x_cor--;
+				}*/
+
 				// Go Home Fast stuff
-				curr_x += cos(orientation_angle);
-				curr_y += sin(orientation_angle);
+				// curr_x += cos(orientation_angle);
+				// curr_y += sin(orientation_angle);
 
 				reversed_command = reverseCommand(movement_instruction_ISR);
 				go_home[go_home_count] = reversed_command;
@@ -931,9 +916,19 @@ void main(void)
 				//printf("stopped moving\r\n");
 				stop_motors();
 
+				/*if(dir==0){   Car movement based on it's orientation
+					y_cor--;
+				}else if(dir==1){
+					x_cor--;
+				}else if(dir==2){
+					y_cor++;
+				}else{
+					x_cor++;
+				}*/
+
 				// Go Home Fast stuff
-				curr_x += cos(3.14/2 + orientation_angle);
-				curr_y += sin(3.14/2 + orientation_angle);
+				// curr_x += cos(3.14/2 + orientation_angle);
+				// curr_y += sin(3.14/2 + orientation_angle);
 
 				reversed_command = reverseCommand(movement_instruction_ISR);
 				go_home[go_home_count] = reversed_command;
@@ -951,7 +946,13 @@ void main(void)
 				stop_motors();
 
 				// Go Home Fast stuff
-				orientation_angle += 3.14/2;
+				// orientation_angle += 3.14/2;
+				/* if(dir==0) {   //Orientation of the car
+					dir = 3;
+				} else {
+					dir--;
+				}
+				*/
 
 				reversed_command = reverseCommand(movement_instruction_ISR);
 				go_home[go_home_count] = reversed_command;
@@ -968,7 +969,13 @@ void main(void)
 				stop_motors();
 
 				// Go Home Fast stuff
-				orientation_angle -= 3.14/2;
+				// orientation_angle -= 3.14/2;
+				/* if(dir==3) {   //Orientation of the car
+					dir = 0;
+				} else {
+					dir++;
+				}
+				*/
 
 				reversed_command = reverseCommand(movement_instruction_ISR);
 				go_home[go_home_count] = reversed_command;
@@ -976,12 +983,19 @@ void main(void)
 				movement_instruction_ISR = 0;
 			}
 
+			else if (movement_instruction_ISR == 6) { // 180 turn
+				turn_left();
+				delay_ms(1400);
+				stop_motors();
+			}
+
 			else if(movement_instruction_ISR == 5)
 			{
 				//printf("stopped moving\r\n");
+				delay_ms(250);
 				stop_motors();
 				mode = 0;
-				delay_ms(500);
+				delay_ms(250);
 
 				movement_instruction_ISR = 0;
 			}
