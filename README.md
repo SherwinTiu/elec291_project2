@@ -3,24 +3,24 @@
 
 ### Base Features/Requirements
 - [x] Two different Microcontrollers 
-- [x] Battery-operated                       (IN PROGRESS)
+- [x] Battery-operated                    
 - [x] Robot Construction/Assembly
 - [x] C programming
 - [x] MOSFET drivers 
 - [x] Controller Mode
 - [x] Follower Mode
-- [ ] Integration                            (IN PROGRESS)
+- [x] Integration                           
 - [x] Distance - 50 cm
 - [ ] Project Report
-- [ ] Video Presentation
+- [x] Video Presentation
 
 ### Additional Features:
-- [ ] Go home (5 points)                     (IN PROGRESS)
+- [x] Go home (5 points)                    
          
          - Save movements in array and reverse movements
 
 
-- [ ] Python (Mapping)                       (IN PROGRESS)
+- [ ] Python (Mapping)                    
 - [x] LCD display (1 or 2 points)
 - [ ] Autopilot  (predefined movements) (5 points)
 - [ ] Speed Boost (3 points)
@@ -31,12 +31,12 @@
 
 - [x] Joystick 
 - [ ] Speedometer
-- [ ] Ultrasonic Sensor Auto-stop/Auto-brake (IN PROGRESS)
+- [x] Ultrasonic Sensor Auto-stop/Auto-brake (IN PROGRESS)
          
          - EFM8 or Arduino 
          
 - [ ] Extra movements
 - [ ] Blinkers
-- [ ] HONK! Buzzer                           (IN PROGRESS)
-- [ ] HC04 Bluetooth                         (IN PROGRESS)
+- [ ] HONK! Buzzer                       
+- [x] HC04 Bluetooth                      
 - [x] "Natural boundaries"
